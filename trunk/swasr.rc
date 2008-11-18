@@ -11,6 +11,10 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$QLDX/lib/ld
 # RGL: Ruby Graph Library
 export RUBYLIB=$RUBYLIB:$DIR/opt/rgl/lib:$DIR/opt/stream/lib
 
+# igraph
+
+export RUBYLIB=$RUBYLIB:$DIR/opt/igraph/ext
+
 # swasr
 export PATH=$PATH:$DIR/sandbox
 export RUBYLIB=$RUBYLIB:$DIR/sandbox
