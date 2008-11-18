@@ -1,0 +1,16 @@
+DIR=~/svn/swasr
+
+# SWAG's QLDX
+export QLDX=$DIR/opt/QLDX
+export PATH=$PATH:$QLDX/bin
+export CLASSPATH=$CLASSPATH:$QLDX/lib/jar/ql.jar
+export CLASSPATH=$CLASSPATH:$QLDX/lib/jar/lsedit.jar
+export CLASSPATH=$CLASSPATH:$QLDX/lib/jar/java_readline.jar
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$QLDX/lib/ld
+
+# RGL: Ruby Graph Library
+export RUBYLIB=$RUBYLIB:$DIR/opt/rgl/lib:$DIR/opt/stream/lib
+
+# swasr
+export PATH=$PATH:$DIR/sandbox
+export RUBYLIB=$RUBYLIB:$DIR/sandbox
