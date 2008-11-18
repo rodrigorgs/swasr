@@ -1,0 +1,20 @@
+% Read TA file and find all private constructors  
+
+if $n ~= 2 then
+        put "Usage: grok lift_attributes.grok inputTa outputRsf"
+        put "Author: Marcel Birkner, Date June 2007"
+        quit
+end if
+
+inputTa  := $1
+outputTa := $2
+
+getta inputTa 
+private_methods := @_access . "private"
+constructors := @_label . "<init>"
+private_constructors := private_methods ^ constructors
+classes_with_private_constructors := contain . private_constructors
+private_classes := classes_with_private_constructors . @_label
+
+putset private_classes outputTa
+
