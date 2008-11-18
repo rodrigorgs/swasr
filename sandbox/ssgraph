@@ -1,0 +1,2 @@
+#!/bin/bash
+graph -C -S 3 -m -1 -T X $@

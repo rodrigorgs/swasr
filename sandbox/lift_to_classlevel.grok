@@ -1,0 +1,215 @@
+% Read TA file and lift all relations to class level
+% Uses lift.grp procedure 
+
+if $n ~= 2 then
+	put "Usage: grok liftclasslevel.grok inputTa outputRsf"
+	put "Author: Marcel Birkner, Date May 2007"
+	quit
+end if
+
+inputTa := $1
+outputRsf := $2
+
+% Declare relations 
+inherits := EMPTYREL
+uses := EMPTYREL
+relToFile inherits outputRsf
+relToFile uses outputRsf
+
+E258 := EMPTYREL
+E259 := EMPTYREL
+E256 := EMPTYREL
+E183 := EMPTYREL
+E193 := EMPTYREL
+E192 := EMPTYREL
+E189 := EMPTYREL
+E187 := EMPTYREL
+E197 := EMPTYREL
+E261 := EMPTYREL
+E180 := EMPTYREL
+E179 := EMPTYREL
+E179 := EMPTYREL
+E178 := EMPTYREL
+E185 := EMPTYREL
+E184 := EMPTYREL
+E182 := EMPTYREL
+E257 := EMPTYREL
+E262 := EMPTYREL
+E261 := EMPTYREL
+E260 := EMPTYREL
+E263 := EMPTYREL
+
+
+getta inputTa
+
+% collect private methods/classes with private constructors
+private_methods := @_access . "private"
+constructors := @_label . "<init>"
+private_constructors := private_methods ^ constructors
+classes_with_private_constructors := contain . private_constructors
+private := classes_with_private_constructors . @_label
+
+% Bil
+classes := $INSTANCE . $_C
+id_classes := id(classes)
+inner_class_contain := id_classes o contain o id_classes
+contain := contain - inner_class_contain
+
+n := $INSTANCE . {"$_C","$_I"}
+exec lift.grp
+
+% Bil
+contain := contain + inner_class_contain
+
+
+% classes with private constructors
+%if # private ~= 0 then
+%	appendRelToFile private outputRsf
+%endif
+
+
+% Extends class
+if # E258 ~= 0 then
+	inherits := inv @_label o E258 o @_label
+	appendRelToFile inherits outputRsf
+end if
+
+
+% Implements interface
+if # E259 ~= 0 then
+	inherits := inv @_label o E259 o @_label
+	appendRelToFile inherits outputRsf
+end if
+
+
+% Overrides Method
+if # E256 ~= 0 then
+	inherits := inv @_label o E256 o @_label
+	appendRelToFile inherits outputRsf
+end if
+
+
+%Invoke special
+if # E183 ~= 0 then
+	uses := inv @_label o E183 o @_label
+	appendRelToFile uses outputRsf
+end if
+
+
+% Instantiates
+if # E263 ~= 0 then
+	uses := inv @_label o E263 o @_label
+	appendRelToFile uses outputRsf
+end if
+
+
+% Inner class
+if # E260 ~= 0 then
+	E260 := inv @_label o E260 o @_label
+	appendRelToFile E260 outputRsf
+end if
+
+
+% Throws class
+if # E261 ~= 0 then
+	E261 := inv @_label o E261 o @_label
+	appendRelToFile E261 outputRsf
+end if
+
+
+% Array of
+if # E262 ~= 0 then
+	E262 := inv @_label o E262 o @_label
+	appendRelToFile E262 outputRsf
+end if
+
+
+% Interface method
+if # E257 ~= 0 then
+	E257 := inv @_label o E257 o @_label
+	appendRelToFile E257 outputRsf
+end if
+
+
+% Invoke virtual
+if # E182 ~= 0 then
+	uses := inv @_label o E182 o @_label
+	appendRelToFile uses outputRsf
+end if
+
+
+% Invoke static
+if # E184 ~= 0 then
+	uses := inv @_label o E184 o @_label
+	appendRelToFile uses outputRsf
+end if
+
+
+% Invoke interface
+if # E185 ~= 0 then
+	uses := inv @_label o E185 o @_label
+	appendRelToFile uses outputRsf
+end if
+
+
+% get static
+if # E178 ~= 0 then
+	uses := inv @_label o E178 o @_label
+	appendRelToFile uses outputRsf
+end if
+
+
+% put static
+if # E179 ~= 0 then
+	E179 := inv @_label o E179 o @_label
+	appendRelToFile E179 outputRsf
+end if
+
+
+% get field
+if # E180 ~= 0 then
+	E180 := inv @_label o E180 o @_label
+	appendRelToFile E180 outputRsf
+end if
+
+
+% put field
+if # E261 ~= 0 then
+	E261 := inv @_label o E261 o @_label
+	appendRelToFile E261 outputRsf
+end if
+
+
+% new multi array
+if # E197 ~= 0 then
+	E197 := inv @_label o E197 o @_label
+	appendRelToFile E197 outputRsf
+end if
+
+
+% new
+if # E187 ~= 0 then
+	uses := inv @_label o E187 o @_label
+	appendRelToFile uses outputRsf
+end if
+
+
+% new array
+if # E189 ~= 0 then
+	E189 := inv @_label o E189 o @_label
+	appendRelToFile E189 outputRsf
+end if
+
+
+% check cast
+if # E192 ~= 0 then
+	uses := inv @_label o E192 o @_label
+	appendRelToFile uses outputRsf
+end if
+
+
+% instanceof
+if # E193 ~= 0 then
+	E193 := inv @_label o E193 o @_label
+	appendRelToFile E193 outputRsf
+end if

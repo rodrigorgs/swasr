@@ -1,0 +1,63 @@
+% This is a Grok procedure (grp).  
+% Given an in-core data base and set n, this procedure
+% lifts all the contents of nodes in n.
+% It is assumed that the 'contain' relation defines a tree on all nodes. 
+% This procedure is executed from a Grok script via:
+%	exec somepath/link.grk
+% where 'somepath' must locate the directory containing this script.
+% Author: Ric Holt,   Date: 13 Jan 2002
+
+% Rest of script will lift the set n of nodes, ie, the rest of the script
+% is schema independent lifter.
+
+reln := relnames                    % Find these before any temp rels are introduced.
+attrs := prefix "@_" reln           % Attributes start with "@_"
+rels := reln - attrs - {"contain"}  % Rels that aren't attrs or contain
+
+Do := contain*	% Inclusive descendants
+Ao := inv Do	% Inclusive ancestors
+D  := contain+	% Descendants
+A  := inv D	% Ancestors
+root := dom(contain) - rng(contain)
+
+N := id(n)
+notInN := id (root . Do - n . Do)
+
+% Delete attributes of nodes that descend from n.
+% This deletion is necessary before deleting contents of N (otherwise
+% the attributes are moved up to be attached to members of N).
+
+% Beware: fails to delete any attributes of edges.
+% Bug:  Leaves in @_order attributes on children edges.
+%       This is OK (I guess) in that @_order is deleted elsewhere
+
+insideN := id(rng(N o D))    % Descendents of n  ?? Better: id(N . D) ??
+for a in attrs
+    $ a := $ a - insideN o $ a  % Delete attribute a of descendents of n
+end for
+
+% Elide nodes in n
+
+% Raise edges entering or leaving nodes in n
+for r in rels			        % For (name of) every relation
+    R := $ r				% Get value of relation named r
+    Racross := N o Do o R o Ao o N - N  % Edges: Both ends in A (part to part)
+    Rout := notInN o R o A o N		% Edges: Right end in A
+    Rin  := N o D o R o notInN 		% Edges: Left end in A
+    $ r := R + Rout + Rin + Racross	% Add induced edges to rel named r
+    delrel Racross
+    delrel Rout
+    delrel Rin
+end for
+
+% Delete nodes in N
+Internal := rng (N o D)	% All descendent nodes of A   ??Better: n . D ??
+delset Internal		% Delete all descendent nodes with their edges
+
+delrel Do
+delrel Ao
+delrel D
+delrel A
+delrel N
+delrel notInN
+delrel R
