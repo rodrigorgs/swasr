@@ -16,6 +16,20 @@ def read_rsf_pairs(filename=nil, relations=[])
 	return pairs
 end
 
+def read_pairs(filename=nil)
+	relations = [relations] if !relations.kind_of?(Array)
+
+	pairs = []
+  if filename.nil?
+    lines = STDIN.readlines
+  else
+  	lines = IO.readlines(filename)
+  end
+  pairs = lines.map{ |line| line.strip.split(/\s+/) }
+
+	return pairs
+end
+
 def entities(pairs)
   pairs.flatten.uniq
 end
