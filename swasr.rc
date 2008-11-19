@@ -1,3 +1,6 @@
+# Please include in ~/.bashrc the following line
+# source /path/to/swasr.rc
+
 DIR=~/svn/swasr
 
 # SWAG's QLDX
@@ -11,9 +14,13 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$QLDX/lib/ld
 # RGL: Ruby Graph Library
 export RUBYLIB=$RUBYLIB:$DIR/opt/rgl/lib:$DIR/opt/stream/lib
 
-# igraph
-
+# IGraph (Ruby) -- depends on libigraph
 export RUBYLIB=$RUBYLIB:$DIR/opt/igraph/ext
+
+# RSRuby (R) -- depends on r-base
+export R_HOME=`R cmd BATCH RHOME`
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$R_HOME/lib
+export RUBYLIB=$RUBYLIB:$DIR/opt/rsruby/lib
 
 # swasr
 export PATH=$PATH:$DIR/sandbox
