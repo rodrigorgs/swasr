@@ -41,6 +41,8 @@ end
 def birth_death_game
 end
 
+# out ~ -1.7*n^0.90  
+# in  ~ -1.7*n^0.75  
 def degree_sequence_game(d_out, d_in)
 	IGraph::GenerateRandom.degree_sequence_game(d_out, d_in)
 end
