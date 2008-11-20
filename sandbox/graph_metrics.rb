@@ -13,10 +13,9 @@ end
 
 # undirected
 def node_clustering_coefficients(pairs)
-  #STDERR.puts pairs.size
   # remove duplicate pairs -- note that [a, b] == [b, a]
   pairs = pairs.map{ |pair| pair.sort }.uniq
-  #STDERR.puts pairs.size
+  
   hash = {}
   entities(pairs).each do |e|
     entity_pairs = pairs.select { |pair| pair.include? e }
