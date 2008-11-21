@@ -4,6 +4,7 @@ require 'rsruby'
 require 'grok'
 require 'graph_metrics'
 require 'fileutils'
+require 'pstore'
 
 class Array
   def unzip
@@ -148,59 +149,6 @@ def compute_metrics(filename)
   return ret
 end
 
-def create_report(filenames)
-
-  fields = [
-    {:id => :system, :label => 'system'},
-
-    {:id => :dd_graph, :label => 'degree dist'},
-    {:id => :gamma_in, :label => '&gamma<sub>in</sub>'},
-    {:id => :in_r2, :label => 'R<sup>2</sup>'},
-    {:id => :gamma_out, :label => '&gamma<sub>out</sub>'},
-    {:id => :out_r2, :label => 'R<sup>2</sup>'},
-
-    {:id => :cc_graph, :label => 'clust coef'},
-    {:id => :cc_exp, :label => '&gamma;'},
-    {:id => :cc_r2, :label => 'R<sup>2</sup>'},
-    {:id => :avg_cc, :label => 'avg cc'},
-
-    {:id => :dc_graph, :label => 'degree corr'},
-  ]
-
-  File.open('report.html', 'w') do |f|
-    f.puts '<table border="1"><tr>'
-
-    f.puts fields.map{|x| "<td>#{x[:label]}</td>"}.join + '</tr>'
-
-    filenames.each do |filename|
-      f.puts '<tr>'
-      data = compute_metrics(filename)
-
-      fields.each do |field|
-        f.puts '<td>'
-        value = data[field[:id]]
-
-        if value.kind_of? Float
-          f.puts '%.2f' % value
-        elsif value.kind_of? String
-          if value[-3..-1] == 'png'
-            f.puts "<a href=\"#{value}\">" +
-                "<img width=\"75%\" height=\"75%\" src=\"#{value}\"/></a>"
-          else
-            f.puts value
-          end
-        end
-
-        f.puts '</td>'
-      end
-
-      f.puts '</tr>'
-    end
-    
-    f.puts '</table>'
-  end
-
-end
 
 if __FILE__ == $0
   filename = ARGV[0]
@@ -211,6 +159,17 @@ if __FILE__ == $0
     exit 1
   end
 
-  create_report(ARGV)
+  #create_report(ARGV)
+
+  key = File.basename(filename)
+  pstore = PStore.new('metrics.pstore')
+  pstore.transaction do
+    if pstore.root?(key)
+      puts "The metrics are stored. Skipping..."
+    else
+      pstore[key] = compute_metrics(filename)
+    end
+    p pstore[key]
+  end
   puts 'Done.'
 end
