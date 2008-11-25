@@ -153,7 +153,7 @@ end
 if __FILE__ == $0
   filename = ARGV[0]
   if filename.nil?
-    puts "Usage: #{File.basename($0)} filename
+    puts "Usage: #{File.basename($0)} filename.rsf (filename.rsf)*
 
     "
     exit 1
@@ -161,15 +161,17 @@ if __FILE__ == $0
 
   #create_report(ARGV)
 
-  key = File.basename(filename)
-  pstore = PStore.new('metrics.pstore')
-  pstore.transaction do
-    if pstore.root?(key)
-      puts "The metrics are stored. Skipping..."
-    else
-      pstore[key] = compute_metrics(filename)
+  ARGV.each do |filename|
+    key = File.basename(filename)
+    pstore = PStore.new('metrics.pstore')
+    pstore.transaction do
+      if pstore.root?(key)
+        puts "The metrics are stored. Skipping..."
+      else
+        pstore[key] = compute_metrics(filename)
+      end
+      p pstore[key]
     end
-    p pstore[key]
-  end
+  end # each
   puts 'Done.'
 end
