@@ -18,7 +18,7 @@ export RUBYLIB=$RUBYLIB:$DIR/opt/rgl/lib:$DIR/opt/stream/lib
 export RUBYLIB=$RUBYLIB:$DIR/opt/igraph/ext
 
 # RSRuby (R) -- depends on r-base
-export R_HOME=`R cmd BATCH RHOME`
+export R_HOME=`R cmd BATCH RHOME 2> /dev/null`
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$R_HOME/lib
 export RUBYLIB=$RUBYLIB:$DIR/opt/rsruby/lib
 
