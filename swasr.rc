@@ -16,6 +16,11 @@ export RUBYLIB=$RUBYLIB:$DIR/opt/rgl/lib:$DIR/opt/stream/lib
 
 # IGraph (Ruby) -- depends on libigraph
 export RUBYLIB=$RUBYLIB:$DIR/opt/igraph/ext
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$DIR/opt/igraph/ext
+
+# RandomR
+export RUBYLIB=$RUBYLIB:$DIR/opt/randomr/lib
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$DIR/opt/randomr/lib
 
 # RSRuby (R) -- depends on r-base
 export R_HOME=`R cmd BATCH RHOME 2> /dev/null`
