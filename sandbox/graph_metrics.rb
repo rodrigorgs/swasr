@@ -42,7 +42,7 @@ def compute_degrees(edges)
 		in_degrees[to] += 1
 	end
 
-	return {'in' => in_degrees, 'out' => out_degrees}
+	return {:in => in_degrees, :out => out_degrees}
 end
 
 # degrees: a hash from node_id to degree
@@ -73,11 +73,23 @@ def cumulative_degrees(pairs, in_or_out)
 end
 
 def cumulative_in_degrees(pairs)
-  cumulative_degrees(pairs, 'in')
+  cumulative_degrees(pairs, :in)
 end
 
 def cumulative_out_degrees(pairs)
-  cumulative_degrees(pairs, 'out')
+  cumulative_degrees(pairs, :out)
+end
+
+def out_degrees(pairs)
+  degrees = compute_degrees(pairs)[:out]
+  count = degree_vs_node_count(degrees).sort_by { |k, v| k }
+  return count
+end
+
+def in_degrees(pairs)
+  degrees = compute_degrees(pairs)[:in]
+  count = degree_vs_node_count(degrees).sort_by { |k, v| k }
+  return count
 end
 
 # Returns a hash: node_id => [out_degree, in_degree]

@@ -20,7 +20,7 @@ end
 
 def pairs_log(pairs)
   return pairs.select{ |x, y| x != 0 && y != 0}.
-      map {|x, y| [Math.log(x), Math.log(y)] }.
+      map {|x, y| [Math.log10(x), Math.log10(y)] }.
       select { |a| a[0].finite? && a[1].finite? }
 end
 
@@ -93,8 +93,8 @@ def degree_correlation(pairs, system_name)
 
   r.plot(:x => d[0], :y => d[1],
       :main => "Degree correlation for #{system_name}",
-      :xlab => 'in-degree',
-      :ylab => 'out-degree')
+      :xlab => 'out-degree',
+      :ylab => 'in-degree')
 
   r.dev_off.call
 
@@ -151,9 +151,8 @@ end
 
 
 if __FILE__ == $0
-  filename = ARGV[0]
-  if filename.nil?
-    puts "Usage: #{File.basename($0)} filename.rsf (filename.rsf)*
+  if ARGV.size < 2
+    puts "Usage: #{File.basename($0)} file.pstore filename.rsf (filename.rsf)*
 
     "
     exit 1
@@ -161,16 +160,16 @@ if __FILE__ == $0
 
   #create_report(ARGV)
 
+  pstore_filename = ARGV.shift
   ARGV.each do |filename|
     key = File.basename(filename)
-    pstore = PStore.new('metrics.pstore')
+    pstore = PStore.new(pstore_filename)
     pstore.transaction do
       if pstore.root?(key)
         puts "The metrics are stored. Skipping..."
       else
         pstore[key] = compute_metrics(filename)
       end
-      p pstore[key]
     end
   end # each
   puts 'Done.'
