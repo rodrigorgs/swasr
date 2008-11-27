@@ -142,11 +142,10 @@ def graph_union(g1, g2)
   return g
 end
 
-# g1 and g2's vertices must be numbers in range 0..n-1 where n is the number
-# of vertices
+# g1 and g2's vertices must be numbers 
 def two_layered_graph(g1, g2, n_links)
   g = graph_union(g1, g2)
-  n = g1.size
+  n = 1 + g1.vertices.inject(0) { |max, v| v > max && max || v }
 
   vertices = g.vertices.partition { |x| x < n }
   
@@ -157,6 +156,15 @@ def two_layered_graph(g1, g2, n_links)
   end
 
   return g
+end
+
+# Assigns each module_graph to a node in arch_graph
+# repeat
+#   Add an edge between two vertices in distinct module_graph only if the
+#   corresponding vertices in arch_graph are connected
+#
+def bli_graph(arch_graph, module_graphs)
+
 end
 
 # def rewire(g)

@@ -22,6 +22,9 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$DIR/opt/igraph/ext
 export RUBYLIB=$RUBYLIB:$DIR/opt/randomr/lib
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$DIR/opt/randomr/lib
 
+# PNG
+export RUBYLIB=$RUBYLIB:$DIR/opt/png/lib
+
 # RSRuby (R) -- depends on r-base
 export R_HOME=`R cmd BATCH RHOME 2> /dev/null`
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$R_HOME/lib
