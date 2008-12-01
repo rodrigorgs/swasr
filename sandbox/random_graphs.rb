@@ -158,6 +158,96 @@ def two_layered_graph(g1, g2, n_links)
   return g
 end
 
+# == Algoritmo
+#
+# Cada módulo começa com um vértice com auto-laço.
+#
+# Com probabilidade alpha é adicionado um novo vértice v, que se liga a um
+# vértice existente, w, escolhido de acordo com delta_in + in_degree(w).
+# O vértice v passa a pertencer ao mesmo módulo de w.
+#
+# Com probabilidade beta é a mesma coisa, com a diferença de que a ligação
+# é no sentido w -> v.
+#
+# Com probabilidade gama, é adicionada uma aresta entre dois vértices 
+# existentes, v -> w. 
+# * v é escolhido de acordo com delta_in + in_degree(v)
+# * w é escolhido dentre os vértices com os quais v pode se ligar, de acordo
+# com delta_out + out_degree(w).
+#
+# == Considerações
+#
+# Cada vértice obrigatoriamente se liga a pelo menos um vértice do mesmo
+# módulo que ele, o que não é verdade se considerarmos pacotes Java como
+# módulos. Isso significa que ou este modelo não é adequado ou pacotes
+# Java não são bem módulos arquiteturais.
+#
+# TODO: na hora de ligar dois vertices v e w de modulos diferentes, 
+# considerar numero de arestas que entram em v a partir de uma aresta do
+# mesmo modulo e tambem o numero de arestas que saem de v para outro modulo.
+#
+def design_from_architecture(iterations, arch, alpha, beta, gamma, 
+    delta_in, delta_out)
+
+  modules = Hash.new
+  # g is the design
+  g = DegreesDAG.new(Set)
+
+  # Creates a vertex with a self-loop for each module in arch
+  v = 0
+  arch.each_vertex do |m| 
+    g.add_edge v, v
+    modules[v] = m
+    v += 1
+  end
+
+  sum = 0
+  event_prob_acc = [alpha, beta, gamma].map { |x| sum += x; sum }
+
+  iterations.times do
+    event = choose_random_acc(event_prob_acc)
+    case event
+    when 0
+      # add a new vertex v together with an edge from v to an existing 
+      # vertex w, where w is chosen according to d_in + delta_in
+      vertex_prob = g.vertices.map { |x| g.in_degree(x) + delta_in }
+      w = g.vertices[choose_random(vertex_prob)]
+      v = g.size
+      g.add_vertex(v)
+      g.add_edge(v, w)
+      modules[v] = modules[w]
+    when 1
+      # add an edge from an existing vertex v to an existing vertex w, where
+      # v and w are chosen independently, v according to d_out + delta_out,
+      # and w according to d_in + delta_in
+      v = choose_random(g.vertices.map { |x| g.out_degree(x) + delta_out })
+      v = g.vertices[v]
+      adjacent_modules = arch.adjacent_vertices(modules[v])
+      #puts "#{modules[v]}" => "#{adjacent_modules.inspect}"
+
+      vertices = g.vertices.select { |x| adjacent_modules.include? modules[x] }
+      #puts "#{vertices.size} <= #{g.vertices.size}"
+      unless vertices.empty?
+        w = choose_random(vertices.map { |x| g.in_degree(x) + delta_in })
+        w = vertices[w]
+
+        g.add_edge(v, w)
+      end
+    when 2
+      # add a new vertex w and an edge from an existing v to w, where v is
+      # chosen according to d_out + delta_out
+      vertex_prob = g.vertices.map { |x| g.out_degree(x) + delta_out }
+      v = g.vertices[choose_random(vertex_prob)]
+      w = g.size
+      g.add_vertex(w)
+      g.add_edge(v, w)
+      modules[w] = modules[v]
+    end
+  end
+
+  return [g, modules]
+end
+
 # Assigns each module_graph to a node in arch_graph
 # repeat
 #   Add an edge between two vertices in distinct module_graph only if the
