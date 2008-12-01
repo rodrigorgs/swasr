@@ -1,5 +1,7 @@
 require 'rgl/adjacency'
 require 'rgl/connected_components'
+require 'rgl/mutable'
+require 'rgl/dot'
 
 require 'rgl/adjacency'
 require 'igraph'
@@ -18,6 +20,8 @@ end
 
 # TODO: test with edgelist_class in [Set, Array]
 class DegreesDAG < RGL::DirectedAdjacencyGraph
+  include RGL::MutableGraph
+
   def initialize(*args)
     super(*args)
     @degree_dict = Hash.new
