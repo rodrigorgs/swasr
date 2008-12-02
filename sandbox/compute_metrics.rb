@@ -9,6 +9,7 @@ require 'pstore'
 class Array
   def unzip
     max = self.map{ |a| a.size }.max
+    return [] if max.nil?
     ret = []
     max.times { ret << [] }
     self.each do |a|
@@ -143,8 +144,8 @@ def compute_metrics(filename)
   ret.merge! degree_distribution(pairs, basename)
   puts '  degree_correlation'
   ret.merge! degree_correlation(pairs, basename)
-  puts '  clustering_coefficient'
-  ret.merge! clustering_coefficient(pairs, basename)
+  #puts '  clustering_coefficient'
+  #ret.merge! clustering_coefficient(pairs, basename)
 
   return ret
 end
