@@ -13,17 +13,21 @@ require 'graph'
 #end
 
 # choose one index, with probability proportional to its weight
-def choose_random_acc(acc_weights)
+def choose_random_acc(acc_weights, labels=(0..acc_weights.size-1).to_a)
+  return nil if acc_weights.nil? || acc_weights.empty?
+
   n = rand * acc_weights[-1]
   acc_weights.each_with_index { |x, i| return i if x > n }
-  return acc_weights.size - 1
+  return labels[acc_weights.size - 1]
 end
 
-def choose_random(weights)
+def choose_random(weights, labels=(0..weights.size-1).to_a)
+  return nil if weights.nil? || weights.empty?
+
   sum = 0
   acc_weights = weights.map { |x| sum += x; sum } #+ [sum + 1]
 
-  return choose_random_acc(acc_weights)
+  return choose_random_acc(acc_weights, labels)
 end
 
 # "Directed Scale-Free Graphs", Bollobas et al.
@@ -37,25 +41,25 @@ end
 #
 # Example:
 #   bollobas_game(100, 0.41, 0.49, 0.10, 0.00, 0.00)
-def bollobas_game(n, alpha, beta, gamma, delta_in, delta_out)
+def bollobas_game(iterations, alpha, beta, gamma, delta_in, delta_out, base_index=0)
   sum = 0
   event_prob_acc = [alpha, beta, gamma].map { |x| sum += x; sum }
 
   g = DegreesDAG.new(Set) # XXX or Array?
-  g.add_vertex(0)
-  g.add_vertex(1)
-  g.add_edge(0, 1)
-  2.upto(n - 1) do |iteration|
+  g.add_edge(base_index + 0, base_index + 1)
+  base_index += 2
+  iterations.times do
     event = choose_random_acc(event_prob_acc)
     case event
     when 0
       # add a new vertex v together with an edge from v to an existing 
       # vertex w, where w is chosen according to d_in + delta_in
       vertex_prob = g.vertices.map { |x| g.in_degree(x) + delta_in }
-      w = choose_random(vertex_prob)
-      v = g.size
+      w = g.vertices[choose_random(vertex_prob)]
+      v = base_index
       g.add_vertex(v)
-      g.add_edge(v, g.vertices[w])
+      g.add_edge(v, w)
+      base_index += 1
     when 1
       # add an edge from an existing vertex v to an existing vertex w, where
       # v and w are chosen independently, v according to d_out + delta_out,
@@ -67,10 +71,11 @@ def bollobas_game(n, alpha, beta, gamma, delta_in, delta_out)
       # add a new vertex w and an edge from an existing v to w, where v is
       # chosen according to d_out + delta_out
       vertex_prob = g.vertices.map { |x| g.out_degree(x) + delta_out }
-      v = choose_random(vertex_prob)
-      w = g.size
+      v = g.vertices[choose_random(vertex_prob)]
+      w = base_index
       g.add_vertex(w)
-      g.add_edge(g.vertices[v], w)
+      g.add_edge(v, w)
+      base_index += 1
     end
   end
 
@@ -253,8 +258,47 @@ end
 #   Add an edge between two vertices in distinct module_graph only if the
 #   corresponding vertices in arch_graph are connected
 #
-def bli_graph(arch_graph, module_graphs)
+# XXX: the graphs arch and module_graphs must have vertices 0..g.size-1
+def preferential_arch(iterations, arch, module_graphs)
+  puts "preferential arch"
+  g = DegreesDAG.new
+  module_graphs.each do |graph| 
+    g.add_vertices(*graph.vertices)
+    g.add_edges(*graph.edges)
+  end
+  
+  modules = arch.vertices
+  
+  modules_out_degree = Hash.new(0)
+  modules_in_degree = Hash.new(0)
 
+  iterations.times do |iter|
+    puts iter if iter % 100 == 0
+
+    i1 = choose_random(modules.map { |m| 0.5 + modules_out_degree[m] })
+    next if i1.nil?
+    g1 = module_graphs[i1]
+
+    neighbors = arch.adjacent_vertices(modules[i1])
+    i2 = choose_random(neighbors.map { |m| 0.5 + modules_in_degree[m] })
+    next if i2.nil?
+    g2 = module_graphs[i2]
+
+    v = g1.vertices[choose_random(g1.map { |x| g1.in_degree(x) })]
+    next if v.nil?
+    w = g2.vertices[choose_random(g2.map { |x| g2.out_degree(x) })]
+    next if w.nil?
+
+    g.add_edge v, w
+
+    modules_out_degree[i1] += 1
+    modules_in_degree[i2] += 1
+  end
+
+  p modules_out_degree
+  p modules_in_degree
+
+  return g
 end
 
 # def rewire(g)
