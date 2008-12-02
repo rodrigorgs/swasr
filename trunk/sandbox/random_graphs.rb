@@ -17,7 +17,7 @@ def choose_random_acc(acc_weights, labels=(0..acc_weights.size-1).to_a)
   return nil if acc_weights.nil? || acc_weights.empty?
 
   n = rand * acc_weights[-1]
-  acc_weights.each_with_index { |x, i| return i if x > n }
+  acc_weights.each_with_index { |x, i| return labels[i] if x > n }
   return labels[acc_weights.size - 1]
 end
 
@@ -253,21 +253,23 @@ def design_from_architecture(iterations, arch, alpha, beta, gamma,
   return [g, modules]
 end
 
+require 'test/unit'
+include Test::Unit::Assertions
 # Assigns each module_graph to a node in arch_graph
 # repeat
 #   Add an edge between two vertices in distinct module_graph only if the
 #   corresponding vertices in arch_graph are connected
 #
 # XXX: the graphs arch and module_graphs must have vertices 0..g.size-1
-def preferential_arch(iterations, arch, module_graphs)
+def preferential_arch(iterations, arch, subgraphs)
   puts "preferential arch"
   g = DegreesDAG.new
-  module_graphs.each do |graph| 
+  subgraphs.each do |graph| 
     g.add_vertices(*graph.vertices)
     g.add_edges(*graph.edges)
   end
   
-  modules = arch.vertices
+  modules = arch.vertices.sort
   
   modules_out_degree = Hash.new(0)
   modules_in_degree = Hash.new(0)
@@ -275,28 +277,28 @@ def preferential_arch(iterations, arch, module_graphs)
   iterations.times do |iter|
     puts iter if iter % 100 == 0
 
-    i1 = choose_random(modules.map { |m| 0.5 + modules_out_degree[m] })
-    next if i1.nil?
-    g1 = module_graphs[i1]
+    m1 = choose_random(modules.map { |m| 0.1 + modules_out_degree[m] }, modules)
+    next if m1.nil?
+    sg1 = subgraphs[m1]
 
-    neighbors = arch.adjacent_vertices(modules[i1])
-    i2 = choose_random(neighbors.map { |m| 0.5 + modules_in_degree[m] })
-    next if i2.nil?
-    g2 = module_graphs[i2]
+    neighbors = arch.adjacent_vertices(m1)
 
-    v = g1.vertices[choose_random(g1.map { |x| g1.in_degree(x) })]
+    m2 = choose_random(neighbors.map { |m| 0.1 + modules_in_degree[m] }, neighbors)
+    next if m2.nil?
+    sg2 = subgraphs[m2]
+    
+    assert arch.has_edge?(m1, m2)
+
+    v = choose_random(sg1.vertices.map { |x| sg1.in_degree(x) }, sg1.vertices)
     next if v.nil?
-    w = g2.vertices[choose_random(g2.map { |x| g2.out_degree(x) })]
+    w = choose_random(sg2.vertices.map { |x| sg2.out_degree(x) }, sg2.vertices)
     next if w.nil?
 
     g.add_edge v, w
 
-    modules_out_degree[i1] += 1
-    modules_in_degree[i2] += 1
+    modules_out_degree[m1] += 1
+    modules_in_degree[m2] += 1
   end
-
-  p modules_out_degree
-  p modules_in_degree
 
   return g
 end

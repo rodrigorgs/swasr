@@ -34,60 +34,61 @@ delta_out = 0
 
 arch = nil
 design = nil
-module_graphs = nil
+subgraphs = nil
 modules = nil
 
-1.times do |i|
+10.times do |i|
   puts "== #{i}"
   arch = bollobas_game(10, alpha, beta, gamma, delta_in, delta_out)
 
   base_index = 0
-  module_graphs = arch.vertices.map do
+  subgraphs = arch.vertices.map do
     n = (100 * (0.5 + rand) ** (-2)).to_i
     g = bollobas_game(n, alpha, beta, gamma, delta_in, delta_out, base_index)
     base_index += g.size
     g
   end
 
-  puts "Size = #{module_graphs.inject(0) { |sum, g| sum + g.size }}"
+  size = subgraphs.inject(0) { |sum, g| sum + g.size }
 
-  design = preferential_arch(200, arch, module_graphs)
+  design = preferential_arch(size, arch, subgraphs)
+  
+  design.to_rsf("preferential_arch_%02d.rsf" % i)
 
-  modules = {}
-  module_graphs.each_with_index do |module_graph, i|
-    module_graph.each { |v| modules[v] = i }
-  end
+#  modules = {}
+#  subgraphs.each_with_index do |module_graph, i|
+#    module_graph.each { |v| modules[v] = i }
+#  end
+#
+#  arch_edges = design.edges.map { |e| [modules[e.source], modules[e.target]] }
+#  arch_edges.uniq!
+#  arch_edges.delete_if { |e| e[0] == e[1] }
+#
+#  puts "**** #{(arch_edges - arch.edges.map { |e| [e.source, e.target] }).inspect}"
 
-  arch_edges = design.edges.map { |e| [modules[e.source], modules[e.target]] }
-  arch_edges.uniq!
-  arch_edges.delete_if { |e| e[0] == e[1] }
+#  p arch_edges
 
-  puts "**** #{(arch_edges - arch.edges.map { |e| [e.source, e.target] }).inspect}"
-
-  p arch_edges
-
-  #design.to_rsf("preferential_arch_%02d.rsf" % i)
 end
 
 
 p modules
 
 ######################################################################
-
-dot = arch.to_dot_graph
-
-colors = %w(red blue yellow green orange purple cyan magenta cadetblue white)
-
-dot.each_element do |v| 
-  if v.kind_of? RGL::DOT::Node
-    v.options['color'] = colors[v.options['label'].to_i]
-  end
-end
-
-save_dot('png', 'arch', dot)
-
-Thread.new { `eog arch.png` }
-
+#
+#dot = arch.to_dot_graph
+#
+#colors = %w(red blue yellow green orange purple cyan magenta cadetblue white)
+#
+#dot.each_element do |v| 
+#  if v.kind_of? RGL::DOT::Node
+#    v.options['color'] = colors[v.options['label'].to_i]
+#  end
+#end
+#
+#save_dot('png', 'arch', dot)
+#
+#Thread.new { `eog arch.png` }
+#
 #dot = design.to_dot_graph
 #dot.each_element do |v|
 #  if v.kind_of? RGL::DOT::Node
