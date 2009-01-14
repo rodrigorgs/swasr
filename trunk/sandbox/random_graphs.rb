@@ -107,7 +107,7 @@ def igraph_ba_game(n, m)
   IGraph::GenerateRandom.barabasi_game(n, m, false, true)
 end
 
-## "Stochastic models for the web graph", Kumar et al.
+## "Stochastic models for the web graph", Kumar et al. (2000)
 #def copying_game
 #end
 #
@@ -306,6 +306,14 @@ end
 # def rewire(g)
 # end
 
+# Valverde e Sole, "Network motifs in computational graphs: A case study in
+# software architecture". Phys. Rev. E 72, 026107 (2005).
+def duplication_divergence_game(initial_size, divergence_prob, xlinking_prob)
+end
+
+# Ravasz e Barabasi. "Hierarchical organization in complex networks" (2003).
+def hierarchical_network_game
+end
 
 # out ~ -1.7*n^0.90  
 # in  ~ -1.7*n^0.75  
