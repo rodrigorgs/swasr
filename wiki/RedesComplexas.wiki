@@ -1,0 +1,5 @@
+#summary Revisão bibliográfica sobre redes complexas
+
+*Palavras-chave*: redes complexas, redes livres de escala, _complex networks_
+
+= Introdução =
