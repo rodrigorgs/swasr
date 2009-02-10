@@ -1,0 +1,20 @@
+#summary Comentários sobre ferramentas que podem ser usadas na pesquisa
+
+= Redes Complexas =
+
+Software para síntese e análise de RedesComplexas.
+
+*[http://pajek.imfm.si/doku.php Pajek]*
+
+*[http://graphexploration.cond.org/ GUESS]*
+
+*[https://nwb.slis.indiana.edu/community/?n=Main.HomePage Network Workbench]*
+
+*[http://networkx.lanl.gov Graph Generators]*
+
+*[http://cneurocvs.rmki.kfki.hu/igraph/ The igraph library]*
+
+
+= Estatística ==
+
+  * Gnu R

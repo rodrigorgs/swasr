@@ -1,5 +1,84 @@
-#summary Revisão bibliográfica sobre redes complexas
+﻿#summary Revisão bibliográfica sobre redes complexas
 
-*Palavras-chave*: redes complexas, redes livres de escala, _complex networks_
+O estudo das redes complexas se organiza em duas áreas principais: topologia e dinâmica.
 
-= Introdução =
+Redes complexas são caracterizadas por auto-similaridade, auto-organização, complexidade, propriedades emergentes.
+
+Resistente a falhas aleatórias, vulnerável a ataques direcionados
+
+Dinâmica: bursts
+
+= Métricas (índices) de redes complexas =
+
+== Distribuição de graus ==
+
+E também distribuição acumulada de graus
+
+However, if we look at communities of interests in a specific topic, discarding the major hubs of the Web, the distribution of links is no longer a power law but resembles more a normal distribution, as observed by Pennock et al. (2002)
+
+zipf, yule, pareto, power law
+
+== Coeficiente de clustering (agrupamento, aglomeração) ==
+
+The clustering coefficient is a metric that represents the density of triangles in the network.
+
+O coeficiente de uma rede aleatória vale ... (?)
+
+== Distribuição do coeficiente de agrupamento sobre k (grau) ==
+
+Indicador de estrutura hierárquica
+
+
+== Assortatividade ==
+http://en.wikipedia.org/wiki/Assortativity
+
+== Diadicidade ==
+
+== Freqüência de motivos ==
+
+== Diâmetro ==
+
+== Métrica livre de escala ==
+
+http://en.wikipedia.org/wiki/Scale-free_networks#History
+
+sum (d_i * d_j)
+
+== Cut-off ==
+
+
+= Mecanismos =
+== Crescimento ==
+== Ligação preferencial ==
+
+(também vantagem cumulativa, processo de Yule, o rico fica mais rico, efeito Mateus...)
+(tipo de positive feedback)
+
+== Cópia ==
+== Otimização ==
+== Reduzir custos, reduzir distâncias geográficas... ==
+== Rewiring ==
+== Memória de curto prazo ==
+== short-term memory ==
+
+= Modelos generativos =
+
+http://en.wikipedia.org/wiki/Scale-free_networks#Generative_models
+
+== Modelo de Erdos-Renyi ==
+== Modelo de Watts-Strogatz ==
+== Barabási-Albert ==
+== Modelo de Simon ==
+== Fitness ==
+== Modelo de cópia ==
+== Modelo de duplicação e divergência ==
+== Modelo de Pennock (2002) ==
+== Birth-death ==
+...
+
+= Programas de computador como redes complexas =
+
+Quais são os mecanismos?
+Quais as forças motrizes da construção de programas? Funcionalidades. Requisitos não-funcionais como facilidade de modificação (que induzem restrições topológicas).
+Que informações trafegam na rede de software? Fluxo de execução + alteração de estado.
+Qual o significado da "distância" entre classes?

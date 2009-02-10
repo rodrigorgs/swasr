@@ -1,0 +1,5 @@
+﻿#summary Sobre o sentido (orientação) das setas nas redes de software.
+
+Se uma classe A possui referência para uma interface B , e essa interface é implementada por uma classe C, como deve ser o sentido das setas? Se considerarmos as referências estáticas no código fonte, deveria ser A -> B <- C. Durante a execução do programa, no entanto, o que ocorre é A -> C (ou talvez A -> B -> C), e esse fluxo de controle não pode ser inferido a partir da topologia estática A -> B <- C. Enfim, o que signifcam as setas? O que queremos analisar quando olhamos para uma rede de software? São as dependências estáticas, que revelam algo sobre o reuso dos módulos, ou as dependências dinâmicas, que revelam algo sobre o fluxo de controle e de propagação de erros?
+
+

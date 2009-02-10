@@ -1,0 +1,7 @@
+﻿#summary Idéias que poderão ser experimentadas no futuro.
+
+Se a distribuição de graus dentro de um módulo segue a distribuição normal (Pennock et al, 2002), então será que o algoritmo de clustering denominado expectation maximization (EM) pode obter bons resultados?
+
+Gerar software a partir da combinação de padrões de projeto. Medir os índices (distribuição de graus, coeficiente de clustering etc.)
+
+Estudar padrões de projeto e determinar, para cada padrão, uma decomposição dos vértices. Ex.: No padrão Observer, tipicamente o Observer e o Observable estão em módulos diferentes.

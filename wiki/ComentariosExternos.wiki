@@ -1,0 +1,19 @@
+﻿#summary Comentários de outras pessoas sobre o trabalho
+
+= 2008-12-18: Apresentação da proposta de mestrado =
+
+*Fubica*: A parte de recuperação de arquitetura é "a cereja do bolo". O principal é a análise de sistemas, a síntese de sistemas e a avaliação dos modelos de síntese.
+
+*Fubica*: Onde o estudo da evolução dos _softwares_ se encaixa no objetivo do trabalho?
+
+= 2009-02-06: Encontro com Garcia =
+
+*Garcia*: Esses índices (distribuição de graus, coeficiente de _clustering_ etc.) revelam propriedades macro de uma rede. Ao comparar textos escritos por pessoas com textos escritos por macacos, esses índices dão os mesmos resultados.
+
+*Garcia*: O critério que um especialista usa para identificar _clusters_ é, em geral, subjetivo. Como o modelo vai capturar essa subjetividade?
+
+*Garcia*: Em computação existe uma definição objetiva de _cluster_? (eu disse que não)
+
+*Garcia*: Talvez você deva adotar uma definição de _cluster_ antes de prosseguir.
+
+
