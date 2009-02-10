@@ -16,4 +16,4 @@
 
 *Garcia*: Talvez você deva adotar uma definição de _cluster_ antes de prosseguir.
 
-
+*Garcia*: Estudar índices (métricas) de redes complexas em sistemas de software é, por si só, um projeto de mestrado.
