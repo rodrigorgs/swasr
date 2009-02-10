@@ -1,5 +1,8 @@
 ﻿#summary Revisão bibliográfica sobre redes complexas
 
+*Índice*
+<wiki:toc max_depth="2" />
+
 O estudo das redes complexas se organiza em duas áreas principais: topologia e dinâmica.
 
 Redes complexas são caracterizadas por auto-similaridade, auto-organização, complexidade, propriedades emergentes.
@@ -79,6 +82,8 @@ http://en.wikipedia.org/wiki/Scale-free_networks#Generative_models
 = Programas de computador como redes complexas =
 
 Quais são os mecanismos?
+
 Quais as forças motrizes da construção de programas? Funcionalidades. Requisitos não-funcionais como facilidade de modificação (que induzem restrições topológicas).
+
 Que informações trafegam na rede de software? Fluxo de execução + alteração de estado.
 Qual o significado da "distância" entre classes?
