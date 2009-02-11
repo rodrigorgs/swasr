@@ -2,10 +2,8 @@
 
 _Motif-based communities in complex networks_. Esse artigo tem a ver com a idéia de usar padrões de projeto para identificar módulos em software.
 
-Clustering in Complex Directed Networks_. Estende o coeficiente de clustering para grafos orientados.
+_Clustering in Complex Directed Networks_. Estende o coeficiente de clustering para grafos orientados.
 
 _Locality, Hierarchy, and Bidirectionality in the Web_. Outro modelo hierárquico.
 
-Pennock et al - Winners don't take all, Characterizing the competition for links on the web (2002). Dentro de comunidades a distribuição de graus é normal.
-
-Amaral et al - Classes of behavior of small-world networks. Caracteriza redes como scale-free, broad-scale e single scale
+Stopford, B. & Counsell, S. _A framework for the simulation of structural software evolution_
