@@ -1,9 +1,9 @@
 ﻿#summary O que quero ler a seguir.
 
+Kimura et al - Modeling of Growing Networks with Directional Attachment and Communities (2003)
+
+Wu - [PhD Thesis] Open Source Software Evolution and Its Dynamics (2006)
+
 _Motif-based communities in complex networks_. Esse artigo tem a ver com a idéia de usar padrões de projeto para identificar módulos em software.
 
-_Clustering in Complex Directed Networks_. Estende o coeficiente de clustering para grafos orientados.
-
 _Locality, Hierarchy, and Bidirectionality in the Web_. Outro modelo hierárquico.
-
-Stopford, B. & Counsell, S. _A framework for the simulation of structural software evolution_
