@@ -10,6 +10,8 @@
 
 *Garcia*: Esses índices (distribuição de graus, coeficiente de _clustering_ etc.) revelam propriedades macro de uma rede. Ao comparar textos escritos por pessoas com textos escritos por macacos, esses índices dão os mesmos resultados.
 
+*Garcia*: A escolha do modelo que gera redes com uma topologia predefinida pode beneficiar determinados algoritmos de clustering e prejudicar outros.
+
 *Garcia*: O critério que um especialista usa para identificar clusters é, em geral, subjetivo. Como o modelo vai capturar essa subjetividade?
 
 *Garcia*: Em computação existe uma definição objetiva de cluster? _Não._
