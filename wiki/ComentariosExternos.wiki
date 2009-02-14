@@ -23,3 +23,5 @@
 = 2009-02-13: Christina, Terceiro e Cláudio =
 
 *Cláudio*: Existem modelos generativos na Física? _Sim._ O que seu modelo vai ter que é específico de software? _Depende das informações que os algoritmos de clustering consideram. Por exemplo, pode ser que meu grafo possua vértices que são classes e vértices que são interfaces. Além disso, pode ser que sistemas de software apresentem alguma característica que não se aplica a redes sociais, biológicas etc., e o modelo precisa levar em conta essa característica._
+
+*Christina*: Que tipo de software você vai analisar? Tem alguma restrição de linguagem, de paradigma?
