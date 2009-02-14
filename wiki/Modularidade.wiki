@@ -1,1 +1,7 @@
 #summary O que é um módulo? O que esperar do clustering?
+
+<wiki:comment>
+Módulos são partes que podem ser juntadas
+
+Pacotes são apenas um auxílio cognitivo, uma forma de facilitar a busca por implementações de funcionalidades.
+</wiki:comment>
