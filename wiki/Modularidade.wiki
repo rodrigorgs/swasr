@@ -38,6 +38,24 @@ Por outro lado, alguém poderia considerar que um framework não é um módulo (
 
 Assim, um conjunto pode ser qualitativamente classificado como módulo de pouco reuso, muito reuso, reuso mais-ou-menos...
 
+---
+
+O problema de reuso não é um problema de clustering. Imagine as dependências A => B => C e D => C. Podemos obter vários módulos de reuso sobrepostos:
+
+* {C}
+* {D, C}
+* {B, C}
+* {A, B, C}
+* {A, B, C, D}
+
+Talvez para eu usar B eu precise de A ou de um programa bem parecido com A (e nesse caso eu preciso copiar o código de A para o meu programa e então modificá-lo de acordo com minhas necessidades).
+
+(pode-se pensar que C corresponde a uma função da biblioteca padrão da linguagem, ou uma função utilitária, que é usada por boa parte do programa)
+
+Portanto, para identificar um módulo de reuso é preciso fornecer como entrada uma entidade que se deseja reusar.
+
+Ou então podemos realizar uma poda de entidades terminais (utilitárias), como feito pelo Bunch, e a partir daí definir um módulo de reuso como uma componente conexa. (Essa poda é, na realidade, uma ordenação topológica que vai removendo recursivamente os vértices cujo grau de saída é zero) A intenção por trás dessa idéia é que, em um determinado nível de abstração (no sentido de máquina virtual) aquilo é um módulo.
+
 = Módulos como unidades de *atribuição de trabalho* =
 
 Para Parnas, módulo é uma unidade de atribuição de trabalho. Assim, cada equipe de desenvolvedores deve ser responsável por um módulo do sistema. As dependências entre os módulos devem ser minimizadas, de forma a diminuir a necessidade de comunicação (coordenação) entre desenvolvedores de equipes diferentes e viabilizar o desenvolvimento paralelo.
@@ -54,6 +72,10 @@ What do we mean by "module":
 * No tools for implementing modules in other ways.
 
 (portanto, tem a ver com o processo de desenvolvimento, e não com o produto em si, com o texto do programa)
+
+= Módulos como unidades *substituíveis* =
+
+
 
 = O papel das *interfaces* =
 
