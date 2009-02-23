@@ -6,6 +6,8 @@
 
 *Fubica*: Onde o estudo da evolução dos softwares se encaixa no objetivo do trabalho? _No estudo da estabilidade dos algoritmos de clustering._
 
+*Fubica*: Com base em que você vai afirmar que seu modelo é realista? _Na literatura existem várias observações sobre propriedades que caracterizam software, e eu próprio pretendo fazer análises sobre uma grande quantidade de softwares._
+
 = 2009-02-06: Encontro com Garcia =
 
 *Garcia*: Esses índices (distribuição de graus, coeficiente de _clustering_ etc.) revelam propriedades macro de uma rede. Ao comparar textos escritos por pessoas com textos escritos por macacos, esses índices dão os mesmos resultados.
