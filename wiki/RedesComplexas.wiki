@@ -15,7 +15,9 @@ Dinâmica: bursts
 
 == Distribuição de graus ==
 
-E também distribuição acumulada de graus
+A distribuição de graus é uma [http://en.wikipedia.org/wiki/Probability_density_function função densidade de probabilidade] (pdf) P(K = k), que a quantidade relativa de vértices cujo grau é igual a _k_. Para reduzir o ruído, é comum trabalhar com a [http://en.wikipedia.org/wiki/Cumulative_distribution_function#Complementary_cumulative_distribution_function função cumulativa complementar] (ccdf):
+
+_To avoid bias due to outliers, we worked with the complementary cumulative definition (2), in which outliers are subsumed, and then converted the results of the fit to the initial distribution._ (Power Laws in Software, Louridas et al)
 
 However, if we look at communities of interests in a specific topic, discarding the major hubs of the Web, the distribution of links is no longer a power law but resembles more a normal distribution, as observed by Pennock et al. (2002)
 
