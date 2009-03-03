@@ -41,9 +41,11 @@ http://en.wikipedia.org/wiki/Assortativity
 
 == Freqüência de motivos ==
 
-== Diâmetro ==
+== Distância mínima (ou geodésica) ==
 
-Diâmetro médio de uma rede aleatória: (ln N) / (ln u), onde mi é o número médio de arestas por vértice e N é o número de vértices. [de Moura et al, 2003]
+Distância geodésica média: (ln N) / (ln u), onde mi é o número médio de arestas por vértice e N é o número de vértices. [de Moura et al, 2003]
+
+== Diâmetro ==
 
 == Métrica livre de escala ==
 
