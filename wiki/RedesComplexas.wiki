@@ -27,7 +27,7 @@ zipf, yule, pareto, power law
 
 The clustering coefficient is a metric that represents the density of triangles in the network.
 
-O coeficiente de uma rede aleatória vale ... (?)
+O coeficiente de clustering uma rede aleatória vale mi / N, onde mi é o número médio de arestas por vértice e N é o número de vértices. [de Moura et al, 2003]
 
 == Distribuição do coeficiente de agrupamento sobre k (grau) ==
 
