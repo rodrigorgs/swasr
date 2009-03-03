@@ -43,6 +43,8 @@ http://en.wikipedia.org/wiki/Assortativity
 
 == Diâmetro ==
 
+Diâmetro médio de uma rede aleatória: (ln N) / (ln u), onde mi é o número médio de arestas por vértice e N é o número de vértices. [de Moura et al, 2003]
+
 == Métrica livre de escala ==
 
 http://en.wikipedia.org/wiki/Scale-free_networks#History
