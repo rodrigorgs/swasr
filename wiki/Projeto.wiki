@@ -12,6 +12,12 @@ As redes livres de escala são caracterizadas por uma distribuição peculiar do
 
 ----
 
+Citações
+
+large deviations from the mean ("outliers") are less common than small ones, but still much more common than expected on the basis of the normal or Gaussian bell-curve distribution. [http://kavanna.blogspot.com/2008/03/fat-tails-and-outliers-closer-look.html link]
+
+----
+
 Tópicos a serem abordados:
 
 Simulação em ES: Stopford2005, Stopford2008
