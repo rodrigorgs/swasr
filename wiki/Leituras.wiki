@@ -2,8 +2,4 @@
 
 Kimura et al - Modeling of Growing Networks with Directional Attachment and Communities (2003)
 
-Wu - [PhD Thesis] Open Source Software Evolution and Its Dynamics (2006)
-
-_Motif-based communities in complex networks_. Esse artigo tem a ver com a idéia de usar padrões de projeto para identificar módulos em software.
-
 _Locality, Hierarchy, and Bidirectionality in the Web_. Outro modelo hierárquico.
