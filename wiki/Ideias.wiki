@@ -1,0 +1,9 @@
+﻿#summary Idéias que poderão ser experimentadas no futuro.
+
+Se a distribuição de graus dentro de um módulo segue a distribuição normal (Pennock et al, 2002), então será que o algoritmo de clustering denominado expectation maximization (EM) pode obter bons resultados?
+
+Gerar software a partir da combinação de padrões de projeto. Medir os índices (distribuição de graus, coeficiente de clustering etc.)
+
+Estudar padrões de projeto e determinar, para cada padrão, uma decomposição dos vértices. Ex.: No padrão Observer, tipicamente o Observer e o Observable estão em módulos diferentes.
+
+Como as redes de software são livres de escala, então não faz sentido pensar em algo como o número médio de arestas por vértice, pois a média não faz sentido nesse caso. Neste projeto eu quero achar propriedades (ou, mais precisamente, distribuições estatísticas) que caracterizam sistemas de software. Mas quem disse que existe um valor médio para uma propriedade ou para os parâmetros das distribuições? Talvez se eu plotar a distribuições dos parâmetros das distribuições de vários sistemas de software eu não ache uma gaussiana... Consideremos, por exemplo, o expoente de escala gamma (da lei de potência k^-gamma). Se calcularmos gamma para cada sistema de software e plotarmos um histograma dos valores de gama, acharemos uma distribuição normal? (na verdade é provável que sim, mas é bom checar).
