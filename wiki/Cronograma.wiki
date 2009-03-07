@@ -1,0 +1,30 @@
+﻿#summary Cronograma do projeto
+
+= Planejamento =
+
+*Revisão bibliográfica*. Estudo sobre redes complexas e recuperação de arquitetura. Ao final será escrito um relatório técnico sobre os temas estudados. Meses *01, 02 e 03*.
+
+*Planejamento de experimentos*. Experimentos para coletar métricas a partir de sistemas de software. Essas métricas serão usadas para avaliar os modelos. Ao final será redigido um plano de experimentos. Mês *04*.
+
+*Modelagem*. Execução dos experimentos. Implementação de modelos. Artigo com resultados preliminares. Meses *04, 05 e 06*.
+
+*Avaliação*. Simulação de modelos. Avaliação através de métricas. Avaliação de algoritmos de recuperação de arquitetura. Meses *06, 07 e 08*.
+
+*Escrita e publicação*. Artigo com os resultados da pesquisa. Dissertação de mestrado. Meses *09, 10, 11, 12, 13 e 14*.
+
+= Andamento =
+
+Última atualização: 07/03/2009.
+
+*Revisão bibliográfica*:
+  * Leitura sobre *redes complexas* (teoria, modelos, motifs, comunidades, hierarquia e modularidade, redes de software): *completa*, com revisões.
+  * Leitura sobre *recuperação de arquitetura*: foi feita uma leitura não-sistemática no ano passado.
+  * *Relatório*: não-iniciado.
+
+*Planejamento de experimentos*
+
+*Modelagem*
+
+*Avaliação*
+
+*Escrita e publicação*

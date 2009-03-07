@@ -1,4 +1,14 @@
 ﻿#summary Descrição do projeto.
 
-...
+Bem vindos ao projeto de mestrado de Rodrigo Rocha, sob orientação de Dalton Guerrero e Jorge Figueiredo da UFCG. Aqui você encontrará não apenas o código-fonte de todos os programas desenvolvidos na pesquisa, como também relatórios, ensaios e resumos de artigos.
+
+
+Produtos:
+  * [RedesComplexas Revisão bibliográfica sobre redes complexas]
+
+
+O processo:
+  * [Cronograma]
+  * [ComentariosExternos Comentários de outras pessoas sobre o projeto]
+  * [Modularidade Idéias sobre modularidade]
 
