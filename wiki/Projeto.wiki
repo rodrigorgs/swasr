@@ -10,6 +10,12 @@ As redes livres de escala são caracterizadas por uma distribuição peculiar do
 
 É preciso neste momento fazer uma ressalva: nem todos os estudos que encontraram redes livres de escala no domínio de software se valeram de um tratamento estatístico rigoroso. Existem várias distribuições estatísticas que, quando plotadas na escala logarítmica produzem quase uma reta ou ainda que produzem uma reta em apenas uma região do gráfico \cite{Clauset2009}. Mas mesmo que algumas redes não possuam a distribuição em lei de potência, é possível tirar uma lição: em qualquer sistema baseado em software (suficientemente grande), existem entidades (sejam classes, objetos ou programas) que se relacionam com as outras muito mais do que a média.
 
+O que surpreende é que esse observação tenha passado despercebida por desenvolvedores de ferramentas de apoio à engenharia de software e por projetistas de processos de desenvolvimento. Como esse conhecimento pode ser usado para melhorar as ferramentas e processos existentes?
+
+<wiki:comment>
+Não importa neste estudo quais são os mecanismos. Existem vários
+
+Não é só a distribuição de graus. Tem coef clust. tb. A distribuição de coef clust de software revela que ele possui uma estrutura hierárquica (talvez parecida com a que existe em uma empresa de desenvolvido de software closed source -- mas curiosamente essa estrutura também é encontrada em software livre e até em software escrito por uma pessoa só, o latex de knuth).
 ----
 
 Citações
@@ -24,3 +30,6 @@ Simulação em ES: Stopford2005, Stopford2008
 Estrutura hierárquica, modularidade
 Motifs
 Modelos generativos, mecanismos (yule, duplication-divergence...)
+
+</wiki:comment>
+
