@@ -4,8 +4,8 @@ Bem vindos ao projeto de mestrado de Rodrigo Rocha, sob orientação de Dalton G
 
 
 Produtos:
-  * [http://swasr.googlecode.com/files/Rodrigo%20Rocha%20-%20Proposta%20de%20dissertacao%20de%20mestrado%20%28slides%29.pdf Proposta de mestrado (slides)]
-  * [http://swasr.googlecode.com/files/proposta-rodrigo-final.doc Proposta de mestrado (texto)]
+  * [http://swasr.googlecode.com/files/Rodrigo%20Rocha%20-%20Proposta%20de%20dissertacao%20de%20mestrado%20%28slides%29.pdf Proposta de mestrado (slides)] - arquivo pdf
+  * [http://swasr.googlecode.com/files/proposta-rodrigo-final.doc Proposta de mestrado (texto)] - arquivo doc
   * [RedesComplexas Revisão bibliográfica sobre redes complexas]
   * [Reviews]
 
