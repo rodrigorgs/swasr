@@ -1,0 +1,16 @@
+#summary "Distribution of node characteristics in complex networks": revisao
+
+*Titulo*: Distribution of node characteristics in complex networks
+
+*Autores*: Park, Juyong and Barabasi, Albert-Laszlo
+
+*Ano*: 2007
+
+----
+
+Li superficialmente. 
+
+O artigo apresenta uma análise sobre a relação entre propriedades de nós em uma rede e a topologia dessa rede. Ele introduz métricas como diadicidade (diadicity) e heterofilia. 
+
+IDÉIA: estudar diadicidade e heterofilia de sistemas de software usando como propriedade o tipo de entidade: classe ou interface.
+      

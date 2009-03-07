@@ -1,0 +1,31 @@
+#summary "Hierarchical Small Worlds in Software Architecture": revisao
+
+*Titulo*: Hierarchical Small Worlds in Software Architecture
+
+*Autores*: Sergi Valverde and Ricard V. Solé
+
+*Ano*: 2003
+
+----
+
+Alerta: este artigo tem muito blá-blá-blá. Pulando essa parte, a análise experimental é boa. 
+
+Os autores analisam cerca de 30 sistemas escritos em C++. As arestas do grafo englobam agregação, herança e tipos de retorno. Eis os resultados experimentais: 
+1) O número de arestas (L) cresce linearmente com o tamanho (número de vértices) do sistema (N): L ~ N^1.17 
+2) O clustering coefficient está entre 0,084 e 0,413 
+3) O diâmetro médio está entre 2,66 e 6,54 
+4) Um valor típico de k médio (grau de entrada + grau de saída) é 5 (tirado do jogo ProRally 2002) 
+5) Considere a distribuição cumulativa dos graus como uma power-law com expoente a. 
+- Valores típicos de a para grau de entrada estão entre 0.94 e 1.55. 
+- Valores típicos de a para grau de saída estão entre 1.41 e 2.39. 
+- Valores típicos de a para entrada/saída estão entre 1.37 e 1.74. 
+6) Seja T a quantidade de arestas no fecho transitivo do grafo. T ~ N^1.46 (p. 8) 
+
+"O modelo de Barabási-Albert não reproduz o alto clustering presente em muitos sistemas." (interessante, meus experimentos mostraram padrões razoáveis de clustering coefficient). 
+
+Os autores analisam algumas métricas de evolução, mas não chegam a resultados conclusivos. 
+
+"It has been noticed several times that in order to advance the current state of software engineering a scientific theory is required." -- Lehman e Ramil: "An Approach to a Theory of Software Evolution" (2001) 
+
+-- Rodrigo, 19/11/2008
+      

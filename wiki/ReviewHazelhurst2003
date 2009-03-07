@@ -1,0 +1,26 @@
+#summary "Introduction ESTSim: A tool for creating benchmarks for EST clustering algorithms": revisao
+
+*Titulo*: Introduction ESTSim: A tool for creating benchmarks for EST clustering algorithms
+
+*Autores*: Scott Hazelhurst and Anton Bergheim
+
+*Ano*: 2003
+
+----
+
+= Citações = 
+
+In summary, the best benchmarks for testing new clustering algorithms are data sets described in (1) [expert comparison] above. Testing the quality of new algorithms by comparing them to existing algorithms is attractive, but flawed. Since benchmarks of the form described in (1) above are very rare, we need to look at complementary techniques. (p. 2) 
+
+We propose that artificial but realistic data sets should be used as complementary benchmarks 
+
+The objective of ESTsim is to produce large amounts of artificial – but realistic – test data for testing the effectiveness of different distance measures used in clustering DNA (or related sequences). 
+
+The artificial creation of ESTs in this way will lead to the creation of an EST set whose exact final clustering is known. So, when testing a new algorithm or measure, we can compare the output of the new algorithm with the known right answer. 
+
+In addition, the use of artificial test data enables us to produce data with a range of different error models. Thus, if some measures are better than other measures in different circumstances we will be able to provide some insight. This would be difficult to test with real data. 
+
+In summary we propose that as well as testing on real data, testing on artificial data would be very useful. 
+
+The methodology used was to try to understand the biological processes and with the aid of a biologist draw the types of error curves. We then found convenient mathematical functions that simulated these curves and that could be easily programmed. (p. 3)
+      

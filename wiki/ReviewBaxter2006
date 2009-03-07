@@ -1,0 +1,29 @@
+#summary "Understanding the shape of Java software": revisao
+
+*Titulo*: Understanding the shape of Java software
+
+*Autores*: Gareth Baxter and Marcus Frean and James Noble and Mark Rickerby and Hayden Smith and Matt Visser and Hayden Melton and Ewan Tempero
+
+*Ano*: 2006
+
+----
+
+= Revisão = 
+
+O estudo envolve 56 aplicações escritas em Java e se propõe a reproduzir de forma mais extensiva o trabalho de Wheeldon e Counsell. 
+
+Os autores sugerem que métricas as quais os programadores possuem alguma noção possuem um cutoff na distribuição (veja citação) 
+
+= Citações = 
+
+This suggests that ‘C’ relationships are more likely than ‘P’ relationships to have ‘truncated’ curves. We can generalise this to hypothesise that any metric that measures something that the programmer is inherently aware of will tend to have a ‘truncated’ curve, that is, not be a power-law. (p. 11) 
+(nota: relações C têm a ver com grau de saída e P, com grau de entrada.) 
+
+There is quite noticeable variation on the degree of fit between different applications. 
+
+= Crítica = 
+
+Bom tratamento estatístico. Fornece equações para lognormal e stretched exponential. 
+
+Leitura complicada...
+      

@@ -1,0 +1,26 @@
+#summary "Measuring distances between complex networks": revisao
+
+*Titulo*: Measuring distances between complex networks
+
+*Autores*: Andrade, Roberto F. S. and Miranda, José G. V. and Pinho, Suani T. R. and Lobão, Thierry Petit
+
+*Ano*: 2008
+
+----
+
+= Resumo = 
+
+O artigo propõe uma métrica de distância entre duas redes com o mesmo número de vértices. Essa métrica é usada no artigo para comparar diversos modelos generativos de redes. 
+
+= Impressões = 
+
+Artigo muito bem escrito! 
+
+Essa idéia de distância pode ser usada para medir a distância de duas versões de um software. Consideramos na segunda versão apenas os vértices que já existiam na primeira. 
+
+O artigo diz que a distância entre redes detecta diferenças locais que não são reveladas por comparação de propriedades geométricas globais (coeficiente de clustering, diâmetro, grau médio...) 
+
+Essa distância entre redes é baseada na idéia de distância mínima entre vértices. E eu tenho a intuição que distância entre vértices não tem um significado bem definido no caso de redes de software. 
+
+Dá pra pensar em distância entre redes baseada em outras métricas como coeficiente de clustering de um vértice (que é uma métrica sobre um vértice). Mas será que existe uma métrica que relacione dois vértices, sem ser distância, que é mais adequada para meu projeto? Talvez shared neighbors, ou ainda shared neighbors estendendo a noção de neighbors para vizinhos de alta ordem (vertices cuja distância é l, 1 <= l <= D, D é o diâmetro). Ou ainda a distância l para a qual os dois vértices possuem pelo menos m shared neighbors.
+      

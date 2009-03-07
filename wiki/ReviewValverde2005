@@ -1,0 +1,42 @@
+#summary "Network motifs in computational graphs: A case study in software architecture": revisao
+
+*Titulo*: Network motifs in computational graphs: A case study in software architecture
+
+*Autores*: Valverde, Sergi and Solé, Ricard V.
+
+*Ano*: 2005
+
+----
+
+Motifs (motivos) são subgrafos pequenos e característicos de um grafo. Este trabalho analisou 83 sistemas de software e encontrou diversos motivos frequentes comuns aos sistemas analisados e a redes de neurônios, circuitos eletrônicos e transcrição de genes, dentre os quais bi-fan, bi-parallel e feed forward loop. Ele também propôs um modelo de rede baseado em duplicação. 
+
+Motivos podem estar associados a funcionalidades específicas, mas no caso de software, a formação dos motivos se deve a regras de evolução da rede.  
+
+Algumas conclusões do estudo: 
+
+* A frequência de um motivo é proporcional ao tamanho da rede. (Fig.4, p. 5) 
+* most common subgraphs are sparser than less common ones, which are more dense.  
+* Such a common point might be easily interpreted in functional terms: similar subgraphs are abundant because they are selected or chosen to perform a given function or task. As shown below, no evidence from statistical patterns supports such view. 
+
+O artigo apresenta muita matemática (estatística) sobre motifs. 
+
+Os autores propõem um modelo de rede baseado em duplicação: 
+
+Primeiro é criado um grafo pequeno da seguinte forma: a cada passo é adicionado um nó com grau k_0 = 2, que se liga a vértices aleatoriamente. A seguir são aplicadas as seguintes regras: 
+1) Duplicação: um vértice v, escolhido aleatoriamente, é clonado, e novo vértice w é ligado a todos os vértices aos quais v está ligado. 
+2) Divergência: para cada par de arestas originais e redundantes, remova um deles com probabilidade delta. 
+3) Cross linking: crie a ligação w -> v com probabilidade beta. Essa etapa é importante para a formação de 3-subgrafos. 
+
+Experimentos reveleram que esse modelo é capaz de produzir os motivos frequentes. 
+Esse modelo foi introduzido na referência [6]. 
+
+
+[6] R. V. Solé, R. Pastor-Satorras, E. D. Smith, and T. Kepler, 
+Adv. Complex Syst. 5, 43 2002; A. Vazquez, A. Flammini, 
+A. Maritan, and A. Vespignani, Complexus 1, 38 2003; R. 
+Pastor-Satorras, E. D. Smith, and R. V. Solé, J. Theor. Biol. 
+222, 199 2003; J. Kim, P. L. Krapivsky, B. Kahng, and S. 
+Redner, Phys. Rev. E 66, 055101 2002; K.-I. Goh, B. Kahng, 
+and D. Kim, e-print q-bio.MN/0312009, v2; W. Banzhaf and P. 
+Dwigth Kuo, J. Biol. Phys. Chem. 4, 85 2004.
+      

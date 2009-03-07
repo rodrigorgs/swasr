@@ -1,0 +1,25 @@
+#summary "Directed scale-free graphs": revisao
+
+*Titulo*: Directed scale-free graphs
+
+*Autores*: Béla Bollobás and Christian Borgs and Jennifer Chayes and Oliver Riordan
+
+*Ano*: 2003
+
+----
+
+O artigo introduz um modelo para grafos orientados livres de escala que crescem com preferential attachment. 
+A cada passo, o grafo pode ser modificado adicionando-lhe um vértice (que é ligado a um vértice existente) ou uma aresta entre dois vértices pré-existentes. 
+Os autores fornecem demonstrações formais de que o modelo gera um grafo livre de escala. 
+Por fim, são fornecidos parâmetros para o modelo que geram grafos semelhantes à estrutura da web. 
+
+A meu ver, esse modelo possui duas vantagens em relação ao modelo de Barabasi-Albert: 
+1) O grau de saída não é fixo. 
+2) As novas arestas podem ligar vértices nos primeiros passos. 
+
+No entanto, existem limitações: 
+1) Não há remoção de arestas 
+2) Não há remoção de vértices 
+
+-- Rodrigo, 19/11/2008
+      

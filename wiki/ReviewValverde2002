@@ -1,0 +1,27 @@
+#summary "Scale-free networks from optimal design": revisao
+
+*Titulo*: Scale-free networks from optimal design
+
+*Autores*: Valverde, S. and Ferrer Cancho, R. and Sol{\'e}, R.~V.
+
+*Ano*: 2002
+
+----
+
+= Revisão = 
+
+Os autores argumentam que as características emergentes de grafos de software (livres de escala e mundo pequeno) são o resultado de um processo de otimização local, e não de preferential attachment. Esse processo de otimização não é bem explicado. 
+
+== Citações == 
+
+Although the rules that define the strategies involved in software engineering should lead to a tree-like structure, the final net is scale-free, perhaps reflecting the presence of conflicting constraints unavoidable in a multidimensional optimization process. (p.1, abstract) 
+
+cost minimization together with optimal communication among units 
+
+Essentially, they deal with optimal communication among modules and low cost (in terms of wiring) together with the 
+rule of avoiding hubs (classes with large number of dependencies, that is, large degree). 
+
+Intuitively, a trade-off between the number of nodes and the number of links must be chosen. 
+
+plot: l log(<k>) vs. N, onde l é a média dos caminhos mais curtos.
+      

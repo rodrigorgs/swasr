@@ -1,0 +1,34 @@
+#summary "Hierarchical Organization in Complex Networks": revisao
+
+*Titulo*: Hierarchical Organization in Complex Networks
+
+*Autores*: Erzsebet Ravasz and Albert-Laszlo Barabasi
+
+*Ano*: 2003
+
+----
+
+O artigo apresenta um modelo determinístico de redes livres de escala hierárquicas e a partir dele deriva um modelo estocástico. A organização hierárquica é caracterizada pela distribuição do coeficiente de clustering, C(k), que obedece à lei C(k) ~ 1/k. Experimentos mostram que diversas redes possuem organização hierárquica -- rede de atores, rede de sinônimos, rede www, internet no domínio AS -- mas algumas outras -- internet no nível de roteador e rede elétrica -- não. Os autores atribuem a falta de organização hierárquica a restrições geográficas. Os autores apontam outros modelos que provavelmente obedecem à lei de escala C(k) ~ 1/k e concluem que o papel dos hubs em redes hierárquicas é unir os vários módulos coesos. 
+
+== Citações 
+
+the clustering coefficient of real networks is to a high degree independent of the number of nodes in the network (p. 1) 
+
+modular: one can easily identify groups of nodes that are highly interconnected with each other, but have only a few or no links to nodes outside of the grop to which they belong to (p. 1) 
+
+We argue that his scaling law quantifies the coexistence of a hierarchy of nodes with different degrees of clustering (p. 3) 
+
+hierarchy is absent in networks with strong geographical constraints, as the limitation on the link length strongly constraints the network topology (p. 4) 
+
+the fitness model [39, 40] displays a C(k) that appears to scale with k. (p. 5) 
+
+there is evidence that the model of active nodes [41] obeys the scaling law (p. 5) 
+
+the scaling of C(k) depends on the parameter p, which governs the rate at which new nodes connect to the neighbors of selected nodes. (p. 6) 
+
+most networks have a modular topology, quantified by the high clustering coefficient they display. (p. 6) 
+
+we should not think of modularity as the coexistence of relatively independent groups of nodes. (p. 6) 
+
+the hubs play the important role of bridging the many small communities of clusters into a single, integrated network. (p. 6)
+      

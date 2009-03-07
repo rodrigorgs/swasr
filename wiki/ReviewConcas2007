@@ -1,0 +1,55 @@
+#summary "Power-Laws in a Large Object-Oriented Software System": revisao
+
+*Titulo*: Power-Laws in a Large Object-Oriented Software System
+
+*Autores*: Concas, Giulio and Marchesi, Michele and Pinna, Sandro and Serra, Nicola
+
+*Ano*: 2007
+
+----
+
+= Revisão = 
+
+O artigo computa diversas métricas a partir da análise dos sistemas Smalltalk, JDK e Eclipse. As distribuições estatísticas dessas métricas seguem consistententemente distribuições de Pareto ou log-normal. 
+
+Os autores sugerem que não faz sentido calcular a média e o desvio-padrão de métricas de software, uma vez que muitas delas seguem distribuições de cauda gorda (fat tail). Eles propõem média e expoente da cauda. 
+
+== Correlações entre métricas == 
+
+Sistema estudado: Smalltalk. 
+
+LOC X out-degree: 0.97 
+Number of methods X LOC: 0.83 
+Number of methods X out-degree: 0.79 
+Number of subclasses X in-degree: 0.80 
+
+== Distribuições == 
+
+Sistemas estudados: Smalltalk e, às vezes, JDK e Eclipse. 
+http://en.wikipedia.org/wiki/Pearson%27s_chi-square_test 
+
+Número de métodos por classe: log-normal. 
+Número total de atributos uma classe (atributos imediatos + atributos herdados): log-normal. 
+Número de subclasses por classe: power law. 
+Freqüência de instance variable and method names: power law. 
+Número de chamadas a um método: power law. 
+Linhas de código por classe: log-normal. (good fit) 
+In-degree: power law. 
+Out-degree: log-normal (obs.: out-degree tem correlação com LOC). 
+
+= Citações = 
+
+In fact, the usual evaluation of systems based on mean and standard deviation of metrics can be misleading. It is more interesting to measure differences in the shape and coefficients of the data’s statistical distributions. (abstract) 
+
+(...) a full statistical model of software production is a task never accomplished before and is obviously beyond the scope of this paper. (p. 2) 
+
+* Random and proportional. The entity to be changed is chosen randomly as before, but the size of the increment is proportional to its present value. This model leads to log-normal distributions of properties, which semms to be a much more frequent case in real software systems. (p. 6) 
+
+Interestingly, if deletion is performed proportionally to the current value of the properties, exactly like addition, and if deletions are made at a lower rate than additions, GPA demonstrates that the overall process is still a Yule process. 
+
+This means that the log-normal or power-law behavior found in the out-links distribution by other authors is an artifact. They, in fact, measured the log-normal (or power-law) distribution of class sizes. (p. 17) 
+
+= Crítica = 
+
+O artigo apresenta uma boa base estatística.
+      

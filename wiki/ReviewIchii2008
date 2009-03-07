@@ -1,0 +1,28 @@
+#summary "An Exploration of Power-Law in Use-Relation of Java Software Systems": revisao
+
+*Titulo*: An Exploration of Power-Law in Use-Relation of Java Software Systems
+
+*Autores*: Ichii, M. and Matsushita, M. and Inoue, K. 
+
+*Ano*: 2008
+
+----
+
+= Revisão = 
+
+Analisa vários sistemas escritos em Java. Os vértices são classes ou interfaces e as arestas são relações extends, implements, declara variável/membro/parâmetro, acessa variável, chama método, instancia objeto. 
+
+Calcula distribuição de graus para a) sistemas de software, b) conjuntos de sistemas de software que dependem entre si e c) subconjuntos de um sistema de software escolhidos i) aleatoriamente, ii) a partir de um elemento pivô ou iii) a partir de uma palavra chave. 
+
+Em todos os casos percebe-se power law no in-degree mas não no out-degree. Ele sugere que o out-degree segue uma distribuição double pareto (a cauda é muito pesada para ser lognormal), mas afirma que é preciso investigar mais. 
+
+Adicionalmente, há uma correlação entre out-degree e métricas de complexidade (WMC) e tamanho (LOC). 
+
+Cita vários trabalhos que o precederam. 
+
+Usa o SPARS-J para calcular métricas e relacionamentos entre classes/interfaces. 
+
+= Citações = 
+
+We believe that it is possible to detect the changes of the software architecture, or to measure its stability by watching the changes of the set of the components which have the large in-degree. (p. 8)
+      

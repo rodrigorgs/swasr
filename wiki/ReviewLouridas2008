@@ -1,0 +1,20 @@
+#summary "Power laws in software": revisao
+
+*Titulo*: Power laws in software
+
+*Autores*: Panagiotis Louridas and Diomidis Spinellis and Vasileios Vlachos
+
+*Ano*: 2008
+
+----
+
+= Revisão = 
+
+Os autores analisam redes de dependências entre bibliotecas dinâmicas, pacotes FreeBSD, pacotes CPAN e classes de sistemas OO e encontram power laws na distribuição de graus de todas essas redes. Algumas distribuições não são bem power laws -- os autores conjecturam que sejam lognormal ou stretched exponential. 
+
+Os autores citam trabalhos anteriores (p. 12, sec. 3.8) e procuram implicações de suas descobertas em tópicos como reuso, qualidade e otimização. 
+
+= Citações = 
+
+To avoid bias due to outliers, we worked with the complementary cumulative definition (2), in which outliers are subsumed, and then converted the results of the fit to the initial distribution.
+      

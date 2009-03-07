@@ -1,0 +1,16 @@
+#summary "The art of community detection": revisao
+
+*Titulo*: The art of community detection
+
+*Autores*: Natali Gulbahce and Sune Lehmann
+
+*Ano*: 2008
+
+----
+
+= Citações = 
+
+Currently the state of the art is to design an artificial network with the structural properties that one wants to detect (e.g. group strucutre) and then show that the algorithm being tested is able to detect such structures. 
+
+It is possible to artificially remove (or add) links from a real network and measure how well the algorithm under study is able to accurately determine robust community structure. (cita "Robustness of community structure in networks")
+      

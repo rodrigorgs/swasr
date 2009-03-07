@@ -1,0 +1,28 @@
+#summary "Benchmark graphs for testing community detection algorithms": revisao
+
+*Titulo*: Benchmark graphs for testing community detection algorithms
+
+*Autores*: Lancichinetti, Andrea and Fortunato, Santo and Radicchi, Filippo
+
+*Ano*: 2008
+
+----
+
+= Citações = 
+
+This race towards the ideal method [of community detection] aims at two main goals, i.e., improving the ACCURACY in the determination of meaningful modules and reducing the COMPUTATIONAL COMPLEXITY of the algorithm. (p. 1) 
+
+Testing an algorithm essentially means analyzing a network with a well-defined community structure and recovering its communities. Ideally, one would like to have MANY INSTANCES of real networks whose MODULES are precise KNOWN, but this is unfortunately not the case. Therefore, the most extensive tests are performed on COMPUTER GENERATED networks, with a built-in community structure. 
+
+In this paper we propose a realistic benchmark for community detection, that accounts for the heterogeneity of both degree and community size. Detecting communities on this class of graphs is a CHALLENGING task. 
+
+= Crítica = 
+
+O modelo que gera as redes com uma estrutura modular bem definida realmente é bom? Como podemos provar que ele é bom?  
+
+Me parece que esse conceito de clustering bom é muito dependente de domínio. 
+
+Suponhamos que estamos interessados no conceito de módulo baseado em uma função objetivo global que encoraja ligações entre vértices de um módulo e desencoraja ligações entre vértices de módulos distintos (a métrica Modularization Quality do algoritmo Bunch). Quando o modelo gera uma rede, a estrutura de comunidades usada como referência realmente é a estrutura ótima? Como provar? 
+
+Em suma, talvez o modelo beneficie uma noção de modularidade em prejuízo de outras.
+      

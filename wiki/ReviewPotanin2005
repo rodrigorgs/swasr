@@ -1,0 +1,30 @@
+#summary "Scale-free geometry in OO programs": revisao
+
+*Titulo*: Scale-free geometry in OO programs
+
+*Autores*: Alex Potanin and James Noble and Marcus Frean and Robert Biddle
+
+*Ano*: 2005
+
+----
+
+= Revisão = 
+
+O estudo analisa 8 sistemas em Java, C++, Self e Smalltalk. 
+
+O estudo analisa 60 execuções de 35 sistemas escritos em Java, e também sistemas em C++, Self e Smalltalk. 
+
+Aqui os autores estudam referências a objetos, em tempo de execução de programas Java. Eles concluem que os grafos de objetos são livres de escala (tanto para in- quanto para out-degree). Além disso, eles percebem que objetos com alto grau de saída possuem baixo grau de entrada e vice-versa. 
+
+Frase de impacto: Objetos não são peças de Lego, pois não tem uma medida característica para in- ou out-degree. 
+
+= Citações = 
+
+Notably, no objects have both high in-degree and high out-degree; on the contrary, the objects with many incoming references have few outgoing references, and vice versa. This effect may be a consequence of widely shared data structures with many outgoing references (such as arrays) having a proxy object that hides the actual reference to the array the other objects that use it. 
+
+unlike Lego bricks, objects within large programs have no characteristic scale. 
+
+= Crítica = 
+
+Não há um tratamento estatístico rigoroso.
+      

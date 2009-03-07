@@ -1,0 +1,18 @@
+#summary "Signatures of small-world and scale-free properties in large computer programs": revisao
+
+*Titulo*: Signatures of small-world and scale-free properties in large computer programs
+
+*Autores*: Alessandro P.~S. de Moura and Ying-Cheng Lai and Adilson E. Motter
+
+*Ano*: 2003
+
+----
+
+= Revisão = 
+
+Vértices: arquivos .h (cabeçalho de C e C++). Arestas: dois vértices estão conectados se eles são simultaneamente incluídos por um mesmo arquivo fonte (.c, .cpp, .cc...) 
+
+Os autores analisam quatro sistemas: Linux kernel, XFree86, Mozilla e GIMP. Eles calculam distribuição de graus (não-orientado), caminho mínimo médio e coeficiente de clustering médio. Eles concluem que as redes são redes de mundo pequeno: alto clustering (>> Crand) e baixo diâmetro (~= Drand). 
+
+Na verdade a rede seria bipartite entre arquivos fonte e arquivos de cabeçalho. O artigo estuda uma projeção dessa rede bipartite no conjunto de arquivos de cabeçalho. Um projeção no outro sentido fornece os mesmos resultados, segundo os autores.
+      

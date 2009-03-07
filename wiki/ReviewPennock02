@@ -1,0 +1,48 @@
+#summary "Winners don’t take all: Characterizing the competition for links on the web": revisao
+
+*Titulo*: Winners don’t take all: Characterizing the competition for links on the web
+
+*Autores*: David M. Pennock and Gary W. Flake and Steve Lawrence and Eric J. Glover and C. Lee Giles
+
+*Ano*: 2002
+
+----
+
+Site: http://modelingtheweb.com/ 
+
+= Resumo = 
+
+NEC researchers discovered that the degree of "rich get richer" or "winners take all" behavior varies in different categories and may be significantly less than previously thought. A new model has been developed which can be used to predict and analyze competition and diversity in different communities on the web. 
+
+O modelo mistura preferential attachment e uniform attachment. Modelo de grafo não-orientado, mas pode ser generalizado para grafo orientado. 
+
+A distribuição de graus dentro de uma categoria tem um corpo log-normal e uma cauda lei de potência. 
+
+Generalized BA model: every vertex has at least some baseline probability of gaining an edge. 
+
+== Citações == 
+
+Generic and category-specific degree distributions. 
+
+The probability that a randomly selected web page has k links is proportional to k^-gama for large k. 
+
+A power law distribution has a heavy tail, which drops much more slowly than the tail of a Gaussian distribution. 
+
+... a few pages have enormous number of links -- enough to skew the mean well above the median. 
+
+It is an open question exactly how peaked distributions for subsets of the web like those in Figs. 1 and 2 sum together to produce nearly pure power law for the web as a whole. We conjecture that the vast majority of subsets (or subsets containing the vast majority of the pages) exhibit a nearly zero mode and dominate this sum, although more investigation is needed. 
+
+Dorogovtsev et al and Levene et al independently propose similar generalizations of the BA model (the addition of a uniform component), motivating it in part as a natural way to parametrize the power-law exponent. 
+
+Albert and Barabási (24) have proposed their own extension of their original model. Their augmented model involves a parametrized mixture of three processes: vertex additions, edge additions, and edge rewirings. 
+
+== Crítica == 
+
+O autor escolheu os vértices a partir de listagens. Por exemplo, uma rede foi formada pelos sites de jornais americanos listados em www.usnewspaperlinks.com, que provavelmente não representa todos os sites de jornais americanos. Assim, parece haver uma tendência (bias). 
+
+== TODO == 
+
+ver se a mesma distribuição é encontrada em módulos de programas, ou em pacotes de distribuições Linux de determinada seção (devel, graphics etc.) 
+
+Reler e anotar seção Related Models.
+      
