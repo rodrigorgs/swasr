@@ -2,15 +2,14 @@
 
 Bem vindos ao projeto de mestrado de Rodrigo Rocha, sob orientação de Dalton Guerrero e Jorge Figueiredo da UFCG. Aqui você encontrará não apenas o código-fonte de todos os programas desenvolvidos na pesquisa, como também relatórios, ensaios e resumos de artigos.
 
-
-Produtos:
+Tópicos:
   * [http://swasr.googlecode.com/files/Rodrigo%20Rocha%20-%20Proposta%20de%20dissertacao%20de%20mestrado%20%28slides%29.pdf Proposta de mestrado (slides)] - arquivo pdf
   * [http://swasr.googlecode.com/files/proposta-rodrigo-final.doc Proposta de mestrado (texto)] - arquivo doc
-  * [RedesComplexas Revisão bibliográfica sobre redes complexas]
-  * [Reviews]
-
-
-O processo:
   * [Cronograma]
   * [ComentariosExternos Comentários de outras pessoas sobre o projeto]
+  * [Reviews]
+
+Esboços:
+  * [RedesComplexas Revisão bibliográfica sobre redes complexas]
   * [Modularidade Idéias sobre modularidade]
+  * [EnsaioRedesComplexasSoftware Ensaio sobre redes complexas e software]
