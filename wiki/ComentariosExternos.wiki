@@ -1,5 +1,11 @@
 ﻿#summary Comentários de outras pessoas sobre o trabalho
 
+= 2008-11-20: Reunião =
+
+*Dalton*: A reta não é uma boa curva de regressão para o gráfico de distribuição de graus. 
+
+*Dalton*: é preciso prestar atenção no sentido das setas ao conectar vértices para não gerar softwares que não fazem sentido. Todos os vértices precisam ser alcançáveis a partir do _main_.
+
 = 2008-12-18: Apresentação da proposta de mestrado =
 
 *Fubica*: A parte de recuperação de arquitetura é "a cereja do bolo". O principal é a análise de sistemas, a síntese de sistemas e a avaliação dos modelos de síntese.
