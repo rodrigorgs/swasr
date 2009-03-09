@@ -17,10 +17,15 @@ Na minha análise preliminar eu fiz regressão linear no gráfico de distribuiç
 Dificilmente todos os pontos vão se encaixar em uma distribuição, então normalmente as análises consideram apenas uma região do gráfico, por exemplo, o lado direito (a cauda). O teste estatístico goodness-of-fit ajuda a determinar a região que melhor se encaixa em uma distribuição.
 A função de distribuição cumulativa complementar -- P(X >= x) -- é usada para reduzir os efeitos de pontos fora-da-curva (outliers) na análise. No caso de leis de potência, existe uma relação algébrica entre o coeficiente angular da reta da função cumulativa e o coeficiente da função não-cumulativa, P(X = x).
 == Recuperação de arquitetura ==
-Só li no ano passado.
+Só li no ano passado, e foi uma leitura não-sistemática. Li sobre algoritmos de clustering, sobre formas de avaliação desses algoritmos e também sobre métricas para comparação de clusterings.
+
+---------------------------------------------------------------------------
 = Dúvidas =
 == Autocríticas ==
 (ver críticas ao artigo Benchmark....)
+Digamos que a definição de cluster é pacote, como os pacotes que os desenvolvedores criam. Nesse caso faz sentido recuperar clusters? Na maioria dos casos não, mas pode fazer sentido se o software não é organizado em pacotes. A questão é saber se existem muitos softwares assim. Até agora só conheço um, o doxygen, que é similar ao javadoc.
+== Cronograma ==
+Devo dar prioridade a ler artigos e escrever o relatório técnico, ou devo realizar alguns experimentos preliminares? Talvez priorizar o primeiro e fazer experimentos preliminares depois de meia-noite :-P
 == Escopo ==
 Análise + modelagem de evolução?
 Avaliação de recuperação de arquitetura traz o trabalho para um full circle.
