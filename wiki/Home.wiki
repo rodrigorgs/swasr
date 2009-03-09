@@ -13,3 +13,5 @@ Esboços:
   * [RedesComplexas Revisão bibliográfica sobre redes complexas]
   * [Modularidade Idéias sobre modularidade]
   * [EnsaioRedesComplexasSoftware Ensaio sobre redes complexas e software]
+
+*Próxima leitura*: tese de Israel Herraiz
