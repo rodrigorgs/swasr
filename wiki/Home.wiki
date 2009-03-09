@@ -7,10 +7,10 @@ Tópicos:
   * [http://swasr.googlecode.com/files/proposta-rodrigo-final.doc Proposta de mestrado (texto)] - arquivo doc
   * [Cronograma]
   * [ComentariosExternos Comentários de outras pessoas sobre o projeto]
-  * [Reviews]
+  * [Reviews Resumos críticos (reviews)]
 
 Esboços:
-  * [DistanciaRedesSoftware Sobre o significado da distância em redes de software]
+  * [DistanciaRedesSoftware Sobre o significado de distância em redes de software]
   * [EnsaioRedesComplexasSoftware Ensaio sobre redes complexas e software]
   * [Modularidade Idéias sobre modularidade]
   * [RedesComplexas Revisão bibliográfica sobre redes complexas]
