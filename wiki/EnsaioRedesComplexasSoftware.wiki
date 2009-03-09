@@ -15,16 +15,13 @@ O que surpreende é que esse observação tenha passado despercebida por desenvo
 <wiki:comment>
 Não importa neste estudo quais são os mecanismos. Existem vários
 
-Não é só a distribuição de graus. Tem coef clust. tb. A distribuição de coef clust de software revela que ele possui uma estrutura hierárquica (talvez parecida com a que existe em uma empresa de desenvolvido de software closed source -- mas curiosamente essa estrutura também é encontrada em software livre e até em software escrito por uma pessoa só, o latex de knuth).
-----
+Não é só a distribuição de graus. Tem coef clust. tb. A distribuição de coef clust de software revela que ele possui uma estrutura hierárquica (talvez parecida com a que existe em uma empresa de desenvolvido de software closed source - mas curiosamente essa estrutura também é encontrada em software livre e até em software escrito por uma pessoa só, o latex de knuth).
 
-Citações
+= Citações =
 
 large deviations from the mean ("outliers") are less common than small ones, but still much more common than expected on the basis of the normal or Gaussian bell-curve distribution. [http://kavanna.blogspot.com/2008/03/fat-tails-and-outliers-closer-look.html link]
 
-----
-
-Tópicos a serem abordados:
+= Tópicos a serem abordados: =
 
 Simulação em ES: Stopford2005, Stopford2008
 Estrutura hierárquica, modularidade
@@ -32,4 +29,3 @@ Motifs
 Modelos generativos, mecanismos (yule, duplication-divergence...)
 
 </wiki:comment>
-
