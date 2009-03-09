@@ -1,11 +1,20 @@
 #summary Sobre o significado de distância em redes de software
+
 = Distância entre vértices =
+
 Sempre me questionei o que significa distância em redes de software, e o que que implicações tem o fato de que redes de software são redes de mundo pequeno. Sempre pensei que o diâmetro da rede ser pequeno não significa que o código-fonte é mais fácil de navegar seguindo referências, pois é muito fácil se perder quando se encontra um vértice que tem muitas arestas...
+
 Mas então me lembrei de um trabalho em que um algoritmo descobre como obter referências para objetos de determinada classe, sabendo que você tem uma referência a um objeto de uma classe. Por exemplo, se eu tenho uma referência para XmlBuilder, como eu obtenho uma referência para XmlRoot? O algoritmo faz uma busca em repositórios e então apresenta uma sequência de instruções que retorna uma referência para XmlRoot. Essa sequência pode ser longa, indicando que as duas classes estão distantes uma da outra: o caminho que leva de uma a outra é grande, e um grande número de classes as separam.
+
 Daí eu percebi que a distância entre classes pode afetar a "escritabilidade" de um programa. Se as sequências são longas, escrever o programa torna-se uma tarefa extremamente chata... É possível até que os programadores criem atalhos entre classes, à la rede de mundo pequeno de Watts e Strogatz, pra tornar o programa mais "escrevível". Para evitar que a rede fique cheia de atalhos redundantes, os programadores então criam hubs, que condensam um grande número de atalhos.
+
 Portanto a distância mínima média pequena é uma característica importante das redes de software, por tornar os softwares mais "escrevíveis".
+
 Feita essa conclusão, talvez seja importante perguntar: *quantos caminhos existem entre dois vértices?*
+
 Se existem, em média, muitos caminhos entre dois vértices, isso significa que há muita redundância no código, e é uma evidência da presença de atalhos.
 
 = Distância entre redes =
+
 É uma forma de comparar um software real com um software sintetizado com os parâmetros do software real (número de nós, densidade de arestas, scaling exponent...). Podemos, assim, talvez afirmar que os modelos não ficam muito distantes das redes de verdade... De quantos parâmetros precisamos para que essa distância entre o sintético e o real seja pequena?
+
