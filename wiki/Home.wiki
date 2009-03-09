@@ -10,9 +10,9 @@ Tópicos:
   * [Reviews]
 
 Esboços:
-  * [RedesComplexas Revisão bibliográfica sobre redes complexas]
-  * [Modularidade Idéias sobre modularidade]
-  * [DistanciaRedesSoftware Sobre o significa da distância em redes de software]
+  * [DistanciaRedesSoftware Sobre o significado da distância em redes de software]
   * [EnsaioRedesComplexasSoftware Ensaio sobre redes complexas e software]
+  * [Modularidade Idéias sobre modularidade]
+  * [RedesComplexas Revisão bibliográfica sobre redes complexas]
 
 *Próxima leitura*: tese de Israel Herraiz
