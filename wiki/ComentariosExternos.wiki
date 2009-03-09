@@ -4,7 +4,7 @@
 
 *Dalton*: A reta não é uma boa curva de regressão para o gráfico de distribuição de graus. 
 
-*Dalton*: é preciso prestar atenção no sentido das setas ao conectar vértices para não gerar softwares que não fazem sentido. Todos os vértices precisam ser alcançáveis a partir do _main_.
+*Dalton*: É preciso prestar atenção no sentido das setas ao conectar vértices para não gerar softwares que não fazem sentido. Todos os vértices precisam ser alcançáveis a partir do _main_.
 
 = 2008-12-18: Apresentação da proposta de mestrado =
 
