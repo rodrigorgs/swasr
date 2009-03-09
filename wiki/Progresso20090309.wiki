@@ -1,17 +1,19 @@
+#summary Relatório de progresso - 9 de março de 2009
+Olá! Este é o primeiro relatório de progresso do meu mestrado e ele é dirigido a meus orientadores e a todos os que têm interesse no projeto. Primeiramente eu vou fazer um resumo das minhas atividades até o momento e então eu vou detalhar algumas coisas que eu descobri nas minhas pesquisas.
 = Progresso =
 == Resumo ==
-Meu estudo se concentrou em redes complexas em geral e redes complexas aplicadas a software. No meio do caminho aprendi um pouco de estatística e vi que estou usando as ferramentas estatísticas erradas. Li todos os estudos sobre software sob a ótica de redes complexas, a começar pelo trabalho de Myers. Estudei sobre modularidade e hierarquia, modelos de geração de redes livres de escala, detecção de comunidades (clustering) e avaliação de clusterings.
-Fiz review dos artigos mais importantes. Estão todos no wiki aberto que eu criei.
-Só li sobre recuperação de arquitetura no ano passado, e foi uma leitura não-sistemática. Li sobre algoritmos de clustering, sobre formas de avaliação desses algoritmos e também sobre métricas para comparação de clusterings.
-Nesse tempo eu li bastante, escrevi pouco e programei quase nada.
+Meu estudo se concentrou em na teoria de redes complexas e na aplicação dessa teoria a programas de computador. No meio do caminho aprendi um pouco de estatística e vi que estou usando ferramentas estatísticas inadequadas. 
+Na teorial de redes complexas, estudei sobre métricas, modularidade e hierarquia, modelos de geração de redes livres de escala, e detecção de comunidades (clustering). 
+Eu escrevi resumos críticos sobre os artigos mais importantes e coloquei todos no wiki aberto que eu criei. No wiki eu também registrei impressões subjetivas sobre o projeto e encontros que eu tive com pessoas daqui.
+No ano passado eu li vários artigos sobre recuperação de arquitetura, principalmente sobre algoritmos de clustering, avaliação de qualidade de clustering e métricas para comparação de clusterings. Escrevi poucos resumos sobre esses tópicos, mas fiz um pequeno artigo para a disciplina de evolução de software.
 == Redes complexas em software ==
-Eu li mais de 10 artigos que estudam a estrutura de programas de computador sob a luz da teoria das redes complexas. Alguns artigos estudam a rede formada pelas dependências entre pacotes Debian, pacotes FreeBSD etc, e outros estudam sistemas isoladamente. Destes últimos, há estudos sobre a estrutura de programas escritos linguagens estruturadas, como C, e em linguagens orientadas a objetos, como C++, Java e Smalltalk. Note que Smalltalk é uma linguagem com tipificação dinâmica. Há ainda estudos sobre as referências entre objetos, em tempo de execução. Em todos os casos os pesquisadores encontraram redes livres de escala. Ou seja, a distribuição do número de arestas por vértice segue uma lei de potência (power law).
-Estudos sobre características não-estruturais, como a distribuição de quantidade de métodos por classe ou a quantidade de classes por pacotes, também encontraram leis de potência.
-Outra coisa interessante são os motifs, ou motivos. Motivos são padrões de vértices e arestas. Descobriram que há certos padrões que aparecem em redes de software com uma freqüência muito maior do que é de se esperar se as redes fossem geradas ao acaso.
-O coeficiente de clustering de um vértice mede a quantidade de triângulos (ciclos de tamanho 3) dos quais o vértice participa. Em outras palavras, o coeficiente de clustering responde à pegunta: os meus amigos são amigos entre si? Como já vimos, redes de software possuem um alto coeficiente de clustering médio (muito maior do que o esperado em redes aleatórias) e além disso, o coeficiente é inversamente proporcional ao grau do vértice. Esse tipo de distribuição é um indicador de que a rede possui uma estrutura hierárquica. Observando essa distribuição podemos concluir que vértices com muitas ligações conectam vértices que não estão ligados entre si. Uma possível interpretação os hubs tendem a conectar conjuntos de vértices pouco coesos, formados por vértices com funções distintas na rede.
+Eu li cerca de 15 artigos que estudam a estrutura de programas de computador sob a luz da teoria das redes complexas. Alguns artigos estudam a rede formada pelas dependências entre pacotes Debian, FreeBSD etc, e outros estudam as redes de dependências dentro de um programa. Foram estudadas programas escritos em C, C++, Java e Smalltalk. Esse conjunto engloba dois paradigmas, procedimental e orientado a objetos, e dois sistemas de tipos, estático e dinâmico. A maioria dos autores estudou dependências estáticas dentro de um programa, mas existe um trabalho que estuda a rede referências entre objetos em tempo de execução. Em todos os casos os pesquisadores encontraram redes livres de escala. Ou seja, a distribuição do número de arestas por vértice segue uma lei de potência (power law).
+Leis de potência também foram encontradas em distribuições como a quantidade de classes por pacote, a quantidade de subclasses por classe ou a quantidade de métodos e atributos por classe.
+Outra coisa interessante são os motifs, ou motivos. Motivos são subgrafos que aparecem em uma rede com uma freqüência muito maior do que a média. Eu li dois estudos sobre motivos em redes de software.
+O coeficiente de clustering de um vértice mede a quantidade de triângulos (ciclos de tamanho 3) dos quais o vértice participa. Em outras palavras, o coeficiente de clustering responde à pergunta: os meus amigos são amigos entre si? Como já vimos, redes de software possuem um alto coeficiente de clustering médio (muito maior do que o esperado em redes aleatórias) e além disso, o coeficiente é inversamente proporcional ao grau do vértice. Esse tipo de distribuição é um indicador de que a rede possui uma estrutura hierárquica. Observando essa distribuição podemos concluir que vértices com muitas ligações conectam vértices que não estão ligados entre si. Uma possível interpretação os hubs tendem a conectar conjuntos de vértices pouco coesos, formados por vértices com funções distintas na rede.
 == Clustering ==
 A tarefa de detectar módulos em redes software pode aproveitar lições de várias linhas de pesquisa, e cada uma dá um nome diferente pra essa tarefa. Em engenharia de software é recuperação de arquitetura. Em física é detecção de comunidades. E em mineração de dados é clustering. 
-No início de fevereiro eu li um artigo de física sobre detecção de comunidades. O que eles chamam de comunidade é o que nós chamamos de módulo. O artigo afirma que pra avaliar algoritmos de detecção de comunidade o ideal é que tivéssemos várias redes cuja estrutura de comunidades fosse conhecida, mas infelizmente esse não é o caso. Os autores então propõem usar redes geradas por computador, com uma estrutura de comunidades embutida. A partir daí eles apresentam um modelo de redes com comunidade embutida e avaliam dois algoritmos usando redes geradas por esse modelo.
+No início de fevereiro eu li um artigo de física sobre detecção de comunidades. O que eles chamam de comunidade é o que nós chamamos de módulo. O artigo afirma que pra avaliar algoritmos de detecção de comunidade o ideal é que tivéssemos várias redes cuja estrutura de comunidades fosse conhecida, mas infelizmente esse não é o caso. Os autores então propõem usar redes geradas por computador, com uma estrutura de comunidades embutida. A partir daí eles apresentam um modelo de redes com comunidade embutida e avaliam dois algoritmos usando redes geradas por esse modelo. Isso é muito parecido com o que queremos fazer. Gostaria que você lesse esse artigo para discutirmos.
 Uma coisa interessante de usar modelos é que eu posso entender melhor as fraquezas dos algoritmos de clustering. Dá pra estudar como o desempenho dos algoritmos se altera com a variação dos parâmetros do modelo. O artigo mostra que, quando aumenta o número de arestas que ligam comunidades distintas, os algoritmos tendem a errar mais.
 Depois disso eu vi um artigo da área de biologia que usa as mesmas idéias. Outra idéia que ele traz é pegar uma rede cujos módulos sejam conhecidos e então adicionar e remover arestas pra ver como os algoritmos se comportam.
 == Estatística ==
@@ -21,18 +23,26 @@ A reta não é uma boa curva de regressão dos gráficos de distribuição de gr
 Na minha análise preliminar eu fiz regressão linear no gráfico de distribuição de graus usando o método dos mínimos quadrados a fim de estimar o expoente da distribuição e então calculei R² a fim de mostrar que a distribuição realmente se encaixava numa reta. Descobri que esse método assume que a distribuição possui certas características que não se aplicam à lei de potência. O mais indicado para estimar o expoente é usar o método de maximum likelihood estimation. E um valor alto de R² não quer dizer a melhor distribuição que se encaixa nos dados é a lei de potência, já que existem outras distribuições que poderiam fornecer R² igualmente alto ou maior.
 Dificilmente todos os pontos vão se encaixar em uma distribuição, então normalmente as análises consideram apenas uma região do gráfico, por exemplo, o lado direito (a cauda). O teste estatístico goodness-of-fit ajuda a determinar a região que melhor se encaixa em uma distribuição.
 A função de distribuição cumulativa complementar -- P(X >= x) -- é usada para reduzir os efeitos de pontos fora-da-curva (outliers) na análise. No caso de leis de potência, existe uma relação algébrica entre o coeficiente angular da reta da função cumulativa e o coeficiente da função não-cumulativa, P(X = x).
-== Recuperação de arquitetura ==
-
-
+= Próximos passos =
+Acho que o próximo passo é escrever uma revisão bibliográfica sobre redes complexas em software. 
+Eu prometi escrever também uma revisão sobre recuperação de arquitetura, mas não me sinto preparado pra isso agora, já que faz tempo que li sobre o assunto.
 ---------------------------------------------------------------------------
-= Dúvidas =
-== Autocríticas ==
-(ver críticas ao artigo Benchmark....)
-Digamos que a definição de cluster é pacote, como os pacotes que os desenvolvedores criam. Nesse caso faz sentido recuperar clusters? Na maioria dos casos não, mas pode fazer sentido se o software não é organizado em pacotes. A questão é saber se existem muitos softwares assim. Até agora só conheço um, o doxygen, que é similar ao javadoc.
-== Cronograma ==
-Devo dar prioridade a ler artigos e escrever o relatório técnico, ou devo realizar alguns experimentos preliminares? Talvez priorizar o primeiro e fazer experimentos preliminares depois de meia-noite :-P
-== Escopo ==
-Análise + modelagem de evolução?
-Avaliação de recuperação de arquitetura traz o trabalho para um full circle.
-== Comentários Externos ==
-Preciso de uma definição de cluster.
+= Discussão =
+== Definição de módulo ou cluster ==
+No meu projeto eu vou desenvolver um modelo de rede de software com organização modular embutida. Pra isso eu preciso estudar como os programas de computador se organizam em módulos. Mas eu não posso fazer isso se eu não tiver uma definição de módulo.
+Portanto acho que é de imensa importância definir objetivamente o que entendemos por módulo no nosso trabalho. Pensei muito sobre isso e não cheguei a nenhuma conclusão. Estou mais inclinado a considerar que um módulo é um pacote Java. Esse tipo de módulo é facílimo de extrair e Isso pode levar a um estudo interessante sobre como os desenvolvedores organizam seus programas em pacotes e qual o *impacto do grafo de dependências sobre essa organização*.
+Se extrair módulos é tão fácil, então fica sem sentido pesquisar sobre "recuperação de arquitetura modular". Talvez possamos argumentar que a recuperação de arquitetura é útil nos casos em há apenas um pacote ou quando os pacotes tem tantas classes que eles poderiam ser subdivididos. Mas para isso devemos demonstrar que há uma quantidade significativa de programas organizados dessa forma. Até agora só conheço o doxygen que é assim.
+O que você acha? Uma definição objetiva de módulo é necessária? A definição módulo = pacote é interessante? Como a pesquisa em recuperação arquitetural se justifica se essa definição for adotada?
+== Perguntas finais ==
+Estou aguardando orientações.
+  * O que eu fiz que eu não deveria ter feito?
+  * O que eu não fiz que eu deveria ter feito?
+Vamos marcar reuniões periódicas?
+
+------------------------------------------------------------------------
+Qual é o objetivo real do meu trabalho? Acho que isso ainda pode ser mudado... Talvez eu não queira avaliar os algoritmos de clustering, mas sim determinar tipos de organização de programas em pacotes, de acordo com o algoritmo de clustering que melhor detecta a organização de pacotes.
+// == Cronograma ==
+// Devo dar prioridade a ler artigos e escrever o relatório técnico, ou devo realizar alguns experimentos preliminares? Talvez priorizar o primeiro e fazer experimentos preliminares depois de meia-noite :-P
+// == Escopo ==
+// Análise + modelagem de evolução?
+// Avaliação de recuperação de arquitetura traz o trabalho para um full circle.
