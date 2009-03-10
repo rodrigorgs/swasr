@@ -52,7 +52,7 @@ Mas se extrair módulos é tão fácil, então fica sem sentido pesquisar sobre 
 
 E então, o que você acha? Uma definição objetiva de módulo é necessária? A definição módulo é igual a pacote é interessante? Como a pesquisa em recuperação arquitetural se justifica se essa definição for adotada?
 
-== Perguntas finais ==
+= Encerramento =
 
 Eu encerro aqui o meu relatório de progresso. Aguardo comentários sobre os rumos do projeto e orientações em geral.
 
