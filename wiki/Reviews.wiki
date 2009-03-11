@@ -17,5 +17,6 @@
   * [ReviewMoura2003 Signatures of small-world and scale-free properties in large computer programs] (2003)
   * [ReviewMyers2003 Software systems as complex networks: structure, function, and evolvability of software collaboration graphs.] (2003)
   * [ReviewGulbahce2008 The art of community detection] (2008)
+  * [ReviewHerraiz2007 Towards a Theoretical Model for Software Growth] (2007)
   * [ReviewBaxter2006 Understanding the shape of Java software] (2006)
   * [ReviewPennock02 Winners don’t take all: Characterizing the competition for links on the web] (2002)

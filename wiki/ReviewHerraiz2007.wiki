@@ -1,0 +1,24 @@
+#summary "Towards a Theoretical Model for Software Growth": revisao
+
+*Titulo*: Towards a Theoretical Model for Software Growth
+
+*Autores*: Herraiz,, Israel and Gonzalez-Barahona,, Jesus M. and Robles,, Gregorio
+
+*Ano*: 2007
+
+----
+
+= Resumo = 
+
+Esse artigo estuda cerca de 700 mil arquivos fonte na linguagem C tirados do FreeBSD Ports e calcula, para cada um deles, diversas métricas  de tamanho -- SLOC, LOC, número de funções, úmero de linhas de comentário, número de comentários e número de linhas em branco -- e complexidade -- complexidade ciclomática, número de retornos de função e quatro métricas de Halstead. 
+
+O estudo encontrou distribuições double Pareto para todas as métricas consideradas e uma alta correlação entre quaisquer duas delas. 
+
+= Comentário = 
+
+O tratamento estatístico do artigo usa a regra do três sigma para remover outliers e usa quantile-quantile (q-q) plots para comparar os dados com distribuições teóricas. Através de q-q plots os autores constataram que o logaritmo dos dados se aproxima da curva normal, exceto nos valores extremos, o que revela uma distribuição de double Pareto: as caudas inferiores e superiores são power laws e o corpo da distribuição é lognormal. 
+
+= Crítica = 
+
+Os autores poderiam usar maximum likelihood estimation para estimar os parâmetros das distribuições double Pareto (se é que existe um estimador para essa distribuição). Eles também poderiam ter usado o teste de Kolmogorov–Smirnov como um teste goodness of fit para poderem afirmar com mais força que os dados encontrados se encaixam na distribuição double Pareto.
+      
