@@ -1,33 +1,34 @@
+if __FILE__ == $0
+
 require 'pstore'
+
+$STORE = PStore.new('metrics.pstore')
 
 class Navigator < Shoes
   url "/", :index
   url "/systems/(.+)", :view_system
+  url "/params/(.+)", :view_param
 
   def index
     view_system(nil)
   end
 
   def view_system(name)
-    store = PStore.new('metrics.pstore')
     flow do
 
       stack :width => '33%' do
-        store.transaction(true) do |s|
-          s.roots.each do |system|
-            link1 = link(system, :click => "/systems/#{system}")
-            link2 = link('[del]') do
-              puts 1
-              link1.hide
-              link1.remove
-              store.transaction do
-                store.delete system
-                store.commit
-              end
-            end
-            para link1, " ", link2
-                
-          end
+        background yellow
+
+        systems = nil
+        $STORE.transaction(true) { |s| systems = s.roots.dup }
+        systems.each do |system|
+          fl = flow do
+            para link(system, :click => "/systems/#{system}")
+            image('/tmp/trash.gif', :click => Proc.new {
+              $STORE.transaction { |s| s.delete system }
+              fl.hide
+            })
+          end  
         end
       end
 
@@ -36,9 +37,9 @@ class Navigator < Shoes
           break
         end
 
-        store.transaction(true) do |s|
+        $STORE.transaction(true) do |s|
           s[name].each_pair do |key, value|
-            para strong(key), " -- #{value}", link("del") { puts 1 }
+            para strong(key), " -- #{value}"#, link("del") { puts 1 }
           end
         end
       end
@@ -48,3 +49,5 @@ class Navigator < Shoes
 end
 
 Shoes.app(:width => 640, :height => 480, :title => "Navigator")
+
+end

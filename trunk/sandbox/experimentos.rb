@@ -1,5 +1,4 @@
-require 'plot_clustering_coefficient'
-require 'plot_in_out'
+require 'graph_metrics'
 require 'grok'
 
 def border(pairs, set1, set2)

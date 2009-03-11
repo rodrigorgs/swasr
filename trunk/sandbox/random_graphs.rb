@@ -253,8 +253,8 @@ def design_from_architecture(iterations, arch, alpha, beta, gamma,
   return [g, modules]
 end
 
-require 'test/unit'
-include Test::Unit::Assertions
+#require 'test/unit'
+#include Test::Unit::Assertions
 # Assigns each module_graph to a node in arch_graph
 # repeat
 #   Add an edge between two vertices in distinct module_graph only if the
@@ -287,7 +287,7 @@ def preferential_arch(iterations, arch, subgraphs)
     next if m2.nil?
     sg2 = subgraphs[m2]
     
-    assert arch.has_edge?(m1, m2)
+    # assert arch.has_edge?(m1, m2)
 
     v = choose_random(sg1.vertices.map { |x| sg1.in_degree(x) }, sg1.vertices)
     next if v.nil?

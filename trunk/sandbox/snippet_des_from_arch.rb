@@ -1,5 +1,7 @@
 #!/usr/bin/env ruby
 
+if __FILE__ == $0
+
 require 'random_graphs'
 
 def save_dot(fmt, dotfile, dot_graph)
@@ -105,3 +107,4 @@ p modules
 #Thread.new { `eog design.png` }
 
 
+end

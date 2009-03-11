@@ -4,6 +4,7 @@ require 'rgl/adjacency'
 require 'rgl/dot'
 require 'rgl/connected_components'
 require 'rgl/topsort'
+require 'rgl/bidirectional'
 
 # class*_cgraph.dot
 # class*__coll__graph.dot
@@ -13,6 +14,14 @@ require 'rgl/topsort'
 module Extractor
   NODE_REGEX = /^\s*Node(\d+) \[.*label="(.+?)"/
   EDGE_REGEX = /^\s*Node(\d+) -> Node(\d+) \[.*style="(.+?)"/
+
+  # TODO: maps reference two types that, here, are treated as one
+  def Extractor.filter_label(label)
+    label = $2 if label =~ /(vector|map|list)\\< (.+?) (\* )?\\>/
+    label = label.split("::")[0..-2].join("::") if label.include?("::")
+
+    return label
+  end
 
   def Extractor.extract(dir="./")
     dg = RGL::DirectedAdjacencyGraph.new
@@ -24,9 +33,12 @@ module Extractor
       IO.foreach(filename) do |line|
         if line =~ NODE_REGEX then 
           id, label = $1.to_i, $2
-          class_name = label.split("::")[0..-2].join("::")
-          node_labels[id.to_i] = class_name
-          dg.add_vertex(class_name)
+
+          if label.strip.empty? then raise "Empty label!" end
+
+          label = filter_label(label)
+          node_labels[id] = label
+          dg.add_vertex(label)
         end
       end
 
@@ -58,14 +70,23 @@ end
 module Info
   def Info.num_components(graph)
     i = 0
-    graph.each_connected_component { |cc| i+= 1 }
+    graph.each_connected_component { i += 1 }
     return i  
   end
 
   def Info.stats(graph)
+    cc = 0
+    max = -1
+    graph.each_connected_component { |comp|
+      if comp.size > max then  max = comp.size end
+      cc += 1
+    }
+
     puts "Nodes: #{graph.num_vertices}"
     puts "Edges: #{graph.num_edges}"
-    puts "CC   : #{num_components(graph)}"
+    puts "CC   : #{cc}"
+    puts "Max  : #{max}"
+
     puts
   end
 
@@ -75,27 +96,222 @@ module Info
       puts "-----------------------------"
     end
   end
+
+  def Info.show_most_connected(graph, n)
+    in_degrees = []
+    graph.each_vertex do |v|
+      #in_deg = graph.edges.select{ |e| e.target == v }.size
+      in_deg = graph.edges.select{ |e| e.target == v || e.source == v }.size
+      in_degrees << [v, in_deg]
+    end
+
+    in_degrees.sort! { |a, b| b[1] <=> a[1] }
+    in_degrees[1..n].reverse.each{ |v| p v }
+    puts
+  end
 end
+
+module Format
+  def Format.label(node)
+    node.gsub(":", "_")
+  end
+
+  def Format.to_gdf(ug, filename)
+    File.open(filename, "w") do |f|
+      f.puts("nodedef> name")
+      ug.each_vertex { |v| f.puts label(v) }
+
+      f.puts("edgedef> node1,node2")
+      ug.each_edge { |x, y| f.puts "#{label(x)},#{label(y)}" }
+    end
+  end
+
+  # Returns an array of triples [v, in degree, out degree]
+  def Format.degrees(ug)
+    degree_index = []
+    ug.vertices.sort.each do |v|
+      in_deg = 0
+      out_deg = 0
+
+      ug.each_edge do |source, target|
+        next if source == target
+        if target == v
+          in_deg += 1
+        elsif source == v
+          out_deg += 1
+        end
+      end
+      degree_index << [v, in_deg, out_deg]
+    end
+    return degree_index
+  end
+
+  def Format.readable_index(ug, filename)
+    page = []
+    degree_index = []
+
+    File.open(filename, "w") do |f|
+      f.puts "<font size=-2>"
+
+
+      ug.vertices.sort.each do |v|
+        pre = []
+        pos = []
+        in_deg = 0
+        out_deg = 0
+
+        ug.each_edge do |source, target|
+          next if source == target
+          if target == v
+            pre << source
+            in_deg += 1
+          elsif source == v
+            pos << target
+            out_deg += 1
+          end
+        end
+        page << [pre, v, pos]
+        degree_index << [v, in_deg, out_deg]
+      end
+
+      page.each do |item|
+        f.puts item[0].join(" ")
+        f.puts "<b>%s</b>" % item[1]
+        f.puts item[2].join(" ")
+        f.puts " <b>][</b> "
+      end
+
+      degree_index.sort! { |a, b| b[1] <=> a[1] }
+      degree_index.each { |item| f.puts " <b>%s</b> %d %d <b>][</b>" % (item) }
+      degree_index.sort! { |a, b| b[2] <=> a[2] }
+      degree_index.each { |item| f.puts " <b>%s</b> %d %d <b>][</b>" % (item) }
+    end
+  end
+end
+
+def save_dot(fmt, dotfile, dot_graph)
+  src = dotfile + ".dot"
+  dot = dotfile + "." + fmt
+
+  File.open(src, 'w') do |f|
+    f << dot_graph.to_s << "\n"
+  end
+
+  system( "fdp -T#{fmt} #{src} -o #{dot}" )
+  dot
+end
+
 
 if __FILE__ == $0
   dg = Extractor::extract
   ug = dg.to_undirected
 
+  to_remove = %w(InGE InGE::Vector2 InGE::Vector3 InGE::Vector4) +
+  %w(string int long map bool erro) + ["string, int", "unsigned int"]
+  to_remove.each { |v| ug.remove_vertex(v); dg.remove_vertex(v) }
+
+  #Format::to_gdf(ug, "inge.gdf")
+  #Format::readable_index(dg, "index.htm")
+  #exit
+
+  ###################################################################### 
+  # Choose the node that will maximize the increse in connected components
+  ######################################################################
+
+  #old_comps = Info::num_components(ug)
+  #score = []
+
+
+  #vertices = ug.vertices
+  #vertices.each do |v|
+
+  #  edges = ug.edges.select { |e| e.source == v || e.target == v }
+  #  edges.each { |e| ug.remove_edge(*e.to_a) }
+  #  ug.remove_vertex(v)
+
+  #  #Info::stats(ug)
+
+  #  comps = Info::num_components(ug)
+  #  delta_comps = comps - old_comps
+  #  score << [v, delta_comps]
+
+  #  ug.add_vertex(v)
+  #  edges.each { |e| ug.add_edge(*e.to_a) }
+  #  puts "#{delta_comps} #{v}"
+  #  #Info::stats(ug)
+  #  #puts "#{ug.num_vertices} #{ug.num_edges}"
+  #end
+
+  #score.sort! { |a, b| b[1] <=> a[1] }
+  ##score.each { |v| p v }
+  #score[0..5].each { |v| p v }
+  ##score[-5..-1].each { |v| p v }
+
+  ##dg.write_to_graphic_file
+
+
+  #exit 0
+
+  ################################################################
+  
   Info::stats(ug)
 
   [ug, dg].each do |graph|
     graph.remove_vertex("InGE::Vector2")
     graph.remove_vertex("InGE::Vector3")
     graph.remove_vertex("InGE::Vector4")
-    graph.remove_vertex("InGE::IEntity")
+    vertices = graph.vertices
+    vertices.each { |v| graph.remove_vertex v if v =~ /^Ti/ }
+    vertices.each { |v| graph.remove_vertex v if v =~ /Manager$/ }
+    vertices.each { |v| graph.remove_vertex v if v =~ /Factory$/ }
+    vertices.each { |v| graph.remove_vertex v if v =~ /Loader$/ }
   end
 
-  iter = dg.topsort_iterator
+  degrees = Format::degrees(ug)
+  degrees.sort! { |a, b| b[2] <=> a[2] }
+  
+  [ug, dg].each do |graph|
+    
+    graph.remove_vertex("InGE::BspScene")
+    #graph.remove_vertex("InGE::PhysicsManager")
+    graph.remove_vertex("InGE::EngineLoader")
+    #graph.remove_vertex("InGE::Player")
+    #graph.remove_vertex("InGE::Avatar")
+    graph.remove_vertex("InGE::Object3D")
+    
+    degrees[0..10].each do |v|
+      puts "#{v[2]} #{v[0]}"
+      #graph.remove_vertex(v[0])
+    end
+  end
 
+
+  #Info::show_most_connected(dg, 5)
+
+  #Info::stats(ug)
+
+  #Info::show_components(ug)
   Info::stats(ug)
 
-  Info::show_components(ug)
+  COLORS = %w(red blue yellow green orange purple cyan magenta cadetblue white) * 5
+  i = 0
+  dot = dg.to_dot_graph
+  dot.each_element do |v| 
+    v.options['style'] = 'filled'
+    v.options['shape'] = 'box'
+    v.options['fontname'] = 'Arial'
+  end
+  ug.each_connected_component do |comp|
+    next if comp.size <= 2
+    dot_nodes = dot.each_element do |d| 
+      if comp.any? { |v| v == d.options['label'] }
+        d.options['fillcolor'] = COLORS[i]
+      end
+    end
+    i += 1
+  end
 
+  save_dot('svg', 'inge', dot)
   #dg.write_to_graphic_file
 end
 
