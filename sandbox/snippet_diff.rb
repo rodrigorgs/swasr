@@ -1,3 +1,5 @@
+if __FILE__ == $0
+
 require 'grok'
 require 'graph'
 
@@ -25,3 +27,4 @@ RSRuby.instance.plot(x, y, :xlab => 'out degree', :ylab => 'in degree')
 
 print 'Pressione qualquer tecla para finalizar...'
 gets
+end

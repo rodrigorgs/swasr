@@ -22,6 +22,8 @@ def save_rsf(clustering, filename)
   end
 end
 
+if __FILE__ == $0
+
 N = 100
 modules = []
 #func = "bollobas_game(N, 0.41, 0.49, 0.10, 0.24, 0.00)"
@@ -59,4 +61,6 @@ save_rsf(reference_clustering, "a.rsf")
 save_rsf(clustering, "b.rsf")
 if `java MoJo a.rsf b.rsf` =~ /The Mojo value is (.+)/m
   puts "MoJo: #{$1}"
+end
+
 end
