@@ -1,40 +1,40 @@
 = A topologia de um programa =
-Análise estática de código, extração de fatos...
-Limitações da análise estática
-Entidades: método, classe, ...
-Tipos de relacionamento: chama, estende, lê, altera, 
-Significado da dependência (importância na engenharia de software): não dá pra usar um sem o outro, o funcionamento correto de um é necessário para o funcionamento correto de outro, propagação de bugs, distribuição independente, desenvolvimento independente (ver anotação no meu gmail)...
-Lifting para o nível de classes
+AnÃ¡lise estÃ¡tica de cÃ³digo, extraÃ§Ã£o de fatos...
+LimitaÃ§Ãµes da anÃ¡lise estÃ¡tica
+Entidades: mÃ©todo, classe, ...
+Tipos de relacionamento: chama, estende, lÃª, altera, 
+Significado da dependÃªncia (importÃ¢ncia na engenharia de software): nÃ£o dÃ¡ pra usar um sem o outro, o funcionamento correto de um Ã© necessÃ¡rio para o funcionamento correto de outro, propagaÃ§Ã£o de bugs, distribuiÃ§Ã£o independente, desenvolvimento independente (ver anotaÃ§Ã£o no meu gmail)...
+Lifting para o nÃ­vel de classes
 
 = Redes complexas =
-Redes complexas são redes que não seguem uma estrutura regular
+Redes complexas sÃ£o redes que nÃ£o seguem uma estrutura regular
 
-Definições de teoria dos grafos. Vértice, aresta. Grafo, dígrafo... nós adjacentes, sucessores, predecessores. Grafo ponderado. Grafo rotulado... Multigrafo (várias arestas entre dois vértices)
-Métricas individuais:
-* grau (total, de entrada, de saída)
-* coeficiente de agrupamento (ou aglomeração)
-Outras: distância, coeficiente de assortatividade
+DefiniÃ§Ãµes de teoria dos grafos. VÃ©rtice, aresta. Grafo, dÃ­grafo... nÃ³s adjacentes, sucessores, predecessores. Grafo ponderado. Grafo rotulado... Multigrafo (vÃ¡rias arestas entre dois vÃ©rtices)
+MÃ©tricas individuais:
+* grau (total, de entrada, de saÃ­da)
+* coeficiente de agrupamento (ou aglomeraÃ§Ã£o)
+Outras: distÃ¢ncia, coeficiente de assortatividade
 
-Métricas globais (redes complexas):
-* distribuição de graus
-* correlação de graus
-* distribuição do coeficiente de agrupamento
-* distância geodésica média
-* diâmetro
+MÃ©tricas globais (redes complexas):
+* distribuiÃ§Ã£o de graus
+* correlaÃ§Ã£o de graus
+* distribuiÃ§Ã£o do coeficiente de agrupamento
+* distÃ¢ncia geodÃ©sica mÃ©dia
+* diÃ¢metro
 
 Outros: motifs
 
-hubs, concentradores (noção informal)
+hubs, concentradores (noÃ§Ã£o informal)
 
-Modelos: aleatório, mundo pequeno, livre de escala
-efeito mundo pequeno: distância geodésica média cresce com o logaritmo do tamanho
-lei de potência
-conexão preferencial
+Modelos: aleatÃ³rio, mundo pequeno, livre de escala
+efeito mundo pequeno: distÃ¢ncia geodÃ©sica mÃ©dia cresce com o logaritmo do tamanho
+lei de potÃªncia
+conexÃ£o preferencial
 
 = Redes complexas em software =
 
-São redes de informação e são redes projetadas pelo homem.
+SÃ£o redes de informaÃ§Ã£o e sÃ£o redes projetadas pelo homem.
 
-Não há uma definição única de rede de software. Alguns consideram apenas agregação e herança, outros consideram chamadas... Alguns consideram o grafo orientado, outros não orientado...
+NÃ£o hÃ¡ uma definiÃ§Ã£o Ãºnica de rede de software. Alguns consideram apenas agregaÃ§Ã£o e heranÃ§a, outros consideram chamadas... Alguns consideram o grafo orientado, outros nÃ£o orientado...
 
-Nem todos os trabalhos usam a Estatística rigorosamente. Lognormal, double pareto, power law, stretched exponential, power law with exponential cutoff...
+Nem todos os trabalhos usam a EstatÃ­stica rigorosamente. Lognormal, double pareto, power law, stretched exponential, power law with exponential cutoff...
