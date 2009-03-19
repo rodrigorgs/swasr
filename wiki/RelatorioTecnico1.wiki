@@ -1,13 +1,55 @@
+<wiki:comment>
+
+O desenvolvimento de software é uma atividade complexa, etc. e tal. Dijkstra disse que para lidar com essa complexidade deve-se decompor os problemas em problemas menores, refinamentos sucessivos. Desde então esse mecanismo de abstração foi incorporado nas linguagens de programação, com o advento da programação estruturada, seguida pela programação orientada a objetos e, mais recentemente, a programação orientada a aspectos. Essa decomposição certamente é útil para diminuir a complexidade do desenvolvimento de software, uma vez que permite dividir a tarefa de desenvolvimento em pedaços intelectualmente assimiláveis, mas faz emergir uma complexa rede de interações entre esses componentes.
+
+Compreender a maneira como os componentes são interconectados é de grande importância para entender os internos de um software e tirar conclusões sobre seu desenvolvimento. Dois componentes que não interagem entre si podem ser desenvolvidos por duas equipes trabalhando independentemente, sem necessidade de comunicação entre membros de equipes distintas. O funcionamento de um componente não depende do bom funcionamento do outro. Se, no entanto, um componente A precisa de um componente B para funcionar corretamente, um mau funcionamento de B pode causar falhas no componente A.
+
+Essa rede de relacionamentos é usada em análise de impacto de mudanças em software, na divisão de trabalho entre equipes. Curiosamente redes de software de larga escala exibem padrões marcantes, que parecem não depender da linguagem de programação ou da metodologia usada durante o desenvolvimento.
+
+Vamos entender de que forma um programa orientado a objetos é decomposto, como os componentes podem interagir entre si e como essas interações podem ser extraídas a partir do código-fonte do programa. A partir daí mostraremos que passos já foram dados na determinação de um modelo da rede de dependências de software.
+
 = A topologia de um programa =
-Análise estática de código, extração de fatos...
-Limitações da análise estática
+
+Rede de software como base de FATOS ou como um GRAFO.
+
+A way to understand natural and artificial systems is by means of looking at the structure of the relationships between their constituting components. (Valverde, Architecture) Estudos recentes revelaram regularidades entre redes como a Web, cadeias alimentares, circuitos eletrônicos, ligações entre proteínas e relacionamentos sociais.
+
+O código-fonte de um programa orientado a objetos é decomposto em classes, e cada classe possui métodos e atributos. Em algumas linguagens de programação as classes são organizadas em pacotes ou módulos. PESQUISAR ALGUMA FONTE SOBRE PROGRAMAÇÃO ORIENTADA A OBJETOS.
+
+Conceitualmente, uma classe é um tipo dado abstrato equipado com uma possível implementação parcial [Meyer 1997]. (Lile)
+rede de relacionamentos.
+
+    Além disso, características inerentes a sistemas orientados a objetos, como o polimorfismo, a ligação dinâmica, a herança e o encapsulamento contribuem diretamente para tornar a tarefa da análise de impacto ainda mais dispendiosa. O polimorfismo e a ligação dinâmica permitem que objetos diferentes sejam usados através de suas interfaces, o que será definido somente em tempo de execução. Com o encapsulamento, os objetos ocultam suas implementações, restringindo a forma de observá-los; apenas seus métodos públicos são visíveis. Já com a herança, uma mudança na superclasse pode ou não afetar a subclasse, o que complica a tarefa de analisar o impacto quando uma superclasse é modificada.
+
+Tipos de dependências: página 29 da diss. de Lile.
+
+Atributos possuem um tipo, que é uma classe. Métodos retornam um valor de um tipo e possuem parâmetros. Cada parâmetro possui u
+
 Entidades: método, classe, ...
 Tipos de relacionamento: chama, estende, lê, altera, 
 Significado da dependência (importância na engenharia de software): não dá pra usar um sem o outro, o funcionamento correto de um é necessário para o funcionamento correto de outro, propagação de bugs, distribuição independente, desenvolvimento independente (ver anotação no meu gmail)...
 Lifting para o nível de classes
 
+Análise de dependências, Análise estática de código, extração de fatos...
+A recuperação da rede de interações entre componentes de um software pode ser feita automaticamente através da análise estática de seu código-fonte.
+
+Análise dinâmica e análise estática. Limitações da análise estática.
+
+O problema de determinar se existe uma relação de dependência entre dois componentes é indecidível. Por exemplo, pode ser que dois componentes compartilhem informações através de um arquivo.
+
 = Redes complexas =
-Redes complexas são redes que não seguem uma estrutura regular
+
+CDN: rede de dependências entre componentes.
+
+Propriedades globais, macroscópias, da estrutura de relacionamentos entre entidades de software.
+
+A teoria das redes complexas estuda propriedades gerais de diversos tipos de redes com o uso de ferramentas estatísticas. Durante o estudo as redes são representadas como grafos, que são estruturas matemáticas composta de vértices e arestas.
+
+Obviamente existem inúmeras variações sobre o conceito de grafo. Os relacionamentos entre vértices podem ser simétricos, mas também podem ser assimétricos, e nesse último caso chamamos a estrutura de grafo direcionado ou dígrafo. É possível enriquecer o modelo associando atributos a vértices e arestas. Pode-se conceber que existem vários tipos de vértices, e vários tipos de arestas. Também é comum associar a cada aresta um número, denominado peso da aresta, que indica o quão fortemente relacionados estão os vértices que a compartilham.
+
+Cada vértice é caracterizado por um grau, k, que representa a quantidade de arestas ligadas a ele. No caso de dígrafos, existe a distinção entre grau de saída e grau de entrada, que representam a quantidade de arestas que saem ou entram, respectivamente, do vértice.
+
+A distribuição de graus é bastante heterogênea
 
 Definições de teoria dos grafos. Vértice, aresta. Grafo, dígrafo... nós adjacentes, sucessores, predecessores. Grafo ponderado. Grafo rotulado... Multigrafo (várias arestas entre dois vértices)
 Métricas individuais:
@@ -38,3 +80,5 @@ São redes de informação e são redes projetadas pelo homem.
 Não há uma definição única de rede de software. Alguns consideram apenas agregação e herança, outros consideram chamadas... Alguns consideram o grafo orientado, outros não orientado...
 
 Nem todos os trabalhos usam a Estatística rigorosamente. Lognormal, double pareto, power law, stretched exponential, power law with exponential cutoff...
+
+</wiki:comment>
