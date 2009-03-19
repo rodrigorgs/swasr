@@ -10,6 +10,8 @@ Vamos entender de que forma um programa orientado a objetos é decomposto, como 
 
 = A topologia de um programa =
 
+Componente, aqui, é um conceito abstrato, cuja implementação depende do paradigma de programação. Em POO, são classes, métodos e atributos, em PE são métodos, variáveis.
+
 Rede de software como base de FATOS ou como um GRAFO.
 
 A way to understand natural and artificial systems is by means of looking at the structure of the relationships between their constituting components. (Valverde, Architecture) Estudos recentes revelaram regularidades entre redes como a Web, cadeias alimentares, circuitos eletrônicos, ligações entre proteínas e relacionamentos sociais.
@@ -40,6 +42,7 @@ O problema de determinar se existe uma relação de dependência entre dois comp
 = Redes complexas =
 
 CDN: rede de dependências entre componentes.
+Alguns usam direcionado, outros não, alguns usam apenas agregação, alguns usam peso, alguns descartam componentes de bibliotecas, etc.
 
 Propriedades globais, macroscópias, da estrutura de relacionamentos entre entidades de software.
 
