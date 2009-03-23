@@ -10,19 +10,19 @@ Vamos entender de que forma um programa orientado a objetos é estruturado, as f
 
 = A topologia de um programa =
 
-Todo programa é dividido em componentes que se relacionam a fim de resolver um problema. Componente, neste caso, é um conceito cujo significado concreto depende do paradigma de programação. Na programação estruturada, esses componentes são os procedimentos e as funções; na programação orientada a objetos, são classes (que, por sua vez, são decompostas em métodos e atributos). Neste texto nos concentraremos na programação orientada a objetos.
+Todo programa é dividido em componentes que se relacionam a fim de resolver um problema. Componente, neste caso, é um conceito cujo significado concreto depende do paradigma de programação. Na programação estruturada, os componentes são os procedimentos e as funções; na programação orientada a objetos, são classes (que, por sua vez, são decompostas em componentes como métodos e atributos). Neste texto nos concentraremos no caso da programação orientada a objetos.
 
-As formas de interação entre componentes podem ser classificadas em dois tipos: transferência de controle e transferência de dados. A transferência de controle ocorre, por exemplo, quando um objeto em execução chamada um método de outro objeto, efetivamente causando a execução de código presente no outro objeto. A transferência de dados pode ocorrer quando parâmetros estão associados a uma chamada de método, ou quando dois objetos compartilham o acesso a um arquivo.
+As formas de interação entre componentes podem ser classificadas em dois tipos: transferência de controle e transferência de dados. A transferência de controle ocorre, por exemplo, quando um objeto em execução chama um método de outro objeto, efetivamente causando a execução de código presente no outro objeto. A transferência de dados pode ocorrer quando parâmetros estão associados a uma chamada de método, ou quando dois objetos compartilham um arquivo.
 
-Essa rede de relacionamentos pode ser modelada como um grafo orientado, onde os vértices representam os componentes e os arcos representam as interações entre os componentes. Vértices e arcos podem ter metadados associados a eles a fim de detalhar o que eles representam. Um vértice pode representar uma classe, um método ou um atributo, enquanto um arco pode representar a chamada de um método, a leitura de um atributo, entre outros.
+Essa rede de relacionamentos pode ser modelada por um grafo orientado, onde os vértices representam os componentes e os arcos representam as interações entre os componentes. RÓTULOS Vértices e arcos podem ter metadados associados a eles a fim de detalhar o que eles representam. Os metadados podem indicar que um vértice representa uma classe, um método ou um atributo, ou ainda que um arco representa a chamada de um método, a leitura de um atributo, entre outros.
 
-A rede de dependências entre componentes de um programa pode ser extraída automaticamente por um programa construído para este fim, denominado extrator. As duas técnicas de extração mais comum são a análise dinâmica e a análise estática. A análise dinâmica consiste em instrumentar o programa sob análise e então coletar dados sobre sua execução. Esse tipo de análise exige que o programa esteja corretamente instalado e configurado e depende da sua execução completa.
+A rede de dependências entre componentes de um programa pode ser extraída automaticamente por um programa construído para este fim, denominado extrator. As técnicas mais comuns de extração de dependências são a análise dinâmica e a análise estática. A análise dinâmica consiste em instrumentar o programa sob análise e então coletar dados sobre sua execução. Esse tipo de análise exige que o programa esteja corretamente instalado e configurado e depende da sua execução completa.
 
-Análise estática é o nome dado à análise de um programa sem a sua execução. As interações entre os componentes são extraídas a partir do código-fonte ou do código objeto do programa analisado.
+Análise estática é qualquer análise que não depende da execução do programa analisado. As interações entre os componentes são extraídas a partir do código-fonte ou do código objeto do programa analisado. A tabela XXX mostra os tipos de dependência que podem ser extraídos através de análise sintática (cite XXX).
 
-Os dois tipos de análise diferem quanto ao conjunto de relacionamentos que são capazes de extrair de um programa, e mesmo duas técnicas de um mesmo tipo podem fornecer resultados distintos. Um estudo comparativo entre extratores pode ser encontrado em XXX. 
+Os dois tipos de análise diferem quanto ao conjunto de relacionamentos que são capazes de extrair de um programa, e mesmo duas técnicas de um mesmo tipo podem fornecer conjuntos distintos. Um estudo comparativo entre extratores pode ser encontrado em XXX. 
 
-Em qualquer caso é impossível garantir que todas as dependências foram extraídas. O problema de determinar se existe uma relação de dependência entre dois componentes é indecidível XXX. Basta considerar o uso de ponteiros em linguagens como C++, ou a transferências de dados através de arquivos (Undecidability of static analysis). Assim, o resultado de qualquer ferramenta de análise de programas deve ser considerado apenas uma aproximação da realidade.
+Em qualquer caso é impossível garantir que todas as dependências foram extraídas. O problema de determinar se existe uma relação de dependência entre dois componentes é indecidível (Undecidability of static analysis). Basta considerar o uso de ponteiros em linguagens como C++, ou a transferências de dados através de arquivos. Assim, o resultado de qualquer ferramenta de análise de programas deve ser considerado apenas uma aproximação da realidade.
 
 // A Figura 1 mostra uma rede.
 // A Figura 2 mostra uma rede simplificada.
@@ -32,8 +32,6 @@ Em muitos casos se deseja
 Em qualquer caso, a rede de dependências encontrada pode ser mais complexa do que o desejado. 
 
 A way to understand natural and artificial systems is by means of looking at the structure of the relationships between their constituting components. (Valverde, Architecture) Estudos recentes revelaram regularidades entre redes como a Web, cadeias alimentares, circuitos eletrônicos, ligações entre proteínas e relacionamentos sociais.
-
-O código-fonte de um programa orientado a objetos é decomposto em classes, e cada classe possui métodos e atributos. Em algumas linguagens de programação as classes são organizadas em pacotes ou módulos. PESQUISAR ALGUMA FONTE SOBRE PROGRAMAÇÃO ORIENTADA A OBJETOS.
 
     Além disso, características inerentes a sistemas orientados a objetos, como o polimorfismo, a ligação dinâmica, a herança e o encapsulamento contribuem diretamente para tornar a tarefa da análise de impacto ainda mais dispendiosa. O polimorfismo e a ligação dinâmica permitem que objetos diferentes sejam usados através de suas interfaces, o que será definido somente em tempo de execução. Com o encapsulamento, os objetos ocultam suas implementações, restringindo a forma de observá-los; apenas seus métodos públicos são visíveis. Já com a herança, uma mudança na superclasse pode ou não afetar a subclasse, o que complica a tarefa de analisar o impacto quando uma superclasse é modificada.
 
@@ -53,50 +51,47 @@ Alguns usam direcionado, outros não, alguns usam apenas agregação, alguns usa
 
 A teoria das redes complexas estuda propriedades gerais de diversos tipos de redes com o uso de ferramentas estatísticas. Na última década foram realizados estudos sobre redes tecnológicas, como a Web e a rede de distribuição de energia elétrica dos Estados Unidos, redes biológicas como cadeia alimentar e ligações entre proteínas da bactéria XXX, e redes sociais como ....
 
-O primeiro modelo que tentou explicar como são formadas as redes foi o modelo de Erdös-Rényi, também chamado de modelo de rede aleatória. Nesse modelo, é construído um conjunto de N vértices e a probabilidade de um par de vértices possuir uma aresta é constante e igual a p. É possível demonstrar analiticamente que o grau médio de um grafo aleatório é dado por <k> = p(n - 1). Quando N é muita grande, a distribuição das probabilidades dos graus é bem aproximada pela distribuição de Poisson.
+O primeiro modelo que tentou explicar como são formadas as redes foi o modelo de Erdős-Rényi, também chamado de modelo de rede aleatória. Nesse modelo, a probabilidade de um par de vértices ser ligado por uma aresta é constante e igual a p. É possível demonstrar que o grau médio de uma rede aleatória é dado por <k> = p(n - 1), onde n é a quantidade de vértices. Quando n é muita grande, a distribuição das probabilidades dos graus é bem aproximada pela distribuição de Poisson.
 
 Poisson:
 P(k)  =~ (z^k * e^-z) / k!  , onde z = <k> = p(n - 1) // NEWMAN, p. 21, the structure and function of complex networks
 
-
-
 Cada vértice em um grafo é caracterizado por um grau, k, que representa a quantidade de arcos ligados a ele. No caso de grafos orientados, existe a distinção entre grau de saída e grau de entrada, que representam a quantidade de arestas que saem ou entram, respectivamente, do vértice.
 
-Em 1999, Barabási e Albert analisaram um grafo representando uma porção da Web, no qual os vértices representam páginas e as arestas representam os links entre duas páginas. Eles consideram o modelo simplificado de um grafo não-orientado. Agrupando os vértices de acordo com o grau e então plotando o gráfico da distribuição da quantidade de vértices por grau, eles encontraram uma curva que podia ser aproximada por uma lei de potência. Formalmente, a probabilidade de um vértice escolhido ao acaso possuir grau k, P(k), era tal que P(k) = Ck^-gamma (C é um coeficiente de normalização, cujo objetivo é fazer com que a soma das probabilidades seja igual a 1). Essa função é dita livre de escala, pois P(ak) = bP(k) - a mudança de escala da variável dependente não altera a variável independente a menos de um fator multiplicativo. Esse resultado foi surpreendente, pois eles esperavam encontrar distribuição de graus Poissoniana, que caracteriza as redes aleatórias. Desde então foram encontradas distribuições de graus livres de escala em redes biológicas, sociais e tecnológicas, incluindo redes de dependências entre componentes de programas de computador.
+Em 1999, Barabási e Albert analisaram uma amostra da Web, representa como um grafo no qual os vértices representam páginas e as arestas representam os links entre duas páginas. Eles consideram o modelo simplificado de um grafo não-orientado. Agrupando os vértices de acordo com o grau e então plotando o gráfico da frequência de vértices por grau, eles encontraram uma curva que podia ser aproximada por uma lei de potência. Nesse caso, a probabilidade de um vértice escolhido ao acaso possuir grau k, P(k), é tal que P(k) = Ck^-gamma (C é um coeficiente de normalização, cujo objetivo é fazer com que a soma das probabilidades seja igual a 1). Essa função é dita livre de escala, pois P(ak) = bP(k) - a mudança de escala da variável dependente não altera a variável independente a menos de um fator multiplicativo. Esse resultado foi surpreendente, pois eles esperavam encontrar distribuição de graus Poissoniana, que caracteriza as redes aleatórias. Desde então foram encontradas distribuições de graus livres de escala em redes biológicas, sociais e tecnológicas, incluindo redes de dependências entre componentes de programas de computador.
 
-Propriedades estatísticas da lei de potência. A Figura 1(a) mostra o gráfico de uma lei de potência. Intuitivamente, percebe-se que a grande maioria dos vértices possui um grau pequeno, mas existem vértices cujo grau está muito acima do grau médio. Trata-se de uma curva assimétrica positiva, pois a média é maior do que a mediana. Embora existam poucos elementos cujo valor é alto, o valor deles é tão alto que contribui para elevar a média. A média não é um valor muito representantivo: basta notar que o desvio-padrão é muito grande (maior do que a média???).
+Conceito informal: hub
 
-Trata-se de uma curva assimétrica positiva,
+Propriedades estatísticas da lei de potência. A Figura 1(a) mostra o gráfico de uma lei de potência. Intuitivamente, percebe-se que a grande maioria dos vértices possui um grau pequeno, mas existem vértices cujo grau está muito acima do grau médio. Trata-se de uma curva assimétrica positiva, pois a média é maior do que a mediana. A probabilidade de um elemento de grau alto é pequena mas não desprezível, e isso contribui para elevar a média. Como a distribuição é muito heterogênea, a média não é um valor muito representantivo da distribuição.
+
+Barabási e Albert propuseram um modelo para explicar a formação das redes com distribuição de graus livre de escala, formado por dois mecanismos: crescimento contínuo e ligação preferencial. O modelo propõe que as redes crescem um vértice por vez e cada novo vértice se liga a um número fixo de vértices antigos, dando preferência aos vértices com maior grau. Mais formalmente, a probabilidade de um vértice receber uma aresta é proporcional ao seu grau.
+
+Além da distribuição de graus, muitas redes complexas têm sido caracterizadas pelo efeito mundo pequeno, pelo alto coeficiente de agrupamento e pela presença de motivos.
+
+== Efeito mundo pequeno ==
+
+A distância entre dois vértices de uma rede é o número de arestas do menor caminho que conecta os vértices. Diz-se que uma rede apresenta o efeito mundo pequeno quando o a distância entre dois vértices é, em média, pequena, mesmo quando a rede é grande. Mais formalmente, a distância média entre vértices é proporcional ao logaritmo do número de vértices. Demonstra-se que tanto os grafos gerados pelo modelo de Erdős-Rényi quanto aqueles gerados pelo modelo de Barabási-Albert possuem essa propriedade.
+
+Falar sobre modelo de Watts e Strogatz?
+
+== Coeficiente de agrupamento ==
+
+// Em muitas redes, se um vértice A está conectado a dois vértices, B e C, é muito provável que exista uma aresta entre B e C.
+
+Os vizinhos de um vértice são todos os vértices que com ele compartilham uma aresta. O coeficiente de agrupamento de um vértice é a fração de todos os possíveis pares de vizinhos do vértice que estão ligados por uma aresta. O coeficiente de agrupamento de um vértice i, C_i, pode ser dado pela fórmula a seguir:
+
+C_i = 2x / k_i(k_i - 1)
+
+onde x é o número de pares de vizinhos do vértice i que estão ligados por uma aresta e k_i é o grau do vértice i. Por definição, C_i = 0 quando k_i < 2. Define-se o coeficiente de agrupamento de um grafo, C, como a média aritmética dos coeficientes de agrupamento dos seus vértices. Demonstra-se que o coeficiente de agrupamento de uma rede aleatória de Erdős-Rényi é igual a <k> / n. Muitas redes complexas possuem um coeficiente de agrupamento alto, isto é, muito maior do que o coeficiente das redes aleatórias.
+
+Outra característica observada em algumas redes é que o coeficiente de agrupamento de um vértice é inversamente proporcional ao grau do vértice, ou seja, C(k) ~ k^-1. Segundo Ravasz e Barabási (2003), isso indica a presença de organização hierárquica na rede.
+
+== Motivos ==
 
 
-// Obviamente existem inúmeras variações sobre o conceito de grafo. Os relacionamentos entre vértices podem ser simétricos, mas também podem ser assimétricos, e nesse último caso chamamos a estrutura de grafo direcionado ou dígrafo. É possível enriquecer o modelo associando atributos a vértices e arestas. Pode-se conceber que existem vários tipos de vértices, e vários tipos de arestas. Também é comum associar a cada aresta um número, denominado peso da aresta, que indica o quão fortemente relacionados estão os vértices que a compartilham.
-
-
-
-A distribuição de graus é bastante heterogênea
-
-Definições de teoria dos grafos. Vértice, aresta. Grafo, dígrafo... nós adjacentes, sucessores, predecessores. Grafo ponderado. Grafo rotulado... Multigrafo (várias arestas entre dois vértices)
-Propriedades de vértices:
-* grau (total, de entrada, de saída)
-* coeficiente de agrupamento (ou aglomeração)
-Outras: distância, coeficiente de assortatividade
-
-Propriedades estatísticas globais (redes complexas):
-* efeito mundo pequeno
-* distribuição de graus
+== Outros ==
+* assortatividade
 * correlação de graus
-* distribuição do coeficiente de agrupamento
-* distância geodésica média
-* diâmetro
-
-Outros: motifs
-
-hubs, concentradores (noção informal)
-
-Modelos: aleatório, mundo pequeno, livre de escala
-efeito mundo pequeno: distância geodésica média cresce com o logaritmo do tamanho
-lei de potência
-conexão preferencial
 
 = Redes complexas em software =
 
