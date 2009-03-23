@@ -1,4 +1,4 @@
-<wiki:comment>
+#summary Relatório técnico: rede de dependências e teoria das redes complexas.
 
 O desenvolvimento de software é uma atividade complexa, etc. e tal. Dijkstra disse que para lidar com essa complexidade deve-se decompor os problemas em problemas menores, refinamentos sucessivos. Desde então esse mecanismo de abstração foi incorporado nas linguagens de programação, com o advento da programação estruturada, seguida pela programação orientada a objetos e, mais recentemente, a programação orientada a aspectos. Essa decomposição certamente é útil para diminuir a complexidade do desenvolvimento de software, uma vez que permite dividir a tarefa de desenvolvimento em pedaços intelectualmente assimiláveis, mas faz emergir uma complexa rede de interações entre esses componentes.
 
@@ -93,6 +93,8 @@ Outra característica observada em algumas redes é que o coeficiente de agrupam
 * assortatividade
 * correlação de graus
 
+== Modelos de redes complexas? ==
+
 = Redes complexas em software =
 
 São redes de informação, redes tecnológicas (segundo Newman2003) e redes projetadas pelo homem.
@@ -100,5 +102,3 @@ São redes de informação, redes tecnológicas (segundo Newman2003) e redes pro
 Não há uma definição única de rede de software. Alguns consideram apenas agregação e herança, outros consideram chamadas... Alguns consideram o grafo orientado, outros não orientado...
 
 Nem todos os trabalhos usam a Estatística rigorosamente. Lognormal, double pareto, power law, stretched exponential, power law with exponential cutoff...
-
-</wiki:comment>
