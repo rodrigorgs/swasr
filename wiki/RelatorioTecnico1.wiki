@@ -10,6 +10,12 @@ Vamos entender de que forma um programa orientado a objetos é decomposto, como 
 
 = A topologia de um programa =
 
+Análise estática de código, extração de fatos...
+
+Talvez aqui já precise falar de grafos...
+
+Limitações da análise estática
+
 Componente, aqui, é um conceito abstrato, cuja implementação depende do paradigma de programação. Em POO, são classes, métodos e atributos, em PE são métodos, variáveis.
 
 Rede de software como base de FATOS ou como um GRAFO.
@@ -55,12 +61,13 @@ Cada vértice é caracterizado por um grau, k, que representa a quantidade de ar
 A distribuição de graus é bastante heterogênea
 
 Definições de teoria dos grafos. Vértice, aresta. Grafo, dígrafo... nós adjacentes, sucessores, predecessores. Grafo ponderado. Grafo rotulado... Multigrafo (várias arestas entre dois vértices)
-Métricas individuais:
+Propriedades de vértices:
 * grau (total, de entrada, de saída)
 * coeficiente de agrupamento (ou aglomeração)
 Outras: distância, coeficiente de assortatividade
 
-Métricas globais (redes complexas):
+Propriedades estatísticas globais (redes complexas):
+* efeito mundo pequeno
 * distribuição de graus
 * correlação de graus
 * distribuição do coeficiente de agrupamento
@@ -78,7 +85,7 @@ conexão preferencial
 
 = Redes complexas em software =
 
-São redes de informação e são redes projetadas pelo homem.
+São redes de informação, redes tecnológicas (segundo Newman2003) e redes projetadas pelo homem.
 
 Não há uma definição única de rede de software. Alguns consideram apenas agregação e herança, outros consideram chamadas... Alguns consideram o grafo orientado, outros não orientado...
 
