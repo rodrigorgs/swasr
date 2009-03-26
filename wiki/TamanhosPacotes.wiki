@@ -23,23 +23,23 @@ Um script de uma linha contou o número de arquivos .java dentro de cada diretó
 
 ZK
 
-http://code.google.com/p/swasr/source/browse/wiki/images/zk-histogram.png
-http://code.google.com/p/swasr/source/browse/wiki/images/zk-survival.png
+http://swasr.googlecode.com/svn/wiki/images/zk-histogram.png
+http://swasr.googlecode.com/svn/wiki/images/zk-survival.png
 
 Vuze
 
-http://code.google.com/p/swasr/source/browse/wiki/images/vuze-histogram.png
-http://code.google.com/p/swasr/source/browse/wiki/images/vuze-survival.png
+http://swasr.googlecode.com/svn/wiki/images/vuze-histogram.png
+http://swasr.googlecode.com/svn/wiki/images/vuze-survival.png
 
 JBoss
 
-http://code.google.com/p/swasr/source/browse/wiki/images/jboss-histogram.png
-http://code.google.com/p/swasr/source/browse/wiki/images/jboss-survival.png
+http://swasr.googlecode.com/svn/wiki/images/jboss-histogram.png
+http://swasr.googlecode.com/svn/wiki/images/jboss-survival.png
 
 JDK
 
-http://code.google.com/p/swasr/source/browse/wiki/images/jdk-histogram.png
-http://code.google.com/p/swasr/source/browse/wiki/images/jdk-survival.png
+http://swasr.googlecode.com/svn/wiki/images/jdk-histogram.png
+http://swasr.googlecode.com/svn/wiki/images/jdk-survival.png
 
 Não foi encontrado nenhum pacote que contivesse boa parte do sistema (como acontece com os módulos encontrados por algoritmos), mas em todos os casos os pacotes pequenos dominaram a contagem. Eis o tamanho do maior pacote, em cada sistema:
 
