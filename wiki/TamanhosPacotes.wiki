@@ -1,0 +1,38 @@
+﻿#summary Qual a distribuição de tamanhos de pacotes em programas Java?
+
+Roberto escreveu:
+
+"Seria a métrica NED a melhor forma de definir se um agrupamento de aproxima de uma visão modular? Talvez fosse melhor usar uma distribuição de probabilidade do tamanho dos clusters a partir de designs reais"
+
+Essa pergunta deve ser entendida no contexto de recuperação de arquitetura de software ou, mais especificamente, de decomposição de classes de um programa orientado a objetos em módulos através de algoritmos de agrupamento (clustering). Diversos autores afirmam, baseados na própria intuição, que os módulos encontrados por esses algoritmos devem ser nem muito grandes e nem muito pequenos (em número de classes) -- caso contrário a decomposição pode ter pouca utilidade. De fato alguns algoritmos tendem a encontrar um módulo que contém boa parte das classes ou, ainda, um grande número de módulos contendo apenas uma classe. A métrica NED penaliza esses casos e privilegia "decomposições não-extremas". Mais formalmente, a métrica NED representa a proporção de módulos cujo tamanho é nem grande, nem pequeno (no artigo que propôs a métrica, isso significa módulos contendo entre 5 e 100 classes).
+
+Muitos autores afirmam também que as decomposições encontradas pelos algoritmos devem ser de alguma forma semelhantes a decomposições encontradas por especialistas. Mas será que esse critério não conflita com NED? E se descobrirmos que módulos pequenos e módulos grandes aparecem com frequência em decomposições de especialistas?
+
+Ok, então vamos analisar a distribuição de tamanhos dos módulos encontrados por especialista. Vamos começar pelo sistema... oops! Parece que não existe no mundo uma decomposição de um sistema feita por um especialista -- desconsiderando os [http://suraj.lums.edu.pk/~reverseeng/ 4 sistemas pequenos do artigo de Maqbool e Babri].
+
+Nos resta então apelar para o plano B: analisar a distribuição dos tamanhos dos pacotes de programas Java. Baxter et al, no artigo [ReviewBaxter2006 Understanding the Shape of Java Software], tomou as medidas de 56 sistemas e chegou à conclusão de que em nenhum sistema existe um tamanho típico de pacote. Ao contrário, ele encontrou distribuições de cauda longa, algo parecido com lognormal ou Weibull.
+
+Decidi ver eu mesmo a cara dessas distribuições, então baixei o código-fonte de alguns sistemas grandes:
+
+* ZK 3.6.0: 1210 arquivos Java
+* Vuze 4.2.0.0 (antigo Azureus): 3210 arquivos Java
+* JBoss 5.1.0.Beta1: 6568 arquivos Java
+* JDK 1.5.0: 10954 arquivos Java
+
+Um script de uma linha contou o número de arquivos .java dentro de cada diretório (o que é uma boa aproximação para o número de classes por pacote) e o GNU R plotou dois tipos de gráficos. O histograma mostra a quantidade de pacotes de cada tamanho; o outro gráfico mostra, em escala log-log, a distribuição cumulativa complementar, ou o número de pacotes cujo tamanho é pelo menos x, para cada x. Aí estão os gráficos:
+
+...
+
+Não foi encontrado nenhum pacote que contivesse boa parte do sistema (como acontece com os módulos encontrados por algoritmos), mas em todos os casos os pacotes pequenos dominaram a contagem. Eis o tamanho do maior pacote, em cada sistema:
+
+* ZK: 151 (12,48%)
+* Vuze: 89 (2,77%)
+* JBoss: 80 (1,22%)
+* JDK: 326 (2,98%)
+
+== Conclusão ==
+
+A distribuições de tamanhos dos pacotes de sistemas Java possui uma cauda longa: muitos pacotes são muito pequenos, mas também existem alguns poucos pacotes bastante grandes. É necessária uma análise qualitativa para avaliar a razão da existência de pacotes extremos na distribuição de pacotes.
+
+Se considerarmos que pacotes são uma boa aproximação de módulos arquiteturais encontrados por especialistas, então a métrica NED impõe restrições muito duras às decomposições, que penalizariam até mesmo decomposições de especialistas. 
+

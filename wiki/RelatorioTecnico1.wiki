@@ -86,8 +86,29 @@ onde x é o número de pares de vizinhos do vértice i que estão ligados por um
 
 Outra característica observada em algumas redes é que o coeficiente de agrupamento de um vértice é inversamente proporcional ao grau do vértice, ou seja, C(k) ~ k^-1. Segundo Ravasz e Barabási (2003), isso indica a presença de organização hierárquica na rede.
 
-== Motivos ==
+<wiki:comment>
 
+	Motifs ainda é uma linha de pesquisa que precisa amadurecer e, por isso, vai ficar de fora deste relatório
+
+	== Motivos ==
+
+	Global vs. local
+
+	Motifs,
+	introduced in [1] are small sub-networks or patterns of
+	vertices and edges which occur with in the network. A
+	motif is considered to be interesting if it occurs unusually
+	frequently in the network.
+
+	Patterns of interconnections occurring in
+	complex networks (small-world/scale-
+	free) at numbers that are significantly
+	higher than those in randomized
+	networks.
+
+	network motifs: recurring, significant patterns of interconnections (Milo2002).
+
+</wiki:comment>
 
 == Outros ==
 * assortatividade
