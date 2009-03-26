@@ -10,6 +10,7 @@ Tópicos:
   * [Reviews Resumos críticos (reviews)]
 
 Esboços:
+  * [TamanhosPacotes Qual é a distribuição dos tamanhos de pacotes Java?]
   * [DistanciaRedesSoftware Sobre o significado de distância em redes de software]
   * [EnsaioRedesComplexasSoftware Ensaio sobre redes complexas e software]
   * [Modularidade Idéias sobre modularidade]
