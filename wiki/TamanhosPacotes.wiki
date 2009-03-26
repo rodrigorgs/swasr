@@ -14,25 +14,22 @@ Nos resta então apelar para o plano B: analisar a distribuição dos tamanhos d
 
 Decidi ver eu mesmo a cara dessas distribuições, então baixei o código-fonte de alguns sistemas grandes:
 
-* ZK 3.6.0: 1210 arquivos Java
-* Vuze 4.2.0.0 (antigo Azureus): 3210 arquivos Java
-* JBoss 5.1.0.Beta1: 6568 arquivos Java
-* JDK 1.5.0: 10954 arquivos Java
+  * ZK 3.6.0: 1210 arquivos Java
+  * Vuze 4.2.0.0 (antigo Azureus): 3210 arquivos Java
+  * JBoss 5.1.0.Beta1: 6568 arquivos Java
+  * JDK 1.5.0: 10954 arquivos Java
 
 Um script de uma linha contou o número de arquivos .java dentro de cada diretório (o que é uma boa aproximação para o número de classes por pacote) e o GNU R plotou dois tipos de gráficos. O histograma mostra a quantidade de pacotes de cada tamanho; o outro gráfico mostra, em escala log-log, a distribuição cumulativa complementar, ou o número de pacotes cujo tamanho é pelo menos x, para cada x. Aí estão os gráficos:
 
-...
-
 Não foi encontrado nenhum pacote que contivesse boa parte do sistema (como acontece com os módulos encontrados por algoritmos), mas em todos os casos os pacotes pequenos dominaram a contagem. Eis o tamanho do maior pacote, em cada sistema:
 
-* ZK: 151 (12,48%)
-* Vuze: 89 (2,77%)
-* JBoss: 80 (1,22%)
-* JDK: 326 (2,98%)
+  * ZK: 151 (12,48%)
+  * Vuze: 89 (2,77%)
+  * JBoss: 80 (1,22%)
+  * JDK: 326 (2,98%)
 
 == Conclusão ==
 
 A distribuições de tamanhos dos pacotes de sistemas Java possui uma cauda longa: muitos pacotes são muito pequenos, mas também existem alguns poucos pacotes bastante grandes. É necessária uma análise qualitativa para avaliar a razão da existência de pacotes extremos na distribuição de pacotes.
 
 Se considerarmos que pacotes são uma boa aproximação de módulos arquiteturais encontrados por especialistas, então a métrica NED impõe restrições muito duras às decomposições, que penalizariam até mesmo decomposições de especialistas. 
-
