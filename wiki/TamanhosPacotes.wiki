@@ -21,6 +21,26 @@ Decidi ver eu mesmo a cara dessas distribuições, então baixei o código-fonte
 
 Um script de uma linha contou o número de arquivos .java dentro de cada diretório (o que é uma boa aproximação para o número de classes por pacote) e o GNU R plotou dois tipos de gráficos. O histograma mostra a quantidade de pacotes de cada tamanho; o outro gráfico mostra, em escala log-log, a distribuição cumulativa complementar, ou o número de pacotes cujo tamanho é pelo menos x, para cada x. Aí estão os gráficos:
 
+ZK
+
+http://code.google.com/p/swasr/source/browse/wiki/images/zk-histogram.png
+http://code.google.com/p/swasr/source/browse/wiki/images/zk-survival.png
+
+Vuze
+
+http://code.google.com/p/swasr/source/browse/wiki/images/vuze-histogram.png
+http://code.google.com/p/swasr/source/browse/wiki/images/vuze-survival.png
+
+JBoss
+
+http://code.google.com/p/swasr/source/browse/wiki/images/jboss-histogram.png
+http://code.google.com/p/swasr/source/browse/wiki/images/jboss-survival.png
+
+JDK
+
+http://code.google.com/p/swasr/source/browse/wiki/images/jdk-histogram.png
+http://code.google.com/p/swasr/source/browse/wiki/images/jdk-survival.png
+
 Não foi encontrado nenhum pacote que contivesse boa parte do sistema (como acontece com os módulos encontrados por algoritmos), mas em todos os casos os pacotes pequenos dominaram a contagem. Eis o tamanho do maior pacote, em cada sistema:
 
   * ZK: 151 (12,48%)
