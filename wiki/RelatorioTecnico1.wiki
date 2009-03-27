@@ -53,9 +53,6 @@ A teoria das redes complexas estuda propriedades gerais de diversos tipos de red
 
 O primeiro modelo que tentou explicar como são formadas as redes foi o modelo de Erdős-Rényi, também chamado de modelo de rede aleatória. Nesse modelo, a probabilidade de um par de vértices ser ligado por uma aresta é constante e igual a p. É possível demonstrar que o grau médio de uma rede aleatória é dado por <k> = p(n - 1), onde n é a quantidade de vértices. Quando n é muita grande, a distribuição das probabilidades dos graus é bem aproximada pela distribuição de Poisson.
 
-Poisson:
-P(k)  =~ (z^k * e^-z) / k!  , onde z = <k> = p(n - 1) // NEWMAN, p. 21, the structure and function of complex networks
-
 Cada vértice em um grafo é caracterizado por um grau, k, que representa a quantidade de arcos ligados a ele. No caso de grafos orientados, existe a distinção entre grau de saída e grau de entrada, que representam a quantidade de arestas que saem ou entram, respectivamente, do vértice.
 
 Em 1999, Barabási e Albert analisaram uma amostra da Web, representa como um grafo no qual os vértices representam páginas e as arestas representam os links entre duas páginas. Eles consideram o modelo simplificado de um grafo não-orientado. Agrupando os vértices de acordo com o grau e então plotando o gráfico da frequência de vértices por grau, eles encontraram uma curva que podia ser aproximada por uma lei de potência. Nesse caso, a probabilidade de um vértice escolhido ao acaso possuir grau k, P(k), é tal que P(k) = Ck^-gamma (C é um coeficiente de normalização, cujo objetivo é fazer com que a soma das probabilidades seja igual a 1). Essa função é dita livre de escala, pois P(ak) = bP(k) - a mudança de escala da variável dependente não altera a variável independente a menos de um fator multiplicativo. Esse resultado foi surpreendente, pois eles esperavam encontrar distribuição de graus Poissoniana, que caracteriza as redes aleatórias. Desde então foram encontradas distribuições de graus livres de escala em redes biológicas, sociais e tecnológicas, incluindo redes de dependências entre componentes de programas de computador.
@@ -110,16 +107,24 @@ Outra característica observada em algumas redes é que o coeficiente de agrupam
 
 </wiki:comment>
 
-== Outros ==
-* assortatividade
-* correlação de graus
-
 == Modelos de redes complexas? ==
 
+Os modelos tentam explicar os fenômenos. A propriedades livre de escala pode ser gerada por diversos modelos.
+
+Paper: Benchmark for community detection
+
+== Detecção de comunidades? ==
+
 = Redes complexas em software =
+
+Dentro da teoria das redes complexas, as redes de dependências entre componentes de software são classificadas como redes tecnológicas.
+
 
 São redes de informação, redes tecnológicas (segundo Newman2003) e redes projetadas pelo homem.
 
 Não há uma definição única de rede de software. Alguns consideram apenas agregação e herança, outros consideram chamadas... Alguns consideram o grafo orientado, outros não orientado...
 
 Nem todos os trabalhos usam a Estatística rigorosamente. Lognormal, double pareto, power law, stretched exponential, power law with exponential cutoff...
+
+
+
