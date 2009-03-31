@@ -2,6 +2,8 @@
 
 Bem vindos ao projeto de mestrado de Rodrigo Rocha, sob orientação de Dalton Guerrero e Jorge Figueiredo da UFCG. Aqui você encontrará não apenas o código-fonte de todos os programas desenvolvidos na pesquisa, como também relatórios, ensaios e resumos de artigos.
 
+Objetivo do projeto: entender como grandes sistemas de software são estruturados e usar essa informação para avaliar algoritmos que recuperam a estrutura global desses sistemas (isto é, sua arquitetura modular).
+
 Tópicos:
   * [http://swasr.googlecode.com/files/Rodrigo%20Rocha%20-%20Proposta%20de%20dissertacao%20de%20mestrado%20%28slides%29.pdf Proposta de mestrado (slides)] - arquivo pdf
   * [http://swasr.googlecode.com/files/proposta-rodrigo-final.doc Proposta de mestrado (texto)] - arquivo doc
