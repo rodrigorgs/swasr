@@ -1,3 +1,5 @@
+#!/usr/bin/env ruby
+
 require 'rexml/document'
 
 include REXML
@@ -72,6 +74,6 @@ if __FILE__ == $0
   pairs = read_pairs(ARGV[0])
   doc = toGXL(pairs)
 
-  form = Formatters::Pretty.new
+  form = Formatters::Default.new
   form.write(doc, $stdout)
 end
