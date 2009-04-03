@@ -1,8 +1,25 @@
 #!/usr/bin/env ruby
 
 require 'rexml/document'
+require 'hpricot'
 
 include REXML
+
+def gxl_to_l1(filename)
+  doc = Hpricot.XML(File.new(filename))
+  pairs = []
+  doc.search("//edge") { |edge| pairs << [edge['from'], edge['to']]}
+  return pairs
+end
+
+def gxl_to_l2(filename)
+  doc = Hpricot.XML(File.new(filename))
+  pairs = []
+  doc.search("/gxl/graph/node/graph") do |cluster|
+    cluster.search('/node') { |node| pairs << [node['id'], cluster['id']] }
+  end
+  return pairs
+end
 
 def create_base_gxl
   doc = REXML::Document.new <<-EOF
@@ -129,3 +146,4 @@ if __FILE__ == $0
   form = Formatters::Default.new
   form.write(doc, $stdout)
 end
+
