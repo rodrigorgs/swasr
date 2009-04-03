@@ -33,3 +33,6 @@ export RUBYLIB=$RUBYLIB:$DIR/opt/rsruby/lib
 # swasr
 export PATH=$PATH:$DIR/sandbox
 export RUBYLIB=$RUBYLIB:$DIR/sandbox
+export PATH=$PATH:$DIR/src
+export RUBYLIB=$RUBYLIB:$DIR/src
+export PATH=$PATH:$DIR/bin
