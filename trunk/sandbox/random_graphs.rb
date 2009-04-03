@@ -171,10 +171,10 @@ end
 # vértice existente, w, escolhido de acordo com delta_in + in_degree(w).
 # O vértice v passa a pertencer ao mesmo módulo de w.
 #
-# Com probabilidade beta é a mesma coisa, com a diferença de que a ligação
+# Com probabilidade gama é a mesma coisa, com a diferença de que a ligação
 # é no sentido w -> v.
 #
-# Com probabilidade gama, é adicionada uma aresta entre dois vértices 
+# Com probabilidade beta, é adicionada uma aresta entre dois vértices 
 # existentes, v -> w. 
 # * v é escolhido de acordo com delta_in + in_degree(v)
 # * w é escolhido dentre os vértices com os quais v pode se ligar, de acordo
