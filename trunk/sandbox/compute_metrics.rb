@@ -6,19 +6,6 @@ require 'graph_metrics'
 require 'fileutils'
 require 'pstore'
 
-class Array
-  def unzip
-    max = self.map{ |a| a.size }.max
-    return [] if max.nil?
-    ret = []
-    max.times { ret << [] }
-    self.each do |a|
-      0.upto(max - 1) { |i| ret[i] << a[i] }
-    end
-    return ret
-  end
-end
-
 def pairs_log(pairs)
   return pairs.select{ |x, y| x != 0 && y != 0}.
       map {|x, y| [Math.log10(x), Math.log10(y)] }.
