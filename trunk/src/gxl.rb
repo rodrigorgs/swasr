@@ -134,12 +134,8 @@ def l1_to_gxl(pairs)
 end
 
 if __FILE__ == $0
-  def read_pairs(filename=nil)
-    lines = filename.nil? ? STDIN.readlines : IO.readlines(filename)
-    pairs = lines.map{ |line| line.strip.split(/\s+/) }
-    return pairs
-  end
- 
+  require 'grok'
+
   pairs = read_pairs(ARGV[1])
   doc = (ARGV[0] == 'l1') ? l1_to_gxl(pairs) : l2_to_gxl(pairs)
 
