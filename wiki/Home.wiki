@@ -4,16 +4,22 @@ Bem vindos ao projeto de mestrado de Rodrigo Rocha, sob orientação de Dalton G
 
 Objetivo do projeto: entender como grandes sistemas de software são estruturados e usar essa informação para avaliar algoritmos que recuperam a estrutura global desses sistemas (isto é, sua arquitetura modular).
 
-Tópicos:
+== Blog ==
+
+  * [HubsConectamModulos É verdade que hubs conectam vários módulos de uma rede?]
+  * [TamanhosPacotes Qual é a distribuição dos tamanhos de pacotes Java?]
+  * [DistanciaRedesSoftware Sobre o significado de distância em redes de software]
+
+== Tópicos ==
+
   * [http://swasr.googlecode.com/files/Rodrigo%20Rocha%20-%20Proposta%20de%20dissertacao%20de%20mestrado%20%28slides%29.pdf Proposta de mestrado (slides)] - arquivo pdf
   * [http://swasr.googlecode.com/files/proposta-rodrigo-final.doc Proposta de mestrado (texto)] - arquivo doc
   * [Cronograma]
   * [ComentariosExternos Comentários de outras pessoas sobre o projeto]
   * [Reviews Resumos críticos (reviews)]
 
-Esboços:
-  * [TamanhosPacotes Qual é a distribuição dos tamanhos de pacotes Java?]
-  * [DistanciaRedesSoftware Sobre o significado de distância em redes de software]
+== Esboços ==
+
   * [EnsaioRedesComplexasSoftware Ensaio sobre redes complexas e software]
   * [Modularidade Idéias sobre modularidade]
   * [RedesComplexas Revisão bibliográfica sobre redes complexas]
