@@ -1,7 +1,8 @@
-#summary Relatório técnico: rede de dependências e teoria das redes complexas.
+﻿#summary Relatório técnico: rede de dependências e teoria das redes complexas.
 
 O desenvolvimento de software é uma atividade complexa, etc. e tal. Dijkstra disse que para lidar com essa complexidade deve-se decompor os problemas em problemas menores, refinamentos sucessivos. Desde então esse mecanismo de abstração foi incorporado nas linguagens de programação, com o advento da programação estruturada, seguida pela programação orientada a objetos e, mais recentemente, a programação orientada a aspectos. Essa decomposição certamente é útil para diminuir a complexidade do desenvolvimento de software, uma vez que permite dividir a tarefa de desenvolvimento em pedaços intelectualmente assimiláveis, mas faz emergir uma complexa rede de interações entre esses componentes.
 
+Uma forma de entender um sistema é olhando a estrutura de relacionamentos entre seus componentes.
 Compreender a maneira como os componentes são interconectados é de grande importância para entender os internos de um software e tirar conclusões sobre seu desenvolvimento. Dois componentes que não interagem entre si podem ser desenvolvidos por duas equipes trabalhando independentemente, sem necessidade de comunicação entre membros de equipes distintas: o funcionamento de um componente não depende do bom funcionamento do outro. Se, no entanto, um componente A precisa de um componente B para funcionar corretamente, um mau funcionamento de B pode causar falhas no componente A.
 
 Essa rede de relacionamentos é usada em análise de impacto de mudanças em software, na divisão de trabalho entre equipes. Curiosamente redes de software de larga escala exibem padrões marcantes, que parecem não depender da linguagem de programação ou da metodologia usada durante o desenvolvimento.
@@ -10,11 +11,11 @@ Vamos entender de que forma um programa orientado a objetos é estruturado, as f
 
 = A topologia de um programa =
 
-Todo programa é dividido em componentes que se relacionam a fim de resolver um problema. Componente, neste caso, é um conceito cujo significado concreto depende do paradigma de programação. Na programação estruturada, os componentes são os procedimentos e as funções; na programação orientada a objetos, são classes (que, por sua vez, são decompostas em componentes como métodos e atributos). Neste texto nos concentraremos no caso da programação orientada a objetos.
+Todo programa é dividido em componentes que se relacionam a fim de resolver um problema. Componente, neste caso, é um conceito cujo significado concreto depende do paradigma de programação. Na programação estruturada, os componentes são os procedimentos e as funções; na programação orientada a objetos, são classes (que, por sua vez, são decompostas em componentes chamados métodos e atributos). Neste texto nos concentraremos no caso da programação orientada a objetos.
 
-As formas de interação entre componentes podem ser classificadas em dois tipos: transferência de controle e transferência de dados. A transferência de controle ocorre, por exemplo, quando um objeto em execução chama um método de outro objeto, efetivamente causando a execução de código presente no outro objeto. A transferência de dados pode ocorrer quando parâmetros estão associados a uma chamada de método, ou quando dois objetos compartilham um arquivo.
+As formas de interação entre componentes podem ser classificadas em dois tipos: transferência de controle e transferência de dados. A transferência de controle ocorre, por exemplo, quando um método em execução chama um método de outra classe, efetivamente causando a execução do outro método. A transferência de dados pode ocorrer quando parâmetros estão associados a uma chamada de método, ou quando dois objetos compartilham um arquivo.
 
-Essa rede de relacionamentos pode ser modelada por um grafo orientado, onde os vértices representam os componentes e os arcos representam as interações entre os componentes. RÓTULOS Vértices e arcos podem ter metadados associados a eles a fim de detalhar o que eles representam. Os metadados podem indicar que um vértice representa uma classe, um método ou um atributo, ou ainda que um arco representa a chamada de um método, a leitura de um atributo, entre outros.
+Essa rede de relacionamentos pode ser modelada por um grafo orientado rotulado, onde os vértices representam os componentes e os arcos representam as interações entre os componentes. O rótulo de um vértice indicam o tipo de componente que ele representa (classe, método ou atributo); o rótulo de um arco representa o tipo de relacionamento entre componentes (chamada de método, leitura de atributo, entre outros).
 
 A rede de dependências entre componentes de um programa pode ser extraída automaticamente por um programa construído para este fim, denominado extrator. As técnicas mais comuns de extração de dependências são a análise dinâmica e a análise estática. A análise dinâmica consiste em instrumentar o programa sob análise e então coletar dados sobre sua execução. Esse tipo de análise exige que o programa esteja corretamente instalado e configurado e depende da sua execução completa.
 
@@ -27,39 +28,41 @@ Em qualquer caso é impossível garantir que todas as dependências foram extra�
 // A Figura 1 mostra uma rede.
 // A Figura 2 mostra uma rede simplificada.
 
-// filtragem, simplificação
-Em muitos casos se deseja 
-Em qualquer caso, a rede de dependências encontrada pode ser mais complexa do que o desejado. 
+Uma rede de dependências entre componentes contém muita informação e pode precisar ser simplificada para análise. Para este fim são empregadas duas técnicas: filtragem e abstração. Filtragem consiste em remover elementos da rede. Por exemplo, Myers considerou em sua análise apenas os relacionamentos de agregação e herança. Mancoridis sugere remover da análise os vértices com grau de entrada muito alto. Abstração consiste em agrupar vértices e os respectivos arcos. É comum representar uma classe, seus métodos e atributos em apenas um vértice. Assim a rede se reduz a uma rede de dependências entre classes, abstraindo detalhes sobre métodos e atributos.
 
-A way to understand natural and artificial systems is by means of looking at the structure of the relationships between their constituting components. (Valverde, Architecture) Estudos recentes revelaram regularidades entre redes como a Web, cadeias alimentares, circuitos eletrônicos, ligações entre proteínas e relacionamentos sociais.
+Também acontece de se considerar uma versão não-orientada da rede, onde o sentido (direção) da dependência é desprezado.
+
+// CDN: rede de dependências entre componentes.
+Alguns usam direcionado, outros não, alguns usam apenas agregação, alguns usam peso, alguns descartam componentes de bibliotecas, etc.
+
+
+Outra forma de abstração envolve o emprego de algoritmos de agrupamento (clustering) como o k-means ou o algoritmo hierárquico aglomerativo.
 
     Além disso, características inerentes a sistemas orientados a objetos, como o polimorfismo, a ligação dinâmica, a herança e o encapsulamento contribuem diretamente para tornar a tarefa da análise de impacto ainda mais dispendiosa. O polimorfismo e a ligação dinâmica permitem que objetos diferentes sejam usados através de suas interfaces, o que será definido somente em tempo de execução. Com o encapsulamento, os objetos ocultam suas implementações, restringindo a forma de observá-los; apenas seus métodos públicos são visíveis. Já com a herança, uma mudança na superclasse pode ou não afetar a subclasse, o que complica a tarefa de analisar o impacto quando uma superclasse é modificada.
 
 // Tipos de dependências: página 29 da diss. de Lile.
 
 Entidades: método, classe, ...
-Tipos de relacionamento: chama, estende, lê, altera, 
+Tipos de relacionamento: chama, estende, lê, altera, agrega, herda...
 Significado da dependência (importância na engenharia de software): não dá pra usar um sem o outro, o funcionamento correto de um é necessário para o funcionamento correto de outro, propagação de bugs, distribuição independente, desenvolvimento independente (ver anotação no meu gmail)...
 Lifting para o nível de classes
 
 = Redes complexas =
 
-// CDN: rede de dependências entre componentes.
-Alguns usam direcionado, outros não, alguns usam apenas agregação, alguns usam peso, alguns descartam componentes de bibliotecas, etc.
 
 // Propriedades globais, macroscópias, da estrutura de relacionamentos entre entidades de software.
 
-A teoria das redes complexas estuda propriedades gerais de diversos tipos de redes com o uso de ferramentas estatísticas. Na última década foram realizados estudos sobre redes tecnológicas, como a Web e a rede de distribuição de energia elétrica dos Estados Unidos, redes biológicas como cadeia alimentar e ligações entre proteínas da bactéria XXX, e redes sociais como ....
+A teoria das redes complexas estuda propriedades gerais de diversos tipos de redes com o uso de ferramentas estatísticas. Na última década foram realizados estudos sobre redes tecnológicas, como a Web e a rede de distribuição de energia elétrica dos Estados Unidos, redes biológicas como cadeia alimentar e ligações entre proteínas da bactéria XXX, e redes sociais como a relação de amizade entre alunos de uma escola.
 
 O primeiro modelo que tentou explicar como são formadas as redes foi o modelo de Erdős-Rényi, também chamado de modelo de rede aleatória. Nesse modelo, a probabilidade de um par de vértices ser ligado por uma aresta é constante e igual a p. É possível demonstrar que o grau médio de uma rede aleatória é dado por <k> = p(n - 1), onde n é a quantidade de vértices. Quando n é muita grande, a distribuição das probabilidades dos graus é bem aproximada pela distribuição de Poisson.
 
-Cada vértice em um grafo é caracterizado por um grau, k, que representa a quantidade de arcos ligados a ele. No caso de grafos orientados, existe a distinção entre grau de saída e grau de entrada, que representam a quantidade de arestas que saem ou entram, respectivamente, do vértice.
+Cada vértice em um grafo é caracterizado por um grau, k, que representa a quantidade de arestas ligadas a ele. No caso de grafos orientados, existe a distinção entre grau de saída e grau de entrada, que representam a quantidade de arcos que saem ou entram, respectivamente, do vértice.
 
 Em 1999, Barabási e Albert analisaram uma amostra da Web, representa como um grafo no qual os vértices representam páginas e as arestas representam os links entre duas páginas. Eles consideram o modelo simplificado de um grafo não-orientado. Agrupando os vértices de acordo com o grau e então plotando o gráfico da frequência de vértices por grau, eles encontraram uma curva que podia ser aproximada por uma lei de potência. Nesse caso, a probabilidade de um vértice escolhido ao acaso possuir grau k, P(k), é tal que P(k) = Ck^-gamma (C é um coeficiente de normalização, cujo objetivo é fazer com que a soma das probabilidades seja igual a 1). Essa função é dita livre de escala, pois P(ak) = bP(k) - a mudança de escala da variável dependente não altera a variável independente a menos de um fator multiplicativo. Esse resultado foi surpreendente, pois eles esperavam encontrar distribuição de graus Poissoniana, que caracteriza as redes aleatórias. Desde então foram encontradas distribuições de graus livres de escala em redes biológicas, sociais e tecnológicas, incluindo redes de dependências entre componentes de programas de computador.
 
-Conceito informal: hub
+Uma característica marcante das redes livres de escala é a presença de vértices cujo grau é muito maior do que a média. São os chamados concentradores (hubs).
 
-Propriedades estatísticas da lei de potência. A Figura 1(a) mostra o gráfico de uma lei de potência. Intuitivamente, percebe-se que a grande maioria dos vértices possui um grau pequeno, mas existem vértices cujo grau está muito acima do grau médio. Trata-se de uma curva assimétrica positiva, pois a média é maior do que a mediana. A probabilidade de um elemento de grau alto é pequena mas não desprezível, e isso contribui para elevar a média. Como a distribuição é muito heterogênea, a média não é um valor muito representantivo da distribuição.
+Propriedades estatísticas da lei de potência. A Figura 1(a) mostra o gráfico de uma lei de potência. Intuitivamente, percebe-se que a grande maioria dos vértices possui um grau pequeno, mas existem vértices cujo grau está muito acima do grau médio. Trata-se de uma curva assimétrica positiva, pois a média é maior do que a mediana. A probabilidade de um elemento de grau alto é pequena mas não desprezível, e isso contribui para elevar a média. Como a distribuição é muito heterogênea, a média não é um valor muito representantivo da distribuição. A lei de potência, quando plotada em escala log-log, se apresenta sob a forma de uma reta. Dificilmente dados obtidos experimentalmente formam uma reta em toda sua extensão. Portanto muitas vezes quando se afirma que uma distribuição é livre de escala, o que se quer dizer é que parte da distribuição é bem aproximada por uma reta na escala log-log.
 
 Barabási e Albert propuseram um modelo para explicar a formação das redes com distribuição de graus livre de escala, formado por dois mecanismos: crescimento contínuo e ligação preferencial. O modelo propõe que as redes crescem um vértice por vez e cada novo vértice se liga a um número fixo de vértices antigos, dando preferência aos vértices com maior grau. Mais formalmente, a probabilidade de um vértice receber uma aresta é proporcional ao seu grau.
 
@@ -69,7 +72,7 @@ Além da distribuição de graus, muitas redes complexas têm sido caracterizada
 
 A distância entre dois vértices de uma rede é o número de arestas do menor caminho que conecta os vértices. Diz-se que uma rede apresenta o efeito mundo pequeno quando o a distância entre dois vértices é, em média, pequena, mesmo quando a rede é grande. Mais formalmente, a distância média entre vértices é proporcional ao logaritmo do número de vértices. Demonstra-se que tanto os grafos gerados pelo modelo de Erdős-Rényi quanto aqueles gerados pelo modelo de Barabási-Albert possuem essa propriedade.
 
-Falar sobre modelo de Watts e Strogatz?
+No modelo de Watts e Strogatz, os vértices são dispostos em uma circunferência e então cada vértice se conecta a um número fixo de vértices mais próximos. O grafo resultante é regular, isto é, todos os seus vértices possuem o mesmo grau. A seguir são criadas arestas entre pares de vértices escolhidos aleatoriamente. Essas arestas criam atalhos na rede e fazem com que a rede tenha a propriedade de mundo pequeno.
 
 == Coeficiente de agrupamento ==
 
@@ -117,10 +120,9 @@ Paper: Benchmark for community detection
 
 = Redes complexas em software =
 
-Dentro da teoria das redes complexas, as redes de dependências entre componentes de software são classificadas como redes tecnológicas.
+Dentro da teoria das redes complexas, as redes de dependências entre componentes de software são classificadas como redes tecnológicas (Newman2003).
 
-
-São redes de informação, redes tecnológicas (segundo Newman2003) e redes projetadas pelo homem.
+Eu li cerca de 15 artigos que estudam a estrutura de programas de computador sob a luz da teoria das redes complexas. Alguns artigos analisam a rede formada pelas dependências entre pacotes Debian, entre _ports_ do FreeBSD etc, e outros estudam as redes de dependências dentro de um programa. Foram estudadas programas escritos em C, C++, Java e Smalltalk, um conjunto de linguagens que engloba dois paradigmas, procedimental e orientado a objetos, e dois sistemas de tipos, estático e dinâmico. A maioria dos autores estudou dependências estáticas dentro de um programa, mas existe um trabalho que estuda a rede de referências entre objetos em tempo de execução. Em todos os casos os pesquisadores encontraram redes livres de escala. Ou seja, a distribuição do número de arestas por vértice (ou distribuição de graus) segue uma lei de potência (power law), o que significa que existem vértices que concentram um número desproporcionalmente grande de arestas, os chamados _hubs_.
 
 Não há uma definição única de rede de software. Alguns consideram apenas agregação e herança, outros consideram chamadas... Alguns consideram o grafo orientado, outros não orientado...
 

@@ -1,0 +1,13 @@
+﻿#summary É verdade que hubs conectam vários módulos de uma rede?
+
+[ReviewRavasz2003 Ravasz e Barabási (2003)] afirmam que o papel dos hubs em redes hierárquicas é conectar os vários módulos coesos. Para avaliar essa afirmação eu realizei um pequeno experimento com o software !JHotDraw 5.2. O !JHotdraw está organizado em 8 pacotes, como mostra a seguinte [http://en.wikipedia.org/wiki/Dependency_Structure_Matrix DSM]:
+
+http://swasr.googlecode.com/svn/wiki/images/jhotdraw52-dsm.png
+
+Pelos nomes dos pacotes e pela organização em camadas, é razoável considerar que cada pacote representa um módulo arquitetural. O experimento consistiu em medir o grau de cada classe e então comparar com o número de módulos distintos ao qual a classe está ligada por arestas. O gráfico de dispersão é mostrado a seguir:
+
+http://swasr.googlecode.com/svn/wiki/images/jhotdraw52-degree-nclusters.png
+
+É possível perceber uma forte correlação entre o grau de um vértice e a quantidade de módulos ao qual ele se liga, que é reforçada pelo coeficiente de correlação linear: 0,744.
+
+O próximo passo é repetir esse experimento para outros sistemas, tais como Spring e !JBoss.
