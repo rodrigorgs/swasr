@@ -62,7 +62,8 @@ class Network
 end
 
 class Cluster
-  attr_reader :id
+  # Cuidado ao alterar o id para nao quebrar a unicidade!
+  attr_accessor :id
 
   def initialize(id)
     @id = id
@@ -79,8 +80,8 @@ end
 
 # TODO: adicionar hash de atributos opcionais
 class Node
-  attr_reader :out_edges, :in_edges, :id
-  attr_accessor :cluster
+  attr_reader :out_edges, :in_edges
+  attr_accessor :cluster, :id
 
   def initialize(id)
     @id = id
