@@ -16,15 +16,16 @@
 
 Última atualização: 07/03/2009.
 
-*Revisão bibliográfica*:
+== Revisão bibliográfica ==
+
   * Leitura sobre *redes complexas* (teoria, modelos, motifs, comunidades, hierarquia e modularidade, redes de software): *completa*, com revisões.
   * Leitura sobre *recuperação de arquitetura*: foi feita uma leitura não-sistemática no ano passado.
-  * *Relatório*: não-iniciado.
+  * *Relatório*: iniciado.
 
-*Planejamento de experimentos*
+== Planejamento de experimentos e Modelagem ==
 
-*Modelagem*
+Estou aparando as arestas dos programas para entregar algo para o pessoal do GMF começar a brincar.
 
-*Avaliação*
+== Avaliação ==
 
-*Escrita e publicação*
+== Escrita e publicação ==
