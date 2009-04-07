@@ -1,5 +1,5 @@
-# Please include in ~/.bashrc the following line
-# source /path/to/swasr.rc
+# Please include in ~/.bashrc the following line (without the #):
+#   source /path/to/swasr.rc
 
 DIR=~/svn/swasr
 
