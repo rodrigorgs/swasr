@@ -2,7 +2,6 @@
 
 if __FILE__ == $0
 
-  require 'rubygems'
   require 'choice'
   require 'gxl'
   require 'graph'
@@ -76,9 +75,8 @@ if __FILE__ == $0
     arch = RGL::DirectedAdjacencyGraph[*arch_pairs.flatten]
   rescue Errno::ENOENT => e
     puts "File not found: #{c.input}"
+    exit 1
   end
-
-  arch.each_vertex { |v| puts v }
 
   g, modules = design_from_architecture(
      c.iterations, 
