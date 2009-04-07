@@ -2,22 +2,25 @@
 
 require 'rexml/document'
 require 'hpricot'
+require 'grok'
 
 include REXML
 
-def gxl_to_l1(filename)
-  doc = Hpricot.XML(File.new(filename))
+def gxl_to_l1(gxl, outfilename=nil)
+  doc = Hpricot.XML(File.new(gxl))
   pairs = []
   doc.search("//edge") { |edge| pairs << [edge['from'], edge['to']]}
+  puts_pairs(pairs, outfilename) unless outfilename.nil?
   return pairs
 end
 
-def gxl_to_l2(filename)
-  doc = Hpricot.XML(File.new(filename))
+def gxl_to_l2(gxl, outfilename=nil)
+  doc = Hpricot.XML(File.new(gxl))
   pairs = []
   doc.search("/gxl/graph/node/graph") do |cluster|
     cluster.search('/node') { |node| pairs << [node['id'], cluster['id']] }
   end
+  puts_pairs(pairs, outfilename) unless outfilename.nil?
   return pairs
 end
 
@@ -43,7 +46,11 @@ end
 # pairs is an array of pairs, each pair containing:
 #  1. node id
 #  2. community id
-def l2_to_gxl(pairs)
+#
+# If pairs is a string, then it is treated as a filename
+#
+def l2_to_gxl(pairs, gxl_filename=nil?)
+  pairs = read_pairs(pairs) if pairs.kind_of?(String)
   doc = create_base_gxl
   xml_graph = doc.root.elements[1]
 
@@ -84,10 +91,20 @@ def l2_to_gxl(pairs)
       xml_inner_graph.add_element 'node', 'id' => id
     end  
   end
+  
+  unless gxl_filename.nil?
+    form = Formatters::Default.new
+    File.open(gxl_filename, 'w') { |out| form.write(doc, out) }
+  end
+
   return doc
 end
 
-def l1_to_gxl(pairs)
+#
+# See documentation for l2_to_gxl()
+#
+def l1_to_gxl(pairs, gxl_filename=nil?)
+  pairs = read_pairs(pairs) if pairs.kind_of?(String)
   doc = create_base_gxl
   xml_root = doc.root
   xml_graph = xml_root.elements[1]
@@ -128,6 +145,11 @@ def l1_to_gxl(pairs)
       </edge>
     EOF
     xml_graph.add(d.root)
+  end
+  
+  unless gxl_filename.nil?
+    form = Formatters::Default.new
+    File.open(gxl_filename, 'w') { |out| form.write(doc, out) }
   end
   
   return doc
