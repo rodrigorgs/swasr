@@ -18,12 +18,19 @@ export RUBYLIB=$RUBYLIB:$DIR/opt/rgl-0.4.0/lib:$DIR/opt/stream-0.5/lib
 export RUBYLIB=$RUBYLIB:$DIR/opt/igraph-0.9.5/ext
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$DIR/opt/igraph-0.9.5/ext
 
+# Hpricot (Ruby XML Parser)
+export RUBYLIB=$RUBYLIB:$DIR/opt/hpricot
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$DIR/opt/hpricot
+
 # RandomR
 export RUBYLIB=$RUBYLIB:$DIR/opt/randomr-0-1-1/lib
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$DIR/opt/randomr-0-1-1/lib
 
 # PNG
 export RUBYLIB=$RUBYLIB:$DIR/opt/png-1.1.0/lib
+
+# Benchmark (Lancichinetti et al, 2008)
+export PATH=$PATH:$DIR/opt/benchmark_2_1
 
 # RSRuby (R) -- depends on r-base
 export R_HOME=`R cmd BATCH RHOME 2> /dev/null`
