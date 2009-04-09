@@ -20,4 +20,5 @@ Pontos fortes:
 Limitações:
   * O grafo é não-orientado.
   * Todos os vértices possuem arestas internas (que os ligam a vértices do mesmo módulo) e arestas externas (que os ligam a vértices de outro módulo). Em redes complexas reais isso em geral não é verdade.
+  * O parâmetro de mistura é constante, i.e., não varia de módulo para módulo.
   * O modelo não permite restringir as ligações entre módulos: um vértice se liga potencialmente a qualquer vértice de qualquer módulo.
