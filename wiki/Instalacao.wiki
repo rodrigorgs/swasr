@@ -1,0 +1,42 @@
+﻿#summary Instalação do ambiente swasr
+
+Atualmente o ambiente swasr funciona apenas em sistemas operacionais GNU/Linux (mas nada impede que, com algum esforço, funcione em outros sistemas operacionais).
+
+== Dependências ==
+
+  * Ruby 1.9
+  * GNU R (opcional)
+  * libigraph (opcional)
+
+== Download ==
+
+Primeiro obtenha o código-fonte a partir do repositório Subversion:
+
+  svn checkout http://swasr.googlecode.com/svn/trunk/ swasr
+
+Então baixe da [http://code.google.com/p/swasr/downloads/list página de downloads] o pacote de dependências mais recente (arquivos opt-*.tar.bz2).
+
+Descompacte o pacote de dependências no diretório raiz do swasr (criado pelo svn). A estrutura de diretórios deve ser parecida com a seguinte:
+
+  * swasr/
+    * bin/
+	* opt/
+	* sandbox/
+	* src/
+
+== Configuração ==
+
+Abra o arquivo swasr.rc em um editor de texto. Na linha
+
+  DIR=~/svn/swasr
+
+substitua ~/svn/swasr pelo caminho onde foi instalado o swasr.
+
+Insira no ~/.bashrc uma linha do tipo
+
+  source /caminho/para/swasr.rc
+
+(substitua /caminho/para/swasr.rc pelo caminho para o arquivo swasr.rc). 
+
+Pronto. Todos os terminais abertos depois dessa edição estarão prontos para usar o swasr.
+
