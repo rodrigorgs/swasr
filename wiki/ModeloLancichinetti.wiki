@@ -22,7 +22,7 @@ Limitações:
   * Todos os vértices possuem arestas internas (que os ligam a vértices do mesmo módulo) e arestas externas (que os ligam a vértices de outro módulo). Em redes complexas reais isso em geral não é verdade.
   * O parâmetro de mistura é constante, i.e., não varia de módulo para módulo.
   * O modelo não permite restringir as ligações entre módulos: um vértice se liga potencialmente a qualquer vértice de qualquer módulo.
-  * O gráfico de dispersão de coeficiente de clustering vs. grau não se assemelha muito ao gráfico encontrado a partir da análise de sistemas de software reais. Veja o gráfico abaixo:
+  * O gráfico de dispersão de coeficiente de clustering vs. grau não se assemelha muito ao gráfico encontrado a partir da análise de sistemas de software reais (note que há muitos vértices com grau baixo e coeficiente de clustering também baixo). Veja o gráfico abaixo:
 
 http://swasr.googlecode.com/svn/wiki/images/lancichinetti-cc.png
 
