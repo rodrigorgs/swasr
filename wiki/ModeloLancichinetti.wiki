@@ -3,23 +3,21 @@
 Lancichinetti, Fortunato e Radicchi criaram um modelo de rede complexa com estrutura de módulos embutida que é usado para avaliar algoritmos de clustering. O modelo gera grafos não-orientados e não-ponderados cuja distribuição dos graus dos vértices e cuja distribuição dos tamanhos dos módulos são ambas leis de potência e, portanto, bastante heterogêneas.
 
 O modelo possui os seguintes parâmetros:
-* quantidade de vértices
-* expoente da distribuição de tamanhos dos módulos
-* expoente da distribuição de graus
-* grau médio
-* grau máximo
-* parâmetro de mistura
+  * quantidade de vértices
+  * expoente da distribuição de tamanhos dos módulos
+  * expoente da distribuição de graus
+  * grau médio
+  * grau máximo
+  * parâmetro de mistura
 
 Cada vértice compartilha uma fração de suas arestas com vértices de outras comunidades; essa fração é o parâmetro de mistura.
 
 
 Pontos fortes:
-
-* O algoritmo é rápido.
-* Os parâmetros do modelo correspondem a propriedades globais do grafo gerado, como o expoente da distribuição de graus e o grau máximo. (Existem modelos cujos parâmetros são probabilidades que afetam indiretamente essas propriedades.)
+  * O algoritmo é rápido.
+  * Os parâmetros do modelo correspondem a propriedades globais do grafo gerado, como o   expoente da distribuição de graus e o grau máximo. (Existem modelos cujos parâmetros são probabilidades que afetam indiretamente essas propriedades.)
 
 Limitações:
-
-* O grafo é não-orientado.
-* Todos os vértices possuem arestas internas (que os ligam a vértices do mesmo módulo) e arestas externas (que os ligam a vértices de outro módulo). Em redes complexas reais isso em geral não é verdade.
-* O modelo não permite restringir as ligações entre módulos: um vértice se liga potencialmente a qualquer vértice de qualquer módulo.
+  * O grafo é não-orientado.
+  * Todos os vértices possuem arestas internas (que os ligam a vértices do mesmo módulo) e arestas externas (que os ligam a vértices de outro módulo). Em redes complexas reais isso em geral não é verdade.
+  * O modelo não permite restringir as ligações entre módulos: um vértice se liga potencialmente a qualquer vértice de qualquer módulo.
