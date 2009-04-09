@@ -2,6 +2,8 @@
 
 Lancichinetti, Fortunato e Radicchi criaram um [ReviewLancichinetti2008 modelo de rede complexa com estrutura de módulos embutida] que é usado para avaliar algoritmos de clustering. O modelo gera grafos não-orientados e não-ponderados cuja distribuição dos graus dos vértices e cuja distribuição dos tamanhos dos módulos são ambas leis de potência e, portanto, bastante heterogêneas.
 
+== Parâmetros ==
+
 O modelo possui os seguintes parâmetros:
   * quantidade de vértices
   * expoente da distribuição de tamanhos dos módulos
@@ -12,12 +14,13 @@ O modelo possui os seguintes parâmetros:
 
 Cada vértice compartilha uma fração de suas arestas com vértices de outras comunidades; essa fração é o parâmetro de mistura.
 
+== Pontos fortes ==
 
-Pontos fortes:
   * O algoritmo é rápido.
   * Os parâmetros do modelo correspondem a propriedades globais do grafo gerado, como o   expoente da distribuição de graus e o grau máximo. (Existem modelos cujos parâmetros são probabilidades que afetam indiretamente essas propriedades.)
 
-Limitações:
+== Limitações ==
+
   * O grafo é não-orientado.
   * Todos os vértices possuem arestas internas (que os ligam a vértices do mesmo módulo) e arestas externas (que os ligam a vértices de outro módulo). Em redes complexas reais isso em geral não é verdade.
   * O parâmetro de mistura é constante, i.e., não varia de módulo para módulo.
