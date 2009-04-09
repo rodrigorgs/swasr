@@ -1,4 +1,4 @@
-#summary Sobre o modelo de grafos de LAncichinetti para avaliar algoritmos de detecção de comunidade.
+﻿#summary Sobre o modelo de grafos de LAncichinetti para avaliar algoritmos de detecção de comunidade.
 
 Lancichinetti, Fortunato e Radicchi criaram um modelo de rede complexa com estrutura de módulos embutida que é usado para avaliar algoritmos de clustering. O modelo gera grafos não-orientados e não-ponderados cuja distribuição dos graus dos vértices e cuja distribuição dos tamanhos dos módulos são ambas leis de potência e, portanto, bastante heterogêneas.
 
@@ -22,3 +22,23 @@ Limitações:
   * Todos os vértices possuem arestas internas (que os ligam a vértices do mesmo módulo) e arestas externas (que os ligam a vértices de outro módulo). Em redes complexas reais isso em geral não é verdade.
   * O parâmetro de mistura é constante, i.e., não varia de módulo para módulo.
   * O modelo não permite restringir as ligações entre módulos: um vértice se liga potencialmente a qualquer vértice de qualquer módulo.
+  * O gráfico de dispersão de coeficiente de clustering vs. grau não se assemelha muito ao gráfico encontrado a partir da análise de sistemas de software reais. Veja o gráfico abaixo:
+
+http://swasr.googlecode.com/svn/wiki/images/cc-lancichinetti.png
+
+Ele corresponde a uma rede gerada com os seguintes parâmetros:
+
+  * 1000  # number of nodes
+  * 15  # average degree
+  * 50  # maximum degree
+  * 2 # exponent for the degree distribution
+  * 1 # exponent for the community size distribution
+  * 0.2 # mixing parameter
+  * 20  # minimum for the community sizes 
+  * 50  # maximum for the community sizes 
+
+Compare com o gráfico para o Linux:
+
+http://swasr.googlecode.com/svn/wiki/images/cc-linux.png
+
+
