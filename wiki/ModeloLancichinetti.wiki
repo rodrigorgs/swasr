@@ -24,7 +24,7 @@ Limitações:
   * O modelo não permite restringir as ligações entre módulos: um vértice se liga potencialmente a qualquer vértice de qualquer módulo.
   * O gráfico de dispersão de coeficiente de clustering vs. grau não se assemelha muito ao gráfico encontrado a partir da análise de sistemas de software reais. Veja o gráfico abaixo:
 
-http://swasr.googlecode.com/svn/wiki/images/cc-lancichinetti.png
+http://swasr.googlecode.com/svn/wiki/images/lancichinetti-cc.png
 
 Ele corresponde a uma rede gerada com os seguintes parâmetros:
 
@@ -39,6 +39,6 @@ Ele corresponde a uma rede gerada com os seguintes parâmetros:
 
 Compare com o gráfico para o Linux:
 
-http://swasr.googlecode.com/svn/wiki/images/cc-linux.png
+http://swasr.googlecode.com/svn/wiki/images/linux-cc.png
 
 
