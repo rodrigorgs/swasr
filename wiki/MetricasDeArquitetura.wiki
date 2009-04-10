@@ -1,0 +1,28 @@
+﻿#summary Métricas de redes complexas com módulos 
+
+Vértices de um grafo orientado possuem algumas características:
+  * grau de entrada
+  * grau de saída
+  * grau, ou grau total (entrada + saída)
+
+Ao considerarmos a presença de clusters/módulos/arquitetura, é possível definir outras métricas:
+
+  * grau interno (número de arestas que um vértice compartilha com vértices pertencentes ao mesmo módulo que ele)
+  * grau de entrada interno
+  * grau de saída interno
+  * grau externo (número de arestas que um vértice compartilha com vértices de outros módulos)
+  * grau de entrada externo
+  * grau de saída externo
+  * abrangência de clusters (número de clusters distintos aos quais pertencem os vizinhos do vértice)
+
+De posse dessas métricas é possível avaliar algumas suposições:
+
+  * [HubsConectamModulos vértices com grau alto (hubs) conectam vértices de vários clusters distintos];
+  * vértices com alto grau de entrada externo (por exemplo, Facades) possuem alto grau de saída interno?
+
+Essas suposições podem ser verificadas através de gráficos de dispersão entre duas métricas ou mesmo através de análise de correlação.
+
+Há outras coisas que podem ser avaliadas:
+  * Qual a distribuição dos tamanhos dos clusters? (lei de potência?)
+  * Qual a distribuição da fração de vértices de um módulo com arestas externas?
+  * Qual a distribuição de graus de um arquitetura (módulos + relacionamentos)?
