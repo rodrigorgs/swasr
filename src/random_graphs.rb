@@ -165,20 +165,21 @@ end
 
 # == Algoritmo
 #
-# Cada módulo começa com um vértice com auto-laço.
+# O grafo inicial contém um vértice com auto-laço para cada módulo na 
+# arquitetura. Então, a cada iteração, um entre três eventos pode ocorrer.
 #
 # Com probabilidade alpha é adicionado um novo vértice v, que se liga a um
-# vértice existente, w, escolhido de acordo com delta_in + in_degree(w).
-# O vértice v passa a pertencer ao mesmo módulo de w.
+# vértice existente, w, escolhido de acordo com delta_in + grau de entrada de 
+# w. O vértice v passa a pertencer ao mesmo módulo de w.
 #
 # Com probabilidade gama é a mesma coisa, com a diferença de que a ligação
 # é no sentido w -> v.
 #
 # Com probabilidade beta, é adicionada uma aresta entre dois vértices 
 # existentes, v -> w. 
-# * v é escolhido de acordo com delta_in + in_degree(v)
-# * w é escolhido dentre os vértices com os quais v pode se ligar, de acordo
-# com delta_out + out_degree(w).
+# * v é escolhido de acordo com delta_out + grau de saída de v
+# * w é escolhido dentre os vértices dos outros módulos com os quais v pode 
+# se ligar, de acordo com delta_in + grau de entrada de w
 #
 # == Considerações
 #
@@ -190,6 +191,10 @@ end
 # TODO: na hora de ligar dois vertices v e w de modulos diferentes, 
 # considerar numero de arestas que entram em v a partir de uma aresta do
 # mesmo modulo e tambem o numero de arestas que saem de v para outro modulo.
+# 
+# TODO: no caso beta, será que v não seria escolhido com in e w com out?
+#
+# TODO: o caso beta não deveria permitir ligações dentro do módulo?
 #
 def design_from_architecture(iterations, arch, alpha, beta, gamma, 
     delta_in, delta_out)
