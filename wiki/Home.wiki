@@ -2,7 +2,7 @@
 
 Bem vindos ao projeto de mestrado de Rodrigo Rocha, sob orientação de Dalton Guerrero e Jorge Figueiredo da UFCG. Aqui você encontrará não apenas o código-fonte de todos os programas desenvolvidos na pesquisa, como também relatórios, ensaios e resumos de artigos.
 
-Objetivo do projeto: entender como grandes sistemas de software são estruturados e usar essa informação para avaliar algoritmos que recuperam a estrutura global desses sistemas (isto é, sua arquitetura modular).
+Objetivo do projeto: entender como grandes sistemas de software são organizados em módulos e usar essa informação para avaliar algoritmos que recuperam arquiteturas modulares a partir de dependências estáticas em um código-fonte.
 
 == Blog ==
 
