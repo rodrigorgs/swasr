@@ -1,6 +1,6 @@
 ﻿#summary Descrição do projeto.
 
-Bem vindos ao projeto de mestrado de Rodrigo Rocha, sob orientação de Dalton Guerrero e Jorge Figueiredo da UFCG. Aqui você encontrará não apenas o código-fonte de todos os programas desenvolvidos na pesquisa, como também relatórios, ensaios e resumos de artigos.
+Bem vindos ao projeto de mestrado de Rodrigo Rocha, sob orientação de Dalton Serey e Jorge Figueiredo da UFCG. Aqui você encontrará não apenas o código-fonte de todos os programas desenvolvidos na pesquisa, como também relatórios, ensaios e resumos de artigos.
 
 Objetivo do projeto: entender como grandes sistemas de software são organizados em módulos e usar essa informação para avaliar algoritmos que recuperam arquiteturas modulares a partir de dependências estáticas em um código-fonte.
 
@@ -27,4 +27,4 @@ Objetivo do projeto: entender como grandes sistemas de software são organizados
   * [EnsaioRedesComplexasSoftware Ensaio sobre redes complexas e software]
   * [Modularidade Idéias sobre modularidade]
   * [RedesComplexas Revisão bibliográfica sobre redes complexas]
-  * [RelatorioTecnico1 Revisão bibliográfica sobre o tema de pesquisa]
+  * [RelatorioTecnico1 Relatório Técnico: Revisão bibliográfica sobre o tema de pesquisa]
