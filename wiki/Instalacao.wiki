@@ -12,30 +12,72 @@ Atualmente o ambiente swasr funciona apenas em sistemas operacionais GNU/Linux (
 
 Primeiro obtenha o código-fonte a partir do repositório Subversion:
 
-  svn checkout http://swasr.googlecode.com/svn/trunk/ swasr
+{{{
+svn checkout http://swasr.googlecode.com/svn/trunk/ swasr
+}}}
 
-Então baixe da [http://code.google.com/p/swasr/downloads/list página de downloads] o pacote de dependências mais recente (arquivos opt-*.tar.bz2).
+Então baixe da [http://code.google.com/p/swasr/downloads/list página de downloads] o pacote de dependências mais recente (arquivos opt-`*`.tar.bz2).
 
 Descompacte o pacote de dependências no diretório raiz do swasr (criado pelo svn). A estrutura de diretórios deve ser parecida com a seguinte:
 
-  * swasr/
-    * bin/
-    * opt/
-    * sandbox/
-    * src/
+{{{
+  swasr/
+    bin/
+    opt/
+    sandbox/
+    src/
+}}}
 
 == Configuração ==
 
-Abra o arquivo swasr.rc em um editor de texto. Na linha
+Abra o arquivo `swasr.rc` em um editor de texto. Na linha
 
-  DIR=~/svn/swasr
+{{{
+DIR=~/svn/swasr
+}}}
 
-substitua ~/svn/swasr pelo caminho onde foi instalado o swasr.
+substitua `~/svn/swasr` pelo caminho onde foi instalado o swasr.
 
-Insira no ~/.bashrc uma linha do tipo
+Insira no `~/.bashrc` uma linha do tipo
 
-  source /caminho/para/swasr.rc
+{{{
+source /caminho/para/swasr.rc
+}}}
 
-(substitua /caminho/para/swasr.rc pelo caminho para o arquivo swasr.rc). 
+(substitua `/caminho/para/swasr.rc` pelo caminho do arquivo `swasr.rc`).
 
 Pronto. Todos os terminais abertos depois dessa edição estarão prontos para usar o swasr.
+
+== Uso ==
+
+*Exemplo de uso*. Sintetizando uma rede com estrutura de módulos embutida (modelo de Lancichinetti):
+
+{{{
+$ create_lancichinetti_arch.rb 
+Usage: create_lancichinetti_arch.rb [-12namdsp]
+
+Input/output:
+    -1, --output-l1=FILE             Output l1 filename (required)
+    -2, --output-l2=FILE             Output l2 filename (required)
+        --stats=FILE                 Statistics: degree distribution, community
+                                     size distribution, distribution of the
+                                     mixing parameter (optional)
+
+Model parameters:
+    -n, --nodes=N                    Number of nodes (default 1000)
+    -a, --avg-degree=N               Average degree (default 15)
+    -m, --max-degree=N               Maximum degree (default 50)
+    -d, --exp-degree=N               Exponent for the degree distribution
+                                     (default 2)
+    -s, --exp-size=N                 Exponent for the community size
+                                     distribution (default 1)
+    -p, --mixing=P                   Mixing parameter between 0.0 and 1.0
+                                     (default 0.2)
+        --min-size=N                 Minimum for the community sizes (optional)
+        --max-size=N                 Maximum for the community sizes (optional)
+        --seed=N                     Seed for the random number generator
+                                     (optional)
+
+Please refer to  "Benchmark graphs for testing community detection algorithms",
+by Lancichinetti et al (2008), for details.
+}}}
