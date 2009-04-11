@@ -1,6 +1,6 @@
 ﻿#summary Instalação do ambiente swasr
 
-Atualmente o ambiente swasr funciona apenas em sistemas operacionais GNU/Linux (mas nada impede que, com algum esforço, funcione em outros sistemas operacionais).
+Atualmente o ambiente swasr funciona apenas em sistemas operacionais GNU/Linux (mas nada impede que, com algum esforço, rode em outros sistemas operacionais).
 
 == Dependências ==
 
@@ -39,4 +39,3 @@ Insira no ~/.bashrc uma linha do tipo
 (substitua /caminho/para/swasr.rc pelo caminho para o arquivo swasr.rc). 
 
 Pronto. Todos os terminais abertos depois dessa edição estarão prontos para usar o swasr.
-
