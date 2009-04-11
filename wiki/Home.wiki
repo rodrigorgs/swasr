@@ -2,12 +2,15 @@
 
 Bem vindos ao projeto de mestrado de Rodrigo Rocha, sob orientação de Dalton Serey e Jorge Figueiredo da UFCG. Aqui você encontrará não apenas o código-fonte de todos os programas desenvolvidos na pesquisa, como também relatórios, ensaios e resumos de artigos.
 
-Objetivo do projeto: entender como grandes sistemas de software são organizados em módulos e usar essa informação para avaliar algoritmos que recuperam arquiteturas modulares a partir de dependências estáticas em um código-fonte.
+Objetivo do projeto: produzir grande quantidade de sistemas artificiais porém realistas para testar a eficácia de diversos algoritmos de recuperação de arquitetura. (Os sistemas artificiais devem ser considerados benchmarks complementares.) Para isso será preciso entender como grandes sistemas de software são organizados em módulos.
+
+== Código-fonte ==
+
+Veja as [Instalacao instruções de instalação do ambiente swasr].
 
 == Blog ==
 
   * [MetricasDeArquitetura Métricas de redes complexas com módulos]
-  * [Instalacao Instruções de instalação do ambiente swasr]
   * [ModeloLancichinetti Sobre o modelo de grafos de Lancichinetti para avaliar algoritmos de detecção de comunidade]
   * [ModeloRodrigo2008 Modelo in-house de rede com arquitetura embutida]
   * [HubsConectamModulos É verdade que hubs conectam vários módulos de uma rede?]
