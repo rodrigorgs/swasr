@@ -7,7 +7,7 @@ Pacotes são apenas um auxílio cognitivo, uma forma de facilitar a busca por im
 Pacotes, diretórios são uma enumeração de entidades.
 = Módulos como componentes conexas =
 
-Não há consenso sobre o que é um módulo de design de software, mas a maioria dos especialistas devem concordar que duas entidades em duas componentes conexas distintas de um grafo de dependência estão obrigatoriamente em módulos diferentes, para alguma definição relevante de módulo. Ou seja, componente conexa é uma boa definição coarse-grained de módulo. 
+Não há consenso sobre o que é um módulo de design de software, mas a maioria dos especialistas deve concordar que duas entidades em duas componentes conexas distintas de um grafo de dependência estão obrigatoriamente em módulos diferentes, para alguma definição relevante de módulo. Ou seja, componente conexa é uma boa definição coarse-grained de módulo. 
 
 Nessa definição uma biblioteca é um módulo. (se bem que as bibliotecas podem depender de outras bibliotecas, e nesse caso não seria módulo...)
 
@@ -41,11 +41,11 @@ Assim, um conjunto pode ser qualitativamente classificado como módulo de pouco 
 
 O problema de reuso não é um problema de clustering. Imagine as dependências A => B => C e D => C. Podemos obter vários módulos de reuso sobrepostos:
 
-* {C}
-* {D, C}
-* {B, C}
-* {A, B, C}
-* {A, B, C, D}
+  * {C}
+  * {D, C}
+  * {B, C}
+  * {A, B, C}
+  * {A, B, C, D}
 
 Talvez para eu usar B eu precise de A ou de um programa bem parecido com A (e nesse caso eu preciso copiar o código de A para o meu programa e então modificá-lo de acordo com minhas necessidades).
 
