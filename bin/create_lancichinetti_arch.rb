@@ -105,7 +105,7 @@ if __FILE__ == $0
     end
 
     footer ''
-    footer 'Please refer to  "Benchmark graphs for testing community detection algorithms",'
+    footer 'Please refer to "Benchmark graphs for testing community detection algorithms",'
     footer 'by Lancichinetti et al (2008), for details.'
     footer ''
   end
