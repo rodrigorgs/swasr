@@ -4,9 +4,12 @@ Atualmente o ambiente swasr funciona apenas em sistemas operacionais GNU/Linux (
 
 == Dependências ==
 
-  * Ruby 1.9
+  * Ruby 1.8.7 ou mais recente
+
+<wiki:comment>
   * GNU R (opcional)
   * libigraph (opcional)
+</wiki:comment>
 
 == Download ==
 
