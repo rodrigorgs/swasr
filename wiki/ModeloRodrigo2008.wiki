@@ -1,6 +1,6 @@
 ﻿#summary Modelo in-house de rede com arquitetura embutida.
 
-Esse modelo foi desenvolvido em dezembro de 2008 e baseado no [ReviewBollobas2003 modelo de de Bollobas] (sem arquitetura embutida). O modelo recebe como entrada uma arquitetura (grafo onde os vértices representam os módulos e as arestas representam as ligações permitidas entre vértices de módulos distintos) e produz um grafo que obedece à arquitetura. 
+Esse modelo foi desenvolvido em dezembro de 2008 e baseado no [ReviewBollobas2003 modelo de de Bollobáss] (sem arquitetura embutida). O modelo recebe como entrada uma arquitetura (grafo onde os vértices representam os módulos e as arestas representam as ligações permitidas entre vértices de módulos distintos) e produz um grafo que obedece à arquitetura. 
 
 Parâmetros:
   * Número de iterações
@@ -30,4 +30,3 @@ Com probabilidade beta, é adicionada uma aresta entre dois vértices existentes
 == Limitações ==
 
 Em simulações realizadas em dezembro de 2008 notei que a distribuição de graus segue uma lei de potência, mas os expoentes encontrados foram diferentes daqueles esperados (talvez isso possa ser remediado com uma escolha adequada dos parâmetros). Além disso o gráfico de dispersão que mostra a correlação entre grau de entrada e grau de saída não ficou muito parecido com os gráficos gerados a partir de sistemas reais. Os gráficos podem ser vistos em http://gmf.ufcg.edu.br/~rodrigo/report_des_arch/report.htm
-
