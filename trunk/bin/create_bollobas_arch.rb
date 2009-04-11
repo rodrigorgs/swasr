@@ -8,63 +8,82 @@ if __FILE__ == $0
   require 'random_graphs'
 
   Choice.options do
+    header ''
+    header 'Input/output:'
+
     option :input, :required => true do
       short '-i'
       long '--input=FILE'
       desc 'GXL file containing the architecture'
-    end
-
-    option :alpha, :required => true do
-      short '-a'
-      long '--alpha=PROBABILITY'
-      cast Float
+      desc '(required)'
     end
     
-    option :beta, :required => true do
-      short '-b'
-      long '--beta=PROBABILITY'
-      cast Float
+    option :output_l1, :required => true do
+      short '-1'
+      long '--output=FILE'
+      desc 'Output l1 filename (required)'
+    end
+    
+    option :output_l2, :required => true do
+      short '-2'
+      long '--output=FILE'
+      desc 'Output l2 filename (required)'
     end
 
-    option :gamma, :required => true do
-      short '-g'
-      long '--gamma=PROBABILITY'
-      cast Float
-    end
+    separator ''
+    separator 'Model parameters:'
 
     option :iterations do
       short '-n'
       long '--iterations=N'
       cast Integer
       default 1000
-      desc 'Number of iterations'
+      desc 'Number of iterations (default: 1000)'
+    end
+
+    option :alpha do
+      short '-a'
+      long '--alpha=P'
+      cast Float
+      default 0.41
+      desc 'Probability of adding a vertex with an'
+      desc 'outgoing edge (default: 0.41)'
+    end
+    
+    option :beta do
+      short '-b'
+      long '--beta=P'
+      cast Float
+      default 0.49
+      desc 'Probability of adding an edge between'
+      desc 'vertices from distinct modules'
+      desc '(default: 0.49)'
+    end
+
+    option :gamma do
+      short '-g'
+      long '--gamma=P'
+      cast Float
+      default 0.10
+      desc 'Probability of adding a vertex with an'
+      desc 'ingoing edge (default: 0.10)'
     end
 
     option :din do
       long '--din=N'
-      cast Integer
-      default 0
-      desc 'Delta in-degree'
+      cast Float
+      default 0.0
+      desc 'In-degree offset (default: 0.0)'
     end
 
     option :dout do
       long '--dout=N'
-      cast Integer
-      default 0
-      desc 'Delta out-degree'
+      cast Float
+      default 0.0
+      desc 'Out-degree offset (default: 0.0)'
     end
 
-    option :output_l1 do
-      short '-1'
-      long '--output=FILE'
-      desc 'Output filename l1'
-    end
-    
-    option :output_l2 do
-      short '-2'
-      long '--output=FILE'
-      desc 'Output filename'
-    end
+    separator ''
   end
 
   c = Choice.choices
