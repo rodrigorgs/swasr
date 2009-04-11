@@ -8,7 +8,7 @@ Essa pergunta deve ser entendida no contexto de recuperação de arquitetura de 
 
 Muitos autores afirmam também que as decomposições encontradas pelos algoritmos devem ser de alguma forma semelhantes a decomposições encontradas por especialistas. Mas será que esse critério não conflita com NED? E se descobrirmos que módulos pequenos e módulos grandes aparecem com frequência em decomposições de especialistas?
 
-Ok, então vamos analisar a distribuição de tamanhos dos módulos encontrados por especialista. Vamos começar pelo sistema... oops! Parece que não existe no mundo uma decomposição de um sistema feita por um especialista -- desconsiderando os [http://suraj.lums.edu.pk/~reverseeng/ 4 sistemas pequenos do artigo de Maqbool e Babri].
+Ok, então vamos analisar a distribuição de tamanhos dos módulos encontrados por especialistas. Vamos começar pelo sistema chamado... oops! Parece que não existe no mundo uma decomposição de um sistema feita por um especialista -- desconsiderando os [http://suraj.lums.edu.pk/~reverseeng/ 4 sistemas pequenos do artigo de Maqbool e Babri].
 
 Nos resta então apelar para o plano B: analisar a distribuição dos tamanhos dos pacotes de programas Java. Baxter et al, no artigo [ReviewBaxter2006 Understanding the Shape of Java Software], tomou as medidas de 56 sistemas e chegou à conclusão de que em nenhum sistema existe um tamanho típico de pacote. Ao contrário, ele encontrou distribuições de cauda longa, algo parecido com lognormal ou Weibull.
 
