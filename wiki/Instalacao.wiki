@@ -20,9 +20,9 @@ Descompacte o pacote de dependências no diretório raiz do swasr (criado pelo s
 
   * swasr/
     * bin/
-	* opt/
-	* sandbox/
-	* src/
+    * opt/
+    * sandbox/
+    * src/
 
 == Configuração ==
 
