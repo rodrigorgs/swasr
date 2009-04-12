@@ -6,6 +6,45 @@ require 'grok'
 
 include REXML
 
+require 'rexml/streamlistener'
+
+class DepxmlHandler
+  include StreamListener
+  @f_from = false
+  @f_to = false
+  @s_from = ''
+  @s_to = ''
+
+  def initialize(output)
+    @output = output
+  end
+
+  def tag_start(name, attrs)
+    case name
+    when 'name'; @f_from = true
+    when 'outbound'; @f_to = true
+    end
+  end
+
+  def text(value)
+    if @f_from
+      @s_from = value
+      @f_from = false
+    elsif @f_to
+      @s_to = value.gsub(/[\[\]]/, '')
+      @f_to = false
+      @output.puts "#{@s_from} #{@s_to}"
+    end
+  end
+end
+
+def depxml_to_pairs(depxml, pairsfile)
+  File.open(pairsfile, 'w') do |f|
+    handler = DepxmlHandler.new(f)
+    Document.parse_stream(File.new(depxml), handler)
+  end
+end
+
 def gxl_to_l1(gxl, outfilename=nil)
   doc = Hpricot.XML(File.new(gxl))
   pairs = []
