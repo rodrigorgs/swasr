@@ -40,6 +40,11 @@ export RUBYLIB=$RUBYLIB:$DIR/opt/rsruby-0.5/lib
 # Choice (for command-line options parsing)
 export RUBYLIB=$RUBYLIB:$DIR/opt/choice-0.1.3/lib
 
+# DepFinder
+export DEPENDENCYFINDER_HOME=$DIR/opt/DependencyFinder-1.2.1-beta1
+export DEPENDENCYFINDER_OPTS=-Xmx512m
+export PATH=$DEPENDENCYFINDER_HOME/bin:$PATH
+
 # swasr
 export PATH=$PATH:$DIR/sandbox
 export RUBYLIB=$RUBYLIB:$DIR/sandbox
