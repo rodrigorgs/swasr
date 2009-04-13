@@ -4,19 +4,19 @@
 #
 
 class Network
-  attr_reader :nodes, :edges, :clusters
+  attr_reader :edges, :clusters
 
   def initialize
-    @nodes    = []
+    @nodes    = {}
     @edges    = []
     @clusters = []
   end
 
   def n(id)
-    node = @nodes.find { |x| x.id == id }
+    node = @nodes[id]
     if node.nil?
       node = Node.new(id)
-      @nodes << node
+      @nodes[id] = node
     end
     return node
   end
@@ -29,7 +29,6 @@ class Network
     else
       n2.in_edges.find { |x| x.from == n1 }
     end
-    #edge = @edges.find { |x| x.from == n1 && x.to == n2 }
     if edge.nil?
       edge = Edge.new(n1, n2)
       @edges << edge
@@ -39,8 +38,11 @@ class Network
     return edge
   end
 
+  def nodes
+    @nodes.values
+  end
+
   def c(id)
-    #puts "node: #{node}, cluster: #{cluster}"
     cluster = @clusters.find { |x| x.id == id }
     if cluster.nil?
       cluster = Cluster.new(id)
