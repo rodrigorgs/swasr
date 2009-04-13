@@ -119,22 +119,55 @@ Outra característica observada em algumas redes é que o coeficiente de agrupam
 
 == Detecção de comunidades ==
 
-Paper: Benchmark for community detection
+= análise de clustering, = recuperação de arquitetura modular (módulos de atribuição de trabalho).
 
-== Detecção de comunidades? ==
+Clauset, Newman, Moore - Finding community structure in very large networks (2004)
+
+Gulbahce2008 - "The art of community detection": Currently the state of the art is to design an artificial network with the structural properties that one wants to detect (e.g. group strucutre) and then show that the algorithm being tested is able to detect such structures. 
+
+A community is
+a densely connected subset of nodes that is only sparsely
+linked to the remaining network. (Gulbahce)
+
+Communities in a citation network might represent
+related papers on a single topic;
+
+Community can be considered as a summary of
+the whole network thus easy to visualize and
+understand.
+
+relação funcional, módulos de funcionalidade
+
+
+Modelo de Girvan-Newman - Newman - Fast algorithm for detecting community structure in networks (2003) e, mais antigo, Newman, Girvan - Finding and evaluating community structure in networks (2003)
+
+Paper: Benchmark for community detection
 
 = Redes complexas em software =
 
-Dentro da teoria das redes complexas, as redes de dependências entre componentes de software são classificadas como redes tecnológicas (Newman2003).
+Valverde considerou redes não-orientadas de colaboração entre structs/classes em C/C++ e diagramas UML de sistemas em Java. Ele detectou distribuições de graus livres de escala e alto coeficiente de agrupamento.
+Myers descobriu C = 1/k e evidenciou assimetria entre a distribuição de graus de entrada e a distribuição de graus de saída. Ambas possuem trechos aproximáveis por  leis de potência, mas o expoente da distribuição de graus de saída é maior. Também analisou rede de chamadas entre funções (C)
 
-Valverde considerou redes não-orientadas de colaboração entre classes.
-Myers estendeu a pesquisa para redes orientadas.
+Marchesi achou livre-de-escala em Smalltalk (in e out).
 
-Eu li cerca de 15 artigos que estudam a estrutura de programas de computador sob a luz da teoria das redes complexas. Alguns artigos analisam a rede formada pelas dependências entre pacotes Debian, entre _ports_ do FreeBSD etc, e outros estudam as redes de dependências dentro de um programa. Foram estudadas programas escritos em C, C++, Java e Smalltalk, um conjunto de linguagens que engloba dois paradigmas, procedimental e orientado a objetos, e dois sistemas de tipos, estático e dinâmico. A maioria dos autores estudou dependências estáticas dentro de um programa, mas existe um trabalho que estuda a rede de referências entre objetos em tempo de execução. Em todos os casos os pesquisadores encontraram redes livres de escala. Ou seja, a distribuição do número de arestas por vértice (ou distribuição de graus) segue uma lei de potência (power law), o que significa que existem vértices que concentram um número desproporcionalmente grande de arestas, os chamados _hubs_.
+Louridas estudou distribuição de graus em relações entre bibliotecas dinâmicas (Linux e Windows' DLLs), entre pacotes de distribuições de software (FreeBSD ports, Perl CPAN), chamadas de sistema, em sistemas Java, METAFONT, bibliotecas Ruby. 
+
+Potanin estuda referências entre objetos em tempo de execução e encontra distribuição de graus livres de escala (de entrada e de saída) e correlação negativa entre grau de entrada e grau de saída.
+
+== Observações ==
 
 Não há uma definição única de rede de software. Alguns consideram apenas agregação e herança, outros consideram chamadas... Alguns consideram o grafo orientado, outros não orientado...
 
-Nem todos os trabalhos usam a Estatística rigorosamente. Lognormal, double pareto, power law, stretched exponential, power law with exponential cutoff...
+Nem todos os trabalhos usam a Estatística rigorosamente. Lognormal, double pareto, power law, stretched exponential, power law with exponential cutoff... Alguns usam o coeeficiente de determinação (R²), que não se aplica a leis de potência, ou o método dos mínimos quadrados sobre o logaritmo dos dados.
 
+= Apêndice: Estatística =
+
+Tratamento estatístico de leis de potência:  \cite{Newman2006} - Power laws, Pareto distributions and Zipf's law   //   Clauset et al - Power-law distributions in empirical data (2009)
+
+histograma. problema com a escolha do tamanho do bin. histograma com exponential bins
+distribuição cumulativa complementar (survival)
+maximum likelihood estimation para estimar expoente.
+goodness-of-fit para estimar região de scaling.
+não usar: regressão linear (método dos mínimos quadrados), coeficiente de determinação (R²)
 
 
