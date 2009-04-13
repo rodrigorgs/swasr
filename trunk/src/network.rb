@@ -24,7 +24,12 @@ class Network
   def e(n1, n2)
     n1 = n(n1) unless n1.kind_of?(Node)
     n2 = n(n2) unless n2.kind_of?(Node)
-    edge = @edges.find { |x| x.from == n1 && x.to == n2 }
+    edge = if (n1.out_edges.size > n2.in_edges.size)
+      n1.out_edges.find { |x| x.to == n2 }
+    else
+      n2.in_edges.find { |x| x.from == n1 }
+    end
+    #edge = @edges.find { |x| x.from == n1 && x.to == n2 }
     if edge.nil?
       edge = Edge.new(n1, n2)
       @edges << edge
