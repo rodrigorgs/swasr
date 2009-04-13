@@ -24,16 +24,16 @@ class Network
   def e(n1, n2)
     n1 = n(n1) unless n1.kind_of?(Node)
     n2 = n(n2) unless n2.kind_of?(Node)
-    edge = if (n1.out_edges.size > n2.in_edges.size)
-      n1.out_edges.find { |x| x.to == n2 }
+    edge = if (n1.out_edges_map.size > n2.in_edges_map.size)
+      n1.out_edges_map[n2]
     else
-      n2.in_edges.find { |x| x.from == n1 }
+      n2.in_edges_map[n1]
     end
     if edge.nil?
       edge = Edge.new(n1, n2)
       @edges << edge
-      n1.out_edges << edge
-      n2.in_edges << edge
+      n1.out_edges_map[n2] = edge
+      n2.in_edges_map[n1] = edge
     end
     return edge
   end
@@ -79,6 +79,7 @@ end
 
 class Edge
   attr_reader :from, :to
+  attr_accessor :weight
 
   def initialize(from, to)
     @from, @to = from, to
@@ -87,31 +88,40 @@ end
 
 # TODO: adicionar hash de atributos opcionais
 class Node
-  attr_reader :out_edges, :in_edges
+  #attr_reader :out_edges, :in_edges
   attr_accessor :cluster, :id
+  attr_reader :out_edges_map, :in_edges_map
 
   def initialize(id)
     @id = id
-    @out_edges = []
-    @in_edges  = []
+    @out_edges_map = {}
+    @in_edges_map  = {}
+  end
+
+  def out_edges
+    @out_edges_map.values
+  end
+
+  def in_edges
+    @in_edges_map.values
   end
 
   def _clusters(nodes)
     nodes.map { |n| n.cluster }.uniq
   end
 
-  def in_nodes; @in_edges.map { |e| e.from }; end
-  def out_nodes; @out_edges.map { |e| e.to }; end
+  def in_nodes; @in_edges_map.map { |n, e| n }; end
+  def out_nodes; @out_edges_map.map { |n, e| n }; end
 
   def degree; in_degree + out_degree; end
-  def in_degree; @in_edges.size; end
-  def out_degree; @out_edges.size; end
+  def in_degree; @in_edges_map.size; end
+  def out_degree; @out_edges_map.size; end
   def inner_degree; inner_in_degree + inner_out_degree; end
-  def inner_in_degree; @in_edges.count { |e| e.from.cluster == @cluster }; end
-  def inner_out_degree; @out_edges.count { |e| e.to.cluster == @cluster }; end
+  def inner_in_degree; @in_edges_map.count { |n, e| n.cluster == @cluster }; end
+  def inner_out_degree; @out_edges_map.count { |n, e| n.cluster == @cluster }; end
   def outer_degree; outer_in_degree + outer_out_degree; end
-  def outer_in_degree; @in_edges.count { |e| e.from.cluster != @cluster }; end
-  def outer_out_degree; @out_edges.count { |e| e.to.cluster != @cluster }; end
+  def outer_in_degree; @in_edges_map.count { |n, e| n.cluster != @cluster }; end
+  def outer_out_degree; @out_edges_map.count { |n, e| n.cluster != @cluster }; end
   def cluster_span; _clusters(in_nodes + out_nodes).size; end
   def in_cluster_span; _clusters(in_nodes).size; end
   def out_cluster_span; _clusters(out_nodes).size
