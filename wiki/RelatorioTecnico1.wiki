@@ -119,11 +119,13 @@ Outra característica observada em algumas redes é que o coeficiente de agrupam
 
 == Detecção de comunidades ==
 
-= análise de clustering, = recuperação de arquitetura modular (módulos de atribuição de trabalho).
+= análise de clustering (graph clustering, network clustering), = recuperação de arquitetura modular (módulos de atribuição de trabalho).
 
 Clauset, Newman, Moore - Finding community structure in very large networks (2004)
 
 Gulbahce2008 - "The art of community detection": Currently the state of the art is to design an artificial network with the structural properties that one wants to detect (e.g. group strucutre) and then show that the algorithm being tested is able to detect such structures. 
+
+definição de cluster: A number of similar things collected together or lying contiguous; a group;
 
 A community is
 a densely connected subset of nodes that is only sparsely
