@@ -2,7 +2,7 @@
 
 O desenvolvimento de software é uma atividade complexa, etc. e tal. Dijkstra disse que para lidar com essa complexidade deve-se decompor os problemas em problemas menores, refinamentos sucessivos. Desde então esse mecanismo de abstração foi incorporado nas linguagens de programação, com o advento da programação estruturada, seguida pela programação orientada a objetos e, mais recentemente, a programação orientada a aspectos. Essa decomposição certamente é útil para diminuir a complexidade do desenvolvimento de software, uma vez que permite dividir a tarefa de desenvolvimento em pedaços intelectualmente assimiláveis, mas faz emergir uma complexa rede de interações entre esses componentes.
 
-Uma forma de entender um sistema é olhando a estrutura de relacionamentos entre seus componentes.
+Uma forma de entender um sistema é olhando a estrutura de relacionamentos entre seus componentes. Essa análise permite avaliar se o sistema é fácil de modificar, de reusar // Essa estrutura é responsável por tornar um sistema mais fácil ou mais difícil de modificar ou de reusar.
 Compreender a maneira como os componentes são interconectados é de grande importância para entender os internos de um software e tirar conclusões sobre seu desenvolvimento. Dois componentes que não interagem entre si podem ser desenvolvidos por duas equipes trabalhando independentemente, sem necessidade de comunicação entre membros de equipes distintas: o funcionamento de um componente não depende do bom funcionamento do outro. Se, no entanto, um componente A precisa de um componente B para funcionar corretamente, um mau funcionamento de B pode causar falhas no componente A.
 
 Essa rede de relacionamentos é usada em análise de impacto de mudanças em software, na divisão de trabalho entre equipes. Curiosamente redes de software de larga escala exibem padrões marcantes, que parecem não depender da linguagem de programação ou da metodologia usada durante o desenvolvimento.
@@ -17,6 +17,8 @@ As formas de interação entre componentes podem ser classificadas em dois tipos
 
 Essa rede de relacionamentos pode ser modelada por um grafo orientado rotulado, onde os vértices representam os componentes e os arcos representam as interações entre os componentes. O rótulo de um vértice indicam o tipo de componente que ele representa (classe, método ou atributo); o rótulo de um arco representa o tipo de relacionamento entre componentes (chamada de método, leitura de atributo, entre outros).
 
+Dizemos que um componente depende de outro quando o primeiro componente requer a presença do segundo para funcionar.
+
 A rede de dependências entre componentes de um programa pode ser extraída automaticamente por um programa construído para este fim, denominado extrator. As técnicas mais comuns de extração de dependências são a análise dinâmica e a análise estática. A análise dinâmica consiste em instrumentar o programa sob análise e então coletar dados sobre sua execução. Esse tipo de análise exige que o programa esteja corretamente instalado e configurado e depende da sua execução completa.
 
 Análise estática é qualquer análise que não depende da execução do programa analisado. As interações entre os componentes são extraídas a partir do código-fonte ou do código objeto do programa analisado. A tabela XXX mostra os tipos de dependência que podem ser extraídos através de análise sintática (cite XXX).
@@ -27,6 +29,8 @@ Em qualquer caso é impossível garantir que todas as dependências foram extra�
 
 // A Figura 1 mostra uma rede.
 // A Figura 2 mostra uma rede simplificada.
+
+// Redes orientadas, não orientadas, colaboração entre classes, filtragem, lifting, abstracting...
 
 Uma rede de dependências entre componentes contém muita informação e pode precisar ser simplificada para análise. Para este fim são empregadas duas técnicas: filtragem e abstração. Filtragem consiste em remover elementos da rede. Por exemplo, Myers considerou em sua análise apenas os relacionamentos de agregação e herança. Mancoridis sugere remover da análise os vértices com grau de entrada muito alto. Abstração consiste em agrupar vértices e os respectivos arcos. É comum representar uma classe, seus métodos e atributos em apenas um vértice. Assim a rede se reduz a uma rede de dependências entre classes, abstraindo detalhes sobre métodos e atributos.
 
@@ -49,36 +53,39 @@ Lifting para o nível de classes
 
 = Redes complexas =
 
+A teoria das redes complexas estuda propriedades gerais de diversos tipos de redes com o uso de ferramentas estatísticas. Estudos realizados na última década revelaram similaridades entre diversas redes, sejam elas tecnológicas, como a Web e a rede de distribuição de energia elétrica dos Estados Unidos, redes biológicas, como a cadeia alimentar de XXX e ligações entre proteínas da bactéria XXX, e redes sociais como aquela formada por relações de amizade entre alunos de uma escola.
 
-// Propriedades globais, macroscópias, da estrutura de relacionamentos entre entidades de software.
+== Caracterização de redes complexas ==
 
-A teoria das redes complexas estuda propriedades gerais de diversos tipos de redes com o uso de ferramentas estatísticas. Na última década foram realizados estudos sobre redes tecnológicas, como a Web e a rede de distribuição de energia elétrica dos Estados Unidos, redes biológicas como cadeia alimentar e ligações entre proteínas da bactéria XXX, e redes sociais como a relação de amizade entre alunos de uma escola.
+Em 1999, Barabási e Albert analisaram uma amostra da Web, representa como um grafo no qual os vértices representam páginas e as arestas representam os links entre duas páginas. Eles consideram o modelo simplificado de um grafo não-orientado. Agrupando os vértices de acordo com o grau e então plotando o gráfico da frequência de vértices por grau, eles encontraram uma curva que podia ser aproximada por uma lei de potência. Nesse caso, a probabilidade de um vértice escolhido ao acaso possuir grau k, P(k), é tal que P(k) = Ck^-gamma (C é um coeficiente de normalização, cujo objetivo é fazer com que a soma das probabilidades seja igual a 1). Essa função é dita livre de escala, pois P(ak) = bP(k) - a mudança de escala da variável dependente não altera a variável independente a menos de um fator multiplicativo. Desde então foram encontradas distribuições de graus livres de escala em redes biológicas, sociais e tecnológicas, incluindo redes de dependências entre componentes de programas de computador \cite{Valverde2003}.
 
-O primeiro modelo que tentou explicar como são formadas as redes foi o modelo de Erdős-Rényi, também chamado de modelo de rede aleatória. Nesse modelo, a probabilidade de um par de vértices ser ligado por uma aresta é constante e igual a p. É possível demonstrar que o grau médio de uma rede aleatória é dado por <k> = p(n - 1), onde n é a quantidade de vértices. Quando n é muita grande, a distribuição das probabilidades dos graus é bem aproximada pela distribuição de Poisson.
+Esse resultado foi considerado surpreendente, pois contradiz a hipótese de que redes reais obedecem ao modelo de Erdős-Rényi, também chamado de modelo de rede aleatória. Nesse modelo, a probabilidade de um par de vértices ser ligado por uma aresta é constante e igual a p. É possível demonstrar que distribuição dos graus é bem aproximada pela distribuição de Poisson quando a rede possui muitos vértices.
 
-Cada vértice em um grafo é caracterizado por um grau, k, que representa a quantidade de arestas ligadas a ele. No caso de grafos orientados, existe a distinção entre grau de saída e grau de entrada, que representam a quantidade de arcos que saem ou entram, respectivamente, do vértice.
+Uma característica marcante das redes livres de escala é a presença de vértices cujo grau é muito maior do que a média (informalmente chamados de hubs). No caso de redes de Erdős-Rényi a probabilidade de existir um vértice com um determinado grau k cai exponencialmente à medida que k se afasta do k médio e, por essa razão, hubs são altamente improváveis.
 
-Em 1999, Barabási e Albert analisaram uma amostra da Web, representa como um grafo no qual os vértices representam páginas e as arestas representam os links entre duas páginas. Eles consideram o modelo simplificado de um grafo não-orientado. Agrupando os vértices de acordo com o grau e então plotando o gráfico da frequência de vértices por grau, eles encontraram uma curva que podia ser aproximada por uma lei de potência. Nesse caso, a probabilidade de um vértice escolhido ao acaso possuir grau k, P(k), é tal que P(k) = Ck^-gamma (C é um coeficiente de normalização, cujo objetivo é fazer com que a soma das probabilidades seja igual a 1). Essa função é dita livre de escala, pois P(ak) = bP(k) - a mudança de escala da variável dependente não altera a variável independente a menos de um fator multiplicativo. Esse resultado foi surpreendente, pois eles esperavam encontrar distribuição de graus Poissoniana, que caracteriza as redes aleatórias. Desde então foram encontradas distribuições de graus livres de escala em redes biológicas, sociais e tecnológicas, incluindo redes de dependências entre componentes de programas de computador.
-
-Uma característica marcante das redes livres de escala é a presença de vértices cujo grau é muito maior do que a média. São os chamados concentradores (hubs).
+// Talvez aqui fazer algo didático, como no livro The Black Swan
 
 Propriedades estatísticas da lei de potência. A Figura 1(a) mostra o gráfico de uma lei de potência. Intuitivamente, percebe-se que a grande maioria dos vértices possui um grau pequeno, mas existem vértices cujo grau está muito acima do grau médio. Trata-se de uma curva assimétrica positiva, pois a média é maior do que a mediana. A probabilidade de um elemento de grau alto é pequena mas não desprezível, e isso contribui para elevar a média. Como a distribuição é muito heterogênea, a média não é um valor muito representantivo da distribuição. A lei de potência, quando plotada em escala log-log, se apresenta sob a forma de uma reta. Dificilmente dados obtidos experimentalmente formam uma reta em toda sua extensão. Portanto muitas vezes quando se afirma que uma distribuição é livre de escala, o que se quer dizer é que parte da distribuição é bem aproximada por uma reta na escala log-log.
 
-Barabási e Albert propuseram um modelo para explicar a formação das redes com distribuição de graus livre de escala, formado por dois mecanismos: crescimento contínuo e ligação preferencial. O modelo propõe que as redes crescem um vértice por vez e cada novo vértice se liga a um número fixo de vértices antigos, dando preferência aos vértices com maior grau. Mais formalmente, a probabilidade de um vértice receber uma aresta é proporcional ao seu grau.
+Barabási e Albert propuseram um modelo para explicar a formação das redes com distribuição de graus livre de escala, formado por dois mecanismos: crescimento contínuo e ligação preferencial \cite{}. O modelo propõe que as redes crescem um vértice por vez e cada novo vértice se liga a um número fixo de vértices antigos, dando preferência aos vértices com maior grau (mais formalmente, a probabilidade de um vértice receber uma aresta é proporcional ao seu grau). Desde então o modelo recebeu extensões e diversos outros modelos foram propostos \cite{Bollobas2003,Kumar2000}.
 
+<wiki:comment>
 Além da distribuição de graus, muitas redes complexas têm sido caracterizadas pelo efeito mundo pequeno, pelo alto coeficiente de agrupamento e pela presença de motivos.
 
-== Efeito mundo pequeno ==
+Cada vértice em um grafo é caracterizado por um grau, k, que representa a quantidade de arestas ligadas a ele. No caso de grafos orientados, existe a distinção entre grau de saída e grau de entrada, que representam a quantidade de arcos que saem ou entram, respectivamente, do vértice.
+</wiki:comment>
 
-A distância entre dois vértices de uma rede é o número de arestas do menor caminho que conecta os vértices. Diz-se que uma rede apresenta o efeito mundo pequeno quando o a distância entre dois vértices é, em média, pequena, mesmo quando a rede é grande. Mais formalmente, a distância média entre vértices é proporcional ao logaritmo do número de vértices. Demonstra-se que tanto os grafos gerados pelo modelo de Erdős-Rényi quanto aqueles gerados pelo modelo de Barabási-Albert possuem essa propriedade.
+=== Efeito mundo pequeno ===
 
-No modelo de Watts e Strogatz, os vértices são dispostos em uma circunferência e então cada vértice se conecta a um número fixo de vértices mais próximos. O grafo resultante é regular, isto é, todos os seus vértices possuem o mesmo grau. A seguir são criadas arestas entre pares de vértices escolhidos aleatoriamente. Essas arestas criam atalhos na rede e fazem com que a rede tenha a propriedade de mundo pequeno.
+A distância entre dois vértices de uma rede é o número de arestas do menor caminho que conecta os vértices. Diz-se que uma rede apresenta o efeito mundo pequeno quando a distância entre dois vértices é, em média, pequena, mesmo quando a rede é grande. Mais formalmente, a distância média entre vértices é proporcional ao logaritmo do número de vértices. Demonstra-se que tanto os grafos gerados pelo modelo de Erdős-Rényi quanto aqueles gerados pelo modelo de Barabási-Albert possuem essa propriedade.
 
-== Coeficiente de agrupamento ==
+O modelo de Watts e Strogatz, também conhecido como modelo de mundo pequeno, foi o primeiro modelo a apresentar esse efeito. Nesse modelo os vértices são dispostos em uma circunferência e então cada vértice se conecta a um número fixo de vértices mais próximos. O grafo resultante é regular, isto é, todos os seus vértices possuem o mesmo grau. A seguir são criadas arestas entre pares de vértices escolhidos aleatoriamente. Essas arestas criam atalhos na rede e fazem com que a rede tenha a propriedade de mundo pequeno.
+
+=== Coeficiente de agrupamento ===
 
 // Em muitas redes, se um vértice A está conectado a dois vértices, B e C, é muito provável que exista uma aresta entre B e C.
 
-Os vizinhos de um vértice são todos os vértices que com ele compartilham uma aresta. O coeficiente de agrupamento de um vértice é a fração de todos os possíveis pares de vizinhos do vértice que estão ligados por uma aresta. O coeficiente de agrupamento de um vértice i, C_i, pode ser dado pela fórmula a seguir:
+Os vizinhos de um vértice são todos os vértices com os quais ele compartilham uma aresta. O coeficiente de agrupamento de um vértice, C_i, é a fração de todos os possíveis pares de vizinhos do vértice que estão ligados por uma aresta, e é dado pela seguinte expressão:
 
 C_i = 2x / k_i(k_i - 1)
 
@@ -110,9 +117,7 @@ Outra característica observada em algumas redes é que o coeficiente de agrupam
 
 </wiki:comment>
 
-== Modelos de redes complexas? ==
-
-Os modelos tentam explicar os fenômenos. A propriedades livre de escala pode ser gerada por diversos modelos.
+== Detecção de comunidades ==
 
 Paper: Benchmark for community detection
 
@@ -121,6 +126,9 @@ Paper: Benchmark for community detection
 = Redes complexas em software =
 
 Dentro da teoria das redes complexas, as redes de dependências entre componentes de software são classificadas como redes tecnológicas (Newman2003).
+
+Valverde considerou redes não-orientadas de colaboração entre classes.
+Myers estendeu a pesquisa para redes orientadas.
 
 Eu li cerca de 15 artigos que estudam a estrutura de programas de computador sob a luz da teoria das redes complexas. Alguns artigos analisam a rede formada pelas dependências entre pacotes Debian, entre _ports_ do FreeBSD etc, e outros estudam as redes de dependências dentro de um programa. Foram estudadas programas escritos em C, C++, Java e Smalltalk, um conjunto de linguagens que engloba dois paradigmas, procedimental e orientado a objetos, e dois sistemas de tipos, estático e dinâmico. A maioria dos autores estudou dependências estáticas dentro de um programa, mas existe um trabalho que estuda a rede de referências entre objetos em tempo de execução. Em todos os casos os pesquisadores encontraram redes livres de escala. Ou seja, a distribuição do número de arestas por vértice (ou distribuição de graus) segue uma lei de potência (power law), o que significa que existem vértices que concentram um número desproporcionalmente grande de arestas, os chamados _hubs_.
 
