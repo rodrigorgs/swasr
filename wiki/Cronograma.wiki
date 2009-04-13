@@ -24,7 +24,9 @@
 
 == Planejamento de experimentos e Modelagem ==
 
-Estou aparando as arestas dos programas para entregar algo para o pessoal do GMF começar a brincar.
+Foram entregues para Roberto dois sintetizadores: o de Lancichinetti e o meu (de 2008).
+
+Foram feitas análises preliminares sobre a organização de sistemas em módulos, ainda sem conclusões.
 
 == Avaliação ==
 
