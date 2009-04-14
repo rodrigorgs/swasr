@@ -1,24 +1,22 @@
-require 'png'
+require 'gd2'
 
 def matrix_to_png(matrix, png_file, size=1)
   height = matrix.size
   width = matrix[0].size
   h = height * size
 
-  canvas = PNG::Canvas.new width * size, height * size, PNG::Color::White
-  matrix.each_with_index do |row, y|
-    row.each_with_index do |value, x|
-      if value != 0
-        (x * size).upto(x * size + size - 1) do |i|
-          (y * size).upto(y * size + size - 1) do |j|
-            canvas[i, h - j - 1] = PNG::Color::Black
-          end
-        end
+  image = GD2::Image::TrueColor.new(width * size, height * size)
+  image.draw do |canvas|
+    canvas.color = GD2::Color::WHITE
+    canvas.fill
+    canvas.color = GD2::Color::BLACK
+    matrix.each_with_index do |row, y|
+      row.each_with_index do |value, x|
+        canvas.rectangle(x * size, y * size, x * size + size - 1, y * size + size - 1, true) if value != 0
       end
     end
   end
-  png = PNG.new(canvas)
-  png.save(png_file)
+  image.export(png_file)
 end
 
 if __FILE__ == $0
