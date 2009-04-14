@@ -3,10 +3,31 @@
 require 'rexml/document'
 require 'hpricot'
 require 'grok'
+require 'network'
 
 include REXML
 
 require 'rexml/streamlistener'
+
+def pairs_to_metis(pairs, metis_file)
+  pairs = read_pairs(pairs) if pairs.kind_of?(String)
+  net = Network.new
+  net.add_edges(pairs)
+  network_to_metis!(net, metis_file)
+end
+
+def network_to_metis!(network, metis_file)
+  network.nodes.each_with_index { |n, i| n.id = i + 1 }
+  # TODO: transformar em nao orientado e contar arestas
+
+  File.open(metis_file, "w") do |f|
+    f.puts "#{network.nodes.size} #{network.edges.size}"
+    network.nodes.sort_by{ |n| n.id }.each do |node|
+      neighbors = (node.in_nodes + node.out_nodes).map{ |n| n.id}.uniq
+      f.puts neighbors.join(" ")
+    end
+  end  
+end
 
 class DepxmlHandler
   include StreamListener
