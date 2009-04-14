@@ -26,8 +26,9 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$DIR/opt/hpricot
 export RUBYLIB=$RUBYLIB:$DIR/opt/randomr-0-1-1/lib
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$DIR/opt/randomr-0-1-1/lib
 
-# PNG
-export RUBYLIB=$RUBYLIB:$DIR/opt/png-1.1.0/lib
+# Ruby/GD2 (for graphics)
+export RUBYLIB=$RUBYLIB:$DIR/opt/gd2
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$DIR/opt/gd2
 
 # Benchmark (Lancichinetti et al, 2008)
 export PATH=$PATH:$DIR/opt/benchmark_2_1
