@@ -149,8 +149,6 @@ def swap_line!(matrix, i, j)
 end
 
 
-# TODO: funcao que chama swap_line para agrupar entidades de um mesmo cluster
-# na matriz (ordenacao)
 # clusters is an array of arrays of ints (or, optionally, an array of ints)
 def sort_matrix!(matrix, clusters)
 	i = 0
@@ -159,6 +157,25 @@ def sort_matrix!(matrix, clusters)
     puts "swap #{i}, #{j}"
 		i += 1
 	end
+end
+
+# TODO: test
+def sort_network!(network)
+  n = network.nodes.size
+  network.nodes.each_with_index { |node, i| node.id = i }
+	array = Array.new(n) { Array.new(n) { 0 } }
+  network.edges.each { |e| array[e.from.id][e.to.id] = 1 }
+ 
+  if network.clusters.size > 0
+    sorted_nodes = network.nodes.group_by{ |node| node.cluster }.values.flatten
+    #sorted_nodes = network.nodes.sort_by { |node| node.cluster ? node.cluster.id : '' }
+    i = 0
+    sorted_nodes.each do |node|
+      j = node.id
+      swap_line! array, i, j unless i <= j
+    end
+  end
+  return array
 end
 
 ####################################
