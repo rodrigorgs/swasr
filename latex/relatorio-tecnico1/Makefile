@@ -1,4 +1,5 @@
 SOURCEDOCUMENT=relatorio-tecnico1
+BIBS=complex-networks.bib rodrigo-mestrado.bib
 PDFVIEWER=evince
 #PDFVIEWER=xpdf -remote rodrigo-xpdf
 
@@ -13,10 +14,10 @@ all: $(SOURCEDOCUMENT).pdf
 view: $(SOURCEDOCUMENT).pdf
 	$(PDFVIEWER) $(SOURCEDOCUMENT).pdf &
 
-fast: $(SOURCEDOCUMENT).tex $(CAPITULOS) $(SOURCEDOCUMENT).bib $(GRAPHICS) 
+fast: $(SOURCEDOCUMENT).tex $(CAPITULOS) $(BIBS) $(GRAPHICS) 
 	pdflatex $<
 
-$(SOURCEDOCUMENT).pdf: $(SOURCEDOCUMENT).tex $(CAPITULOS) $(SOURCEDOCUMENT).bib $(GRAPHICS) 
+$(SOURCEDOCUMENT).pdf: $(SOURCEDOCUMENT).tex $(CAPITULOS) $(BIBS) $(GRAPHICS) 
 	pdflatex $< && \
 	bibtex $(SOURCEDOCUMENT) && \
 	pdflatex $< && \
