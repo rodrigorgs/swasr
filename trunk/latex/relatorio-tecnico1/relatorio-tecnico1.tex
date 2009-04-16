@@ -38,6 +38,7 @@ A teoria das redes complexas estuda propriedades gerais de diversos tipos de red
 
 % histograma de frequências do número de ligações por vértice
 % distribuição de probabilidades
+% expoente gamma entre 2 e 3.
 Em 1999, Barabási e Albert \cite{Barabasi1999} analisaram uma amostra da \textit{World Wide Web}, modelada como um grafo não-orientado no qual os vértices representam páginas e as arestas representam \textit{links} entre duas páginas. Ao agrupar os vértices de acordo com seu grau (número de arestas ligadas ao vértice) e plotar o gráfico do número de vértices com grau $k$ para cada valor de $k$, eles encontraram uma curva que podia ser aproximada por uma lei de potência, como mostra a Figura \ref{fig:leidepotencia}. Nessa distribuição, a probabilidade de um vértice escolhido ao acaso possuir grau $k$ --- $P(k)$ --- é tal que $P(k) \sim k^{-\gamma}$. Essa função é dita livre de escala, pois $P(ak) = bP(k)$ --- a mudança de escala da variável dependente não altera a variável independente a menos de um fator multiplicativo. Desde então foram encontradas distribuições de graus livres de escala em redes biológicas, sociais e tecnológicas, incluindo redes de dependências entre componentes de programas de computador \cite{Valverde2003}.
 
 \begin{figure} \label{fig:leidepotencia}
@@ -93,6 +94,10 @@ Distribuições de graus livres de escala também foram encontradas encontradas 
               The populations of cities, the intensities of earthquakes, and the sizes of
 power outages, for example, are all thought to have power-law distributions. Quan-
 tities such as these are not well characterized by their typical or average values.
+
+    In practice, few empirical phenomena obey power laws for all values of x. More
+often the power law applies only for values greater than some minimum xmin . In such
+cases we say that the tail of the distribution follows a power law.
 
 
 // Talvez aqui fazer algo didático, como no livro The Black Swan
