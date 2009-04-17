@@ -1,5 +1,18 @@
 #!/usr/bin/env ruby
 
+# Takes a Network and returns an adjacency matrix, represented as an array of
+# arrays. The lines and columns in the matrix are sorted so vertices that
+# belong in the same cluster appear as adjacent rows/columns.
+def network_to_sorted_array(network)
+  n = network.nodes.size
+  sorted_nodes = network.nodes.group_by{ |node| node.cluster }.values.flatten
+  sorted_nodes.each_with_index { |node, i| node.id = i }
+  array = Array.new(n) { Array.new(n) { 0 } }
+  network.edges.each { |e| array[e.from.id][e.to.id] = 1 }
+
+  return array
+end
+
 if __FILE__ == $0
 
   require 'view_matrix'
@@ -28,9 +41,11 @@ if __FILE__ == $0
       desc 'Output image file'
     end
 
-    option :size do
+    option :psize do
       short '-s'
       long '--size=N'
+      cast Integer
+      default 1
       desc 'Pixel size (default: 1)'
     end
   end
@@ -48,8 +63,8 @@ if __FILE__ == $0
     STDERR.puts "Creating matrix..."
   end
 
-  array = sort_network!(net)
+  array = network_to_sorted_array(net)
   STDERR.puts "Creating image..."
-  matrix_to_png(array, c.png_file, c.size)
+  matrix_to_png(array, c.png_file, c.psize)
   STDERR.puts "Ok"
 end
