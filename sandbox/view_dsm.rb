@@ -8,7 +8,6 @@ if __FILE__ == $0
   require 'matrix_to_png'
   require 'choice'
 
-
   Choice.options do
     option :edges_file, :required => true do
       short '-e'
@@ -43,7 +42,7 @@ if __FILE__ == $0
   net.add_edges(read_pairs(c.edges_file))
   if c.modules_file
     STDERR.puts "Reading modules..."
-    net.set_clusters(read_pairs(modules_file))
+    net.set_clusters(read_pairs(c.modules_file))
     STDERR.puts "Sorting nodes according to modules..."
   else
     STDERR.puts "Creating matrix..."
