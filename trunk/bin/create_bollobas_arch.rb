@@ -14,7 +14,7 @@ if __FILE__ == $0
     option :input, :required => true do
       short '-i'
       long '--input=FILE'
-      desc 'GXL file containing the architecture'
+      desc 'File containing the architecture'
       desc '(required)'
     end
     
@@ -28,6 +28,15 @@ if __FILE__ == $0
       short '-2'
       long '--output=FILE'
       desc 'Output l2 filename (required)'
+    end
+
+    option :format do
+      short '-f'
+      long '--format=(gxl|pairs)'
+      default 'gxl'
+      valid %w(gxl pairs)
+      desc 'File format used for input and output'
+      desc '(default: gxl)'
     end
 
     separator ''
@@ -90,7 +99,7 @@ if __FILE__ == $0
 
   arch = nil
   begin
-    arch_pairs = gxl_to_l1(c.input)
+    arch_pairs = (c.format == 'gxl') ? gxl_to_l1(c.input) : read_pairs(c.input)
     arch = RGL::DirectedAdjacencyGraph[*arch_pairs.flatten]
   rescue Errno::ENOENT => e
     puts "File not found: #{c.input}"
@@ -107,6 +116,11 @@ if __FILE__ == $0
      c.dout)
 
   pairs = g.edges.map { |e| [e.source, e.target] }
-  l1_to_gxl(pairs, c.output_l1)
-  l2_to_gxl(modules, c.output_l2)
+  if c.format == 'gxl'
+    l1_to_gxl(pairs, c.output_l1)
+    l2_to_gxl(modules, c.output_l2)
+  elsif c.format == 'pairs'
+    puts_pairs(pairs, c.output_l1)
+    puts_pairs(modules, c.output_l2)
+  end
 end
