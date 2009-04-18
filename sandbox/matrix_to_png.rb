@@ -1,18 +1,18 @@
 require 'gd2'
 
+# Deprecated. Use view_dsm.png instead.
 def matrix_to_png(matrix, png_file, size=1)
-  height = matrix.size
   width = matrix[0].size
-  h = height * size
+  height = matrix.size
 
-  image = GD2::Image::TrueColor.new(width * size, height * size)
+  image = GD2::Image::TrueColor.new(width, height)
   image.draw do |canvas|
     canvas.color = GD2::Color::WHITE
     canvas.fill
     canvas.color = GD2::Color::BLACK
     matrix.each_with_index do |row, y|
       row.each_with_index do |value, x|
-        canvas.rectangle(x * size, y * size, x * size + size - 1, y * size + size - 1, true) if value != 0
+        canvas.circle(x, y, size, true) if value != 0
       end
     end
   end

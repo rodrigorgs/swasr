@@ -1,18 +1,5 @@
 #!/usr/bin/env ruby
 
-# Takes a Network and returns an adjacency matrix, represented as an array of
-# arrays. The lines and columns in the matrix are sorted so vertices that
-# belong in the same cluster appear as adjacent rows/columns.
-def network_to_sorted_array(network)
-  n = network.nodes.size
-  sorted_nodes = network.nodes.group_by{ |node| node.cluster }.values.flatten
-  sorted_nodes.each_with_index { |node, i| node.id = i }
-  array = Array.new(n) { Array.new(n) { 0 } }
-  network.edges.each { |e| array[e.from.id][e.to.id] = 1 }
-
-  return array
-end
-
 if __FILE__ == $0
 
   require 'view_matrix'
@@ -45,26 +32,36 @@ if __FILE__ == $0
       short '-s'
       long '--size=N'
       cast Integer
-      default 1
-      desc 'Pixel size (default: 1)'
+      default 4
+      desc 'Pixel diameter (default: 4)'
     end
   end
 
   c = Choice.choices
 
-  net = Network.new
+  network = Network.new
   STDERR.puts "Reading edges..."
-  net.add_edges(read_pairs(c.edges_file))
-  if c.modules_file
-    STDERR.puts "Reading modules..."
-    net.set_clusters(read_pairs(c.modules_file))
-    STDERR.puts "Sorting nodes according to modules..."
-  else
-    STDERR.puts "Creating matrix..."
-  end
+  network.add_edges(read_pairs(c.edges_file))
+  STDERR.puts "Reading modules..."
+  network.set_clusters(read_pairs(c.modules_file))
+  STDERR.puts "Sorting nodes according to modules..."
+  
+  n = network.nodes.size
+  sorted_nodes = network.nodes.group_by{ |node| node.cluster }.values.flatten
+  sorted_nodes.each_with_index { |node, i| node.id = i }
 
-  array = network_to_sorted_array(net)
   STDERR.puts "Creating image..."
-  matrix_to_png(array, c.png_file, c.psize)
+
+  image = GD2::Image::TrueColor.new(n, n)
+  image.draw do |canvas|
+    canvas.color = GD2::Color::WHITE
+    canvas.fill
+    canvas.color = GD2::Color::BLACK
+    network.edges.each do |e|
+      canvas.circle(e.from.id, e.to.id, c.size, true)
+    end
+  end
+  image.export(c.png_file)
+
   STDERR.puts "Ok"
 end
