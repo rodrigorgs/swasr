@@ -29,6 +29,78 @@ def network_to_metis!(network, metis_file)
   end  
 end
 
+class DepxmlHandler2
+  include StreamListener
+
+  def initialize(output)
+    @output = output
+    @pairs = []
+  end
+
+  def tag_start(name, attrs)
+    case name
+    when 'class'
+      @in_class = true if attrs['confirmed'] == 'yes'
+    when 'feature'
+      @in_feature = true
+    when 'name'
+      @in_name = true
+    when 'outbound'
+      if attrs['confirmed'] == 'yes'
+        @in_outbound = true 
+        @outbound_type = attrs['type']
+      end
+    end
+  end
+
+  def tag_end(name)
+    case name
+      when 'class'; @in_class = false; @class_name = ''
+      when 'feature'; @in_feature = false
+      when 'name'; @in_name = false
+      when 'outbound'; @in_outbound = false
+      when 'dependencies'
+        puts "Sorting and removing duplicates"
+        puts_pairs(@pairs.sort.uniq, @output)
+    end
+  end
+
+  def text(value)
+    if @in_outbound
+      outclass = if (@outbound_type == 'class') 
+        value.gsub(/\(.*\)/, '')
+      else
+        class_from_feature(value)
+      end
+      add_edge(@class_name, outclass)
+    elsif @in_class && !@in_feature && @in_name
+      @class_name = value
+      puts value
+    end
+  end
+
+  def class_from_feature(feature)
+    outclass = feature.gsub(/\(.*\)/, '')
+    outclass = outclass[0..(outclass.rindex('.')-1)]
+    #puts "#{feature} #{outclass}"
+    return outclass
+  end
+
+  def add_edge(from, to)
+    #puts "#{from} #{to}"
+    @pairs << [from, to] unless @pairs[-1] == [from, to]
+  end
+end
+
+# Usa como entrada um grafo xml extraido pelo DependencyExtractor
+def depxml_to_pairs2(depxml, pairsfile)
+  handler = DepxmlHandler2.new(pairsfile)
+  Document.parse_stream(File.new(depxml), handler)
+end
+
+
+# depfind.sf.net, c2c output
+# Usa como entrada um grafo xml transformado pelo c2c (do depfind.sf.net)
 class DepxmlHandler
   include StreamListener
   @f_from = false
