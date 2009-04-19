@@ -1,6 +1,7 @@
 \documentclass{article}
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
+\usepackage{natbib}
 
 \begin{document}
 \title{Relatório Técnico 1}
@@ -12,18 +13,24 @@
 Sistemas de \textit{software} precisam ser modificados constamente. Dependências excessivas entre os componentes de um sistema podem tornar as modificações mais custosas, uma vez que dificultam a compreensão dos componentes isoladamente. Por essa razão o estudo de redes formadas por dependências entre componentes de \textit{software} pode fornecer pistas sobre a atividade de desenvolvimento de \textit{software} em geral.
 % interação entre componentes
 
-Neste trabalho consideramos componentes como entidades de código-fonte, tais como classes, métodos e atributos (no caso de linguagens orientadas objetos), ou procedimentos, funções e tipos abstratos de dados (no caso de linguagens estruturadas). Dizemos que um componente depende de outro quando o funcionamento do primeiro está condicionado à presença do segundo. Dependências podem se originar de diversos tipos de interação, como uma chamada a uma função ou a leitura de um atributo. Dependências são essencialmente assimétricas: o fato de um componente A depender de um componente B não implica que B depende de A.
+Neste trabalho consideramos como componentes as entidades de código-fonte, tais como classes, métodos e atributos (no caso de linguagens orientadas objetos), ou procedimentos, funções e tipos abstratos de dados (no caso de linguagens procedimentais). Dizemos que um componente depende de outro quando o funcionamento do primeiro está condicionado à presença do segundo. Dependências podem se originar de diversos tipos de interação, como uma chamada a uma função ou a leitura de um atributo. Dependências são essencialmente assimétricas: o fato de um componente A depender de um componente B não implica que B depende de A.
 
 % Um relacionamento de dependência indica que as alterações em um elemento do modelo (fornecedor ou independente) podem causar alterações em um outro elemento do modelo (cliente ou dependente). http://publib.boulder.ibm.com/infocenter/rsmhelp/v7r5m0/index.jsp?topic=/com.ibm.xtools.modeler.doc/topics/rreltyp.html
 
 \subsection{Extração}
 
-A rede de dependências entre componentes de um sistema pode ser extraída automaticamente por um programa construído para este fim, denominado extrator de dependências. As técnicas mais comuns de extração de dependências são a análise dinâmica e a análise estática. 
+A rede de dependências entre componentes de um sistema pode ser extraída automaticamente por um programa construído para este fim, denominado extrator de dependências. As principais abordagens de extração de dependências são a análise dinâmica e a análise estática. 
 
-A análise dinâmica envolve a instrumentação do sistema para coletar dados de sua execução. Esse tipo de análise exige que o programa esteja corretamente instalado e configurado e depende da execução de diversos cenários de uso. A análise estática é realizada sobre o código-fonte ou o código objeto do sistema, dispensando sua execução.
+A análise dinâmica envolve a instrumentação do sistema para coletar dados de sua execução, e por isso exige que o programa esteja corretamente instalado e configurado. Para que seja efetiva, é preciso que o programa sob análise seja executado com as mais diversas entradas a fim de 
 
-% TODO: ocorre também o problema inverso, o de encontrar dependências que não são dependências reais.
-Nenhuma técnica automática é capaz de encontrar todas as dependências, pois esse é um problema indecidível \cite{Landi1992} --- basta considerar o uso de ponteiros em linguagens como C++, ou a transferências de dados através de arquivos. Assim, redes de dependências extraídas automaticamente devem ser consideradas apenas aproximações das dependências reais.
+%For dynamic program analysis to be effective, the target program must be executed with sufficient test inputs to produce interesting behavior
+%Also, care must be taken to minimize the effect that instrumentation has on the execution
+
+%e depende da execução de diversos cenários de uso. 
+
+A análise estática é realizada sobre o código-fonte ou o código objeto do sistema, dispensando sua execução.
+
+Nenhuma técnica automática é capaz de determinar corretamente, em todos os casos, se existe uma dependência entre dois componentes, pois esse é um problema indecidível \cite{Landi1992} --- basta considerar o uso de ponteiros em linguagens como C++, ou a transferências de dados através de arquivos. Assim, redes de dependências extraídas automaticamente devem ser consideradas apenas aproximações das redes de dependências reais.
 
 \subsection{Simplificação e Detalhamento}
 
@@ -41,7 +48,7 @@ A teoria das redes complexas estuda propriedades gerais de diversos tipos de red
 % histograma de frequências do número de ligações por vértice
 % distribuição de probabilidades
 % expoente gamma entre 2 e 3.
-Em 1999, Barabási e Albert \cite{Barabasi1999} analisaram uma amostra da \textit{World Wide Web}, modelada como um grafo não-orientado no qual os vértices representam páginas e as arestas representam \textit{links} entre duas páginas. Ao agrupar os vértices de acordo com seu grau (número de arestas ligadas ao vértice) e plotar o gráfico do número de vértices com grau $k$ para cada valor de $k$, eles encontraram uma curva que podia ser aproximada por uma lei de potência, como mostra a Figura \ref{fig:leidepotencia}. Nessa distribuição, a probabilidade de um vértice escolhido ao acaso possuir grau $k$ --- $P(k)$ --- é tal que $P(k) \sim k^{-\gamma}$. Essa função é dita livre de escala, pois $P(ak) = bP(k)$ --- a mudança de escala da variável dependente não altera a variável independente a menos de um fator multiplicativo. Desde então foram encontradas distribuições de graus livres de escala em redes biológicas, sociais e tecnológicas, incluindo redes de dependências entre componentes de programas de computador \cite{Valverde2003}.
+Barabási e Albert (\citeyear{Barabasi1999}) analisaram uma amostra da \textit{World Wide Web}, modelada como um grafo não-orientado no qual os vértices representam páginas e as arestas representam \textit{links} entre duas páginas. Eles perceberam que a probabilidade de um vértice escolhido ao acaso ter grau $k$ (isto é, estar ligado a $k$ arestas) seguia uma lei de potência: $p(k) \sim k^{-\gamma}$. Dizemos, nesse caso, que a rede possui uma distribuição de graus livre de escala, ou simplemente que a rede é livre de escala. Desde então esse tipo de distribuição foi encontrado em diversas redes, incluindo redes de dependências entre componentes de programas de computador \cite{Valverde2003}.
 
 \begin{figure} \label{fig:leidepotencia}
 \centering
@@ -49,11 +56,11 @@ Em 1999, Barabási e Albert \cite{Barabasi1999} analisaram uma amostra da \texti
 \caption{Distribuição de graus como lei de potência. Adaptado de \cite{Barabasi2007}.}
 \end{figure}
 
-Esse resultado foi considerado surpreendente, pois contradiz a hipótese de que redes reais obedecem ao modelo de Erdős-Rényi \cite{Erdos1959}, também chamado de modelo de rede aleatória. Nesse modelo, a probabilidade de um par de vértices ser ligado por uma aresta é constante e igual a $p$. Demonstra-se que a distribuição dos graus de redes geradas por esse modelo é bem aproximada pela distribuição de Poisson.
+Esse resultado foi considerado surpreendente, pois contradiz a hipótese de que redes reais obedecem ao modelo de Erdős-Rényi (\citeyear{Erdos1959}), também chamado de modelo de rede aleatória. Nesse modelo, a probabilidade de um par de vértices ser ligado por uma aresta é constante e igual a $p$. Demonstra-se que a distribuição dos graus de redes geradas por esse modelo é bem aproximada pela distribuição de Poisson.
 
 Uma característica das redes livres de escala é a presença de vértices cujo grau é muito maior do que a média (informalmente chamados de \textit{hubs}). No caso de redes de Erdős-Rényi a probabilidade de existir um vértice com um determinado grau $k$ cai exponencialmente à medida que $k$ se afasta do valor médio e, por essa razão, nessas redes os \textit{hubs} são altamente improváveis.
 
-Barabási e Albert propuseram um modelo para explicar a formação das redes com distribuição de graus livre de escala, formado por dois mecanismos: crescimento contínuo e ligação preferencial \cite{Albert2002}. O modelo propõe que as redes crescem um vértice por vez e cada novo vértice se liga a um número fixo de vértices antigos, dando preferência aos vértices com maior grau (mais formalmente, a probabilidade de um vértice receber uma aresta é proporcional ao seu grau). Hoje sabe-se que redes livres de escala podem ser geradas por diversos modeos \cite{Albert2000,Kumar2000,Aiello2000b,Dorogovtsev2002,Bollobas2003,Deo2005}.
+Barabási e Albert propuseram um modelo para explicar a formação das redes com distribuição de graus livre de escala, formado por dois mecanismos: crescimento contínuo e ligação preferencial \cite{Albert2002}. O modelo propõe que as redes crescem um vértice por vez e cada novo vértice se liga a um número fixo de vértices antigos, dando preferência aos vértices com maior grau (mais formalmente, a probabilidade de um vértice receber uma aresta é proporcional ao seu grau). Hoje sabe-se que redes livres de escala também podem ser geradas por outros modelos \cite{Albert2000,Kumar2000,Aiello2000b,Dorogovtsev2002,Bollobas2003,Deo2005}.
 
 % Cada vértice em um grafo é caracterizado por um grau, k, que representa a quantidade de arestas ligadas a ele. No caso de grafos orientados, existe a distinção entre grau de saída e grau de entrada, que representam a quantidade de arcos que saem ou entram, respectivamente, do vértice.
 
@@ -67,23 +74,23 @@ A distância entre dois vértices de uma rede é o número de arestas do menor c
 
 \subsubsection{Coeficiente de agrupamento}
 
-Os vizinhos de um vértice são todos os vértices com os quais ele compartilham uma aresta. O coeficiente de agrupamento de um vértice, $C_i$, é a fração de todos os possíveis pares de vizinhos do vértice que estão ligados por uma aresta, e é dado pela seguinte expressão:
+Os vizinhos de um vértice são todos os vértices com os quais ele compartilha uma aresta. O coeficiente de agrupamento de um vértice, $C_i$, é a fração de todos os possíveis pares de vizinhos do vértice que estão ligados por uma aresta, e é dado pela seguinte expressão:
 
 \[  C_i = \frac{2x}{k_i(k_i - 1)} \]
 
 onde $x$ é o número de pares de vizinhos do vértice $i$ que estão ligados por uma aresta e $k_i$ é o grau do vértice $i$ \cite{Watts1998}. Por definição, $C_i = 0$ quando $k_i < 2$. Define-se o coeficiente de agrupamento de um grafo, $C$, como a média aritmética dos coeficientes de agrupamento dos seus vértices. Demonstra-se que o coeficiente de agrupamento de uma rede aleatória de Erdős-Rényi é igual a $\langle k \rangle / n$ (onde $\langle k \rangle$ é o grau médio). Muitas redes complexas possuem um coeficiente de agrupamento alto, isto é, muito maior do que o coeficiente das redes aleatórias.
 
-Outra característica observada em algumas redes é que o coeficiente de agrupamento de um vértice é inversamente proporcional ao grau do vértice, ou seja, $C(k) \sim k^-1$. Segundo Ravasz e Barabási \cite{Ravasz2003}, isso indica a presença de organização hierárquica na rede.
+Outra característica observada em algumas redes é que o coeficiente de agrupamento de um vértice é inversamente proporcional ao grau do vértice, ou seja, $C(k) \sim k^-1$. Segundo Ravasz e Barabási \cite{Ravasz2003}, isso indica a existência de uma organização hierárquica na rede.
 
 \subsubsection{Motivos}
 
-Motivos são padrões de vértices e arestas que ocorrem com frequência em uma rede \cite{Milo2002}. Estudos recentes encontraram em redes de dependências entre componentes motivos presentes em redes de neurônios e em circuitos eletrônicos \cite{Valverde2005,Ma2008}. Especula-se que a formação de motivos seja resultado de restrições impostas à evolução de sistemas de \textit{software}.
+Motivos são padrões de vértices e arestas que ocorrem com frequência em uma rede \cite{Milo2002}. Estudos recentes encontraram em redes de dependências entre componentes motivos presentes em redes de neurônios e em circuitos eletrônicos \cite{Valverde2005,Ma2008}. Especula-se que a formação de motivos seja resultado de restrições de custo e otimização impostas à evolução de sistemas de \textit{software}.
 
 % \subsubsection{Assortatividade, mixing}
 
 \section{Redes de Dependências entre Componentes como Redes Complexas}
 
-Estudos recentes têm aplicado a teoria das redes complexas em redes de dependências entre componentes de \textit{software}. Valverde e Solé \cite{Valverde2003} detectaram distribuições de graus livres de escala e alto coeficiente de agrupamento em redes não-orientadas formadas por relações de agregação de tipos em diagramas UML, programas em C e programas em C++. Myers \cite{Myers2003} analisou redes de chamadas de função em programas em C e redes de agregação e herança em programas em C++, modeladas como grafos orientados. Em ambos os casos ele identificou organização hierárquica através da distribuição do coeficiente de agrupamento, $C(k) \sim k^{-1}$. O estudo revelou uma correlação negativa entre o grau de entrada e o grau de saída de um vértice. Leis de potência foram encontradas tanto na distribuição de graus de entrada quanto na distribuição dos graus de saída.
+Estudos recentes têm aplicado a teoria das redes complexas em redes de dependências entre componentes de \textit{software}. Valverde e Solé \cite{Valverde2003} detectaram distribuições de graus livres de escala e alto coeficiente de agrupamento em redes não-orientadas formadas por relações de agregação de tipos em diagramas UML, programas em C e programas em C++. Myers \cite{Myers2003} analisou redes de chamadas de função em programas em C e redes de agregação e herança em programas em C++, modeladas como grafos orientados. Em ambos os casos ele identificou organização hierárquica através da distribuição do coeficiente de agrupamento, $C(k) \sim k^{-1}$. O estudo revelou uma correlação negativa entre o grau de entrada e o grau de saída de um vértice. Leis de potência foram encontradas em trechos das distribuições de graus de entrada e das distribuições de graus de saída.
 
 Distribuições de graus livres de escala também foram encontradas em programas escritos em Smalltalk \cite{Marchesi2004,Concas2007} e em Java \cite{Hyland-Wood2006,Baxter2006,Ichii2008}, em dependências entre pacotes de \textit{software} \cite{Labelle2004}, em chamadas de sistema, em dependências entre bibliotecas dinâmicas \cite{Louridas2008} e até mesmo em referências entre objetos em tempo de execução \cite{Potanin2005}.
 
