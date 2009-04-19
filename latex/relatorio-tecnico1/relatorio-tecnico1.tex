@@ -21,34 +21,35 @@ Neste trabalho consideramos como componentes as entidades de código-fonte, tais
 
 A rede de dependências entre componentes de um sistema pode ser extraída automaticamente por um programa construído para este fim, denominado extrator de dependências. As principais abordagens de extração de dependências são a análise dinâmica e a análise estática. 
 
-A análise dinâmica envolve a instrumentação do sistema para coletar dados de sua execução, e por isso exige que o programa esteja corretamente instalado e configurado. Para que seja efetiva, é preciso que o programa sob análise seja executado com as mais diversas entradas a fim de 
+A análise dinâmica envolve a instrumentação do sistema para coletar dados de sua execução, e por isso exige que o programa sob análise esteja corretamente instalado e configurado. Para que a análise seja efetiva, é preciso que o programa seja executado com as mais diversas entradas a fim de capturar todos os comportamentos interessantes, o que normalmente é feito através da execução de casos de teste. Essa imposição restringe o conjunto de sistemas que podem ser efetivamente analisados dinamicamente, e nos demais sistemas o tempo de execução da análise pode ser proibitivo.
 
 %For dynamic program analysis to be effective, the target program must be executed with sufficient test inputs to produce interesting behavior
 %Also, care must be taken to minimize the effect that instrumentation has on the execution
 
 %e depende da execução de diversos cenários de uso. 
 
-A análise estática é realizada sobre o código-fonte ou o código objeto do sistema, dispensando sua execução.
+A análise estática é realizada sobre o código-fonte ou o código objeto do sistema, dispensando sua execução, mas tende a ser menos precisa do que a análise dinâmica \cite{Landil1992}. Apesar disso a análise estática é mais aplicável no caso geral, pois não depende da existência de testes automáticos representativos e é, em geral, mais rápida que a dinâmica.
 
-Nenhuma técnica automática é capaz de determinar corretamente, em todos os casos, se existe uma dependência entre dois componentes, pois esse é um problema indecidível \cite{Landi1992} --- basta considerar o uso de ponteiros em linguagens como C++, ou a transferências de dados através de arquivos. Assim, redes de dependências extraídas automaticamente devem ser consideradas apenas aproximações das redes de dependências reais.
+Nenhuma técnica automática é capaz de determinar corretamente, em todos os casos, se existe uma dependência entre dois componentes --- basta considerar o uso de ponteiros em linguagens como C++, ou a transferências de dados através de arquivos. Assim, redes de dependências extraídas automaticamente devem ser consideradas apenas aproximações das redes de dependências reais.
+% análise estática é problema indecidível \cite{Landi1992}
 
 \subsection{Simplificação e Detalhamento}
 
-A depender do tipo de análise que se deseja realizar sobre uma rede de dependências, pode ser conveniente filtrar ou contrair componentes, ou mesmo tratar dependências como relacionamentos simétricos. A filtragem consiste em remover componentes ou dependências consideradas desnecessárias para a análise. A contração pode ser feita quando há uma relação de composição entre os componentes, como no caso de classes (que são compostas de atributos e métodos). Nesse caso uma classe e todos os atributos e métodos que a compõem podem ser representados como um só componente. % e aí surgem dependências implícitas: A.m1 depende de B.m2 implica A depende (implicitamente) de B.
+A depender do tipo de análise que se deseja realizar sobre uma rede de dependências, pode ser conveniente filtrar ou contrair componentes, ou mesmo tratar dependências como relacionamentos simétricos. A filtragem consiste em remover componentes ou dependências consideradas desnecessárias para a análise. A contração pode ser feita quando há uma relação de composição entre os componentes, como no caso de classes (que são compostas de atributos e métodos). Nesse caso uma classe e todos os atributos e métodos que a compõem são contraídos, isto é, representados como um só componente, a classe. Desse processo surgem dependências implícitas: se na rede original há uma dependência entre dois métodos, na rede contraída surge uma dependência implícita entre as classes que os contêm. % e aí surgem dependências implícitas: A.m1 depende de B.m2 implica A depende (implicitamente) de B.
 % http://depfind.sourceforge.net/Manual.html#Dependencies
 
 Há análises que, por outro lado, requerem informações mais detalhadas. Pode ser necessário considerar não apenas a existência de dependências, mas também identificar quais são os tipos de interações que ocorrem entre dois componentes e com que frequência essas interações ocorrem.
 
 \section{Redes Complexas}
 
-A teoria das redes complexas estuda propriedades gerais de diversos tipos de redes com o uso de ferramentas estatísticas. Estudos realizados na última década revelaram similaridades entre diversas redes, sejam elas tecnológicas, como a Web e a rede de distribuição de energia elétrica dos Estados Unidos, biológicas, como a cadeias alimentares e ligações entre proteínas, ou sociais, como as relações de amizade entre alunos de uma escola.
+A teoria das redes complexas estuda propriedades gerais de diversos tipos de redes com o uso de ferramentas estatísticas. Estudos realizados na última década revelaram similaridades entre diversas redes, sejam elas tecnológicas, como a Web e a rede de distribuição de energia elétrica dos Estados Unidos, biológicas, como a cadeias alimentares e ligações entre proteínas, ou sociais, como as relações de amizade entre alunos de uma escola. Essas redes têm sido caracterizadas por observações como a distribuição de graus, o efeito mundo pequeno, o coeficiente de agrupamento e a presença de motivos.
 
 \subsection{Distribuição de Graus}
 
 % histograma de frequências do número de ligações por vértice
 % distribuição de probabilidades
 % expoente gamma entre 2 e 3.
-Barabási e Albert (\citeyear{Barabasi1999}) analisaram uma amostra da \textit{World Wide Web}, modelada como um grafo não-orientado no qual os vértices representam páginas e as arestas representam \textit{links} entre duas páginas. Eles perceberam que a probabilidade de um vértice escolhido ao acaso ter grau $k$ (isto é, estar ligado a $k$ arestas) seguia uma lei de potência: $p(k) \sim k^{-\gamma}$. Dizemos, nesse caso, que a rede possui uma distribuição de graus livre de escala, ou simplemente que a rede é livre de escala. Desde então esse tipo de distribuição foi encontrado em diversas redes, incluindo redes de dependências entre componentes de programas de computador \cite{Valverde2003}.
+Barabási e Albert (\citeyear{Barabasi1999}) analisaram uma amostra da \textit{World Wide Web}, modelada como um grafo não-orientado no qual os vértices representam páginas e as arestas representam \textit{links} entre duas páginas. Eles perceberam que a probabilidade de um vértice escolhido ao acaso ter grau $k$ (isto é, estar ligado a $k$ arestas) seguia uma lei de potência, $p(k) \sim k^{-\gamma}$, como mostra a Figura \ref{fig:leidepotencia}. Dizemos, nesse caso, que a rede possui uma distribuição de graus livre de escala, ou simplemente que a rede é livre de escala. Desde então esse tipo de distribuição foi encontrado em diversas redes, incluindo redes de dependências entre componentes de programas de computador \cite{Valverde2003}.
 
 \begin{figure} \label{fig:leidepotencia}
 \centering
@@ -58,9 +59,9 @@ Barabási e Albert (\citeyear{Barabasi1999}) analisaram uma amostra da \textit{W
 
 Esse resultado foi considerado surpreendente, pois contradiz a hipótese de que redes reais obedecem ao modelo de Erdős-Rényi (\citeyear{Erdos1959}), também chamado de modelo de rede aleatória. Nesse modelo, a probabilidade de um par de vértices ser ligado por uma aresta é constante e igual a $p$. Demonstra-se que a distribuição dos graus de redes geradas por esse modelo é bem aproximada pela distribuição de Poisson.
 
-Uma característica das redes livres de escala é a presença de vértices cujo grau é muito maior do que a média (informalmente chamados de \textit{hubs}). No caso de redes de Erdős-Rényi a probabilidade de existir um vértice com um determinado grau $k$ cai exponencialmente à medida que $k$ se afasta do valor médio e, por essa razão, nessas redes os \textit{hubs} são altamente improváveis.
+Uma característica das redes livres de escala é a presença de vértices cujo grau é muito maior do que a média (informalmente chamados de \textit{hubs}). No caso de redes de Erdős-Rényi a probabilidade de existir um vértice com um determinado grau $k$ cai exponencialmente à medida que $k$ se afasta do valor médio e, por essa razão, nessas redes os vértices possuem mais ou menos o mesmo grau e a existência de \textit{hubs} é altamente improvável.
 
-Barabási e Albert propuseram um modelo para explicar a formação das redes com distribuição de graus livre de escala, formado por dois mecanismos: crescimento contínuo e ligação preferencial \cite{Albert2002}. O modelo propõe que as redes crescem um vértice por vez e cada novo vértice se liga a um número fixo de vértices antigos, dando preferência aos vértices com maior grau (mais formalmente, a probabilidade de um vértice receber uma aresta é proporcional ao seu grau). Hoje sabe-se que redes livres de escala também podem ser geradas por outros modelos \cite{Albert2000,Kumar2000,Aiello2000b,Dorogovtsev2002,Bollobas2003,Deo2005}.
+Barabási e Albert propuseram um modelo para explicar a formação das redes com distribuição de graus livre de escala, formado por dois mecanismos: crescimento contínuo e ligação preferencial. O modelo propõe que as redes crescem um vértice por vez e cada novo vértice se liga a um número fixo de vértices antigos, dando preferência aos vértices com maior grau (mais formalmente, a probabilidade de um vértice receber uma aresta é proporcional ao seu grau). Hoje sabe-se que redes livres de escala também podem ser geradas por outros modelos \cite{Albert2000,Kumar2000,Aiello2000b,Dorogovtsev2002,Bollobas2003,Deo2005}.
 
 % Cada vértice em um grafo é caracterizado por um grau, k, que representa a quantidade de arestas ligadas a ele. No caso de grafos orientados, existe a distinção entre grau de saída e grau de entrada, que representam a quantidade de arcos que saem ou entram, respectivamente, do vértice.
 
@@ -84,7 +85,7 @@ Outra característica observada em algumas redes é que o coeficiente de agrupam
 
 \subsubsection{Motivos}
 
-Motivos são padrões de vértices e arestas que ocorrem com frequência em uma rede \cite{Milo2002}. Estudos recentes encontraram em redes de dependências entre componentes motivos presentes em redes de neurônios e em circuitos eletrônicos \cite{Valverde2005,Ma2008}. Especula-se que a formação de motivos seja resultado de restrições de custo e otimização impostas à evolução de sistemas de \textit{software}.
+Motivos são padrões de vértices e arestas que ocorrem com frequência em uma rede \cite{Milo2002}. Estudos recentes encontraram em redes de dependências entre componentes motivos presentes em redes de neurônios e em circuitos eletrônicos \cite{Valverde2005,Ma2008}. Especula-se que a formação de motivos em sistemas de \textit{software} seja resultado de restrições de custo e otimização impostas a sua evolução.
 
 % \subsubsection{Assortatividade, mixing}
 
