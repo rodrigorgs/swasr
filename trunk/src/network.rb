@@ -71,7 +71,7 @@ class Network
   end
 end
 
-class Cluster < Element
+class Cluster
   # Cuidado ao alterar o id para nao quebrar a unicidade!
   attr_accessor :id, :data
   
@@ -81,7 +81,7 @@ class Cluster < Element
   end
 end
 
-class Edge < Element
+class Edge
   attr_reader :from, :to
   attr_accessor :weight, :data
   
@@ -91,7 +91,7 @@ class Edge < Element
   end
 end
 
-class Node < Element
+class Node
   attr_accessor :cluster, :id
   attr_reader :out_edges_map, :in_edges_map, :data
   
