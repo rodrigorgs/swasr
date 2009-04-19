@@ -3,13 +3,16 @@
 # Model of a directed network with one-level communities/modules/clusters
 #
 
-class Network
-  attr_reader :edges, :clusters
+require 'choice/lazyhash'
 
+class Network
+  attr_reader :edges, :clusters, :data
+  
   def initialize
     @nodes    = {}
     @edges    = []
     @clusters = []
+    @data = Choice::LazyHash.new
   end
 
   def n(id)
@@ -68,34 +71,35 @@ class Network
   end
 end
 
-class Cluster
+class Cluster < Element
   # Cuidado ao alterar o id para nao quebrar a unicidade!
-  attr_accessor :id
-
+  attr_accessor :id, :data
+  
   def initialize(id)
     @id = id
+    @data = Choice::LazyHash.new
   end
 end
 
-class Edge
+class Edge < Element
   attr_reader :from, :to
-  attr_accessor :weight
-
+  attr_accessor :weight, :data
+  
   def initialize(from, to)
     @from, @to = from, to
+    @data = Choice::LazyHash.new
   end
 end
 
-# TODO: adicionar hash de atributos opcionais
-class Node
-  #attr_reader :out_edges, :in_edges
+class Node < Element
   attr_accessor :cluster, :id
-  attr_reader :out_edges_map, :in_edges_map
-
+  attr_reader :out_edges_map, :in_edges_map, :data
+  
   def initialize(id)
     @id = id
     @out_edges_map = {}
     @in_edges_map  = {}
+    @data = Choice::LazyHash.new
   end
 
   def out_edges
@@ -104,6 +108,10 @@ class Node
 
   def in_edges
     @in_edges_map.values
+  end
+
+  def edges
+    out_edges + in_edges
   end
 
   def _clusters(nodes)
