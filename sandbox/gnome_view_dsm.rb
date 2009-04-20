@@ -6,6 +6,17 @@ class Dsm < Gnome::Canvas
 
   def initialize(*args)
     super
+    @pixels_per_unit = 1.0
+    self.signal_connect("event") do |item, ev|
+      if ev.event_type == Gdk::Event::SCROLL
+        if ev.direction == Gdk::EventScroll::UP
+          @pixels_per_unit = 1.2
+        elsif ev.direction == Gdk::EventScroll::DOWN
+          @pixels_per_unit /= 1.2
+        end
+        set_pixels_per_unit(@pixels_per_unit)
+      end
+    end
   end
 
   def network=(net)

@@ -61,7 +61,7 @@ if __FILE__ == $0
     canvas.fill
     canvas.color = GD2::Color::BLACK
     network.edges.each do |e|
-      canvas.circle(e.from.id, e.to.id, c.size, true)
+      canvas.circle(e.from.id, e.to.id, c.psize, true)
     end
   end
   image.export(c.png_file)
