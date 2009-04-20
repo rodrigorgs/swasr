@@ -30,7 +30,7 @@ Sistema analisado: IRPF 2009. Foram consideradas as classes de todos os arquivos
   * *deg*: grau
   * *indeg*: grau de entrada
   * *outdeg*: grau de saída
-  * *nclusters*: em quantos módulos diferentes estão os vizinhos do vértice (sem considerar o próprio módulo onde o vértice está).
+  * *nclusters*: em quantos módulos diferentes estão os vizinhos do vértice (sem considerar o próprio módulo onde o vértice está)
   * *o_indeg*: número de arestas de entrada com origem em um vértice de outro módulo
   * *i_indeg*: número de arestas de entrada com origem em um vértice do mesmo módulo
   * *o_outdeg*: número de arestas de saída com destino a um vértice de outro módulo
@@ -38,14 +38,15 @@ Sistema analisado: IRPF 2009. Foram consideradas as classes de todos os arquivos
 
 === Gráficos de dispersão ===
 
-Em escala linear e em escala log-log
-
+Em escala linear:
 http://swasr.googlecode.com/svn/wiki/images/irpf-v-splom.png
+
+Em escala log-log:
 http://swasr.googlecode.com/svn/wiki/images/irpf-v-splom-log.png
 
 === Matriz de correlação ===
 
-|| &nbsp;      || *deg*     || *indeg*    || *outdeg*   || *nclusters* || *o_indeg*  || *i_indeg*  || *o_outdeg* || *i_outdeg* || 
+||             || *deg*     || *indeg*    || *outdeg*   || *nclusters* || *o_indeg*  || *i_indeg*  || *o_outdeg* || *i_outdeg* || 
 || *deg*       || 1.0000000 || 0.90324696 || 0.61433888 || 0.30035552  || 0.52433029 || 0.76713263 || 0.20229223 || 0.60131530 ||
 || *indeg*     || 0.9032470 || 1.00000000 || 0.21630502 || 0.21892624  || 0.64037672 || 0.80282132 || 0.03515153 || 0.22296799 ||
 || *outdeg*    || 0.6143389 || 0.21630502 || 1.00000000 || 0.28081301  || 0.01545692 || 0.26918142 || 0.39561579 || 0.95811761 ||
@@ -57,7 +58,7 @@ http://swasr.googlecode.com/svn/wiki/images/irpf-v-splom-log.png
 
 == Métricas sobre módulos ==
 
-TODO
+*TODO*
 
 == DSM ==
 
