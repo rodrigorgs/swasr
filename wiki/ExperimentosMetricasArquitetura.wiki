@@ -1,4 +1,4 @@
-#summary Experimentos com métricas de arquitetura
+﻿#summary Experimentos com métricas de arquitetura
 
 Sistema analisado: IRPF 2009. Foram consideradas as classes de todos os arquivos .jar que vêm com o IRPF 2009. Cada arquivo .jar foi considerado um módulo. Lista de arquivos .jar:
 
@@ -27,13 +27,41 @@ Sistema analisado: IRPF 2009. Foram consideradas as classes de todos os arquivos
 
 == Métricas sobre vértices ==
 
-  * deg: grau
-  * indeg: grau de entrada
-  * outdeg: grau de saída
-  * nclusters: em quantos módulos diferentes estão os vizinhos do vértice (sem considerar o próprio módulo onde o vértice está).
-  * o_indeg:
-  * i_indeg:
-  * o_outdeg:
-  * i_outdeg:
+  * *deg*: grau
+  * *indeg*: grau de entrada
+  * *outdeg*: grau de saída
+  * *nclusters*: em quantos módulos diferentes estão os vizinhos do vértice (sem considerar o próprio módulo onde o vértice está).
+  * *o_indeg*: número de arestas de entrada com origem em um vértice de outro módulo
+  * *i_indeg*: número de arestas de entrada com origem em um vértice do mesmo módulo
+  * *o_outdeg*: número de arestas de saída com destino a um vértice de outro módulo
+  * *i_outdeg*: número de arestas de saída com destino a um vértice do mesmo módulo
+
+=== Gráficos de dispersão ===
+
+Em escala linear e em escala log-log
+
+http://swasr.googlecode.com/svn/wiki/images/irpf-v-splom.png
+http://swasr.googlecode.com/svn/wiki/images/irpf-v-splom-log.png
+
+=== Matriz de correlação ===
+
+|| &nbsp;      || *deg*     || *indeg*    || *outdeg*   || *nclusters* || *o_indeg*  || *i_indeg*  || *o_outdeg* || *i_outdeg* || 
+|| *deg*       || 1.0000000 || 0.90324696 || 0.61433888 || 0.30035552  || 0.52433029 || 0.76713263 || 0.20229223 || 0.60131530 ||
+|| *indeg*     || 0.9032470 || 1.00000000 || 0.21630502 || 0.21892624  || 0.64037672 || 0.80282132 || 0.03515153 || 0.22296799 ||
+|| *outdeg*    || 0.6143389 || 0.21630502 || 1.00000000 || 0.28081301  || 0.01545692 || 0.26918142 || 0.39561579 || 0.95811761 ||
+|| *nclusters* || 0.3003555 || 0.21892624 || 0.28081301 || 1.00000000  || 0.31342733 || 0.04128447 || 0.75701851 || 0.06764361 ||
+|| *o_indeg*   || 0.5243303 || 0.64037672 || 0.01545692 || 0.31342733  || 1.00000000 || 0.05617500 || 0.01859299 || 0.01091873 ||
+|| *i_indeg*   || 0.7671326 || 0.80282132 || 0.26918142 || 0.04128447  || 0.05617500 || 1.00000000 || 0.03126122 || 0.28136561 ||
+|| *o_outdeg*  || 0.2022922 || 0.03515153 || 0.39561579 || 0.75701851  || 0.01859299 || 0.03126122 || 1.00000000 || 0.11603503 ||
+|| *i_outdeg*  || 0.6013153 || 0.22296799 || 0.95811761 || 0.06764361  || 0.01091873 || 0.28136561 || 0.11603503 || 1.00000000 ||
 
 == Métricas sobre módulos ==
+
+TODO
+
+== DSM ==
+
+Dependency Structure Matrix (DSM) ou matriz de adjacências. Imagem reduzida.
+
+http://swasr.googlecode.com/svn/wiki/images/irpf-dsm-thumb.png
+
