@@ -1,0 +1,39 @@
+#summary Experimentos com métricas de arquitetura
+
+Sistema analisado: IRPF 2009. Foram consideradas as classes de todos os arquivos .jar que vêm com o IRPF 2009. Cada arquivo .jar foi considerado um módulo. Lista de arquivos .jar:
+
+  * commons-beanutils-1.7.jar
+  * commons-collections-2.1.jar
+  * commons-digester-1.8.jar
+  * commons-logging-1.0.2.jar
+  * forms-1.0.3.jar
+  * foxtrot.jar
+  * irpf.jar
+  * itext-1.02b.jar
+  * jasperreports-2.0.3.jar
+  * jdt-compiler-3.1.1.jar
+  * jhall.jar
+  * looks-1.3.1.jar
+  * ppgd-formatosext-2.9.jar
+  * ppgd-gui-2.9.jar
+  * ppgd-gui-beans-2.9.jar
+  * ppgd-infra-2.9.jar
+  * ppgd-negocio-2.9.jar
+  * ppgd-persistencia-2.9.jar
+  * ppgd-swixml.jar
+  * serpro.jar
+  * swing-layout-0.7.jar
+  * xalan.jar
+
+== Métricas sobre vértices ==
+
+  * deg: grau
+  * indeg: grau de entrada
+  * outdeg: grau de saída
+  * nclusters: em quantos módulos diferentes estão os vizinhos do vértice (sem considerar o próprio módulo onde o vértice está).
+  * o_indeg:
+  * i_indeg:
+  * o_outdeg:
+  * i_outdeg:
+
+== Métricas sobre módulos ==
