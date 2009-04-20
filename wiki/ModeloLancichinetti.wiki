@@ -43,3 +43,23 @@ Ele corresponde a uma rede gerada com os seguintes parâmetros:
 Compare com o gráfico para o Linux:
 
 http://swasr.googlecode.com/svn/wiki/images/linux-cc.png
+
+== Exemplo (DSM) ==
+*seção adicionada no dia 20/04/2009*
+
+Parâmetros:
+
+{{{
+1000  # number of nodes
+15  # average degree
+50  # maximum degree
+2 # exponent for the degree distribution
+1 # exponent for the community size distribution
+0.2 # mixing parameter
+20  # minimum for the community sizes (optional; just comment this line, if you wish)
+50  # maximum for the community sizes (optional; just comment this line, if you wish)
+}}}
+
+DSM reduzida:
+
+http://swasr.googlecode.com/svn/wiki/images/lanc-dsm.png

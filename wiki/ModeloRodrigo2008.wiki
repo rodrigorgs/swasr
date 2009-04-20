@@ -30,3 +30,14 @@ Com probabilidade beta, é adicionada uma aresta entre dois vértices existentes
 == Limitações ==
 
 Em simulações realizadas em dezembro de 2008 notei que a distribuição de graus segue uma lei de potência, mas os expoentes encontrados foram diferentes daqueles esperados (talvez isso possa ser remediado com uma escolha adequada dos parâmetros). Além disso o gráfico de dispersão que mostra a correlação entre grau de entrada e grau de saída não ficou muito parecido com os gráficos gerados a partir de sistemas reais. Os gráficos podem ser vistos em http://gmf.ufcg.edu.br/~rodrigo/report_des_arch/report.htm
+
+== Exemplo (DSM) ==
+*seção adicionada no dia 20/04/2009*
+
+{{{
+$ create_bollobas_arch.rb -i arch.pairs -1 l1.pairs -2 l2.pairs -f pairs -n 2000 -a 0.4 -b 0.2 -g 0.4 --dout=0.2
+}}}
+
+DSM reduzida:
+
+http://swasr.googlecode.com/svn/wiki/images/bollobas_arch-dsm.png
