@@ -10,6 +10,7 @@ Veja as [Instalacao instruções de instalação do ambiente swasr].
 
 == Blog ==
 
+  * [ExperimentosMetricasArquitetura Experimentos com métricas de arquitetura]
   * [MetricasDeArquitetura Métricas de redes complexas com módulos]
   * [ModeloLancichinetti Sobre o modelo de grafos de Lancichinetti para avaliar algoritmos de detecção de comunidade]
   * [ModeloRodrigo2008 Modelo in-house de rede com arquitetura embutida]
