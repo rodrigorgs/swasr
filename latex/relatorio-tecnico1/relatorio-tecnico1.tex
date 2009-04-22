@@ -23,12 +23,8 @@ A rede de dependências entre componentes de um sistema pode ser extraída autom
 
 A análise dinâmica envolve a instrumentação do sistema para coletar dados de sua execução, e por isso exige que o programa sob análise esteja corretamente instalado e configurado. Para que a análise seja efetiva, é preciso que o programa seja executado com as mais diversas entradas a fim de capturar todos os comportamentos interessantes, o que normalmente é feito através da execução de casos de teste. Essa imposição restringe o conjunto de sistemas que podem ser efetivamente analisados dinamicamente, e nos demais sistemas o tempo de execução da análise pode ser proibitivo.
 
-%For dynamic program analysis to be effective, the target program must be executed with sufficient test inputs to produce interesting behavior
-%Also, care must be taken to minimize the effect that instrumentation has on the execution
-
-%e depende da execução de diversos cenários de uso. 
-
-A análise estática é realizada sobre o código-fonte ou o código objeto do sistema, dispensando sua execução, mas tende a ser menos precisa do que a análise dinâmica \cite{Landil1992}. Apesar disso a análise estática é mais aplicável no caso geral, pois não depende da existência de testes automáticos representativos e é, em geral, mais rápida que a dinâmica.
+A análise estática é realizada sobre o código-fonte ou o código objeto do sistema, dispensando sua execução, mas tende a ser menos precisa do que a análise dinâmica \cite{Landil1992} e não detecta interações resultantes de introspecção. Apesar disso a análise estática é mais aplicável no caso geral, pois não depende da existência de testes automáticos representativos e é, em geral, mais rápida que a dinâmica.
+% versátil
 
 Nenhuma técnica automática é capaz de determinar corretamente, em todos os casos, se existe uma dependência entre dois componentes --- basta considerar o uso de ponteiros em linguagens como C++, ou a transferências de dados através de arquivos. Assim, redes de dependências extraídas automaticamente devem ser consideradas apenas aproximações das redes de dependências reais.
 % análise estática é problema indecidível \cite{Landi1992}
@@ -101,6 +97,31 @@ Distribuições de graus livres de escala também foram encontradas em programas
 
 \section{Apêndice: Tratamento Estatístico de Leis de Potência} \label{sec:estatistica}
 
+histograma. problema com a escolha do tamanho do bin. histograma com exponential bins
+distribuição cumulativa complementar (survival)
+
+Poucos dados empíricos seguem uma lei de potência em toda a sua extensão. Normalmente a lei de potência se aplica apenas a valores maiores do que um valor mínimo, $x_{min}$, e nesse caso se diz que a \emph{cauda} da distribuição segue a lei de potência.
+
+Ao extrair o logaritmo da lei de potência, obtemos $log p(k) \sim -\gamma log(k)$, que é uma reta com coeficiente angular $-\gamma$. Por essa razão uma técnica comum para estimar o parâmetro \gamma de um conjunto de dados consiste em aplicar o método dos mínimos quadrados sobre o logaritmo dos dados a fim de encontrar o coeficiente angular. Esse método, no entanto, introduz erros sistemáticos no caso da lei de potência, e por isso recomenda-se o uso do método da máxima verossimilhança \cite{Clauset2007}.
+
+Estimados os parâmetros $x_{min}$ e $\gamma$, convém verificar se os dados se ajustam bem a uma lei de potência. Um valor alto para o coeficiente de determinação, $R^2$, não é suficiente para afirmar da qualidade do ajuste, não é suficiente para
+
+No entanto esse método é inadequado no caso de distribuições muito heterogêneas porque XXX. Analogamente, $R^2$ não deve ser usado.
+coeficiente de determinação
+
+introduz erros sistemáticos
+
+No lugar deve-se usar o método da máxima verossimilhança. 
+
+R2 não é adequado também...
+
+    In practice, few empirical phenomena obey power laws for all values of x. More
+often the power law applies only for values greater than some minimum xmin . In such
+cases we say that the tail of the distribution follows a power law.
+
+Goodness of fit para estimar a região de scaling
+
+
 % Assimétrica, heterogênea, cauda pesada
 % cabeça, cauda: região extrema da distribuição 
 % cauda pesada
@@ -130,35 +151,6 @@ maximum likelihood estimation para estimar expoente. -- máxima verossimilhança
 goodness-of-fit para estimar região de scaling.
 não usar: regressão linear (método dos mínimos quadrados), coeficiente de determinação ($R^2$)
 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-% Modelos: Bollobas, Deo and Cami
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-\section{Recuperação de Arquitetura}
-
-\subsection{Arquitetura: Componentes e Conectores}
-
-Componentes e conectores.
-Visões. Processos, módulos.
-
-\subsection{Técnicas de Recuperação de Arquitetura}
-
-
-Análise dinâmica, análise estática. Padrões de nomes (Anquetil). Padrões estrutrais (LIMBO). Análise de clustering (Maqbool)
-
-
-
-Sobre clustering. Referência: Introduction to Data Mining, capítulo 8
-
 \subsubsection{Detecção de Comunidades}
 
 = análise de clustering (graph clustering, network clustering), = recuperação de arquitetura modular (módulos de atribuição de trabalho).
@@ -185,34 +177,63 @@ relação funcional, módulos de funcionalidade
 
 Modelo de Girvan-Newman - Newman - Fast algorithm for detecting community structure in networks \cite{Newman2004b} e, mais antigo, Newman, Girvan - Finding and evaluating community structure in networks \cite{Newman2004a}
 
-Paper: Benchmark for community detection \cite{Lancichinetti2008}
+Paper: Benchmark for community detection \cite{Lancichinetti2008}. Pegar resumo e crítica do wiki.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Modelos: Bollobas, Deo and Cami
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\subsection{Tipos de Decomposições}
+% \section{Recuperação de Arquitetura}
+% 
+% \subsection{Arquitetura: Componentes e Conectores}
+% 
+% Componentes e conectores.
+% Visões. Processos, módulos.
+% 
+% \subsection{Técnicas de Recuperação de Arquitetura}
+% 
+% 
+% Análise dinâmica, análise estática. Padrões de nomes (Anquetil). Padrões estrutrais (LIMBO). Análise de clustering (Maqbool)
+% 
+% 
+% 
+% Sobre clustering. Referência: Introduction to Data Mining, capítulo 8
 
-Referência: Introduction to Data Mining, capítulo 8 \cite{Tan2005}
 
-Hierárquica vs partitiva.
-Exclusive vs overlapping vs fuzzy.
-Completa vs. parcial.
 
-\subsection{Algoritmos}
-
-Bunch. LIMBO. MCL etc. (a escolher)
-
-\subsection{Avaliação de Decomposições}
-
-Avaliação não-supervisionada: NED, estabilidade.
-Avaliação supervisionada: authoritativeness.
-
-Avaliações relativas (comparar dois algoritmos)
-
-\subsection{Comparação entre Decomposições}
-
-Precision-recall.
-MoJo.
-EdgeMoJo.
-etc.
+% \subsection{Tipos de Decomposições}
+% 
+% Referência: Introduction to Data Mining, capítulo 8 \cite{Tan2005}
+% 
+% Hierárquica vs partitiva.
+% Exclusive vs overlapping vs fuzzy.
+% Completa vs. parcial.
+% 
+% \subsection{Algoritmos}
+% 
+% Bunch. LIMBO. MCL etc. (a escolher)
+% 
+% \subsection{Avaliação de Decomposições}
+% 
+% Avaliação não-supervisionada: NED, estabilidade.
+% Avaliação supervisionada: authoritativeness.
+% 
+% Avaliações relativas (comparar dois algoritmos)
+% 
+% \subsection{Comparação entre Decomposições}
+% 
+% Precision-recall.
+% MoJo.
+% EdgeMoJo.
+% etc.
 
 \bibliographystyle{apalike}
 \bibliography{complex-networks,rodrigo-mestrado}
