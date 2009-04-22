@@ -104,22 +104,8 @@ Poucos dados empíricos seguem uma lei de potência em toda a sua extensão. Nor
 
 Ao extrair o logaritmo da lei de potência, obtemos $log p(k) \sim -\gamma log(k)$, que é uma reta com coeficiente angular $-\gamma$. Por essa razão uma técnica comum para estimar o parâmetro \gamma de um conjunto de dados consiste em aplicar o método dos mínimos quadrados sobre o logaritmo dos dados a fim de encontrar o coeficiente angular. Esse método, no entanto, introduz erros sistemáticos no caso da lei de potência, e por isso recomenda-se o uso do método da máxima verossimilhança \cite{Clauset2007}.
 
-Estimados os parâmetros $x_{min}$ e $\gamma$, convém verificar se os dados se ajustam bem a uma lei de potência. Um valor alto para o coeficiente de determinação, $R^2$, não é suficiente para afirmar da qualidade do ajuste, não é suficiente para
+Estimados os parâmetros $x_{min}$ e $\gamma$, convém verificar se os dados se ajustam bem a uma lei de potência. Um valor alto para o coeficiente de determinação, $R^2$, não é suficiente para afirmar que o ajuste é bom. Uma boa forma de realizar a verificação consiste em gerar leis de potência com os parâmetros estimados e compará-las aos dados através do teste de ajustamento de Kolmogorov-Smirnov. Para um maior rigor, é preciso ajustar outras distribuições teóricas aos dados e verificar qual se ajusta melhor.
 
-No entanto esse método é inadequado no caso de distribuições muito heterogêneas porque XXX. Analogamente, $R^2$ não deve ser usado.
-coeficiente de determinação
-
-introduz erros sistemáticos
-
-No lugar deve-se usar o método da máxima verossimilhança. 
-
-R2 não é adequado também...
-
-    In practice, few empirical phenomena obey power laws for all values of x. More
-often the power law applies only for values greater than some minimum xmin . In such
-cases we say that the tail of the distribution follows a power law.
-
-Goodness of fit para estimar a região de scaling
 
 
 % Assimétrica, heterogênea, cauda pesada
@@ -127,17 +113,6 @@ Goodness of fit para estimar a região de scaling
 % cauda pesada
 % lei de potência = distribuição zeta
 % ccdf
-
-              The populations of cities, the intensities of earthquakes, and the sizes of
-power outages, for example, are all thought to have power-law distributions. Quan-
-tities such as these are not well characterized by their typical or average values.
-
-    In practice, few empirical phenomena obey power laws for all values of x. More
-often the power law applies only for values greater than some minimum xmin . In such
-cases we say that the tail of the distribution follows a power law.
-
-
-// Talvez aqui fazer algo didático, como no livro The Black Swan
 
 . Unfortunately, the empirical detection and characterization of power laws is made difficult by the large fluctuations that occur in the tail of the distribution. In particular, standard methods such as least-squares fitting are known to produce systematically biased estimates of parameters for power-law distributions and should not be used in most circumstances. Here we describe statistical techniques for making accurate parameter estimates for power-law data, based on maximum likelihood methods and the Kolmogorov-Smirnov statistic. We also show how to tell whether the data follow a power-law distribution at all, defining quantitative measures that indicate when the power law is a reasonable fit to the data and when it is not. We demonstrate these methods by applying them to twenty-four real-world data sets from a range of different disciplines. Each of the data sets has been conjectured previously to follow a power-law distribution. In some cases we find these conjectures to be consistent with the data while in others the power law is ruled out.
 
