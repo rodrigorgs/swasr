@@ -1,4 +1,4 @@
-\documentclass{article}
+﻿\documentclass{article}
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
 \usepackage{natbib}
@@ -85,54 +85,20 @@ Motivos são padrões de vértices e arestas que ocorrem com frequência em uma 
 
 % \subsubsection{Assortatividade, mixing}
 
-\section{Redes de Dependências entre Componentes como Redes Complexas}
-
-Estudos recentes têm aplicado a teoria das redes complexas em redes de dependências entre componentes de \textit{software}. Valverde e Solé \cite{Valverde2003} detectaram distribuições de graus livres de escala e alto coeficiente de agrupamento em redes não-orientadas formadas por relações de agregação de tipos em diagramas UML, programas em C e programas em C++. Myers \cite{Myers2003} analisou redes de chamadas de função em programas em C e redes de agregação e herança em programas em C++, modeladas como grafos orientados. Em ambos os casos ele identificou organização hierárquica através da distribuição do coeficiente de agrupamento, $C(k) \sim k^{-1}$. O estudo revelou uma correlação negativa entre o grau de entrada e o grau de saída de um vértice. Leis de potência foram encontradas em trechos das distribuições de graus de entrada e das distribuições de graus de saída.
-
-Distribuições de graus livres de escala também foram encontradas em programas escritos em Smalltalk \cite{Marchesi2004,Concas2007} e em Java \cite{Hyland-Wood2006,Baxter2006,Ichii2008}, em dependências entre pacotes de \textit{software} \cite{Labelle2004}, em chamadas de sistema, em dependências entre bibliotecas dinâmicas \cite{Louridas2008} e até mesmo em referências entre objetos em tempo de execução \cite{Potanin2005}.
-
-É difícil comparar as pesquisas porque nem sempre elas deixam explícito quais tipos de interação foram considerados para a construção das redes. Além disso, alguns trabalhos usam ferramentas estatísticas inadequadas para leis de potência (veja a seção \ref{sec:estatistica}).
-
-%Nem todos os trabalhos usam a Estatística rigorosamente. Lognormal, double pareto, power law, stretched exponential, power law with exponential cutoff... Alguns usam o coeeficiente de determinação ($R^2$), que não se aplica a leis de potência, ou o método dos mínimos quadrados sobre o logaritmo dos dados.
-
-\section{Apêndice: Tratamento Estatístico de Leis de Potência} \label{sec:estatistica}
-
-histograma. problema com a escolha do tamanho do bin. histograma com exponential bins
-distribuição cumulativa complementar (survival)
-
-Poucos dados empíricos seguem uma lei de potência em toda a sua extensão. Normalmente a lei de potência se aplica apenas a valores maiores do que um valor mínimo, $x_{min}$, e nesse caso se diz que a \emph{cauda} da distribuição segue a lei de potência.
-
-Ao extrair o logaritmo da lei de potência, obtemos $log p(k) \sim -\gamma log(k)$, que é uma reta com coeficiente angular $-\gamma$. Por essa razão uma técnica comum para estimar o parâmetro \gamma de um conjunto de dados consiste em aplicar o método dos mínimos quadrados sobre o logaritmo dos dados a fim de encontrar o coeficiente angular. Esse método, no entanto, introduz erros sistemáticos no caso da lei de potência, e por isso recomenda-se o uso do método da máxima verossimilhança \cite{Clauset2007}.
-
-Estimados os parâmetros $x_{min}$ e $\gamma$, convém verificar se os dados se ajustam bem a uma lei de potência. Um valor alto para o coeficiente de determinação, $R^2$, não é suficiente para afirmar que o ajuste é bom. Uma boa forma de realizar a verificação consiste em gerar leis de potência com os parâmetros estimados e compará-las aos dados através do teste de ajustamento de Kolmogorov-Smirnov. Para um maior rigor, é preciso ajustar outras distribuições teóricas aos dados e verificar qual se ajusta melhor.
-
-
-
-% Assimétrica, heterogênea, cauda pesada
-% cabeça, cauda: região extrema da distribuição 
-% cauda pesada
-% lei de potência = distribuição zeta
-% ccdf
-
-. Unfortunately, the empirical detection and characterization of power laws is made difficult by the large fluctuations that occur in the tail of the distribution. In particular, standard methods such as least-squares fitting are known to produce systematically biased estimates of parameters for power-law distributions and should not be used in most circumstances. Here we describe statistical techniques for making accurate parameter estimates for power-law data, based on maximum likelihood methods and the Kolmogorov-Smirnov statistic. We also show how to tell whether the data follow a power-law distribution at all, defining quantitative measures that indicate when the power law is a reasonable fit to the data and when it is not. We demonstrate these methods by applying them to twenty-four real-world data sets from a range of different disciplines. Each of the data sets has been conjectured previously to follow a power-law distribution. In some cases we find these conjectures to be consistent with the data while in others the power law is ruled out.
-
-Propriedades estatísticas da lei de potência. A Figura 1(a) mostra o gráfico de uma lei de potência. Intuitivamente, percebe-se que a grande maioria dos vértices possui um grau pequeno, mas existem vértices cujo grau está muito acima do grau médio. Trata-se de uma curva assimétrica positiva, pois a média é maior do que a mediana. A probabilidade de um elemento de grau alto é pequena mas não desprezível, e isso contribui para elevar a média. Como a distribuição é muito heterogênea, a média não é um valor muito representantivo da distribuição. A lei de potência, quando plotada em escala log-log, se apresenta sob a forma de uma reta. Dificilmente dados obtidos experimentalmente formam uma reta em toda sua extensão. Portanto muitas vezes quando se afirma que uma distribuição é livre de escala, o que se quer dizer é que parte da distribuição é bem aproximada por uma reta na escala log-log.
-
-Tratamento estatístico de leis de potência:  \cite{Newman2005} - Power laws, Pareto distributions and Zipf's law   //   Clauset et al - Power-law distributions in empirical data \cite{Clauset2007}
-
-histograma. problema com a escolha do tamanho do bin. histograma com exponential bins
-distribuição cumulativa complementar (survival)
-maximum likelihood estimation para estimar expoente. -- máxima verossimilhança
-goodness-of-fit para estimar região de scaling.
-não usar: regressão linear (método dos mínimos quadrados), coeficiente de determinação ($R^2$)
-
 \subsubsection{Detecção de Comunidades}
+
+As métricas citadas analisam propriedades de vértices isoladamente, como o coeficiente de agrupamento, estruturas compostas por pequenos conjuntos de vértice, os motivos, e propriedades globais, como a distribuição de graus. Existem ainda estruturas intermediárias, as comunidades. Uma comunidade é um subconjunto dos vértices de uma rede que são densamente conectados entre si e pouco conectados ao resto da rede \cite{Gulbahce2008}. As diversas comunidades de uma rede podem possuir características diversas, que não são evidenciadas por análises da estrutura global da rede. Muitas vezes se considera que comunidades representam módulos funcionais de uma rede --- uma comunidade seria, portanto, um conjunto de vértices similares, que interagem a fim de realizar uma funcionalidade.
+
+Muitas vezes a organização funcional dos vértices de uma rede é desconhecida, então se usam algoritmos que procuram detectar comunidades. Esses algoritmos fornecem um particionamento dos vértices de modo que cada partição corresponde a uma comunidade.
+
+Naturalmente, não existe uma definição formal e universalmente aceita do que é uma comunidade ou do que é um particionamento ótimo. 
+
+Avaliação de algoritmos de detecção de comunidade
+Benchmarks como o clube de karate de não sei quem
 
 = análise de clustering (graph clustering, network clustering), = recuperação de arquitetura modular (módulos de atribuição de trabalho).
 
 Clauset, Newman, Moore - Finding community structure in very large networks \cite{Clauset2004}
-
-Gulbahce2008 - "The art of community detection" \cite{Gulbahce2008}: Currently the state of the art is to design an artificial network with the structural properties that one wants to detect (e.g. group strucutre) and then show that the algorithm being tested is able to detect such structures. 
 
 definição de cluster: A number of similar things collected together or lying contiguous; a group;
 
@@ -147,12 +113,47 @@ Community can be considered as a summary of
 the whole network thus easy to visualize and
 understand.
 
-relação funcional, módulos de funcionalidade
-
-
 Modelo de Girvan-Newman - Newman - Fast algorithm for detecting community structure in networks \cite{Newman2004b} e, mais antigo, Newman, Girvan - Finding and evaluating community structure in networks \cite{Newman2004a}
 
 Paper: Benchmark for community detection \cite{Lancichinetti2008}. Pegar resumo e crítica do wiki.
+
+
+\section{Redes de Dependências entre Componentes como Redes Complexas}
+
+Estudos recentes têm aplicado a teoria das redes complexas em redes de dependências entre componentes de \textit{software}. Valverde e Solé \cite{Valverde2003} detectaram distribuições de graus livres de escala e alto coeficiente de agrupamento em redes não-orientadas formadas por relações de agregação de tipos em diagramas UML, programas em C e programas em C++. Myers \cite{Myers2003} analisou redes de chamadas de função em programas em C e redes de agregação e herança em programas em C++, modeladas como grafos orientados. Em ambos os casos ele identificou organização hierárquica através da distribuição do coeficiente de agrupamento, $C(k) \sim k^{-1}$. O estudo revelou uma correlação negativa entre o grau de entrada e o grau de saída de um vértice. Leis de potência foram encontradas em trechos das distribuições de graus de entrada e das distribuições de graus de saída.
+
+Distribuições de graus livres de escala também foram encontradas em programas escritos em Smalltalk \cite{Marchesi2004,Concas2007} e em Java \cite{Hyland-Wood2006,Baxter2006,Ichii2008}, em dependências entre pacotes de \textit{software} \cite{Labelle2004}, em chamadas de sistema, em dependências entre bibliotecas dinâmicas \cite{Louridas2008} e até mesmo em referências entre objetos em tempo de execução \cite{Potanin2005}.
+
+É difícil comparar as pesquisas porque nem sempre elas deixam explícito quais tipos de interação foram considerados para a construção das redes. Além disso, alguns trabalhos usam ferramentas estatísticas inadequadas para leis de potência (veja a seção \ref{sec:estatistica}).
+
+%Nem todos os trabalhos usam a Estatística rigorosamente. Lognormal, double pareto, power law, stretched exponential, power law with exponential cutoff... Alguns usam o coeeficiente de determinação ($R^2$), que não se aplica a leis de potência, ou o método dos mínimos quadrados sobre o logaritmo dos dados.
+
+\section{Apêndice: Tratamento Estatístico de Leis de Potência} \label{sec:estatistica}
+
+\subsection{Representação Gráfica}
+
+A estratégia mais usada para determinar se um conjunto de dados segue uma lei de potência é plotar o seu histograma em escala log-log. Se os dados seguem a lei de potência, o gráfico resultante deve ser uma reta. No entanto alguns cuidados precisam ser tomados ao traçar o histograma.
+
+Se o histograma divide os dados em classes de mesmo tamanho, o gráfico apresenta muito ruído na cauda, na região onde se encontram os maiores valores. Isso ocorre porque nessa região os dados são esparsos, já que a probabilidade é baixa. 
+
+Uma maneira de reduzir o ruído consiste em dividir os dados em classes cujo tamanho cresce exponencialmente. Por exemplo, podemos considerar os intervalos de 1 a 2, de 2 a 4, de 4 a 8, de 8 a 16, e assim sucessivamente. A contagem de amostras de uma classe, nesse caso, deve ser dividida pelo tamanho do intervalo, a fim de normalizar o histograma \cite{Newman2005}.
+
+Uma solução um pouco diferente é traçar o gráfico da função de distribuição cumulativa complementar (fdcc). Essa função representa a probabilidade Pr(X >= x). Não há necessidade de dividir os dados em classes. Se os dados seguem uma lei de potência com expoente $\gamma$, sua fdcc será uma lei de potência com coeficiente $\gamma – 1$.
+
+% TODO: inserir figura do artigo de Newman.
+
+\subsection{Estimação de Parâmetros}
+
+Poucos dados empíricos seguem uma lei de potência em toda a sua extensão. Normalmente a lei de potência se aplica apenas a valores maiores do que um valor mínimo, $x_{min}$, e nesse caso se diz que a \emph{cauda} da distribuição segue a lei de potência.
+
+Ao extrair o logaritmo da lei de potência, obtemos $log p(k) \sim -\gamma log(k)$, que é uma reta com coeficiente angular $-\gamma$. Por essa razão uma técnica comum para estimar o parâmetro $\gamma$ de um conjunto de dados consiste em aplicar o método dos mínimos quadrados sobre o logaritmo dos dados a fim de encontrar o coeficiente angular. Esse método, no entanto, introduz erros sistemáticos no caso da lei de potência, e por isso recomenda-se o uso do método da máxima verossimilhança \cite{Clauset2007}.
+
+\subsection{Teste de Ajustamento}
+
+Estimados os parâmetros $x_{min}$ e $\gamma$, convém verificar se os dados se ajustam bem a uma lei de potência. Um valor alto para o coeficiente de determinação, $R^2$, não é suficiente para afirmar que o ajuste é bom. Uma boa forma de realizar a verificação consiste em gerar leis de potência com os parâmetros estimados e compará-las aos dados através do teste de ajustamento de Kolmogorov-Smirnov. Para um maior rigor, é preciso ajustar outras distribuições teóricas aos dados e verificar qual se ajusta melhor.
+
+A depender da aplicação, pode não ser necessário determinar se 
+a lei de potência é a distribuição que melhor se ajusta aos dados. Em muitos casos é suficiente observar que os dados são distribuídos de forma bastante heterogênea, formando uma cauda pesada, que decai lentamente. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -214,3 +215,6 @@ Paper: Benchmark for community detection \cite{Lancichinetti2008}. Pegar resumo 
 \bibliography{complex-networks,rodrigo-mestrado}
 
 \end{document}
+
+% Propriedades estatísticas da lei de potência. A Figura 1(a) mostra o gráfico de uma lei de potência. Intuitivamente, percebe-se que a grande maioria dos vértices possui um grau pequeno, mas existem vértices cujo grau está muito acima do grau médio. Trata-se de uma curva assimétrica positiva, pois a média é maior do que a mediana. A probabilidade de um elemento de grau alto é pequena mas não desprezível, e isso contribui para elevar a média. Como a distribuição é muito heterogênea, a média não é um valor muito representantivo da distribuição. A lei de potência, quando plotada em escala log-log, se apresenta sob a forma de uma reta. Dificilmente dados obtidos experimentalmente formam uma reta em toda sua extensão. Portanto muitas vezes quando se afirma que uma distribuição é livre de escala, o que se quer dizer é que parte da distribuição é bem aproximada por uma reta na escala log-log.
+
