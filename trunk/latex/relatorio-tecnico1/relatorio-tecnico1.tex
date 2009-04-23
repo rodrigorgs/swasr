@@ -1,4 +1,4 @@
-﻿\documentclass{article}
+\documentclass{article}
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
 \usepackage{natbib}
@@ -87,36 +87,17 @@ Motivos são padrões de vértices e arestas que ocorrem com frequência em uma 
 
 \subsubsection{Detecção de Comunidades}
 
-As métricas citadas analisam propriedades de vértices isoladamente, como o coeficiente de agrupamento, estruturas compostas por pequenos conjuntos de vértice, os motivos, e propriedades globais, como a distribuição de graus. Existem ainda estruturas intermediárias, as comunidades. Uma comunidade é um subconjunto dos vértices de uma rede que são densamente conectados entre si e pouco conectados ao resto da rede \cite{Gulbahce2008}. As diversas comunidades de uma rede podem possuir características diversas, que não são evidenciadas por análises da estrutura global da rede. Muitas vezes se considera que comunidades representam módulos funcionais de uma rede --- uma comunidade seria, portanto, um conjunto de vértices similares, que interagem a fim de realizar uma funcionalidade.
+Métricas globais como a distribuição de graus escondem o fato de que muitas redes se organizam em grupos de vértices relativamente independentes uns dos outros, chamados de comunidades. Detecção de comunidades é a tarefa de particionar os vértices de uma rede em comunidades de modo que, sob algum critério, os vértices de uma mesma comunidade estão mais relacionados entre si do que com vértices de fora da comunidade.
 
-Muitas vezes a organização funcional dos vértices de uma rede é desconhecida, então se usam algoritmos que procuram detectar comunidades. Esses algoritmos fornecem um particionamento dos vértices de modo que cada partição corresponde a uma comunidade.
+A tarefa de detectar comunidades é análoga ao que, na mineração de dados, se chama de análise de clustering --- sendo cluster, nesse contexto, sinônimo de comunidade. No domínio de engenharia de sofware, muitas técnicas de recuperação de arquitetura utilizam algoritmos de clustering para identificar módulos de um sistema de software.
 
-Naturalmente, não existe uma definição formal e universalmente aceita do que é uma comunidade ou do que é um particionamento ótimo. 
+Dada a grande variedade de algoritmos de clustering e de detecção de comunidades, é essencial avaliar os resultados produzidos pelos algoritmos. A avaliação consiste em executar o algoritmo sobre uma rede cuja estrutura de clusters (ou comunidades) é conhecida e então comparar essa estrutura com a estrutura produzida pelo algoritmo, de acordo com alguma função de similaridade entre particionamentos. Infelizmente não há muitas redes cuja estrutura de comunidades é conhecida, e as que existem são pequenas. Por essa razão testes mais extensivos são realizados com redes geradas por computador.
 
-Avaliação de algoritmos de detecção de comunidade
-Benchmarks como o clube de karate de não sei quem
+Newman e Girvan \citeyear{Newman2004a} propuseram um modelo que gera redes com 128 vértices, divididos em quatro comunidades de 32 vértices cada. Os vértices possuem aproximidamente o mesmo número de arestas, 16, das quais $z_{out}$ arestas ligam vértices de comunidades distintas. Newman e Girvan geraram redes com diferentes valores de $z_{out}$ com a finalidade de comparar dois algoritmos de detecção de comunidade.
 
-= análise de clustering (graph clustering, network clustering), = recuperação de arquitetura modular (módulos de atribuição de trabalho).
+Esse modelo possui algumas limitações: os vértices possuem aproximadamente o mesmo número de arestas, as comunidades possuem o mesmo tamanho e a rede é pequena. Com base nessa observação, Lancichinetti et al. \citeyear{Lancichinetti2008} propuseram um modelo no qual a distribuição de graus e a distribuição de tamanho das comunidades são ambas leis de potência e o número de vértices é arbitrário. Cada vértice compartilha uma fração de suas arestas com vértices de outras comunidades; essa fração é o parâmetro de mistura, $\mu$.
 
-Clauset, Newman, Moore - Finding community structure in very large networks \cite{Clauset2004}
-
-definição de cluster: A number of similar things collected together or lying contiguous; a group;
-
-A community is
-a densely connected subset of nodes that is only sparsely
-linked to the remaining network. (Gulbahce)
-
-Communities in a citation network might represent
-related papers on a single topic;
-
-Community can be considered as a summary of
-the whole network thus easy to visualize and
-understand.
-
-Modelo de Girvan-Newman - Newman - Fast algorithm for detecting community structure in networks \cite{Newman2004b} e, mais antigo, Newman, Girvan - Finding and evaluating community structure in networks \cite{Newman2004a}
-
-Paper: Benchmark for community detection \cite{Lancichinetti2008}. Pegar resumo e crítica do wiki.
-
+O modelo de Lancichinetti et al. possui características que, a depender do domínio modelado, tornam-no um modelo pouco realista: as redes são não-orientadas; todos os vértices possuem ligações tanto para vértices da mesma comunidade quanto para vértices de outras comunidades; todas as comunidades estão, potencialmente, ligadas a todas as outras.
 
 \section{Redes de Dependências entre Componentes como Redes Complexas}
 
@@ -217,4 +198,16 @@ a lei de potência é a distribuição que melhor se ajusta aos dados. Em muitos
 \end{document}
 
 % Propriedades estatísticas da lei de potência. A Figura 1(a) mostra o gráfico de uma lei de potência. Intuitivamente, percebe-se que a grande maioria dos vértices possui um grau pequeno, mas existem vértices cujo grau está muito acima do grau médio. Trata-se de uma curva assimétrica positiva, pois a média é maior do que a mediana. A probabilidade de um elemento de grau alto é pequena mas não desprezível, e isso contribui para elevar a média. Como a distribuição é muito heterogênea, a média não é um valor muito representantivo da distribuição. A lei de potência, quando plotada em escala log-log, se apresenta sob a forma de uma reta. Dificilmente dados obtidos experimentalmente formam uma reta em toda sua extensão. Portanto muitas vezes quando se afirma que uma distribuição é livre de escala, o que se quer dizer é que parte da distribuição é bem aproximada por uma reta na escala log-log.
+
+% As métricas citadas analisam propriedades de vértices isoladamente, como o coeficiente de agrupamento, estruturas compostas por pequenos conjuntos de vértice, os motivos, e propriedades globais, como a distribuição de graus. Existem ainda estruturas intermediárias, as comunidades. Uma comunidade é um subconjunto dos vértices de uma rede que são densamente conectados entre si e pouco conectados ao resto da rede \cite{Gulbahce2008}. As diversas comunidades de uma rede podem possuir características diversas, que não são evidenciadas por análises da estrutura global da rede. Muitas vezes se considera que comunidades representam módulos funcionais de uma rede --- uma comunidade seria, portanto, um conjunto de vértices similares, que interagem a fim de realizar uma funcionalidade.
+
+% Muitas vezes a organização funcional dos vértices de uma rede é desconhecida, então se usam algoritmos que procuram detectar comunidades. Esses algoritmos fornecem um particionamento dos vértices de modo que cada partição corresponde a uma comunidade.
+
+% Naturalmente, não existe uma definição formal e universalmente aceita do que é uma comunidade ou do que é um particionamento ótimo. 
+
+% definição de cluster: A number of similar things collected together or lying contiguous; a group;
+
+%A community is a densely connected subset of nodes that is only sparsely linked to the remaining network. (Gulbahce)
+
+%Communities in a citation network might represent related papers on a single topic;
 
