@@ -42,18 +42,22 @@ if __FILE__ == $0
   network = Network.new
   STDERR.puts "Reading edges..."
   network.add_edges(read_pairs(c.edges_file))
-  STDERR.puts "Reading modules..."
-  network.set_clusters(read_pairs(c.modules_file))
-  STDERR.puts "Sorting nodes according to modules..."
+  if (c.modules_file)
+    STDERR.puts "Reading modules..."
+    network.set_clusters(read_pairs(c.modules_file))
+    STDERR.puts "Sorting nodes according to modules..."
   
-  n = network.nodes.size
-  # Ordena os clusters por tamanho. Dentro de cada cluster, os vertices
-  # sao ordenados de acordo com o id
-  clusters = network.nodes.group_by(&:cluster).values.sort_by(&:size)
-  sorted_nodes = clusters.map{ |cluster| cluster.sort_by(&:id)}.flatten
+    # Ordena os clusters por tamanho. Dentro de cada cluster, os vertices
+    # sao ordenados de acordo com o id
+    clusters = network.nodes.group_by(&:cluster).values.sort_by(&:size)
+    sorted_nodes = clusters.map{ |cluster| cluster.sort_by(&:id)}.flatten
+  else
+    sorted_nodes = network.nodes
+  end
 
   STDERR.puts "Creating image..."
 
+  n = sorted_nodes.size
   sorted_nodes.each_with_index { |node, i| node.id = i }
   image = GD2::Image::TrueColor.new(n, n)
   image.draw do |canvas|
