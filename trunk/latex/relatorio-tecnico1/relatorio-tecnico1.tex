@@ -6,9 +6,11 @@
 %\usepackage[T1]{fontenc}
 
 \begin{document}
-\title{Relatório Técnico 1}
-\author{Rodrigo R. G. e Souza}
+\title{Redes Complexas e Dependências entre Componentes de \emph{Software}}
+\author{Rodrigo Rocha Gomes e Souza}
 \maketitle
+
+Este relatório aborda redes de dependências entre componentes de \emph{software}, explica conceitos da teoria das redes complexas e enumera trabalhos recentes que aplicam essa teoria à análise de redes de dependências entre componentes.
 
 \section{Redes de Dependências entre Componentes}
 
@@ -90,41 +92,41 @@ Motivos são padrões de vértices e arestas que ocorrem com frequência em uma 
 
 \subsubsection{Detecção de Comunidades}
 
-Métricas globais como a distribuição de graus escondem o fato de que muitas redes se organizam em grupos de vértices relativamente independentes uns dos outros, chamados de comunidades. Detecção de comunidades é a tarefa de particionar os vértices de uma rede em comunidades de modo que, sob algum critério, os vértices de uma mesma comunidade estão mais relacionados entre si do que com vértices de fora da comunidade.
+Métricas globais como a distribuição de graus escondem o fato de que muitas redes se organizam em grupos de vértices relativamente independentes uns dos outros, chamados de comunidades. Detecção de comunidades é a tarefa de particionar os vértices de uma rede em comunidades de modo que, sob algum critério, os vértices de uma mesma comunidade estão fortemente relacionados entre si e fracamente relacionados a vértices de outras comunidades.
 
 A detecção de comunidades é análoga ao que, na mineração de dados, se chama de análise de clustering --- sendo cluster, nesse contexto, sinônimo de comunidade. No domínio da engenharia de sofware, muitas técnicas de recuperação de arquitetura utilizam algoritmos de clustering para identificar módulos de um sistema de software.
 
-Dada a grande variedade de algoritmos de clustering e de detecção de comunidades, é essencial avaliar os resultados produzidos pelos algoritmos. A avaliação consiste em executar o algoritmo sobre uma rede cuja estrutura de clusters (ou comunidades) é conhecida e então comparar, através de alguma métrica, essa estrutura com a estrutura encontrada pelo algoritmo. Infelizmente não há muitas redes cuja estrutura de comunidades é conhecida, e as que existem são pequenas. Testes mais extensivos podem ser realizados com redes geradas por computador.
+A avaliação de algoritmos de clustering (ou detecção de comunidades) consiste em executar o algoritmo sobre uma rede cuja estrutura de clusters (ou comunidades) é conhecida e então comparar, através de alguma métrica, essa estrutura com a estrutura encontrada pelo algoritmo. Infelizmente não há muitas redes cuja estrutura de comunidades é conhecida, e as que existem são pequenas. Testes mais extensivos podem ser realizados com redes geradas por computador.
 
 Newman e Girvan \cite{Newman2004a} propuseram um modelo que gera redes com 128 vértices, divididos em quatro comunidades de 32 vértices cada. Os vértices possuem aproximadamente o mesmo número de arestas, 16, das quais $z_{out}$ arestas ligam vértices de comunidades distintas. Newman e Girvan geraram redes com diferentes valores de $z_{out}$ com a finalidade de comparar dois algoritmos de detecção de comunidade.
 
-Esse modelo possui algumas limitações: os vértices possuem aproximadamente o mesmo número de arestas, as comunidades possuem o mesmo tamanho e a rede é pequena. Com base nessa observação, Lancichinetti et al. \cite{Lancichinetti2008} propuseram um modelo no qual a distribuição de graus e a distribuição de tamanho das comunidades são ambas leis de potência e o número de vértices é arbitrário. Cada vértice compartilha uma fração de suas arestas com vértices de outras comunidades; essa fração é o parâmetro de mistura, $\mu$.
+Esse modelo possui algumas limitações: os vértices possuem aproximadamente o mesmo número de arestas, as comunidades possuem o mesmo tamanho e a rede é pequena. Com base nessa observação, Lancichinetti et al. \cite{Lancichinetti2008} propuseram um modelo no qual a distribuição de graus e a distribuição de tamanho das comunidades são ambas leis de potência e o número de vértices é arbitrário. Cada vértice compartilha uma fração constante de suas arestas com vértices de outras comunidades; essa fração é controlada pelo parâmetro de mistura, $\mu$.
 
-O modelo de Lancichinetti et al. possui características que, a depender do domínio modelado, tornam-no um modelo pouco realista: as redes são não-orientadas; todos os vértices possuem ligações tanto para vértices da mesma comunidade quanto para vértices de outras comunidades; todas as comunidades estão, potencialmente, ligadas a todas as outras.
+O modelo de Lancichinetti et al. possui características que, a depender do domínio modelado, são pouco realistas: as redes são não-orientadas; todos os vértices possuem ligações tanto para vértices da mesma comunidade quanto para vértices de outras comunidades; todas as comunidades estão, potencialmente, ligadas a todas as outras.
 
 % the preferred formulation of communities is often domain-specific.
 
 \section{Redes de Dependências entre Componentes como Redes Complexas}
 
-Estudos recentes têm aplicado a teoria das redes complexas em redes de dependências entre componentes de \textit{software}. Valverde e Solé \cite{Valverde2003} detectaram distribuições de graus livres de escala e alto coeficiente de agrupamento em redes não-orientadas formadas por relações de agregação de tipos em diagramas UML, programas em C e programas em C++. Myers \cite{Myers2003} analisou redes de chamadas de função em programas em C e redes de agregação e herança em programas em C++, modeladas como grafos orientados. Em ambos os casos ele identificou organização hierárquica através da distribuição do coeficiente de agrupamento, $C(k) \sim k^{-1}$. O estudo revelou uma correlação negativa entre o grau de entrada e o grau de saída de um vértice. Leis de potência foram encontradas em trechos das distribuições de graus de entrada e das distribuições de graus de saída.
+Estudos recentes têm aplicado a teoria das redes complexas em redes de dependências entre componentes de \textit{software}. Valverde e Solé \cite{Valverde2003} detectaram distribuições de graus livres de escala e alto coeficiente de agrupamento em redes não-orientadas formadas por relações de agregação de tipos em diagramas UML, programas em C e programas em C++. Myers \cite{Myers2003} analisou redes de chamadas de função em programas em C e redes de agregação e herança em programas em C++, modeladas como grafos orientados. Em ambos os casos ele identificou organização hierárquica através da distribuição do coeficiente de agrupamento, $C(k) \sim k^{-1}$. O estudo revelou ainda uma correlação negativa entre o grau de entrada e o grau de saída de um vértice. Leis de potência foram encontradas em trechos das distribuições de graus de entrada e das distribuições de graus de saída.
 
 Distribuições de graus livres de escala também foram encontradas em programas escritos em Smalltalk \cite{Marchesi2004,Concas2007} e em Java \cite{Hyland-Wood2006,Baxter2006,Ichii2008}, em dependências entre pacotes de \textit{software} \cite{Labelle2004}, em chamadas de sistema, em dependências entre bibliotecas dinâmicas \cite{Louridas2008} e até mesmo em referências entre objetos em tempo de execução \cite{Potanin2005}.
 
-É difícil comparar as pesquisas porque nem sempre elas deixam explícito quais tipos de interação foram considerados para a construção das redes. Além disso, alguns trabalhos usam ferramentas estatísticas inadequadas para leis de potência.
+É difícil comparar as pesquisas porque nem sempre elas deixam explícito que tipos de interação foram considerados para a construção das redes. Além disso, alguns trabalhos usam ferramentas estatísticas inadequadas para leis de potência.
 
 %Nem todos os trabalhos usam a Estatística rigorosamente. Lognormal, double pareto, power law, stretched exponential, power law with exponential cutoff... Alguns usam o coeeficiente de determinação ($R^2$), que não se aplica a leis de potência, ou o método dos mínimos quadrados sobre o logaritmo dos dados.
 
 \section{Tratamento Estatístico de Leis de Potência} \label{sec:estatistica}
 
-\subsection{Representação Gráfica}
+\subsection{Histograma}
 
 A estratégia mais usada para determinar se um conjunto de dados segue uma lei de potência é plotar o seu histograma em escala log-log. Se os dados seguem a lei de potência, o gráfico resultante deve ser uma reta. No entanto alguns cuidados precisam ser tomados ao traçar o histograma.
 
 Quando o histograma agrupa os dados em classes de mesmo tamanho, o gráfico apresenta muito ruído na cauda, na região onde se encontram os maiores valores, como mostra a Figura \ref{fig:histogramas}(b). Isso ocorre porque nessa região os dados são esparsos, já que a probabilidade é baixa.
 
-Uma maneira de reduzir o ruído consiste em agrupar os dados em classes cujo tamanho cresce exponencialmente. Por exemplo, podemos considerar classes formadas pelos intervalos de 1 a 2, de 2 a 4, de 4 a 8, de 8 a 16, e assim sucessivamente. A contagem de amostras de uma classe, nesse caso, deve ser dividida pelo tamanho do intervalo, a fim de normalizar o histograma \cite{Newman2005}. Note como o ruído na \ref{fig:histogramas}(c) é bem menor.
+Uma maneira de reduzir o ruído consiste em agrupar os dados em classes cujo tamanho cresce exponencialmente. Por exemplo, podemos considerar classes formadas pelos intervalos de 1 a 2, de 2 a 4, de 4 a 8, de 8 a 16, e assim sucessivamente. A contagem de amostras de uma classe, nesse caso, deve ser dividida pelo tamanho do intervalo, a fim de normalizar o histograma \cite{Newman2005}. Note como o ruído foi reduzido na Figura \ref{fig:histogramas}(c).
 
-Uma solução um pouco diferente é traçar o gráfico da função de distribuição cumulativa complementar (fdcc). Essa função representa, para cada ponto $x$, o número de elementos com valor maior do que $x$. Não há necessidade de dividir os dados em classes. Se os dados seguem uma lei de potência com expoente $\gamma$, sua fdcc será uma lei de potência com expoente $\gamma – 1$. O gráfico é mostrado na Figura \ref{fig:histogramas}(d).
+Uma solução um pouco diferente é traçar o gráfico da função de distribuição cumulativa complementar (fdcc). Essa função representa, para cada valor $x$, o número de elementos com valor maior do que $x$. Não há necessidade de dividir os dados em classes. Se os dados seguem uma lei de potência com expoente $\gamma$, sua fdcc será uma lei de potência com expoente $\gamma – 1$. O gráfico é mostrado na Figura \ref{fig:histogramas}(d).
 
 \begin{figure} \label{fig:histogramas}
 \centering
@@ -136,16 +138,15 @@ Uma solução um pouco diferente é traçar o gráfico da função de distribui�
 
 \subsection{Estimação de Parâmetros}
 
-Poucos dados empíricos seguem uma lei de potência em toda a sua extensão. Normalmente a lei de potência se aplica apenas a valores maiores do que um valor mínimo, $x_{min}$, e nesse caso se diz que a \emph{cauda} da distribuição segue a lei de potência.
+Poucos dados empíricos seguem uma lei de potência em toda a sua extensão. Normalmente a lei de potência se aplica apenas a valores maiores do que um valor mínimo, $x_{min}$, e nesse caso se diz que a cauda da distribuição segue uma lei de potência. O parâmetro $x_{min}$ pode ser estimado visualmente através da observação do histograma ou através de métodos estatísticos \cite{Clauset2007}.
 
-Ao extrair o logaritmo da lei de potência, obtemos $log p(k) \sim -\gamma log(k)$, que é uma reta com coeficiente angular $-\gamma$. Por essa razão uma técnica comum para estimar o parâmetro $\gamma$ de um conjunto de dados consiste em aplicar o método dos mínimos quadrados sobre o logaritmo dos dados a fim de encontrar o coeficiente angular. Esse método, no entanto, introduz erros sistemáticos no caso da lei de potência, e por isso recomenda-se o uso do método da máxima verossimilhança \cite{Clauset2007}.
+Ao extrair o logaritmo da lei de potência, obtemos $\log(p(k)) \sim -\gamma \log(k)$, que é uma reta com coeficiente angular $-\gamma$. Por essa razão uma técnica comum para estimar o parâmetro $\gamma$ de um conjunto de dados consiste em aplicar o método dos mínimos quadrados sobre o logaritmo dos dados a fim de encontrar o coeficiente angular da reta. Esse método, no entanto, introduz erros sistemáticos no caso da lei de potência, e por isso recomenda-se o uso do método da máxima verossimilhança \cite{Clauset2007}. O 
 
 \subsection{Teste de Ajustamento}
 
-Estimados os parâmetros $x_{min}$ e $\gamma$, convém verificar se os dados se ajustam bem a uma lei de potência. Um valor alto para o coeficiente de determinação, $R^2$, não é suficiente para afirmar que o ajuste é bom. Uma boa forma de realizar a verificação consiste em gerar leis de potência com os parâmetros estimados e compará-las aos dados através do teste de ajustamento de Kolmogorov-Smirnov. Para um maior rigor, é preciso ajustar outras distribuições teóricas aos dados e verificar qual se ajusta melhor.
+Estimados os parâmetros $x_{min}$ e $\gamma$, convém verificar se os dados se ajustam bem a uma lei de potência. Um valor alto para o coeficiente de determinação, $R^2$, não é suficiente para afirmar que o ajuste é bom. Uma  forma melhor de realizar a verificação consiste em gerar leis de potência com os parâmetros estimados e compará-las aos dados através do teste de ajustamento de Kolmogorov-Smirnov. Para um maior rigor, é preciso ajustar outras distribuições teóricas aos dados e verificar qual se ajusta melhor.
 
-A depender da aplicação, pode não ser necessário determinar se 
-a lei de potência é a distribuição que melhor se ajusta aos dados. Em muitos casos é suficiente observar que os dados são distribuídos de forma bastante heterogênea, formando uma cauda pesada, que decai lentamente. 
+A depender da aplicação pode não ser importante determinar se a distribuição dos dados segue perfeitamente uma lei de potência. Em muitos casos é suficiente observar que os dados são distribuídos de forma bastante heterogênea, formando uma cauda pesada, que decai lentamente.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
