@@ -2,6 +2,8 @@
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
 \usepackage{natbib}
+\usepackage[brazil]{babel}
+%\usepackage[T1]{fontenc}
 
 \begin{document}
 \title{Relatório Técnico 1}
@@ -32,7 +34,7 @@ Nenhuma técnica automática é capaz de determinar corretamente, em todos os ca
 
 \subsection{Simplificação e Detalhamento}
 
-A depender do tipo de análise que se deseja realizar sobre uma rede de dependências, pode ser conveniente filtrar ou contrair componentes, ou mesmo tratar dependências como relacionamentos simétricos. A filtragem consiste em remover componentes ou dependências consideradas desnecessárias para a análise. A contração pode ser feita quando há uma relação de composição entre os componentes, como no caso de classes (que são compostas de atributos e métodos). Nesse caso uma classe e todos os atributos e métodos que a compõem são contraídos, isto é, representados como um só componente, a classe. Desse processo surgem dependências implícitas: se na rede original há uma dependência entre dois métodos, na rede contraída há uma dependência implícita entre as classes que os contêm. % e aí surgem dependências implícitas: A.m1 depende de B.m2 implica A depende (implicitamente) de B.
+A depender do tipo de análise que se deseja realizar sobre uma rede de dependências, pode ser conveniente filtrar ou contrair componentes, ou mesmo tratar dependências como relacionamentos simétricos. A filtragem consiste em remover componentes ou dependências consideradas desnecessárias para a análise. A contração pode ser feita quando há uma relação de composição entre os componentes, como no caso de classes (que são compostas de atributos e métodos). Nesse caso uma classe e todos os atributos e métodos que a compõem são contraídos, isto é, representados como um só componente, a classe. Desse processo surgem dependências implícitas: se na rede original há uma dependência entre dois métodos, na rede contraída aparece uma dependência implícita entre as classes que os contêm. % e aí surgem dependências implícitas: A.m1 depende de B.m2 implica A depende (implicitamente) de B.
 % http://depfind.sourceforge.net/Manual.html#Dependencies
 
 Há análises que, por outro lado, requerem informações mais detalhadas. Pode ser necessário considerar não apenas a existência de dependências, mas também identificar quais são os tipos de interação que ocorrem entre dois componentes e com que frequência essas interações ocorrem.
@@ -90,11 +92,11 @@ Motivos são padrões de vértices e arestas que ocorrem com frequência em uma 
 
 Métricas globais como a distribuição de graus escondem o fato de que muitas redes se organizam em grupos de vértices relativamente independentes uns dos outros, chamados de comunidades. Detecção de comunidades é a tarefa de particionar os vértices de uma rede em comunidades de modo que, sob algum critério, os vértices de uma mesma comunidade estão mais relacionados entre si do que com vértices de fora da comunidade.
 
-A tarefa de detectar comunidades é análoga ao que, na mineração de dados, se chama de análise de clustering --- sendo cluster, nesse contexto, sinônimo de comunidade. No domínio de engenharia de sofware, muitas técnicas de recuperação de arquitetura utilizam algoritmos de clustering para identificar módulos de um sistema de software.
+A detecção de comunidades é análoga ao que, na mineração de dados, se chama de análise de clustering --- sendo cluster, nesse contexto, sinônimo de comunidade. No domínio da engenharia de sofware, muitas técnicas de recuperação de arquitetura utilizam algoritmos de clustering para identificar módulos de um sistema de software.
 
-Dada a grande variedade de algoritmos de clustering e de detecção de comunidades, é essencial avaliar os resultados produzidos pelos algoritmos. A avaliação consiste em executar o algoritmo sobre uma rede cuja estrutura de clusters (ou comunidades) é conhecida e então comparar essa estrutura com a estrutura encontrada pelo algoritmo, de acordo com alguma função de similaridade entre particionamentos. Infelizmente não há muitas redes cuja estrutura de comunidades é conhecida, e as que existem são pequenas. Por essa razão testes mais extensivos são realizados com redes geradas por computador.
+Dada a grande variedade de algoritmos de clustering e de detecção de comunidades, é essencial avaliar os resultados produzidos pelos algoritmos. A avaliação consiste em executar o algoritmo sobre uma rede cuja estrutura de clusters (ou comunidades) é conhecida e então comparar, através de alguma métrica, essa estrutura com a estrutura encontrada pelo algoritmo. Infelizmente não há muitas redes cuja estrutura de comunidades é conhecida, e as que existem são pequenas. Testes mais extensivos podem ser realizados com redes geradas por computador.
 
-Newman e Girvan \cite{Newman2004a} propuseram um modelo que gera redes com 128 vértices, divididos em quatro comunidades de 32 vértices cada. Os vértices possuem aproximidamente o mesmo número de arestas, 16, das quais $z_{out}$ arestas ligam vértices de comunidades distintas. Newman e Girvan geraram redes com diferentes valores de $z_{out}$ com a finalidade de comparar dois algoritmos de detecção de comunidade.
+Newman e Girvan \cite{Newman2004a} propuseram um modelo que gera redes com 128 vértices, divididos em quatro comunidades de 32 vértices cada. Os vértices possuem aproximadamente o mesmo número de arestas, 16, das quais $z_{out}$ arestas ligam vértices de comunidades distintas. Newman e Girvan geraram redes com diferentes valores de $z_{out}$ com a finalidade de comparar dois algoritmos de detecção de comunidade.
 
 Esse modelo possui algumas limitações: os vértices possuem aproximadamente o mesmo número de arestas, as comunidades possuem o mesmo tamanho e a rede é pequena. Com base nessa observação, Lancichinetti et al. \cite{Lancichinetti2008} propuseram um modelo no qual a distribuição de graus e a distribuição de tamanho das comunidades são ambas leis de potência e o número de vértices é arbitrário. Cada vértice compartilha uma fração de suas arestas com vértices de outras comunidades; essa fração é o parâmetro de mistura, $\mu$.
 
