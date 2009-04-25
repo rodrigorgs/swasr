@@ -1,12 +1,8 @@
-\documentclass{article}
+\documentclass{acm_proc_article-sp}
 \usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
 \usepackage{graphicx}
-\usepackage{natbib}
-
-\begin{document}
-\title{Artigo 1}
-\author{Rodrigo R. G. e Souza}
-\maketitle
 
 % Ordem de escrita
 %   Resultados
@@ -16,15 +12,53 @@
 %   Abstract
 %   Título
 
+
+% == PLANEJAMENTO DO EXPERIMENTO ==
+% 
+% INGREDIENTES
+%
+%   Dois sistemas, um pequeno (?) e um maior (IRPF)
+%   Modelos de geração de redes com estrutura de módulos embutida: Rodrigo2008 e Lancichinetti
+%   Modelos sem estrutura de módulos: barabasi, bollobas, configuration model.
+%
+% MODO DE PREPARO
+%
+%   Analisar métricas dos sistemas (distribuição de graus, distribuição do coeficiente de clustering, correlação de graus).
+%   Extrair a arquitetura dos sistemas: quais são os módulos e quais módulos se relacionam. Analisar a distribuição dos tamanhos dos módulos.
+%   "Tunar" os parâmetros dos modelos para gerar redes com as mesmas métricas dos sistemas reais
+%   Rodar os modelos diversas vezes com os parâmetros encontrados para gerar diversas redes para cada sistema.
+%   Comparar redes sintéticas com as redes reais correspondentes através da distância entre redes de Garcia.
+% 
+% RESULTADOS
+%
+%   Modelos com estrutura de módulos embutida resultam em redes mais parecidas com as redes reais do que os modelos sem módulos? (Em outras palavras: a informação sobre tamanhos dos módulos e a maneira como os módulos se ligam realmente são uma vantagem?)
+%   As redes sintéticas são realistas? Quais as diferenças entre as sintéticas e as reais?
+%   Os módulos das redes sintéticas também podem ser decompostos em módulos, como nas redes reais?
+%
+% O QUE MAIS
+%
+%   Ver no wiki as observações subjetivas sobre os modelos.
+%   Começar pelo sistema pequeno, pra obter resultados mais rápidos, e então reproduzir o método com o sistema grande
+%   A implementação do modelo de Rodrigo2008 precisa ser revista pra ficar mais eficiente (está muito lento!)
+%   Podemos usar uma distância de Garcia usando o coeficiente de clustering em vez de usar a distância propriamente dita.
+
+
+\begin{document}
+\title{Artigo 1}
+\author{Rodrigo Rocha Gomes e Souza}
+\maketitle
+
 \begin{abstract}
 
-goals, results, and the main conclusions of your study
+% goals, results, and the main conclusions of your study
 
-Kent Beck's sentences: The first states the problem. The second states why the problem is a problem. The third is my startling sentence. The fourth states the implication of my startling sentence.
+% Kent Beck's sentences: The first states the problem. The second states why the problem is a problem. The third is my startling sentence. The fourth states the implication of my startling sentence.
 
 \end{abstract}
 
 \section{Introdução} % why
+
+\cite{Newman2003}
 
 % why you have investigated the question
 % 
@@ -42,29 +76,43 @@ embora existam alguns trabalhos avaliando algoritmos de recuperação de arquite
 
 \section{Métodos e Materiais} % how
 
-particular techniques used and why, if relevant
+O modelo de Lancichinetti não foi feito baseado em nenhum domínio em particular.
 
-modifications of any techniques; be sure to describe the modification
+Programa usado para extrair dependências: DepFind. Análise estática. Quais interações foram consideradas. Lifting.
 
-assumptions underlying the study 
-
-statistical methods, including software programs 
+%particular techniques used and why, if relevant
+%modifications of any techniques; be sure to describe the modification
+%assumptions underlying the study 
+%statistical methods, including software programs 
 
 \section{Resultados} % what was found
 
-  * present results clearly and logically
-  * avoid excess verbiage
-  * consider providing a one-sentence summary at the beginning of each paragraph if you think it will help your reader understand your data 
+Produção de um modelo, baseado em um modelo existente, de geração de redes de software com estrutura de módulos embutida.
+
+Comparação desse modelo com um modelo presente na literatura usando como critério a semelhança com redes de software.
+
+Análise desse modelo modelos de geração de redes com estrutura de módulos embutida, e da semelhança dessas redes com redes de software.
+
+%  * present results clearly and logically
+%  * avoid excess verbiage
+%  * consider providing a one-sentence summary at the beginning of each paragraph if you think it will help your reader understand your data 
 
 \section{Discussão} % why it's significant
 
-how useful this technique is: how well did it work, what are the benefits and drawbacks, etc
+O quão bem o modelo funciona.
 
-This section centers on speculation
+Especulação sobre o papel da modelagem estatística na engenharia de software.
 
-Focus your discussion around a particular question or hypothesis
+Focar na hipótese: redes sintéticos são uma boa aproximação de redes reais.
+
+%how useful this technique is: how well did it work, what are the benefits and drawbacks, etc
+
+%This section centers on speculation
+
+%Focus your discussion around a particular question or hypothesis
 
 Trabalhos futuros: explorar métricas de arquitetura, avaliar algoritmos de clustering, considerar outros modelos.
+incluir pesos das arestas nas análises e nos modelos.
 
 \bibliographystyle{apalike}
 \bibliography{complex-networks,rodrigo-mestrado}
