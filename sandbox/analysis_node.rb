@@ -20,10 +20,10 @@ if (ARGV[1])
   g.set_clusters(clusters)
 end
 
-puts "id deg indeg outdeg nclusters o_indeg i_indeg o_outdeg i_outdeg"
+puts "eid deg indeg outdeg nclusters o_indeg i_indeg o_outdeg i_outdeg"
 g.nodes.each do |n|
-  #STDERR.puts n.id
-  puts "#{n.id} #{n.degree} #{n.in_degree} #{n.out_degree} #{n.cluster_span}" +
+  #STDERR.puts n.eid
+  puts "#{n.eid} #{n.degree} #{n.in_degree} #{n.out_degree} #{n.cluster_span}" +
       " #{n.outer_in_degree} #{n.inner_in_degree} #{n.outer_out_degree} " +
       " #{n.inner_out_degree}"
 end

@@ -29,7 +29,7 @@ clusters_hash.each_pair do |cluster, nodes|
   internal_nodes = nodes.select { |n| n.outer_degree == 0 }
 
   values = []
-  values << cluster.id
+  values << cluster.eid
   values << nodes.size
   values << external_in_edges.size / edges.size.to_f
   values << edges.size / nodes.size.to_f
