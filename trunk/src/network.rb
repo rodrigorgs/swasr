@@ -16,6 +16,7 @@ class Network
   end
 
   def n(id)
+    return id if id.kind_of?(Node)
     node = @nodes[id]
     if node.nil?
       node = Node.new(id)
@@ -25,8 +26,8 @@ class Network
   end
 
   def e(n1, n2)
-    n1 = n(n1) unless n1.kind_of?(Node)
-    n2 = n(n2) unless n2.kind_of?(Node)
+    n1 = n(n1) 
+    n2 = n(n2)
     edge = if (n1.out_edges_map.size > n2.in_edges_map.size)
       n1.out_edges_map[n2]
     else
@@ -69,6 +70,41 @@ class Network
   def set_clusters(pairs)
     pairs.each { |node, cluster| set_cluster(n(node), c(cluster)) }
   end
+
+  ############ RGL interface ####################
+  
+  def add_edge(n1, n2)
+    e(n1, n2)
+  end
+  
+  def add_vertex(v)
+    n(v)
+  end
+
+  def vertices
+    nodes
+  end
+
+  def size
+    @nodes.size
+  end
+
+  def in_degree(v)
+    n(v).in_degree
+  end
+
+  def out_degree(v)
+    n(v).out_degree
+  end
+
+  def each_vertex(&block)
+    nodes.each { |v| block.call(v) }
+  end
+
+  def adjacent_vertices(v)
+    n(v).out_edges_map.values
+  end
+
 end
 
 class Cluster

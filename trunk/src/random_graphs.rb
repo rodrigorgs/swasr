@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 
 require 'graph'
+require 'network'
 
 # g.each_edge(IGraph::EDGEORDER_ID) { |x, y| puts "depends #{x} #{y}" }
 
@@ -201,11 +202,12 @@ def design_from_architecture(iterations, arch, alpha, beta, gamma,
 
   modules = Hash.new
   # g is the design
-  g = DegreesDAG.new(Set)
+  g = Network.new
+  # g = DegreesDAG.new(Set)
 
   # Creates a vertex with a self-loop for each module in arch
   v = 0
-  arch.each_vertex do |m| 
+  arch.each_vertex do |m|
     g.add_edge v, v
     modules[v] = m
     v += 1
@@ -215,9 +217,9 @@ def design_from_architecture(iterations, arch, alpha, beta, gamma,
   event_prob_acc = [alpha, beta, gamma].map { |x| sum += x; sum }
 
   iterations.times do
-    event = choose_random_acc(event_prob_acc)
+    event = choose_random_acc(event_prob_acc, [:alpha, :beta, :gamma])
     case event
-    when 0
+    when :alpha
       # add a new vertex v together with an edge from v to an existing 
       # vertex w, where w is chosen according to d_in + delta_in
       vertex_prob = g.vertices.map { |x| g.in_degree(x) + delta_in }
@@ -226,24 +228,22 @@ def design_from_architecture(iterations, arch, alpha, beta, gamma,
       g.add_vertex(v)
       g.add_edge(v, w)
       modules[v] = modules[w]
-    when 1
+    when :beta
       # add an edge from an existing vertex v to an existing vertex w, where
       # v and w are chosen independently, v according to d_out + delta_out,
       # and w according to d_in + delta_in
       v = choose_random(g.vertices.map { |x| g.out_degree(x) + delta_out })
       v = g.vertices[v]
       adjacent_modules = arch.adjacent_vertices(modules[v])
-      #puts "#{modules[v]}" => "#{adjacent_modules.inspect}"
 
       vertices = g.vertices.select { |x| adjacent_modules.include? modules[x] }
-      #puts "#{vertices.size} <= #{g.vertices.size}"
       unless vertices.empty?
         w = choose_random(vertices.map { |x| g.in_degree(x) + delta_in })
         w = vertices[w]
 
         g.add_edge(v, w)
       end
-    when 2
+    when :gamma
       # add a new vertex w and an edge from an existing v to w, where v is
       # chosen according to d_out + delta_out
       vertex_prob = g.vertices.map { |x| g.out_degree(x) + delta_out }
