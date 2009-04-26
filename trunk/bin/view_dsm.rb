@@ -50,7 +50,7 @@ if __FILE__ == $0
     # Ordena os clusters por tamanho. Dentro de cada cluster, os vertices
     # sao ordenados de acordo com o id
     clusters = network.nodes.group_by(&:cluster).values.sort_by(&:size)
-    sorted_nodes = clusters.map{ |cluster| cluster.sort_by(&:id)}.flatten
+    sorted_nodes = clusters.map{ |cluster| cluster.sort_by(&:eid)}.flatten
   else
     sorted_nodes = network.nodes
   end
@@ -58,14 +58,14 @@ if __FILE__ == $0
   STDERR.puts "Creating image..."
 
   n = sorted_nodes.size
-  sorted_nodes.each_with_index { |node, i| node.id = i }
+  sorted_nodes.each_with_index { |node, i| node.data.pos = i }
   image = GD2::Image::TrueColor.new(n, n)
   image.draw do |canvas|
     canvas.color = GD2::Color::WHITE
     canvas.fill
     canvas.color = GD2::Color::BLACK
     network.edges.each do |e|
-      canvas.circle(e.from.id, e.to.id, c.psize, true)
+      canvas.circle(e.from.data.pos, e.to.data.pos, c.psize, true)
     end
   end
   image.export(c.png_file)

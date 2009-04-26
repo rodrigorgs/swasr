@@ -3,6 +3,7 @@
 # Model of a directed network with one-level communities/modules/clusters
 #
 
+require 'set'
 require 'choice/lazyhash'
 
 class Network
@@ -12,22 +13,24 @@ class Network
     @nodes    = {}
     @edges    = []
     @clusters = []
+    @default_cluster = Cluster.new('DEFAULT')
     @data = Choice::LazyHash.new
   end
 
-  def n(id)
-    return id if id.kind_of?(Node)
-    node = @nodes[id]
+  def node!(eid, cluster=nil)
+    return eid if eid.kind_of?(Node)
+    node = @nodes[eid]
     if node.nil?
-      node = Node.new(id)
-      @nodes[id] = node
+      node = Node.new(eid)
+      set_cluster(node, cluster!(cluster))
+      @nodes[eid] = node
     end
     return node
   end
 
-  def e(n1, n2)
-    n1 = n(n1) 
-    n2 = n(n2)
+  def edge!(n1, n2, cluster1=nil, cluster2=nil)
+    n1 = node!(n1, cluster!(cluster1))
+    n2 = node!(n2, cluster!(cluster2))
     edge = if (n1.out_edges_map.size > n2.in_edges_map.size)
       n1.out_edges_map[n2]
     else
@@ -42,59 +45,72 @@ class Network
     return edge
   end
 
-  def nodes
-    @nodes.values
-  end
-
-  def c(id)
-    cluster = @clusters.find { |x| x.id == id }
+  def cluster!(eid)
+    return eid if eid.kind_of?(Cluster)
+    return @default_cluster if eid.nil?
+    cluster = @clusters.find { |x| x.eid == eid }
     if cluster.nil?
-      cluster = Cluster.new(id)
+      cluster = Cluster.new(eid)
       @clusters << cluster
     end
     return cluster
   end
 
-  def set_cluster(node, cluster)
-    node = n(node) unless node.kind_of?(Node)
-    cluster = c(cluster) unless cluster.kind_of?(Cluster)
+  def nodes
+    @nodes.values
+  end
 
-    node.cluster = cluster
+  def set_cluster(node, cluster)
+    node = node!(node)
+    cluster = cluster.nil? ? @cluster_default : cluster!(cluster)
+
+    if cluster != node.cluster
+      node.cluster._remove(node) if !node.cluster.nil? 
+      cluster._add(node)
+      node._cluster= cluster
+    end
   end
 
   def add_edges(pairs)
-    pairs.each { |n1, n2| e(n1, n2) }
+    pairs.each { |n1, n2| edge!(n1, n2) }
     self
   end
 
   def set_clusters(pairs)
-    pairs.each { |node, cluster| set_cluster(n(node), c(cluster)) }
-  end
-
-  ############ RGL interface ####################
-  
-  def add_edge(n1, n2)
-    e(n1, n2)
-  end
-  
-  def add_vertex(v)
-    n(v)
-  end
-
-  def vertices
-    nodes
+    pairs.each { |node, cluster| set_cluster(node, cluster) }
   end
 
   def size
     @nodes.size
   end
 
+  def lift
+    links = self.edges.map { |e| [e.from.cluster.eid, e.to.cluster.eid] }.uniq
+    g = Network.new
+    g.add_edges(links.select { |l| l[0] != l[1] } )
+    return g
+  end
+
+  ############ RGL interface ####################
+  
+  def add_edge(n1, n2)
+    edge!(n1, n2)
+  end
+  
+  def add_vertex(v)
+    node!(v)
+  end
+
+  def vertices
+    nodes
+  end
+
   def in_degree(v)
-    n(v).in_degree
+    node!(v).in_degree
   end
 
   def out_degree(v)
-    n(v).out_degree
+    node!(v).out_degree
   end
 
   def each_vertex(&block)
@@ -102,18 +118,34 @@ class Network
   end
 
   def adjacent_vertices(v)
-    n(v).out_edges_map.values
+    node!(v).out_edges_map.values
   end
 
 end
 
 class Cluster
-  # Cuidado ao alterar o id para nao quebrar a unicidade!
-  attr_accessor :id, :data
-  
-  def initialize(id)
-    @id = id
+  # Cuidado ao alterar o eid para nao quebrar a unicidade!
+  attr_accessor :data
+  attr_reader :eid, :nodes
+ 
+  #@@default = nil
+  #def default_cluster
+  #  @@default = new('DEFAULT') unless @@default
+  #  @@default
+  #end
+
+  def initialize(eid)
+    @eid = eid
     @data = Choice::LazyHash.new
+    @nodes = Set.new
+  end
+
+  def _add(node)
+    @nodes << node
+  end
+
+  def _remove(node)
+    @nodes.delete(node)
   end
 end
 
@@ -128,14 +160,18 @@ class Edge
 end
 
 class Node
-  attr_accessor :cluster, :id
+  attr_reader :cluster, :eid
   attr_reader :out_edges_map, :in_edges_map, :data
   
-  def initialize(id)
-    @id = id
+  def initialize(eid)
+    @eid = eid
     @out_edges_map = {}
     @in_edges_map  = {}
     @data = Choice::LazyHash.new
+  end
+
+  def _cluster=(cluster)
+    @cluster = cluster
   end
 
   def out_edges

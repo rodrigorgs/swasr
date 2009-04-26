@@ -197,13 +197,13 @@ end
 #
 # TODO: o caso beta não deveria permitir ligações dentro do módulo?
 #
+# DEPRECATED. Use rodrigo2008_game instead.
 def design_from_architecture(iterations, arch, alpha, beta, gamma, 
     delta_in, delta_out)
 
   modules = Hash.new
   # g is the design
-  g = Network.new
-  # g = DegreesDAG.new(Set)
+  g = DegreesDAG.new(Set)
 
   # Creates a vertex with a self-loop for each module in arch
   v = 0
@@ -256,6 +256,46 @@ def design_from_architecture(iterations, arch, alpha, beta, gamma,
   end
 
   return [g, modules]
+end
+
+def rodrigo2008_game(size_limit, arch, alpha, beta, gamma, 
+    delta_in, delta_out)
+  g = Network.new
+
+  next_eid = 0
+  arch.each_vertex do |module_|
+    v = g.node!(next_eid, module_.eid)
+    g.edge!(v, v)
+    next_eid += 1
+  end
+
+  sum = 0  
+  event_prob_acc = [alpha, beta, gamma].map { |x| sum += x; sum }
+  while g.size < size_limit
+    event = choose_random_acc(event_prob_acc, [:alpha, :beta, :gamma])
+
+    case event
+    when :alpha
+      w = choose_random(g.nodes.map{ |x| x.in_degree + delta_in }, g.nodes)
+      v = g.node!(next_eid, w.cluster)
+      g.edge!(v, w)
+    when :beta
+      v = choose_random(g.nodes.map{ |x| x.out_degree + delta_out}, g.nodes)
+      adjacent_clusters = arch.node!(v.cluster.eid).out_nodes.map { |m| g.cluster!(m.eid) }
+      candidates = g.nodes.select { |x| adjacent_clusters.include? x.cluster }
+      unless candidates.empty?
+        w = choose_random(candidates.map{ |x| x.in_degree + delta_in }, candidates)
+        g.edge!(v, w)
+      end
+    when :gamma
+      v = choose_random(g.nodes.map{ |x| x.out_degree + delta_out }, g.nodes)
+      w = g.node!(next_eid, v.cluster)
+      g.edge!(v, w)
+    end
+    next_eid += 1 if (event == :alpha || event == :gamma)
+  end
+
+  return g
 end
 
 #require 'test/unit'

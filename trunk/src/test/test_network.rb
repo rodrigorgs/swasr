@@ -4,34 +4,34 @@ require '../network'
 class TC_Network < Test::Unit::TestCase
   def test_node_creation
     net = Network.new
-    net.n('no1')
-    net.n('no2')
-    net.n('no1')
-    net.n('no3')
+    net.node!('no1')
+    net.node!('no2')
+    net.node!('no1')
+    net.node!('no3')
     assert_equal(3, net.nodes.size)
   end
 
   def test_edge_creates_node
     net = Network.new
-    net.n(1)
-    net.e(1, 2)
+    net.node!(1)
+    net.edge!(1, 2)
     assert_equal(2, net.nodes.size)
-    net.e(3, 1)
+    net.edge!(3, 1)
     assert_equal(3, net.nodes.size)
   end
 
   def test_edge_assimetry
     net = Network.new
-    net.e(1, 2)
-    net.e(2, 1)
+    net.edge!(1, 2)
+    net.edge!(2, 1)
     assert_equal(2, net.edges.size)
   end
 
   def test_edge_updates_node_neighbors
     net = Network.new
-    a = net.n('a')
-    b = net.n('b')
-    net.e(a, b)
+    a = net.node!('a')
+    b = net.node!('b')
+    net.edge!(a, b)
     assert_equal(1, a.out_edges_map.size)
     assert_equal(0, a.in_edges_map.size)
     assert_equal(0, b.out_edges_map.size)
@@ -40,12 +40,12 @@ class TC_Network < Test::Unit::TestCase
 
   def test_degree_metrics
     net = Network.new
-    a = net.n('a')
-    b = net.n('b')
-    c = net.n('c')
-    net.e(a, b)
-    net.e(a, c)
-    net.e(c, b)
+    a = net.node!('a')
+    b = net.node!('b')
+    c = net.node!('c')
+    net.edge!(a, b)
+    net.edge!(a, c)
+    net.edge!(c, b)
 
     # degree
     assert_equal(2, a.degree)

@@ -23,7 +23,7 @@ class Dsm < Gnome::Canvas
     @network = net
     set_scroll_region(0, 0, net.nodes.size, net.nodes.size)
     clusters = net.nodes.group_by(&:cluster).values.sort_by(&:size)
-    sorted_nodes = clusters.map{ |cluster| cluster.sort_by(&:id)}.flatten
+    sorted_nodes = clusters.map{ |cluster| cluster.sort_by(&:eid)}.flatten
     sorted_nodes.each_with_index { |node, i| node.data.x = i }
 
     @network.edges.each do |e|
@@ -37,7 +37,7 @@ class Dsm < Gnome::Canvas
       x.signal_connect("event") do |item, ev|
         if ev.kind_of?(Gdk::EventCrossing) && item.kind_of?(DsmEdge)
           if ev.event_type == Gdk::Event::ENTER_NOTIFY
-            puts "#{e.from.id} #{e.to.id}"
+            puts "#{e.from.eid} #{e.to.eid}"
           elsif ev.event_type == Gdk::Event::LEAVE_NOTIFY
             #
           end
