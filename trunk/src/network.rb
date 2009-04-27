@@ -5,16 +5,26 @@
 
 require 'set'
 require 'choice/lazyhash'
+require 'grok'
 
 class Network
-  attr_reader :edges, :clusters, :data
-  
-  def initialize
+  attr_reader :edges, :data
+
+  def _init
     @nodes    = {}
+    @clusters = {}
     @edges    = []
-    @clusters = []
     @default_cluster = Cluster.new('DEFAULT')
     @data = Choice::LazyHash.new
+  end
+
+  # using PAIRS format
+  def initialize(edges=nil, modules=nil)
+    _init
+    edges = read_pairs(edges) if edges.kind_of?(String)
+    modules = read_pairs(modules) if edges.kind_of?(String)
+    set_clusters(modules) unless modules.nil?
+    add_edges(edges) unless edges.nil?
   end
 
   def node!(eid, cluster=nil)
@@ -48,10 +58,10 @@ class Network
   def cluster!(eid)
     return eid if eid.kind_of?(Cluster)
     return @default_cluster if eid.nil?
-    cluster = @clusters.find { |x| x.eid == eid }
+    cluster = @clusters[eid]
     if cluster.nil?
       cluster = Cluster.new(eid)
-      @clusters << cluster
+      @clusters[eid] = cluster
     end
     return cluster
   end
@@ -60,9 +70,13 @@ class Network
     @nodes.values
   end
 
+  def clusters
+    @clusters.values
+  end
+
   def set_cluster(node, cluster)
     node = node!(node)
-    cluster = cluster.nil? ? @cluster_default : cluster!(cluster)
+    cluster = cluster.nil? ? @default_cluster : cluster!(cluster)
 
     if cluster != node.cluster
       node.cluster._remove(node) if !node.cluster.nil? 
@@ -128,12 +142,6 @@ class Cluster
   attr_accessor :data
   attr_reader :eid, :nodes
  
-  #@@default = nil
-  #def default_cluster
-  #  @@default = new('DEFAULT') unless @@default
-  #  @@default
-  #end
-
   def initialize(eid)
     @eid = eid
     @data = Choice::LazyHash.new
@@ -146,6 +154,10 @@ class Cluster
 
   def _remove(node)
     @nodes.delete(node)
+  end
+
+  def size
+    @nodes.size
   end
 end
 
@@ -196,12 +208,12 @@ class Node
   def degree; in_degree + out_degree; end
   def in_degree; @in_edges_map.size; end
   def out_degree; @out_edges_map.size; end
-  def inner_degree; inner_in_degree + inner_out_degree; end
-  def inner_in_degree; @in_edges_map.count { |n, e| n.cluster == @cluster }; end
-  def inner_out_degree; @out_edges_map.count { |n, e| n.cluster == @cluster }; end
-  def outer_degree; outer_in_degree + outer_out_degree; end
-  def outer_in_degree; @in_edges_map.count { |n, e| n.cluster != @cluster }; end
-  def outer_out_degree; @out_edges_map.count { |n, e| n.cluster != @cluster }; end
+  def internal_degree; internal_in_degree + internal_out_degree; end
+  def internal_in_degree; @in_edges_map.count { |n, e| n.cluster == @cluster }; end
+  def internal_out_degree; @out_edges_map.count { |n, e| n.cluster == @cluster }; end
+  def external_degree; external_in_degree + external_out_degree; end
+  def external_in_degree; @in_edges_map.count { |n, e| n.cluster != @cluster }; end
+  def external_out_degree; @out_edges_map.count { |n, e| n.cluster != @cluster }; end
   def cluster_span; _clusters(in_nodes + out_nodes).size; end
   def in_cluster_span; _clusters(in_nodes).size; end
   def out_cluster_span; _clusters(out_nodes).size
