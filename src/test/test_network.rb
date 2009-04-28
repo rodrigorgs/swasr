@@ -4,6 +4,11 @@ require 'test/unit'
 require '../network'
 
 class TC_Network < Test::Unit::TestCase
+  def test_size
+    net = Network.new [[0, 1], [1, 2]], [[0, :a], [1, :b], [2, :b]]
+    assert_equal(3, net.size)
+  end
+
   def test_node_creation
     net = Network.new
     net.node!('no1')
