@@ -45,11 +45,16 @@ Choice.options do
     desc 'Output filename for global metrics'
     desc '(default: global.data)'
   end
+  
+  separator ''
 end
 
 c = Choice.choices
 
-if c.modules_file.nil?
+if not File.file?(c.edges_file)
+  Choice.help
+end
+if not File.file?(c.modules_file)
   puts "Warning: File #{c.modules_file} does not exist."
 end
 network = Network.new(c.edges_file, c.modules_file)
