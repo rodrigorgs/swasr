@@ -37,6 +37,11 @@ class Network
     end
     return node
   end
+  
+  def node?(eid)
+    return eid if eid.kind_of?(Node)
+    return @nodes[eid]
+  end
 
   def edge!(n1, n2, cluster1=nil, cluster2=nil)
     n1 = node!(n1, cluster!(cluster1))
@@ -53,6 +58,13 @@ class Network
       n2.in_edges_map[n1] = edge
     end
     return edge
+  end
+
+  def edge?(n1, n2)
+    n1 = node?(n1)
+    n2 = node?(n2)
+    return nil if n1.nil? || n2.nil?
+    return n1.out_edges_map[n2]
   end
 
   def cluster!(eid)
@@ -103,6 +115,22 @@ class Network
     g = Network.new
     g.add_edges(links.select { |l| l[0] != l[1] } )
     return g
+  end
+
+  def clustering_coefficient(node)
+    node = node?(node)
+    return 0 if node.nil?
+
+    neighbors = node.neighbors
+    return 0.0 if (neighbors.size < 2)
+    nlinks = 0
+    neighbors.each do |a|
+      neighbors.each do |b|
+        nlinks += 1 if a != b && edge?(a, b)
+      end
+    end
+
+    return nlinks.to_f / (neighbors.size * (neighbors.size - 1))
   end
 
   ############ RGL interface ####################
@@ -216,6 +244,10 @@ class Node
   def external_out_degree; @out_edges_map.count { |n, e| n.cluster != @cluster }; end
   def cluster_span; _clusters(in_nodes + out_nodes).size; end
   def in_cluster_span; _clusters(in_nodes).size; end
-  def out_cluster_span; _clusters(out_nodes).size
+  def out_cluster_span; _clusters(out_nodes).size; end
+
+  def neighbors
+    (out_edges.map { |e| e.to } + in_edges.map { |e| e.from}).uniq
   end
+
 end

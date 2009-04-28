@@ -1,3 +1,5 @@
+#!/usr/bin/env ruby
+
 require 'test/unit'
 require '../network'
 
@@ -18,6 +20,14 @@ class TC_Network < Test::Unit::TestCase
     assert_equal(2, net.nodes.size)
     net.edge!(3, 1)
     assert_equal(3, net.nodes.size)
+  end
+
+  def teste_edge?
+    net = Network.new
+    net.edge!(1, 2)
+    net.edge!(2, 3)
+    assert_nil(net.edge?(1, 3))
+    assert_not_nil(net.edge?(1, 2))
   end
 
   def test_edge_assimetry

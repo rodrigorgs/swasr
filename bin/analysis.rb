@@ -57,11 +57,12 @@ network = Network.new(c.edges_file, c.modules_file)
 # VERTICES analysis
 # TODO: clustering coefficient
 File.open(c.file_vertices, "w") do |f|
-  f.puts "eid deg indeg outdeg nclusters ext_indeg int_indeg ext_outdeg int_outdeg"
+  f.puts "eid deg indeg outdeg nclusters ext_indeg int_indeg ext_outdeg int_outdeg clust_coef"
   network.nodes.each do |n|
     f.puts "#{n.eid} #{n.degree} #{n.in_degree} #{n.out_degree}" +
         " #{n.cluster_span} #{n.external_in_degree} #{n.internal_in_degree}" +
-        " #{n.external_out_degree} #{n.internal_out_degree}"
+        " #{n.external_out_degree} #{n.internal_out_degree}" +
+        " #{network.clustering_coefficient(n)}"
   end
 end
 
