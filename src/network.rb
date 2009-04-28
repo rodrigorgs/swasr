@@ -19,12 +19,12 @@ class Network
   end
 
   # using PAIRS format
-  def initialize(edges=nil, modules=nil)
+  def initialize(_edges=nil, _modules=nil)
     _init
-    edges = read_pairs(edges) if edges.kind_of?(String)
-    modules = read_pairs(modules) if edges.kind_of?(String)
-    set_clusters(modules) unless modules.nil?
-    add_edges(edges) unless edges.nil?
+    _edges = read_pairs(_edges) if _edges.kind_of?(String)
+    _modules = read_pairs(_modules) if _modules.kind_of?(String)
+    set_clusters(_modules) unless _modules.nil?
+    add_edges(_edges) unless _edges.nil?
   end
 
   def node!(eid, cluster=nil)
@@ -117,6 +117,7 @@ class Network
     return g
   end
 
+  # TODO: move to node
   def clustering_coefficient(node)
     node = node?(node)
     return 0 if node.nil?
@@ -131,6 +132,10 @@ class Network
     end
 
     return nlinks.to_f / (neighbors.size * (neighbors.size - 1))
+  end
+
+  # TODO: implement
+  def to_undirected
   end
 
   ############ RGL interface ####################
