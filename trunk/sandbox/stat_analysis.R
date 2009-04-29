@@ -8,32 +8,18 @@ g = read.table("global.data", header=T)
 # Retrieves parameters used in Lancichinetti's model
 #############################################
 
-write(c(), file="stat.data")
+sink("parameters.fit")
 
-# Number of nodes
-write(c("nodes", g$size), file="stat.data", append=T)
-
-# Average degree
-write(c("avgdeg", mean(v$deg)), file="stat.data", append=T)
-
-# Maximum degree
-write(c("maxdeg", max(v$deg)), file="stat.data", append=T)
-
-# Degree distribution
+cat(g$size, " # Number of nodes\n")
+cat(mean(v$deg), " # Average degree\n")
+cat(max(v$deg), " # Maximum degree\n")
 fit = plfit(v$deg[v$deg > 0])
-write(c("degree", fit$xmin, fit$alpha, fit$D), file="stat.data", append=T)
-
-# Community size
+cat(fit$alpha, " # Degree distribution exponent\n")
 fit = plfit(c$size[c$size > 0])
-write(c("moduleSize", fit$xmin, fit$alpha, fit$D), file="stat.data", append=T)
+cat(fit$alpha, " # Community size exponent\n")
+cat(g$mixing, " # Mixing parameter\n")
+cat(min(c$size), " # Minimum community size\n")
+cat(max(c$size), " # Maximum community size\n")
 
-# Mixing parameter
-write(c("mixing", g$mixing), file="stat.data", append=T)
+sink()
 
-# Minimum for the community sizes
-
-write(c("minModuleSize", min(c$size)), file="stat.data", append=T)
-
-# Maximum for the community sizes
-
-write(c("maxModuleSize", max(c$size)), file="stat.data", append=T)

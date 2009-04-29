@@ -24,6 +24,14 @@ Choice.options do
   end
 
   separator ''
+  separator 'PROCESSING'
+
+  option :undirected do
+    short '-u'
+    desc 'Threat the network as undirected'
+  end
+
+  separator ''
   separator 'OUTPUT'
   option :file_vertices do
     short '-v'
@@ -60,7 +68,6 @@ end
 network = Network.new(c.edges_file, c.modules_file)
 
 # VERTICES analysis
-# TODO: clustering coefficient
 File.open(c.file_vertices, "w") do |f|
   f.puts "eid deg indeg outdeg nclusters ext_indeg int_indeg ext_outdeg int_outdeg clust_coef"
   network.nodes.each do |n|
