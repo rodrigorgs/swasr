@@ -9,6 +9,12 @@ class TC_Network < Test::Unit::TestCase
     assert_equal(3, net.size)
   end
 
+  def test_undirected
+    net = Network.new [[0, 1], [1, 0], [0, 2], [2, 3]]
+    net.to_undirected!
+    assert_equal(6, net.edges.size)
+  end
+
   def test_node_creation
     net = Network.new
     net.node!('no1')

@@ -25,7 +25,9 @@ if __FILE__ == $0
     option :png_file do
       short '-o'
       long '--output=FILE.png'
+      default 'dsm.png'
       desc 'Output image file'
+      desc '(default: dsm.png)'
     end
 
     option :psize do
@@ -55,7 +57,7 @@ if __FILE__ == $0
     sorted_nodes = network.nodes
   end
 
-  STDERR.puts "Creating image..."
+  STDERR.puts "Creating image file #{c.png_file}..."
 
   n = sorted_nodes.size
   sorted_nodes.each_with_index { |node, i| node.data.pos = i }

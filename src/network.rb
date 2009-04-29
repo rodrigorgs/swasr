@@ -134,8 +134,9 @@ class Network
     return nlinks.to_f / (neighbors.size * (neighbors.size - 1))
   end
 
-  # TODO: implement
-  def to_undirected
+  def to_undirected!
+    current_edges = edges.dup
+    current_edges.each { |e| edge!(e.to, e.from) }
   end
 
   ############ RGL interface ####################
