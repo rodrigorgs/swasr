@@ -3,6 +3,7 @@
 \usepackage[T1]{fontenc}
 \usepackage[brazil]{babel}
 \usepackage{graphicx}
+\usepackage{url}
 
 % Ordem de escrita
 %   Resultados
@@ -58,8 +59,6 @@
 
 \section{Introdução} % why
 
-\cite{Newman2003}
-
 % why you have investigated the question
 % 
 % how it relates to earlier research that has been done in the field
@@ -75,6 +74,8 @@ Uma das formas de avaliar um algoritmo de agrupamento no contexto da recuperaç�
 
 Propomos sistemas de software gerados por computador, COM ESTRUTURA DE MÓDULOS EMBUTIDA. VANTAGENS: É POSSÍVEL AJUSTAR PARÂMETROS DOS SISTEMAS GERADOS E ASSIM GANHAR INSIGHT SOBRE OS PARÂMETROS QUE INFLUENCIAM A ACURÁCIA DE UM ALGORITMO. EM PARTICULAR, É POSSÍVEL CONTROLAR O TAMANHO DO SOFTWARE GERADO E, ASSIM, GERAR SISTEMAS GRANDES, MAIS PARECIDOS COM OS QUE SERIAM ANALISADOS PELAS TÉCNICAS EM UM CENÁRIO REAL.
 
+O modelo é comparado com outros modelos disponíveis na literatura sobre redes complexas.
+
 %embora existam alguns trabalhos avaliando algoritmos de recuperação de arquitetura, os resultados experimentais não dão pistas sobre por que os algoritmos são bons em uns critérios e ruins em outros, quais são as coisas que influenciam o desempenho do algoritmo.
 
 \section{TEORIA}
@@ -85,21 +86,29 @@ A extração da rede de um sistema de software se dá através da análise está
 
 Neste estudo consideramos dois sistemas de software reais e três modelos de geração de redes complexas.
 
-Neste estudo foram avaliados três modelos de geração de redes complexas: o modelo de configuração, o modelo de Bollobás citeBollobas, o modelo de Lancichinetti, Fortunato e Radicchi citeLancichinetti2008 e um novo modelo, baseado no modelo de Bollobás. Os dois últimos modelos geram redes com uma estrutura de módulos embutida.
+Neste estudo foram avaliados três modelos de geração de redes complexas: o modelo de configuração, o modelo de Bollobás \cite{Bollobas2003}, o modelo de Lancichinetti, Fortunato e Radicchi \cite{Lancichinetti2008} e um novo modelo, baseado no modelo de Bollobás. Os dois últimos modelos geram redes com uma estrutura de módulos embutida.
 
 DESCRIÇÃO DE CADA MODELO
 
-O modelo de Lancichinetti não foi feito baseado em nenhum domínio em particular.
+Bollobas: pensando na Web. Não tem estrutura de módulos embutida. Parâmetros são probabilidades.
 
-\section{Métodos e Materiais} % how
+O modelo de Lancichinetti não foi feito baseado em nenhum domínio em particular. Parâmetros são métricas da rede que se quer obter.
 
-O estudo experimental foi dividido em quatro passos: análise de sistemas reais, sintonia dos parâmetros dos modelos, geração de sistemas sintéticos e comparação entre redes sintéticas e redes reais. 
+\section{O modelo novo}
+
+Valorizar o modelo novo. Em relação a Bollobas, ele tem módulos embutidos. Em relação a Lancichinetti, pode especificar a arquitetura, mixing é variável, o grafo da arquitetura não é (necessariamente) completo.
+
+\section{Experimento} % how
+
+O estudo experimental foi dividido em cinco etapas: extração das redes de software reais, análise de sistemas reais, sintonia dos parâmetros dos modelos, geração de sistemas sintéticos e comparação entre redes sintéticas e redes reais. 
+
+\subsection{Extração}
+
+Os sistemas analisados são escritos em Java e distribuídos em diversos arquivos JAR. Alguns arquivos JAR representam código do próprio sistema e outros são bibliotecas usadas por eles. A ferramenta DepFind\footnote{\url{http://depfind.sourceforge.net/}} foi usada para extrair (estaticamente) todas as interações entre classes, métodos e atributos dos sistemas analisados. Foi considerado o sistema + as bibliotecas. A seguir um programa feito em casa abstraiu para dependências classe para classe (lifting). Consideramos que cada JAR é um módulo arquitetural.
 
 \subsection{Análise de sistemas reais}
 
-Os sistemas analisados são escritos em Java e distribuídos em diversos arquivos JAR. Alguns arquivos JAR representam código do próprio sistema e outros são bibliotecas usadas por eles. A ferramenta DepFind foi usada para extrair (estaticamente) todas as interações entre classes, métodos e atributos dos sistemas analisados. Foi considerado o sistema + as bibliotecas. A seguir um programa feito em casa abstraiu para dependências classe para classe (lifting). Consideramos que cada JAR é um módulo arquitetural.
-
-A rede resultante foi resultante a diversas análises em que foram coletadas métricas da teoria dos grafos e da teoria das redes complexas:
+A rede resultante foi submetida a diversas análises em que foram coletadas métricas da teoria dos grafos e da teoria das redes complexas:
 
 número de classes
 expoente da distribuição de graus
@@ -107,7 +116,7 @@ número de módulos
 expoente da distribuição dos tamanhos dos módulos
 ...
 
-Para o ajuste do expoente ..., usamos maximum likelihood estimation etc. cite Clauset2007. Usamos a implementação em X.
+Para o ajuste do expoente ..., usamos maximum likelihood estimation etc. \cite{Clauset2007}. Usamos a implementação disponível em X\footnote{\url{http://www.santafe.edu/~aaronc/powerlaws/}}.
 
 \subsection{Sintonia dos parâmetros dos modelos}
 
@@ -123,7 +132,7 @@ Foram gerados 10 redes para cada modelo. Por que 10?
 
 \subsection{Comparação com os sistemas reais}
 
-Usamos a métrica de distância entre redes definida por citeAndrade2008 e a implementação de Charles.
+Usamos a métrica de distância entre redes definida por \cite{Andrade2008}, implementação de Charles.
 
 Consideramos para cada modelo a média entre as distâncias de cada rede gerada pelo modelo.
 
@@ -144,21 +153,22 @@ TABELA 2 (ou GRÁFICO): distâncias.
 
 \section{Discussão} % why it's significant
 
-Recapitulando o que este trabalho fez:
+% Recapitulando o que este trabalho fez:
 
-Produção de um modelo, baseado em um modelo existente, de geração de redes de software com estrutura de módulos embutida.
+% Produção de um modelo, baseado em um modelo existente, de geração de redes de software com estrutura de módulos embutida.
 
-Comparação desse modelo com um modelo presente na literatura usando como critério a semelhança com redes de software.
+% Comparação desse modelo com um modelo presente na literatura usando como critério a semelhança com redes de software.
 
-Análise desse modelo modelos de geração de redes com estrutura de módulos embutida, e da semelhança dessas redes com redes de software.
+% Análise desse modelo modelos de geração de redes com estrutura de módulos embutida, e da semelhança dessas redes com redes de software.
 
------
+% -----
 
-O quão bem o modelo funciona.
+O quão bem o modelo funciona, vantagens e desvantagens em relação a outras abordagens (complementares).
 
 Especulação sobre o papel da modelagem estatística na engenharia de software.
 
-Focar na hipótese: redes sintéticos são uma boa aproximação de redes reais (ou ainda: redes sintéticas com parâmetros ajustáveis dão insights sobre as ferramentas de engenharia reversa / evolução de software).
+Focar na hipótese: redes sintéticas com parâmetros ajustáveis dão insights sobre as ferramentas de engenharia reversa / evolução de software.
+% redes sintéticos são uma boa aproximação de redes reais
 
 %how useful this technique is: how well did it work, what are the benefits and drawbacks, etc
 
@@ -169,7 +179,8 @@ Focar na hipótese: redes sintéticos são uma boa aproximação de redes reais 
 Trabalhos futuros: explorar métricas de arquitetura, avaliar algoritmos de clustering, considerar outros modelos.
 incluir pesos das arestas nas análises e nos modelos.
 
-\bibliographystyle{apalike}
+%\bibliographystyle{apalike}
+\bibliographystyle{abbrv}
 \bibliography{complex-networks,rodrigo-mestrado}
 
 \end{document}
