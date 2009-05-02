@@ -78,6 +78,15 @@ if __FILE__ == $0
       desc 'ingoing edge (default: 0.10)'
     end
 
+    option :mixing do
+      short '-m'
+      long '--mixing=P'
+      cast Float
+      default 0.0539
+      desc 'Mixing parameter.'
+      desc '(default: 0.0539)'
+    end
+
     option :din do
       long '--din=N'
       cast Float
@@ -108,14 +117,15 @@ if __FILE__ == $0
     exit 1
   end
 
-  g = rodrigo2008_game(
+  g = souza2009_game(
      c.nodes, 
      arch,
      c.alpha,
      c.beta,
      c.gamma,
      c.din,
-     c.dout)
+     c.dout,
+     c.mixing)
 
   pairs = g.edges.map { |e| [e.from.eid, e.to.eid] }
   modules = g.nodes.map { |n| [n.eid, n.cluster.eid] }

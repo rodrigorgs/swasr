@@ -26,10 +26,10 @@ Choice.options do
   separator ''
   separator 'PROCESSING'
 
-  option :undirected do
-    short '-u'
-    desc 'Threat the network as undirected'
-  end
+#  option :undirected do
+#    short '-u'
+#    desc 'Threat the network as undirected'
+#  end
 
   separator ''
   separator 'OUTPUT'
@@ -61,6 +61,7 @@ c = Choice.choices
 
 if not File.file?(c.edges_file)
   Choice.help
+  exit 1
 end
 if not File.file?(c.modules_file)
   puts "Warning: File #{c.modules_file} does not exist."
@@ -78,7 +79,7 @@ File.open(c.file_vertices, "w") do |f|
   end
 end
 
-# TODO: motif analysis
+# TODO: motif analysis. UPDATE: parece que o igraph faz isso!
 
 # CLUSTER analysis
 File.open(c.file_clusters, "w") do |f|
@@ -90,11 +91,26 @@ end
 
 # GLOBAL analysis
 File.open(c.file_global, "w") do |f|
-  density = network.edges.size.to_f / network.size
+#  density = network.edges.size.to_f / network.size
+  edges_un = network.edges_undirected
+  extra_edges_un = edges_un.select { |e| e.from.cluster != e.to.cluster }
 
-  nonislands = network.nodes.select { |n| n.degree != 0 }
-  mixing = nonislands.inject(0.0) { |sum, node| sum + node.external_degree.to_f / node.degree } / nonislands.size
+  #sum_mixing = network.nodes.inject(0.0) do |sum, node|
+  #  sum + (node.degree == 0 ? 0 : node.external_degree.to_f / node.degree)
+  #end
+  #mixing = sum_mixing.to_f / network.size
+  mixing = extra_edges_un.size.to_f / edges_un.size
 
-  f.puts "size clusters density mixing"
-  f.puts "#{network.size} #{network.clusters.size} #{density} #{mixing}"
+  f.puts "nodes edges edges_un clusters extra_edges_un mixing"
+  f.puts "#{network.size}" +
+      " #{network.edges.size}" +
+      " #{network.edges_undirected.size}" +
+      " #{network.clusters.size}" + 
+      " #{extra_edges_un.size}" +
+      " #{mixing}"
 end
+
+# architecture
+g = network.lift
+g.nodes.each { |n| g.edge!(n, n) }
+puts_pairs g.edges.map { |e| [e.from.eid, e.to.eid] }, 'l2.pairs'
