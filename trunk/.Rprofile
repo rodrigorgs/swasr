@@ -1,4 +1,5 @@
 library(lattice)
+library(igraph)
 source("~/svn/swasr/src/rodrigo.R")
 source("~/svn/swasr/opt/pli-R-v0.0.3-2007-07-25/discexp.R")
 source("~/svn/swasr/opt/pli-R-v0.0.3-2007-07-25/disclnorm.R")
