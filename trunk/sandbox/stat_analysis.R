@@ -8,18 +8,34 @@ g = read.table("global.data", header=T)
 # Retrieves parameters used in Lancichinetti's model
 #############################################
 
-sink("parameters.fit")
+sink("parameters.fit", split=F, type="output")
 
-cat(g$size, " # Number of nodes\n")
-cat(mean(v$deg), " # Average degree\n")
-cat(max(v$deg), " # Maximum degree\n")
-fit = plfit(v$deg[v$deg > 0])
-cat(fit$alpha, " # Degree distribution exponent\n")
-fit = plfit(c$size[c$size > 0])
-cat(fit$alpha, " # Community size exponent\n")
-cat(g$mixing, " # Mixing parameter\n")
-cat(min(c$size), " # Minimum community size\n")
-cat(max(c$size), " # Maximum community size\n")
+library(igraph)
+
+cat("# computing degree fit")
+degmincut = 1
+cat("# degmincut =", degmincut, "\n")
+deg = v$deg[v$deg >= degmincut]
+#degfit = coef(power.law.fit(deg))
+degfit = plfit(deg)
+degexp = degfit$alpha
+degmin = degfit$xmin
+
+cat("\n# computing size fit")
+size = c$size
+#sizefit = plfit(c$size[c$size > 0])
+sizemin = 1
+sizefit = power.law.fit(c$size, sizemin)
+sizeexp = coef(sizefit)
+
+cat("\n", g$nodes, " # Number of nodes")
+cat("\n", mean(deg), " # Average degree")
+cat("\n", max(deg), " # Maximum degree")
+cat("\n", degexp, " # Degree distribution exponent, xmin = ", degmin)
+cat("\n", sizeexp, " # Community size exponent")
+cat("\n", g$mixing, " # Mixing parameter")
+cat("\n", min(c$size), " # Minimum community size")
+cat("\n", max(c$size), " # Maximum community size")
 
 sink()
 

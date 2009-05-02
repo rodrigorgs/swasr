@@ -18,6 +18,10 @@ class Network
     @data = Choice::LazyHash.new
   end
 
+  def edges_undirected
+    edges.map { |e| [e.from, e.to].sort_by(&:eid) }.uniq.map { |a, b| Edge.new(a, b) }
+  end
+
   # using PAIRS format
   def initialize(_edges=nil, _modules=nil)
     _init
@@ -78,6 +82,12 @@ class Network
     return cluster
   end
 
+  def cluster?(eid)
+    return eid if eid.kind_of?(Cluster)
+    return @default_cluster if eid.nil?
+    return @clusters[eid]
+  end
+
   def nodes
     @nodes.values
   end
@@ -113,6 +123,7 @@ class Network
   def lift
     links = self.edges.map { |e| [e.from.cluster.eid, e.to.cluster.eid] }.uniq
     g = Network.new
+    self.clusters.each { |c| g.node!(c.eid) }
     g.add_edges(links.select { |l| l[0] != l[1] } )
     return g
   end
@@ -239,13 +250,13 @@ class Node
   def in_nodes; @in_edges_map.map { |n, e| n }; end
   def out_nodes; @out_edges_map.map { |n, e| n }; end
 
-  def degree; in_degree + out_degree; end
+  def degree; neighbors.size; end
   def in_degree; @in_edges_map.size; end
   def out_degree; @out_edges_map.size; end
-  def internal_degree; internal_in_degree + internal_out_degree; end
+  def internal_degree; neighbors.count { |n| n.cluster == @cluster }; end
   def internal_in_degree; @in_edges_map.count { |n, e| n.cluster == @cluster }; end
   def internal_out_degree; @out_edges_map.count { |n, e| n.cluster == @cluster }; end
-  def external_degree; external_in_degree + external_out_degree; end
+  def external_degree; neighbors.count { |n| n.cluster != @cluster }; end
   def external_in_degree; @in_edges_map.count { |n, e| n.cluster != @cluster }; end
   def external_out_degree; @out_edges_map.count { |n, e| n.cluster != @cluster }; end
   def cluster_span; _clusters(in_nodes + out_nodes).size; end

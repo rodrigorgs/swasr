@@ -281,11 +281,67 @@ def rodrigo2008_game(size_limit, arch, alpha, beta, gamma,
       g.edge!(v, w)
     when :beta
       v = choose_random(g.nodes.map{ |x| x.out_degree + delta_out}, g.nodes)
-      adjacent_clusters = arch.node!(v.cluster.eid).out_nodes.map { |m| g.cluster!(m.eid) }
+      adjacent_clusters = arch.node?(v.cluster.eid).out_nodes.map { |m| g.cluster?(m.eid) } #.select { |c| c != v.cluster }
       candidates = g.nodes.select { |x| adjacent_clusters.include? x.cluster }
       unless candidates.empty?
         w = choose_random(candidates.map{ |x| x.in_degree + delta_in }, candidates)
         g.edge!(v, w)
+      end
+    when :gamma
+      v = choose_random(g.nodes.map{ |x| x.out_degree + delta_out }, g.nodes)
+      w = g.node!(next_eid, v.cluster)
+      g.edge!(v, w)
+    end
+    next_eid += 1 if (event == :alpha || event == :gamma)
+  end
+
+  return g
+end
+
+def souza2009_game(size_limit, arch, alpha, beta, gamma, 
+    delta_in, delta_out, prob_out)
+  g = Network.new
+
+  next_eid = 0
+  arch.each_vertex do |module_|
+    v = g.node!(next_eid, module_.eid)
+    g.edge!(v, v)
+    next_eid += 1
+  end
+
+  #prob_out = mixing.to_f / beta
+
+  sum = 0  
+  event_prob_acc = [alpha, beta, gamma].map { |x| sum += x; sum }
+  while g.size < size_limit
+    event = choose_random_acc(event_prob_acc, [:alpha, :beta, :gamma])
+
+    raise "Erro" if g.nodes.any? { |x| x.eid.nil? }
+    case event
+    when :alpha
+      w = choose_random(g.nodes.map{ |x| x.in_degree + delta_in }, g.nodes)
+      v = g.node!(next_eid, w.cluster)
+      g.edge!(v, w)
+    when :beta
+      if rand < prob_out # external edge
+        clusters_with_neighbors = arch.nodes.select { |n| !n.neighbors.empty? }
+        clusters_with_neighbors.map! { |n| g.cluster?(n.eid) }
+        nodes = clusters_with_neighbors.inject([]) { |union, c| union + c.nodes.to_a }
+        v = choose_random(nodes.map{ |x| x.out_degree + delta_out}, nodes)
+        adjacent_clusters = arch.node?(v.cluster.eid).out_nodes.map { |m| g.cluster?(m.eid) }.select { |c| c != v.cluster }
+        candidates = g.nodes.select { |x| adjacent_clusters.include? x.cluster }
+        unless candidates.empty?
+          w = choose_random(candidates.map{ |x| x.in_degree + delta_in }, candidates)
+          g.edge!(v, w)
+        end
+      else # internal edge
+        v = choose_random(g.nodes.map { |x| x.out_degree + delta_out }, g.nodes)
+        nodes = v.cluster.nodes.to_a - [v]
+
+        unless nodes.empty?
+          w = choose_random(nodes.map { |x| x.in_degree + delta_in }, nodes)
+          g.edge!(v, w)
+        end
       end
     when :gamma
       v = choose_random(g.nodes.map{ |x| x.out_degree + delta_out }, g.nodes)
