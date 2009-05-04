@@ -69,57 +69,90 @@
 % 3. Describe how your work addresses a gap in existing knowledge or ability (here's where you'll state why you've undertaken this study). 
 % 4. State what information your article will address. 
 
-Recuperação de arquitetura de software é o ato de extrair aspectos da arquitetura de um sistema através de artefatos como código-fonte. Muitos esforços têm se concentrado no uso de algoritmos de agrupamento (\emph{clustering}) com a finalidade de detectar módulos arquiteturais --- grupos coesos de entidades de código-fonte (classes ou funções).
+Recuperação de arquitetura de \emph{software} é o ato de extrair aspectos da arquitetura de um sistema através de artefatos como código-fonte. Muitos esforços têm se concentrado no particionamento de sistemas em módulos arquiteturais --- grupos coesos de entidades de código-fonte (classes ou funções) --- através de algoritmos de agrupamento (\emph{clustering}). Não há consenso, no entanto, sobre quais algoritmos de agrupamento são mais adequados para a tarefa de recuperação de módulos arquiteturais.
 
-Uma das formas de avaliar um algoritmo de agrupamento no contexto da recuperação de arquitetura consiste em aplicar o algoritmo a um sistema cuja estrutura de módulos seja conhecida. Infelizmente não existem muitos sistemas cuja estrutura de módulos é bem documentada. OS ESTUDOS FEITOS ASSIM NÃO SÃO CONTUNDENTES, OBTÊM RESULTADOS DIFERENTES PARA SISTEMAS DIFERENTES E NÃO TÊM NENHUMA PISTA SOBRE O QUE FAZ UM ALGORITMO SER BOM EM UM SISTEMA E RUIM EM OUTRO.
+Uma formas de avaliar um algoritmo de agrupamento consiste em aplicá-lo a um sistema cuja organização do código-fonte em módulos seja conhecida e então comparar os módulos do sistema com os módulos encontrados pelo algoritmo através de uma medida de distância entre particionamentos. Infelizmente é difícil encontrar sistemas documentados nesse nível de detalhe, e por isso os estudos experimentais realizados são superficiais. Alguns estudos revelam que a avaliação de um algoritmo varia bastante de sistema para sistema. Devido ao pequeno tamanho das amostras analisadas, no entanto, não existe uma explicação que permita que se determine a priori se um algoritmo fornece bons resultados para um sistema.
 
-Propomos sistemas de software gerados por computador, COM ESTRUTURA DE MÓDULOS EMBUTIDA. VANTAGENS: É POSSÍVEL AJUSTAR PARÂMETROS DOS SISTEMAS GERADOS E ASSIM GANHAR INSIGHT SOBRE OS PARÂMETROS QUE INFLUENCIAM A ACURÁCIA DE UM ALGORITMO. EM PARTICULAR, É POSSÍVEL CONTROLAR O TAMANHO DO SOFTWARE GERADO E, ASSIM, GERAR SISTEMAS GRANDES, MAIS PARECIDOS COM OS QUE SERIAM ANALISADOS PELAS TÉCNICAS EM UM CENÁRIO REAL.
+%Alguns experimentos revelam que o algoritmo mais adequado para um sistema pode ter um desempenho medíocre quando aplicado a outro sistema mas, devido às amostras pequenas, não foi encontrada uma explicação para essa variação.
+% consideram amostras pequenas
 
-O modelo é comparado com outros modelos disponíveis na literatura sobre redes complexas.
+%OS ESTUDOS FEITOS ASSIM NÃO SÃO CONTUNDENTES, OBTÊM RESULTADOS DIFERENTES PARA SISTEMAS DIFERENTES E NÃO TÊM NENHUMA PISTA SOBRE O QUE FAZ UM ALGORITMO SER BOM EM UM SISTEMA E RUIM EM OUTRO.
 
-%embora existam alguns trabalhos avaliando algoritmos de recuperação de arquitetura, os resultados experimentais não dão pistas sobre por que os algoritmos são bons em uns critérios e ruins em outros, quais são as coisas que influenciam o desempenho do algoritmo.
+Propomos uma abordagem de avaliação complementar, baseada na análise de sistemas de software sintéticos. Esses sistemas são gerados por computador a partir de modelos parametrizáveis e obedecem a estruturas modulares conhecidas. Com essa abordagem é possível avaliar algoritmos de agrupamento com amostras arbitrariamente grandes de sistemas arbitrariamente complexos e, sobretudo, estudar como o desempenho dos algoritmos é afetado por parâmetros que definem os sistemas sintéticos.
 
-\section{TEORIA}
+Neste artigo apresentamos um modelo para a geração de sistemas sintéticos e avaliamos o realismo desse modelo, isto é, a similaridade entre os sistemas sintéticos e sistemas reais. Para fins de comparação, essa mesma análise é realizada sobre modelos genéricos disponíveis na literatura sobre redes complexas.
 
-Neste estudo nos concentraremos em sistemas orientados a objeto, para simplificar, mas os conceitos provavelmente podem ser aplicados a outros paradigmas como procedimental ou funcional. 
-Muitas técnicas de recuperação de arquitetura analisam uma representação abstrata de sistemas de software, as redes de dependências entre classes. Nessas redes, os vértices representam classes e existe uma aresta do vértice A para o vértice B se a classe A depende da classe B para funcionar corretamente. Essa dependência pode ser resultado diversos tipos de interação entre as classes: A estende B, um método de A chama um método de B etc.
-A extração da rede de um sistema de software se dá através da análise estática de seu código-fonte ou do código objeto.
+Na próxima seção.... na seção x.... por fim, .....
 
-Neste estudo consideramos dois sistemas de software reais e três modelos de geração de redes complexas.
+\section{Fundamentação Teórica}
 
-Neste estudo foram avaliados três modelos de geração de redes complexas: o modelo de configuração, o modelo de Bollobás \cite{Bollobas2003}, o modelo de Lancichinetti, Fortunato e Radicchi \cite{Lancichinetti2008} e um novo modelo, baseado no modelo de Bollobás. Os dois últimos modelos geram redes com uma estrutura de módulos embutida.
+Para recuperar os módulos de um sistema é suficiente considerar as suas classes e os relacionamentos de dependência entre elas --- uma rede de dependências entre classes. Essas redes podem ser extraídas automaticamente a partir da análise estática do código-fonte ou do código objeto do sistema que se deseja estudar.
 
-DESCRIÇÃO DE CADA MODELO
+Pesquisas recentes na teoria das redes complexas encontraram características comuns a redes que representam objetos de diversos domínios (sociologia, biologia, linguística, tecnologia etc.), incluindo as redes de dependências entre classes. A partir daí foram criados diversos modelos que procuram explicar como essas redes são formadas.
+
+%Neste estudo foram avaliados três modelos de geração de redes complexas: o modelo de configuração, o modelo de Bollobás \cite{Bollobas2003}, o modelo de Lancichinetti, Fortunato e Radicchi \cite{Lancichinetti2008} e um novo modelo, baseado no modelo de Bollobás. Os dois últimos modelos geram redes com uma estrutura de módulos embutida.
+
+\subsection{Modelos de Geração de Redes Complexas}
 
 Bollobas: pensando na Web. Não tem estrutura de módulos embutida. Parâmetros são probabilidades.
 
-O modelo de Lancichinetti não foi feito baseado em nenhum domínio em particular. Parâmetros são métricas da rede que se quer obter.
+O modelo de Lancichinetti não foi feito baseado em nenhum domínio em particular. Parâmetros são métricas da rede que se quer obter. Não-orientado.
+
+O modelo X...
 
 \section{O modelo novo}
 
-Valorizar o modelo novo. Em relação a Bollobas, ele tem módulos embutidos. Em relação a Lancichinetti, pode especificar a arquitetura, mixing é variável, o grafo da arquitetura não é (necessariamente) completo.
+Valorizar o modelo novo. Em relação a Bollobas, ele tem módulos embutidos. Em relação a Lancichinetti, pode especificar a arquitetura, mixing é variável, o grafo da arquitetura não é necessariamente completo.
 
 \section{Experimento} % how
 
-O estudo experimental foi dividido em cinco etapas: extração das redes de software reais, análise de sistemas reais, sintonia dos parâmetros dos modelos, geração de sistemas sintéticos e comparação entre redes sintéticas e redes reais. 
+Realizamos um experimento a fim de avaliar os modelos de redes de acordo com a sua capacidade de gerar redes semelhantes a redes de sistemas reais. Para isso consideramos dois sistemas, o jogo VilloNanny 2.2.4 e o programa IRPF 2009, e ajustamos os parâmetros dos modelos de acordo com métricas extraídas desses sistemas. O experimento foi dividido em cinco etapas: extração das redes dos sistemas (redes reais), análise das redes reais, sintonia dos parâmetros dos modelos, geração de redes sintéticas e comparação entre redes sintéticas e as redes reais correspondentes. 
+
+%Neste estudo consideramos dois sistemas de software reais e três modelos de geração de redes complexas.
 
 \subsection{Extração}
 
-Os sistemas analisados são escritos em Java e distribuídos em diversos arquivos JAR. Alguns arquivos JAR representam código do próprio sistema e outros são bibliotecas usadas por eles. A ferramenta DepFind\footnote{\url{http://depfind.sourceforge.net/}} foi usada para extrair (estaticamente) todas as interações entre classes, métodos e atributos dos sistemas analisados. Foi considerado o sistema + as bibliotecas. A seguir um programa feito em casa abstraiu para dependências classe para classe (lifting). Consideramos que cada JAR é um módulo arquitetural.
+Os sistemas analisados são implementados na linguagem Java e foram distribuídos em diversos arquivos JAR, cada arquivo contendo várias classes. Alguns arquivos JAR contêm classes específicas de um sistema, mas muitos deles são bibliotecas; consideramos que as bibliotecas que um sistema usa são parte do sistema, e cada arquivo JAR corresponde a um módulo arquitetural. Essa é uma aproximação razoável, uma vez que arquivos JAR distintos são, em geral, desenvolvidos por equipes diferentes e distribuídos independentemente. 
+%(Naturalmente, cada um desses módulos pode ser decomposto em submódulos, formando uma hierarquia de módulos XXX)
+
+A ferramenta DepFind\footnote{\url{http://depfind.sourceforge.net/}} foi usada para extrair, através da análise estática dos arquivos JAR, a rede de dependências entre as classes. A organização em módulos foi extraída a partir da enumeração das classes contidas em cada arquivo JAR.
 
 \subsection{Análise de sistemas reais}
 
-A rede resultante foi submetida a diversas análises em que foram coletadas métricas da teoria dos grafos e da teoria das redes complexas:
+O grau de um vértice é o número de arestas que estão ligadas a ele. Baseado em pesquisas anteriores, consideramos que a distribuição estatística dos graus dos vértices segue aproximadamente uma lei de potência, $P(k) ~ k^{-\gamma}$, onde $P(k)$ é a probabilidade de um vértice escolhido possuir grau $k$ e $\gamma$ é o expoente da distribuição. Usamos esse mesmo tipo de distribuição para modelar a distribuição dos tamanhos dos módulos.
 
-número de classes
-expoente da distribuição de graus
-número de módulos
-expoente da distribuição dos tamanhos dos módulos
-...
 
-Para o ajuste do expoente ..., usamos maximum likelihood estimation etc. \cite{Clauset2007}. Usamos a implementação disponível em X\footnote{\url{http://www.santafe.edu/~aaronc/powerlaws/}}.
+Para cada rede foram coletadas diversas métricas da teoria dos grafos e da teoria das redes complexas:
+
+\begin{itemize}
+\item número de vértices - ...
+\item número de arestas - ...
+\item número de arestas externas - número de arestas que ligam vértices em módulos distintos.
+
+\item grau médio - ...
+\item grau máximo - ...
+\item expoente da distribuição de graus - ...
+
+\item número de módulos
+\item tamanho do menor módulo
+\item tamanho do maior módulo
+\item expoente da distribuição dos tamanhos dos módulos
+
+%\item coeficiente de clustering
+\end{itemize}
+
+Os expoentes das distribuições de graus e de tamanhos dos módulos foram estimados através da técnica de máxima verossimilhança \cite{Clauset2007} através de uma implementação disponível disponível na Internet\footnote{\url{http://www.santafe.edu/~aaronc/powerlaws/}}. 
+%No caso da distribuição dos tamanhos dos módulos fixamos xmin = 1, pois o número de módulos é pequeno...
+
+Extraímos ainda a rede de dependências entre MÓDULOS...
 
 \subsection{Sintonia dos parâmetros dos modelos}
+
+Dado um sistema e um modelo, os parâmetros do modelo foram escolhidos de forma a gerar redes cujas métricas fossem próximas às metricas da rede do sistema.
+
+No modelo de Lancichinetti os parâmetros correspondem às métricas.
+
+No outro modelo isso foi feito na tentativa e erro (oops, experimentalmente).
 
 Distribuição de graus foi usada para todos os modelos.
 
@@ -136,7 +169,7 @@ Foram gerados 10 redes para cada modelo. Por que 10?
 Usamos a métrica de distância entre redes definida por \cite{Andrade2008}, implementação de Charles. Essa distância leva em consideração aspectos locais das redes. Comparar apenas os parâmetros globais não é tão bom porque não diferencia entre modelos, já que existem vários modelos que, como se sabe, geram power law.
 
 % talvez usar um ks.test (visualmente: qqplot) dos graus da rede sintética vs. graus da rede real (e o mesmo com outros parâmetros) [ver também AIC no pacote stats]
-% talvez usar library(igraph) g = read.graph("..."), graph.motif(g) e comparar a frequencia de motifs. Desenho do motif: graph.isocreate(3, i), i entre 0 e 15
+% talvez usar library(igraph) g = read.graph("..."), graph.motif(g) e comparar a frequencia de motifs através de ks.test. Desenho do motif: graph.isocreate(3, i), i entre 0 e 15
 
 Consideramos para cada modelo a média entre as distâncias de cada rede gerada pelo modelo.
 
@@ -149,7 +182,9 @@ Consideramos para cada modelo a média entre as distâncias de cada rede gerada 
 
 TABELA 1: sistemas analisados. Nome, versão, métricas (tamanho, número de módulos, ....)
 
-TABELA 2 (ou GRÁFICO): distâncias.
+TABELA 2: métricas das redes sintéticas.
+
+TABELA 3 (ou GRÁFICO): distâncias
 
 %  * present results clearly and logically
 %  * avoid excess verbiage
@@ -181,10 +216,27 @@ Focar na hipótese: redes sintéticas com parâmetros ajustáveis dão insights 
 %Focus your discussion around a particular question or hypothesis
 
 Trabalhos futuros: explorar métricas de arquitetura, avaliar algoritmos de clustering, considerar outros modelos.
-incluir pesos das arestas nas análises e nos modelos.
+% considerar o uso de arestas orientadas e pesos das arestas .
 
 %\bibliographystyle{apalike}
 \bibliographystyle{abbrv}
 \bibliography{complex-networks,rodrigo-mestrado}
 
 \end{document}
+
+
+
+
+
+
+
+
+%arbitrariamente complexos
+
+%Propomos sistemas de software gerados por computador, COM ESTRUTURA DE MÓDULOS EMBUTIDA. VANTAGENS: É POSSÍVEL AJUSTAR PARÂMETROS DOS SISTEMAS GERADOS E ASSIM GANHAR INSIGHT SOBRE OS PARÂMETROS QUE INFLUENCIAM A ACURÁCIA DE UM ALGORITMO. EM PARTICULAR, É POSSÍVEL CONTROLAR O TAMANHO DO SOFTWARE GERADO E, ASSIM, GERAR SISTEMAS GRANDES, MAIS PARECIDOS COM OS QUE SERIAM ANALISADOS PELAS TÉCNICAS EM UM CENÁRIO REAL.
+
+%embora existam alguns trabalhos avaliando algoritmos de recuperação de arquitetura, os resultados experimentais não dão pistas sobre por que os algoritmos são bons em uns critérios e ruins em outros, quais são as coisas que influenciam o desempenho do algoritmo.
+
+%Neste estudo nos concentraremos em sistemas orientados a objeto, para simplificar, mas os conceitos provavelmente podem ser aplicados a outros paradigmas como procedimental ou funcional. 
+%Muitas técnicas de recuperação de arquitetura analisam uma representação abstrata de sistemas de software, as redes de dependências entre classes. Nessas redes, os vértices representam classes e existe uma aresta do vértice A para o vértice B se a classe A depende da classe B para funcionar corretamente. Essa dependência pode ser resultado diversos tipos de interação entre as classes: A estende B, um método de A chama um método de B etc. A extração da rede de um sistema de software se dá através da análise estática de seu código-fonte ou do código objeto.
+
