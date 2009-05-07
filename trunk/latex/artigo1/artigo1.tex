@@ -114,11 +114,17 @@ Lei de potência
 
 \subsection{Modelos de Geração de Redes Complexas}
 
-Bollobas: pensando na Web. Não tem estrutura de módulos embutida. Parâmetros são probabilidades.
+\subsubsection{Modelo Aleatório com Módulos}
 
-O modelo X...
+O modelo de Erdős-Rényi \cite{Erdos1959}, ou modelo de rede aleatória, gera redes não-orientadas e é muito usado como base de comparação em diversos estudos. Propomos aqui uma simples extensão desse modelo que considera a divisão dos vértices em módulos. O modelo possui os seguintes parâmetros:
 
-TODOS ASSUMEM LEI DE POTÊNCIA
+\begin{itemize}
+  \item número de vértices, $N$;
+  \item probabilidade de ligação, $p$;
+  \item número de módulos, $C$.
+\end{itemize} 
+
+O algoritmo cria uma rede composta de $N$ vértices. Cada vértice é incluido em uma comunidade, onde todas as comunidades têm a mesma probabilidade de serem escolhidas. Então, para cada par de vértices, é adicionada uma aresta, com probabilidade $p$.
 
 \subsubsection{Modelo LFR}
 
@@ -126,14 +132,14 @@ Lancichinetti, Fortunato e Radicchi \cite{Lancichinetti2008} criaram um modelo d
 
 O modelo possui os seguintes parâmetros:
 \begin{itemize}
-  \item quantidade de vértices ($N$);
-  \item expoente da distribuição de graus ($\gamma_2$);
-  \item grau médio ($\langle k \rangle$);
-  \item grau máximo ($k_{max}$);
-  \item expoente da distribuição de tamanhos dos módulos ($\gamma_1$);
-  \item número mínimo de vértices por módulo ($c_{min}$);
-  \item número máximo de vértices por módulo ($c_{max}$);
-  \item parâmetro de mistura ($\mu$).
+  \item quantidade de vértices, $N$;
+  \item expoente da distribuição de graus, $\gamma_2$;
+  \item grau médio, $\langle k \rangle$;
+  \item grau máximo, $k_{max}$;
+  \item expoente da distribuição de tamanhos dos módulos, $\gamma_1$;
+  \item número mínimo de vértices por módulo, $c_{min}$;
+  \item número máximo de vértices por módulo, $c_{max}$;
+  \item parâmetro de mistura, $\mu$.
 \end{itemize}
 
 O modelo gera redes que seguem aproximadamente os parâmetros fornecidos. O parâmetro de mistura é um número entre 0 e 1 que indica a fração das arestas de cada vértice que são compartilhadas com vértices de outro módulo. Por exemplo, se $\mu = 0,4$, então 40\% das arestas de cada vértice são ligadas a vértices que não pertencem ao mesmo módulo do vértice de origem.
@@ -143,17 +149,13 @@ O modelo gera redes que seguem aproximadamente os parâmetros fornecidos. O par�
   O modelo gera grafos não-orientados, uma representação muito simplificada das redes de dependências entre classes. Por essa razão ele não é adequado para testar algoritmos de agrupamento que consideram a informação de sentido das arestas. Além disso, ele considera que todos os vértices possuem arestas para vértices de outros módulos, o que certamente não é verdade no domínio de software. Por fim, os vértices de um módulo podem se ligar a vértices de qualquer outro módulo, sem restrição. Essa característica difere do que se encontra em programas de computador, onde as dependências entre módulos são controladas (por exemplo, ao se adotar uma arquitetura em camadas).
 % rápido: cerca de 13s para 1658 vértices no athlon 64 3000+ com 1 GB de RAM.
 
-\subsubsection{Modelo Aleatório com Módulos}
-
-Baseado em Erdos-Renyi...
-
-\subsection{O modelo S}
+\subsubsection{O modelo XXX}
 
 Considerando as limitações do modelo LFR, propomos um novo modelo de rede com estrutura de módulos embutida, baseado no modelo de grafo orientado de Bollobás \cite{Bollobas2003}, que foi inspirado na rede de links entre páginas da Web. O modelo possui os seguintes parâmetros:
 
 \begin{itemize}
-  \item número de vértices ($N$);
-  \item arquitetura ($a$) --- uma rede representando os módulos e as ligações permitidas entre módulos;
+  \item número de vértices, $N$;
+  \item arquitetura, $a$ --- uma rede representando os módulos e as ligações permitidas entre módulos;
   \item probabilidades $\alpha$, $\beta$ e $\gamma$, tal que $\alpha + \beta + \gamma = 1$;
   \item probabilidade $\mu$;
   \item $\delta_{in}$ e $\delta_{out}$.
@@ -178,8 +180,9 @@ $X_{out} = 1 + \frac{\beta + \gamma}{1 + \delta_{out}(\alpha + \gamma)}$
   \textbf{Discussão}
 
 Este modelo supera as limitações encontradas no modelo LFR: as redes são orientadas, nem todos os vértices são necessariamente ligados a vértices de outros módulos e é possível restringir as dependências entre módulos através da arquitetura fornecida como parâmetro. Além disso ele é um modelo evolutivo: o algoritmo pode ter como ponto de partida uma rede existente e então expandi-la criando mais vértices e arestas. A desvantagem em relação ao modelo LFR é o controle reduzido sobre a rede: não há como impor restrições sobre o grau máximo, sobre a distribuição dos tamanhos dos módulos e nem estabelecer limites de tamanho para os módulos.
-% experimentalmente, tamanhos x dos módulos ~ x^-1. Deve ser fácil provar analiticamente.
+% experimentalmente, tamanhos x dos módulos ~ x^-1. TODO: Deve ser fácil provar analiticamente.
 % tem outra coisa:   multi-arestas, autolaços (normalmente devem ser removidos) podem afetar as distribuiçãos
+% TODO: será que vale a pena alterar o algoritmo para ele sempre procurar, no caso gamma, dois vértices que não estejam ligados por aresta?
 
 %Poréns determinados experimentalmente (conclusões):
 %  as redes geradas podem desviar muito dos valores esperados para as métricas. acreditamos que devido a multi-arestas, autolaços.
@@ -187,72 +190,72 @@ Este modelo supera as limitações encontradas no modelo LFR: as redes são orie
 
 \section{Experimento} % how
 
-Realizamos um experimento a fim de avaliar os modelos de redes de acordo com a sua capacidade de gerar redes semelhantes a redes de sistemas reais. Para isso consideramos dois sistemas, o jogo VilloNanny 2.2.4 e o programa IRPF 2009, e ajustamos os parâmetros dos modelos de acordo com métricas extraídas desses sistemas. O experimento foi dividido em cinco etapas: extração das redes dos sistemas (redes reais), análise das redes reais, sintonia dos parâmetros dos modelos, geração de redes sintéticas e comparação entre redes sintéticas e as redes reais correspondentes. 
-
-%Neste estudo consideramos dois sistemas de software reais e três modelos de geração de redes complexas.
+Na seção anterior discutimos características gerais dos modelos de geração de redes. Com o objeto de avaliar a capacidade dos modelos de gerar redes semelhantes a redes de dependências entre classes, realizamos um experimento com dois sistemas, o jogo VilloNanny 2.2.4 e o programa IRPF 2009. O objetivo foi avaliar se, com uma escolha adequada dos parâmetros, os modelos são capazes de gerar redes parecidas às redes dos dois sistemas. O experimento foi dividido em cinco etapas: extração das redes dos sistemas (redes reais), análise das redes reais, escolha dos parâmetros dos modelos, geração de redes sintéticas e comparação entre redes sintéticas e as redes reais correspondentes. 
 
 \subsection{Extração}
 
-Os sistemas analisados são implementados na linguagem Java e foram distribuídos em diversos arquivos JAR, cada arquivo contendo várias classes. Alguns arquivos JAR contêm classes específicas de um sistema, mas muitos deles são bibliotecas; consideramos que as bibliotecas que um sistema usa são parte do sistema, e cada arquivo JAR corresponde a um módulo arquitetural. Essa é uma aproximação razoável, uma vez que arquivos JAR distintos são, em geral, desenvolvidos por equipes diferentes e distribuídos independentemente. 
+Os sistemas analisados foram implementados na linguagem Java e distribuídos em diversos arquivos JAR, cada arquivo contendo várias classes. Para construir a rede de um sistema, consideramos que cada arquivo JAR é um módulo arquitetural. Essa é uma aproximação razoável, uma vez que arquivos JAR distintos são, em geral, desenvolvidos por equipes diferentes. A extração das dependências entre as classes foi realizada pela ferramenta DepFind\footnote{\url{http://depfind.sourceforge.net/}}.
 %(Naturalmente, cada um desses módulos pode ser decomposto em submódulos, formando uma hierarquia de módulos XXX)
-
-A ferramenta DepFind\footnote{\url{http://depfind.sourceforge.net/}} foi usada para extrair, através da análise estática dos arquivos JAR, a rede de dependências entre as classes. A organização em módulos foi extraída a partir da enumeração das classes contidas em cada arquivo JAR.
 
 \subsection{Análise de sistemas reais}
 
-O grau de um vértice é o número de arestas que estão ligadas a ele. Baseado em pesquisas anteriores, consideramos que a distribuição estatística dos graus dos vértices segue aproximadamente uma lei de potência, $P(k) ~ k^{-\gamma}$, onde $P(k)$ é a probabilidade de um vértice escolhido possuir grau $k$ e $\gamma$ é o expoente da distribuição. Usamos esse mesmo tipo de distribuição para modelar a distribuição dos tamanhos dos módulos.
-
-
-Para cada rede foram coletadas diversas métricas da teoria dos grafos e da teoria das redes complexas:
+Baseado em pesquisas anteriores \cite{Valverde2003,Myers2003,Baxter2006}, consideramos que a distribuição estatística dos graus dos vértices e a distribuição dos tamanhos dos módulos seguem aproximadamente uma lei de potência. Para cada rede foram coletadas diversas métricas da teoria dos grafos e da teoria das redes complexas:
 
 \begin{itemize}
-\item número de vértices - ...
-\item número de arestas - ...
-\item número de arestas externas - número de arestas que ligam vértices em módulos distintos.
-
-\item grau médio - ...
-\item grau máximo - ...
-\item expoente da distribuição de graus - ...
-
-\item número de módulos
-\item tamanho do menor módulo
-\item tamanho do maior módulo
-\item expoente da distribuição dos tamanhos dos módulos
-
+\item número de vértices, $N$;
+\item número de arestas, $E$;
+\item número de arestas externas $E_{ext}$ --- número de arestas que ligam vértices em módulos distintos;
+\item grau médio, $\langle k \rangle$;
+\item grau máximo, $k_{max}$;
+\item expoente da distribuição de graus, $\gamma_g$;
+\item número de módulos, $C$;
+\item tamanho do menor módulo, $T_{min}$;
+\item tamanho do maior módulo, $T_{max}$;
+\item expoente da distribuição dos tamanhos dos módulos, $\gamma_m$
 %\item coeficiente de clustering
 \end{itemize}
 
-Os expoentes das distribuições de graus e de tamanhos dos módulos foram estimados através da técnica de máxima verossimilhança \cite{Clauset2007} através de uma implementação disponível disponível na Internet\footnote{\url{http://www.santafe.edu/~aaronc/powerlaws/}}. 
+Os expoentes das distribuições de graus e de tamanhos dos módulos foram estimados através da técnica de máxima verossimilhança \cite{Clauset2007}. Utilizamos uma implementação disponível disponível na Internet\footnote{\url{http://www.santafe.edu/~aaronc/powerlaws/}}. 
 %No caso da distribuição dos tamanhos dos módulos fixamos xmin = 1, pois o número de módulos é pequeno...
 
 Extraímos ainda a rede de dependências entre MÓDULOS...
 
-\subsection{Sintonia dos parâmetros dos modelos}
+\subsection{Escolha dos parâmetros dos modelos}
 
-Dado um sistema e um modelo, os parâmetros do modelo foram escolhidos de forma a gerar redes cujas métricas fossem próximas às metricas da rede do sistema.
+Para o modelo de rede aleatória com módulos, mantemos o número de vértices e o número de módulos do sistema. O parâmetro $p$ foi definido para $E / N(N-1)$, de modo que se espera que o grafo produzido pelo modelo tenha $E$ arestas, assim como o sistema.
 
-No modelo de Lancichinetti os parâmetros correspondem às métricas.
+Os parâmetros do modelo LFR são iguais às métricas correspondentes extraídas dos sistemas.
 
-No outro modelo isso foi feito na tentativa e erro (oops, experimentalmente).
-
-Distribuição de graus foi usada para todos os modelos.
-
-Modelo de Lancichinetti tem os seguintes parâmetros.
-
-No modelo de Bollobás os parâmetros não correspondem a métricas da rede resultante, e por isso foi preciso sintonizar os parâmetros de forma experimental (correspondência analítica existe, mas não consegui usar).
+Para o modelo XXX definimos a arquitetura igual à arquitetura do sistema, número de vértices idem e calculamos $\alpha, \beta, \gamma, \delta_{in}, \delta_{out}$ de forma a satisfazer às seguintes restrições:
+\begin{itemize}
+  \item $\gamma = \alpha$. Como no estudo consideramos redes não-orientadas, não faz sentido distinguir os dois casos em que há a criação de um vértice e uma aresta, já que apenas o sentido da aresta é alterado.
+  \item O número de arestas do modelo deveria ser igual ao número de arestas do sistema
+  \item O grau máximo ...
+  \item O tamanho da maior comunidade ...
+\end{itemize}
+% Na verdade eu fiz esse julgamento experimentalmente...
 
 \subsection{Geração de sistemas sintéticos}
 
-Foram gerados 10 redes para cada modelo. Por que 10?
+Foram geradas 10 redes para cada modelo. Por que 10?
+% Ver calculadora de tamanho de amostra: http://www.surveysystem.com/sscalc.htm
 
 \subsection{Comparação com os sistemas reais}
 
-Usamos a métrica de distância entre redes definida por \cite{Andrade2008}, implementação de Charles. Essa distância leva em consideração aspectos locais das redes. Comparar apenas os parâmetros globais não é tão bom porque não diferencia entre modelos, já que existem vários modelos que, como se sabe, geram power law.
+Estatística de Kolmogorov-Smirnov (+qqplot pra ilustrar alguns casos) para comparar...
+* distribuição de graus
+* distribuição de coeficiente de clustering
+* distribuição do número de arestas externas por vértice
+* distribuição do número de módulos vizinhos por vértice
+* distribuição dos tamanhos dos módulos
+%TODO: distância de Andrade, Garcia et al.
+
+% FUTURO: Usamos a métrica de distância entre redes definida por \cite{Andrade2008}, implementação de Charles. Essa distância leva em consideração aspectos locais das redes. Comparar apenas os parâmetros globais não é tão bom porque não diferencia entre modelos, já que existem vários modelos que, como se sabe, geram power law.
 
 % talvez usar um ks.test (visualmente: qqplot) dos graus da rede sintética vs. graus da rede real (e o mesmo com outros parâmetros) [ver também AIC no pacote stats]
 % talvez usar library(igraph) g = read.graph("..."), graph.motif(g) e comparar a frequencia de motifs através de ks.test. Desenho do motif: graph.isocreate(3, i), i entre 0 e 15
 
-Consideramos para cada modelo a média entre as distâncias de cada rede gerada pelo modelo.
+%Consideramos para cada modelo a média entre as distâncias de cada rede gerada pelo modelo.
 
 %particular techniques used and why, if relevant
 %modifications of any techniques; be sure to describe the modification
@@ -274,6 +277,7 @@ TABELA 3 (ou GRÁFICO): distâncias
 \section{Discussão} % why it's significant
 
 % Recapitulando o que este trabalho fez:
+Este artigo apresentou uma nova abordagem para avaliação de algoritmos de clustering, através de sistemas sintéticos, e apresentou um modelo de sistema sintético. Esse modelo foi comparado empiricamente a modelos genéricos de redes. NO FINAL: Acreditamos que outras áreas de pesquisa da engenharia de software podem se beneficiar de uma abordagem de avaliação baseada em sistemas de software sintéticos (ex.: análise de impacto, localização de features...).
 
 % Produção de um modelo, baseado em um modelo existente, de geração de redes de software com estrutura de módulos embutida.
 
@@ -304,11 +308,6 @@ Trabalhos futuros: explorar métricas de arquitetura, avaliar algoritmos de clus
 \bibliography{complex-networks,rodrigo-mestrado}
 
 \end{document}
-
-
-
-
-
 
 
 
