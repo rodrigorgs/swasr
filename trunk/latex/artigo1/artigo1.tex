@@ -137,17 +137,17 @@ Lancichinetti, Fortunato e Radicchi \cite{Lancichinetti2008} criaram um modelo d
 
 O modelo possui os seguintes parâmetros:
 \begin{itemize}
-  \item quantidade de vértices, $N$;
-  \item expoente da distribuição de graus, $\gamma_2$;
+  \item quantidade de vértices, $|V|$;
+  \item expoente da distribuição de graus, $\gamma$;
   \item grau médio, $\langle k \rangle$;
   \item grau máximo, $k_{max}$;
-  \item expoente da distribuição de tamanhos dos módulos, $\gamma_1$;
-  \item número mínimo de vértices por módulo, $c_{min}$;
-  \item número máximo de vértices por módulo, $c_{max}$;
+  \item expoente da distribuição de tamanhos dos módulos, $\beta$;
+  \item número mínimo de vértices por módulo, $T_{min}$;
+  \item número máximo de vértices por módulo, $T_{max}$;
   \item parâmetro de mistura, $\mu$.
 \end{itemize}
 
-O algoritmo gera redes que seguem aproximadamente os parâmetros fornecidos. O parâmetro de mistura é um número entre 0 e 1 que indica a fração das arestas de cada vértice que são compartilhadas com vértices de outro módulo. Por exemplo, se $\mu = 0,4$, então 40\% das arestas de cada vértice são ligadas a vértices que não pertencem ao mesmo módulo do vértice de origem.
+O algoritmo gera redes que seguem aproximadamente os parâmetros fornecidos. O parâmetro de mistura indica a fração das arestas de cada vértice que são compartilhadas com vértices de outro módulo. Por exemplo, se $\mu = 0,4$ e o vértice v pertence ao módulo M, então 40\% das suas arestas estão ligadas a vértices que não pertencem ao módulo M. Arestas que ligam vértices de módulos distintos são chamadas de \emph{arestas externas}.
 
   \textbf{Discussão}
 
@@ -159,28 +159,34 @@ O algoritmo gera redes que seguem aproximadamente os parâmetros fornecidos. O p
 Considerando as limitações do modelo LFR, propomos um novo modelo de rede com estrutura de módulos embutida, baseado no modelo de grafo orientado de Bollobás \cite{Bollobas2003}, que foi inspirado na rede de links entre páginas da Web. O modelo possui os seguintes parâmetros:
 
 \begin{itemize}
-  \item número de vértices, $N$;
-  \item arquitetura, $a$ --- uma rede representando os módulos e as ligações permitidas entre módulos;
-  \item probabilidades $\alpha$, $\beta$ e $\gamma$, tal que $\alpha + \beta + \gamma = 1$;
+  \item número de vértices, $|V|$;
+  \item arquitetura modular, $A$;
+  \item probabilidades $p$, $q$ e $r$, tal que $p + q + r = 1$;
   \item probabilidade $\mu$;
   \item $\delta_{in}$ e $\delta_{out}$.
 \end{itemize}
+
+A arquitetura modular é uma rede que representa as dependências permitidas entre módulos. Dois vértices da rede de software só podem ser ligados se os módulos correspondentes na arquitetura forem ligados por uma aresta.
 
 Inicialmente é criada uma rede contendo um vértice com autolaço (aresta ligando o vértice a ele próprio) para cada módulo representado na arquitetura e cada vértice é incluído no módulo correspondente. O algoritmo consiste em alterações sucessivas à rede até se alcançar o número de vértices desejado. Na descrição a seguir, ``escolher um vértice $v$ de acordo com $k_{out} + \delta_{out}$'' significa escolher um vértice $v$ de modo que a probabilidade de se escolher um vértice $v_i$ é proporcional a $k_{out}(v_i) + \delta_{out}$, onde $k_{out}(v_i)$ é o grau de saída do vértice $v_i$. Analogamente, $k_{in}$ significa grau de entrada.
 
 Cada iteração do algoritmo realiza uma das seguintes alterações na rede:
 
 \begin{itemize}
-  \item \textbf{Criação de vértice com grau de saída = 1}. Com probabilidade $\alpha$ é criado um vértice $v$ juntamente com uma aresta de $v$ para um vértice pré-existente $w$, onde $w$ é escolhido de acordo com $k_{in} + \delta_{in}$. O vértice $v$ é incluído no módulo de $w$.
-  \item \textbf{Criação de vértice com grau de entrada = 1}. Com probabilidade $\gamma$ é criado um vértice $w$ juntamente com uma aresta de um vértice existente $v$ para $w$, onde $v$ é escolhido de acordo com $k_{out} + \delta_{out}$. O vértice $w$ é incluído no módulo de $v$.
-  \item \textbf{Criação de uma aresta}. Com probabilidade $\beta$ é criada uma aresta de um vértice existente $v$ para um vértice existente $w$, $v$ escolhido de acordo com $k_{out} + \delta_{out}$ e $w$ escolhido de acordo com $k_{in} + \delta_{in}$. Com probabilidade $1 - \mu$, $w$ é escolhido dentre os vértices do mesmo módulo que $v$; com probabilidade $\mu$, $w$ é escolhido dentre os vértices de módulos adjacentes ao módulo de $v$ segundo a arquitetura. 
+  \item \textbf{Criação de vértice com grau de saída = 1}. Com probabilidade $p$ é criado um vértice $v$ juntamente com uma aresta de $v$ para um vértice pré-existente $w$, onde $w$ é escolhido de acordo com $k_{in} + \delta_{in}$. O vértice $v$ é incluído no módulo de $w$.
+  \item \textbf{Criação de vértice com grau de entrada = 1}. Com probabilidade $q$ é criado um vértice $w$ juntamente com uma aresta de um vértice existente $v$ para $w$, onde $v$ é escolhido de acordo com $k_{out} + \delta_{out}$. O vértice $w$ é incluído no módulo de $v$.
+  \item \textbf{Criação de uma aresta}. Com probabilidade $r$ é criada uma aresta de um vértice existente $v$ para um vértice existente $w$, $v$ escolhido de acordo com $k_{out} + \delta_{out}$ e $w$ escolhido de acordo com $k_{in} + \delta_{in}$. Com probabilidade $1 - \mu$, $w$ é escolhido dentre os vértices do mesmo módulo que $v$; com probabilidade $\mu$, $w$ é escolhido dentre os vértices de módulos adjacentes ao módulo de $v$ segundo a arquitetura. 
 \end{itemize}
 
-Como neste modelo a rede é orientada, pode-se considerar separadamente uma distribuição dos graus de entrada e uma distribuição dos graus de saída. Da mesma forma que no modelo LFR, essas distribuições seguem leis de potência, com expoentes $X_in$ e $X_out$, respectivamente. Pode-se demonstrar analiticamente que, quando N tende a infinito, os expoentes podem ser calculados pelas seguintes expressões \cite{Bollobas2003}:
+Como neste modelo a rede é orientada, pode-se considerar separadamente uma distribuição dos graus de entrada e uma distribuição dos graus de saída. Da mesma forma que no modelo LFR, essas distribuições seguem leis de potência, com expoentes $\gamma_in$ e $\gamma_out$, respectivamente. Pode-se demonstrar analiticamente que, quando $|V|$ tende a infinito, os expoentes podem ser calculados pelas seguintes expressões \cite{Bollobas2003}:
 
-$X_{in} = 1 + \frac{1 + \delta_{in}(\alpha + \gamma)}{\alpha + \beta}$
+\begin{equation}
+\gamma_{in} = 1 + \frac{1 + \delta_{in}(p + q)}{p + r}
+\end{equation}
 
-$X_{out} = 1 + \frac{\beta + \gamma}{1 + \delta_{out}(\alpha + \gamma)}$
+\begin{equation}
+\gamma_{out} = 1 + \frac{r + q}{1 + \delta_{out}(p + q)}
+\end{equation}
 
   \textbf{Discussão}
 
@@ -195,45 +201,51 @@ Este modelo supera as limitações encontradas no modelo LFR: as redes são orie
 
 \section{Experimento} % how
 
-Na seção anterior discutimos características gerais dos modelos de geração de redes. Com o objeto de avaliar a capacidade dos modelos de gerar redes semelhantes a redes de dependências entre classes, realizamos um experimento com dois sistemas, o jogo VilloNanny 2.2.4 e o programa IRPF 2009. O objetivo foi avaliar se, com uma escolha adequada dos parâmetros, os modelos são capazes de gerar redes parecidas às redes dos dois sistemas. O experimento foi dividido em cinco etapas: extração das redes dos sistemas (redes reais), análise das redes reais, escolha dos parâmetros dos modelos, geração de redes sintéticas e comparação entre redes sintéticas e as redes reais correspondentes. 
+Na seção anterior discutimos características gerais dos modelos de geração de redes. Com o objeto de avaliar a capacidade dos modelos de gerar redes semelhantes a redes de dependências entre classes, realizamos um experimento com dois sistemas, o jogo VilloNanny 2.2.4 e o programa IRPF 2009. O experimento foi dividido em cinco etapas: extração das redes dos sistemas (redes reais), análise das redes reais, escolha dos parâmetros dos modelos, geração de redes sintéticas e comparação entre redes sintéticas e as redes reais correspondentes. 
 
 \subsection{Extração}
 
-Os sistemas analisados foram implementados na linguagem Java e distribuídos em diversos arquivos JAR, cada arquivo contendo várias classes. Para construir a rede de um sistema, consideramos que cada arquivo JAR é um módulo arquitetural. Essa é uma aproximação razoável, uma vez que arquivos JAR distintos são, em geral, desenvolvidos por equipes diferentes. A extração das dependências entre as classes foi realizada pela ferramenta DepFind\footnote{\url{http://depfind.sourceforge.net/}}.
-%(Naturalmente, cada um desses módulos pode ser decomposto em submódulos, formando uma hierarquia de módulos XXX)
+Os sistemas analisados foram implementados na linguagem Java e distribuídos em diversos arquivos JAR, cada arquivo contendo várias classes. Para construir a rede de um sistema, consideramos que cada arquivo JAR é um módulo arquitetural. Essa é uma aproximação razoável, uma vez que arquivos JAR distintos são, em geral, desenvolvidos por equipes diferentes. (Naturalmente, o desafio de um algoritmo de clustering é descobrir os módulos \emph{dentro} de cada arquivo JAR.) A extração das dependências entre as classes foi realizada pela ferramenta DepFind\footnote{\url{http://depfind.sourceforge.net/}}.
+%(Naturalmente, cada um desses módulos pode ser decomposto em submódulos, formando uma hierarquia de módulos )
+
+% TODO: ONDE VOU FALAR QUE CONSIDERAMOS GRAFOS NÃO-ORIENTADOS
 
 \subsection{Análise de sistemas reais}
 
-Baseado em pesquisas anteriores \cite{Valverde2003,Myers2003,Baxter2006}, consideramos que a distribuição estatística dos graus dos vértices e a distribuição dos tamanhos dos módulos seguem aproximadamente uma lei de potência. Para cada rede foram coletadas diversas métricas da teoria dos grafos e da teoria das redes complexas:
+%Baseado em pesquisas anteriores \cite{Valverde2003,Myers2003,Baxter2006}, consideramos que a distribuição estatística dos graus dos vértices e a distribuição dos tamanhos dos módulos seguem aproximadamente uma lei de potência. Para cada rede foram coletadas diversas métricas da teoria dos grafos e da teoria das redes complexas:
+
+De cada sistema foram extraídas as seguinte métricas:
 
 \begin{itemize}
-\item número de vértices, $N$;
-\item número de arestas, $E$;
-\item número de arestas externas $E_{ext}$ --- número de arestas que ligam vértices em módulos distintos;
+\item número de vértices, $|V|$;
+\item número de arestas, $|E|$;
+\item número de arestas externas $|E_{ext}|$;
 \item grau médio, $\langle k \rangle$;
 \item grau máximo, $k_{max}$;
-\item expoente da distribuição de graus, $\gamma_g$;
-\item número de módulos, $C$;
-\item tamanho do menor módulo, $T_{min}$;
-\item tamanho do maior módulo, $T_{max}$;
-\item expoente da distribuição dos tamanhos dos módulos, $\gamma_m$
+\item expoente da distribuição de graus, $\gamma$;
+\item número de módulos, $|M|$;
+\item tamanho do menor módulo, $t_{min}$;
+\item tamanho do maior módulo, $t_{max}$;
+\item expoente da distribuição dos tamanhos dos módulos, $\beta$
 %\item coeficiente de clustering
 \end{itemize}
 
 Os expoentes das distribuições de graus e de tamanhos dos módulos foram estimados através da técnica de máxima verossimilhança \cite{Clauset2007}. Utilizamos uma implementação disponível disponível na Internet\footnote{\url{http://www.santafe.edu/~aaronc/powerlaws/}}. 
 %No caso da distribuição dos tamanhos dos módulos fixamos xmin = 1, pois o número de módulos é pequeno...
 
-Extraímos ainda a rede de dependências entre MÓDULOS...
+Além disso, extraímos a arquitetura modular do sistema. Na arquitetura, existe uma aresta de um módulo A para um módulo B somente se existe um vértice de A que se liga a um vértice de B.
 
 \subsection{Escolha dos parâmetros dos modelos}
 
-Para o modelo de rede aleatória com módulos, mantemos o número de vértices e o número de módulos do sistema. O parâmetro $p$ foi definido para $E / N(N-1)$, de modo que se espera que o grafo produzido pelo modelo tenha $E$ arestas, assim como o sistema.
+Na discussão a seguir, $X^s$ e $X^m$ representam, respectivamente, o valor de uma métrica $X$ extraída de um sistema e o valor de um parâmetro $X$ de um modelo.
 
-Os parâmetros do modelo LFR são iguais às métricas correspondentes extraídas dos sistemas.
+Para o modelo de rede aleatória com módulos, consideramos $|V|^m = |V|^s$ e $|M|^m = |M|^s$, isto é,  mantivemos o número de vértices e o número de módulos do sistema. O valor da probabilidade de ligação, $p$, foi fixado em $2|E|^s / |V|^s(|V|^s-1)$; desta forma o número de arestas esperado é $E^s$.
 
-Para o modelo XXX definimos a arquitetura igual à arquitetura do sistema, número de vértices idem e calculamos $\alpha, \beta, \gamma, \delta_{in}, \delta_{out}$ de forma a satisfazer às seguintes restrições:
+Para o modelo LFR a maioria dos parâmetros foi fixada de acordo com as métricas do sistema. O parâmetro de mistura, $\mu$ foi definido de acordo com a expressão $|E_ext|^s / |E|^s$.
+
+Para o modelo XXX a arquitetura modular fornecida como parâmetro é igual à arquitetura extraída do sistema, número de vértices idem e calculamos $p, r, q, \delta_{in}, \delta_{out}$ de forma a satisfazer às seguintes restrições:
 \begin{itemize}
-  \item $\gamma = \alpha$. Como no estudo consideramos redes não-orientadas, não faz sentido distinguir os dois casos em que há a criação de um vértice e uma aresta, já que apenas o sentido da aresta é alterado.
+  \item $q = p$. Como no estudo consideramos redes não-orientadas, não faz sentido distinguir os dois casos em que há a criação de um vértice e uma aresta, já que apenas o sentido da aresta é alterado.
   \item O número de arestas do modelo deveria ser igual ao número de arestas do sistema
   \item O grau máximo ...
   \item O tamanho da maior comunidade ...
@@ -242,8 +254,9 @@ Para o modelo XXX definimos a arquitetura igual à arquitetura do sistema, núme
 
 \subsection{Geração de sistemas sintéticos}
 
-Foram geradas 10 redes para cada modelo. Por que 10?
-% Ver calculadora de tamanho de amostra: http://www.surveysystem.com/sscalc.htm
+Como os modelos são estocásticos, é insuficiente analisar apenas uma instância de cada modelo. 
+Foram geradas X redes para cada modelo. ( Por que X?
+Ver calculadora de tamanho de amostra em http://www.surveysystem.com/sscalc.htm )
 
 \subsection{Comparação com os sistemas reais}
 
