@@ -1,9 +1,3 @@
-% Sistemas legados, divisão em módulos, equipes de desenvolvimento
-% Algoritmo de clustering, aproximação dos módulos
-% Avaliação com sistemas cujos módulos sejam conhecidos, especialista
-% N² vantagens! Sistemas grandes. Muitos sistemas. Parâmetros ajustáveis!
-% Neste estudo mostramos os modelos e avaliamos, comparativamente, seu realismo.
-
 % http://swasr.googlecode.com/svn/trunk/latex/artigo1/artigo1.pdf
 \documentclass{acm_proc_article-sp}
 \usepackage[utf8]{inputenc}
@@ -81,16 +75,22 @@
 % 3. Describe how your work addresses a gap in existing knowledge or ability (here's where you'll state why you've undertaken this study). 
 % 4. State what information your article will address. 
 
-Recuperação de arquitetura de \emph{software} é o ato de extrair aspectos da arquitetura de um sistema através de artefatos como código-fonte. Muitos esforços têm se concentrado no particionamento de sistemas em módulos arquiteturais --- grupos coesos de entidades de código-fonte (classes ou funções) --- através de algoritmos de agrupamento (\emph{clustering}). Não há consenso, no entanto, sobre quais algoritmos de agrupamento são mais adequados para a tarefa de recuperação de módulos arquiteturais.
+% Sistemas legados, divisão em módulos, equipes de desenvolvimento
+% Algoritmo de clustering, aproximação dos módulos
+% Avaliação com sistemas cujos módulos sejam conhecidos, especialista
+% N² vantagens! Sistemas grandes. Muitos sistemas. Parâmetros ajustáveis!
+% Neste estudo mostramos os modelos e avaliamos, comparativamente, seu realismo.
 
-Uma formas de avaliar um algoritmo de agrupamento consiste em aplicá-lo a um sistema cuja organização do código-fonte em módulos seja conhecida e então comparar os módulos do sistema com os módulos encontrados pelo algoritmo através de uma medida de distância entre particionamentos. Infelizmente é difícil encontrar sistemas documentados nesse nível de detalhe, e por isso os estudos experimentais realizados são superficiais. Alguns estudos revelam que a avaliação de um algoritmo varia bastante de sistema para sistema. Devido ao pequeno tamanho das amostras analisadas, no entanto, não existe uma explicação que permita que se determine a priori se um algoritmo fornece bons resultados para um sistema.
+A divisão conceitual de um sistema de \emph{software} em módulos é muito importante no gerenciamento da evolução do sistema (Parnas, 1972). À medida que os desenvolvedores de um sistema são substituídos, no entanto, essa informação pode se perder. Alguns pesquisadores propõem o uso de algoritmos de aglomeração (\emph{clustering}) para recuperar a arquitetura modular de um sistema a partir de sua implementação.
 
+Espera-se que os algoritmos encontrem organizações modulares semelhantes àquelas que seriam encontradas por  especialistas nos sistemas analisados. Uma forma de validar os algoritmos consiste, pois, em aplicá-lo ao código-fonte de um sistema cuja organização em módulos seja conhecida e então comparar os módulos do sistema com os módulos encontrados pelo algoritmo através de uma medida de similaridade entre particionamentos (cite mojo, edgemojo etc.). Infelizmente é difícil encontrar sistemas documentados nesse nível de detalhe, e por essa razão a avaliação empírica dos algoritmos de aglomeração no domínio de sistemas de software ainda é insuficiente.
+
+%Alguns estudos revelam que a avaliação de um algoritmo varia bastante de sistema para sistema. Devido ao pequeno tamanho das amostras analisadas, no entanto, não existe uma explicação que permita que se determine a priori se um algoritmo fornece bons resultados para um sistema.
 %Alguns experimentos revelam que o algoritmo mais adequado para um sistema pode ter um desempenho medíocre quando aplicado a outro sistema mas, devido às amostras pequenas, não foi encontrada uma explicação para essa variação.
 % consideram amostras pequenas
-
 %OS ESTUDOS FEITOS ASSIM NÃO SÃO CONTUNDENTES, OBTÊM RESULTADOS DIFERENTES PARA SISTEMAS DIFERENTES E NÃO TÊM NENHUMA PISTA SOBRE O QUE FAZ UM ALGORITMO SER BOM EM UM SISTEMA E RUIM EM OUTRO.
 
-Propomos uma abordagem de avaliação complementar, baseada na análise de sistemas de software sintéticos. Esses sistemas são gerados por computador a partir de modelos parametrizáveis e obedecem a estruturas modulares conhecidas. Com essa abordagem é possível avaliar algoritmos de agrupamento com amostras arbitrariamente grandes de sistemas arbitrariamente complexos e, sobretudo, estudar como o desempenho dos algoritmos é afetado por parâmetros que definem os sistemas sintéticos.
+Propomos uma abordagem de avaliação complementar, baseada na produção de sistemas de software sintéticos. Esses sistemas são gerados por computador a partir de modelos parametrizáveis e obedecem a estruturas modulares conhecidas. Com essa abordagem é possível avaliar algoritmos de agrupamento com amostras arbitrariamente grandes de sistemas arbitrariamente complexos e, sobretudo, estudar como o desempenho dos algoritmos é afetado por parâmetros que definem os sistemas sintéticos.
 
 Neste artigo apresentamos um modelo para a geração de sistemas sintéticos e avaliamos o realismo desse modelo, isto é, a similaridade entre os sistemas sintéticos e sistemas reais. Para fins de comparação, essa mesma análise é realizada sobre modelos genéricos disponíveis na literatura sobre redes complexas.
 
@@ -98,37 +98,42 @@ Na próxima seção.... na seção x.... por fim, .....
 
 \section{Fundamentação Teórica}
 
+      this work, we present an empirical study in which
+we evaluate clustering algorithms that work on design
+extracted from source code through static analysis.
+
+
+Neste trabalho consideramos 
+Embora a recuperação de módulos tenha sido aplicada a diversos paradigmas de programação, neste trabalho nos concentramos em sistemas orientados a objetos.
+A recuperação de módulos de um sistema é dividida em duas etapas: extração de dependências e aglomeração. Considerando 
+
+Neste trabalho consideramos apenas a recuperação de módulos a partir da implementação de sistemas orientados a objetos. 
+
 \subsection{Redes de Dependências entre Classes}
 
-Para recuperar os módulos de um sistema orientado a objetos é suficiente considerar as suas classes e os relacionamentos de dependência entre elas --- uma rede de dependências entre classes. Essas redes podem ser extraídas automaticamente a partir da análise estática do código-fonte ou do código objeto do sistema que se deseja estudar.
-
-Pesquisas recentes na teoria das redes complexas encontraram características comuns a redes que representam objetos de diversos domínios (sociologia, biologia, linguística, tecnologia etc.), incluindo as redes de dependências entre classes. A partir daí foram criados diversos modelos que procuram explicar como essas redes são formadas.
-
-\subsection{Conceitos}
-
-Arestas externas
-
-Lei de potência
-
-%Neste estudo foram avaliados três modelos de geração de redes complexas: o modelo de configuração, o modelo de Bollobás \cite{Bollobas2003}, o modelo de Lancichinetti, Fortunato e Radicchi \cite{Lancichinetti2008} e um novo modelo, baseado no modelo de Bollobás. Os dois últimos modelos geram redes com uma estrutura de módulos embutida.
+% O código-fonte de um sistema é muito detalhado; algoritmos operam sobre uma representação mais abstrata.
+% daqui pra frente, rede de software.
+Para recuperar os módulos de um sistema orientado a objetos é comum considerar apenas as suas classes e os relacionamentos de dependência entre elas --- uma rede de dependências entre classes. Essas redes podem ser extraídas automaticamente a partir da análise estática do código-fonte ou do código objeto do sistema que se deseja estudar.
 
 \subsection{Modelos de Geração de Redes Complexas}
 
+Pesquisas recentes mostram que redes de dependências entre classes possuem características comuns a redes complexas estudadas em diversos domínios, tais como sociologia, biologia e linguística \cite{Myers2003,Valverde2003}. Foram desenvolvidos diversos modelos que simulam a construção de redes com tais características \cite{Bollobas2003,Lancichinetti2008}; esses modelos podem ser usados, portanto, para gerar redes de dependências entre classes. 
+
 \subsubsection{Modelo Aleatório com Módulos}
 
-O modelo de Erdős-Rényi \cite{Erdos1959}, ou modelo de rede aleatória, gera redes não-orientadas e é muito usado como base de comparação em diversos estudos. Propomos aqui uma simples extensão desse modelo que considera a divisão dos vértices em módulos. O modelo possui os seguintes parâmetros:
+O modelo de Erdős-Rényi \cite{Erdos1959}, ou modelo de rede aleatória, gera redes não-orientadas cujo número de arestas por vértice segue uma distribuição de Poisson. Ele não modela adequadamente as redes de software, e por isso é usada apenas como base de comparação. Propomos aqui uma simples extensão desse modelo que considera a organização dos vértices em módulos. O modelo possui os seguintes parâmetros:
 
 \begin{itemize}
-  \item número de vértices, $N$;
+  \item número de vértices, $|V|$;
   \item probabilidade de ligação, $p$;
   \item número de módulos, $C$.
 \end{itemize} 
 
-O algoritmo cria uma rede composta de $N$ vértices. Cada vértice é incluido em uma comunidade, onde todas as comunidades têm a mesma probabilidade de serem escolhidas. Então, para cada par de vértices, é adicionada uma aresta, com probabilidade $p$.
+O algoritmo de geração de redes inicia-se com a criação de $|V|$ vértices. A seguir cada vértice é incluído em um módulo escolhido com probabilidade uniforme. Por fim, para cada par de vértices, é adicionada uma aresta, com probabilidade $p$.
 
 \subsubsection{Modelo LFR}
 
-Lancichinetti, Fortunato e Radicchi \cite{Lancichinetti2008} criaram um modelo de rede com estrutura de módulos embutida que é usado para avaliar algoritmos de clustering. O modelo não foi baseado em nenhum domínio em particular, mas incorpora características encontradas em redes de vários domínios. Ele gera grafos não-orientados e não-ponderados cuja distribuição dos graus dos vértices e cuja distribuição dos tamanhos dos módulos são ambas leis de potência e, portanto, bastante heterogêneas. Mais precisamente, o número de vértices cujo grau é $k$ é proporcional a $k^{-\gamma_1}$, onde o expoente $\gamma_1$ tipicamente varia entre 2 e 3, e o número de módulos com $x$ vértices é proporcional a $x^{\gamma_2}$, com $\gamma_2$ entre 1 e 2.
+Lancichinetti, Fortunato e Radicchi \cite{Lancichinetti2008} criaram um modelo de rede com estrutura de módulos embutida. O modelo não foi baseado em nenhum domínio em particular, mas incorpora distribuições estatísticas encontradas em redes de vários domínios. Ele gera grafos não-orientados e não-ponderados cuja distribuição dos graus dos vértices e cuja distribuição dos tamanhos dos módulos são ambas leis de potência. Mais precisamente, o número de vértices cujo grau é $k$ é proporcional a $k^{-\gamma}$, onde o expoente $\gamma$ tipicamente varia entre 2 e 3, e o número de módulos com $n$ vértices é proporcional a $x^{\beta}$, com $\beta$ entre 1 e 2.
 
 O modelo possui os seguintes parâmetros:
 \begin{itemize}
@@ -142,7 +147,7 @@ O modelo possui os seguintes parâmetros:
   \item parâmetro de mistura, $\mu$.
 \end{itemize}
 
-O modelo gera redes que seguem aproximadamente os parâmetros fornecidos. O parâmetro de mistura é um número entre 0 e 1 que indica a fração das arestas de cada vértice que são compartilhadas com vértices de outro módulo. Por exemplo, se $\mu = 0,4$, então 40\% das arestas de cada vértice são ligadas a vértices que não pertencem ao mesmo módulo do vértice de origem.
+O algoritmo gera redes que seguem aproximadamente os parâmetros fornecidos. O parâmetro de mistura é um número entre 0 e 1 que indica a fração das arestas de cada vértice que são compartilhadas com vértices de outro módulo. Por exemplo, se $\mu = 0,4$, então 40\% das arestas de cada vértice são ligadas a vértices que não pertencem ao mesmo módulo do vértice de origem.
 
   \textbf{Discussão}
 
