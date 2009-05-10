@@ -6,6 +6,8 @@
 \usepackage{graphicx}
 \usepackage{url}
 
+\hyphenation{pa-ra-me-tri-zá-veis ba-se-a-da ve-ros-si-mi-lhan-ça o-ri-en-ta-das não-o-ri-en-ta-das}
+
 %the story is not what you did, but rather
 %  what you show, new ideas, new insights
 %  why interesting, important?
@@ -75,11 +77,11 @@ Espera-se que os algoritmos encontrem organizações modulares semelhantes àque
 
 Propomos uma abordagem de avaliação complementar, baseada na produção de sistemas de software sintéticos. Esses sistemas são gerados por computador a partir de modelos parametrizáveis e obedecem a estruturas modulares conhecidas. Com essa abordagem é possível submeter os algoritmos a amostras arbitrariamente grandes de sistemas arbitrariamente complexos e, sobretudo, estudar como o desempenho dos algoritmos é afetado por parâmetros que definem os sistemas sintéticos.
 
-A implementação de um sistema possui muitos detalhes, e nem todos os detalhes são relevantes para se compreender sua organização modular. Para recuperar os módulos de um sistema orientado a objetos é comum considerar apenas as suas classes e os relacionamentos de dependência entre elas --- uma rede de dependências entre classes. Essas redes podem ser extraídas automaticamente a partir da análise estática do código-fonte ou do código objeto do sistema que se deseja estudar. (Neste estudo consideramos apenas sistemas orientados a objetos, mas os conceitos podem ser igualmente aplicados a outros paradigmas de programação.)
-
 Na próxima seção apresentamos três modelos estocásticos que podem ser usados para gerar sistemas sintéticos. Na seção \ref{sec:experimento} descrevemos um experimento para avaliar os modelos quanto à capacidade de gerar sistemas semelhantes a sistemas reais. Os resultados do experimento são apresentados na seção \ref{sec:resultados}. Na seção \ref{sec:discussao} discutimos  os resultados obtidos e os trabalhos futuros.
 
-\section{Modelos de Geração de Redes Complexas} \label{sec:modelos}
+\section{Modelos Estocásticos} \label{sec:modelos}
+
+A implementação de um sistema possui muitos detalhes, e nem todos os detalhes são relevantes para se compreender sua organização modular. Para recuperar os módulos de um sistema orientado a objetos é comum considerar apenas as suas classes e os relacionamentos de dependência entre elas --- uma rede de dependências entre classes. Essas redes podem ser extraídas automaticamente a partir da análise estática do código-fonte ou do código objeto do sistema que se deseja estudar. (Neste estudo consideramos apenas sistemas orientados a objetos, mas os conceitos podem ser igualmente aplicados a outros paradigmas de programação.)
 
 Pesquisas recentes mostram que redes de dependências entre classes possuem características comuns a redes complexas estudadas em diversos domínios, tais como sociologia, biologia e linguística \cite{Myers2003,Valverde2003}. Foram desenvolvidos diversos modelos que simulam a construção de redes com tais características \cite{Bollobas2003,Lancichinetti2008}; esses modelos podem ser usados, portanto, para gerar redes de dependências entre classes. 
 
@@ -113,7 +115,7 @@ O modelo possui os seguintes parâmetros:
 
 O algoritmo gera redes que seguem aproximadamente os parâmetros fornecidos. O parâmetro de mistura indica a fração das arestas de cada vértice que são compartilhadas com vértices de outro módulo. Por exemplo, se $\mu = 0,4$ e o vértice $v$ pertence ao módulo $M$, então 40\% das suas arestas estão ligadas a vértices que não pertencem ao módulo $M$. Arestas que ligam vértices de módulos distintos são chamadas de \emph{arestas externas}. % Apagar última frase?
 
-  \textbf{Discussão}
+%  \textbf{Discussão}
 
   O modelo gera grafos não-orientados, uma representação muito simplificada das redes de dependências entre classes. Além disso, ele considera que todos os vértices possuem arestas para vértices de outros módulos, o que certamente não é verdade no domínio de \emph{software}. Por fim, os vértices de um módulo podem se ligar a vértices de qualquer outro módulo, sem restrição. Essa característica difere do que se encontra em programas de computador, onde as dependências entre módulos são controladas (por exemplo, ao se adotar uma arquitetura em camadas).
 % rápido: cerca de 13s para 1658 vértices no athlon 64 3000+ com 1 GB de RAM.
@@ -154,7 +156,7 @@ Como neste modelo a rede é orientada, pode-se considerar separadamente uma dist
 \gamma_{out} = 1 + \frac{r + q}{1 + \delta_{out}(p + q)}
 \end{equation}
 
-  \textbf{Discussão}
+%  \textbf{Discussão}
 
 Este modelo supera as limitações encontradas no modelo LFR: as redes são orientadas, nem todos os vértices são ligados a vértices de outros módulos e é possível restringir as dependências entre módulos através da arquitetura fornecida como parâmetro. Além disso ele é um modelo evolutivo: o algoritmo pode ter como ponto de partida uma rede existente e então expandi-la criando mais vértices e arestas. A desvantagem em relação ao modelo LFR é o controle reduzido sobre a rede: não há como impor restrições sobre o grau máximo, sobre a distribuição dos tamanhos dos módulos e nem estabelecer limites de tamanho para os módulos.
 % experimentalmente, tamanhos x dos módulos ~ x^-1. TODO: Deve ser fácil provar analiticamente.
@@ -196,7 +198,7 @@ De cada sistema foram extraídas as seguinte métricas:
 %\item coeficiente de clustering
 \end{itemize}
 
-Os expoentes das distribuições de graus e de tamanhos dos módulos foram estimados através da técnica de máxima verossimilhança \cite{Clauset2007}. Utilizamos uma implementação disponível disponível na Internet\footnote{\url{http://www.santafe.edu/~aaronc/powerlaws/}}. 
+Os expoentes das distribuições de graus e de tamanhos dos módulos foram estimados através da técnica de máxima verossimilhança \cite{Clauset2007}. Utilizamos uma implementação disponível na Internet\footnote{\url{http://www.santafe.edu/~aaronc/powerlaws/}}.
 %No caso da distribuição dos tamanhos dos módulos fixamos xmin = 1, pois o número de módulos é pequeno...
 
 Além disso, extraímos a arquitetura modular do sistema. Na arquitetura, existe uma aresta de um módulo $A$ para um módulo $B$ somente se pelo menos um vértice de $A$ se liga a um vértice de $B$.
@@ -205,7 +207,11 @@ Além disso, extraímos a arquitetura modular do sistema. Na arquitetura, existe
 
 Na discussão a seguir, $X^s$ e $X^m$ representam, respectivamente, o valor de uma métrica $X$ extraída de um sistema e o valor de um parâmetro $X$ de um modelo.
 
-Para o modelo de rede aleatória com módulos, consideramos $|V|^m = |V|^s$ e $|M|^m = |M|^s$, isto é,  mantivemos o número de vértices e o número de módulos do sistema. O valor da probabilidade de ligação, $p$, foi fixado em $\frac{2|E|^s}{|V|^s(|V|^s-1)}$; desta forma espera-se que o número de arestas da rede gire em torno de $|E|^s$.
+Para o modelo de rede aleatória com módulos, consideramos $|V|^m = |V|^s$ e $|M|^m = |M|^s$, isto é,  mantivemos o número de vértices e o número de módulos do sistema. Com o objetivo de aproximar o número de arestas das redes sintéticas do número de arestas das redes reais, o valor de $p$ foi definido segundo a seguinte expressão:
+
+\begin{equation}
+p = \frac{2|E|^s}{|V|^s(|V|^s-1)}
+\end{equation}
 
 Para o modelo LFR a maioria dos parâmetros foi fixada de acordo com as métricas do sistema. O parâmetro de mistura, $\mu$ foi definido de acordo com a expressão $|E_{ext}|^s / |E|^s$.
 
