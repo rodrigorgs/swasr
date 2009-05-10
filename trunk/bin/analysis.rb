@@ -65,6 +65,7 @@ if not File.file?(c.edges_file)
 end
 if not File.file?(c.modules_file)
   puts "Warning: File #{c.modules_file} does not exist."
+  c.modules_file = nil
 end
 network = Network.new(c.edges_file, c.modules_file)
 

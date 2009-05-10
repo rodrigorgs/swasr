@@ -88,7 +88,7 @@ class DepxmlHandler2
 
   def add_edge(from, to)
     #puts "#{from} #{to}"
-    @pairs << [from, to] unless @pairs[-1] == [from, to]
+    @pairs << [from, to] unless (from == to || @pairs[-1] == [from, to])
   end
 end
 

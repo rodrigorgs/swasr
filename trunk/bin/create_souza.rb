@@ -101,6 +101,11 @@ if __FILE__ == $0
       desc 'Out-degree offset (default: 0.0)'
     end
 
+    option :profile do
+      long '--profile'
+      desc 'Profile the execution'
+    end
+
     separator ''
   end
 
@@ -117,6 +122,11 @@ if __FILE__ == $0
     exit 1
   end
 
+  if c.profile
+    require 'ruby-prof'
+    RubyProf.start
+  end
+
   g = souza2009_game(
      c.nodes, 
      arch,
@@ -126,6 +136,12 @@ if __FILE__ == $0
      c.din,
      c.dout,
      c.mixing)
+
+  if c.profile
+    result = RubyProf.stop
+    printer = RubyProf::FlatPrinter.new(result)
+    printer.print(STDOUT, 0)
+  end
 
   pairs = g.edges.map { |e| [e.from.eid, e.to.eid] }
   modules = g.nodes.map { |n| [n.eid, n.cluster.eid] }

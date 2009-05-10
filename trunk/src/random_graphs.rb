@@ -18,10 +18,12 @@ def choose_random_acc(acc_weights, labels=(0..acc_weights.size-1).to_a)
   return nil if acc_weights.nil? || acc_weights.empty?
 
   n = rand * acc_weights[-1]
+  # XXX optimize using binary search
   acc_weights.each_with_index { |x, i| return labels[i] if x > n }
   return labels[acc_weights.size - 1]
 end
 
+# XXX optimize (maybe avoid using this function)
 def choose_random(weights, labels=(0..weights.size-1).to_a)
   return nil if weights.nil? || weights.empty?
 
@@ -73,6 +75,47 @@ def bollobas_game(iterations, alpha, beta, gamma, delta_in, delta_out, base_inde
       # chosen according to d_out + delta_out
       vertex_prob = g.vertices.map { |x| g.out_degree(x) + delta_out }
       v = g.vertices[choose_random(vertex_prob)]
+      w = base_index
+      g.add_vertex(w)
+      g.add_edge(v, w)
+      base_index += 1
+    end
+  end
+
+  return g
+end
+
+def bollobas2_game(nodes, alpha, beta, gamma, delta_in=0, delta_out=0, base_index=0)
+  sum = 0
+  event_prob_acc = [alpha, beta, gamma].map { |x| sum += x; sum }
+
+  g = Network.new
+  g.add_edge(base_index + 0, base_index + 1)
+  base_index += 2
+  while g.size < nodes
+    event = choose_random_acc(event_prob_acc)
+    case event
+    when 0
+      # add a new vertex v together with an edge from v to an existing 
+      # vertex w, where w is chosen according to d_in + delta_in
+      vertex_prob = g.nodes.map { |x| g.in_degree(x) + delta_in }
+      w = g.nodes[choose_random(vertex_prob)]
+      v = base_index
+      g.add_vertex(v)
+      g.add_edge(v, w)
+      base_index += 1
+    when 1
+      # add an edge from an existing vertex v to an existing vertex w, where
+      # v and w are chosen independently, v according to d_out + delta_out,
+      # and w according to d_in + delta_in
+      v = choose_random(g.nodes.map { |x| g.out_degree(x) + delta_out })
+      w = choose_random(g.nodes.map { |x| g.in_degree(x) + delta_in })
+      g.add_edge(g.nodes[v], g.nodes[w])
+    when 2
+      # add a new vertex w and an edge from an existing v to w, where v is
+      # chosen according to d_out + delta_out
+      vertex_prob = g.nodes.map { |x| g.out_degree(x) + delta_out }
+      v = g.nodes[choose_random(vertex_prob)]
       w = base_index
       g.add_vertex(w)
       g.add_edge(v, w)
@@ -316,7 +359,6 @@ def souza2009_game(size_limit, arch, alpha, beta, gamma,
   while g.size < size_limit
     event = choose_random_acc(event_prob_acc, [:alpha, :beta, :gamma])
 
-    raise "Erro" if g.nodes.any? { |x| x.eid.nil? }
     case event
     when :alpha
       w = choose_random(g.nodes.map{ |x| x.in_degree + delta_in }, g.nodes)
