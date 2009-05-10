@@ -52,76 +52,40 @@
 
 
 \begin{document}
-\title{Artigo 1} % Avaliação de modelos de síntese de software
+\title{Modelos Estocásticos para Síntese de Sistemas de Software Organizados em Módulos}
 \author{Rodrigo Rocha Gomes e Souza}
 \maketitle
 
 \begin{abstract}
 
-% goals, results, and the main conclusions of your study
-
-% Kent Beck's sentences: The first states the problem. The second states why the problem is a problem. The third is my startling sentence. The fourth states the implication of my startling sentence.
+Existem muitos algoritmos para identificar os módulos de um sistema a partir de sua implementação, mas poucos estudos empíricos sobre esses algoritmos. Isso ocorre porque é difícil encontrar sistemas cuja arquitetura modular é bem documentada. Propomos suprir essa escassez através da geração automática de sistemas de \emph{software} sintéticos, viabilizando análises empíricas em larga escala. Neste artigo apresentamos e avaliamos três modelos estocásticos que cumprem esse papel.
 
 \end{abstract}
 
 \section{Introdução} % why
 
-% why you have investigated the question
-% 
-% how it relates to earlier research that has been done in the field
-% 
-% 1. Open with two or three sentences placing your study subject in context
-% 2. Follow with a description of the problem and its history, including previous research
-% 3. Describe how your work addresses a gap in existing knowledge or ability (here's where you'll state why you've undertaken this study). 
-% 4. State what information your article will address. 
+A divisão conceitual de um sistema de \emph{software} em módulos, denominada arquitetura modular, é muito importante no gerenciamento da evolução do sistema \cite{Parnas1972}. À medida que os desenvolvedores de um sistema são substituídos, no entanto, essa informação pode se perder. Alguns pesquisadores propõem o uso de algoritmos de aglomeração (\emph{clustering}) para recuperar a arquitetura modular de um sistema a partir de sua implementação. % \CITE
 
-% Sistemas legados, divisão em módulos, equipes de desenvolvimento
-% Algoritmo de clustering, aproximação dos módulos
-% Avaliação com sistemas cujos módulos sejam conhecidos, especialista
-% N² vantagens! Sistemas grandes. Muitos sistemas. Parâmetros ajustáveis!
-% Neste estudo mostramos os modelos e avaliamos, comparativamente, seu realismo.
-
-A divisão conceitual de um sistema de \emph{software} em módulos é muito importante no gerenciamento da evolução do sistema (Parnas, 1972). À medida que os desenvolvedores de um sistema são substituídos, no entanto, essa informação pode se perder. Alguns pesquisadores propõem o uso de algoritmos de aglomeração (\emph{clustering}) para recuperar a arquitetura modular de um sistema a partir de sua implementação.
-
-Espera-se que os algoritmos encontrem organizações modulares semelhantes àquelas que seriam encontradas por  especialistas nos sistemas analisados. Uma forma de validar os algoritmos consiste, pois, em aplicá-lo ao código-fonte de um sistema cuja organização em módulos seja conhecida e então comparar os módulos do sistema com os módulos encontrados pelo algoritmo através de uma medida de similaridade entre particionamentos (cite mojo, edgemojo etc.). Infelizmente é difícil encontrar sistemas documentados nesse nível de detalhe, e por essa razão a avaliação empírica dos algoritmos de aglomeração no domínio de sistemas de software ainda é insuficiente.
+Espera-se que os algoritmos encontrem organizações modulares semelhantes àquelas que seriam encontradas por  especialistas nos sistemas analisados. Uma forma de validar os algoritmos consiste, pois, em aplicá-lo ao código-fonte de um sistema cuja organização em módulos seja conhecida e então comparar os módulos do sistema com os módulos encontrados pelo algoritmo através de uma medida de similaridade entre particionamentos (cite mojo, edgemojo etc.). Infelizmente é difícil encontrar sistemas documentados nesse nível de detalhe, e por essa razão a avaliação empírica dos algoritmos de recuperação de arquitetura ainda é incipiente. % MOVER INFELIZMENTE... PARA OUTRO PARÁGRAFO E FALAR DE DISCREPÂNCIAS DE DESEMPENHO DE UM ALGORITMO DE SISTEMA PARA SISTEMA?
 
 %Alguns estudos revelam que a avaliação de um algoritmo varia bastante de sistema para sistema. Devido ao pequeno tamanho das amostras analisadas, no entanto, não existe uma explicação que permita que se determine a priori se um algoritmo fornece bons resultados para um sistema.
 %Alguns experimentos revelam que o algoritmo mais adequado para um sistema pode ter um desempenho medíocre quando aplicado a outro sistema mas, devido às amostras pequenas, não foi encontrada uma explicação para essa variação.
 % consideram amostras pequenas
 %OS ESTUDOS FEITOS ASSIM NÃO SÃO CONTUNDENTES, OBTÊM RESULTADOS DIFERENTES PARA SISTEMAS DIFERENTES E NÃO TÊM NENHUMA PISTA SOBRE O QUE FAZ UM ALGORITMO SER BOM EM UM SISTEMA E RUIM EM OUTRO.
 
-Propomos uma abordagem de avaliação complementar, baseada na produção de sistemas de software sintéticos. Esses sistemas são gerados por computador a partir de modelos parametrizáveis e obedecem a estruturas modulares conhecidas. Com essa abordagem é possível avaliar algoritmos de agrupamento com amostras arbitrariamente grandes de sistemas arbitrariamente complexos e, sobretudo, estudar como o desempenho dos algoritmos é afetado por parâmetros que definem os sistemas sintéticos.
+Propomos uma abordagem de avaliação complementar, baseada na produção de sistemas de software sintéticos. Esses sistemas são gerados por computador a partir de modelos parametrizáveis e obedecem a estruturas modulares conhecidas. Com essa abordagem é possível submeter os algoritmos a amostras arbitrariamente grandes de sistemas arbitrariamente complexos e, sobretudo, estudar como o desempenho dos algoritmos é afetado por parâmetros que definem os sistemas sintéticos.
 
-Neste artigo apresentamos um modelo para a geração de sistemas sintéticos e avaliamos o realismo desse modelo, isto é, a similaridade entre os sistemas sintéticos e sistemas reais. Para fins de comparação, essa mesma análise é realizada sobre modelos genéricos disponíveis na literatura sobre redes complexas.
+A implementação de um sistema possui muitos detalhes, e nem todos os detalhes são relevantes para se compreender sua organização modular. Para recuperar os módulos de um sistema orientado a objetos é comum considerar apenas as suas classes e os relacionamentos de dependência entre elas --- uma rede de dependências entre classes. Essas redes podem ser extraídas automaticamente a partir da análise estática do código-fonte ou do código objeto do sistema que se deseja estudar. (Neste estudo consideramos apenas sistemas orientados a objetos, mas os conceitos podem ser igualmente aplicados a outros paradigmas de programação.)
 
-Na próxima seção.... na seção x.... por fim, .....
+Na próxima seção apresentamos três modelos estocásticos que podem ser usados para gerar sistemas sintéticos. Na seção \ref{sec:experimento} descrevemos um experimento para avaliar os modelos quanto à capacidade de gerar sistemas semelhantes a sistemas reais. Os resultados do experimento são apresentados na seção \ref{sec:resultados}. Na seção \ref{sec:discussao} discutimos  os resultados obtidos e os trabalhos futuros.
 
-\section{Fundamentação Teórica}
-
-      this work, we present an empirical study in which
-we evaluate clustering algorithms that work on design
-extracted from source code through static analysis.
-
-
-Neste trabalho consideramos 
-Embora a recuperação de módulos tenha sido aplicada a diversos paradigmas de programação, neste trabalho nos concentramos em sistemas orientados a objetos.
-A recuperação de módulos de um sistema é dividida em duas etapas: extração de dependências e aglomeração. Considerando 
-
-Neste trabalho consideramos apenas a recuperação de módulos a partir da implementação de sistemas orientados a objetos. 
-
-\subsection{Redes de Dependências entre Classes}
-
-% O código-fonte de um sistema é muito detalhado; algoritmos operam sobre uma representação mais abstrata.
-% daqui pra frente, rede de software.
-Para recuperar os módulos de um sistema orientado a objetos é comum considerar apenas as suas classes e os relacionamentos de dependência entre elas --- uma rede de dependências entre classes. Essas redes podem ser extraídas automaticamente a partir da análise estática do código-fonte ou do código objeto do sistema que se deseja estudar.
-
-\subsection{Modelos de Geração de Redes Complexas}
+\section{Modelos de Geração de Redes Complexas} \label{sec:modelos}
 
 Pesquisas recentes mostram que redes de dependências entre classes possuem características comuns a redes complexas estudadas em diversos domínios, tais como sociologia, biologia e linguística \cite{Myers2003,Valverde2003}. Foram desenvolvidos diversos modelos que simulam a construção de redes com tais características \cite{Bollobas2003,Lancichinetti2008}; esses modelos podem ser usados, portanto, para gerar redes de dependências entre classes. 
 
-\subsubsection{Modelo Aleatório com Módulos}
+\subsection{Modelo ER com Módulos}
 
-O modelo de Erdős-Rényi \cite{Erdos1959}, ou modelo de rede aleatória, gera redes não-orientadas cujo número de arestas por vértice segue uma distribuição de Poisson. Ele não modela adequadamente as redes de software, e por isso é usada apenas como base de comparação. Propomos aqui uma simples extensão desse modelo que considera a organização dos vértices em módulos. O modelo possui os seguintes parâmetros:
+O modelo de Erdős-Rényi \cite{Erdos1959}, ou modelo de rede aleatória, gera redes não-orientadas cujo número de arestas por vértice segue uma distribuição de Poisson. Ele não modela adequadamente as redes de dependências entre classes, e por isso é usada apenas como base de comparação. Propomos aqui uma simples extensão desse modelo que considera a organização dos vértices em módulos. O modelo possui os seguintes parâmetros:
 
 \begin{itemize}
   \item número de vértices, $|V|$;
@@ -131,13 +95,13 @@ O modelo de Erdős-Rényi \cite{Erdos1959}, ou modelo de rede aleatória, gera r
 
 O algoritmo de geração de redes inicia-se com a criação de $|V|$ vértices. A seguir cada vértice é incluído em um módulo escolhido com probabilidade uniforme. Por fim, para cada par de vértices, é adicionada uma aresta, com probabilidade $p$.
 
-\subsubsection{Modelo LFR}
+\subsection{Modelo LFR}
 
-Lancichinetti, Fortunato e Radicchi \cite{Lancichinetti2008} criaram um modelo de rede com estrutura de módulos embutida. O modelo não foi baseado em nenhum domínio em particular, mas incorpora distribuições estatísticas encontradas em redes de vários domínios. Ele gera grafos não-orientados e não-ponderados cuja distribuição dos graus dos vértices e cuja distribuição dos tamanhos dos módulos são ambas leis de potência. Mais precisamente, o número de vértices cujo grau é $k$ é proporcional a $k^{-\gamma}$, onde o expoente $\gamma$ tipicamente varia entre 2 e 3, e o número de módulos com $n$ vértices é proporcional a $x^{\beta}$, com $\beta$ entre 1 e 2.
+Lancichinetti, Fortunato e Radicchi \cite{Lancichinetti2008} criaram um modelo de rede com estrutura de módulos embutida. O modelo LFR não foi baseado em nenhum domínio em particular, mas incorpora distribuições estatísticas encontradas em redes de vários domínios. Ele gera grafos não-orientados e não-ponderados cuja distribuição dos graus dos vértices e cuja distribuição dos tamanhos dos módulos são ambas leis de potência. Mais precisamente, o número de vértices cujo grau é $k$ é proporcional a $k^{-\gamma}$, onde o expoente $\gamma$ tipicamente varia entre 2 e 3, e o número de módulos com $n$ vértices é proporcional a $n^{\beta}$, com $\beta$ variando entre 1 e 2.
 
 O modelo possui os seguintes parâmetros:
 \begin{itemize}
-  \item quantidade de vértices, $|V|$;
+  \item número de vértices, $|V|$;
   \item expoente da distribuição de graus, $\gamma$;
   \item grau médio, $\langle k \rangle$;
   \item grau máximo, $k_{max}$;
@@ -147,16 +111,16 @@ O modelo possui os seguintes parâmetros:
   \item parâmetro de mistura, $\mu$.
 \end{itemize}
 
-O algoritmo gera redes que seguem aproximadamente os parâmetros fornecidos. O parâmetro de mistura indica a fração das arestas de cada vértice que são compartilhadas com vértices de outro módulo. Por exemplo, se $\mu = 0,4$ e o vértice v pertence ao módulo M, então 40\% das suas arestas estão ligadas a vértices que não pertencem ao módulo M. Arestas que ligam vértices de módulos distintos são chamadas de \emph{arestas externas}.
+O algoritmo gera redes que seguem aproximadamente os parâmetros fornecidos. O parâmetro de mistura indica a fração das arestas de cada vértice que são compartilhadas com vértices de outro módulo. Por exemplo, se $\mu = 0,4$ e o vértice $v$ pertence ao módulo $M$, então 40\% das suas arestas estão ligadas a vértices que não pertencem ao módulo $M$. Arestas que ligam vértices de módulos distintos são chamadas de \emph{arestas externas}. % Apagar última frase?
 
   \textbf{Discussão}
 
-  O modelo gera grafos não-orientados, uma representação muito simplificada das redes de dependências entre classes. Por essa razão ele não é adequado para testar algoritmos de agrupamento que consideram a informação de sentido das arestas. Além disso, ele considera que todos os vértices possuem arestas para vértices de outros módulos, o que certamente não é verdade no domínio de software. Por fim, os vértices de um módulo podem se ligar a vértices de qualquer outro módulo, sem restrição. Essa característica difere do que se encontra em programas de computador, onde as dependências entre módulos são controladas (por exemplo, ao se adotar uma arquitetura em camadas).
+  O modelo gera grafos não-orientados, uma representação muito simplificada das redes de dependências entre classes. Além disso, ele considera que todos os vértices possuem arestas para vértices de outros módulos, o que certamente não é verdade no domínio de \emph{software}. Por fim, os vértices de um módulo podem se ligar a vértices de qualquer outro módulo, sem restrição. Essa característica difere do que se encontra em programas de computador, onde as dependências entre módulos são controladas (por exemplo, ao se adotar uma arquitetura em camadas).
 % rápido: cerca de 13s para 1658 vértices no athlon 64 3000+ com 1 GB de RAM.
 
-\subsubsection{O modelo XXX}
+\subsection{O modelo XXX}
 
-Considerando as limitações do modelo LFR, propomos um novo modelo de rede com estrutura de módulos embutida, baseado no modelo de grafo orientado de Bollobás \cite{Bollobas2003}, que foi inspirado na rede de links entre páginas da Web. O modelo possui os seguintes parâmetros:
+Considerando as limitações do modelo LFR, propomos um novo modelo de rede com estrutura de módulos embutida, baseado no modelo de grafo orientado de Bollobás \cite{Bollobas2003}, que foi inspirado na rede de \emph{links} entre páginas da \emph{web}. O modelo possui os seguintes parâmetros:
 
 \begin{itemize}
   \item número de vértices, $|V|$;
@@ -166,19 +130,21 @@ Considerando as limitações do modelo LFR, propomos um novo modelo de rede com 
   \item $\delta_{in}$ e $\delta_{out}$.
 \end{itemize}
 
-A arquitetura modular é uma rede que representa as dependências permitidas entre módulos. Dois vértices da rede de software só podem ser ligados se os módulos correspondentes na arquitetura forem ligados por uma aresta.
+A arquitetura modular é uma rede que representa as dependências permitidas entre módulos. Dois vértices da rede gerada só podem ser ligados se os módulos correspondentes na arquitetura forem ligados por uma aresta.
 
-Inicialmente é criada uma rede contendo um vértice com autolaço (aresta ligando o vértice a ele próprio) para cada módulo representado na arquitetura e cada vértice é incluído no módulo correspondente. O algoritmo consiste em alterações sucessivas à rede até se alcançar o número de vértices desejado. Na descrição a seguir, ``escolher um vértice $v$ de acordo com $k_{out} + \delta_{out}$'' significa escolher um vértice $v$ de modo que a probabilidade de se escolher um vértice $v_i$ é proporcional a $k_{out}(v_i) + \delta_{out}$, onde $k_{out}(v_i)$ é o grau de saída do vértice $v_i$. Analogamente, $k_{in}$ significa grau de entrada.
+Inicialmente é criada uma rede contendo um vértice com autolaço (aresta ligando o vértice a ele próprio) para cada módulo representado na arquitetura e cada vértice é incluído no módulo correspondente. O algoritmo consiste em alterações sucessivas à rede até se alcançar o número de vértices desejado. 
+
+Na descrição do algoritmo apresentada a seguir, ``escolher um vértice $v$ de acordo com $k_{out} + \delta_{out}$'' significa escolher um vértice $v$ de modo que a probabilidade de se escolher um vértice $v_i$ é proporcional a $k_{out}(v_i) + \delta_{out}$, onde $k_{out}(v_i)$ é o grau de saída do vértice $v_i$. Analogamente, $k_{in}$ significa grau de entrada.
 
 Cada iteração do algoritmo realiza uma das seguintes alterações na rede:
 
 \begin{itemize}
   \item \textbf{Criação de vértice com grau de saída = 1}. Com probabilidade $p$ é criado um vértice $v$ juntamente com uma aresta de $v$ para um vértice pré-existente $w$, onde $w$ é escolhido de acordo com $k_{in} + \delta_{in}$. O vértice $v$ é incluído no módulo de $w$.
-  \item \textbf{Criação de vértice com grau de entrada = 1}. Com probabilidade $q$ é criado um vértice $w$ juntamente com uma aresta de um vértice existente $v$ para $w$, onde $v$ é escolhido de acordo com $k_{out} + \delta_{out}$. O vértice $w$ é incluído no módulo de $v$.
-  \item \textbf{Criação de uma aresta}. Com probabilidade $r$ é criada uma aresta de um vértice existente $v$ para um vértice existente $w$, $v$ escolhido de acordo com $k_{out} + \delta_{out}$ e $w$ escolhido de acordo com $k_{in} + \delta_{in}$. Com probabilidade $1 - \mu$, $w$ é escolhido dentre os vértices do mesmo módulo que $v$; com probabilidade $\mu$, $w$ é escolhido dentre os vértices de módulos adjacentes ao módulo de $v$ segundo a arquitetura. 
+  \item \textbf{Criação de vértice com grau de entrada = 1}. Com probabilidade $q$ é criado um vértice $w$ juntamente com uma aresta de um vértice pré-existente $v$ para $w$, onde $v$ é escolhido de acordo com $k_{out} + \delta_{out}$. O vértice $w$ é incluído no módulo de $v$.
+  \item \textbf{Criação de uma aresta}. Com probabilidade $r$ é criada uma aresta de um vértice pré-existente $v$ para um vértice pré-existente $w$, $v$ escolhido de acordo com $k_{out} + \delta_{out}$ e $w$ escolhido de acordo com $k_{in} + \delta_{in}$. A escolha de $w$ não é livre. Com probabilidade $1 - \mu$, $w$ é escolhido dentre os vértices do mesmo módulo que $v$; com probabilidade $\mu$, $w$ é escolhido dentre os vértices de módulos adjacentes ao módulo de $v$ segundo a arquitetura. 
 \end{itemize}
 
-Como neste modelo a rede é orientada, pode-se considerar separadamente uma distribuição dos graus de entrada e uma distribuição dos graus de saída. Da mesma forma que no modelo LFR, essas distribuições seguem leis de potência, com expoentes $\gamma_in$ e $\gamma_out$, respectivamente. Pode-se demonstrar analiticamente que, quando $|V|$ tende a infinito, os expoentes podem ser calculados pelas seguintes expressões \cite{Bollobas2003}:
+Como neste modelo a rede é orientada, pode-se considerar separadamente uma distribuição dos graus de entrada e uma distribuição dos graus de saída. Da mesma forma que no modelo LFR, essas distribuições seguem leis de potência, com expoentes $\gamma_{in}$ e $\gamma_{out}$, respectivamente. Pode-se demonstrar analiticamente que, quando $|V|$ tende a infinito, os expoentes podem ser calculados pelas seguintes expressões \cite{Bollobas2003}:
 
 \begin{equation}
 \gamma_{in} = 1 + \frac{1 + \delta_{in}(p + q)}{p + r}
@@ -190,7 +156,7 @@ Como neste modelo a rede é orientada, pode-se considerar separadamente uma dist
 
   \textbf{Discussão}
 
-Este modelo supera as limitações encontradas no modelo LFR: as redes são orientadas, nem todos os vértices são necessariamente ligados a vértices de outros módulos e é possível restringir as dependências entre módulos através da arquitetura fornecida como parâmetro. Além disso ele é um modelo evolutivo: o algoritmo pode ter como ponto de partida uma rede existente e então expandi-la criando mais vértices e arestas. A desvantagem em relação ao modelo LFR é o controle reduzido sobre a rede: não há como impor restrições sobre o grau máximo, sobre a distribuição dos tamanhos dos módulos e nem estabelecer limites de tamanho para os módulos.
+Este modelo supera as limitações encontradas no modelo LFR: as redes são orientadas, nem todos os vértices são ligados a vértices de outros módulos e é possível restringir as dependências entre módulos através da arquitetura fornecida como parâmetro. Além disso ele é um modelo evolutivo: o algoritmo pode ter como ponto de partida uma rede existente e então expandi-la criando mais vértices e arestas. A desvantagem em relação ao modelo LFR é o controle reduzido sobre a rede: não há como impor restrições sobre o grau máximo, sobre a distribuição dos tamanhos dos módulos e nem estabelecer limites de tamanho para os módulos.
 % experimentalmente, tamanhos x dos módulos ~ x^-1. TODO: Deve ser fácil provar analiticamente.
 % tem outra coisa:   multi-arestas, autolaços (normalmente devem ser removidos) podem afetar as distribuiçãos
 % TODO: será que vale a pena alterar o algoritmo para ele sempre procurar, no caso gamma, dois vértices que não estejam ligados por aresta?
@@ -199,9 +165,9 @@ Este modelo supera as limitações encontradas no modelo LFR: as redes são orie
 %  as redes geradas podem desviar muito dos valores esperados para as métricas. acreditamos que devido a multi-arestas, autolaços.
 %  é mais lento (pelo menos a minha implementação)
 
-\section{Experimento} % how
+\section{Experimento} \label{sec:experimento}
 
-Na seção anterior discutimos características gerais dos modelos de geração de redes. Com o objeto de avaliar a capacidade dos modelos de gerar redes semelhantes a redes de dependências entre classes, realizamos um experimento com dois sistemas, o jogo VilloNanny 2.2.4 e o programa IRPF 2009. O experimento foi dividido em cinco etapas: extração das redes dos sistemas (redes reais), análise das redes reais, escolha dos parâmetros dos modelos, geração de redes sintéticas e comparação entre redes sintéticas e as redes reais correspondentes. 
+Na seção anterior discutimos características gerais dos modelos de geração de redes. Com o objeto de avaliar a capacidade dos modelos de gerar redes semelhantes a redes de dependências entre classes, realizamos um experimento com os três modelos e dois sistemas, o jogo VilloNanny 2.2.4 e o programa IRPF 2009. O experimento foi dividido em cinco etapas: extração das redes dos sistemas (redes reais), análise das redes reais, escolha dos parâmetros dos modelos, geração de redes sintéticas e comparação entre redes sintéticas e as redes reais correspondentes. 
 
 \subsection{Extração}
 
@@ -233,15 +199,15 @@ De cada sistema foram extraídas as seguinte métricas:
 Os expoentes das distribuições de graus e de tamanhos dos módulos foram estimados através da técnica de máxima verossimilhança \cite{Clauset2007}. Utilizamos uma implementação disponível disponível na Internet\footnote{\url{http://www.santafe.edu/~aaronc/powerlaws/}}. 
 %No caso da distribuição dos tamanhos dos módulos fixamos xmin = 1, pois o número de módulos é pequeno...
 
-Além disso, extraímos a arquitetura modular do sistema. Na arquitetura, existe uma aresta de um módulo A para um módulo B somente se existe um vértice de A que se liga a um vértice de B.
+Além disso, extraímos a arquitetura modular do sistema. Na arquitetura, existe uma aresta de um módulo $A$ para um módulo $B$ somente se pelo menos um vértice de $A$ se liga a um vértice de $B$.
 
 \subsection{Escolha dos parâmetros dos modelos}
 
 Na discussão a seguir, $X^s$ e $X^m$ representam, respectivamente, o valor de uma métrica $X$ extraída de um sistema e o valor de um parâmetro $X$ de um modelo.
 
-Para o modelo de rede aleatória com módulos, consideramos $|V|^m = |V|^s$ e $|M|^m = |M|^s$, isto é,  mantivemos o número de vértices e o número de módulos do sistema. O valor da probabilidade de ligação, $p$, foi fixado em $2|E|^s / |V|^s(|V|^s-1)$; desta forma o número de arestas esperado é $E^s$.
+Para o modelo de rede aleatória com módulos, consideramos $|V|^m = |V|^s$ e $|M|^m = |M|^s$, isto é,  mantivemos o número de vértices e o número de módulos do sistema. O valor da probabilidade de ligação, $p$, foi fixado em $\frac{2|E|^s}{|V|^s(|V|^s-1)}$; desta forma espera-se que o número de arestas da rede gire em torno de $|E|^s$.
 
-Para o modelo LFR a maioria dos parâmetros foi fixada de acordo com as métricas do sistema. O parâmetro de mistura, $\mu$ foi definido de acordo com a expressão $|E_ext|^s / |E|^s$.
+Para o modelo LFR a maioria dos parâmetros foi fixada de acordo com as métricas do sistema. O parâmetro de mistura, $\mu$ foi definido de acordo com a expressão $|E_{ext}|^s / |E|^s$.
 
 Para o modelo XXX a arquitetura modular fornecida como parâmetro é igual à arquitetura extraída do sistema, número de vértices idem e calculamos $p, r, q, \delta_{in}, \delta_{out}$ de forma a satisfazer às seguintes restrições:
 \begin{itemize}
@@ -254,9 +220,8 @@ Para o modelo XXX a arquitetura modular fornecida como parâmetro é igual à ar
 
 \subsection{Geração de sistemas sintéticos}
 
-Como os modelos são estocásticos, é insuficiente analisar apenas uma instância de cada modelo. 
-Foram geradas X redes para cada modelo. ( Por que X?
-Ver calculadora de tamanho de amostra em http://www.surveysystem.com/sscalc.htm )
+Como os modelos são estocásticos, é insuficiente gerar apenas uma rede de cada modelo. Para realizar uma análise mais representativa, consideramos uma amostra de X redes para cada modelo.
+(Por que X? Ver calculadora de tamanho de amostra \footnote{\url{http://www.surveysystem.com/sscalc.htm}})
 
 \subsection{Comparação com os sistemas reais}
 
@@ -280,7 +245,7 @@ Estatística de Kolmogorov-Smirnov (+qqplot pra ilustrar alguns casos) para comp
 %assumptions underlying the study 
 %statistical methods, including software programs 
 
-\section{Resultados} % what was found
+\section{Resultados} \label{sec:resultados}
 
 TABELA 1: sistemas analisados. Nome, versão, métricas (tamanho, número de módulos, ....)
 
@@ -292,33 +257,23 @@ TABELA 3 (ou GRÁFICO): distâncias
 %  * avoid excess verbiage
 %  * consider providing a one-sentence summary at the beginning of each paragraph if you think it will help your reader understand your data 
 
-\section{Discussão} % why it's significant
+\section{Discussão} \label{sec:discussao} % why it's significant 
 
 % Recapitulando o que este trabalho fez:
-Este artigo apresentou uma nova abordagem para avaliação de algoritmos de clustering, através de sistemas sintéticos, e apresentou um modelo de sistema sintético. Esse modelo foi comparado empiricamente a modelos genéricos de redes. NO FINAL: Acreditamos que outras áreas de pesquisa da engenharia de software podem se beneficiar de uma abordagem de avaliação baseada em sistemas de software sintéticos (ex.: análise de impacto, localização de features...).
+Este artigo apresentou uma nova abordagem, baseada na geração de sistemas sintéticos, de avaliação de algoritmos de aglomeração aplicados à recuperação de módulos de sistemas de \emph{software}. Três modelos de sistemas sintéticos foram apresentados e avaliados experimentalmente quanto à capacidade de produzir sistemas realistas.
 
-% Produção de um modelo, baseado em um modelo existente, de geração de redes de software com estrutura de módulos embutida.
+% DISCUTIR BREVEMENTE OS RESULTADOS E ENTÃO PARTIR PARA A ESPECULAÇÃO
+% O quão bem o modelo funciona, vantagens e desvantagens em relação a outras abordagens (complementares).
 
-% Comparação desse modelo com um modelo presente na literatura usando como critério a semelhança com redes de software.
+ESPECULAÇÃO SOBRE O PAPEL DA MODELAGEM ESTATÍSTICA NA ENGENHARIA DE SOFTWARE...
 
-% Análise desse modelo modelos de geração de redes com estrutura de módulos embutida, e da semelhança dessas redes com redes de software.
+% É claro que o modelo é apenas uma aproximação da realidade, e nunca deve se deixar a realidade. Avaliação através de sistemas sintéticos não substitui avaliações com especialistas em sistemas reais, mas são uma alternativa complementar viável... A modelagem proporciona uma cobertura maior... Modelagem estatística como uma forma de avaliar ferramentas que, de outra forma, permaneceriam não-avaliadas.
+% Focar na hipótese: redes sintéticas com parâmetros ajustáveis dão insights sobre as ferramentas de engenharia reversa / evolução de software.
 
-% -----
-
-O quão bem o modelo funciona, vantagens e desvantagens em relação a outras abordagens (complementares).
-
-Especulação sobre o papel da modelagem estatística na engenharia de software.
-
-Focar na hipótese: redes sintéticas com parâmetros ajustáveis dão insights sobre as ferramentas de engenharia reversa / evolução de software.
-% redes sintéticos são uma boa aproximação de redes reais
-
-%how useful this technique is: how well did it work, what are the benefits and drawbacks, etc
-
-%This section centers on speculation
-
-%Focus your discussion around a particular question or hypothesis
+Acreditamos que outras linhas de pesquisa da engenharia de \emph{software}, a exemplo da análise de impacto e da localização de funcionalidades, podem se beneficiar do tipo de avaliação apresentado neste artigo. Para isso é preciso ampliar os modelos aqui discutidos com os conceitos de cada linha de pesquisa.
 
 Trabalhos futuros: explorar métricas de arquitetura, avaliar algoritmos de clustering, considerar outros modelos.
+
 % considerar o uso de arestas orientadas e pesos das arestas .
 
 %\bibliographystyle{apalike}
