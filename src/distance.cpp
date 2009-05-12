@@ -10,8 +10,21 @@
 #include <stdlib.h>
 #include <float.h>
 #include <math.h>
+#include <string.h>
+
+/*
+class Permutation : public GAGenome {
+public:
+  GADefineIdentity("Permutation", 201);
+
+  static void init(GAGenome&);
+  static int Mutate(GaGenome&, float);
+  static float Compare(const G
+}
+*/
 
 typedef unsigned char dist;
+
 
 void help() {
   puts("Arguments: N distance-matrix1 distance-matrix2");
@@ -26,6 +39,25 @@ float distance(dist *a, dist *b, int n) {
     for (j = 0; j < n; j++) {
       // dif = *b++ - *a++;
       dif = b[i*n+j] - a[i*n+j];
+      sum += dif * dif;
+    }
+  }
+  return sum;
+}
+
+/**
+ * b is reindexed by indices
+ */
+float distance_indices(dist *a, dist *b, int n, int *indices) {
+  float dif, sum;
+  int i, j, x, y;
+
+  sum = 0.0;
+  for (i = 0; i < n; i++) {
+    x = indices[i];
+    for (j = 0; j < n; j++) {
+      y = indices[j];
+      dif = b[x*n+y] - a[x*n+y];
       sum += dif * dif;
     }
   }
@@ -77,6 +109,44 @@ inline void scramble(dist *b, int n, int times) {
   sort_matrix(b, n, indices);
 }
 
+// TODO: implement correctly
+inline void genome_to_indices(int *genome, int *indices, int n) {
+  int i, j, k, rank;
+  int visited[n];
+  memset(visited, 0, sizeof(int) * n);
+
+  for (i = 0; i < n; i++) {
+    rank = genome[i];
+    j = 0;
+    k = 0;
+    for (j = 0; ; j = (j + 1) % n) {
+      if (k != rank && !visited[j])
+        k++;
+      else if (k == rank && !visited[j])
+        break;
+    }
+    visited[j] = 1;
+    indices[i] = j;
+  }
+}
+
+int main(int argc, char *argv[]) {
+  int genome[10];
+  int indices[10];
+  int i;
+
+  for (i = 0; i < 10; i++)
+    genome[i] = 0;
+
+  genome_to_indices(genome, indices, 10);
+
+  for (i = 0; i < 10; i++)
+    printf("%d ", indices[i]);
+  printf("\n");
+  exit(0);
+}
+
+#ifdef QWEQWE
 int main(int argc, char *argv[]) {
   int n;
 
@@ -153,3 +223,50 @@ int main(int argc, char *argv[]) {
   fclose(file1);
   fclose(file2);
 }
+#endif
+
+
+class Permutation {
+private:
+  int *genome;
+  int *indices;
+  dist *a, *b;
+  float distance;
+  int n;
+
+public:
+
+  /* defined permutation */
+  Permutation(int *_genome, int _n, dist *_a, dist *_b) {
+    n = _n;
+    distance = -1;
+    genome = (int *)malloc(n * sizeof(int));
+    memcpy(genome, _genome, n * sizeof(int));
+    indices = (int *)malloc(n * sizeof(int));
+    ::genome_to_indices(genome, indices, n);
+    a = _a;
+    b = _b;
+  }
+  
+  /* random permutation */
+  Permutation(int _n, dist *_a, dist *_b) {
+    int i;
+
+    n = _n;
+    distance = -1;
+    genome = (int *)malloc(n * sizeof(int));
+    for (i = 0; i < n; i++)
+      genome[i] = rand() % (n - i);
+
+    indices = (int *)malloc(n * sizeof(int));
+    ::genome_to_indices(genome, indices, n);
+    a = _a;
+    b = _b;
+  }
+
+  float fitness() {
+    if (distance == -1)
+      distance = ::distance_indices(a, b, n, indices);
+    return distance;
+  }
+};
