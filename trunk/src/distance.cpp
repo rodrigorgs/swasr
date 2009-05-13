@@ -5,6 +5,8 @@
  * Baseado no artigo de Andrade et al, 2008:
  * "Measuring distances between complex networks"
  *
+ * TODO: fastcalc
+ * TODO: guardar um vetor das permutacoes
  */
 #include <cstdio>
 #include <cstdlib>
@@ -16,18 +18,15 @@
 #include <ga/GA1DArrayGenome.h>
 #include <ga/GAArray.h>
 
+
+
 using namespace std;
 
 // GLOBAL variables and declarations
 typedef unsigned char t_dist;
-typedef GA1DArrayGenome<short> Genome;
 t_dist *g_matrix1, *g_matrix2;
 short *g_indices;
 int g_size;
-
-void GenomeToIndices(Genome &g, short *indices, int n);
-
-
 
 void help() {
   puts("Arguments: N distance-matrix1 distance-matrix2");
@@ -62,16 +61,46 @@ float distance_indices(t_dist *a, t_dist *b, int n, int *indices) {
     x = indices[i];
     for (j = 0; j < n; j++) {
       y = indices[j];
-      dif = b[x*n+y] - a[x*n+y];
+      dif = b[x*n+y] - a[i*n+j];
       sum += dif * dif;
     }
   }
   return sum;
 }
 
+float distance_fast(t_dist *a, t_dist *b, int n, float lastdist, int *indices, int i, int j) {
+  float fastdist = lastdist;
+  int k;
+
+  i = indices[i];
+  j = indices[j];
+
+  for (k = 0; k < n; k++) {
+    fastdist += 2 * (-a[k*n+i]*b[k*n+i] - a[k*n+j]*b[k*n+j] + a[k*n+j]*b[k*n+i] + a[k*n+i]*b[k*n+j]);
+    fastdist += -2 * (-a[i*n+k]*b[i*n+k] - a[j*n+k]*b[j*n+k] + a[j*n+k]*b[i*n+k] + a[i*n+k]*b[j*n+k]);
+  }
+  fastdist += 2 * (
+    a[i*n+i]*b[i*n+i] +
+    a[i*n+j]*b[i*n+j] +
+    a[j*n+i]*b[j*n+i] +
+    a[j*n+j]*b[j*n+j] -
+
+    a[i*n+i]*b[j*n+j] -
+    a[i*n+j]*b[j*n+i] -
+    a[j*n+i]*b[i*n+j] -
+    a[j*n+j]*b[i*n+i]);
+
+  return fastdist;
+}
+
+void swap_int(int *a, int *b) {
+  int tmp = *a;
+  *a = *b;
+  *b = tmp;
+}
 
 /* Takes a nXn matrix, a, and swaps two indices, i, j < n */
-inline float swap_indices(t_dist *b, int n, int i, int j) {
+inline float swap_matrix_indices(t_dist *b, int n, int i, int j) {
   int l, tmp;
   /* swap i, j */
   for (l = 0; l < n; l++) {
@@ -86,13 +115,170 @@ inline float swap_indices(t_dist *b, int n, int i, int j) {
   }
 }
 
+int load_files(char *filename1, char *filename2, int n, t_dist *a, t_dist *b) {
+  FILE *file1, *file2;
+  int tmp;
+
+  file1 = fopen(filename1, "r");
+  file2 = fopen(filename2, "r");
+
+  printf("n = %d\n", n);
+
+  puts("loading files...");
+  for (int i = 0; i < n; i++) {
+    for (int j = 0; j < n; j++) {
+      fscanf(file1, "%d", &tmp);
+      a[i*n+j] = tmp;
+      fscanf(file2, "%d", &tmp);
+      b[i*n+j] = tmp;
+    }
+  }
+  puts("done");
+
+  fclose(file1);
+  fclose(file2);
+}
+
+void print_matrix(t_dist *a, int n) {
+  puts("= matrix =");
+  for (int i = 0; i < n; i++) {
+    for (int j = 0; j < n; j++) {
+      printf("%d ", a[i*n+j]);
+    }
+    puts("");
+  }
+}
+
+void print_array(int *indices, int n) {
+  puts("= array =");
+  for (int k = 0; k < n; k++) 
+    printf("%d ", indices[k]);
+  
+  puts("");
+}
+
+float sum_diffs(t_dist *a, t_dist *b, int n, int *indices, int i, int j, float lastdist, int factor=1) {
+  float d;
+  float fastdist = lastdist;
+  int ii, jj, kk;
+
+  ii = indices[i];
+  jj = indices[j];
+  for (int k = 0; k < n; k++) {
+    kk = indices[k];
+    d = b[ii*n+kk] - a[i*n+k]; fastdist -= factor*d*d;
+    d = b[jj*n+kk] - a[j*n+k]; fastdist -= factor*d*d;
+    d = b[kk*n+kk] - a[k*n+i]; fastdist -= factor*d*d;
+    d = b[kk*n+kk] - a[k*n+j]; fastdist -= factor*d*d;
+  }
+  d = b[ii*n+ii] - a[i*n+i]; fastdist += factor*d * d;
+  d = b[ii*n+jj] - a[i*n+j]; fastdist += factor*d * d;
+  d = b[jj*n+ii] - a[j*n+i]; fastdist += factor*d * d;
+  d = b[jj*n+jj] - a[j*n+j]; fastdist += factor*d * d;
+
+  return fastdist;
+}
+
+void go(t_dist *a, t_dist *b, int n) {
+  int indices[n];
+  int i, j, k, l, tmp;
+  float lastdist, mindist, olddist;
+  float temperature, delta, alpha = 0.90;
+  // alpha entre 0.8 e 0.99
+  // temperatura final = 1 (ou 0.1?)
+  
+  for (k = 0; k < n; k++)
+    indices[k] = k;
+  //print_matrix(b, n);
+
+//  scramble(b, n, n);
+
+  lastdist = distance(a, b, n);
+  mindist = lastdist;
+  temperature = mindist;
+  printf("% 5d %f\n", 0, mindist);
+  float fastdist, indicesdist;
+  int iterations;
+  for (iterations = 1; /*iterations < 5*/; iterations++) {
+    olddist = lastdist;
+
+    i = rand() % n;
+    do {
+      j = rand() % n;
+    } while (j == i);
+
+    //fastdist = distance_fast(a, b, n, lastdist, indices, i, j);
+    fastdist = sum_diffs(a, b, n, indices, i, j, lastdist, 1);
+
+    swap_int(indices + i, indices + j); 
+    lastdist = distance_indices(a, b, n, indices);
+    
+    fastdist = sum_diffs(a, b, n, indices, i, j, fastdist, -1);
+    
+
+    //swap_matrix_indices(b, n, i, j);
+    //lastdist = distance(a, b, n);
+
+    //print_array(indices, n);
+    //print_matrix(b, n);
+    //printf("equal? %d. fastdist - lastdist = %f\n", fastdist == lastdist, fastdist - lastdist);
+    printf("fastdist = %f\n", fastdist);
+    printf("lastdist = %f\n", lastdist);
+    //printf("indidist = %f\n", indicesdist);
+    puts("");
+
+    delta = lastdist - olddist;
+
+    if (lastdist < mindist) {
+      mindist = lastdist;
+    }
+    /*
+    else if (delta > 0) { // nova solucao e' pior do que a ultima
+      float u = rand() / (float)RAND_MAX;
+      //printf("%f >? %f\n", u, exp(-delta / temperature));
+      // se u < exp..., mantem a solucao, caso contrario volta `a anterior
+      if (u > exp(-delta / temperature))
+        swap_matrix_indices(b, n, i, j);
+
+    }
+      */ else swap_int(indices + i, indices + j); //swap_matrix_indices(b, n, i, j);
+
+    printf("% 5d %f\n", iterations, mindist);
+    //printf("% 5d %f\n", iterations, lastdist);
+
+    temperature *= alpha;
+  }
+}
+
+void test(t_dist *a, t_dist *b, int n) {
+  
+}
+
+int main(int argc, char *argv[]) {
+  int n;
+
+  if (argc < 4) help();
+
+  n = atoi(argv[1]);
+  t_dist a[n*n], b[n*n];
+
+  load_files(argv[2], argv[3], n, a, b);
+  srand(time(NULL));
+
+  if (argc < 5)
+    go(a, b, n);
+  else
+    test(a, b, n);
+}
+
 /* Sorts a matrix by the given indices */
+/*
 inline void sort_matrix(t_dist *b, int n, int *indices) {
   int i;
 
   for (i = 0; i < n; i++) {
     if (i > indices[i])
-      swap_indices(b, n, i, indices[i]);
+      swap_matrix_indices(b, n, i, indices[i]);
   }
 }
 
@@ -134,9 +320,8 @@ inline void genome_to_indices(int *genome, int *indices, int n) {
     indices[i] = j;
   }
 }
-
-///////////////////////////////////////////////////////////////////////////
-
+*/
+/*
 void GenomeToIndices(Genome &g, short *indices, int n) {
   int i, j, k, rank;
   int visited[n];
@@ -157,7 +342,9 @@ void GenomeToIndices(Genome &g, short *indices, int n) {
   }
 }
 
-#ifdef GALIB
+typedef GA1DArrayGenome<short> Genome;
+void GenomeToIndices(Genome &g, short *indices, int n);
+
 void Initializer(GAGenome &genome) {
   Genome &g = (Genome &)genome;
   g.resize(g_size);
@@ -262,86 +449,4 @@ int main(int argc, char *argv[]) {
   }
 
 }
-
-#else
-
-int main(int argc, char *argv[]) {
-  int n;
-
-  if (argc < 4)
-    help();
-
-  srand(time(NULL));
-  n = atoi(argv[1]);
-
-  t_dist a[n][n], b[n][n];
-  g_matrix1 = &a[0][0];
-  g_matrix2 = &b[0][0];
-  g_size = n;
-  FILE *file1, *file2;
-  int i, j, k, l, tmp;
-  float lastdist, mindist, olddist;
-  float temperature, delta, alpha = 0.90;
-  // alpha entre 0.8 e 0.99
-  // temperatura final = 1 (ou 0.1?)
-
-  file1 = fopen(argv[2], "r");
-  file2 = fopen(argv[3], "r");
-
-  printf("n = %d\n", n);
-
-  puts("loading files...");
-  for (i = 0; i < n; i++) {
-    for (j = 0; j < n; j++) {
-      fscanf(file1, "%d", &tmp);
-      a[i][j] = tmp;
-      fscanf(file2, "%d", &tmp);
-      b[i][j] = tmp;
-    }
-  }
-  puts("done");
-
-  puts("scrambling...");
-//  scramble(b, n, n);
-  puts("done");
-
-  lastdist = distance(&a[0][0], &b[0][0], n);
-  mindist = lastdist;
-  temperature = mindist;
-  printf("% 5d %f\n", k, mindist);
-  for (k = 0; ; k++) {
-    olddist = lastdist;
-
-    i = rand() % n;
-    do {
-      j = rand() % n;
-    } while (j == i);
-
-    swap_indices(&b[0][0], n, i, j);
-
-    lastdist = distance(&a[0][0], &b[0][0], n);
-    delta = lastdist - olddist;
-
-    if (lastdist < mindist) {
-      mindist = lastdist;
-    }
-    /*
-    else if (delta > 0) { // nova solucao e' pior do que a ultima
-      float u = rand() / (float)RAND_MAX;
-      //printf("%f >? %f\n", u, exp(-delta / temperature));
-      // se u < exp..., mantem a solucao, caso contrario volta `a anterior
-      if (u > exp(-delta / temperature))
-        swap_indices(&b[0][0], n, i, j);
-
-    }
-      */ else  swap_indices(&b[0][0], n, i, j);
-
-    printf("% 5d %f\n", k, mindist);
-
-    temperature *= alpha;
-  }
-
-  fclose(file1);
-  fclose(file2);
-}
-#endif
+*/
