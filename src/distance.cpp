@@ -12,16 +12,6 @@
 #include <math.h>
 #include <string.h>
 
-/*
-class Permutation : public GAGenome {
-public:
-  GADefineIdentity("Permutation", 201);
-
-  static void init(GAGenome&);
-  static int Mutate(GaGenome&, float);
-  static float Compare(const G
-}
-*/
 
 typedef unsigned char dist;
 
@@ -270,3 +260,13 @@ public:
     return distance;
   }
 };
+/*
+class Permutation : public GAGenome {
+public:
+  GADefineIdentity("Permutation", 201);
+
+  static void init(GAGenome&);
+  static int Mutate(GaGenome&, float);
+  static float Compare(const G
+}
+*/
