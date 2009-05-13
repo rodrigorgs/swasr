@@ -54,6 +54,29 @@ float distance_indices(dist *a, dist *b, int n, int *indices) {
   return sum;
 }
 
+float Objective(GAGenome &genome) {
+  MyGenome &indices = (MyGenome &)genome;
+  float dif, sum;
+  int i, j, x, y;
+
+  sum = 0.0;
+  for (i = 0; i < g_size; i++) {
+    x = indices[i];
+    for (j = 0; j < g_size; j++) {
+      y = indices[j];
+      dif = b[x*n+y] - a[x*n+y];
+      sum += dif * dif;
+    }
+  }
+  return sum;
+}
+
+float Initializer(GAGenome &g) {
+  g.resize(g_size);
+  for (int i = 0; i < g_size; i++)
+    g.gene(i, rand() % (g_size - i));
+}
+
 /* Takes a nXn matrix, a, and swaps two indices, i, j < n */
 inline float swap_indices(dist *b, int n, int i, int j) {
   int l, tmp;
@@ -136,6 +159,10 @@ int main(int argc, char *argv[]) {
   exit(0);
 }
 
+// GLOBAL
+dist *g_matrix1, *g_matrix2;
+int g_size;
+
 #ifdef QWEQWE
 int main(int argc, char *argv[]) {
   int n;
@@ -147,6 +174,9 @@ int main(int argc, char *argv[]) {
   n = atoi(argv[1]);
 
   dist a[n][n], b[n][n];
+  g_matrix1 = &a[0][0];
+  g_matrix2 = &b[0][0];
+  g_size = n;
   FILE *file1, *file2;
   int i, j, k, l, tmp;
   float lastdist, mindist, olddist;
