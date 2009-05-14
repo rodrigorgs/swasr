@@ -1,0 +1,18 @@
+#summary Conversa com Roberto sobre os sintetizadores
+
+Mudanças a serem efetuadas nos sintetizadores:
+  * Replicar no L2 os atributos dos vértices, presentes no L1.
+  * Acrescentar ao L2 as arestas internas (arestas entre vértices de um mesmo módulo).
+  * Acrescentar ao L2 arestas ponderadas entre módulos (o peso é a soma das arestas externas do L1 para cada par de módulos).
+  * Modificar modelo BCR para usar um arquivo no formato L2 como arquitetura (atualmente usa L1).
+  * Indentar XML (tags que representam vértices estão, atualmente, uma do lado da outra)
+
+Tipo de grafo L1 utilizado nos algoritmos de clustering estudados por Roberto: grafo orientado ponderado (sem arestas múltiplas).
+
+Roberto agora estuda algoritmos de mapeamento incremental: dadas duas versões de um sistema, v1 e v2, e um clustering de v1, obter um clustering de v2 atribuindo os novos vértices aos clusters previamente identificados. Nesse contexto os modelos evolutivos são essenciais. 
+
+O modelo BCR é evolutivo e, embora não contemple a remoção de vértices e arestas, é fácil acrescentar esses eventos ao modelo. Para que o modelo permaneça consistente, no entanto, é preciso garantir duas condições:
+  * O grafo resultante da evolução deve continuar exibindo as propriedades de distribuição de graus livre de escala, coeficiente de clustering inversamente proporcional ao grau e módulos bem definidos.
+  * A evolução do grafo deve seguir princípios semelhantes àqueles que regem a evolução de sistemas de software reais. Como não há muita literatura sobre o assunto, é preciso estudar repositórios de versões de software.
+
+Roberto sugeriu que eu fizesse uma tabela que relacione os parâmetros do modelo BCR e as métricas dos grafos resultantes.
