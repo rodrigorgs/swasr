@@ -170,15 +170,38 @@ Este modelo supera as limitações encontradas no modelo LFR: as redes são orie
 
 \section{Experimento} \label{sec:experimento}
 
-Na seção anterior discutimos características gerais dos modelos de geração de redes. Com o objeto de avaliar a capacidade dos modelos de gerar redes semelhantes a redes de dependências entre classes, realizamos um experimento envolvendo os dois modelos apresentados e dois sistemas, o jogo VilloNanny 2.2.4 e a biblioteca JFreeChart 1.0.13. 
+Na seção anterior discutimos características gerais dos modelos de geração de redes. Com o experimento, procuramos responder à seguinte pergunta: os modelos são capazes de produzir redes sintéticas parecidas com redes extraídas de sistemas reais? 
 
-O jogo VilloNanny foi usado como sistema de referência. O experimento consistiu em sintetizar diversas redes 
+TODO: desenvolver algo que está nos comentários do arquivo fonte
 
-Os parâmetros de cada modelo foram escolhidos de forma a gerar redes com características semelhantes
+%Não existem dois sistemas iguais: dadas duas redes reais
 
-O objetivo do experimento foi determinar até que ponto os modelos conseguem imitar a rede do VilloNanny. A rede da biblioteca JFreeChart também foi 
+%Da mesma forma que não existem dois sistemas exatamente iguais, não esperamos que um modelo com um número limitado de parâmetros produza uma cópia fiel de uma rede tomada como referência. É normal 
+
+%Consideramos então um conjunto de redes reais consideradas parecidas; dizemos que um modelo é adequado se as redes que ele sintetiza são tão parecidas com a rede de um sistema quanto os sistemas são parecidos uns com os outros.
+
+%Consideramos que um modelo é adequado, portanto, se, dado um conjunto de redes reais consideradas parecidas, ele é capaz de produzir 
+%aquele capaz de produzir redes tão parecidas com um sistema de referência quanto outros 
+
+%Naturalmente não esperamos que um pequeno modelo com um número limitado de parâmetros produza uma cópia fiel de uma rede real tomada como referência. 
+
+%É possível gerar uma rede sintética tão parecida com um sistema real quanto um outro sistema real? 
+
+%Com o objeto de avaliar a capacidade dos modelos de gerar redes semelhantes a redes de dependências entre classes, realizamos um experimento envolvendo os dois modelos apresentados e dois sistemas, o jogo VilloNanny 2.2.4 e a biblioteca JFreeChart 1.0.13. 
+
+%O objetivo do experimento 
+
+%Tomamos o jogo VilloNanny como sistema de referência e então procuramos gerar redes tão semelhantes à rede do VilloNanny quanto os modelos permitiram. A rede do JFreeChart também foi comparada à rede do VilloNanny 
+
+%O experimento consistiu em sintetizar diversas redes 
+
+%Os parâmetros de cada modelo foram escolhidos de forma a gerar redes com características semelhantes
+
+%O objetivo do experimento foi determinar até que ponto os modelos conseguem imitar a rede do VilloNanny. A rede da biblioteca JFreeChart também foi 
 
 O experimento foi dividido em cinco etapas: extração das redes dos sistemas (redes reais), análise do sistema de referência, escolha dos parâmetros dos modelos, geração de redes sintéticas e comparação entre as redes. 
+
+CONSIDERAMOS REDES NÃO-ORIENTADAS.
 
 \subsection{Extração das Redes dos Sistemas}
 
@@ -192,7 +215,7 @@ Os sistemas analisados foram implementados na linguagem Java e distribuídos em 
 
 %Baseado em pesquisas anteriores \cite{Valverde2003,Myers2003,Baxter2006}, consideramos que a distribuição estatística dos graus dos vértices e a distribuição dos tamanhos dos módulos seguem aproximadamente uma lei de potência. Para cada rede foram coletadas diversas métricas da teoria dos grafos e da teoria das redes complexas:
 
-De cada sistema foram extraídas as seguinte métricas:
+A partir da análise da rede de referência que foi extraída do sistema VilloNanny, as seguintes métricas foram computadas:
 
 \begin{itemize}
 \item número de vértices, $|V|$;
@@ -208,6 +231,8 @@ De cada sistema foram extraídas as seguinte métricas:
 %\item coeficiente de clustering
 \end{itemize}
 
+Essas métricas são muito usadas para caracterizar redes complexas. Neste experimento as métricas foram usadas para ajustar os parâmetros dos modelos.
+
 Os expoentes das distribuições de graus e de tamanhos dos módulos foram estimados através da técnica de máxima verossimilhança \cite{Clauset2007}. Utilizamos uma implementação disponível na Internet\footnote{\url{http://www.santafe.edu/~aaronc/powerlaws/}}.
 %No caso da distribuição dos tamanhos dos módulos fixamos xmin = 1, pois o número de módulos é pequeno...
 
@@ -215,7 +240,7 @@ Além disso, extraímos a arquitetura modular do sistema. Na arquitetura, existe
 
 \subsection{Escolha dos Parâmetros dos Modelos}
 
-Na discussão a seguir, $X^s$ e $X^m$ representam, respectivamente, o valor de uma métrica $X$ extraída de um sistema e o valor de um parâmetro $X$ de um modelo.
+Queremos gerar redes com características próximas às características da rede de referência, e isso depende de uma escolha adequada dos parâmetros dos modelos. Na discussão a seguir, $X^s$ e $X^m$ representam, respectivamente, o valor de uma métrica $X$ extraída da rede de referência e o valor de um parâmetro $X$ de um modelo.
 
 %Para o modelo de rede aleatória com módulos, consideramos $|V|^m = |V|^s$ e $|M|^m = |M|^s$, isto é,  mantivemos o número de vértices e o número de módulos do sistema. Com o objetivo de aproximar o número de arestas das redes sintéticas do número de arestas das redes reais, o valor de $p$ foi definido segundo a seguinte expressão:
 
@@ -223,7 +248,7 @@ Na discussão a seguir, $X^s$ e $X^m$ representam, respectivamente, o valor de u
 %p~=~\frac{2|E|^s}{|V|^s(|V|^s-1)}
 %\end{equation}
 
-Para o modelo LFR a maioria dos parâmetros foi fixada de acordo com as métricas obtidas para cada sistema. O parâmetro de mistura, $\mu$ foi definido de acordo com a expressão $|E_{ext}|^s~/~|E|^s$.
+No modelo LFR os parâmetros coincidem com as métricas extraídas da rede de referência, com exceção do parâmetro de mistura, $\mu$, que foi calculado de acordo com a expressão $|E_{ext}|^s~/~|E|^s$.
 
 \textbf{TODO: definir melhor, abaixo, a escolha de parâmetros do modelo BCR+}
 
@@ -238,7 +263,7 @@ Para o modelo BCR+ a arquitetura modular fornecida como parâmetro é igual à a
 
 \subsection{Geração de Sistemas Sintéticos}
 
-O objetivo desta etapa é usar cada um dos modelos para gerar redes semelhantes a cada um dos sistemas, de acordo com os parâmetros selecionados na etapa anterior. Consideramos uma amostra de X redes para cada par modelo $\times$ sistema.
+Considerando os parâmetros escolhidos, geramos 9 redes a partir de cada um dos modelos.
 
 %(Por que X? Ver calculadora de tamanho de amostra \footnote{\url{http://www.surveysystem.com/sscalc.htm}})
 
@@ -333,6 +358,8 @@ JFreeChart & $2,44 \pm 0,00$ & $2,44$ \\
 
 % Recapitulando o que este trabalho fez:
 Este artigo apresentou uma nova abordagem, baseada na geração de sistemas sintéticos, de avaliação de algoritmos de aglomeração aplicados à recuperação de módulos de sistemas de \emph{software}. Três modelos de sistemas sintéticos foram apresentados e avaliados experimentalmente quanto à capacidade de produzir sistemas realistas.
+
+O experimentou revelou que 
 
 % DISCUTIR BREVEMENTE OS RESULTADOS E ENTÃO PARTIR PARA A ESPECULAÇÃO
 % O quão bem o modelo funciona, vantagens e desvantagens em relação a outras abordagens (complementares).
