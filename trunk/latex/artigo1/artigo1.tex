@@ -15,15 +15,6 @@
 %why is the story of interest to others?
 %  universal truths, hot topic, surprises or unexpected results?
 
-% Ordem de escrita
-%   Resultados
-%   Discussão
-%   Introdução
-%   Materiais e Métodos
-%   Abstract
-%   Título
-
-
 % == PLANEJAMENTO DO EXPERIMENTO ==
 % 
 % INGREDIENTES
@@ -69,7 +60,7 @@ Existem muitos algoritmos para identificar os módulos de um sistema a partir de
 
 A divisão conceitual de um sistema de \emph{software} em módulos
 %, denominada arquitetura modular, 
-é muito importante no gerenciamento de sua evolução \cite{Parnas1972}. À medida que os desenvolvedores de um sistema são substituídos, no entanto, essa informação pode se perder. Alguns pesquisadores propõem o uso de algoritmos de aglomeração (\emph{clustering}) para recuperar a arquitetura modular de um sistema a partir de sua implementação \cite{Mancoridis1998,Andritsos2003,Maqbool2007}. % \CITE
+é muito importante no gerenciamento de sua evolução \cite{Parnas1972}. À medida que os desenvolvedores de um sistema são substituídos, no entanto, essa informação pode se perder. Alguns pesquisadores propõem o uso de algoritmos de aglomeração (\emph{clustering}) para recuperar a arquitetura modular de um sistema a partir de sua implementação \cite{Mancoridis1998,Andritsos2003,Maqbool2007}.
 
 Espera-se que os algoritmos encontrem organizações modulares semelhantes àquelas que seriam encontradas por  especialistas nos sistemas analisados. Uma forma de validar os algoritmos consiste, pois, em aplicá-los ao código-fonte de um sistema cuja organização em módulos esteja documentada e então comparar, através de uma medida de similaridade entre particionamentos \cite{Tzerpos1999,Wen2004a}, os módulos do sistema com os módulos encontrados pelos algoritmos. Infelizmente é difícil encontrar sistemas documentados nesse nível de detalhe e por essa razão a avaliação empírica dos algoritmos de recuperação de arquitetura ainda é incipiente. % MOVER INFELIZMENTE... PARA OUTRO PARÁGRAFO E FALAR DE DISCREPÂNCIAS DE DESEMPENHO DE UM ALGORITMO DE SISTEMA PARA SISTEMA?
 
@@ -91,23 +82,21 @@ A implementação de um sistema possui muitos detalhes, mas nem todos os detalhe
 
 Pesquisas recentes mostram que redes de dependências entre classes possuem propriedades estatísticas comuns a redes complexas estudadas em diversos domínios, tais como sociologia, biologia e linguística \cite{Myers2003,Valverde2003}. Essas propriedades foram incorporadas a diversos modelos de geração de redes \cite{Bollobas2003,Lancichinetti2008} que podem ser usados para gerar redes de dependências entre classes. 
 
-\subsection{O Modelo ER com Módulos}
-
-O modelo de Erdős-Rényi \cite{Erdos1959}, ou modelo de rede aleatória, gera redes não-orientadas cujo número de arestas por vértice segue uma distribuição de Poisson. Ele não modela adequadamente as redes de dependências entre classes, e por isso é usado apenas como base de comparação. Propomos aqui uma simples extensão desse modelo que considera a organização dos vértices em módulos. O modelo estendido possui os seguintes parâmetros:
-
-\begin{itemize}
-  \item número de vértices, $|V|$;
-  \item probabilidade de ligação, $p$;
-  \item número de módulos, $|M|$.
-\end{itemize} 
-
-O modelo produz redes com $|V|$ vértices distribuídos aleatoriamente entre os $|M|$ módulos, onde cada par de vértices possui uma probabilidade $p$ de estar ligado por uma aresta. O número esperado de arestas, $E(|E|)$ é dado pela seguinte expressão:
-
-\begin{equation}
-E(|E|)~=~\frac{|V|(|V| - 1)}{2}p
-\end{equation}
-
-%O algoritmo de geração de redes inicia-se com a criação de $|V|$ vértices. A seguir cada vértice é incluído em um módulo, escolhido com probabilidade uniforme. Por fim são adicionadas algumas arestas. Por fim, para cada par de vértices, é adicionada uma aresta, com probabilidade $p$.
+%\subsection{O Modelo ER com Módulos}
+%
+%O modelo de Erdős-Rényi \cite{Erdos1959}, ou modelo de rede aleatória, gera redes não-orientadas cujo número de arestas por vértice segue uma distribuição de Poisson. Ele não modela adequadamente as redes de dependências entre classes, e por isso é usado apenas como base de comparação. Propomos aqui uma simples extensão desse modelo que considera a organização dos vértices em módulos. O modelo estendido possui os seguintes parâmetros:
+%
+%\begin{itemize}
+%  \item número de vértices, $|V|$;
+%  \item probabilidade de ligação, $p$;
+%  \item número de módulos, $|M|$.
+%\end{itemize} 
+%
+%O modelo produz redes com $|V|$ vértices distribuídos aleatoriamente entre os $|M|$ módulos, onde cada par de vértices possui uma probabilidade $p$ de estar ligado por uma aresta. O número esperado de arestas, $E(|E|)$ é dado pela seguinte expressão:
+%
+%\begin{equation}
+%E(|E|)~=~\frac{|V|(|V| - 1)}{2}p
+%\end{equation}
 
 \subsection{O Modelo LFR}
 
@@ -132,9 +121,9 @@ O modelo produz redes que seguem aproximadamente os parâmetros fornecidos. O pa
   O modelo gera grafos não-orientados, uma representação muito simplificada das redes de dependências entre classes. Além disso, ele considera que todos os vértices possuem arestas externas, o que certamente não é verdade no domínio de \emph{software}. Por fim, os vértices de um módulo podem se ligar a vértices de qualquer outro módulo, sem restrição. Essa característica difere do que se encontra em programas de computador, onde as dependências entre módulos são controladas (por exemplo, ao se adotar uma arquitetura em camadas).
 % rápido: cerca de 13s para 1658 vértices no athlon 64 3000+ com 1 GB de RAM.
 
-\subsection{O Modelo BCR}
+\subsection{O Modelo BCR+}
 
-Considerando as limitações do modelo LFR, propomos um novo modelo de rede com estrutura de módulos embutida, baseado no modelo de grafo orientado de Bollobás, Borgs, Chayes e Riordan \cite{Bollobas2003}, inspirado na rede de \emph{links} entre páginas da \emph{web}. O modelo possui os seguintes parâmetros:
+Bollobás, Borgs, Chayes e Riordan criaram um modelo de rede orientada, o modelo BCR, inspirado na rede de \emph{links} entre páginas da \emph{web} \cite{Bollobas2003}. Considerando as limitações do modelo LFR, propomos o modelo BCR+, que é extensão do modelo BCR que considera a organização dos vértices em módulos. O modelo possui os seguinte parâmetros:
 
 \begin{itemize}
   \item número de vértices, $|V|$;
@@ -181,7 +170,15 @@ Este modelo supera as limitações encontradas no modelo LFR: as redes são orie
 
 \section{Experimento} \label{sec:experimento}
 
-Na seção anterior discutimos características gerais dos modelos de geração de redes. Com o objeto de avaliar a capacidade dos modelos de gerar redes semelhantes a redes de dependências entre classes, realizamos um experimento com os três modelos e dois sistemas, o jogo VilloNanny 2.2.4 e a biblioteca JFreeChart 1.0.13. O experimento foi dividido em cinco etapas: extração das redes dos sistemas (redes reais), análise das redes reais, escolha dos parâmetros dos modelos, geração de redes sintéticas e comparação entre redes sintéticas e as redes reais correspondentes. 
+Na seção anterior discutimos características gerais dos modelos de geração de redes. Com o objeto de avaliar a capacidade dos modelos de gerar redes semelhantes a redes de dependências entre classes, realizamos um experimento envolvendo os dois modelos apresentados e dois sistemas, o jogo VilloNanny 2.2.4 e a biblioteca JFreeChart 1.0.13. 
+
+O jogo VilloNanny foi usado como sistema de referência. O experimento consistiu em sintetizar diversas redes 
+
+Os parâmetros de cada modelo foram escolhidos de forma a gerar redes com características semelhantes
+
+O objetivo do experimento foi determinar até que ponto os modelos conseguem imitar a rede do VilloNanny. A rede da biblioteca JFreeChart também foi 
+
+O experimento foi dividido em cinco etapas: extração das redes dos sistemas (redes reais), análise do sistema de referência, escolha dos parâmetros dos modelos, geração de redes sintéticas e comparação entre as redes. 
 
 \subsection{Extração das Redes dos Sistemas}
 
@@ -220,17 +217,17 @@ Além disso, extraímos a arquitetura modular do sistema. Na arquitetura, existe
 
 Na discussão a seguir, $X^s$ e $X^m$ representam, respectivamente, o valor de uma métrica $X$ extraída de um sistema e o valor de um parâmetro $X$ de um modelo.
 
-Para o modelo de rede aleatória com módulos, consideramos $|V|^m = |V|^s$ e $|M|^m = |M|^s$, isto é,  mantivemos o número de vértices e o número de módulos do sistema. Com o objetivo de aproximar o número de arestas das redes sintéticas do número de arestas das redes reais, o valor de $p$ foi definido segundo a seguinte expressão:
+%Para o modelo de rede aleatória com módulos, consideramos $|V|^m = |V|^s$ e $|M|^m = |M|^s$, isto é,  mantivemos o número de vértices e o número de módulos do sistema. Com o objetivo de aproximar o número de arestas das redes sintéticas do número de arestas das redes reais, o valor de $p$ foi definido segundo a seguinte expressão:
 
-\begin{equation}
-p~=~\frac{2|E|^s}{|V|^s(|V|^s-1)}
-\end{equation}
+%\begin{equation}
+%p~=~\frac{2|E|^s}{|V|^s(|V|^s-1)}
+%\end{equation}
 
 Para o modelo LFR a maioria dos parâmetros foi fixada de acordo com as métricas obtidas para cada sistema. O parâmetro de mistura, $\mu$ foi definido de acordo com a expressão $|E_{ext}|^s~/~|E|^s$.
 
-\textbf{TODO: definir melhor, abaixo, a escolha de parâmetros do modelo BCR}
+\textbf{TODO: definir melhor, abaixo, a escolha de parâmetros do modelo BCR+}
 
-Para o modelo BCR a arquitetura modular fornecida como parâmetro é igual à arquitetura extraída do sistema, número de vértices idem e calculamos $p, r, q, \delta_{in}, \delta_{out}$ de forma a satisfazer às seguintes restrições:
+Para o modelo BCR+ a arquitetura modular fornecida como parâmetro é igual à arquitetura extraída do sistema, número de vértices idem e calculamos $p, r, q, \delta_{in}, \delta_{out}$ de forma a satisfazer às seguintes restrições:
 \begin{itemize}
   \item $q = p$. Como no estudo consideramos redes não-orientadas, não faz sentido distinguir os dois casos em que há a criação de um vértice e uma aresta, já que apenas o sentido da aresta é alterado.
   \item O número de arestas do modelo deveria ser igual ao número de arestas do sistema
@@ -283,25 +280,50 @@ TODO: distância entre os dois sistemas.
 
 \section{Resultados} \label{sec:resultados}
 
-TABELA 1: sistemas analisados. Nome, versão, métricas (tamanho, número de módulos, ....)
+\begin{table}
+\caption{Métricas do sistema VilloNanny}
+\begin{center}
+\begin{tabular}{c c c c c c}
+\hline
+\hline
+$|V|$ & $|E|$ & $|E_{ext}|$ & $|M|$ & $\gamma$ & $\beta$ \\
+\hline
+1658  & 6766  & 343         &  13   & 2.68     & 1.00 \\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
 
-TABELA 2: métricas das redes sintéticas.
+\begin{table}
+\caption{Discrepâncias relativas}
+\begin{center}
+\begin{tabular}{r | c c c c c}
+\hline
+\hline
+    & $|E|$ & $|E_{ext}|$ & $|M|$ & $\gamma$ & $\beta$ \\
+\hline
+LFR & 0.44\% & 0.06\%   & 27.35\% & 4.10\%   & 4.44\% \\
+BCR+ & 2.45\% & 2.17\%   & 0.00\%  & 19.69\%  & 1.67\% \\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
 
-TABELA 3 (ou GRÁFICO): distâncias
-
-VilloNanny, JFreeChart: 16361650.000000 = 2,43
-
-VilloNanny, Souza:
-1 16924376.000000 = 2,47
-2 16689892.000000 = 2,46
-3 20970836.000000 = 2,76
-4 21020664.000000 = 2,76
-média: 2,61
-
-VilloNanny, Lancichinetti
-1 29742200.000000 = 3,28
-2 29335556.000000 = 3,26
-média = 3,27
+\begin{table}
+\caption{Distâncias em relação à rede do VilloNanny}
+\begin{center}
+\begin{tabular}{r | c c}
+\hline
+\hline
+Modelo/Sistema & Distância Média              & Distância Mínima \\
+\hline
+LFR        & $3,28 \pm 0,01$ & $3,26$ \\
+BCR+        & $2,60 \pm 0,28$ & $2,16$ \\
+JFreeChart & $2,44 \pm 0,00$ & $2,44$ \\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
 
 %  * present results clearly and logically
 %  * avoid excess verbiage
