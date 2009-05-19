@@ -100,7 +100,7 @@ Pesquisas recentes mostram que redes de dependências entre classes possuem prop
 
 \subsection{O Modelo LFR}
 
-Lancichinetti, Fortunato e Radicchi \cite{Lancichinetti2008} criaram um modelo de rede com estrutura de módulos embutida baseado em distribuições estatísticas encontradas em redes de vários domínios. Ele gera grafos não-orientados e não-ponderados cuja distribuição dos graus dos vértices e cuja distribuição dos tamanhos dos módulos são ambas leis de potência. Mais precisamente, o número de vértices cujo grau é $k$ é proporcional a $k^{-\gamma}$, onde o expoente $\gamma$ tipicamente varia entre 2 e 3, e o número de módulos com $n$ vértices é proporcional a $n^{-\beta}$, com $\beta$ variando entre 1 e 2.
+Lancichinetti, Fortunato e Radicchi \cite{Lancichinetti2008} criaram um modelo de rede com estrutura de módulos embutida baseado em distribuições estatísticas encontradas em redes de vários domínios \footnote{Uma implementação desse modelo está disponível em \url{http://santo.fortunato.googlepages.com/benchmark_2_2.tar}}. Ele gera grafos não-orientados e não-ponderados cuja distribuição dos graus dos vértices e cuja distribuição dos tamanhos dos módulos são ambas leis de potência. Mais precisamente, o número de vértices cujo grau é $k$ é proporcional a $k^{-\gamma}$, onde o expoente $\gamma$ tipicamente varia entre 2 e 3, e o número de módulos com $n$ vértices é proporcional a $n^{-\beta}$, com $\beta$ variando entre 1 e 2.
 
 O modelo possui os seguintes parâmetros:
 \begin{itemize}
@@ -123,7 +123,7 @@ O modelo produz redes que seguem aproximadamente os parâmetros fornecidos. O pa
 
 \subsection{O Modelo BCR+}
 
-Bollobás, Borgs, Chayes e Riordan criaram um modelo de rede orientada, o modelo BCR, inspirado na rede de \emph{links} entre páginas da \emph{web} \cite{Bollobas2003}. Considerando as limitações do modelo LFR, propomos o modelo BCR+, que é extensão do modelo BCR que considera a organização dos vértices em módulos. O modelo possui os seguinte parâmetros:
+Bollobás, Borgs, Chayes e Riordan criaram um modelo de rede orientada, o modelo BCR, inspirado na rede de \emph{links} entre páginas da \emph{web} \cite{Bollobas2003}. Considerando as limitações do modelo LFR, propomos o modelo BCR+, que é extensão do modelo BCR que considera a organização dos vértices em módulos\footnote{Uma implementação pode ser baixada em \url{http://code.google.com/p/swasr/wiki/Instalacao} TODO: criar empacotamento e página só dos modelos}. O modelo possui os seguinte parâmetros:
 
 \begin{itemize}
   \item número de vértices, $|V|$;
@@ -374,6 +374,8 @@ Acreditamos que outras linhas de pesquisa da engenharia de \emph{software}, a ex
 Trabalhos futuros: explorar métricas de arquitetura, avaliar algoritmos de clustering, refinar modelos / considerar outros modelos.
 
 % considerar o uso de arestas orientadas e pesos das arestas .
+
+Outros modelos a considerar: \cite{Lancichinetti2009,Chen2008}.
 
 %\bibliographystyle{apalike}
 \bibliographystyle{abbrv}
