@@ -1,6 +1,6 @@
 ﻿#summary Modelo in-house de rede com arquitetura embutida.
 
-Esse modelo foi desenvolvido em dezembro de 2008 e baseado no [ReviewBollobas2003 modelo de de Bollobáss] (sem arquitetura embutida). O modelo recebe como entrada uma arquitetura (grafo onde os vértices representam os módulos e as arestas representam as ligações permitidas entre vértices de módulos distintos) e produz um grafo que obedece à arquitetura. 
+Esse modelo foi desenvolvido em dezembro de 2008 e baseado no [ReviewBollobas2003 modelo de de Bollobás] (sem arquitetura embutida). O modelo recebe como entrada uma arquitetura (grafo onde os vértices representam os módulos e as arestas representam as ligações permitidas entre vértices de módulos distintos) e produz um grafo que obedece à arquitetura. 
 
 Parâmetros:
   * Número de iterações
