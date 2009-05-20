@@ -147,7 +147,7 @@ key "Parnas1972"
 \emph on
 clustering
 \emph default
-) para recuperar a arquitetura modular de um sistema a partir de sua implementaç
+) para recuperar a organização modular de um sistema a partir de sua implementaç
 ão 
 \begin_inset LatexCommand cite
 key "Mancoridis1998,Andritsos2003,Maqbool2007"
@@ -208,21 +208,22 @@ software
  infinitas de sistemas arbitrariamente complexos e, ainda, estudar como
  os parâmetros dos modelos afetam a avaliação dos algoritmos.
  
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Standard
-Deixar claro que um dos modelos foi desenvolvido neste trabalho.
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Standard
-Na próxima seção apresentamos três modelos estocásticos que podem ser usados
- para gerar sistemas sintéticos.
+O sucesso dessa abordagem, no entanto, depende da capacidade dos modelos
+ de gerar sistemas realistas, ao menos do ponto de vista dos algoritmos
+ de recuperação de arquitetura.
+ Neste artigo propomos um modelo de síntese de 
+\emph on
+software
+\emph default
+ e avaliamos o realismo desse modelo e de um outro modelo presente na literatura.
+ 
+\end_layout
+
+\begin_layout Standard
+Na próxima seção apresentamos os dois modelos avaliados.
  Na seção 
 \begin_inset LatexCommand ref
 reference "sec:experimento"
@@ -281,212 +282,6 @@ key "Bollobas2003,Lancichinetti2008"
 
  que podem, por essa razão, ser usados para gerar redes de dependências
  entre classes.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Standard
-\begin_inset ERT
-status collapsed
-
-\begin_layout Standard
-
-%
-\backslash
-subsection{O Modelo ER com Módulos}
-\end_layout
-
-\begin_layout Standard
-
-\end_layout
-
-\end_inset
-
-
-\begin_inset ERT
-status collapsed
-
-\begin_layout Standard
-
-%O modelo de Erdős-Rényi 
-\backslash
-cite{Erdos1959}, ou modelo de rede aleatória, gera redes não-orientadas
- cujo número de arestas por vértice segue uma distribuição de Poisson.
- Ele não modela adequadamente as redes de dependências entre classes, e
- por isso é usado apenas como base de comparação.
- Propomos aqui uma simples extensão desse modelo que considera a organização
- dos vértices em módulos.
- O modelo estendido possui os seguintes parâmetros:
-\end_layout
-
-\begin_layout Standard
-
-\end_layout
-
-\end_inset
-
-
-\begin_inset ERT
-status collapsed
-
-\begin_layout Standard
-
-%
-\backslash
-begin{itemize}
-\end_layout
-
-\begin_layout Standard
-
-\end_layout
-
-\end_inset
-
-
-\begin_inset ERT
-status collapsed
-
-\begin_layout Standard
-
-%  
-\backslash
-item número de vértices, $|V|$;
-\end_layout
-
-\begin_layout Standard
-
-\end_layout
-
-\end_inset
-
-
-\begin_inset ERT
-status collapsed
-
-\begin_layout Standard
-
-%  
-\backslash
-item probabilidade de ligação, $p$;
-\end_layout
-
-\begin_layout Standard
-
-\end_layout
-
-\end_inset
-
-
-\begin_inset ERT
-status collapsed
-
-\begin_layout Standard
-
-%  
-\backslash
-item número de módulos, $|M|$.
-\end_layout
-
-\begin_layout Standard
-
-\end_layout
-
-\end_inset
-
-
-\begin_inset ERT
-status collapsed
-
-\begin_layout Standard
-
-%
-\backslash
-end{itemize} 
-\end_layout
-
-\begin_layout Standard
-
-\end_layout
-
-\end_inset
-
-
-\begin_inset ERT
-status collapsed
-
-\begin_layout Standard
-
-%O modelo produz redes com $|V|$ vértices distribuídos aleatoriamente entre
- os $|M|$ módulos, onde cada par de vértices possui uma probabilidade $p$
- de estar ligado por uma aresta.
- O número esperado de arestas, $E(|E|)$ é dado pela seguinte expressão:
-\end_layout
-
-\begin_layout Standard
-
-\end_layout
-
-\end_inset
-
-
-\begin_inset ERT
-status collapsed
-
-\begin_layout Standard
-
-%
-\backslash
-begin{equation}
-\end_layout
-
-\begin_layout Standard
-
-\end_layout
-
-\end_inset
-
-
-\begin_inset ERT
-status collapsed
-
-\begin_layout Standard
-
-%E(|E|)~=~
-\backslash
-frac{|V|(|V| - 1)}{2}p
-\end_layout
-
-\begin_layout Standard
-
-\end_layout
-
-\end_inset
-
-
-\begin_inset ERT
-status collapsed
-
-\begin_layout Standard
-
-%
-\backslash
-end{equation}
-\end_layout
-
-\begin_layout Standard
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Subsection
@@ -716,8 +511,8 @@ key "Bollobas2003"
 \end_inset
 
 .
- Considerando as limitações do modelo LFR, propomos o modelo BCR+, que é
- extensão do modelo BCR que considera a organização dos vértices em módulos
+ Considerando as limitações do modelo LFR, propomos o modelo BCR+, uma extensão
+ do modelo BCR que considera a organização dos vértices em módulos
 \begin_inset Foot
 status collapsed
 
@@ -1240,7 +1035,7 @@ e que o comprimento é
 
 \begin_layout Standard
 A distância entre duas matrizes de vizinhança, 
-\begin_inset Formula $\mathrm{d}(M, N)$
+\begin_inset Formula $\mathrm{d}(M,N)$
 \end_inset
 
 , é dada pela equação a seguir:
@@ -1294,7 +1089,7 @@ Sejam
 
 .
  Definimos a distância entre as duas redes, 
-\begin_inset Formula $\mathrm{D}(A, B)$
+\begin_inset Formula $\mathrm{D}(A,B)$
 \end_inset
 
 , como sendo a menor das distâncias entre a matriz 
@@ -1530,7 +1325,7 @@ target "http://www.santafe.edu/~aaronc/powerlaws/"
 \begin_inset Float table
 wide true
 sideways false
-status collapsed
+status open
 
 \begin_layout Standard
 \begin_inset LatexCommand label
@@ -1656,7 +1451,7 @@ Sistema
 \begin_inset Text
 
 \begin_layout Standard
-\begin_inset Formula $\langle k \rangle$
+\begin_inset Formula $\langle k\rangle$
 \end_inset
 
 
@@ -1982,7 +1777,7 @@ reference "fig:arquitetura-villonanny"
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Standard
 \begin_inset LatexCommand label
@@ -2061,93 +1856,6 @@ Na discussão a seguir,
 \end_inset
 
 
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Standard
-\begin_inset ERT
-status open
-
-\begin_layout Standard
-
-%Para o modelo de rede aleatória com módulos, consideramos $|V|^m = |V|^s$
- e $|M|^m = |M|^s$, isto é,  mantivemos o número de vértices e o número
- de módulos do sistema.
- Com o objetivo de aproximar o número de arestas das redes sintéticas do
- número de arestas das redes reais, o valor de $p$ foi definido segundo
- a seguinte expressão:
-\end_layout
-
-\begin_layout Standard
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset ERT
-status open
-
-\begin_layout Standard
-
-%
-\backslash
-begin{equation}
-\end_layout
-
-\begin_layout Standard
-
-\end_layout
-
-\end_inset
-
-
-\begin_inset ERT
-status open
-
-\begin_layout Standard
-
-%p~=~
-\backslash
-frac{2|E|^s}{|V|^s(|V|^s-1)}
-\end_layout
-
-\begin_layout Standard
-
-\end_layout
-
-\end_inset
-
-
-\begin_inset ERT
-status open
-
-\begin_layout Standard
-
-%
-\backslash
-end{equation}
-\end_layout
-
-\begin_layout Standard
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Standard
@@ -2180,7 +1888,7 @@ reference "fig:arquitetura-villonanny"
 
 , extraída da rede de referência.
  Como estamos ignorando o sentido das arestas, consideramos 
-\begin_inset Formula $p = q$
+\begin_inset Formula $p=q$
 \end_inset
 
  e 
@@ -2291,7 +1999,7 @@ O parâmetro
 
 \begin_layout Standard
 Achamos 
-\begin_inset Formula $\mu= 0.274$
+\begin_inset Formula $\mu=0.274$
 \end_inset
 
 .
@@ -2303,30 +2011,28 @@ Achamos
 \end_layout
 
 \begin_layout Standard
-Com os parâmetros escolhidos, foram geradas 9 redes a partir de cada modelo.
- As redes geradas pelo modelo BCR+ foram transformadas em redes não-orientadas.
-\end_layout
-
-\begin_layout Subsection
-Comparação Entre Sistemas Sintéticos e Sistemas Reais TODO: MUDAR TÍTULO
-\end_layout
-
-\begin_layout Standard
-Após a extração das redes reais e da produção de redes sintéticas, calculamos
- as distâncias entre a rede de referência e todas as demais redes.
- Os resultados podem ser vistos na Tabela 
+Com os parâmetros escolhidos, geramos 9 redes a partir de cada modelo e
+ extraímos métricas.
+ Calculamos a média das medidas das redes de cada modelo e então as comparamos
+ com as medidas da rede de referência.
+ A Tabela 
 \begin_inset LatexCommand ref
-reference "tab:distancias"
+reference "tab:discrepancias"
 
 \end_inset
 
-.
- No caso de redes sintéticas as distâncias foram agrupadas por modelo.
- Os dados mostram que o modelo BCR+ foi o que mais se aproximou da rede
- de referência; uma das redes geradas ficou mais próxima à rede de referência
- do que o sistema JFreeChart.
- O modelo LFR produziu redes bem parecidas umas com as outras, como revela
- o baixo desvio-padrão das distâncias.
+ mostra, para cada modelo, a discrepância entre as medidas da rede de referência
+ e as médias das redes sintéticas do modelo.
+\begin_inset Note Note
+status open
+
+\begin_layout Standard
+comentar dados
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -2337,7 +2043,7 @@ status open
 
 \begin_layout Standard
 \begin_inset LatexCommand label
-name "tab:distancias"
+name "tab:discrepancias"
 
 \end_inset
 
@@ -2345,183 +2051,8 @@ name "tab:distancias"
 \begin_inset Caption
 
 \begin_layout Standard
-Distâncias em relação à rede do VilloNanny
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\align center
-\begin_inset Tabular
-<lyxtabular version="3" rows="4" columns="3">
-<features>
-<column alignment="right" valignment="top" rightline="true" width="0">
-<column alignment="center" valignment="top" width="0">
-<column alignment="center" valignment="top" width="0">
-<row topline="true">
-<cell alignment="right" valignment="top" topline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Standard
-Modelo/Sistema 
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Standard
-Distância Média 
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Standard
-Distância Mínima 
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row topline="true">
-<cell alignment="right" valignment="top" topline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Standard
-LFR 
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Standard
-\begin_inset Formula $3,28\pm0,01$
-\end_inset
-
- 
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Standard
-\begin_inset Formula $3,26$
-\end_inset
-
- 
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="right" valignment="top" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Standard
-BCR+ 
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Standard
-\begin_inset Formula $2,60\pm0,28$
-\end_inset
-
- 
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" usebox="none">
-\begin_inset Text
-
-\begin_layout Standard
-\begin_inset Formula $2,16$
-\end_inset
-
- 
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row bottomline="true">
-<cell alignment="right" valignment="top" bottomline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Standard
-JFreeChart 
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" bottomline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Standard
-\begin_inset Formula $2,44\pm0,00$
-\end_inset
-
- 
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" bottomline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Standard
-\begin_inset Formula $2,44$
-\end_inset
-
- 
-\end_layout
-
-\end_inset
-</cell>
-</row>
-</lyxtabular>
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Standard
-\begin_inset Float table
-wide false
-sideways false
-status open
-
-\begin_layout Standard
-\begin_inset Caption
-
-\begin_layout Standard
-Discrepâncias relativas
+Discrepâncias relativas entre as medidas das redes sintéticas (média) e
+ as medidas da rede de referência.
 \end_layout
 
 \end_inset
@@ -2743,6 +2274,215 @@ BCR+
 
 \end_layout
 
+\begin_layout Subsection
+Cálculo da Distância Entre as Redes
+\end_layout
+
+\begin_layout Standard
+Após a extração das redes reais e da produção de redes sintéticas, calculamos
+ as distâncias entre a rede de referência e todas as demais redes.
+ Os resultados podem ser vistos na Tabela 
+\begin_inset LatexCommand ref
+reference "tab:distancias"
+
+\end_inset
+
+.
+ No caso de redes sintéticas as distâncias foram agrupadas por modelo.
+ Os dados mostram que o modelo BCR+ foi o que mais se aproximou da rede
+ de referência; uma das redes geradas ficou mais próxima à rede de referência
+ do que o sistema JFreeChart.
+ O modelo LFR produziu redes bem parecidas umas com as outras, como revela
+ o baixo desvio-padrão das distâncias.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Standard
+\begin_inset LatexCommand label
+name "tab:distancias"
+
+\end_inset
+
+
+\begin_inset Caption
+
+\begin_layout Standard
+Distâncias das redes sintéticas e da rede do sistema JFreeChart em relação
+ à rede de referência.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="4" columns="3">
+<features>
+<column alignment="right" valignment="top" rightline="true" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<row topline="true">
+<cell alignment="right" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+Modelo/Sistema 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+Distância Média 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+Distância Mínima 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row topline="true">
+<cell alignment="right" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+LFR 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+\begin_inset Formula $3,28\pm0,01$
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+\begin_inset Formula $3,26$
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="right" valignment="top" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+BCR+ 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+\begin_inset Formula $2,60\pm0,28$
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+\begin_inset Formula $2,16$
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row bottomline="true">
+<cell alignment="right" valignment="top" bottomline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+JFreeChart 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+\begin_inset Formula $2,44\pm0,00$
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+\begin_inset Formula $2,44$
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Standard
+
+\end_layout
+
 \end_inset
 
 
@@ -2792,18 +2532,17 @@ status collapsed
 \end_inset
 
 Este artigo apresentou uma nova abordagem, baseada na geração de sistemas
- sintéticos, de avaliação de algoritmos de aglomeração aplicados à recuperação
- de módulos de sistemas de 
+ de 
 \emph on
 software
 \emph default
-.
- Três modelos de sistemas sintéticos foram apresentados e avaliados experimental
+ sintéticos, de avaliação de algoritmos de recuperação de arquitetura.
+ Dois modelos de sistemas sintéticos foram apresentados e avaliados experimental
 mente quanto à capacidade de produzir sistemas realistas.
 \end_layout
 
 \begin_layout Standard
-O experimentou revelou que
+O experimento revelou que
 \end_layout
 
 \begin_layout Standard
@@ -2972,6 +2711,298 @@ bibliographystyle{abbrv}
 \begin_inset LatexCommand bibtex
 options "abbrv"
 bibfiles "complex-networks,rodrigo-mestrado"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Standard
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+%
+\backslash
+subsection{O Modelo ER com Módulos}
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+%O modelo de Erdős-Rényi 
+\backslash
+cite{Erdos1959}, ou modelo de rede aleatória, gera redes não-orientadas
+ cujo número de arestas por vértice segue uma distribuição de Poisson.
+ Ele não modela adequadamente as redes de dependências entre classes, e
+ por isso é usado apenas como base de comparação.
+ Propomos aqui uma simples extensão desse modelo que considera a organização
+ dos vértices em módulos.
+ O modelo estendido possui os seguintes parâmetros:
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+%
+\backslash
+begin{itemize}
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+%  
+\backslash
+item número de vértices, $|V|$;
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+%  
+\backslash
+item probabilidade de ligação, $p$;
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+%  
+\backslash
+item número de módulos, $|M|$.
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+%
+\backslash
+end{itemize} 
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+%O modelo produz redes com $|V|$ vértices distribuídos aleatoriamente entre
+ os $|M|$ módulos, onde cada par de vértices possui uma probabilidade $p$
+ de estar ligado por uma aresta.
+ O número esperado de arestas, $E(|E|)$ é dado pela seguinte expressão:
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+%
+\backslash
+begin{equation}
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+%E(|E|)~=~
+\backslash
+frac{|V|(|V| - 1)}{2}p
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+%
+\backslash
+end{equation}
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Standard
+
+%Para o modelo de rede aleatória com módulos, consideramos $|V|^m = |V|^s$
+ e $|M|^m = |M|^s$, isto é,  mantivemos o número de vértices e o número
+ de módulos do sistema.
+ Com o objetivo de aproximar o número de arestas das redes sintéticas do
+ número de arestas das redes reais, o valor de $p$ foi definido segundo
+ a seguinte expressão:
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Standard
+
+%
+\backslash
+begin{equation}
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Standard
+
+%p~=~
+\backslash
+frac{2|E|^s}{|V|^s(|V|^s-1)}
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Standard
+
+%
+\backslash
+end{equation}
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
 
 \end_inset
 
