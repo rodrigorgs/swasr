@@ -1139,7 +1139,7 @@ key "Andrade2008"
 \end_layout
 
 \begin_layout Section
-Experimento
+Avaliação Empírica
 \begin_inset LatexCommand label
 name "sec:experimento"
 
@@ -2475,79 +2475,78 @@ JFreeChart
 
 \end_layout
 
-\begin_layout Standard
-\begin_inset Note Note
-status open
-
-\begin_layout Standard
-
+\begin_layout Subsection
+Ameaças à Validade
 \end_layout
 
-\end_inset
-
-
+\begin_layout Standard
+Os resultados do experimento são bastante animadores, mas não são definitivos.
+ Para minimizar o efeito da escolha dos sistemas, o experimento deve ser
+ repetido com uma amostra maior.
+ A representação das dependências de um sistema como uma rede não-orientada
+ é uma simplificação; muitos algoritmos de recuperação de arquitetura operam
+ sobre redes orientadas e ponderadas, na qual as arestas possuem um sentido
+ e um peso associado.
+ A métrica de distância leva em consideração relações entre os vértices
+ de uma rede, mas ignora a organização em módulos; por essa razão nada se
+ pode afirmar sobre o realismo das associações entre vértices e módulos.
 \end_layout
 
 \begin_layout Section
 Discussão
-\end_layout
-
-\begin_layout Standard
 \begin_inset LatexCommand label
 name "sec:discussao"
 
 \end_inset
 
- 
-\begin_inset ERT
-status collapsed
-
-\begin_layout Standard
-
-% why it's significant 
-\end_layout
-
-\begin_layout Standard
-
-\end_layout
-
-\end_inset
-
 
 \end_layout
 
 \begin_layout Standard
-\begin_inset ERT
-status collapsed
-
-\begin_layout Standard
-
-% Recapitulando o que este trabalho fez:
-\end_layout
-
-\begin_layout Standard
-
-\end_layout
-
-\end_inset
-
 Este artigo apresentou uma nova abordagem, baseada na geração de sistemas
  de 
 \emph on
 software
 \emph default
  sintéticos, de avaliação de algoritmos de recuperação de arquitetura.
- Dois modelos de sistemas sintéticos foram apresentados e avaliados experimental
-mente quanto à capacidade de produzir sistemas realistas.
+ Dois modelos de sistemas sintéticos foram apresentados e avaliados empiricament
+e.
+ O experimento mostrou que o modelo proposto neste artigo, o BCR+, é capaz
+ de sintetizar sistemas semelhantes a sistemas reais.
+ 
 \end_layout
 
 \begin_layout Standard
-O experimento revelou que
+Dado que todo modelo é uma simplificação, os sistemas sintéticos não devem
+ ser vistos como substitutos de sistemas reais, e sim como uma alternativa
+ que apresenta diversas vantagens.
+ É fácil gerar um grande número de sistemas sintéticos para teste, viabilizando
+ análises em larga escala.
+ Além disso, como cada sistema sintético é descrito sucintamente por um
+ conjunto de parâmetros, é possível relacionar variações na acurácia de
+ um algoritmo a variações nos parâmetros.
+ Por exemplo, Lancichinetti, Fortunato e Radicchi mostraram através de experimen
+tos que o aumento do grau médio de uma rede afeta negativamente a acurácia
+ de dois algoritmos de aglomeração estudados por eles.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Standard
+que são indistinguíveis de sistemas reais quanto à semelhança com um sistema
+ de referência.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
 \begin_inset ERT
-status collapsed
+status open
 
 \begin_layout Standard
 
@@ -2562,7 +2561,7 @@ status collapsed
 
 
 \begin_inset ERT
-status collapsed
+status open
 
 \begin_layout Standard
 
@@ -2585,7 +2584,7 @@ ESPECULAÇÃO SOBRE O PAPEL DA MODELAGEM ESTATÍSTICA NA ENGENHARIA DE SOFTWARE.
 
 \begin_layout Standard
 \begin_inset ERT
-status collapsed
+status open
 
 \begin_layout Standard
 
@@ -2606,7 +2605,7 @@ stas em sistemas reais, mas são uma alternativa complementar viável...
 
 
 \begin_inset ERT
-status collapsed
+status open
 
 \begin_layout Standard
 
@@ -2651,7 +2650,7 @@ Trabalhos futuros: explorar métricas de arquitetura, avaliar algoritmos
 
 \begin_layout Standard
 \begin_inset ERT
-status collapsed
+status open
 
 \begin_layout Standard
 
