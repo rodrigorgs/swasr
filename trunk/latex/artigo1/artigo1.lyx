@@ -1,0 +1,2982 @@
+#LyX 1.5.6 created this file. For more info see http://www.lyx.org/
+\lyxformat 276
+\begin_document
+\begin_header
+\textclass article
+\begin_preamble
+% http://swasr.googlecode.com/svn/trunk/latex/artigo1/artigo1.pdf
+%\documentclass{acm_proc_article-sp}
+
+
+
+%\usepackage[portuguese]{babel}
+
+
+\usepackage{url}
+
+
+\hyphenation{pa-ra-me-tri-zá-veis ba-se-a-da ve-ros-si-mi-lhan-ça o-ri-en-ta-das não-o-ri-en-ta-das subs-ti-tu-í-dos a-de-qua-da-men-te mo-de-los}
+
+%the story is not what you did, but rather
+%  what you show, new ideas, new insights
+%  why interesting, important?
+%why is the story of interest to others?
+%  universal truths, hot topic, surprises or unexpected results?
+
+% == PLANEJAMENTO DO EXPERIMENTO ==
+% 
+% INGREDIENTES
+%
+%   Dois sistemas, um pequeno (?) e um maior (IRPF)
+%   Modelos de geração de redes com estrutura de módulos embutida: Rodrigo2008 e Lancichinetti
+%   Modelos sem estrutura de módulos: barabasi, bollobas, configuration model.
+%
+% MODO DE PREPARO
+%
+%   Analisar métricas dos sistemas (distribuição de graus, distribuição do coeficiente de clustering, correlação de graus).
+%   Extrair a arquitetura dos sistemas: quais são os módulos e quais módulos se relacionam. Analisar a distribuição dos tamanhos dos módulos.
+%   "Tunar" os parâmetros dos modelos para gerar redes com as mesmas métricas dos sistemas reais
+%   Rodar os modelos diversas vezes com os parâmetros encontrados para gerar diversas redes para cada sistema.
+%   Comparar redes sintéticas com as redes reais correspondentes através da distância entre redes de Garcia.
+% 
+% RESULTADOS
+%
+%   Modelos com estrutura de módulos embutida resultam em redes mais parecidas com as redes reais do que os modelos sem módulos? (Em outras palavras: a informação sobre tamanhos dos módulos e a maneira como os módulos se ligam realmente são uma vantagem?)
+%   As redes sintéticas são realistas? Quais as diferenças entre as sintéticas e as reais?
+%   Os módulos das redes sintéticas também podem ser decompostos em módulos, como nas redes reais?
+%
+% O QUE MAIS
+%
+%   Ver no wiki as observações subjetivas sobre os modelos.
+%   Começar pelo sistema pequeno, pra obter resultados mais rápidos, e então reproduzir o método com o sistema grande
+%   A implementação do modelo de Rodrigo2008 precisa ser revista pra ficar mais eficiente (está muito lento!)
+%   Podemos usar uma distância de Garcia usando o coeficiente de clustering em vez de usar a distância propriamente dita.
+\end_preamble
+\language brazilian
+\inputencoding utf8
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+\graphics default
+\paperfontsize default
+\spacing single
+\papersize default
+\use_geometry false
+\use_amsmath 0
+\use_esint 0
+\cite_engine natbib_numerical
+\use_bibtopic false
+\paperorientation portrait
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\defskip medskip
+\quotes_language english
+\papercolumns 2
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\author "" 
+\author "" 
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Modelos Estocásticos para Síntese de Sistemas de Software Organizados em
+ Módulos 
+\newline
+ *DRAFT*
+\end_layout
+
+\begin_layout Author
+Rodrigo Rocha Gomes e Souza
+\end_layout
+
+\begin_layout Abstract
+Existem muitos algoritmos para identificar os módulos de um sistema a partir
+ de sua implementação, mas há poucos estudos empíricos sobre esses algoritmos.
+ Isso ocorre porque é difícil encontrar sistemas cuja arquitetura modular
+ é bem documentada.
+ Propomos suprir essa escassez através da geração automática de sistemas
+ de 
+\emph on
+software
+\emph default
+ sintéticos, viabilizando análises empíricas em larga escala.
+ Neste artigo apresentamos e avaliamos dois modelos estocásticos que cumprem
+ esse papel.
+ 
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Standard
+Valorizar, dizer que DESENVOLVEMOS um modelo
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Introdução
+\end_layout
+
+\begin_layout Standard
+A divisão conceitual de um sistema de 
+\emph on
+software
+\emph default
+ em módulos é muito importante no gerenciamento de sua evolução 
+\begin_inset LatexCommand cite
+key "Parnas1972"
+
+\end_inset
+
+.
+ À medida que os desenvolvedores de um sistema são substituídos, no entanto,
+ essa informação pode se perder.
+ Alguns pesquisadores propõem o uso de algoritmos de aglomeração (
+\emph on
+clustering
+\emph default
+) para recuperar a arquitetura modular de um sistema a partir de sua implementaç
+ão 
+\begin_inset LatexCommand cite
+key "Mancoridis1998,Andritsos2003,Maqbool2007"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Espera-se que os algoritmos encontrem organizações modulares semelhantes
+ àquelas que seriam encontradas por especialistas nos sistemas analisados.
+ Uma forma de validar os algoritmos consiste, pois, em aplicá-los ao código-font
+e de um sistema cuja organização em módulos esteja documentada e então comparar,
+ através de uma medida de similaridade entre particionamentos 
+\begin_inset LatexCommand cite
+key "Tzerpos1999,Wen2004a"
+
+\end_inset
+
+, os módulos do sistema com os módulos encontrados pelos algoritmos.
+ Infelizmente é difícil encontrar sistemas documentados nesse nível de detalhe
+ e por essa razão a avaliação empírica dos algoritmos de recuperação de
+ arquitetura ainda é incipiente.
+ 
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Standard
+A lguns estudos revelam que a avaliação de um algoritmo varia bastante de
+ sistema para sistema.
+ Devido ao pequeno tamanho das amostras analisadas, no entanto, não existe
+ uma explicação que permita que se determine a priori se um algoritmo fornece
+ bons resultados para um sistema.
+ Alguns experimentos revelam que o algoritmo mais adequado para um sistema
+ pode ter um desempenho medíocre quando aplicado a outro sistema mas, devido
+ às amostras pequenas, não foi encontrada uma explicação para essa variação.
+ OS ESTUDOS FEITOS ASSIM NÃO SÃO CONTUNDENTES, OBTÊM RESULTADOS DIFERENTES
+ PARA SISTEMAS DIFERENTES E NÃO TÊM NENHUMA PISTA SOBRE O QUE FAZ UM ALGORITMO
+ SER BOM EM UM SISTEMA E RUIM EM OUTRO.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Para suprir a escassez de sistemas bem documentados, propomos o uso de sistemas
+ de 
+\emph on
+software
+\emph default
+ sintéticos.
+ Esses sistemas são gerados por computador a partir de modelos parametrizáveis
+ e obedecem a estruturas modulares conhecidas.
+ Com essa abordagem é possível submeter os algoritmos a amostras potencialmente
+ infinitas de sistemas arbitrariamente complexos e, ainda, estudar como
+ os parâmetros dos modelos afetam a avaliação dos algoritmos.
+ 
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Standard
+Deixar claro que um dos modelos foi desenvolvido neste trabalho.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Na próxima seção apresentamos três modelos estocásticos que podem ser usados
+ para gerar sistemas sintéticos.
+ Na seção 
+\begin_inset LatexCommand ref
+reference "sec:experimento"
+
+\end_inset
+
+ descrevemos um experimento para avaliar os modelos quanto à capacidade
+ de gerar sistemas semelhantes a sistemas reais.
+ Na seção 
+\begin_inset LatexCommand ref
+reference "sec:discussao"
+
+\end_inset
+
+ discutimos os resultados e os trabalhos futuros.
+\end_layout
+
+\begin_layout Section
+Modelos Estocásticos
+\begin_inset LatexCommand label
+name "sec:modelos"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+A implementação de um sistema possui muitos detalhes, mas nem todos os detalhes
+ são relevantes para se compreender sua organização modular.
+ Para recuperar os módulos de um sistema orientado a objetos é comum considerar
+ apenas as suas classes e os relacionamentos de dependência entre elas ---
+ uma rede de dependências entre classes.
+ Essas redes podem ser extraídas automaticamente a partir da análise estática
+ do código-fonte ou do código objeto do sistema que se deseja estudar.
+ (Neste estudo consideramos apenas sistemas orientados a objetos, mas os
+ conceitos podem ser igualmente aplicados a outros paradigmas de programação.)
+\end_layout
+
+\begin_layout Standard
+Pesquisas recentes mostram que redes de dependências entre classes possuem
+ propriedades estatísticas comuns a redes complexas estudadas em diversos
+ domínios, tais como sociologia, biologia e linguística 
+\begin_inset LatexCommand cite
+key "Myers2003,Valverde2003"
+
+\end_inset
+
+.
+ Essas propriedades foram incorporadas a diversos modelos de geração de
+ redes 
+\begin_inset LatexCommand cite
+key "Bollobas2003,Lancichinetti2008"
+
+\end_inset
+
+ que podem, por essa razão, ser usados para gerar redes de dependências
+ entre classes.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Standard
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+%
+\backslash
+subsection{O Modelo ER com Módulos}
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+%O modelo de Erdős-Rényi 
+\backslash
+cite{Erdos1959}, ou modelo de rede aleatória, gera redes não-orientadas
+ cujo número de arestas por vértice segue uma distribuição de Poisson.
+ Ele não modela adequadamente as redes de dependências entre classes, e
+ por isso é usado apenas como base de comparação.
+ Propomos aqui uma simples extensão desse modelo que considera a organização
+ dos vértices em módulos.
+ O modelo estendido possui os seguintes parâmetros:
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+%
+\backslash
+begin{itemize}
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+%  
+\backslash
+item número de vértices, $|V|$;
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+%  
+\backslash
+item probabilidade de ligação, $p$;
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+%  
+\backslash
+item número de módulos, $|M|$.
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+%
+\backslash
+end{itemize} 
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+%O modelo produz redes com $|V|$ vértices distribuídos aleatoriamente entre
+ os $|M|$ módulos, onde cada par de vértices possui uma probabilidade $p$
+ de estar ligado por uma aresta.
+ O número esperado de arestas, $E(|E|)$ é dado pela seguinte expressão:
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+%
+\backslash
+begin{equation}
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+%E(|E|)~=~
+\backslash
+frac{|V|(|V| - 1)}{2}p
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+%
+\backslash
+end{equation}
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+O Modelo LFR
+\end_layout
+
+\begin_layout Standard
+Lancichinetti, Fortunato e Radicchi 
+\begin_inset LatexCommand cite
+key "Lancichinetti2008"
+
+\end_inset
+
+ criaram um modelo de rede com estrutura de módulos embutida baseado em
+ distribuições estatísticas encontradas em redes de vários domínios 
+\begin_inset Foot
+status collapsed
+
+\begin_layout Standard
+Uma implementação desse modelo está disponível em 
+\begin_inset LatexCommand url
+target "http://santo.fortunato.googlepages.com/benchmark_2_2.tar"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+.
+ Ele gera grafos não-orientados e não-ponderados cuja distribuição dos graus
+ dos vértices e cuja distribuição dos tamanhos dos módulos são ambas leis
+ de potência.
+ Mais precisamente, o número de vértices cujo grau é 
+\begin_inset Formula $k$
+\end_inset
+
+ é proporcional a 
+\begin_inset Formula $k^{-\gamma}$
+\end_inset
+
+, onde o expoente 
+\begin_inset Formula $\gamma$
+\end_inset
+
+ tipicamente varia entre 2 e 3, e o número de módulos com 
+\begin_inset Formula $n$
+\end_inset
+
+ vértices é proporcional a 
+\begin_inset Formula $n^{-\beta}$
+\end_inset
+
+, com 
+\begin_inset Formula $\beta$
+\end_inset
+
+ variando entre 1 e 2.
+\end_layout
+
+\begin_layout Standard
+O modelo possui os seguintes parâmetros: 
+\end_layout
+
+\begin_layout Itemize
+número de vértices, 
+\begin_inset Formula $|V|$
+\end_inset
+
+; 
+\end_layout
+
+\begin_layout Itemize
+expoente da distribuição de graus, 
+\begin_inset Formula $\gamma$
+\end_inset
+
+; 
+\end_layout
+
+\begin_layout Itemize
+grau médio, 
+\begin_inset Formula $\langle k\rangle$
+\end_inset
+
+; 
+\end_layout
+
+\begin_layout Itemize
+grau máximo, 
+\begin_inset Formula $k_{max}$
+\end_inset
+
+; 
+\end_layout
+
+\begin_layout Itemize
+expoente da distribuição de tamanhos dos módulos, 
+\begin_inset Formula $\beta$
+\end_inset
+
+; 
+\end_layout
+
+\begin_layout Itemize
+número mínimo de vértices por módulo, 
+\begin_inset Formula $T_{min}$
+\end_inset
+
+; 
+\end_layout
+
+\begin_layout Itemize
+número máximo de vértices por módulo, 
+\begin_inset Formula $T_{max}$
+\end_inset
+
+; 
+\end_layout
+
+\begin_layout Itemize
+parâmetro de mistura, 
+\begin_inset Formula $\mu$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+O modelo produz redes que seguem aproximadamente os parâmetros fornecidos.
+ O parâmetro de mistura indica a proporção de arestas externas em relação
+ ao total de arestas de cada vértice.
+ Arestas externas são aquelas que ligam vértices de módulos distintos.
+ Assim, se 
+\begin_inset Formula $\mu=0,4$
+\end_inset
+
+ e o vértice 
+\begin_inset Formula $v$
+\end_inset
+
+ pertence ao módulo 
+\begin_inset Formula $M$
+\end_inset
+
+, então 40% das suas arestas estão ligadas a vértices que não pertencem
+ ao módulo 
+\begin_inset Formula $M$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+%  
+\backslash
+textbf{Discussão}
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+O modelo gera grafos não-orientados, uma representação muito simplificada
+ das redes de dependências entre classes.
+ Além disso, ele considera que todos os vértices possuem arestas externas,
+ o que certamente não é verdade no domínio de 
+\emph on
+software
+\emph default
+.
+ Por fim, os vértices de um módulo podem se ligar a vértices de qualquer
+ outro módulo, sem restrição.
+ Essa característica difere do que se encontra em programas de computador,
+ onde as dependências entre módulos são controladas (por exemplo, ao se
+ adotar uma arquitetura em camadas).
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+% rápido: cerca de 13s para 1658 vértices no athlon 64 3000+ com 1 GB de
+ RAM.
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+O Modelo BCR+
+\end_layout
+
+\begin_layout Standard
+Bollobás, Borgs, Chayes e Riordan criaram um modelo de rede orientada, o
+ modelo BCR, inspirado na rede de 
+\emph on
+links
+\emph default
+ entre páginas da 
+\emph on
+web
+\emph default
+ 
+\begin_inset LatexCommand cite
+key "Bollobas2003"
+
+\end_inset
+
+.
+ Considerando as limitações do modelo LFR, propomos o modelo BCR+, que é
+ extensão do modelo BCR que considera a organização dos vértices em módulos
+\begin_inset Foot
+status collapsed
+
+\begin_layout Standard
+Uma implementação pode ser baixada em 
+\begin_inset LatexCommand url
+target "http://code.google.com/p/swasr/wiki/Instalacao"
+
+\end_inset
+
+ TODO: criar empacotamento e página só dos modelos
+\end_layout
+
+\end_inset
+
+.
+ O modelo possui os seguinte parâmetros:
+\end_layout
+
+\begin_layout Itemize
+número de vértices, 
+\begin_inset Formula $|V|$
+\end_inset
+
+; 
+\end_layout
+
+\begin_layout Itemize
+arquitetura modular, 
+\begin_inset Formula $A$
+\end_inset
+
+; 
+\end_layout
+
+\begin_layout Itemize
+probabilidades 
+\begin_inset Formula $p$
+\end_inset
+
+, 
+\begin_inset Formula $q$
+\end_inset
+
+ e 
+\begin_inset Formula $r$
+\end_inset
+
+, tal que 
+\begin_inset Formula $p+q+r=1$
+\end_inset
+
+; 
+\end_layout
+
+\begin_layout Itemize
+probabilidade 
+\begin_inset Formula $\mu$
+\end_inset
+
+; 
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\delta_{in}$
+\end_inset
+
+ e 
+\begin_inset Formula $\delta_{out}$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+A arquitetura modular é uma rede que representa as dependências permitidas
+ entre módulos.
+ Dois vértices da rede gerada pelo modelo só podem estar ligados se os módulos
+ correspondentes na arquitetura estiverem ligados por uma aresta.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+% TODO: figura
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+O modelo é implementado por um algoritmo que inicialmente cria um vértice
+ com autolaço (aresta ligando um vértice a ele próprio) para cada módulo
+ representado na arquitetura; cada vértice é incluído no módulo correspondente.
+ A seguir são efetuadas alterações sucessivas à rede até que ela contenha
+ 
+\begin_inset Formula $|V|$
+\end_inset
+
+ vértices.
+\end_layout
+
+\begin_layout Standard
+Na descrição do algoritmo apresentada a seguir, 
+\begin_inset Quotes eld
+\end_inset
+
+escolher um vértice 
+\begin_inset Formula $v$
+\end_inset
+
+ de acordo com 
+\begin_inset Formula $k_{out}+\delta_{out}$
+\end_inset
+
+
+\begin_inset Quotes erd
+\end_inset
+
+ significa escolher um vértice 
+\begin_inset Formula $v$
+\end_inset
+
+ de modo que a probabilidade de se escolher um vértice 
+\begin_inset Formula $v_{i}$
+\end_inset
+
+ é proporcional a 
+\begin_inset Formula $k_{out}(v_{i})+\delta_{out}$
+\end_inset
+
+, onde 
+\begin_inset Formula $k_{out}(v_{i})$
+\end_inset
+
+ é o grau de saída do vértice 
+\begin_inset Formula $v_{i}$
+\end_inset
+
+; analogamente, 
+\begin_inset Formula $k_{in}$
+\end_inset
+
+ significa grau de entrada.
+ Cada iteração do algoritmo realiza uma das seguintes alterações:
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Criação de vértice com grau de saída = 1
+\series default
+.
+ Com probabilidade 
+\begin_inset Formula $p$
+\end_inset
+
+ é criado um vértice 
+\begin_inset Formula $v$
+\end_inset
+
+ juntamente com uma aresta de 
+\begin_inset Formula $v$
+\end_inset
+
+ para um vértice pré-existente 
+\begin_inset Formula $w$
+\end_inset
+
+, onde 
+\begin_inset Formula $w$
+\end_inset
+
+ é escolhido de acordo com 
+\begin_inset Formula $k_{in}+\delta_{in}$
+\end_inset
+
+.
+ O vértice 
+\begin_inset Formula $v$
+\end_inset
+
+ é incluído no módulo de 
+\begin_inset Formula $w$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Criação de vértice com grau de entrada = 1
+\series default
+.
+ Com probabilidade 
+\begin_inset Formula $q$
+\end_inset
+
+ é criado um vértice 
+\begin_inset Formula $w$
+\end_inset
+
+ juntamente com uma aresta de um vértice pré-existente 
+\begin_inset Formula $v$
+\end_inset
+
+ para 
+\begin_inset Formula $w$
+\end_inset
+
+, onde 
+\begin_inset Formula $v$
+\end_inset
+
+ é escolhido de acordo com 
+\begin_inset Formula $k_{out}+\delta_{out}$
+\end_inset
+
+.
+ O vértice 
+\begin_inset Formula $w$
+\end_inset
+
+ é incluído no módulo de 
+\begin_inset Formula $v$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Criação de uma aresta
+\series default
+.
+ Com probabilidade 
+\begin_inset Formula $r$
+\end_inset
+
+ é criada uma aresta de um vértice pré-existente 
+\begin_inset Formula $v$
+\end_inset
+
+ para um vértice pré-existente 
+\begin_inset Formula $w$
+\end_inset
+
+, 
+\begin_inset Formula $v$
+\end_inset
+
+ escolhido de acordo com 
+\begin_inset Formula $k_{out}+\delta_{out}$
+\end_inset
+
+ e 
+\begin_inset Formula $w$
+\end_inset
+
+ escolhido de acordo com 
+\begin_inset Formula $k_{in}+\delta_{in}$
+\end_inset
+
+.
+ A escolha de 
+\begin_inset Formula $w$
+\end_inset
+
+ não é livre: com probabilidade 
+\begin_inset Formula $1~-~\mu$
+\end_inset
+
+, 
+\begin_inset Formula $w$
+\end_inset
+
+ é escolhido dentre os vértices do qual 
+\begin_inset Formula $v$
+\end_inset
+
+ faz parte; com probabilidade 
+\begin_inset Formula $\mu$
+\end_inset
+
+, 
+\begin_inset Formula $w$
+\end_inset
+
+ é escolhido dentre os vértices de módulos adjacentes ao módulo de 
+\begin_inset Formula $v$
+\end_inset
+
+ segundo a arquitetura.
+ 
+\end_layout
+
+\begin_layout Standard
+Como neste modelo a rede é orientada, pode-se considerar separadamente uma
+ distribuição dos graus de entrada e uma distribuição dos graus de saída.
+ Da mesma forma que no modelo LFR, essas distribuições seguem leis de potência,
+ com expoentes 
+\begin_inset Formula $\gamma_{in}$
+\end_inset
+
+ e 
+\begin_inset Formula $\gamma_{out}$
+\end_inset
+
+, respectivamente.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+%  
+\backslash
+textbf{Discussão}
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Este modelo supera as limitações encontradas no modelo LFR: as redes são
+ orientadas, são permitidos vértices sem arestas externas e é possível restringi
+r as dependências entre módulos através da arquitetura fornecida como parâmetro.
+ Além disso ele é um modelo evolutivo: o algoritmo pode ter como ponto de
+ partida uma rede existente e então expandi-la criando mais vértices e arestas.
+ A desvantagem em relação ao modelo LFR é o controle reduzido sobre a rede:
+ não há como impor restrições sobre o grau máximo, sobre a distribuição
+ dos tamanhos dos módulos e nem estabelecer limites de tamanho para os módulos.
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+% experimentalmente, tamanhos x dos módulos ~ x^-1.
+ TODO: Deve ser fácil provar analiticamente.
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+% tem outra coisa:   multi-arestas, autolaços (normalmente devem ser removidos)
+ podem afetar as distribuiçãos
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+% TODO: será que vale a pena alterar o algoritmo para ele sempre procurar,
+ no caso gamma, dois vértices que não estejam ligados por aresta?
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+%Poréns determinados experimentalmente (conclusões):
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+%  as redes geradas podem desviar muito dos valores esperados para as métricas.
+ acreditamos que devido a multi-arestas, autolaços.
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+%  é mais lento (pelo menos a minha implementação)
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Distância entre Redes
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Standard
+É comum caracterizar redes através de métricas como o número de módulos
+ e expoente da distribuição de graus.
+ Essas métricas, no entanto, não são adequadas para comparar redes: não
+ é difícil encontrar duas redes muito diferentes que compartilham os mesmos
+ valores para essas métricas.
+ 
+\end_layout
+
+\end_inset
+
+Para avaliar o quanto uma rede sintética se parece com uma rede extraída
+ de um sistema real, é conveniente considerar uma métrica de distância entre
+ duas redes.
+ Neste trabalho consideramos uma métrica baseada no conceito de matriz de
+ vizinhança 
+\begin_inset LatexCommand citep
+key "Andrade2008"
+
+\end_inset
+
+.
+ Essa métrica se aplica apenas a redes com o mesmo número de vértices.
+\end_layout
+
+\begin_layout Standard
+A matriz de vizinhança de uma rede, 
+\begin_inset Formula $M$
+\end_inset
+
+, é uma matriz 
+\begin_inset Formula $|V|\times|V|$
+\end_inset
+
+ na qual cada elemento 
+\begin_inset Formula $M_{ij}$
+\end_inset
+
+ representa o comprimento do caminho mínimo entre dois vértices 
+\begin_inset Formula $i$
+\end_inset
+
+ e 
+\begin_inset Formula $j$
+\end_inset
+
+.
+ No caso de pares de vértices que não são conectados por um caminho, considera-s
+e que o comprimento é 
+\begin_inset Formula $0$
+\end_inset
+
+.
+ A matriz de vizinhança de uma rede não é única: sua forma exata depende
+ da ordem em que os vértices aparecem na matriz.
+\end_layout
+
+\begin_layout Standard
+A distância entre duas matrizes de vizinhança, 
+\begin_inset Formula $\mathrm{d}(M, N)$
+\end_inset
+
+, é dada pela equação a seguir:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula \[
+\mathrm{d}(M,N)\:=\:\sqrt{\frac{1}{|V|^{2}}\sum_{i,j=1}^{|V|}(M_{ij}-N_{ij})^{2}}\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Sejam 
+\begin_inset Formula $A$
+\end_inset
+
+ e 
+\begin_inset Formula $B$
+\end_inset
+
+ duas redes com 
+\begin_inset Formula $|V|$
+\end_inset
+
+ vértices cada uma, 
+\begin_inset Formula $A_{0}$
+\end_inset
+
+ uma matriz de vizinhança qualquer de 
+\begin_inset Formula $A$
+\end_inset
+
+ e 
+\begin_inset Formula $B^{*}$
+\end_inset
+
+ o conjunto de todas as matrizes de vizinhança da rede 
+\begin_inset Formula $B$
+\end_inset
+
+ --- uma matriz para cada uma das possíveis 
+\begin_inset Formula $|V|!$
+\end_inset
+
+ ordenações dos vértices de 
+\begin_inset Formula $B$
+\end_inset
+
+.
+ Definimos a distância entre as duas redes, 
+\begin_inset Formula $\mathrm{D}(A, B)$
+\end_inset
+
+, como sendo a menor das distâncias entre a matriz 
+\begin_inset Formula $A_{0}$
+\end_inset
+
+ e as matrizes do conjunto 
+\begin_inset Formula $B^{*}$
+\end_inset
+
+:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula \[
+\mathrm{D}(A,B)\:=\:\min\,\{d(A_{0},x)\:|\: x\in B^{*}\}\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Dada a necessidade de se considerar 
+\begin_inset Formula $|V|!$
+\end_inset
+
+ casos, o cálculo exato da distância mínima é viável apenas para redes muito
+ pequenas.
+ Felizmente é possível obter um limite superior para essa distância através
+ de uma busca heurística no conjunto 
+\begin_inset Formula $B^{*}$
+\end_inset
+
+.
+ Neste trabalho calculamos uma aproximação para 
+\begin_inset Formula $\mathrm{D}(A,B)$
+\end_inset
+
+ através do algoritmo Monte Carlo descrito em 
+\begin_inset LatexCommand cite
+key "Andrade2008"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+Experimento
+\begin_inset LatexCommand label
+name "sec:experimento"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Na seção 
+\begin_inset LatexCommand ref
+reference "sec:modelos"
+
+\end_inset
+
+ discutimos características gerais dos modelos de geração de redes.
+ Nesta seção descrevemos um experimento realizado com o propósito de responder
+ à seguinte pergunta: os modelos são capazes de produzir redes sintéticas
+ semelhantes a redes extraídas de sistemas reais? Consideramos que um modelo
+ é bem sucedido se ele é capaz de sintetizar uma rede cuja distância para
+ uma rede real tomada como referência não seja maior do que a distância
+ entre redes reais com características semelhantes.
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Standard
+dá pra usar um teste estatístico pra ver se uma população de distâncias
+ é menor do que a outra
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Neste experimento consideramos um sistema de referência, o jogo VilloNanny
+ 2.2.4, e um outro sistema com aproximadamente o mesmo número de classes,
+ a biblioteca JFreeChart 1.0.13.
+ Extraímos as redes de ambos os sistemas e calculamos algumas métricas a
+ partir das redes.
+ As métricas do VilloNanny foram usadas para ajustar os parâmetros dos modelos.
+ A seguir usamos sintetizamos diversas redes e então calculamos a distância
+ entre a rede do VilloNanny e as demais redes -- a rede do JFreeChart e
+ as redes sintéticas.
+ Ignoramos o sentido das arestas de todas as redes, uma vez que o modelo
+ LFR não produz redes orientadas.
+\end_layout
+
+\begin_layout Subsection
+Extração das Redes dos Sistemas
+\end_layout
+
+\begin_layout Standard
+Os sistemas analisados foram implementados na linguagem Java e distribuídos
+ em diversos arquivos JAR, cada arquivo contendo várias classes.
+ Para construir a rede de um sistema, consideramos que cada arquivo JAR
+ é um módulo arquitetural.
+ Essa é uma aproximação razoável, uma vez que arquivos JAR distintos são,
+ em geral, desenvolvidos por equipes diferentes.
+ A extração das dependências entre as classes foi realizada pela ferramenta
+ DepFind
+\begin_inset Foot
+status collapsed
+
+\begin_layout Standard
+\begin_inset LatexCommand url
+target "http://depfind.sourceforge.net/"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+.
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Standard
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+% (Naturalmente, o desafio de um algoritmo de clustering é descobrir os
+ módulos 
+\backslash
+emph{dentro} de cada arquivo JAR.)
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+%(Naturalmente, cada um desses módulos pode ser decomposto em submódulos,
+ formando uma hierarquia de módulos )
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+A fim de igualar o número de vértices das duas redes, removemos seis vértices
+ com grau zero da rede do sistema JFreeChart.
+ Essa etapa foi necessária porque a métrica de distância entre redes só
+ pode ser aplicada a duas redes que possuem o mesmo tamanho.
+\end_layout
+
+\begin_layout Subsection
+Caracterização das Redes Reais
+\end_layout
+
+\begin_layout Standard
+A partir das redes extraídas na etapa anterior, calculamos diversas métricas,
+ apresentadas na Tabela 
+\begin_inset LatexCommand ref
+reference "tab:metricas-sistemas"
+
+\end_inset
+
+.
+ Os expoentes das distribuições de graus e de tamanhos dos módulos foram
+ estimados através da técnica de máxima verossimilhança 
+\begin_inset LatexCommand cite
+key "Clauset2007"
+
+\end_inset
+
+
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Standard
+No caso da distribuição dos tamanhos dos módulos fixamos xmin = 1, pois
+ o número de módulos é pequeno...
+\end_layout
+
+\end_inset
+
+.
+ Utilizamos uma implementação da técnica disponível gratuitamente na Internet
+\begin_inset Foot
+status collapsed
+
+\begin_layout Standard
+\begin_inset LatexCommand url
+target "http://www.santafe.edu/~aaronc/powerlaws/"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+wide true
+sideways false
+status collapsed
+
+\begin_layout Standard
+\begin_inset LatexCommand label
+name "tab:metricas-sistemas"
+
+\end_inset
+
+
+\begin_inset Caption
+
+\begin_layout Standard
+Métricas extraídas dos sistemas analisados: número de vértices, 
+\begin_inset Formula $|V|$
+\end_inset
+
+; número de arestas, 
+\begin_inset Formula $|E|$
+\end_inset
+
+; número de arestas externas 
+\begin_inset Formula $|E_{ext}|$
+\end_inset
+
+; grau médio, 
+\begin_inset Formula $\langle k\rangle$
+\end_inset
+
+; grau máximo, 
+\begin_inset Formula $k_{max}$
+\end_inset
+
+; número de módulos, 
+\begin_inset Formula $|M|$
+\end_inset
+
+; tamanho do menor módulo, 
+\begin_inset Formula $t_{min}$
+\end_inset
+
+; tamanho do maior módulo, 
+\begin_inset Formula $t_{max}$
+\end_inset
+
+; expoente da distribuição de graus, 
+\begin_inset Formula $\gamma$
+\end_inset
+
+; expoente da distribuição dos tamanhos dos módulos, 
+\begin_inset Formula $\beta$
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="3" columns="11">
+<features>
+<column alignment="center" valignment="top" rightline="true" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<row topline="true">
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+Sistema
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+\begin_inset Formula $|V|$
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+\begin_inset Formula $|E|$
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+\begin_inset Formula $|E_{ext}|$
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+\begin_inset Formula $\langle k \rangle$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+\begin_inset Formula $k_{max}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+\begin_inset Formula $|M|$
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+\begin_inset Formula $t_{min}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+\begin_inset Formula $t_{max}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+\begin_inset Formula $\gamma$
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+\begin_inset Formula $\beta$
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row topline="true">
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+VilloNanny
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+1658 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+6766 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+343 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+6,92
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+80
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+13 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+6
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+446
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+2,68 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+1,00 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row bottomline="true">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+JFreeChart
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+1658
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+8296
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+1161
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+10,29
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+145
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+8
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+6
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+609
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+2,68
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+0,96
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Além disso, extraímos a arquitetura modular do VilloNanny (Figura 
+\begin_inset LatexCommand ref
+reference "fig:arquitetura-villonanny"
+
+\end_inset
+
+).
+ Na arquitetura, existe uma aresta do módulo 
+\begin_inset Formula $M_{i}$
+\end_inset
+
+ para um módulo 
+\begin_inset Formula $M_{j}$
+\end_inset
+
+ somente se pelo menos um vértice de 
+\begin_inset Formula $M_{i}$
+\end_inset
+
+ se liga a um vértice de 
+\begin_inset Formula $M_{j}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Standard
+\begin_inset LatexCommand label
+name "fig:arquitetura-villonanny"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename arquitetura-villonanny.png
+	lyxscale 50
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
+Arquitetura modular extraída do sistema VilloNanny.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Escolha de Parâmetros e Síntese de Redes
+\end_layout
+
+\begin_layout Standard
+Queremos gerar redes com características próximas às características da
+ rede de referência, e isso depende de uma escolha adequada dos parâmetros
+ dos modelos.
+ 
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Standard
+Na discussão a seguir, 
+\begin_inset Formula $X^{s}$
+\end_inset
+
+ e 
+\begin_inset Formula $X^{m}$
+\end_inset
+
+ representam, respectivamente, o valor de uma métrica 
+\begin_inset Formula $X$
+\end_inset
+
+ extraída da rede de referência e o valor de um parâmetro 
+\begin_inset Formula $X$
+\end_inset
+
+ de um modelo.
+\end_layout
+
+\end_inset
+
+
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Standard
+
+%Para o modelo de rede aleatória com módulos, consideramos $|V|^m = |V|^s$
+ e $|M|^m = |M|^s$, isto é,  mantivemos o número de vértices e o número
+ de módulos do sistema.
+ Com o objetivo de aproximar o número de arestas das redes sintéticas do
+ número de arestas das redes reais, o valor de $p$ foi definido segundo
+ a seguinte expressão:
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Standard
+
+%
+\backslash
+begin{equation}
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Standard
+
+%p~=~
+\backslash
+frac{2|E|^s}{|V|^s(|V|^s-1)}
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Standard
+
+%
+\backslash
+end{equation}
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+No modelo LFR os valores da maioria dos parâmetros coincidem com os valores
+ das métricas extraídas da rede de referência.
+ O parâmetro de mistura, 
+\begin_inset Formula $\mu$
+\end_inset
+
+, foi calculado em função de métricas da rede de referência, segundo a equação
+ 
+\begin_inset Formula $\mu=|E_{ext}|^{s}~/~|E|^{s}$
+\end_inset
+
+.
+ A seguir são listados os valores escolhidos para os parâmetros do modelo
+ LFR: 
+\begin_inset Formula $|V|=1658;\;\langle k\rangle=6,92;\; k_{max}=80;\;\gamma=2,68;\;\beta=1,00\;\mu=0,54;\; t_{min}=6;\; t_{max}=446$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Para o modelo BCR+ utilizamos a arquitetura modular da Figura 
+\begin_inset LatexCommand ref
+reference "fig:arquitetura-villonanny"
+
+\end_inset
+
+, extraída da rede de referência.
+ Como estamos ignorando o sentido das arestas, consideramos 
+\begin_inset Formula $p = q$
+\end_inset
+
+ e 
+\begin_inset Formula $\delta_{in}=\delta_{out}$
+\end_inset
+
+.
+ Feita essa restrição, ajustamos os parâmetros por tentativa e erro, tentando
+ gerar redes com medidas próximas àquelas que foram extraídas da rede de
+ referência.
+ A seguir são listados os valores escolhidos para os parâmetros do modelo
+ BCR+: 
+\begin_inset Formula $|V|=1658;\; p=q=0,1;\; r=0,8;\;\mu=0,09;\;\delta_{in}=\delta_{out}=3$
+\end_inset
+
+.
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Standard
+Nessas condições os parâmetros podem ser relacionados ao expoente da distribuiçã
+o de graus,
+\begin_inset Formula $\gamma$
+\end_inset
+
+, de acordo com a seguinte equação
+\begin_inset LatexCommand cite
+key "Bollobas2003"
+
+\end_inset
+
+:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula \begin{equation}
+\gamma=1+\frac{1+2\delta p}{p+r}\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+O evento associado à probabilidade 
+\begin_inset Formula $p$
+\end_inset
+
+ cria um vértice e uma aresta, enquanto o evento associado a 
+\begin_inset Formula $r$
+\end_inset
+
+ cria uma aresta entre dois vértices existentes.
+ Assim, é possível relacionar os parâmetros p e q à quantidade de arestas
+ da rede produzida:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula \begin{equation}
+\frac{|E|}{|V|}=1+\frac{r}{2p}\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Substituindo os valores de 
+\begin_inset Formula $|E|$
+\end_inset
+
+, 
+\begin_inset Formula $|V|$
+\end_inset
+
+ e 
+\begin_inset Formula $\gamma$
+\end_inset
+
+ extraídos da rede de referência e considerando 
+\begin_inset Formula $r+2p=1$
+\end_inset
+
+, os parâmetros do modelo são a solução do sistema formado pelas duas equações
+ apresentadas.
+ r=0,754; p=0,123; 
+\backslash
+delta=1,924.
+\end_layout
+
+\begin_layout Standard
+O parâmetro 
+\begin_inset Formula $\mu$
+\end_inset
+
+ é ajustado de acordo com o número de arestas externas da rede de referência,
+ obedecendo à seguinte equação:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula \begin{equation}
+\frac{|E_{ext}|}{|E|}=r\mu\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Achamos 
+\begin_inset Formula $\mu= 0.274$
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Com os parâmetros escolhidos, foram geradas 9 redes a partir de cada modelo.
+ As redes geradas pelo modelo BCR+ foram transformadas em redes não-orientadas.
+\end_layout
+
+\begin_layout Subsection
+Comparação Entre Sistemas Sintéticos e Sistemas Reais TODO: MUDAR TÍTULO
+\end_layout
+
+\begin_layout Standard
+Após a extração das redes reais e da produção de redes sintéticas, calculamos
+ as distâncias entre a rede de referência e todas as demais redes.
+ Os resultados podem ser vistos na Tabela 
+\begin_inset LatexCommand ref
+reference "tab:distancias"
+
+\end_inset
+
+.
+ No caso de redes sintéticas as distâncias foram agrupadas por modelo.
+ Os dados mostram que o modelo BCR+ foi o que mais se aproximou da rede
+ de referência; uma das redes geradas ficou mais próxima à rede de referência
+ do que o sistema JFreeChart.
+ O modelo LFR produziu redes bem parecidas umas com as outras, como revela
+ o baixo desvio-padrão das distâncias.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Standard
+\begin_inset LatexCommand label
+name "tab:distancias"
+
+\end_inset
+
+
+\begin_inset Caption
+
+\begin_layout Standard
+Distâncias em relação à rede do VilloNanny
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="4" columns="3">
+<features>
+<column alignment="right" valignment="top" rightline="true" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<row topline="true">
+<cell alignment="right" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+Modelo/Sistema 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+Distância Média 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+Distância Mínima 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row topline="true">
+<cell alignment="right" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+LFR 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+\begin_inset Formula $3,28\pm0,01$
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+\begin_inset Formula $3,26$
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="right" valignment="top" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+BCR+ 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+\begin_inset Formula $2,60\pm0,28$
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+\begin_inset Formula $2,16$
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row bottomline="true">
+<cell alignment="right" valignment="top" bottomline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+JFreeChart 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+\begin_inset Formula $2,44\pm0,00$
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+\begin_inset Formula $2,44$
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
+Discrepâncias relativas
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="3" columns="6">
+<features>
+<column alignment="right" valignment="top" rightline="true" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<row topline="true">
+<cell alignment="right" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+\begin_inset Formula $|E|$
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+\begin_inset Formula $|E_{ext}|$
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+\begin_inset Formula $|M|$
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+\begin_inset Formula $\gamma$
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+\begin_inset Formula $\beta$
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row topline="true">
+<cell alignment="right" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+LFR 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+0,44% 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+0,06% 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+27,35% 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+4
+\lang english
+,
+\lang brazilian
+10% 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+4,44% 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row bottomline="true">
+<cell alignment="right" valignment="top" bottomline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+BCR+ 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+2
+\lang english
+,
+\lang brazilian
+45% 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+2,17% 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+0,00% 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+19,69% 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+1,67% 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Discussão
+\end_layout
+
+\begin_layout Standard
+\begin_inset LatexCommand label
+name "sec:discussao"
+
+\end_inset
+
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+% why it's significant 
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+% Recapitulando o que este trabalho fez:
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+Este artigo apresentou uma nova abordagem, baseada na geração de sistemas
+ sintéticos, de avaliação de algoritmos de aglomeração aplicados à recuperação
+ de módulos de sistemas de 
+\emph on
+software
+\emph default
+.
+ Três modelos de sistemas sintéticos foram apresentados e avaliados experimental
+mente quanto à capacidade de produzir sistemas realistas.
+\end_layout
+
+\begin_layout Standard
+O experimentou revelou que
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+% DISCUTIR BREVEMENTE OS RESULTADOS E ENTÃO PARTIR PARA A ESPECULAÇÃO
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+% O quão bem o modelo funciona, vantagens e desvantagens em relação a outras
+ abordagens (complementares).
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+ESPECULAÇÃO SOBRE O PAPEL DA MODELAGEM ESTATÍSTICA NA ENGENHARIA DE SOFTWARE...
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+% É claro que o modelo é apenas uma aproximação da realidade, e nunca deve
+ se deixar a realidade.
+ Avaliação através de sistemas sintéticos não substitui avaliações com especiali
+stas em sistemas reais, mas são uma alternativa complementar viável...
+ A modelagem proporciona uma cobertura maior...
+ Modelagem estatística como uma forma de avaliar ferramentas que, de outra
+ forma, permaneceriam não-avaliadas.
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+% Focar na hipótese: redes sintéticas com parâmetros ajustáveis dão insights
+ sobre as ferramentas de engenharia reversa / evolução de software.
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Acreditamos que outras linhas de pesquisa da engenharia de 
+\emph on
+software
+\emph default
+, a exemplo da análise de impacto e da localização de funcionalidades, podem
+ se beneficiar do tipo de avaliação apresentado neste artigo.
+ Para isso é preciso ampliar os modelos aqui discutidos com os conceitos
+ específicos de cada linha de pesquisa.
+\end_layout
+
+\begin_layout Standard
+A métrica de distância não considera a organização modular das redes.
+ Assim, não podemos afirmar com certeza que a organização modular é realista.
+\end_layout
+
+\begin_layout Standard
+Consideramos apenas uma rede de referência e uma rede de comparação.
+ Devemos repetir o experimento com mais dados.
+\end_layout
+
+\begin_layout Standard
+Trabalhos futuros: explorar métricas de arquitetura, avaliar algoritmos
+ de clustering, refinar modelos / considerar outros modelos.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+% considerar o uso de arestas orientadas e pesos das arestas .
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Outros modelos a considerar: 
+\begin_inset LatexCommand cite
+key "Lancichinetti2009,Chen2008"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+%
+\backslash
+bibliographystyle{apalike}
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+
+\backslash
+bibliographystyle{abbrv}
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset LatexCommand bibtex
+options "abbrv"
+bibfiles "complex-networks,rodrigo-mestrado"
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
