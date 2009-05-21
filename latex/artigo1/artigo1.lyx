@@ -92,7 +92,7 @@
 Modelos Estocásticos para Síntese de Sistemas de Software Organizados em
  Módulos 
 \newline
- *DRAFT*
+ *DRAFT v2*
 \end_layout
 
 \begin_layout Author
@@ -2514,23 +2514,6 @@ e.
  O experimento mostrou que o modelo proposto neste artigo, o BCR+, é capaz
  de sintetizar sistemas semelhantes a sistemas reais.
  
-\end_layout
-
-\begin_layout Standard
-Dado que todo modelo é uma simplificação, os sistemas sintéticos não devem
- ser vistos como substitutos de sistemas reais, e sim como uma alternativa
- que apresenta diversas vantagens.
- É fácil gerar um grande número de sistemas sintéticos para teste, viabilizando
- análises em larga escala.
- Além disso, como cada sistema sintético é descrito sucintamente por um
- conjunto de parâmetros, é possível relacionar variações na acurácia de
- um algoritmo a variações nos parâmetros.
- Por exemplo, Lancichinetti, Fortunato e Radicchi mostraram através de experimen
-tos que o aumento do grau médio de uma rede afeta negativamente a acurácia
- de dois algoritmos de aglomeração estudados por eles.
-\end_layout
-
-\begin_layout Standard
 \begin_inset Note Note
 status collapsed
 
@@ -2545,76 +2528,34 @@ que são indistinguíveis de sistemas reais quanto à semelhança com um sistema
 \end_layout
 
 \begin_layout Standard
-\begin_inset ERT
-status open
-
-\begin_layout Standard
-
-% DISCUTIR BREVEMENTE OS RESULTADOS E ENTÃO PARTIR PARA A ESPECULAÇÃO
-\end_layout
-
-\begin_layout Standard
-
-\end_layout
-
-\end_inset
-
-
-\begin_inset ERT
-status open
-
-\begin_layout Standard
-
-% O quão bem o modelo funciona, vantagens e desvantagens em relação a outras
- abordagens (complementares).
-\end_layout
-
-\begin_layout Standard
-
-\end_layout
+Dado que todo modelo é uma simplificação, os sistemas sintéticos não devem
+ ser vistos como substitutos de sistemas reais, e sim como uma alternativa
+ que apresenta diversas vantagens.
+ É fácil gerar um grande número de sistemas sintéticos para teste, viabilizando
+ análises em larga escala.
+ Além disso, como cada sistema sintético é descrito sucintamente por um
+ conjunto de parâmetros, é possível relacionar variações na acurácia de
+ um algoritmo a variações nos parâmetros.
+ Por exemplo, Lancichinetti, Fortunato e Radicchi mostraram através de experimen
+tos que a redução do grau médio de uma rede prejudica a acurácia de dois
+ algoritmos de aglomeração estudados por eles 
+\begin_inset LatexCommand citep
+key "Lancichinetti2008"
 
 \end_inset
 
-
-\end_layout
-
-\begin_layout Standard
-ESPECULAÇÃO SOBRE O PAPEL DA MODELAGEM ESTATÍSTICA NA ENGENHARIA DE SOFTWARE...
-\end_layout
+.
+\begin_inset Note Note
+status collapsed
 
 \begin_layout Standard
-\begin_inset ERT
-status open
-
-\begin_layout Standard
-
-% É claro que o modelo é apenas uma aproximação da realidade, e nunca deve
+É claro que o modelo é apenas uma aproximação da realidade, e nunca deve
  se deixar a realidade.
  Avaliação através de sistemas sintéticos não substitui avaliações com especiali
 stas em sistemas reais, mas são uma alternativa complementar viável...
  A modelagem proporciona uma cobertura maior...
  Modelagem estatística como uma forma de avaliar ferramentas que, de outra
  forma, permaneceriam não-avaliadas.
-\end_layout
-
-\begin_layout Standard
-
-\end_layout
-
-\end_inset
-
-
-\begin_inset ERT
-status open
-
-\begin_layout Standard
-
-% Focar na hipótese: redes sintéticas com parâmetros ajustáveis dão insights
- sobre as ferramentas de engenharia reversa / evolução de software.
-\end_layout
-
-\begin_layout Standard
-
 \end_layout
 
 \end_inset
@@ -2634,79 +2575,32 @@ software
 \end_layout
 
 \begin_layout Standard
-A métrica de distância não considera a organização modular das redes.
- Assim, não podemos afirmar com certeza que a organização modular é realista.
-\end_layout
-
-\begin_layout Standard
-Consideramos apenas uma rede de referência e uma rede de comparação.
- Devemos repetir o experimento com mais dados.
-\end_layout
-
-\begin_layout Standard
-Trabalhos futuros: explorar métricas de arquitetura, avaliar algoritmos
- de clustering, refinar modelos / considerar outros modelos.
-\end_layout
-
-\begin_layout Standard
-\begin_inset ERT
-status open
-
-\begin_layout Standard
-
-% considerar o uso de arestas orientadas e pesos das arestas .
-\end_layout
-
-\begin_layout Standard
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-Outros modelos a considerar: 
+O próximo passo da pesquisa é aplicar algoritmos de recuperação de arquitetura
+ às redes sintéticas e comparar com os resultados presentes na literatura
+ para sistemas reais.
+ Além disso, é conveniente considerar dois modelos recentes de redes orientadas
+ organizadas em módulos 
 \begin_inset LatexCommand cite
 key "Lancichinetti2009,Chen2008"
 
 \end_inset
 
 .
-\end_layout
-
-\begin_layout Standard
-\begin_inset ERT
+\begin_inset Note Note
 status collapsed
 
 \begin_layout Standard
-
-%
-\backslash
-bibliographystyle{apalike}
-\end_layout
-
-\begin_layout Standard
-
+Trabalhos futuros: explorar métricas de arquitetura, avaliar algoritmos
+ de clustering, refinar modelos / considerar outros modelos.
+ Considerar o uso de arestas orientadas e pesos das arestas.
 \end_layout
 
 \end_inset
 
 
-\begin_inset ERT
-status collapsed
-
-\begin_layout Standard
-
-
-\backslash
-bibliographystyle{abbrv}
 \end_layout
 
-\end_inset
-
- 
+\begin_layout Standard
 \begin_inset LatexCommand bibtex
 options "abbrv"
 bibfiles "complex-networks,rodrigo-mestrado"
