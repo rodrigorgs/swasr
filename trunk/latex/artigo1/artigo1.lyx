@@ -1200,23 +1200,6 @@ Os sistemas analisados foram implementados na linguagem Java e distribuídos
  é um módulo arquitetural.
  Essa é uma aproximação razoável, uma vez que arquivos JAR distintos são,
  em geral, desenvolvidos por equipes diferentes.
- A extração das dependências entre as classes foi realizada pela ferramenta
- DepFind
-\begin_inset Foot
-status collapsed
-
-\begin_layout Standard
-\begin_inset LatexCommand url
-target "http://depfind.sourceforge.net/"
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-.
 \begin_inset Note Note
 status collapsed
 
@@ -1260,12 +1243,28 @@ status collapsed
 
 \end_inset
 
-
+ 
 \end_layout
 
 \begin_layout Standard
-A fim de igualar o número de vértices das duas redes, removemos seis vértices
- com grau zero da rede do sistema JFreeChart.
+As dependências entre as classes foram extraídas com a ferramenta DepFind
+\begin_inset Foot
+status collapsed
+
+\begin_layout Standard
+\begin_inset LatexCommand url
+target "http://depfind.sourceforge.net/"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ e então armazenadas como redes não-orientadas.
+ A seguir removemos seis vértices com grau zero da rede do sistema JFreeChart,
+ a fim de igualar o número de vértices das duas redes.
  Essa etapa foi necessária porque a métrica de distância entre redes só
  pode ser aplicada a duas redes que possuem o mesmo tamanho.
 \end_layout
@@ -1284,7 +1283,23 @@ reference "tab:metricas-sistemas"
 
 .
  Os expoentes das distribuições de graus e de tamanhos dos módulos foram
- estimados através da técnica de máxima verossimilhança 
+ estimados através do método da máxima verossimilhança
+\begin_inset Foot
+status open
+
+\begin_layout Standard
+Utilizamos uma implementação disponível em 
+\begin_inset LatexCommand url
+target "http://www.santafe.edu/~aaronc/powerlaws/"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ 
 \begin_inset LatexCommand cite
 key "Clauset2007"
 
@@ -1297,22 +1312,6 @@ status collapsed
 \begin_layout Standard
 No caso da distribuição dos tamanhos dos módulos fixamos xmin = 1, pois
  o número de módulos é pequeno...
-\end_layout
-
-\end_inset
-
-.
- Utilizamos uma implementação da técnica disponível gratuitamente na Internet
-\begin_inset Foot
-status collapsed
-
-\begin_layout Standard
-\begin_inset LatexCommand url
-target "http://www.santafe.edu/~aaronc/powerlaws/"
-
-\end_inset
-
-
 \end_layout
 
 \end_inset
@@ -1826,9 +1825,8 @@ Escolha de Parâmetros e Síntese de Redes
 \end_layout
 
 \begin_layout Standard
-Queremos gerar redes com características próximas às características da
- rede de referência, e isso depende de uma escolha adequada dos parâmetros
- dos modelos.
+Queremos gerar redes com medidas próximas às medidas da rede de referência,
+ e isso depende de uma escolha adequada dos parâmetros dos modelos.
  
 \begin_inset Note Note
 status collapsed
@@ -1859,15 +1857,42 @@ Na discussão a seguir,
 \end_layout
 
 \begin_layout Standard
-No modelo LFR os valores da maioria dos parâmetros coincidem com os valores
- das métricas extraídas da rede de referência.
+No modelo LFR os valores dos parâmetros 
+\begin_inset Formula $|V|$
+\end_inset
+
+, 
+\begin_inset Formula $\langle k\rangle$
+\end_inset
+
+, 
+\begin_inset Formula $k_{max}$
+\end_inset
+
+, 
+\begin_inset Formula $\gamma$
+\end_inset
+
+, 
+\begin_inset Formula $\beta$
+\end_inset
+
+, 
+\begin_inset Formula $t_{min}$
+\end_inset
+
+ e 
+\begin_inset Formula $t_{max}$
+\end_inset
+
+ coincidem com os valores das métricas correspondentes extraídas da rede
+ de referência.
  O parâmetro de mistura, 
 \begin_inset Formula $\mu$
 \end_inset
 
-, foi calculado em função de métricas da rede de referência, segundo a equação
- 
-\begin_inset Formula $\mu=|E_{ext}|^{s}~/~|E|^{s}$
+, foi calculado segundo a equação 
+\begin_inset Formula $\mu=|E_{ext}|~/~|E|^{s}$
 \end_inset
 
 .
@@ -1896,11 +1921,8 @@ reference "fig:arquitetura-villonanny"
 \end_inset
 
 .
- Feita essa restrição, ajustamos os parâmetros por tentativa e erro, tentando
- gerar redes com medidas próximas àquelas que foram extraídas da rede de
- referência.
- A seguir são listados os valores escolhidos para os parâmetros do modelo
- BCR+: 
+ Feita essa restrição, ajustamos os parâmetros por tentativa e erro e chegamos
+ aos seguintes valores: 
 \begin_inset Formula $|V|=1658;\; p=q=0,1;\; r=0,8;\;\mu=0,09;\;\delta_{in}=\delta_{out}=3$
 \end_inset
 
@@ -2281,19 +2303,18 @@ Cálculo da Distância Entre as Redes
 \begin_layout Standard
 Após a extração das redes reais e da produção de redes sintéticas, calculamos
  as distâncias entre a rede de referência e todas as demais redes.
- Os resultados podem ser vistos na Tabela 
+ Os resultados, agregados por modelo, podem ser vistos na Tabela 
 \begin_inset LatexCommand ref
 reference "tab:distancias"
 
 \end_inset
 
 .
- No caso de redes sintéticas as distâncias foram agrupadas por modelo.
  Os dados mostram que o modelo BCR+ foi o que mais se aproximou da rede
  de referência; uma das redes geradas ficou mais próxima à rede de referência
  do que o sistema JFreeChart.
- O modelo LFR produziu redes bem parecidas umas com as outras, como revela
- o baixo desvio-padrão das distâncias.
+ O modelo LFR produziu redes próximas umas às outras, como revela o pequeno
+ desvio-padrão, porém mais distantes da rede de referência.
 \end_layout
 
 \begin_layout Standard
@@ -2480,16 +2501,25 @@ Ameaças à Validade
 \end_layout
 
 \begin_layout Standard
-Os resultados do experimento são bastante animadores, mas não são definitivos.
- Para minimizar o efeito da escolha dos sistemas, o experimento deve ser
- repetido com uma amostra maior.
- A representação das dependências de um sistema como uma rede não-orientada
- é uma simplificação; muitos algoritmos de recuperação de arquitetura operam
- sobre redes orientadas e ponderadas, na qual as arestas possuem um sentido
- e um peso associado.
- A métrica de distância leva em consideração relações entre os vértices
- de uma rede, mas ignora a organização em módulos; por essa razão nada se
- pode afirmar sobre o realismo das associações entre vértices e módulos.
+Os resultados são bastante animadores, mas precisam ser analisados à luz
+ de algumas limitações do experimento:
+\end_layout
+
+\begin_layout Itemize
+apenas dois sistemas reais foram estudados, e por isso, os resultados não
+ podem ser generalizados;
+\end_layout
+
+\begin_layout Itemize
+a métrica de distância ignora a organização das redes em módulos; assim,
+ nada se pode afirmar sobre o realismo das associações entre vértices e
+ módulos;
+\end_layout
+
+\begin_layout Itemize
+muitos algoritmos de recuperação de arquitetura operam sobre redes orientadas
+ e ponderadas, que contêm mais informação do que as redes não-orientadas
+ que analisamos.
 \end_layout
 
 \begin_layout Section
@@ -2511,7 +2541,7 @@ software
  sintéticos, de avaliação de algoritmos de recuperação de arquitetura.
  Dois modelos de sistemas sintéticos foram apresentados e avaliados empiricament
 e.
- O experimento mostrou que o modelo proposto neste artigo, o BCR+, é capaz
+ Um experimento mostrou que o modelo BCR+, proposto neste artigo, é capaz
  de sintetizar sistemas semelhantes a sistemas reais.
  
 \begin_inset Note Note
@@ -2528,17 +2558,19 @@ que são indistinguíveis de sistemas reais quanto à semelhança com um sistema
 \end_layout
 
 \begin_layout Standard
+
+\color red
 Dado que todo modelo é uma simplificação, os sistemas sintéticos não devem
  ser vistos como substitutos de sistemas reais, e sim como uma alternativa
- que apresenta diversas vantagens.
- É fácil gerar um grande número de sistemas sintéticos para teste, viabilizando
- análises em larga escala.
- Além disso, como cada sistema sintético é descrito sucintamente por um
- conjunto de parâmetros, é possível relacionar variações na acurácia de
- um algoritmo a variações nos parâmetros.
- Por exemplo, Lancichinetti, Fortunato e Radicchi mostraram através de experimen
-tos que a redução do grau médio de uma rede prejudica a acurácia de dois
- algoritmos de aglomeração estudados por eles 
+ que apresenta diversas vantagens
+\color inherit
+.
+ Além de proporcionarem grandes volumes de dados para teste, eles permitem
+ que se estude como a acurácia dos algoritmos é afetada por variações nos
+ parâmetros dos modelos.
+ Por exemplo, Lancichinetti, Fortunato e Radicchi estudaram dois algoritmos
+ de aglomeração e mostraram que eles apresentam menor acurácia quando aplicados
+ a redes com baixo grau médio 
 \begin_inset LatexCommand citep
 key "Lancichinetti2008"
 
@@ -2564,28 +2596,55 @@ stas em sistemas reais, mas são uma alternativa complementar viável...
 \end_layout
 
 \begin_layout Standard
-Acreditamos que outras linhas de pesquisa da engenharia de 
+Acreditamos que a síntese de 
 \emph on
 software
 \emph default
-, a exemplo da análise de impacto e da localização de funcionalidades, podem
- se beneficiar do tipo de avaliação apresentado neste artigo.
- Para isso é preciso ampliar os modelos aqui discutidos com os conceitos
- específicos de cada linha de pesquisa.
+ pode beneficiar pesquisas sobre outras tarefas de engenharia reversa, tais
+ como análise de impacto e localização de funcionalidades.
+ A avaliação de ferramentas de engenharia reversa em geral depende da disponibil
+idade de informações sobre sistemas que raramente são documentadas.
+ No caso de localização de funcionalidades, por exemplo, essa informação
+ é o mapeamento entre as funcionalidades de um sistema e trechos de seu
+ código-fonte.
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Standard
+outros métodos, outras disciplinas, técnicas, ferramentas, problemas
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
-O próximo passo da pesquisa é aplicar algoritmos de recuperação de arquitetura
- às redes sintéticas e comparar com os resultados presentes na literatura
- para sistemas reais.
- Além disso, é conveniente considerar dois modelos recentes de redes orientadas
- organizadas em módulos 
-\begin_inset LatexCommand cite
-key "Lancichinetti2009,Chen2008"
+Dois modelos recentes de redes deverão ser avaliados em um trabalho futuro.
+ O modelo LR é uma extensão do modelo LFR para grafos orientados e ponderados
+ 
+\begin_inset LatexCommand citep
+key "Lancichinetti2009"
 
 \end_inset
 
 .
+ O modelo CGW produz redes orientadas através de um processo incremental
+ que inclui remoção e religamento de arestas 
+\begin_inset LatexCommand citep
+key "Chen2008"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+O próximo passo da pesquisa é aplicar algoritmos de recuperação de arquitetura
+ às redes sintéticas.
+ Poderemos, então, comparar os resultados com dados de experimentos já realizado
+s com sistemas reais.
 \begin_inset Note Note
 status collapsed
 
