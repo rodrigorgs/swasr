@@ -389,7 +389,7 @@ expoente da distribuição de tamanhos dos módulos,
 
 \begin_layout Itemize
 número mínimo de vértices por módulo, 
-\begin_inset Formula $T_{min}$
+\begin_inset Formula $t_{min}$
 \end_inset
 
 ; 
@@ -397,7 +397,7 @@ número mínimo de vértices por módulo,
 
 \begin_layout Itemize
 número máximo de vértices por módulo, 
-\begin_inset Formula $T_{max}$
+\begin_inset Formula $t{}_{max}$
 \end_inset
 
 ; 
@@ -413,7 +413,8 @@ parâmetro de mistura,
 \end_layout
 
 \begin_layout Standard
-O modelo produz redes que seguem aproximadamente os parâmetros fornecidos.
+O modelo produz redes cujas medidas refletem os parâmetros fornecidos através
+ de um procedimento iterativo.
  O parâmetro de mistura indica a proporção de arestas externas em relação
  ao total de arestas de cada vértice.
  Arestas externas são aquelas que ligam vértices de módulos distintos.
@@ -426,35 +427,15 @@ O modelo produz redes que seguem aproximadamente os parâmetros fornecidos.
 \end_inset
 
  pertence ao módulo 
-\begin_inset Formula $M$
+\begin_inset Formula $M_{1}$
 \end_inset
 
 , então 40% das suas arestas estão ligadas a vértices que não pertencem
  ao módulo 
-\begin_inset Formula $M$
+\begin_inset Formula $M_{1}$
 \end_inset
 
 .
-\end_layout
-
-\begin_layout Standard
-\begin_inset ERT
-status collapsed
-
-\begin_layout Standard
-
-%  
-\backslash
-textbf{Discussão}
-\end_layout
-
-\begin_layout Standard
-
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Standard
@@ -467,22 +448,18 @@ software
 \emph default
 .
  Por fim, os vértices de um módulo podem se ligar a vértices de qualquer
- outro módulo, sem restrição.
- Essa característica difere do que se encontra em programas de computador,
- onde as dependências entre módulos são controladas (por exemplo, ao se
- adotar uma arquitetura em camadas).
- 
-\begin_inset ERT
+ outro módulo, sem restrição, enquanto em sistemas de 
+\emph on
+software
+\emph default
+ é comum controlar as dependências para facilitar a manutenção.
+ Em sistemas estruturados em camadas, por exemplo, cada módulo depende de
+ no máximo um outro módulo e as dependências não podem formar ciclos.
+\begin_inset Note Note
 status collapsed
 
 \begin_layout Standard
-
-% rápido: cerca de 13s para 1658 vértices no athlon 64 3000+ com 1 GB de
- RAM.
-\end_layout
-
-\begin_layout Standard
-
+rápido: cerca de 13s para 1658 vértices no athlon 64 3000+ com 1 GB de RAM.
 \end_layout
 
 \end_inset
@@ -512,7 +489,7 @@ key "Bollobas2003"
 
 .
  Considerando as limitações do modelo LFR, propomos o modelo BCR+, uma extensão
- do modelo BCR que considera a organização dos vértices em módulos
+ do modelo BCR que gera redes orientadas organizadas em módulos
 \begin_inset Foot
 status collapsed
 
