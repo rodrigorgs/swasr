@@ -100,19 +100,20 @@ Rodrigo Rocha Gomes e Souza
 \end_layout
 
 \begin_layout Abstract
-Existem muitos algoritmos para identificar os módulos de um sistema a partir
- de sua implementação, mas há poucos estudos empíricos sobre esses algoritmos.
- Isso ocorre porque é difícil encontrar sistemas cuja arquitetura modular
- é bem documentada.
- Propomos suprir essa escassez através da geração automática de sistemas
- de 
+Existem muitos algoritmos de recuperação de arquitetura, que procuram identifica
+r os módulos de um sistema de 
 \emph on
 software
 \emph default
- sintéticos, viabilizando análises empíricas em larga escala.
- Neste artigo apresentamos e avaliamos dois modelos estocásticos que cumprem
- esse papel.
- 
+ a partir de sua implementação, mas há poucos estudos empíricos sobre esses
+ algoritmos.
+ Isso ocorre porque é difícil encontrar sistemas cuja organização modular
+ é bem documentada.
+ Propomos suprir essa escassez através de modelos estocásticos que são capazes
+ de sintetizar um número arbitrário de sistemas de software.
+ Neste artigo apresentamos dois modelos que cumprem essa função, um deles
+ inédito, e avaliamos experimentalmente o grau de realismo dos sistemas
+ que eles sintetizam.
 \begin_inset Note Note
 status collapsed
 
@@ -141,20 +142,50 @@ key "Parnas1972"
 \end_inset
 
 .
- À medida que os desenvolvedores de um sistema são substituídos, no entanto,
- essa informação pode se perder.
- Alguns pesquisadores propõem o uso de algoritmos de aglomeração (
+ Essa informação muitas vezes não é documentada e, à medida que os desenvolvedor
+es de um sistema são substituídos, pode se perder.
+ Diversas técnicas têm sido propostas para dividir automaticamente ..........
+\end_layout
+
+\begin_layout Standard
+A tarefa de encontrar uma organização modular adequada para um sistema sobre
+ o qual não se tem conhecimento completo é chamado
+\end_layout
+
+\begin_layout Standard
+Algoritmos de recuperação de arquiteturaSe faz necessário então A tarefa
+ de encontrar uma organização modular adequada para um sistema é chamada
+ de recuperação de arquitetura.
+ 
+\end_layout
+
+\begin_layout Standard
+Diversas técnicas de recuperação de arquitetura
+\end_layout
+
+\begin_layout Standard
+
+\color red
+Alguns pesquisadores propõem o uso de algoritmos de aglomeração (
 \emph on
 clustering
 \emph default
 ) para recuperar a organização modular de um sistema a partir de sua implementaç
-ão 
+ão
+\color inherit
+ 
 \begin_inset LatexCommand cite
 key "Mancoridis1998,Andritsos2003,Maqbool2007"
 
 \end_inset
 
 .
+\end_layout
+
+\begin_layout Standard
+----------- Several approaches and techniques have been proposed in the
+ literature to support Software architecture reconstruction (SAR).
+ 
 \end_layout
 
 \begin_layout Standard
@@ -242,6 +273,226 @@ reference "sec:discussao"
 \end_layout
 
 \begin_layout Section
+Conceitos
+\end_layout
+
+\begin_layout Standard
+Sistemas de software, no nível de implementação, são formados por vários
+ componentes que interagem entre si de diversas formas.
+ Sistemas implementados em linguagens orientadas a objetos, por exemplo,
+ são compostos por classes --- componentes que combinam estado e comportamento
+ --- que interagem com outras classes através de mecanismos como troca de
+ mensagens e herança.
+ As interações estabelecem relações de dependência entre classes, nas quais
+ uma classe só funciona corretamente na presença das classes das quais ela
+ depende.
+ 
+\end_layout
+
+\begin_layout Standard
+Para viabilizar o desenvolvimento de um sistema de software com muitos component
+es é comum agrupar os componentes em módulos.
+ Não existe um critério unânime para realizar esse agrupamento, mas em geral
+ se assume que os módulos agrupam componentes que dependem mais uns dos
+ outros do que de componentes que pertencem a outros módulos.
+ Esse padrão de dependências permite que os módulos sejam desenvolvidos
+ de forma mais ou menos independente, possivelmente por equipes de desenvolvimen
+to distintas.
+\end_layout
+
+\begin_layout Standard
+A rede de dependências entre os componentes de um sistema pode ser extraído
+ automaticamente através de ferramentas de análise estática de código-fonte
+ ou código objeto.
+ A organização dos componentes em módulos, por outro lado, não é explicitamente
+ representada no código-fonte.
+ O objetivo das ferramentas de modularização de software é encontrar, a
+ partir da rede de dependências de um sistema, uma organização dos componentes
+ em módulos que seja adequada para apoiar o desenvolvimento do sistema.
+ 
+\end_layout
+
+\begin_layout Standard
+A rede de dependências entre componentes de um sistema de software pode
+ ser representada por um grafo no qual os vértices representam os componentes
+ e as arestas representam as relações de dependência entre os componentes.
+ A depender do nível de detalhe desejado, o grafo pode ser não-orientado
+ --- no qual considera-se que a relação de dependência é simétrica --- ou
+ orientado --- no qual as arestas possuem uma origem e um destino bem definidos.
+ Pode-se ainda associar a cada aresta um número indicando o peso da dependência,
+ o que caracteriza o grafo como ponderado.
+ A organização em módulos é representada através de um particionamento do
+ conjunto de vértices, no qual cada partição representa um módulo.
+ A Figura 
+\begin_inset LatexCommand ref
+reference "fig:rede"
+
+\end_inset
+
+ mostra um grafo orientado, não-ponderado e organizado em módulos.
+\end_layout
+
+\begin_layout Standard
+A arquitetura modular de um sistema organizado em módulos é uma grafo que
+ representa os módulos e as dependências entre eles.
+ Na arquitetura modular há uma aresta de um módulo 
+\begin_inset Formula $M_{1}$
+\end_inset
+
+ para um módulo 
+\begin_inset Formula $M_{2}$
+\end_inset
+
+ somente se existe uma aresta de um vértice de 
+\begin_inset Formula $M_{1}$
+\end_inset
+
+ para um vértice de 
+\begin_inset Formula $M_{2}$
+\end_inset
+
+.
+ A Figura 
+\begin_inset LatexCommand ref
+reference "fig:arquitetura"
+
+\end_inset
+
+ mostra a arquitetura modular da Figura 
+\begin_inset LatexCommand ref
+reference "fig:rede"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset LatexCommand label
+name "fig:rede"
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename rede.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
+Rede orientada organizada em quatro módulos.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset LatexCommand label
+name "fig:arquitetura"
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename arquitetura.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
+A arquitetura modular da rede da Figura 
+\begin_inset LatexCommand ref
+reference "fig:rede"
+
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Pesquisas recentes mostram que redes de dependências entre componentes possuem
+ características comuns a redes complexas estudadas em diversos domínios,
+ tais como sociologia, biologia e linguística 
+\begin_inset LatexCommand cite
+key "Myers2003,Valverde2003"
+
+\end_inset
+
+.
+ Uma das características mais estudadas é a distribuição dos graus dos vértices.
+ Descobriu-se que, em diversas redes estudadas, a distribuição dos graus
+ segue uma lei de potência, ou seja, o número de vértices ligados a exatamente
+ 
+\begin_inset Formula $k$
+\end_inset
+
+ arestas é proporcional a 
+\begin_inset Formula $k^{-\gamma}$
+\end_inset
+
+, onde o expoente 
+\begin_inset Formula $\gamma$
+\end_inset
+
+ varia tipicamente entre 2 e 3.
+ Uma consequência dessa distribuição é a presença de vértices cujo grau
+ é muito superior à média.
+ Essa e outras características foram incorporadas a diversos modelos de
+ geração de redes 
+\begin_inset LatexCommand cite
+key "Bollobas2003,Lancichinetti2008"
+
+\end_inset
+
+ que podem, por essa razão, ser usados para gerar redes que se assemelham
+ a redes de dependências entre componentes.
+\end_layout
+
+\begin_layout Section
 Modelos Estocásticos
 \begin_inset LatexCommand label
 name "sec:modelos"
@@ -252,36 +503,11 @@ name "sec:modelos"
 \end_layout
 
 \begin_layout Standard
-A implementação de um sistema possui muitos detalhes, mas nem todos os detalhes
- são relevantes para se compreender sua organização modular.
- Para recuperar os módulos de um sistema orientado a objetos é comum considerar
- apenas as suas classes e os relacionamentos de dependência entre elas ---
- uma rede de dependências entre classes.
- Essas redes podem ser extraídas automaticamente a partir da análise estática
- do código-fonte ou do código objeto do sistema que se deseja estudar.
- (Neste estudo consideramos apenas sistemas orientados a objetos, mas os
- conceitos podem ser igualmente aplicados a outros paradigmas de programação.)
-\end_layout
-
-\begin_layout Standard
-Pesquisas recentes mostram que redes de dependências entre classes possuem
- propriedades estatísticas comuns a redes complexas estudadas em diversos
- domínios, tais como sociologia, biologia e linguística 
-\begin_inset LatexCommand cite
-key "Myers2003,Valverde2003"
-
-\end_inset
-
-.
- Essas propriedades foram incorporadas a diversos modelos de geração de
- redes 
-\begin_inset LatexCommand cite
-key "Bollobas2003,Lancichinetti2008"
-
-\end_inset
-
- que podem, por essa razão, ser usados para gerar redes de dependências
- entre classes.
+Esta seção apresenta dois modelos de geração de redes particionadas que
+ podem ser usados para sintetizar uma representação abstrata de sistemas
+ organizados em módulos.
+ Primeiramente é apresentado um modelo descrito na literatura sobre redes
+ complexas e, a seguir, um modelo inédito.
 \end_layout
 
 \begin_layout Subsection
@@ -947,6 +1173,14 @@ status collapsed
 
 \begin_layout Section
 Distância entre Redes
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+\size large
+\color red
+Tornar a explicação mais didática.
 \end_layout
 
 \begin_layout Standard
@@ -2266,6 +2500,15 @@ BCR+
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+\size large
+\noun on
+\color red
+TODO: Refazer essa tabela na vertical, mostrando média e discrepância relativa.
 \end_layout
 
 \end_inset
