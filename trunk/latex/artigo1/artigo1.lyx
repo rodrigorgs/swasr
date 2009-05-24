@@ -92,7 +92,7 @@
 Modelos Estocásticos para Síntese de Sistemas de Software Organizados em
  Módulos 
 \newline
- *DRAFT v2*
+ *DRAFT v3*
 \end_layout
 
 \begin_layout Author
@@ -100,20 +100,27 @@ Rodrigo Rocha Gomes e Souza
 \end_layout
 
 \begin_layout Abstract
-Existem muitos algoritmos de recuperação de arquitetura, que procuram identifica
-r os módulos de um sistema de 
+Algoritmos de modularização de 
 \emph on
 software
 \emph default
- a partir de sua implementação, mas há poucos estudos empíricos sobre esses
- algoritmos.
- Isso ocorre porque é difícil encontrar sistemas cuja organização modular
+ procuram identificar a estrutura de módulos de um sistema de 
+\emph on
+software
+\emph default
+ a partir de sua implementação.
+ Infelizmente há poucos estudos dedicados a testar empiricamente esses algoritmo
+s, dada a dificuldade de se encontrar sistemas cuja organização modular
  é bem documentada.
- Propomos suprir essa escassez através de modelos estocásticos que são capazes
- de sintetizar um número arbitrário de sistemas de software.
+ Propomos suprir essa escassez através do uso de modelos estocásticos capazes
+ de gerar sistemas de 
+\emph on
+software
+\emph default
+ para servirem como conjunto de teste.
  Neste artigo apresentamos dois modelos que cumprem essa função, um deles
  inédito, e avaliamos experimentalmente o grau de realismo dos sistemas
- que eles sintetizam.
+ que eles geram.
 \begin_inset Note Note
 status collapsed
 
@@ -280,12 +287,21 @@ Conceitos
 Sistemas de software, no nível de implementação, são formados por vários
  componentes que interagem entre si de diversas formas.
  Sistemas implementados em linguagens orientadas a objetos, por exemplo,
- são compostos por classes --- componentes que combinam estado e comportamento
- --- que interagem com outras classes através de mecanismos como troca de
- mensagens e herança.
- As interações estabelecem relações de dependência entre classes, nas quais
- uma classe só funciona corretamente na presença das classes das quais ela
- depende.
+ são compostos por classes 
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Standard
+--- componentes que combinam estado e comportamento --- 
+\end_layout
+
+\end_inset
+
+que interagem com outras classes através de mecanismos como troca de mensagens
+ e herança.
+ As interações estabelecem relações de dependência entre classes, de forma
+ que cada classe só funciona corretamente na presença das classes das quais
+ ela depende.
  
 \end_layout
 
@@ -301,7 +317,7 @@ to distintas.
 \end_layout
 
 \begin_layout Standard
-A rede de dependências entre os componentes de um sistema pode ser extraído
+A rede de dependências entre os componentes de um sistema pode ser extraída
  automaticamente através de ferramentas de análise estática de código-fonte
  ou código objeto.
  A organização dos componentes em módulos, por outro lado, não é explicitamente
@@ -313,9 +329,13 @@ A rede de dependências entre os componentes de um sistema pode ser extraído
 \end_layout
 
 \begin_layout Standard
-A rede de dependências entre componentes de um sistema de software pode
- ser representada por um grafo no qual os vértices representam os componentes
- e as arestas representam as relações de dependência entre os componentes.
+A rede de dependências entre componentes de um sistema de 
+\emph on
+software
+\emph default
+ pode ser representada por um grafo no qual os vértices representam os component
+es e as arestas representam as relações de dependência entre os componentes.
+ Neste trabalho usamos os termos rede e grafo como sinônimos.
  A depender do nível de detalhe desejado, o grafo pode ser não-orientado
  --- no qual considera-se que a relação de dependência é simétrica --- ou
  orientado --- no qual as arestas possuem uma origem e um destino bem definidos.
@@ -333,7 +353,7 @@ reference "fig:rede"
 \end_layout
 
 \begin_layout Standard
-A arquitetura modular de um sistema organizado em módulos é uma grafo que
+A arquitetura modular de um sistema organizado em módulos é um grafo que
  representa os módulos e as dependências entre eles.
  Na arquitetura modular há uma aresta de um módulo 
 \begin_inset Formula $M_{1}$
@@ -394,7 +414,7 @@ name "fig:rede"
 \begin_inset Caption
 
 \begin_layout Standard
-Rede orientada organizada em quatro módulos.
+Representação gráfica de uma rede orientada organizada em quatro módulos.
 \end_layout
 
 \end_inset
@@ -411,7 +431,7 @@ Rede orientada organizada em quatro módulos.
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Standard
 \noindent
@@ -722,11 +742,11 @@ status collapsed
 \begin_layout Standard
 Uma implementação pode ser baixada em 
 \begin_inset LatexCommand url
-target "http://code.google.com/p/swasr/wiki/Instalacao"
+target "http://code.google.com/p/swasr/wiki/Downloads"
 
 \end_inset
 
- TODO: criar empacotamento e página só dos modelos
+
 \end_layout
 
 \end_inset
@@ -796,24 +816,6 @@ A arquitetura modular é uma rede que representa as dependências permitidas
  entre módulos.
  Dois vértices da rede gerada pelo modelo só podem estar ligados se os módulos
  correspondentes na arquitetura estiverem ligados por uma aresta.
-\end_layout
-
-\begin_layout Standard
-\begin_inset ERT
-status collapsed
-
-\begin_layout Standard
-
-% TODO: figura
-\end_layout
-
-\begin_layout Standard
-
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Standard
@@ -1043,26 +1045,6 @@ Como neste modelo a rede é orientada, pode-se considerar separadamente uma
 \end_layout
 
 \begin_layout Standard
-\begin_inset ERT
-status collapsed
-
-\begin_layout Standard
-
-%  
-\backslash
-textbf{Discussão}
-\end_layout
-
-\begin_layout Standard
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
 Este modelo supera as limitações encontradas no modelo LFR: as redes são
  orientadas, são permitidos vértices sem arestas externas e é possível restringi
 r as dependências entre módulos através da arquitetura fornecida como parâmetro.
@@ -1120,9 +1102,6 @@ status collapsed
 \end_inset
 
 
-\end_layout
-
-\begin_layout Standard
 \begin_inset ERT
 status collapsed
 
@@ -1180,10 +1159,24 @@ Distância entre Redes
 \series bold
 \size large
 \color red
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Standard
+
+\series bold
+\size large
+\color red
 Tornar a explicação mais didática.
 \end_layout
 
-\begin_layout Standard
+\end_inset
+
+
+\series default
+\size default
+\color inherit
+
 \begin_inset Note Note
 status collapsed
 
@@ -1198,18 +1191,30 @@ status collapsed
 
 \end_inset
 
-Para avaliar o quanto uma rede sintética se parece com uma rede extraída
- de um sistema real, é conveniente considerar uma métrica de distância entre
- duas redes.
- Neste trabalho consideramos uma métrica baseada no conceito de matriz de
- vizinhança 
+Embora métricas como o expoente da distribuição de graus (
+\begin_inset Formula $\gamma$
+\end_inset
+
+) sejam úteis para caracterizar redes, elas ignoram detalhes das estruturas
+ locais das redes e por isso não são adequadas para se diferenciar duas
+ redes.
+ Não é difícil encontrar duas redes que, embora possuam o mesmo número de
+ vértices, o mesmo número de arestas e o mesmo expoente 
+\begin_inset Formula $\gamma$
+\end_inset
+
+, são muito diferentes entre si.
+ Por essa razão neste trabalho usamos uma métrica de distância entre redes
+ 
 \begin_inset LatexCommand citep
 key "Andrade2008"
 
 \end_inset
 
-.
- Essa métrica se aplica apenas a redes com o mesmo número de vértices.
+ para avaliar o quanto uma rede sintética se parece com uma rede extraída
+ de um sistema real.
+ Essa métrica se baseia no conceito de matrizes de vizinhança e se aplica
+ apenas a redes com o mesmo número de vértices.
 \end_layout
 
 \begin_layout Standard
@@ -1240,8 +1245,8 @@ e que o comprimento é
 \end_inset
 
 .
- A matriz de vizinhança de uma rede não é única: sua forma exata depende
- da ordem em que os vértices aparecem na matriz.
+ A matriz de vizinhan A matriz de vizinhança de uma rede não é única: sua
+ forma exata depende da ordem em que os vértices aparecem na matriz.
 \end_layout
 
 \begin_layout Standard
@@ -1611,7 +1616,7 @@ Métricas extraídas dos sistemas analisados: número de vértices,
 <column alignment="center" valignment="top" width="0">
 <column alignment="center" valignment="top" width="0">
 <column alignment="center" valignment="top" width="0">
-<row topline="true">
+<row topline="true" bottomline="true">
 <cell alignment="center" valignment="top" topline="true" usebox="none">
 \begin_inset Text
 
@@ -1625,6 +1630,8 @@ Sistema
 \begin_inset Text
 
 \begin_layout Standard
+
+\series bold
 \begin_inset Formula $|V|$
 \end_inset
 
@@ -1637,6 +1644,8 @@ Sistema
 \begin_inset Text
 
 \begin_layout Standard
+
+\series bold
 \begin_inset Formula $|E|$
 \end_inset
 
@@ -1649,6 +1658,8 @@ Sistema
 \begin_inset Text
 
 \begin_layout Standard
+
+\series bold
 \begin_inset Formula $|E_{ext}|$
 \end_inset
 
@@ -1661,6 +1672,8 @@ Sistema
 \begin_inset Text
 
 \begin_layout Standard
+
+\series bold
 \begin_inset Formula $\langle k\rangle$
 \end_inset
 
@@ -1673,6 +1686,8 @@ Sistema
 \begin_inset Text
 
 \begin_layout Standard
+
+\series bold
 \begin_inset Formula $k_{max}$
 \end_inset
 
@@ -1685,6 +1700,8 @@ Sistema
 \begin_inset Text
 
 \begin_layout Standard
+
+\series bold
 \begin_inset Formula $|M|$
 \end_inset
 
@@ -1697,6 +1714,8 @@ Sistema
 \begin_inset Text
 
 \begin_layout Standard
+
+\series bold
 \begin_inset Formula $t_{min}$
 \end_inset
 
@@ -1709,6 +1728,8 @@ Sistema
 \begin_inset Text
 
 \begin_layout Standard
+
+\series bold
 \begin_inset Formula $t_{max}$
 \end_inset
 
@@ -1721,6 +1742,8 @@ Sistema
 \begin_inset Text
 
 \begin_layout Standard
+
+\series bold
 \begin_inset Formula $\gamma$
 \end_inset
 
@@ -1733,6 +1756,8 @@ Sistema
 \begin_inset Text
 
 \begin_layout Standard
+
+\series bold
 \begin_inset Formula $\beta$
 \end_inset
 
@@ -2244,8 +2269,8 @@ Achamos
 \end_layout
 
 \begin_layout Standard
-Com os parâmetros escolhidos, geramos 9 redes a partir de cada modelo e
- extraímos métricas.
+Escolhidos os parâmetros, geramos nove redes a partir de cada modelo e extraímos
+ métricas.
  Calculamos a média das medidas das redes de cada modelo e então as comparamos
  com as medidas da rede de referência.
  A Tabela 
@@ -2256,16 +2281,11 @@ reference "tab:discrepancias"
 
  mostra, para cada modelo, a discrepância entre as medidas da rede de referência
  e as médias das redes sintéticas do modelo.
-\begin_inset Note Note
-status open
-
-\begin_layout Standard
-comentar dados
-\end_layout
-
-\end_inset
-
-
+ Na maioria dos casos a discrepância pode ser creditada ao tamanho das redes,
+ relativamente pequeno --- os modelos garantem que algumas medidas se aproximam
+ da medida esperada quando o tamanho da rede tende a infinito.
+ Em dois casos, no entanto, a discrepância foi maior do que 5%, o que sugere
+ que a escolha dos parâmetros pode ser aprimorada.
 \end_layout
 
 \begin_layout Standard
@@ -2298,13 +2318,13 @@ Discrepâncias relativas entre as medidas das redes sintéticas (média) e
 \begin_inset Tabular
 <lyxtabular version="3" rows="3" columns="6">
 <features>
-<column alignment="right" valignment="top" rightline="true" width="0">
+<column alignment="left" valignment="top" rightline="true" width="0">
 <column alignment="center" valignment="top" width="0">
 <column alignment="center" valignment="top" width="0">
 <column alignment="center" valignment="top" width="0">
 <column alignment="center" valignment="top" width="0">
 <column alignment="center" valignment="top" width="0">
-<row topline="true">
+<row topline="true" bottomline="true">
 <cell alignment="right" valignment="top" topline="true" rightline="true" usebox="none">
 \begin_inset Text
 
@@ -2318,6 +2338,8 @@ Discrepâncias relativas entre as medidas das redes sintéticas (média) e
 \begin_inset Text
 
 \begin_layout Standard
+
+\series bold
 \begin_inset Formula $|E|$
 \end_inset
 
@@ -2330,6 +2352,8 @@ Discrepâncias relativas entre as medidas das redes sintéticas (média) e
 \begin_inset Text
 
 \begin_layout Standard
+
+\series bold
 \begin_inset Formula $|E_{ext}|$
 \end_inset
 
@@ -2342,6 +2366,8 @@ Discrepâncias relativas entre as medidas das redes sintéticas (média) e
 \begin_inset Text
 
 \begin_layout Standard
+
+\series bold
 \begin_inset Formula $|M|$
 \end_inset
 
@@ -2354,6 +2380,8 @@ Discrepâncias relativas entre as medidas das redes sintéticas (média) e
 \begin_inset Text
 
 \begin_layout Standard
+
+\series bold
 \begin_inset Formula $\gamma$
 \end_inset
 
@@ -2366,6 +2394,8 @@ Discrepâncias relativas entre as medidas das redes sintéticas (média) e
 \begin_inset Text
 
 \begin_layout Standard
+
+\series bold
 \begin_inset Formula $\beta$
 \end_inset
 
@@ -2380,7 +2410,9 @@ Discrepâncias relativas entre as medidas das redes sintéticas (média) e
 \begin_inset Text
 
 \begin_layout Standard
-LFR 
+LFR
+\series bold
+ 
 \end_layout
 
 \end_inset
@@ -2440,7 +2472,9 @@ LFR
 \begin_inset Text
 
 \begin_layout Standard
-BCR+ 
+BCR+
+\series bold
+ 
 \end_layout
 
 \end_inset
@@ -2502,15 +2536,6 @@ BCR+
 
 \end_layout
 
-\begin_layout Standard
-
-\series bold
-\size large
-\noun on
-\color red
-TODO: Refazer essa tabela na vertical, mostrando média e discrepância relativa.
-\end_layout
-
 \end_inset
 
 
@@ -2533,8 +2558,8 @@ reference "tab:distancias"
  Os dados mostram que o modelo BCR+ foi o que mais se aproximou da rede
  de referência; uma das redes geradas ficou mais próxima à rede de referência
  do que o sistema JFreeChart.
- O modelo LFR produziu redes próximas umas às outras, como revela o pequeno
- desvio-padrão, porém mais distantes da rede de referência.
+ O modelo LFR produziu redes próximas entre si, como revela o pequeno desvio-pad
+rão, porém mais distantes da rede de referência.
 \end_layout
 
 \begin_layout Standard
@@ -2565,9 +2590,9 @@ Distâncias das redes sintéticas e da rede do sistema JFreeChart em relação
 \begin_layout Standard
 \align center
 \begin_inset Tabular
-<lyxtabular version="3" rows="4" columns="3">
+<lyxtabular version="3" rows="5" columns="3">
 <features>
-<column alignment="right" valignment="top" rightline="true" width="0">
+<column alignment="left" valignment="top" rightline="true" width="0">
 <column alignment="center" valignment="top" width="0">
 <column alignment="center" valignment="top" width="0">
 <row topline="true">
@@ -2575,7 +2600,7 @@ Distâncias das redes sintéticas e da rede do sistema JFreeChart em relação
 \begin_inset Text
 
 \begin_layout Standard
-Modelo/Sistema 
+Modelo/ 
 \end_layout
 
 \end_inset
@@ -2584,7 +2609,7 @@ Modelo/Sistema
 \begin_inset Text
 
 \begin_layout Standard
-Distância Média 
+Distância
 \end_layout
 
 \end_inset
@@ -2593,7 +2618,36 @@ Distância Média
 \begin_inset Text
 
 \begin_layout Standard
-Distância Mínima 
+Distância 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row bottomline="true" endfirsthead="true">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+Sistema
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+Média
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Standard
+Mínima
 \end_layout
 
 \end_inset
@@ -2758,10 +2812,14 @@ Este artigo apresentou uma nova abordagem, baseada na geração de sistemas
 \emph on
 software
 \emph default
- sintéticos, de avaliação de algoritmos de recuperação de arquitetura.
- Dois modelos de sistemas sintéticos foram apresentados e avaliados empiricament
-e.
- Um experimento mostrou que o modelo BCR+, proposto neste artigo, é capaz
+ sintéticos, de avaliação de algoritmos de modularização de 
+\emph on
+software
+\emph default
+.
+ Dois modelos de sistemas sintéticos foram apresentados e avaliados através
+ de um experimento.
+ O experimento mostrou que o modelo BCR+, proposto neste artigo, é capaz
  de sintetizar sistemas semelhantes a sistemas reais.
  
 \begin_inset Note Note
@@ -2778,19 +2836,19 @@ que são indistinguíveis de sistemas reais quanto à semelhança com um sistema
 \end_layout
 
 \begin_layout Standard
-
-\color red
-Dado que todo modelo é uma simplificação, os sistemas sintéticos não devem
- ser vistos como substitutos de sistemas reais, e sim como uma alternativa
- que apresenta diversas vantagens
-\color inherit
-.
- Além de proporcionarem grandes volumes de dados para teste, eles permitem
+Não defendemos que os sistemas sintéticos devem substituir completamente
+ os sistemas reais no teste de algoritmos de modularização de 
+\emph on
+software
+\emph default
+, mas acreditamos que eles podem proporcionar novas percepções sobre os
+ algoritmos.
+ Além de fornecerem um grande volume de dados para teste, eles permitem
  que se estude como a acurácia dos algoritmos é afetada por variações nos
  parâmetros dos modelos.
- Por exemplo, Lancichinetti, Fortunato e Radicchi estudaram dois algoritmos
- de aglomeração e mostraram que eles apresentam menor acurácia quando aplicados
- a redes com baixo grau médio 
+ Lancichinetti, Fortunato e Radicchi, por exemplo, estudaram dois algoritmos
+ de modularização de redes e mostraram que eles apresentam resultados piores
+ quando aplicados a redes com baixo grau médio 
 \begin_inset LatexCommand citep
 key "Lancichinetti2008"
 
@@ -2813,25 +2871,17 @@ stas em sistemas reais, mas são uma alternativa complementar viável...
 \end_inset
 
 
-\end_layout
-
-\begin_layout Standard
-Acreditamos que a síntese de 
-\emph on
-software
-\emph default
- pode beneficiar pesquisas sobre outras tarefas de engenharia reversa, tais
- como análise de impacto e localização de funcionalidades.
- A avaliação de ferramentas de engenharia reversa em geral depende da disponibil
-idade de informações sobre sistemas que raramente são documentadas.
- No caso de localização de funcionalidades, por exemplo, essa informação
- é o mapeamento entre as funcionalidades de um sistema e trechos de seu
- código-fonte.
 \begin_inset Note Note
 status collapsed
 
 \begin_layout Standard
-outros métodos, outras disciplinas, técnicas, ferramentas, problemas
+Dado que todo modelo é uma simplificação, os sistemas sintéticos não devem
+ ser vistos como substitutos de sistemas reais no teste de algoritmos de
+ modularização de 
+\emph on
+software
+\emph default
+, 
 \end_layout
 
 \end_inset
@@ -2840,8 +2890,27 @@ outros métodos, outras disciplinas, técnicas, ferramentas, problemas
 \end_layout
 
 \begin_layout Standard
-Dois modelos recentes de redes deverão ser avaliados em um trabalho futuro.
- O modelo LR é uma extensão do modelo LFR para grafos orientados e ponderados
+Acreditamos que modelos de 
+\emph on
+software
+\emph default
+ pode beneficiar pesquisas em outras áreas de engenharia reversa, tais como
+ análise de impacto e localização de funcionalidades.
+ A avaliação de ferramentas de engenharia reversa em geral depende da disponibil
+idade de informações sobre sistemas que não são representadas explicitamente
+ em seu código-fonte.
+ No caso de localização de funcionalidades, por exemplo, essa informação
+ é o mapeamento entre as estruturas da implementação de um sistema e as
+ suas funcionalidades.
+ Se esse mapeamento for incorporado em um dos modelos aqui apresentados,
+ então será possível testar as ferramentas de localização de funcionalidades
+ com um grande volume de dados.
+\end_layout
+
+\begin_layout Standard
+Dois modelos de redes propostos recentemente, LR e CGW, deverão ser avaliados
+ em um trabalho futuro.
+ O modelo LR é uma extensão do modelo LFR para redes orientadas e ponderadas
  
 \begin_inset LatexCommand citep
 key "Lancichinetti2009"
@@ -2849,7 +2918,7 @@ key "Lancichinetti2009"
 \end_inset
 
 .
- O modelo CGW produz redes orientadas através de um processo incremental
+ Já o modelo CGW produz redes orientadas através de um processo incremental
  que inclui remoção e religamento de arestas 
 \begin_inset LatexCommand citep
 key "Chen2008"
@@ -2858,13 +2927,47 @@ key "Chen2008"
 
 .
  
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Standard
+Também pretendemos avaliar o modelo de rede aleatória e o modelo de configuração
+, como base de comparação (espera-se que a distância seja maior para esses
+ modelos, caso contrário a métrica de distância não faz muito sentido).
+\end_layout
+
+\end_inset
+
+
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Standard
+Testar outra métrica de distância: a estatística de Kolmogorov-Smirnov aplicada
+ à distribuição de module-based motifs.
+\end_layout
+
+\end_inset
+
+
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Standard
+Outro próximo passo: ajudar Roberto, Jemerson et al a descobrir padrões
+ estatísticos de evolução de software.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
 O próximo passo da pesquisa é aplicar algoritmos de recuperação de arquitetura
  às redes sintéticas.
- Poderemos, então, comparar os resultados com dados de experimentos já realizado
-s com sistemas reais.
+ Os resultados desse experimento poderão ser comparados com os resultados
+ de experimentos já realizados com sistemas reais.
 \begin_inset Note Note
 status collapsed
 
