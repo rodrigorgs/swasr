@@ -52,6 +52,7 @@
 %   A implementação do modelo de Rodrigo2008 precisa ser revista pra ficar mais eficiente (está muito lento!)
 %   Podemos usar uma distância de Garcia usando o coeficiente de clustering em vez de usar a distância propriamente dita.
 \end_preamble
+\options a4paper
 \language brazilian
 \inputencoding utf8
 \font_roman default
@@ -65,7 +66,7 @@
 \graphics default
 \paperfontsize default
 \spacing single
-\papersize default
+\papersize a4paper
 \use_geometry false
 \use_amsmath 0
 \use_esint 0
@@ -78,7 +79,7 @@
 \defskip medskip
 \quotes_language english
 \papercolumns 2
-\papersides 1
+\papersides 2
 \paperpagestyle default
 \tracking_changes false
 \output_changes false
@@ -109,18 +110,19 @@ software
 software
 \emph default
  a partir de sua implementação.
- Infelizmente há poucos estudos dedicados a testar empiricamente esses algoritmo
-s, dada a dificuldade de se encontrar sistemas cuja organização modular
- é bem documentada.
+ Infelizmente, dada a dificuldade de se encontrar sistemas cuja organização
+ modular é bem documentada, há poucos estudos dedicados a testar empiricamente
+ esses algoritmos.
  Propomos suprir essa escassez através do uso de modelos estocásticos capazes
  de gerar sistemas de 
 \emph on
 software
 \emph default
- para servirem como conjunto de teste.
+ organizados em módulos para servirem como conjunto de teste.
  Neste artigo apresentamos dois modelos que cumprem essa função, um deles
- inédito, e avaliamos experimentalmente o grau de realismo dos sistemas
- que eles geram.
+ inédito, e concluímos através de um experimento que um dos modelos produz
+ sistemas semelhantes a sistemas reais, ao menos do ponto de vista dos algoritmo
+s de modularização.
 \begin_inset Note Note
 status collapsed
 
@@ -142,74 +144,86 @@ A divisão conceitual de um sistema de
 \emph on
 software
 \emph default
- em módulos é muito importante no gerenciamento de sua evolução 
-\begin_inset LatexCommand cite
-key "Parnas1972"
+ em módulos é uma informação valiosa durante o seu desenvolvimento, sobretudo
+ para a divisão de tarefas entre desenvolvedores 
+\begin_inset LatexCommand citep
+key "Clements2002"
 
 \end_inset
 
 .
- Essa informação muitas vezes não é documentada e, à medida que os desenvolvedor
-es de um sistema são substituídos, pode se perder.
- Diversas técnicas têm sido propostas para dividir automaticamente ..........
-\end_layout
-
-\begin_layout Standard
-A tarefa de encontrar uma organização modular adequada para um sistema sobre
- o qual não se tem conhecimento completo é chamado
-\end_layout
-
-\begin_layout Standard
-Algoritmos de recuperação de arquiteturaSe faz necessário então A tarefa
- de encontrar uma organização modular adequada para um sistema é chamada
- de recuperação de arquitetura.
+ Essa informação muitas vezes não é documentada adequadamente e, à medida
+ que os desenvolvedores de um sistema são substituídos, pode se perder.
+ Por essa razão foram propostos diversos algoritmos de modularização de
  
-\end_layout
-
-\begin_layout Standard
-Diversas técnicas de recuperação de arquitetura
-\end_layout
-
-\begin_layout Standard
-
-\color red
-Alguns pesquisadores propõem o uso de algoritmos de aglomeração (
 \emph on
-clustering
+software
 \emph default
-) para recuperar a organização modular de um sistema a partir de sua implementaç
-ão
-\color inherit
+, os quais procuram identificar a organização em módulos de um sistema de
  
+\emph on
+software
+\emph default
+ a partir de sua implementação 
 \begin_inset LatexCommand cite
 key "Mancoridis1998,Andritsos2003,Maqbool2007"
 
 \end_inset
 
 .
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Standard
+Documenting software architectures
 \end_layout
 
 \begin_layout Standard
------------ Several approaches and techniques have been proposed in the
- literature to support Software architecture reconstruction (SAR).
- 
+How system responsibilities are partitioned across modules 
+\end_layout
+
+\begin_layout Standard
+Favorite tool for communication with newcomers • Allocating functionality
+ to specific places in architecture 
+\end_layout
+
+\begin_layout Standard
+Enabling incremental development and deployment 
+\end_layout
+
+\begin_layout Standard
+A module is an implementation unit of software that provides a coherent
+ unit of functionality 
+\end_layout
+
+\begin_layout Standard
+• Analysis – Traceability – Impact analysis • Communication 
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
 Espera-se que os algoritmos encontrem organizações modulares semelhantes
  àquelas que seriam encontradas por especialistas nos sistemas analisados.
- Uma forma de validar os algoritmos consiste, pois, em aplicá-los ao código-font
-e de um sistema cuja organização em módulos esteja documentada e então comparar,
- através de uma medida de similaridade entre particionamentos 
-\begin_inset LatexCommand cite
-key "Tzerpos1999,Wen2004a"
+ Uma forma de testar os algoritmos consiste, pois, em aplicá-los ao código-fonte
+ de um sistema cuja organização em módulos esteja documentada e então comparar
+ as duas estruturas de módulos 
+\begin_inset LatexCommand citet
+key "Tzerpos1999"
 
 \end_inset
 
-, os módulos do sistema com os módulos encontrados pelos algoritmos.
+.
  Infelizmente é difícil encontrar sistemas documentados nesse nível de detalhe
- e por essa razão a avaliação empírica dos algoritmos de recuperação de
- arquitetura ainda é incipiente.
+ e por essa razão a avaliação empírica dos algoritmos de modularização de
+ 
+\emph on
+software
+\emph default
+ ainda é incipiente.
  
 \begin_inset Note Note
 status collapsed
@@ -234,53 +248,42 @@ A lguns estudos revelam que a avaliação de um algoritmo varia bastante de
 \end_layout
 
 \begin_layout Standard
-Para suprir a escassez de sistemas bem documentados, propomos o uso de sistemas
- de 
+Para suprir a escassez de sistemas bem documentados, propomos o uso de modelos
+ estocásticos capazes de sintetizar sistemas de 
 \emph on
 software
 \emph default
- sintéticos.
- Esses sistemas são gerados por computador a partir de modelos parametrizáveis
- e obedecem a estruturas modulares conhecidas.
- Com essa abordagem é possível submeter os algoritmos a amostras potencialmente
- infinitas de sistemas arbitrariamente complexos e, ainda, estudar como
- os parâmetros dos modelos afetam a avaliação dos algoritmos.
- 
+ organizados em módulos para servirem como conjunto de teste.
+ Para que essa abordagem seja bem-sucedida, no entanto, é preciso que os
+ sistemas sintetizados pelos modelos sejam semelhantes a sistemas reais,
+ ao menos do ponto de vista dos algoritmos de modularização.
+ Neste artigo apresentamos dois modelos, um deles inédito, e avaliamos através
+ de um experimento o grau de semelhança entre sistemas reais e sistemas
+ sintetizados pelos modelos.
 \end_layout
 
 \begin_layout Standard
-O sucesso dessa abordagem, no entanto, depende da capacidade dos modelos
- de gerar sistemas realistas, ao menos do ponto de vista dos algoritmos
- de recuperação de arquitetura.
- Neste artigo propomos um modelo de síntese de 
-\emph on
-software
-\emph default
- e avaliamos o realismo desse modelo e de um outro modelo presente na literatura.
- 
-\end_layout
+A próxima seção apresenta o embasamento teórico deste trabalho.
+ A seguir, na seção 
+\begin_inset LatexCommand ref
+reference "sec:modelos"
 
-\begin_layout Standard
-Na próxima seção apresentamos os dois modelos avaliados.
+\end_inset
+
+, descrevemos os modelos estocásticos que sintetizam sistemas de software
+ organizados em módulos.
  Na seção 
 \begin_inset LatexCommand ref
 reference "sec:experimento"
 
 \end_inset
 
- descrevemos um experimento para avaliar os modelos quanto à capacidade
- de gerar sistemas semelhantes a sistemas reais.
- Na seção 
-\begin_inset LatexCommand ref
-reference "sec:discussao"
-
-\end_inset
-
- discutimos os resultados e os trabalhos futuros.
+ relatamos o experimento realizado para avaliar os modelos e os seus resultados.
+ Por fim, discutimos direções futuras para pesquisa.
 \end_layout
 
 \begin_layout Section
-Conceitos
+Teoria
 \end_layout
 
 \begin_layout Standard
@@ -299,15 +302,18 @@ status collapsed
 
 que interagem com outras classes através de mecanismos como troca de mensagens
  e herança.
- As interações estabelecem relações de dependência entre classes, de forma
- que cada classe só funciona corretamente na presença das classes das quais
- ela depende.
+ As interações estabelecem relações de dependência entre os componentes,
+ de forma que cada componente só funciona corretamente na presença dos component
+es dos quais ele depende.
  
 \end_layout
 
 \begin_layout Standard
-Para viabilizar o desenvolvimento de um sistema de software com muitos component
-es é comum agrupar os componentes em módulos.
+Para viabilizar o desenvolvimento de um sistema de 
+\emph on
+software
+\emph default
+ com muitos componentes é comum agrupar os componentes em módulos.
  Não existe um critério unânime para realizar esse agrupamento, mas em geral
  se assume que os módulos agrupam componentes que dependem mais uns dos
  outros do que de componentes que pertencem a outros módulos.
@@ -350,6 +356,46 @@ reference "fig:rede"
 \end_inset
 
  mostra um grafo orientado, não-ponderado e organizado em módulos.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Graphics
+	filename rede.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
+Representação gráfica de uma rede orientada organizada em quatro módulos.
+\end_layout
+
+\end_inset
+
+
+\begin_inset LatexCommand label
+name "fig:rede"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -396,52 +442,6 @@ status open
 \begin_layout Standard
 \noindent
 \align center
-\begin_inset LatexCommand label
-name "fig:rede"
-
-\end_inset
-
-
-\begin_inset Graphics
-	filename rede.png
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Caption
-
-\begin_layout Standard
-Representação gráfica de uma rede orientada organizada em quatro módulos.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Standard
-\noindent
-\align center
-\begin_inset LatexCommand label
-name "fig:arquitetura"
-
-\end_inset
-
-
 \begin_inset Graphics
 	filename arquitetura.png
 
@@ -462,6 +462,12 @@ reference "fig:rede"
 
 .
 \end_layout
+
+\end_inset
+
+
+\begin_inset LatexCommand label
+name "fig:arquitetura"
 
 \end_inset
 
@@ -501,15 +507,242 @@ key "Myers2003,Valverde2003"
  varia tipicamente entre 2 e 3.
  Uma consequência dessa distribuição é a presença de vértices cujo grau
  é muito superior à média.
- Essa e outras características foram incorporadas a diversos modelos de
- geração de redes 
+ 
+\end_layout
+
+\begin_layout Standard
+As características comuns a redes de diversos domínios foram incorporadas
+ a vários modelos estocásticos de geração de redes 
 \begin_inset LatexCommand cite
 key "Bollobas2003,Lancichinetti2008"
 
 \end_inset
 
- que podem, por essa razão, ser usados para gerar redes que se assemelham
- a redes de dependências entre componentes.
+.
+ As redes geradas por esses modelos podem ser interpretadas como redes de
+ dependências entre componentes.
+\end_layout
+
+\begin_layout Subsection
+Distância entre Redes
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+\size large
+\color red
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Standard
+
+\series bold
+\size large
+\color red
+Tornar a explicação mais didática.
+\end_layout
+
+\end_inset
+
+
+\series default
+\size default
+\color inherit
+
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Standard
+É comum caracterizar redes através de métricas como o número de módulos
+ e expoente da distribuição de graus.
+ Essas métricas, no entanto, não são adequadas para comparar redes: não
+ é difícil encontrar duas redes muito diferentes que compartilham os mesmos
+ valores para essas métricas.
+ 
+\end_layout
+
+\end_inset
+
+Embora métricas como o expoente da distribuição de graus (
+\begin_inset Formula $\gamma$
+\end_inset
+
+) sejam úteis para caracterizar redes, elas não são adequadas para se diferencia
+r duas redes.
+ Não é difícil encontrar redes que, embora possuam o mesmo número de vértices,
+ o mesmo número de arestas e o mesmo expoente 
+\begin_inset Formula $\gamma$
+\end_inset
+
+, são muito diferentes entre si.
+ Por essa razão neste trabalho usamos uma métrica de distância entre redes
+ 
+\begin_inset LatexCommand citep
+key "Andrade2008"
+
+\end_inset
+
+ para avaliar o quanto uma rede sintética se parece com uma rede extraída
+ de um sistema real.
+ Essa métrica se baseia no conceito de matrizes de vizinhança e se aplica
+ apenas a redes com o mesmo número de vértices.
+\end_layout
+
+\begin_layout Standard
+Uma matriz de vizinhança de uma rede, 
+\begin_inset Formula $M$
+\end_inset
+
+, é uma matriz 
+\begin_inset Formula $|V|\times|V|$
+\end_inset
+
+ na qual cada elemento 
+\begin_inset Formula $M_{ij}$
+\end_inset
+
+ representa o comprimento do caminho mínimo do 
+\begin_inset Formula $i$
+\end_inset
+
+-ésimo até o 
+\begin_inset Formula $j$
+\end_inset
+
+-ésimo vértice.
+ No caso de pares de vértices que não são conectados por um caminho, considera-s
+e que o comprimento é 
+\begin_inset Formula $0$
+\end_inset
+
+.
+ De acordo com a definição, a construção da matriz de vizinhança de uma
+ rede depende de uma permutação dos vértices da rede e, por isso, uma rede
+ com 
+\begin_inset Formula $|V|$
+\end_inset
+
+ vértices define 
+\begin_inset Formula $|V|!$
+\end_inset
+
+ matrizes de vizinhança.
+\end_layout
+
+\begin_layout Standard
+A distância entre duas matrizes de vizinhança, 
+\begin_inset Formula $\mathrm{d}(M,N)$
+\end_inset
+
+, é dada pela equação a seguir:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula \[
+\mathrm{d}(M,N)\:=\:\sqrt{\frac{1}{|V|^{2}}\sum_{i,j=1}^{|V|}(M_{ij}-N_{ij})^{2}}\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Sejam 
+\begin_inset Formula $A$
+\end_inset
+
+ e 
+\begin_inset Formula $B$
+\end_inset
+
+ duas redes com 
+\begin_inset Formula $|V|$
+\end_inset
+
+ vértices cada uma, 
+\begin_inset Formula $A_{0}$
+\end_inset
+
+ uma matriz de vizinhança qualquer de 
+\begin_inset Formula $A$
+\end_inset
+
+ e 
+\begin_inset Formula $B^{*}$
+\end_inset
+
+ o conjunto de todas as matrizes de vizinhança da rede 
+\begin_inset Formula $B$
+\end_inset
+
+.
+ Definimos a distância entre as duas redes, 
+\begin_inset Formula $\mathrm{D}(A,B)$
+\end_inset
+
+, como sendo a menor das distâncias entre a matriz 
+\begin_inset Formula $A_{0}$
+\end_inset
+
+ e as matrizes do conjunto 
+\begin_inset Formula $B^{*}$
+\end_inset
+
+:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula \[
+\mathrm{D}(A,B)\:=\:\min\,\{d(A_{0},x)\:|\: x\in B^{*}\}\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Dada a necessidade de se considerar 
+\begin_inset Formula $|V|!$
+\end_inset
+
+ casos, o cálculo exato da distância mínima é viável apenas para redes muito
+ pequenas.
+ Felizmente é possível obter um limite superior para essa distância através
+ de uma busca heurística no conjunto 
+\begin_inset Formula $B^{*}$
+\end_inset
+
+.
+ Neste trabalho calculamos uma aproximação para 
+\begin_inset Formula $\mathrm{D}(A,B)$
+\end_inset
+
+ obtida através de um algoritmo Monte Carlo descrito em 
+\begin_inset LatexCommand cite
+key "Andrade2008"
+
+\end_inset
+
+.
+ 
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Standard
+O algoritmo começa escolhendo um elemento qualquer de 
+\begin_inset Formula $B^{*}$
+\end_inset
+
+ e, a cada iteração, considera um novo elemento trocando as posições de
+ dois vértices da rede B escolhidos aleatoriamente.
+ A distância é recalculada a cada passo e, após um número pré-determinado
+ de iterações, é retornada a menor distância encontrada.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section
@@ -523,11 +756,10 @@ name "sec:modelos"
 \end_layout
 
 \begin_layout Standard
-Esta seção apresenta dois modelos de geração de redes particionadas que
- podem ser usados para sintetizar uma representação abstrata de sistemas
- organizados em módulos.
- Primeiramente é apresentado um modelo descrito na literatura sobre redes
- complexas e, a seguir, um modelo inédito.
+Esta seção apresenta dois modelos de geração de redes organizadas em módulos
+ que podem ser usados para sintetizar redes de dependências entre componentes.
+ Primeiramente descrevemos um modelo descrito na literatura sobre redes
+ complexas e, a seguir, apresentamos um novo modelo.
 \end_layout
 
 \begin_layout Subsection
@@ -1151,210 +1383,6 @@ status collapsed
 \end_layout
 
 \begin_layout Section
-Distância entre Redes
-\end_layout
-
-\begin_layout Standard
-
-\series bold
-\size large
-\color red
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Standard
-
-\series bold
-\size large
-\color red
-Tornar a explicação mais didática.
-\end_layout
-
-\end_inset
-
-
-\series default
-\size default
-\color inherit
-
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Standard
-É comum caracterizar redes através de métricas como o número de módulos
- e expoente da distribuição de graus.
- Essas métricas, no entanto, não são adequadas para comparar redes: não
- é difícil encontrar duas redes muito diferentes que compartilham os mesmos
- valores para essas métricas.
- 
-\end_layout
-
-\end_inset
-
-Embora métricas como o expoente da distribuição de graus (
-\begin_inset Formula $\gamma$
-\end_inset
-
-) sejam úteis para caracterizar redes, elas ignoram detalhes das estruturas
- locais das redes e por isso não são adequadas para se diferenciar duas
- redes.
- Não é difícil encontrar duas redes que, embora possuam o mesmo número de
- vértices, o mesmo número de arestas e o mesmo expoente 
-\begin_inset Formula $\gamma$
-\end_inset
-
-, são muito diferentes entre si.
- Por essa razão neste trabalho usamos uma métrica de distância entre redes
- 
-\begin_inset LatexCommand citep
-key "Andrade2008"
-
-\end_inset
-
- para avaliar o quanto uma rede sintética se parece com uma rede extraída
- de um sistema real.
- Essa métrica se baseia no conceito de matrizes de vizinhança e se aplica
- apenas a redes com o mesmo número de vértices.
-\end_layout
-
-\begin_layout Standard
-A matriz de vizinhança de uma rede, 
-\begin_inset Formula $M$
-\end_inset
-
-, é uma matriz 
-\begin_inset Formula $|V|\times|V|$
-\end_inset
-
- na qual cada elemento 
-\begin_inset Formula $M_{ij}$
-\end_inset
-
- representa o comprimento do caminho mínimo entre dois vértices 
-\begin_inset Formula $i$
-\end_inset
-
- e 
-\begin_inset Formula $j$
-\end_inset
-
-.
- No caso de pares de vértices que não são conectados por um caminho, considera-s
-e que o comprimento é 
-\begin_inset Formula $0$
-\end_inset
-
-.
- A matriz de vizinhan A matriz de vizinhança de uma rede não é única: sua
- forma exata depende da ordem em que os vértices aparecem na matriz.
-\end_layout
-
-\begin_layout Standard
-A distância entre duas matrizes de vizinhança, 
-\begin_inset Formula $\mathrm{d}(M,N)$
-\end_inset
-
-, é dada pela equação a seguir:
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula \[
-\mathrm{d}(M,N)\:=\:\sqrt{\frac{1}{|V|^{2}}\sum_{i,j=1}^{|V|}(M_{ij}-N_{ij})^{2}}\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-Sejam 
-\begin_inset Formula $A$
-\end_inset
-
- e 
-\begin_inset Formula $B$
-\end_inset
-
- duas redes com 
-\begin_inset Formula $|V|$
-\end_inset
-
- vértices cada uma, 
-\begin_inset Formula $A_{0}$
-\end_inset
-
- uma matriz de vizinhança qualquer de 
-\begin_inset Formula $A$
-\end_inset
-
- e 
-\begin_inset Formula $B^{*}$
-\end_inset
-
- o conjunto de todas as matrizes de vizinhança da rede 
-\begin_inset Formula $B$
-\end_inset
-
- --- uma matriz para cada uma das possíveis 
-\begin_inset Formula $|V|!$
-\end_inset
-
- ordenações dos vértices de 
-\begin_inset Formula $B$
-\end_inset
-
-.
- Definimos a distância entre as duas redes, 
-\begin_inset Formula $\mathrm{D}(A,B)$
-\end_inset
-
-, como sendo a menor das distâncias entre a matriz 
-\begin_inset Formula $A_{0}$
-\end_inset
-
- e as matrizes do conjunto 
-\begin_inset Formula $B^{*}$
-\end_inset
-
-:
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula \[
-\mathrm{D}(A,B)\:=\:\min\,\{d(A_{0},x)\:|\: x\in B^{*}\}\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-Dada a necessidade de se considerar 
-\begin_inset Formula $|V|!$
-\end_inset
-
- casos, o cálculo exato da distância mínima é viável apenas para redes muito
- pequenas.
- Felizmente é possível obter um limite superior para essa distância através
- de uma busca heurística no conjunto 
-\begin_inset Formula $B^{*}$
-\end_inset
-
-.
- Neste trabalho calculamos uma aproximação para 
-\begin_inset Formula $\mathrm{D}(A,B)$
-\end_inset
-
- através do algoritmo Monte Carlo descrito em 
-\begin_inset LatexCommand cite
-key "Andrade2008"
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Section
 Avaliação Empírica
 \begin_inset LatexCommand label
 name "sec:experimento"
@@ -1392,9 +1420,9 @@ dá pra usar um teste estatístico pra ver se uma população de distâncias
 \end_layout
 
 \begin_layout Standard
-Neste experimento consideramos um sistema de referência, o jogo VilloNanny
- 2.2.4, e um outro sistema com aproximadamente o mesmo número de classes,
- a biblioteca JFreeChart 1.0.13.
+Neste experimento escolhemos o jogo VilloNanny 2.2.4 como sistema de referência.
+ O sistema JFreechart 1.0.13 é aproximadamente do mesmo tamanho e por isso
+ é usado como base de comparação.
  Extraímos as redes de ambos os sistemas e calculamos algumas métricas a
  partir das redes.
  As métricas do VilloNanny foram usadas para ajustar os parâmetros dos modelos.
@@ -1413,7 +1441,7 @@ Extração das Redes dos Sistemas
 Os sistemas analisados foram implementados na linguagem Java e distribuídos
  em diversos arquivos JAR, cada arquivo contendo várias classes.
  Para construir a rede de um sistema, consideramos que cada arquivo JAR
- é um módulo arquitetural.
+ é um módulo.
  Essa é uma aproximação razoável, uma vez que arquivos JAR distintos são,
  em geral, desenvolvidos por equipes diferentes.
 \begin_inset Note Note
@@ -1501,7 +1529,7 @@ reference "tab:metricas-sistemas"
  Os expoentes das distribuições de graus e de tamanhos dos módulos foram
  estimados através do método da máxima verossimilhança
 \begin_inset Foot
-status open
+status collapsed
 
 \begin_layout Standard
 Utilizamos uma implementação disponível em 
@@ -1543,12 +1571,6 @@ sideways false
 status open
 
 \begin_layout Standard
-\begin_inset LatexCommand label
-name "tab:metricas-sistemas"
-
-\end_inset
-
-
 \begin_inset Caption
 
 \begin_layout Standard
@@ -1974,6 +1996,12 @@ JFreeChart
 \end_inset
 
 
+\begin_inset LatexCommand label
+name "tab:metricas-sistemas"
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -2015,15 +2043,6 @@ sideways false
 status open
 
 \begin_layout Standard
-\begin_inset LatexCommand label
-name "fig:arquitetura-villonanny"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
 \align center
 \begin_inset Graphics
 	filename arquitetura-villonanny.png
@@ -2041,6 +2060,12 @@ name "fig:arquitetura-villonanny"
 \begin_layout Standard
 Arquitetura modular extraída do sistema VilloNanny.
 \end_layout
+
+\end_inset
+
+
+\begin_inset LatexCommand label
+name "fig:arquitetura-villonanny"
 
 \end_inset
 
@@ -2128,7 +2153,7 @@ No modelo LFR os valores dos parâmetros
 \end_inset
 
 , foi calculado segundo a equação 
-\begin_inset Formula $\mu=|E_{ext}|~/~|E|^{s}$
+\begin_inset Formula $\mu=|E_{ext}|~/~|E|$
 \end_inset
 
 .
@@ -2290,17 +2315,11 @@ reference "tab:discrepancias"
 
 \begin_layout Standard
 \begin_inset Float table
-wide false
+wide true
 sideways false
 status open
 
 \begin_layout Standard
-\begin_inset LatexCommand label
-name "tab:discrepancias"
-
-\end_inset
-
-
 \begin_inset Caption
 
 \begin_layout Standard
@@ -2534,6 +2553,12 @@ BCR+
 \end_inset
 
 
+\begin_inset LatexCommand label
+name "tab:discrepancias"
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -2569,12 +2594,6 @@ sideways false
 status open
 
 \begin_layout Standard
-\begin_inset LatexCommand label
-name "tab:distancias"
-
-\end_inset
-
-
 \begin_inset Caption
 
 \begin_layout Standard
@@ -2763,6 +2782,12 @@ JFreeChart
 \end_inset
 
 
+\begin_inset LatexCommand label
+name "tab:distancias"
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -2791,9 +2816,12 @@ a métrica de distância ignora a organização das redes em módulos; assim,
 \end_layout
 
 \begin_layout Itemize
-muitos algoritmos de recuperação de arquitetura operam sobre redes orientadas
- e ponderadas, que contêm mais informação do que as redes não-orientadas
- que analisamos.
+muitos algoritmos de modularização de 
+\emph on
+software
+\emph default
+ operam sobre redes orientadas e ponderadas, que contêm mais informação
+ do que as redes não-orientadas que analisamos.
 \end_layout
 
 \begin_layout Section
@@ -2964,8 +2992,11 @@ Outro próximo passo: ajudar Roberto, Jemerson et al a descobrir padrões
 \end_layout
 
 \begin_layout Standard
-O próximo passo da pesquisa é aplicar algoritmos de recuperação de arquitetura
- às redes sintéticas.
+O próximo passo da pesquisa é aplicar algoritmos de modularização de 
+\emph on
+software
+\emph default
+ a redes sintéticas.
  Os resultados desse experimento poderão ser comparados com os resultados
  de experimentos já realizados com sistemas reais.
 \begin_inset Note Note
