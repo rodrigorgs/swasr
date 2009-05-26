@@ -1,4 +1,4 @@
-﻿#summary Cronograma do projeto
+#summary Cronograma do projeto
 
 = Planejamento =
 
@@ -20,13 +20,26 @@
 
   * Leitura sobre *redes complexas* (teoria, modelos, motifs, comunidades, hierarquia e modularidade, redes de software): *completa*, com revisões.
   * Leitura sobre *recuperação de arquitetura*: foi feita uma leitura não-sistemática no ano passado.
-  * *Relatório*: iniciado.
+  * *Relatório*: [http://swasr.googlecode.com/svn/trunk/latex/relatorio-tecnico1/relatorio-tecnico1.pdf concluído].
 
 == Planejamento de experimentos e Modelagem ==
 
-Foram entregues para Roberto dois sintetizadores: o de Lancichinetti e o meu (de 2008).
+  * *Artigo com avaliação de modelos*: [http://swasr.googlecode.com/svn/trunk/latex/artigo1/artigo1.pdf concluído].
+  * Foram feitas [MetricasDeArquitetura análises preliminares] sobre a [HubsConectamModulos organização de sistemas em módulos], sem conclusões fortes.
 
-Foram feitas análises preliminares sobre a organização de sistemas em módulos, ainda sem conclusões.
+Nessa linha de modelagem e avaliação dos modelos os seguintes avanços podem ser feitos:
+
+  * Desenvolver uma nova versão do modelo BCR+ que evite recriar arestas que já existem. Espera-se que, com essa versão, seja possível prever as medidas da rede a partir dos parâmetros usando fórmulas descritas no artigo de Bollobás.
+  * Avaliar o modelo mais recente de Lancichinetti, que produz redes orientadas e ponderadas, com módulos sobrepostos.
+  * Conseguir o modelo de Gu (ele não respondeu meu e-mail) e então avaliá-lo.
+  * Implementar o modelo de Erdos-Renyi e o modelo de configuração a fim de avaliar as métricas de distância entre redes. Se espera que redes produzidas por esses modelos sejam mais distantes das redes reais. Se isso não acontecer pode ser que a métrica de distância não seja adequada.
+  * Avaliar uma métrica de distância baseada em frequência de motifs (só faz sentido no caso de redes orientadas). Será preciso encontrar uma ferramenta estatística para comparar duas distribuições de dados categóricos (a distribuição de frequências dos motifs).
+  * Implementar e avaliar a ideia de module-based motifs. Essa seria uma métrica de distância entre redes que leva em consideração a organização modular.
+  * Pensar em como extrair de repositórios de software certas propriedades da evolução de software que pode ser futuramente incorporada em um modelo e, com isso, se conectar ao trabalho de Roberto e de Jemerson.
+  * Repetir o experimento do artigo com mais sistemas. Talvez considerar várias versões de um mesmo sistema.
+  * Organizar o código, fazer um Rakefile pra automatizar os experimentos.
+  * Otimizar implementação da distância entre redes. Se as redes forem não-orientadas dá pra fazer apenas metade dos cálculos.
+  * Adaptar os sintetizadores de acordo com as orientações de Roberto sobre o formato de saída.
 
 == Avaliação ==
 
