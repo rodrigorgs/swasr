@@ -18,13 +18,13 @@ file 'modules-names.pairs' => 'jars' do
   puts_pairs(pairs, "modules-names.pairs")
 end
 
-directory 'jars'
-
-task :numerizacao => :extract do
-  # transformar *-names em *-numbers
+task :numerize => ['l1-names.pairs', 'modules-names.pairs'] do
+  system "to_numeric_network.rb l1-names.pairs modules-names.pairs l1-numbers.pairs modules-numbers.pairs"
 end
 
-task :analysis => :numerizacao do
+directory 'jars'
+
+task :analysis => :numerize do
 end
 
 task :stat_analysis => :analysis do
