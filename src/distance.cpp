@@ -122,9 +122,9 @@ int load_files(char *filename1, char *filename2, int n, t_dist *a, t_dist *b) {
   file1 = fopen(filename1, "r");
   file2 = fopen(filename2, "r");
 
-  printf("n = %d\n", n);
+  //printf("n = %d\n", n);
 
-  puts("loading files...");
+  //puts("loading files...");
   for (int i = 0; i < n; i++) {
     for (int j = 0; j < n; j++) {
       fscanf(file1, "%d", &tmp);
@@ -133,7 +133,7 @@ int load_files(char *filename1, char *filename2, int n, t_dist *a, t_dist *b) {
       b[i*n+j] = tmp;
     }
   }
-  puts("done");
+  //puts("done");
 
   fclose(file1);
   fclose(file2);
@@ -196,10 +196,10 @@ void go(t_dist *a, t_dist *b, int n) {
   lastdist = distance(a, b, n);
   mindist = lastdist;
   temperature = mindist;
-  printf("% 5d %f\n", 0, mindist);
+  //printf("% 5d %f\n", 0, mindist);
   float fastdist, indicesdist;
   int iterations;
-  for (iterations = 1; /*iterations < 5*/; iterations++) {
+  for (iterations = 1; iterations < 34000; iterations++) {
     olddist = lastdist;
 
     i = rand() % n;
@@ -222,10 +222,10 @@ void go(t_dist *a, t_dist *b, int n) {
     //print_array(indices, n);
     //print_matrix(b, n);
     //printf("equal? %d. fastdist - lastdist = %f\n", fastdist == lastdist, fastdist - lastdist);
-    printf("fastdist = %f\n", fastdist);
-    printf("lastdist = %f\n", lastdist);
+    //printf("fastdist = %f\n", fastdist);
+    //printf("lastdist = %f\n", lastdist);
     //printf("indidist = %f\n", indicesdist);
-    puts("");
+    //puts("");
 
     delta = lastdist - olddist;
 
@@ -243,11 +243,13 @@ void go(t_dist *a, t_dist *b, int n) {
     }
       */ else swap_int(indices + i, indices + j); //swap_matrix_indices(b, n, i, j);
 
-    printf("% 5d %f\n", iterations, mindist);
-    //printf("% 5d %f\n", iterations, lastdist);
+    //printf("% 5d %f\n", iterations, mindist);
+    //if (iterations % 500 == 0)
+      fprintf(stderr, "% 5d %f\n", iterations, mindist);
 
     temperature *= alpha;
   }
+  printf("%f", mindist);
 }
 
 void test(t_dist *a, t_dist *b, int n) {

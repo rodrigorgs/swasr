@@ -52,3 +52,4 @@ export RUBYLIB=$RUBYLIB:$DIR/sandbox
 export PATH=$PATH:$DIR/src
 export RUBYLIB=$RUBYLIB:$DIR/src
 export PATH=$PATH:$DIR/bin
+export RUBYLIB=$RUBYLIB:$DIR/bin
