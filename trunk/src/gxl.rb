@@ -32,6 +32,8 @@ end
 class DepxmlHandler2
   include StreamListener
 
+  attr_reader :pairs
+
   def initialize(output)
     @output = output
     @pairs = []
@@ -96,6 +98,7 @@ end
 def depxml_to_pairs2(depxml, pairsfile)
   handler = DepxmlHandler2.new(pairsfile)
   Document.parse_stream(File.new(depxml), handler)
+  return handler.pairs
 end
 
 

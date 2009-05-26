@@ -1,11 +1,36 @@
-#!/usr/bin/R CMD BATCH
+#!/usr/bin/Rscript --vanilla
 
 library(igraph)
 
-#filename = commandArgs()[0]
-filename = "l1.pairs"
+argv = commandArgs(T)
 
-g = read.graph(filename, directed=F)
+if (length(argv) < 3){
+  cat("This script takes a network and outputs a distance matrix.
+
+Parameters: input-network output-file directed?
+
+  input-network: a text file which represents a network, in a format
+that can be understood by igraph (for example, a text file in which which pair
+of numbers is an edge between two vertices. See 
+http://igraph.sourceforge.net/igraphbook/igraphbook-foreign.html)
+
+  output-file: a file in which the distance matrix will be recorded. Each
+line in the matrix is written as a line in a file, and columns are separated
+by empty space. In other words the format is a CSV separated by spaces.
+
+  directed?: TRUE or FALSE. whether to read the input-network as a directed 
+(TRUE) or undirected (FALSE) network.
+
+")
+
+  quit("no")
+}
+
+inputFile = argv[1]
+outputFile = argv[2]
+directed = as.logical(argv[3])
+
+g = read.graph(inputFile, directed=directed)
 s = shortest.paths(g)
 s[s == Inf] = 0
-write.table(s, file="distances.csv", row.names=F, col.names=F)
+write.table(s, file=outputFile, row.names=F, col.names=F)

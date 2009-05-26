@@ -1,0 +1,57 @@
+require 'rake'
+require 'gxl'
+require 'jars_as_modules'
+
+task :extract => ['deps.xml', 'l1-names.pairs', 'modules-names.pairs']
+
+desc "Dependencies extracted by Dependency Finder"
+file 'deps.xml' => 'jars' do
+  system "DependencyExtractor -xml -out deps.xml jars/*.jar"
+end
+
+file 'l1-names.pairs' => 'deps.xml' do
+  depxml_to_pairs2('deps.xml', 'l1-names.pairs')
+end
+
+file 'modules-names.pairs' => 'jars' do
+  pairs = extract_modules(Dir.glob("jars/*.jar"))
+  puts_pairs(pairs, "modules-names.pairs")
+end
+
+directory 'jars'
+
+task :numerizacao => :extract do
+  # transformar *-names em *-numbers
+end
+
+task :analysis => :numerizacao do
+end
+
+task :stat_analysis => :analysis do
+end
+
+task :distance_matrix => :numerizacao do
+
+end
+
+task :clean do
+  rm 'l1-names.pairs'
+  rm 'modules-names.pairs'
+  rm 'deps.xml'
+end
+
+
+#task :l1 => 'l1.pairs'
+#
+#task :analysis => [:l1] do
+#  `analysis.rb`
+#end
+#
+#task :stat_analysis => :analysis do
+#  `stat_analysis.sh`
+#end
+#
+#task :distances => :l1 do
+#  `R --slave < ~/svn/swasr/sandbox/distances.R`
+#end
+#

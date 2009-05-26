@@ -408,6 +408,89 @@
   location = {Shanghai, China}
 }
 
+@ARTICLE{Chen2008,
+  author = {Tao Chen and Qing Gu and Shusen Wang and Xiaoan Chen and Daoxu Chen},
+  title = {Module-based large-scale software evolution based on complex networks},
+  journal = {8th IEEE International Conference on Computer and Information Technology},
+  year = {2008},
+  pages = {798---803},
+  abstract = {Large-scale software systems usually consist of a huge number of modules,
+	and have a series of releases along with these modules. This can
+	be seen as software evolution. In recent years, researchers have
+	put forward several models of software evolution by employing the
+	theory of complex networks. In this paper, we put forward a refined
+	model of software evolution based on the BA model: module-based evolution.
+	We theoretically prove that the power-law degree distribution can
+	be held in our model. We also build a tool to construct and analyze
+	the class diagrams of JDK (Java Development Kits) evolved from version
+	1.2 to 1.6. The class diagrams can be seen as complex networks under
+	evolution. We apply the module-based evolution model to these complex
+	networks and simulate the evolution of key network features such
+	as average clustering coefficient and average path length. Compared
+	with real networks, our model can precisely describe the evolution
+	of these features, and be used to help developers understand the
+	characteristics of large-scale software evolution.},
+  owner = {rodrigo},
+  review = {= Resumo =
+	
+	
+	O artigo propõe um modelo evolutivo de rede de software baseado no
+	modelo de Barabási-Albert e considerado a organização da rede em
+	módulos. Nesse modelo a ligação preferencial é expandida com um parâmetro,
+	alfa, que determina até que ponto um vértice se liga preferencialmente
+	a vértices do mesmo módulo. A probabilidade de se escolher um vértice
+	é denotada por pi_a. O número de módulos é um parâmetro, M. A cada
+	iteração do algoritmo é executado um dos seguintes eventos:
+	
+	
+	Evento 1: Com probabilidade p1 adiciona um vértice com e1 arestas,
+	que é atribuído a um módulo escolhido aleatoriamente. As extremidades
+	livres das arestas são ligadas a vértices escolhidos de acordo com
+	a pi_a.
+	
+	
+	Evento 2: Com probabilidade p2 são adicionados e2 arestas. Para cada
+	aresta, uma extremidade é selecionada aleatoriamente e a outra é
+	selecionada de acordo com pi_a.
+	
+	
+	Evento 3: Com probabilidade p3 são religadas e3 arestas. A cada vez
+	é escolhido um vértice aleatoriamente e uma de suas arestas é religa
+	para um vértice escolhido de acordo com pi_a.
+	
+	
+	Evento 4: Com probabilidade p4 são removidos e4 arestas escolhidas
+	aleatoriamente. 
+	
+	
+	Quando se refere a grau, o modelo quer dizer grau de entrada.
+	
+	
+	Os autores provam analiticamente que a distribuição dos graus de entrada
+	é livre de escala e fornece uma equação para determinar o expoente
+	da distribuição a partir dos parâmetros.
+	
+	
+	Com a finalidade de avaliar empiricamente o modelo, os autores consideram
+	5 versões do JDK e extraem os deltas entre as versões: número de
+	novos vértices e número de novas arestas. Eles consideram p3 = p4
+	= 0 e então determinam os parâmetros do modelo para cada evolução
+	do JDK. Eles validam as redes sintéticas comparando com as redes
+	reais algumas métricas: número de arestas, coeficiente de clustering
+	médio, comprimento do caminho médio e coeficiente da distribuição
+	de graus de entrada.
+	
+	
+	= Crítica =
+	
+	
+	A rede de ligações entre módulos é potencialmente um grafo completo.
+	
+	
+	Os resultados do experimento com o JDK não são contundentes.},
+  timestamp = {2009.05.18}
+}
+
 @ARTICLE{Clauset2008,
   author = {Clauset, Aaron and Moore, Cristopher and Newman, M. E. J. },
   title = {Hierarchical structure and the prediction of missing links in networks},
@@ -1025,6 +1108,33 @@
 	
 	Artigo pequeno com tratamento estatístico simplista.},
   url = {http://www.citebase.org/abstract?id=oai:arXiv.org:cs/0411096}
+}
+
+@ARTICLE{Lancichinetti2009,
+  author = {Andrea Lancichinetti and Santo Fortunato},
+  title = {Benchmarks for testing community detection algorithms on directed
+	and weighted graphs with overlapping communities},
+  year = {2009},
+  abstract = {Many complex networks display a mesoscopic structure with groups of
+	nodes sharing many links with the other nodes in their group and
+	comparatively few with nodes of different groups. This feature is
+	known as community structure and encodes precious information about
+	the organization and the function of the nodes. Many algorithms have
+	been proposed but it is not yet clear how they should be tested.
+	Recently we have proposed a general class of undirected and unweighted
+	benchmark graphs, with heterogenous distributions of node degree
+	and community size. An increasing attention has been recently devoted
+	to develop algorithms able to consider the direction and the weight
+	of the links, which require suitable benchmark graphs for testing.
+	In this paper we extend the basic ideas behind our previous benchmark
+	to generate directed and weighted networks with built-in community
+	structure. We also consider the possibility that nodes belong to
+	more communities, a feature occurring in real systems, like, e. g.,
+	social networks. As a practical application, we show how modularity
+	optimization performs on our new benchmark.},
+  owner = {rodrigo},
+  timestamp = {2009.05.18},
+  url = {http://arxiv.org/abs/0904.3940}
 }
 
 @ARTICLE{Lancichinetti2008,

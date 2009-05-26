@@ -1,4 +1,4 @@
-#!/usr/bin/env R 
+#!/usr/bin/Rscript
 
 v = read.table("vertices.data", header=T)
 c = read.table("clusters.data", header=T)

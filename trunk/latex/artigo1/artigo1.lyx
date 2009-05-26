@@ -90,8 +90,6 @@
 \begin_body
 
 \begin_layout Title
-
-\lang brazilian
 Modelos Estocásticos para Síntese de Sistemas de Software Organizados em
  Módulos 
 \newline
@@ -99,14 +97,10 @@ Modelos Estocásticos para Síntese de Sistemas de Software Organizados em
 \end_layout
 
 \begin_layout Author
-
-\lang brazilian
 Rodrigo Rocha Gomes e Souza
 \end_layout
 
 \begin_layout Abstract
-
-\lang brazilian
 Algoritmos de modularização de 
 \emph on
 software
@@ -144,14 +138,10 @@ Valorizar, dizer que DESENVOLVEMOS um modelo
 \end_layout
 
 \begin_layout Section
-
-\lang brazilian
 Introdução
 \end_layout
 
 \begin_layout Standard
-
-\lang brazilian
 A divisão conceitual de um sistema de 
 \emph on
 software
@@ -230,8 +220,6 @@ A module is an implementation unit of software that provides a coherent
 \end_layout
 
 \begin_layout Standard
-
-\lang brazilian
 Espera-se que os algoritmos encontrem organizações modulares semelhantes
  àquelas que seriam encontradas por especialistas nos sistemas analisados.
  Uma forma de testar os algoritmos consiste, pois, em aplicá-los ao código-fonte
@@ -255,8 +243,6 @@ software
 status collapsed
 
 \begin_layout Standard
-
-\lang brazilian
 A lguns estudos revelam que a avaliação de um algoritmo varia bastante de
  sistema para sistema.
  Devido ao pequeno tamanho das amostras analisadas, no entanto, não existe
@@ -276,8 +262,6 @@ A lguns estudos revelam que a avaliação de um algoritmo varia bastante de
 \end_layout
 
 \begin_layout Standard
-
-\lang brazilian
 Para suprir a escassez de sistemas bem documentados, propomos o uso de modelos
  estocásticos capazes de sintetizar sistemas de 
 \emph on
@@ -292,8 +276,6 @@ software
 \end_layout
 
 \begin_layout Standard
-
-\lang brazilian
 A próxima seção apresenta o embasamento teórico deste trabalho.
  A seguir, na seção 
 \begin_inset LatexCommand ref
@@ -317,14 +299,10 @@ reference "sec:experimento"
 \end_layout
 
 \begin_layout Section
-
-\lang brazilian
 Teoria
 \end_layout
 
 \begin_layout Standard
-
-\lang brazilian
 Sistemas de 
 \emph on
 software
@@ -353,8 +331,6 @@ es dos quais ele depende.
 \end_layout
 
 \begin_layout Standard
-
-\lang brazilian
 Para viabilizar o desenvolvimento de um sistema de 
 \emph on
 software
@@ -368,8 +344,6 @@ software
 \end_layout
 
 \begin_layout Standard
-
-\lang brazilian
 A rede de dependências pode ser extraída automaticamente através de ferramentas
  de análise estática de código-fonte ou código objeto.
  A organização dos componentes em módulos, por outro lado, não é explicitamente
@@ -381,8 +355,6 @@ A rede de dependências pode ser extraída automaticamente através de ferrament
 \end_layout
 
 \begin_layout Standard
-
-\lang brazilian
 A rede de dependências entre componentes de um sistema de 
 \emph on
 software
@@ -407,8 +379,6 @@ reference "fig:rede"
 \end_layout
 
 \begin_layout Standard
-
-\lang brazilian
 \begin_inset Float figure
 wide false
 sideways false
@@ -417,8 +387,6 @@ status open
 \begin_layout Standard
 \noindent
 \align center
-
-\lang brazilian
 \begin_inset Graphics
 	filename rede.png
 
@@ -428,8 +396,6 @@ status open
 \end_layout
 
 \begin_layout Standard
-
-\lang brazilian
 \begin_inset Caption
 
 \begin_layout Standard
@@ -455,8 +421,6 @@ name "fig:rede"
 \end_layout
 
 \begin_layout Standard
-
-\lang brazilian
 A arquitetura modular de um sistema organizado em módulos é um grafo que
  representa os módulos e as dependências entre eles.
  Na arquitetura modular há uma aresta de um módulo 
@@ -492,8 +456,6 @@ reference "fig:rede"
 \end_layout
 
 \begin_layout Standard
-
-\lang brazilian
 \begin_inset Float figure
 wide false
 sideways false
@@ -502,8 +464,6 @@ status open
 \begin_layout Standard
 \noindent
 \align center
-
-\lang brazilian
 \begin_inset Graphics
 	filename arquitetura.png
 
@@ -513,8 +473,6 @@ status open
 \end_layout
 
 \begin_layout Standard
-
-\lang brazilian
 \begin_inset Caption
 
 \begin_layout Standard
@@ -546,8 +504,6 @@ name "fig:arquitetura"
 \end_layout
 
 \begin_layout Standard
-
-\lang brazilian
 Pesquisas recentes mostram que redes de dependências entre componentes possuem
  características comuns a redes complexas estudadas em diversos domínios,
  tais como sociologia, biologia e linguística 
@@ -579,8 +535,6 @@ key "Myers2003,Valverde2003"
 \end_layout
 
 \begin_layout Standard
-
-\lang brazilian
 As características comuns a redes de diversos domínios foram incorporadas
  a vários modelos estocásticos de geração de redes 
 \begin_inset LatexCommand cite
@@ -594,8 +548,6 @@ key "Bollobas2003,Lancichinetti2008"
 \end_layout
 
 \begin_layout Subsection
-
-\lang brazilian
 Distância entre Redes
 \end_layout
 
@@ -604,7 +556,6 @@ Distância entre Redes
 \series bold
 \size large
 \color red
-\lang brazilian
 \begin_inset Note Note
 status collapsed
 
@@ -666,8 +617,6 @@ key "Andrade2008"
 \end_layout
 
 \begin_layout Standard
-
-\lang brazilian
 Uma matriz de vizinhança de uma rede, 
 \begin_inset Formula $M$
 \end_inset
@@ -709,8 +658,6 @@ e que o comprimento é
 \end_layout
 
 \begin_layout Standard
-
-\lang brazilian
 A distância entre duas matrizes de vizinhança, 
 \begin_inset Formula $\mathrm{d}(M,N)$
 \end_inset
@@ -719,8 +666,6 @@ A distância entre duas matrizes de vizinhança,
 \end_layout
 
 \begin_layout Standard
-
-\lang brazilian
 \begin_inset Formula \[
 \mathrm{d}(M,N)\:=\:\sqrt{\frac{1}{|V|^{2}}\sum_{i,j=1}^{|V|}(M_{ij}-N_{ij})^{2}}\]
 
@@ -730,8 +675,6 @@ A distância entre duas matrizes de vizinhança,
 \end_layout
 
 \begin_layout Standard
-
-\lang brazilian
 Sejam 
 \begin_inset Formula $A$
 \end_inset
@@ -781,8 +724,6 @@ Sejam
 \end_layout
 
 \begin_layout Standard
-
-\lang brazilian
 \begin_inset Formula \[
 \mathrm{D}(A,B)\:=\:\min\,\{d(A_{0},x)\:|\: x\in B^{*}\}\]
 
@@ -792,8 +733,6 @@ Sejam
 \end_layout
 
 \begin_layout Standard
-
-\lang brazilian
 Dada a necessidade de se considerar 
 \begin_inset Formula $|V|!$
 \end_inset
@@ -840,8 +779,6 @@ O algoritmo começa escolhendo um elemento qualquer de
 \end_layout
 
 \begin_layout Section
-
-\lang brazilian
 Modelos Estocásticos
 \begin_inset LatexCommand label
 name "sec:modelos"
@@ -852,8 +789,6 @@ name "sec:modelos"
 \end_layout
 
 \begin_layout Standard
-
-\lang brazilian
 Esta seção apresenta dois modelos de geração de redes organizadas em módulos
  que podem ser usados para sintetizar redes de dependências entre componentes.
  Primeiramente descrevemos um modelo encontrado na literatura sobre redes
@@ -861,14 +796,10 @@ Esta seção apresenta dois modelos de geração de redes organizadas em módulo
 \end_layout
 
 \begin_layout Subsection
-
-\lang brazilian
 O Modelo LFR
 \end_layout
 
 \begin_layout Standard
-
-\lang brazilian
 Lancichinetti, Fortunato e Radicchi 
 \begin_inset LatexCommand cite
 key "Lancichinetti2008"
@@ -881,8 +812,6 @@ key "Lancichinetti2008"
 status collapsed
 
 \begin_layout Standard
-
-\lang brazilian
 Uma implementação desse modelo está disponível em 
 \begin_inset LatexCommand url
 target "http://santo.fortunato.googlepages.com/benchmark_2_2.tar"
@@ -918,14 +847,10 @@ target "http://santo.fortunato.googlepages.com/benchmark_2_2.tar"
 \end_layout
 
 \begin_layout Standard
-
-\lang brazilian
 O modelo possui os seguintes parâmetros: 
 \end_layout
 
 \begin_layout Itemize
-
-\lang brazilian
 número de vértices, 
 \begin_inset Formula $|V|$
 \end_inset
@@ -934,8 +859,6 @@ número de vértices,
 \end_layout
 
 \begin_layout Itemize
-
-\lang brazilian
 expoente da distribuição de graus, 
 \begin_inset Formula $\gamma$
 \end_inset
@@ -944,8 +867,6 @@ expoente da distribuição de graus,
 \end_layout
 
 \begin_layout Itemize
-
-\lang brazilian
 grau médio, 
 \begin_inset Formula $\langle k\rangle$
 \end_inset
@@ -954,8 +875,6 @@ grau médio,
 \end_layout
 
 \begin_layout Itemize
-
-\lang brazilian
 grau máximo, 
 \begin_inset Formula $k_{max}$
 \end_inset
@@ -964,8 +883,6 @@ grau máximo,
 \end_layout
 
 \begin_layout Itemize
-
-\lang brazilian
 expoente da distribuição de tamanhos dos módulos, 
 \begin_inset Formula $\beta$
 \end_inset
@@ -974,8 +891,6 @@ expoente da distribuição de tamanhos dos módulos,
 \end_layout
 
 \begin_layout Itemize
-
-\lang brazilian
 número mínimo de vértices por módulo, 
 \begin_inset Formula $t_{min}$
 \end_inset
@@ -984,8 +899,6 @@ número mínimo de vértices por módulo,
 \end_layout
 
 \begin_layout Itemize
-
-\lang brazilian
 número máximo de vértices por módulo, 
 \begin_inset Formula $t{}_{max}$
 \end_inset
@@ -994,8 +907,6 @@ número máximo de vértices por módulo,
 \end_layout
 
 \begin_layout Itemize
-
-\lang brazilian
 parâmetro de mistura, 
 \begin_inset Formula $\mu$
 \end_inset
@@ -1005,8 +916,6 @@ parâmetro de mistura,
 \end_layout
 
 \begin_layout Standard
-
-\lang brazilian
 O modelo produz, através de um procedimento iterativo, redes cujas medidas
  refletem os parâmetros fornecidos.
  O parâmetro de mistura indica a proporção de arestas externas em relação
@@ -1033,8 +942,6 @@ O modelo produz, através de um procedimento iterativo, redes cujas medidas
 \end_layout
 
 \begin_layout Standard
-
-\lang brazilian
 O modelo gera grafos não-orientados, uma representação muito simplificada
  das redes de dependências entre classes.
  Além disso, ele considera que todos os vértices possuem arestas externas,
@@ -1066,14 +973,10 @@ rápido: cerca de 13s para 1658 vértices no athlon 64 3000+ com 1 GB de RAM.
 \end_layout
 
 \begin_layout Subsection
-
-\lang brazilian
 O Modelo BCR+
 \end_layout
 
 \begin_layout Standard
-
-\lang brazilian
 Bollobás, Borgs, Chayes e Riordan criaram um modelo de rede orientada, o
  modelo BCR, inspirado na rede de 
 \emph on
@@ -1096,8 +999,6 @@ key "Bollobas2003"
 status collapsed
 
 \begin_layout Standard
-
-\lang brazilian
 Uma implementação pode ser baixada em 
 \begin_inset LatexCommand url
 target "http://code.google.com/p/swasr/wiki/Downloads"
@@ -1114,8 +1015,6 @@ target "http://code.google.com/p/swasr/wiki/Downloads"
 \end_layout
 
 \begin_layout Itemize
-
-\lang brazilian
 número de vértices, 
 \begin_inset Formula $|V|$
 \end_inset
@@ -1124,8 +1023,6 @@ número de vértices,
 \end_layout
 
 \begin_layout Itemize
-
-\lang brazilian
 arquitetura modular, 
 \begin_inset Formula $A$
 \end_inset
@@ -1134,8 +1031,6 @@ arquitetura modular,
 \end_layout
 
 \begin_layout Itemize
-
-\lang brazilian
 probabilidades 
 \begin_inset Formula $p$
 \end_inset
@@ -1156,8 +1051,6 @@ probabilidades
 \end_layout
 
 \begin_layout Itemize
-
-\lang brazilian
 probabilidade 
 \begin_inset Formula $\mu$
 \end_inset
@@ -1166,8 +1059,6 @@ probabilidade
 \end_layout
 
 \begin_layout Itemize
-
-\lang brazilian
 \begin_inset Formula $\delta_{in}$
 \end_inset
 
@@ -1180,8 +1071,6 @@ probabilidade
 \end_layout
 
 \begin_layout Standard
-
-\lang brazilian
 A arquitetura modular é uma rede que representa as dependências permitidas
  entre módulos.
  Dois vértices da rede gerada pelo modelo só podem estar ligados se os módulos
@@ -1189,8 +1078,6 @@ A arquitetura modular é uma rede que representa as dependências permitidas
 \end_layout
 
 \begin_layout Standard
-
-\lang brazilian
 O modelo é implementado por um algoritmo que inicialmente cria um vértice
  com autolaço (aresta ligando um vértice a ele próprio) para cada módulo
  representado na arquitetura; cada vértice é incluído em um módulo diferente.
@@ -1203,8 +1090,6 @@ O modelo é implementado por um algoritmo que inicialmente cria um vértice
 \end_layout
 
 \begin_layout Standard
-
-\lang brazilian
 Na descrição do algoritmo apresentada a seguir, 
 \begin_inset Quotes eld
 \end_inset
@@ -1244,7 +1129,6 @@ escolher um vértice
 \begin_layout Itemize
 
 \series bold
-\lang brazilian
 Criação de vértice com aresta saindo
 \series default
 .
@@ -1288,7 +1172,6 @@ Criação de vértice com aresta saindo
 \begin_layout Itemize
 
 \series bold
-\lang brazilian
 Criação de vértice com aresta entrando
 \series default
 .
@@ -1332,7 +1215,6 @@ Criação de vértice com aresta entrando
 \begin_layout Itemize
 
 \series bold
-\lang brazilian
 Criação de uma aresta
 \series default
 .
@@ -1398,8 +1280,6 @@ Criação de uma aresta
 \end_layout
 
 \begin_layout Standard
-
-\lang brazilian
 Como neste modelo a rede é orientada, pode-se considerar separadamente uma
  distribuição dos graus de entrada e uma distribuição dos graus de saída.
  Da mesma forma que no modelo LFR, essas distribuições seguem leis de potência,
@@ -1416,8 +1296,6 @@ Como neste modelo a rede é orientada, pode-se considerar separadamente uma
 \end_layout
 
 \begin_layout Standard
-
-\lang brazilian
 Este modelo supera as limitações encontradas no modelo LFR: as redes são
  orientadas, são permitidos vértices sem arestas externas e é possível restringi
 r as dependências entre módulos através da arquitetura fornecida como parâmetro.
@@ -1536,8 +1414,6 @@ status collapsed
 \end_layout
 
 \begin_layout Section
-
-\lang brazilian
 Avaliação Empírica
 \begin_inset LatexCommand label
 name "sec:experimento"
@@ -1548,8 +1424,6 @@ name "sec:experimento"
 \end_layout
 
 \begin_layout Standard
-
-\lang brazilian
 Na seção 
 \begin_inset LatexCommand ref
 reference "sec:modelos"
@@ -1579,8 +1453,6 @@ dá pra usar um teste estatístico pra ver se uma população de distâncias
 \end_layout
 
 \begin_layout Standard
-
-\lang brazilian
 Neste experimento escolhemos o jogo VilloNanny 2.2.4 como sistema de referência.
  O sistema JFreechart 1.0.13 é aproximadamente do mesmo tamanho do VilloNanny
  e por isso é usado como base de comparação.
@@ -1595,14 +1467,10 @@ Neste experimento escolhemos o jogo VilloNanny 2.2.4 como sistema de referência
 \end_layout
 
 \begin_layout Subsection
-
-\lang brazilian
 Extração das Redes dos Sistemas
 \end_layout
 
 \begin_layout Standard
-
-\lang brazilian
 Os sistemas analisados foram implementados na linguagem Java e distribuídos
  em diversos arquivos JAR, cada arquivo contendo várias classes.
  Para construir a rede de um sistema, consideramos que cada arquivo JAR
@@ -1658,15 +1526,11 @@ status collapsed
 \end_layout
 
 \begin_layout Standard
-
-\lang brazilian
 As dependências entre as classes foram extraídas com a ferramenta DepFind
 \begin_inset Foot
 status collapsed
 
 \begin_layout Standard
-
-\lang brazilian
 \begin_inset LatexCommand url
 target "http://depfind.sourceforge.net/"
 
@@ -1685,14 +1549,10 @@ target "http://depfind.sourceforge.net/"
 \end_layout
 
 \begin_layout Subsection
-
-\lang brazilian
 Caracterização das Redes Reais
 \end_layout
 
 \begin_layout Standard
-
-\lang brazilian
 A partir das redes extraídas na etapa anterior, calculamos diversas métricas,
  apresentadas na Tabela 
 \begin_inset LatexCommand ref
@@ -1707,8 +1567,6 @@ reference "tab:metricas-sistemas"
 status collapsed
 
 \begin_layout Standard
-
-\lang brazilian
 Utilizamos uma implementação disponível em 
 \begin_inset LatexCommand url
 target "http://www.santafe.edu/~aaronc/powerlaws/"
@@ -1744,16 +1602,12 @@ No caso da distribuição dos tamanhos dos módulos fixamos xmin = 1, pois
 \end_layout
 
 \begin_layout Standard
-
-\lang brazilian
 \begin_inset Float table
 wide true
 sideways false
 status open
 
 \begin_layout Standard
-
-\lang brazilian
 \begin_inset Caption
 
 \begin_layout Standard
@@ -1809,8 +1663,6 @@ Métricas extraídas dos sistemas analisados: número de vértices,
 
 \begin_layout Standard
 \align center
-
-\lang brazilian
 \begin_inset Tabular
 <lyxtabular version="3" rows="3" columns="11">
 <features>
@@ -1830,8 +1682,6 @@ Métricas extraídas dos sistemas analisados: número de vértices,
 \begin_inset Text
 
 \begin_layout Standard
-
-\lang brazilian
 Sistema
 \end_layout
 
@@ -1843,7 +1693,6 @@ Sistema
 \begin_layout Standard
 
 \series bold
-\lang brazilian
 \begin_inset Formula $|V|$
 \end_inset
 
@@ -1858,7 +1707,6 @@ Sistema
 \begin_layout Standard
 
 \series bold
-\lang brazilian
 \begin_inset Formula $|E|$
 \end_inset
 
@@ -1873,7 +1721,6 @@ Sistema
 \begin_layout Standard
 
 \series bold
-\lang brazilian
 \begin_inset Formula $|E_{ext}|$
 \end_inset
 
@@ -1888,7 +1735,6 @@ Sistema
 \begin_layout Standard
 
 \series bold
-\lang brazilian
 \begin_inset Formula $\langle k\rangle$
 \end_inset
 
@@ -1903,7 +1749,6 @@ Sistema
 \begin_layout Standard
 
 \series bold
-\lang brazilian
 \begin_inset Formula $k_{max}$
 \end_inset
 
@@ -1918,7 +1763,6 @@ Sistema
 \begin_layout Standard
 
 \series bold
-\lang brazilian
 \begin_inset Formula $|M|$
 \end_inset
 
@@ -1933,7 +1777,6 @@ Sistema
 \begin_layout Standard
 
 \series bold
-\lang brazilian
 \begin_inset Formula $t_{min}$
 \end_inset
 
@@ -1948,7 +1791,6 @@ Sistema
 \begin_layout Standard
 
 \series bold
-\lang brazilian
 \begin_inset Formula $t_{max}$
 \end_inset
 
@@ -1963,7 +1805,6 @@ Sistema
 \begin_layout Standard
 
 \series bold
-\lang brazilian
 \begin_inset Formula $\gamma$
 \end_inset
 
@@ -1978,7 +1819,6 @@ Sistema
 \begin_layout Standard
 
 \series bold
-\lang brazilian
 \begin_inset Formula $\beta$
 \end_inset
 
@@ -1993,8 +1833,6 @@ Sistema
 \begin_inset Text
 
 \begin_layout Standard
-
-\lang brazilian
 VilloNanny
 \end_layout
 
@@ -2004,8 +1842,6 @@ VilloNanny
 \begin_inset Text
 
 \begin_layout Standard
-
-\lang brazilian
 1658 
 \end_layout
 
@@ -2015,8 +1851,6 @@ VilloNanny
 \begin_inset Text
 
 \begin_layout Standard
-
-\lang brazilian
 6766 
 \end_layout
 
@@ -2026,8 +1860,6 @@ VilloNanny
 \begin_inset Text
 
 \begin_layout Standard
-
-\lang brazilian
 343 
 \end_layout
 
@@ -2037,8 +1869,6 @@ VilloNanny
 \begin_inset Text
 
 \begin_layout Standard
-
-\lang brazilian
 6,92
 \end_layout
 
@@ -2048,8 +1878,6 @@ VilloNanny
 \begin_inset Text
 
 \begin_layout Standard
-
-\lang brazilian
 80
 \end_layout
 
@@ -2059,8 +1887,6 @@ VilloNanny
 \begin_inset Text
 
 \begin_layout Standard
-
-\lang brazilian
 13 
 \end_layout
 
@@ -2070,8 +1896,6 @@ VilloNanny
 \begin_inset Text
 
 \begin_layout Standard
-
-\lang brazilian
 6
 \end_layout
 
@@ -2081,8 +1905,6 @@ VilloNanny
 \begin_inset Text
 
 \begin_layout Standard
-
-\lang brazilian
 446
 \end_layout
 
@@ -2092,8 +1914,6 @@ VilloNanny
 \begin_inset Text
 
 \begin_layout Standard
-
-\lang brazilian
 2,68 
 \end_layout
 
@@ -2103,8 +1923,6 @@ VilloNanny
 \begin_inset Text
 
 \begin_layout Standard
-
-\lang brazilian
 1,00 
 \end_layout
 
@@ -2116,8 +1934,6 @@ VilloNanny
 \begin_inset Text
 
 \begin_layout Standard
-
-\lang brazilian
 JFreeChart
 \end_layout
 
@@ -2127,8 +1943,6 @@ JFreeChart
 \begin_inset Text
 
 \begin_layout Standard
-
-\lang brazilian
 1658
 \end_layout
 
@@ -2138,8 +1952,6 @@ JFreeChart
 \begin_inset Text
 
 \begin_layout Standard
-
-\lang brazilian
 8296
 \end_layout
 
@@ -2149,8 +1961,6 @@ JFreeChart
 \begin_inset Text
 
 \begin_layout Standard
-
-\lang brazilian
 1161
 \end_layout
 
@@ -2160,8 +1970,6 @@ JFreeChart
 \begin_inset Text
 
 \begin_layout Standard
-
-\lang brazilian
 10,29
 \end_layout
 
@@ -2171,8 +1979,6 @@ JFreeChart
 \begin_inset Text
 
 \begin_layout Standard
-
-\lang brazilian
 145
 \end_layout
 
@@ -2182,8 +1988,6 @@ JFreeChart
 \begin_inset Text
 
 \begin_layout Standard
-
-\lang brazilian
 8
 \end_layout
 
@@ -2193,8 +1997,6 @@ JFreeChart
 \begin_inset Text
 
 \begin_layout Standard
-
-\lang brazilian
 6
 \end_layout
 
@@ -2204,8 +2006,6 @@ JFreeChart
 \begin_inset Text
 
 \begin_layout Standard
-
-\lang brazilian
 609
 \end_layout
 
@@ -2215,8 +2015,6 @@ JFreeChart
 \begin_inset Text
 
 \begin_layout Standard
-
-\lang brazilian
 2,68
 \end_layout
 
@@ -2226,8 +2024,6 @@ JFreeChart
 \begin_inset Text
 
 \begin_layout Standard
-
-\lang brazilian
 0,96
 \end_layout
 
@@ -2253,8 +2049,6 @@ name "tab:metricas-sistemas"
 \end_layout
 
 \begin_layout Standard
-
-\lang brazilian
 Além disso, extraímos a arquitetura modular do VilloNanny (Figura 
 \begin_inset LatexCommand ref
 reference "fig:arquitetura-villonanny"
@@ -2282,8 +2076,6 @@ reference "fig:arquitetura-villonanny"
 \end_layout
 
 \begin_layout Standard
-
-\lang brazilian
 \begin_inset Float figure
 wide false
 sideways false
@@ -2291,8 +2083,6 @@ status open
 
 \begin_layout Standard
 \align center
-
-\lang brazilian
 \begin_inset Graphics
 	filename arquitetura-villonanny.png
 	lyxscale 50
@@ -2304,8 +2094,6 @@ status open
 \end_layout
 
 \begin_layout Standard
-
-\lang brazilian
 \begin_inset Caption
 
 \begin_layout Standard
@@ -2335,14 +2123,10 @@ name "fig:arquitetura-villonanny"
 \end_layout
 
 \begin_layout Subsection
-
-\lang brazilian
 Escolha de Parâmetros e Síntese de Redes
 \end_layout
 
 \begin_layout Standard
-
-\lang brazilian
 Queremos gerar redes com medidas próximas às medidas da rede de referência,
  e isso depende de uma escolha adequada dos parâmetros dos modelos.
  
@@ -2377,8 +2161,6 @@ Na discussão a seguir,
 \end_layout
 
 \begin_layout Standard
-
-\lang brazilian
 No modelo LFR os valores dos parâmetros 
 \begin_inset Formula $|V|$
 \end_inset
@@ -2436,8 +2218,6 @@ No modelo LFR os valores dos parâmetros
 \end_layout
 
 \begin_layout Standard
-
-\lang brazilian
 Para o modelo BCR+ utilizamos a arquitetura modular da Figura 
 \begin_inset LatexCommand ref
 reference "fig:arquitetura-villonanny"
@@ -2582,8 +2362,6 @@ Achamos
 \end_layout
 
 \begin_layout Standard
-
-\lang brazilian
 Escolhidos os parâmetros, geramos nove redes a partir de cada modelo e extraímos
  métricas.
  A Tabela 
@@ -2602,16 +2380,12 @@ reference "tab:discrepancias"
 \end_layout
 
 \begin_layout Standard
-
-\lang brazilian
 \begin_inset Float table
 wide true
 sideways false
 status open
 
 \begin_layout Standard
-
-\lang brazilian
 \begin_inset Caption
 
 \begin_layout Standard
@@ -2628,8 +2402,6 @@ Discrepâncias relativas entre as medidas das redes sintéticas (média) e
 
 \begin_layout Standard
 \align center
-
-\lang brazilian
 \begin_inset Tabular
 <lyxtabular version="3" rows="3" columns="6">
 <features>
@@ -2655,7 +2427,6 @@ Discrepâncias relativas entre as medidas das redes sintéticas (média) e
 \begin_layout Standard
 
 \series bold
-\lang brazilian
 \begin_inset Formula $|E|$
 \end_inset
 
@@ -2670,7 +2441,6 @@ Discrepâncias relativas entre as medidas das redes sintéticas (média) e
 \begin_layout Standard
 
 \series bold
-\lang brazilian
 \begin_inset Formula $|E_{ext}|$
 \end_inset
 
@@ -2685,7 +2455,6 @@ Discrepâncias relativas entre as medidas das redes sintéticas (média) e
 \begin_layout Standard
 
 \series bold
-\lang brazilian
 \begin_inset Formula $|M|$
 \end_inset
 
@@ -2700,7 +2469,6 @@ Discrepâncias relativas entre as medidas das redes sintéticas (média) e
 \begin_layout Standard
 
 \series bold
-\lang brazilian
 \begin_inset Formula $\gamma$
 \end_inset
 
@@ -2715,7 +2483,6 @@ Discrepâncias relativas entre as medidas das redes sintéticas (média) e
 \begin_layout Standard
 
 \series bold
-\lang brazilian
 \begin_inset Formula $\beta$
 \end_inset
 
@@ -2730,8 +2497,6 @@ Discrepâncias relativas entre as medidas das redes sintéticas (média) e
 \begin_inset Text
 
 \begin_layout Standard
-
-\lang brazilian
 LFR
 \series bold
  
@@ -2743,8 +2508,6 @@ LFR
 \begin_inset Text
 
 \begin_layout Standard
-
-\lang brazilian
 0,44% 
 \end_layout
 
@@ -2754,8 +2517,6 @@ LFR
 \begin_inset Text
 
 \begin_layout Standard
-
-\lang brazilian
 0,06% 
 \end_layout
 
@@ -2765,8 +2526,6 @@ LFR
 \begin_inset Text
 
 \begin_layout Standard
-
-\lang brazilian
 27,35% 
 \end_layout
 
@@ -2776,13 +2535,7 @@ LFR
 \begin_inset Text
 
 \begin_layout Standard
-
-\lang brazilian
-4
-\lang english
-,
-\lang brazilian
-10% 
+4,10% 
 \end_layout
 
 \end_inset
@@ -2791,8 +2544,6 @@ LFR
 \begin_inset Text
 
 \begin_layout Standard
-
-\lang brazilian
 4,44% 
 \end_layout
 
@@ -2804,8 +2555,6 @@ LFR
 \begin_inset Text
 
 \begin_layout Standard
-
-\lang brazilian
 BCR+
 \series bold
  
@@ -2817,13 +2566,7 @@ BCR+
 \begin_inset Text
 
 \begin_layout Standard
-
-\lang brazilian
-2
-\lang english
-,
-\lang brazilian
-45% 
+2,45% 
 \end_layout
 
 \end_inset
@@ -2832,8 +2575,6 @@ BCR+
 \begin_inset Text
 
 \begin_layout Standard
-
-\lang brazilian
 2,17% 
 \end_layout
 
@@ -2843,8 +2584,6 @@ BCR+
 \begin_inset Text
 
 \begin_layout Standard
-
-\lang brazilian
 0,00% 
 \end_layout
 
@@ -2854,8 +2593,6 @@ BCR+
 \begin_inset Text
 
 \begin_layout Standard
-
-\lang brazilian
 19,69% 
 \end_layout
 
@@ -2865,8 +2602,6 @@ BCR+
 \begin_inset Text
 
 \begin_layout Standard
-
-\lang brazilian
 1,67% 
 \end_layout
 
@@ -2892,14 +2627,10 @@ name "tab:discrepancias"
 \end_layout
 
 \begin_layout Subsection
-
-\lang brazilian
 Cálculo da Distância Entre as Redes
 \end_layout
 
 \begin_layout Standard
-
-\lang brazilian
 Após a extração das redes reais e da produção de redes sintéticas, calculamos
  as distâncias entre a rede de referência e todas as demais redes.
  Os resultados, agregados por modelo, podem ser vistos na Tabela 
@@ -2917,16 +2648,12 @@ rão, porém mais distantes da rede de referência.
 \end_layout
 
 \begin_layout Standard
-
-\lang brazilian
 \begin_inset Float table
 wide false
 sideways false
 status open
 
 \begin_layout Standard
-
-\lang brazilian
 \begin_inset Caption
 
 \begin_layout Standard
@@ -2943,8 +2670,6 @@ Distâncias das redes sintéticas e da rede do sistema JFreeChart em relação
 
 \begin_layout Standard
 \align center
-
-\lang brazilian
 \begin_inset Tabular
 <lyxtabular version="3" rows="5" columns="3">
 <features>
@@ -2956,8 +2681,6 @@ Distâncias das redes sintéticas e da rede do sistema JFreeChart em relação
 \begin_inset Text
 
 \begin_layout Standard
-
-\lang brazilian
 Modelo/ 
 \end_layout
 
@@ -2967,8 +2690,6 @@ Modelo/
 \begin_inset Text
 
 \begin_layout Standard
-
-\lang brazilian
 Distância
 \end_layout
 
@@ -2978,8 +2699,6 @@ Distância
 \begin_inset Text
 
 \begin_layout Standard
-
-\lang brazilian
 Distância 
 \end_layout
 
@@ -2991,8 +2710,6 @@ Distância
 \begin_inset Text
 
 \begin_layout Standard
-
-\lang brazilian
 Sistema
 \end_layout
 
@@ -3002,8 +2719,6 @@ Sistema
 \begin_inset Text
 
 \begin_layout Standard
-
-\lang brazilian
 Média
 \end_layout
 
@@ -3013,8 +2728,6 @@ Média
 \begin_inset Text
 
 \begin_layout Standard
-
-\lang brazilian
 Mínima
 \end_layout
 
@@ -3026,8 +2739,6 @@ Mínima
 \begin_inset Text
 
 \begin_layout Standard
-
-\lang brazilian
 LFR 
 \end_layout
 
@@ -3037,8 +2748,6 @@ LFR
 \begin_inset Text
 
 \begin_layout Standard
-
-\lang brazilian
 \begin_inset Formula $3,28\pm0,01$
 \end_inset
 
@@ -3051,8 +2760,6 @@ LFR
 \begin_inset Text
 
 \begin_layout Standard
-
-\lang brazilian
 \begin_inset Formula $3,26$
 \end_inset
 
@@ -3067,8 +2774,6 @@ LFR
 \begin_inset Text
 
 \begin_layout Standard
-
-\lang brazilian
 BCR+ 
 \end_layout
 
@@ -3078,8 +2783,6 @@ BCR+
 \begin_inset Text
 
 \begin_layout Standard
-
-\lang brazilian
 \begin_inset Formula $2,60\pm0,28$
 \end_inset
 
@@ -3092,8 +2795,6 @@ BCR+
 \begin_inset Text
 
 \begin_layout Standard
-
-\lang brazilian
 \begin_inset Formula $2,16$
 \end_inset
 
@@ -3108,8 +2809,6 @@ BCR+
 \begin_inset Text
 
 \begin_layout Standard
-
-\lang brazilian
 JFreeChart 
 \end_layout
 
@@ -3119,8 +2818,6 @@ JFreeChart
 \begin_inset Text
 
 \begin_layout Standard
-
-\lang brazilian
 \begin_inset Formula $2,44\pm0,00$
 \end_inset
 
@@ -3133,8 +2830,6 @@ JFreeChart
 \begin_inset Text
 
 \begin_layout Standard
-
-\lang brazilian
 \begin_inset Formula $2,44$
 \end_inset
 
@@ -3163,36 +2858,26 @@ name "tab:distancias"
 \end_layout
 
 \begin_layout Subsection
-
-\lang brazilian
 Ameaças à Validade
 \end_layout
 
 \begin_layout Standard
-
-\lang brazilian
 Os resultados são bastante animadores, mas precisam ser analisados à luz
  de algumas limitações do experimento:
 \end_layout
 
 \begin_layout Itemize
-
-\lang brazilian
 apenas dois sistemas reais foram estudados, e por isso, os resultados não
  podem ser generalizados;
 \end_layout
 
 \begin_layout Itemize
-
-\lang brazilian
 a métrica de distância ignora a organização das redes em módulos; assim,
  nada se pode afirmar sobre o realismo das associações entre vértices e
  módulos;
 \end_layout
 
 \begin_layout Itemize
-
-\lang brazilian
 muitos algoritmos de modularização de 
 \emph on
 software
@@ -3202,8 +2887,6 @@ software
 \end_layout
 
 \begin_layout Section
-
-\lang brazilian
 Discussão
 \begin_inset LatexCommand label
 name "sec:discussao"
@@ -3214,8 +2897,6 @@ name "sec:discussao"
 \end_layout
 
 \begin_layout Standard
-
-\lang brazilian
 Este artigo apresentou uma nova abordagem, baseada na geração de sistemas
  de 
 \emph on
@@ -3248,8 +2929,6 @@ que são indistinguíveis de sistemas reais quanto à semelhança com um sistema
 \end_layout
 
 \begin_layout Standard
-
-\lang brazilian
 Não defendemos que os sistemas sintéticos devem substituir completamente
  os sistemas reais no teste de algoritmos de modularização de 
 \emph on
@@ -3308,8 +2987,6 @@ software
 \end_layout
 
 \begin_layout Standard
-
-\lang brazilian
 Acreditamos que modelos de 
 \emph on
 software
@@ -3328,8 +3005,6 @@ idade de informações sobre sistemas que não são representadas explicitamente
 \end_layout
 
 \begin_layout Standard
-
-\lang brazilian
 Dois modelos de redes propostos recentemente, LR e CGW, deverão ser avaliados
  em um trabalho futuro.
  O modelo LR é uma extensão do modelo LFR para redes orientadas e ponderadas
@@ -3392,8 +3067,6 @@ Outro próximo passo: ajudar Roberto, Jemerson et al a descobrir padrões
 \end_layout
 
 \begin_layout Standard
-
-\lang brazilian
 O próximo passo da pesquisa é realizar experimentos com a aplicação de algoritmo
 s de modularização de 
 \emph on
@@ -3419,8 +3092,6 @@ Trabalhos futuros: explorar métricas de arquitetura, avaliar algoritmos
 \end_layout
 
 \begin_layout Standard
-
-\lang brazilian
 \begin_inset LatexCommand bibtex
 options "abbrv"
 bibfiles "complex-networks,rodrigo-mestrado"
@@ -3431,8 +3102,6 @@ bibfiles "complex-networks,rodrigo-mestrado"
 \end_layout
 
 \begin_layout Standard
-
-\lang brazilian
 \begin_inset Note Note
 status collapsed
 
@@ -3641,8 +3310,6 @@ end{equation}
 \end_layout
 
 \begin_layout Standard
-
-\lang brazilian
 \begin_inset Note Note
 status collapsed
 
