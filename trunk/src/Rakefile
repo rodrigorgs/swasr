@@ -4,11 +4,26 @@ require 'rake'
 require 'gxl'
 require 'jars_as_modules'
 
-
 task :extract => ['deps.xml', 'l1-names.pairs', 'modules-names.pairs']
-task :default => [:extract, :stats, :numerize]
+task :default => [:stats, :distance_matrix]
 
-desc "Dependencies extracted by Dependency Finder"
+desc "Extract dependencies using Dependency Finder"
+task :depfind => 'deps.xml'
+
+desc "Convert dependencies to pairs format"
+task :pairs => ['l1-names.pairs', 'modules-names.pairs']
+
+desc "Create network with numbers as labels"
+task :numbers
+
+desc "Compute distance matrix"
+task :distance_matrix
+
+desc "Compute statistics"
+task :stats
+
+#directory 'jars'
+
 file 'deps.xml' => 'jars' do
   system "DependencyExtractor -xml -out deps.xml jars/*.jar"
 end
@@ -22,21 +37,25 @@ file 'modules-names.pairs' => 'jars' do
   puts_pairs(pairs, "modules-names.pairs")
 end
 
-task :numerize => ['l1-names.pairs', 'modules-names.pairs'] do
-  system "to_numeric_network.rb l1-names.pairs modules-names.pairs l1-numbers.pairs modules-numbers.pairs"
+#file 'l1-numbers.pairs' => 'modules-numbers.pairs'
+#file 'modules-numbers.pairs' do 
+task :numbers do
+  if !File.file?('l1-numbers.pairs') || !File.file?('modules-numbers.pairs')
+    Rake::Task['pairs'].invoke # or .execute
+    system "to_numeric_network.rb l1-names.pairs modules-names.pairs l1-numbers.pairs modules-numbers.pairs"
+  end
 end
 
-directory 'jars'
-
-task :analysis => :numerize do
-  system "analysis.rb -e l1-names.pairs -m modules-names.pairs -v vertices.data -c clusters.data -g global.data"
+task :analysis => :numbers do
+  system "analysis.rb -e l1-numbers.pairs -m modules-numbers.pairs -v vertices.data -c clusters.data -g global.data"
 end
 
 task :stats => :analysis do
   system "stat_analysis.R vertices.data clusters.data global.data"
 end
 
-task :distance_matrix => :numerize do
+task :distance_matrix => :numbers do
+  puts "distances.R l1-numbers.pairs distances-und.csv FALSE"
   system "distances.R l1-numbers.pairs distances-und.csv FALSE"
 end
 

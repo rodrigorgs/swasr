@@ -473,3 +473,26 @@ end
 #  
 #end
 
+require 'igraph'
+
+def erdos_renyi_nm(n, m, file=nil, file2=nil)
+  g = IGraph::GenerateRandom.erdos_renyi_game(
+    IGraph::ERDOS_RENYI_GNM,
+    n,
+    m,
+    false,
+    false)
+
+  unless file.nil?
+    File.open(file, 'w') do |f|
+      g.each_edge(IGraph::EDGEORDER_ID) { |x, y| f.puts "#{x} #{y}" }
+    end
+    unless file2.nil?
+      File.open(file2, 'w') do |f|
+        n.times { |i| f.puts "#{i} 0" }
+      end
+    end
+  end
+  
+  return g
+end

@@ -1,16 +1,21 @@
 #!/usr/bin/Rscript
 
-v = read.table("vertices.data", header=T)
-c = read.table("clusters.data", header=T)
-g = read.table("global.data", header=T)
+argv = commandArgs(T)
+
+if (length(argv) < 3) {
+  argv = c("vertices.data", "clusters.data", "global.data")
+}
+
+v = read.table(argv[1], header=T)
+c = read.table(argv[2], header=T)
+g = read.table(argv[3], header=T)
 
 #############################################
 # Retrieves parameters used in Lancichinetti's model
 #############################################
+library(igraph)
 
 sink("parameters.fit", split=F, type="output")
-
-library(igraph)
 
 cat("# computing degree fit")
 degmincut = 1
