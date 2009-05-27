@@ -1,6 +1,13 @@
+#!/usr/bin/env ruby
+#!/usr/bin/env rake
+
 require 'rake'
 require 'gxl'
 require 'jars_as_modules'
+
+task :version do
+  puts "Version 1.0"
+end
 
 task :extract => ['deps.xml', 'l1-names.pairs', 'modules-names.pairs']
 
@@ -55,3 +62,5 @@ end
 #  `R --slave < ~/svn/swasr/sandbox/distances.R`
 #end
 #
+
+if __FILE__ == $0; system "rake -f #{$0} #{ARGV.join(' ')}"; end
