@@ -1,15 +1,12 @@
 #!/usr/bin/env ruby
-#!/usr/bin/env rake
 
 require 'rake'
 require 'gxl'
 require 'jars_as_modules'
 
-task :version do
-  puts "Version 1.0"
-end
 
 task :extract => ['deps.xml', 'l1-names.pairs', 'modules-names.pairs']
+task :default => [:extract, :stats, :numerize]
 
 desc "Dependencies extracted by Dependency Finder"
 file 'deps.xml' => 'jars' do
@@ -32,35 +29,15 @@ end
 directory 'jars'
 
 task :analysis => :numerize do
+  system "analysis.rb -e l1-names.pairs -m modules-names.pairs -v vertices.data -c clusters.data -g global.data"
 end
 
-task :stat_analysis => :analysis do
+task :stats => :analysis do
+  system "stat_analysis.R vertices.data clusters.data global.data"
 end
 
-task :distance_matrix => :numerizacao do
-
+task :distance_matrix => :numerize do
+  system "distances.R l1-numbers.pairs distances-und.csv FALSE"
 end
 
-task :clean do
-  rm 'l1-names.pairs'
-  rm 'modules-names.pairs'
-  rm 'deps.xml'
-end
-
-
-#task :l1 => 'l1.pairs'
-#
-#task :analysis => [:l1] do
-#  `analysis.rb`
-#end
-#
-#task :stat_analysis => :analysis do
-#  `stat_analysis.sh`
-#end
-#
-#task :distances => :l1 do
-#  `R --slave < ~/svn/swasr/sandbox/distances.R`
-#end
-#
-
-if __FILE__ == $0; system "rake -f #{$0} #{ARGV.join(' ')}"; end
+if __FILE__ == $0; system "rake --trace -f #{$0} #{ARGV.join(' ')}"; end
