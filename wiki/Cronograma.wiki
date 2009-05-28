@@ -1,4 +1,4 @@
-#summary Cronograma do projeto
+﻿#summary Cronograma do projeto
 
 = Planejamento =
 
@@ -33,13 +33,16 @@ Nessa linha de modelagem e avaliação dos modelos os seguintes avanços podem s
   * Avaliar o modelo mais recente de Lancichinetti, que produz redes orientadas e ponderadas, com módulos sobrepostos.
   * Conseguir o modelo de Gu (ele não respondeu meu e-mail) e então avaliá-lo.
   * Implementar o modelo de Erdos-Renyi e o modelo de configuração a fim de avaliar as métricas de distância entre redes. Se espera que redes produzidas por esses modelos sejam mais distantes das redes reais. Se isso não acontecer pode ser que a métrica de distância não seja adequada.
-  * Avaliar uma métrica de distância baseada em frequência de motifs (só faz sentido no caso de redes orientadas). Será preciso encontrar uma ferramenta estatística para comparar duas distribuições de dados categóricos (a distribuição de frequências dos motifs).
+  * Avaliar uma métrica de distância baseada em frequência de motifs (só faz sentido no caso de redes orientadas). 
   * Implementar e avaliar a ideia de module-based motifs. Essa seria uma métrica de distância entre redes que leva em consideração a organização modular.
   * Pensar em como extrair de repositórios de software certas propriedades da evolução de software que pode ser futuramente incorporada em um modelo e, com isso, se conectar ao trabalho de Roberto e de Jemerson.
   * Repetir o experimento do artigo com mais sistemas. Talvez considerar várias versões de um mesmo sistema.
-  * Organizar o código, fazer um Rakefile pra automatizar os experimentos.
   * Otimizar implementação da distância entre redes. Se as redes forem não-orientadas dá pra fazer apenas metade dos cálculos.
-  * Adaptar os sintetizadores de acordo com as orientações de Roberto sobre o formato de saída.
+  * Adaptar os sintetizadores de acordo com as [http://code.google.com/p/swasr/wiki/Reuniao20090513 orientações de Roberto] sobre o formato de saída.
+
+Feito:
+  * Organizar o código, fazer um Rakefile pra automatizar os experimentos. (o código não ficou organizado, mas o Rakefile está pronto)
+  * Encontrar uma ferramenta estatística para comparar duas distribuições de dados categóricos (a distribuição de frequências dos motifs). (Encontrado: [http://en.wikipedia.org/wiki/Pearson%27s_chi-square_test Teste chi-quadrado]. Ver também [http://en.wikipedia.org/wiki/Contingency_tables tabela de contingência], [http://www.stats.gla.ac.uk/steps/glossary/categorical_data.html glossário] e [http://graphpad.com/quickcalcs/chisquaredEx.cfm calculadora]. No R: sejam x e y as frequencias dos motifs (x e y são vetores nos quais cada posição representa um motif). Chamada: chisq.test(rbind(x, y)))
 
 == Avaliação ==
 
