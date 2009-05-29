@@ -25,7 +25,7 @@ task :stats
 #directory 'jars'
 
 file 'deps.xml' => 'jars' do
-  system "DependencyExtractor -xml -out deps.xml jars/*.jar"
+  system "DependencyExtractor -xml -out deps.xml jars"
 end
 
 file 'l1-names.pairs' => 'deps.xml' do
@@ -33,7 +33,7 @@ file 'l1-names.pairs' => 'deps.xml' do
 end
 
 file 'modules-names.pairs' => 'jars' do
-  pairs = extract_modules(Dir.glob("jars/*.jar"))
+  pairs = extract_modules(Dir.glob("jars/**/*.jar"))
   puts_pairs(pairs, "modules-names.pairs")
 end
 
