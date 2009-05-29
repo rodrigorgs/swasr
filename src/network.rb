@@ -18,8 +18,27 @@ class Network
     @data = Choice::LazyHash.new
   end
 
+  # Factory methods
+
+  def new_node(eid)
+    return Node.new(eid)
+  end
+
+  def new_edge(n1, n2)
+    return Edge.new(n1, n2)
+  end
+
+  def new_cluster(eid)
+    return Cluster.new(eid)
+  end
+
+  def new_network
+    return Network.new
+  end
+
+  # ------ end Factory methods
   def edges_undirected
-    edges.map { |e| [e.from, e.to].sort_by(&:eid) }.uniq.map { |a, b| Edge.new(a, b) }
+    edges.map { |e| [e.from, e.to].sort_by(&:eid) }.uniq.map { |a, b| new_edge(a, b) }
   end
 
   # using PAIRS format
@@ -35,13 +54,13 @@ class Network
     return eid if eid.kind_of?(Node)
     node = @nodes[eid]
     if node.nil?
-      node = Node.new(eid)
+      node = new_node(eid)
       set_cluster(node, cluster!(cluster))
       @nodes[eid] = node
     end
     return node
   end
-  
+ 
   def node?(eid)
     return eid if eid.kind_of?(Node)
     return @nodes[eid]
@@ -56,7 +75,7 @@ class Network
       n2.in_edges_map[n1]
     end
     if edge.nil?
-      edge = Edge.new(n1, n2)
+      edge = new_edge(n1, n2)
       @edges << edge
       n1.out_edges_map[n2] = edge
       n2.in_edges_map[n1] = edge
@@ -76,7 +95,7 @@ class Network
     return @default_cluster if eid.nil?
     cluster = @clusters[eid]
     if cluster.nil?
-      cluster = Cluster.new(eid)
+      cluster = new_cluster(eid)
       @clusters[eid] = cluster
     end
     return cluster
@@ -122,7 +141,7 @@ class Network
 
   def lift
     links = self.edges.map { |e| [e.from.cluster.eid, e.to.cluster.eid] }.uniq
-    g = Network.new
+    g = new_network
     self.clusters.each { |c| g.node!(c.eid) }
     g.add_edges(links.select { |l| l[0] != l[1] } )
     return g
@@ -268,3 +287,35 @@ class Node
   end
 
 end
+
+# Network in which network are labelled by numbers.
+# The efficiency is improved only insignificantly.
+class NumberedNetwork < Network
+  attr_accessor :start_from
+
+  def _init
+    @nodes    = []
+    @clusters = []
+    @edges    = []
+    @default_cluster = Cluster.new('DEFAULT')
+    @data = Choice::LazyHash.new
+    @start_from = nil
+  end
+
+  def new_network
+    return NumberedNetwork.new
+  end
+  
+  def size
+    @nodes.size - @start_from
+  end
+
+  def nodes
+    @nodes[@start_from..-1]
+  end
+
+  def clusters
+    @clusters
+  end
+end
+
