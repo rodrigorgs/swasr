@@ -18,6 +18,16 @@ class Network
     @data = Choice::LazyHash.new
   end
 
+  def save(edges_file, modules_file)
+    File.open(edges_file, "w") do |f|
+      edges.each { |e| f.puts "#{e.from.eid} #{e.to.eid}" }
+    end
+    File.open(modules_file, "w") do |f|
+      nodes.each { |n| f.puts "#{n.eid} #{n.cluster.eid}" }
+    end
+    
+  end
+
   # Factory methods
 
   def new_node(eid)
@@ -169,6 +179,12 @@ class Network
     current_edges.each { |e| edge!(e.to, e.from) }
   end
 
+  def remove_edge(e)
+    e.from.out_edges_map.delete(e.to)
+    e.to.in_edges_map.delete(e.from)
+    @edges.delete(e) 
+  end
+
   ############ RGL interface ####################
   
   def add_edge(n1, n2)
@@ -233,6 +249,10 @@ class Edge
     @from, @to = from, to
     @data = Choice::LazyHash.new
   end
+
+  def to_s
+    "#{@from.to_s}->#{@to.to_s}"
+  end
 end
 
 class Node
@@ -244,6 +264,10 @@ class Node
     @out_edges_map = {}
     @in_edges_map  = {}
     @data = Choice::LazyHash.new
+  end
+
+  def to_s
+    @eid
   end
 
   def _cluster=(cluster)

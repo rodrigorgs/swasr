@@ -33,6 +33,11 @@ def choose_random(weights, labels=(0..weights.size-1).to_a)
   return choose_random_acc(acc_weights, labels)
 end
 
+# pick randomly one element from an array
+def pick(array)
+  array[rand(array.size)]
+end
+
 # "Directed Scale-Free Graphs", Bollobas et al.
 # Suggested parameters for a web graph (for which gamma_in = 2.1 and
 # gamma_out = 2.7)
@@ -472,6 +477,67 @@ end
 #  #g.write_to_graphic_file('png')
 #  
 #end
+
+# Choose one of the neighbors of ''node'' according to module-based
+# preferential probability.
+def choose_with_mbpa(g, node, alpha)
+  # XXX discard node's neighbors?
+  candidates = g.nodes - [node]
+  probs = candidates.map do |n|
+    if n.cluster == node.cluster
+      n.degree * (1 + alpha) + 1
+    else
+      n.degree + 1
+    end
+  end
+  return choose_random(probs, candidates)
+end
+
+# "Module-Based Large-Scale Software Evolution Based on Complex Networks",
+# Tao Chen, Qing Gu, Shusen Wang, Xiaoan Chen, Daoxu Chen
+#
+# M = number of modules
+def gu_game(size, p1, p2, p3, p4, e1, e2, e3, e4, alpha, num_modules)
+  g = Network.new
+  num_modules.times { |i| g.cluster!(i) }
+  g.node!(0, 0)
+  g.node!(1, 0)
+  g.edge!(0, 1)
+
+  sum = 0  
+  event_prob_acc = [p1, p2, p3, p4].map { |x| sum += x; sum }
+  while g.size < size
+    event = choose_random_acc(event_prob_acc, [:p1, :p2, :p3, :p4])
+    case event
+    when :p1
+      v = g.node!(g.size, pick(g.clusters))
+      e1.times do
+        w = choose_with_mbpa(g, v, alpha)
+        g.edge!(v, w)
+      end
+    when :p2
+      e2.times do
+        v = pick(g.nodes)
+        w = choose_with_mbpa(g, v, alpha)
+        g.edge!(v, w)
+      end
+    when :p3
+      e3.times do
+        v = pick(g.nodes)
+        edge = pick(out_edges) # XXX out_edges or edges?
+        w = choose_with_mbpa(g, v, alpha) 
+        g.remove_edge(edge)
+        g.edge!(v, w)
+      end
+    when :p4
+      e4.times do
+        edge = pick(g.edges)
+        g.remove_edge(edge)
+      end
+    end    
+  end
+  return g
+end
 
 require 'igraph'
 
