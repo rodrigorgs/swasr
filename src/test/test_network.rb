@@ -9,6 +9,17 @@ class TC_Network < Test::Unit::TestCase
     assert_equal(3, net.size)
   end
 
+  def test_edge_remove
+    net = Network.new [[0, 1], [1, 0], [0, 2], [2, 3]]
+    assert_equal(4, net.edges.size)
+    net.remove_edge(net.edge?(0, 1))
+    assert_equal(3, net.edges.size)
+    assert_nil(net.edge?(0, 1))
+    assert_equal(1, net.node?(0).out_edges.size)
+    assert_equal(1, net.node?(1).out_edges.size)
+    assert_equal(0, net.node?(1).in_edges.size)
+  end
+
   def test_undirected
     net = Network.new [[0, 1], [1, 0], [0, 2], [2, 3]]
     net.to_undirected!
