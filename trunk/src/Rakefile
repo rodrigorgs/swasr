@@ -4,14 +4,20 @@ require 'rake'
 require 'gxl'
 require 'jars_as_modules'
 
-task :extract => ['deps.xml', 'l1-names.pairs', 'modules-names.pairs']
+NUMBERS_ARC = 'numbers.arc'
+NUMBERS_MOD = 'numbers.mod'
+NAMES_ARC = 'names.arc'
+NAMES_MOD = 'names.mod'
+DEPS = 'deps.xml'
+
+task :extract => [DEPS, NAMES_ARC, NAMES_MOD]
 task :default => [:stats, :distance_matrix]
 
 desc "Extract dependencies using Dependency Finder"
-task :depfind => 'deps.xml'
+task :depfind => DEPS
 
 desc "Convert dependencies to pairs format"
-task :pairs => ['l1-names.pairs', 'modules-names.pairs']
+task :pairs => [NAMES_ARC, NAMES_MOD]
 
 desc "Create network with numbers as labels"
 task :numbers
@@ -24,30 +30,30 @@ task :stats
 
 #directory 'jars'
 
-file 'deps.xml' => 'jars' do
-  system "DependencyExtractor -xml -out deps.xml jars"
+file DEPS => 'jars' do
+  system "DependencyExtractor -xml -out #{DEPS} jars"
 end
 
-file 'l1-names.pairs' => 'deps.xml' do
-  depxml_to_pairs2('deps.xml', 'l1-names.pairs')
+file NAMES_ARC => DEPS do
+  depxml_to_pairs2(DEPS, NAMES_ARC)
 end
 
-file 'modules-names.pairs' => 'jars' do
+file NAMES_MOD => 'jars' do
   pairs = extract_modules(Dir.glob("jars/**/*.jar"))
-  puts_pairs(pairs, "modules-names.pairs")
+  puts_pairs(pairs, NAMES_MOD)
 end
 
-#file 'l1-numbers.pairs' => 'modules-numbers.pairs'
-#file 'modules-numbers.pairs' do 
+#file NUMBERS_ARC => NUMBERS_MOD
+#file NUMBERS_MOD do 
 task :numbers do
-  if !File.file?('l1-numbers.pairs') || !File.file?('modules-numbers.pairs')
+  if !File.file?(NUMBERS_ARC) || !File.file?(NUMBERS_MOD)
     Rake::Task['pairs'].invoke # or .execute
-    system "to_numeric_network.rb l1-names.pairs modules-names.pairs l1-numbers.pairs modules-numbers.pairs"
+    system "to_numeric_network.rb #{NAMES_ARC} #{NAMES_MOD} #{NUMBERS_ARC} #{NUMBERS_MOD}"
   end
 end
 
 task :analysis => :numbers do
-  system "analysis.rb -e l1-numbers.pairs -m modules-numbers.pairs -v vertices.data -c clusters.data -g global.data"
+  system "analysis.rb -e #{NUMBERS_ARC} -m #{NUMBERS_MOD} -v vertices.data -c clusters.data -g global.data"
 end
 
 task :stats => :analysis do
@@ -55,8 +61,7 @@ task :stats => :analysis do
 end
 
 task :distance_matrix => :numbers do
-  puts "distances.R l1-numbers.pairs distances-und.csv FALSE"
-  system "distances.R l1-numbers.pairs distances-und.csv FALSE"
+  system "distances.R #{NUMBERS_ARC} distances-und.csv FALSE"
 end
 
 if __FILE__ == $0; system "rake --trace -f #{$0} #{ARGV.join(' ')}"; end

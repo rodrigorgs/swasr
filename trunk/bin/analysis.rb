@@ -10,17 +10,17 @@ Choice.options do
   option :edges_file do
     short '-e'
     long '--edges=FILE'
-    default 'l1.pairs'
+    default 'numbers.arc'
     desc 'File in PAIRS edges format'
-    desc '(default: l1.pairs)'
+    desc '(default: numbers.arc)'
   end
  
   option :modules_file do
     short '-m'
     long '--modules=FILE'
-    default 'modules.pairs'
+    default 'numbers.mod'
     desc 'File in PAIRS modules format'
-    desc '(default: modules.pairs)'
+    desc '(default: numbers.mod)'
   end
 
   separator ''
@@ -113,5 +113,4 @@ end
 
 # architecture
 g = network.lift
-g.nodes.each { |n| g.edge!(n, n) }
-puts_pairs g.edges.map { |e| [e.from.eid, e.to.eid] }, 'l2.pairs'
+g.save2("arch")

@@ -18,14 +18,30 @@ class Network
     @data = Choice::LazyHash.new
   end
 
-  def save(edges_file, modules_file)
+  def save(edges_file, modules_file, attr=:eid)
     File.open(edges_file, "w") do |f|
-      edges.each { |e| f.puts "#{e.from.eid} #{e.to.eid}" }
+      edges.each { |e| f.puts "#{e.from.send(attr)} #{e.to.send(attr)}" }
     end
     File.open(modules_file, "w") do |f|
-      nodes.each { |n| f.puts "#{n.eid} #{n.cluster.eid}" }
+      nodes.each { |n| f.puts "#{n.send(attr)} #{n.cluster.send(attr)}" }
     end
-    
+  end
+
+  def save2(basename, attributed=:eid)
+    save(basename + '.arc', basename + '.mod')
+  end
+
+  # using PAIRS format
+  def load(edges_file, modules_file)
+    edges_file = read_pairs(edges_file) if edges_file.kind_of?(String)
+    modules_file = read_pairs(modules_file) if modules_file.kind_of?(String)
+    set_clusters(modules_file) unless modules_file.nil?
+    add_edges(edges_file) unless edges_file.nil?
+  end
+
+  def load2(basename)
+    basename = basename[0..-2] if basename[-1..-1] == '.'
+    load(basename + '.arc', basename + '.mod')
   end
 
   # Factory methods
@@ -54,10 +70,7 @@ class Network
   # using PAIRS format
   def initialize(_edges=nil, _modules=nil)
     _init
-    _edges = read_pairs(_edges) if _edges.kind_of?(String)
-    _modules = read_pairs(_modules) if _modules.kind_of?(String)
-    set_clusters(_modules) unless _modules.nil?
-    add_edges(_edges) unless _edges.nil?
+    load(_edges, _modules)
   end
 
   def node!(eid, cluster=nil)
