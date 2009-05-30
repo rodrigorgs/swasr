@@ -9,11 +9,21 @@ if __FILE__ == $0
   require 'choice'
 
   Choice.options do
-    option :edges_file, :required => true do
+    header ''
+    header 'One of -b, -e is required'
+    header ''
+
+    option :basename do
+      short '-b'
+      desc 'Base file name. We\'ll look for files'
+      desc 'named XXX.arc and XXX.mod, where XXX'
+      desc 'is the base file name.'
+    end
+    
+    option :edges_file  do
       short '-e'
       long '--edges=FILE'
       desc 'File in PAIRS edges format'
-      desc '(required)'
     end
 
     option :modules_file do
@@ -40,6 +50,17 @@ if __FILE__ == $0
   end
 
   c = Choice.choices
+  if !c.basename.nil?
+    p 'entrei'
+    c.basename = c.basename[0..-2] if c.basename[-1..-1] == '.'
+    c.edges_file = c.basename + '.arc'
+    c.modules_file = c.basename + '.mod'
+  end
+
+  if c.edges_file.nil?
+    Choice.help
+    exit 1
+  end
 
   network = Network.new
   STDERR.puts "Reading edges..."

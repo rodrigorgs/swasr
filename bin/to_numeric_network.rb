@@ -2,15 +2,30 @@
 
 require 'network'
 
-if ARGV.size < 4
-  echo "Usage: #{File.basename $0} in-l1.pairs in-modules.pairs out-l1.pairs out-modules.pairs"
-  echo ""
-  echo "Outputs the network relabelled with numbers starting with 0"
-  echo ""
+if __FILE__ == $0
+  def help_to_numeric
+    puts "
+    Usage: #{File.basename $0} in-arcs in-modules out-arcs out-modules
+    OR
+    #{File.basename $0} in-basename out-basename
+
+    Outputs the network relabelled with numbers starting with 0
+  " 
+    exit 1
+  end
+
+  if ARGV.size == 2
+    files = [ARGV[0] + '.arc', ARGV[0] + '.mod', ARGV[1] + '.arc' + ARGV[1] + '.mod']
+  elsif ARGV.size == 4
+    files = ARGV
+  else
+    help_to_numeric
+  end
+
+  net = Network.new
+  net.load(files[0], files[1] )
+
+  net.nodes.each_with_index { |n, idx| n.data.i = idx }
+  net.clusters.each_with_index { |c, idx| c.data.i = idx }
+  net.save(files[2], files[3], :i)
 end
-
-net = Network.new ARGV[0], ARGV[1] #'l1.pairs', 'modules.pairs'
-
-net.nodes.each_with_index { |n, idx| n.data.i = idx }
-puts_pairs net.edges.map { |e| [e.from.data.i, e.to.data.i] }, ARGV[2] #'edges'
-puts_pairs net.nodes.map { |n| [n.data.i, n.cluster.eid] }, ARGV[3] #'modules'

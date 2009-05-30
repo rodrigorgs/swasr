@@ -541,24 +541,32 @@ end
 
 require 'igraph'
 
-def erdos_renyi_nm(n, m, file=nil, file2=nil)
+def save_igraph(igraph, basename)
+  basename = basename[0..-2] if basename[-1..-1] == '.'
+
+  File.open(basename + '.arc', 'w') do |f|
+    g.each_edge(IGraph::EDGEORDER_ID) { |x, y| f.puts "#{x} #{y}" }
+  end
+  File.open(basename + '.arc', 'w') do |f|
+    n.times { |i| f.puts "#{i} 0" }
+  end
+end
+
+def erdos_renyi_nm(n, m, basename=nil)
   g = IGraph::GenerateRandom.erdos_renyi_game(
     IGraph::ERDOS_RENYI_GNM,
     n,
     m,
-    false,
-    false)
+    true, # directed?
+    false) # loops?
 
-  unless file.nil?
-    File.open(file, 'w') do |f|
-      g.each_edge(IGraph::EDGEORDER_ID) { |x, y| f.puts "#{x} #{y}" }
-    end
-    unless file2.nil?
-      File.open(file2, 'w') do |f|
-        n.times { |i| f.puts "#{i} 0" }
-      end
-    end
-  end
+  save_igraph(g, basename) if basename
   
+  return g
+end
+
+def configuration_model(out_deg, in_deg, basename=nil)
+  g = IGraph::GenerateRandom::degree_sequence_game(out_deg, in_deg)
+  save_igraph(g, basename) if basename
   return g
 end

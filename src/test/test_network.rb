@@ -9,6 +9,14 @@ class TC_Network < Test::Unit::TestCase
     assert_equal(3, net.size)
   end
 
+  def test_load
+    net = Network.new
+    net.load2('numbers')
+    assert_equal(4, net.size)
+    assert_equal(4, net.edges.size)
+    assert_equal(2, net.clusters.size)
+  end
+
   def test_edge_remove
     net = Network.new [[0, 1], [1, 0], [0, 2], [2, 3]]
     assert_equal(4, net.edges.size)
