@@ -482,7 +482,7 @@ end
 # preferential probability.
 def choose_with_mbpa(g, node, alpha)
   # XXX discard node's neighbors?
-  candidates = g.nodes - [node]
+  candidates = g.nodes - [node] - node.out_nodes
   probs = candidates.map do |n|
     if n.cluster == node.cluster
       n.degree * (1 + alpha) + 1
@@ -513,26 +513,28 @@ def gu_game(size, p1, p2, p3, p4, e1, e2, e3, e4, alpha, num_modules)
       v = g.node!(g.size, pick(g.clusters))
       e1.times do
         w = choose_with_mbpa(g, v, alpha)
-        g.edge!(v, w)
+        g.edge!(v, w) if w
       end
     when :p2
       e2.times do
         v = pick(g.nodes)
         w = choose_with_mbpa(g, v, alpha)
-        g.edge!(v, w)
+        g.edge!(v, w) if w
       end
     when :p3
       e3.times do
         v = pick(g.nodes)
-        edge = pick(out_edges) # XXX out_edges or edges?
-        w = choose_with_mbpa(g, v, alpha) 
-        g.remove_edge(edge)
-        g.edge!(v, w)
+        edge = pick(v.out_edges) # XXX out_edges or edges?
+        if edge
+          w = choose_with_mbpa(g, v, alpha) 
+          g.remove_edge(edge)
+          g.edge!(v, w) if w
+        end
       end
     when :p4
       e4.times do
         edge = pick(g.edges)
-        g.remove_edge(edge)
+        g.remove_edge(edge) if edge
       end
     end    
   end

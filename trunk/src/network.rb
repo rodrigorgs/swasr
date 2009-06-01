@@ -305,6 +305,8 @@ class Node
 
   def in_nodes; @in_edges_map.map { |n, e| n }; end
   def out_nodes; @out_edges_map.map { |n, e| n }; end
+  def in_edges; @in_edges_map.values; end
+  def out_edges; @out_edges_map.values; end
 
   def degree; neighbors.size; end
   def in_degree; @in_edges_map.size; end
