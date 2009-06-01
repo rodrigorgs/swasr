@@ -38,28 +38,51 @@ def print_entries(entries)
   end
 end
 
-if __FILE__ == $0
-  #uri = URI.parse "http://app.dcc.ufba.br/~rodrigo/zipruby.zip"
-  uri = URI.parse "http://ufpr.dl.sourceforge.net/sourceforge/jboss/jboss-5.1.0.GA-jdk6.zip"
+def entries_from_uri(uri)
+  uri = URI.parse(uri)
   
   Net::HTTP.start(uri.host, uri.port) do |http|
     response = http.head(uri.path)
     if response.kind_of? Net::HTTPOK
       length = response['Content-Length']
 
-      puts "Length: #{length}"
-
       trail = http.get(uri.path, 'Range' => 'bytes=-280').body
       trail = StringIO.new(trail)
       offset = cdir_offset(trail)
-
-      puts "Offset: #{offset}. Size = #{length.to_i - offset.to_i}"
 
       cdir = http.get(uri.path, 'Range' => "bytes=#{offset}-").body
       cdir = StringIO.new(cdir)
       entries = entries_from_cdir(cdir)
 
-      puts "Number of files: #{entries.size}"
+      return entries
+    end
+  end
+
+  return nil
+end
+
+if __FILE__ == $0
+  #uri = URI.parse "http://app.dcc.ufba.br/~rodrigo/zipruby.zip"
+  uri = URI.parse ARGV[0] #"http://ufpr.dl.sourceforge.net/sourceforge/jboss/jboss-5.1.0.GA-jdk6.zip"
+  
+  Net::HTTP.start(uri.host, uri.port) do |http|
+    response = http.head(uri.path)
+    if response.kind_of? Net::HTTPOK
+      length = response['Content-Length']
+
+      STDERR.puts "Length: #{length}"
+
+      trail = http.get(uri.path, 'Range' => 'bytes=-280').body
+      trail = StringIO.new(trail)
+      offset = cdir_offset(trail)
+
+      STDERR.puts "Offset: #{offset}. Size = #{length.to_i - offset.to_i}"
+
+      cdir = http.get(uri.path, 'Range' => "bytes=#{offset}-").body
+      cdir = StringIO.new(cdir)
+      entries = entries_from_cdir(cdir)
+
+      STDERR.puts "Number of files: #{entries.size}"
 
       print_entries entries
     end
