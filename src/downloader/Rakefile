@@ -14,6 +14,7 @@ files = urls.map { |url| CDIR + "/" + File.basename(url).ext("cdir") }
 
 task :getcdirs => files
 task :getzips => files.map { |x| ZIPS + "/" + File.basename(x).ext("zip") }
+task :unpack => files.map { |x| "#{SYSTEMS}/#{File.basename(x).ext}" }
 #task :cdirmetrics => 'cdir/metrics.csv'
 #task :metrics => "#{SYSTEMS}/metrics.csv"
 
