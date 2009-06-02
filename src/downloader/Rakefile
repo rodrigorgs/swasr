@@ -1,0 +1,85 @@
+#!/usr/bin/env ruby
+
+require 'ls_remote_zip'
+require 'net/http'
+require 'zip/zip'
+
+LINKS = "links.txt"
+CDIR = 'cdir'
+ZIPS = 'zips'
+SYSTEMS = 'systems'
+
+urls = IO.readlines("links.txt").map { |x| x.chomp }.select { |x| !x.empty? }
+files = urls.map { |url| CDIR + "/" + File.basename(url).ext("cdir") }
+
+task :getcdirs => files
+task :getzips => files.map { |x| ZIPS + "/" + File.basename(x).ext("zip") }
+#task :cdirmetrics => 'cdir/metrics.csv'
+#task :metrics => "#{SYSTEMS}/metrics.csv"
+
+directory CDIR
+directory ZIPS
+directory SYSTEMS
+
+files.each do |name|
+  basename = File.basename(name).ext
+
+  file name => CDIR do
+    uri = urls.find { |s| s.include? File.basename(name).ext("zip") }
+    cdir = cdir_from_uri(uri)
+    File.open(name, "w") { |f| f.write(cdir) }
+  end
+
+  zipname = "#{ZIPS}/#{basename}.zip"
+  file zipname => [name, ZIPS] do
+    url = urls.find { |s| s.include?(basename) }
+    #contents = Net::HTTP.get(URI.parse(url)).body
+    #File.open(zipname, "w") { |f| f.write contents }
+    #puts "Downloaded #{zipname}."
+    system "wget #{url} --output-document=#{zipname}"
+    touch zipname
+  end
+
+  file "#{SYSTEMS}/#{basename}" => zipname do |t|
+    puts "bli"
+    mkdir_p "#{SYSTEMS}/#{basename}/jars"
+    system "unzip -j -d #{t.name}/jars #{zipname} \\*.jar"
+  end
+end
+
+#file "#{SYSTEMS}/metrics.csv" do
+task :metrics do
+  File.open("#{SYSTEMS}/metrics.csv", "w") do |f|
+    f.puts "system,classes,modules"
+    puts "system,classes,modules"
+    Dir.glob("#{SYSTEMS}/*").select{ |x| File.directory?(x) }.each do |system|
+      system = File.basename(system)
+      nclasses = 0
+      nmods = 0
+      #puts ("#{SYSTEMS}/#{system}/**/*.jar")
+      Dir.glob("#{SYSTEMS}/#{system}/**/*.jar") do |jar|
+        puts jar
+        Zip::ZipFile.foreach(jar) { |entry| nclasses += 1 if entry.to_s =~ /\.class$/ }
+        nmods += 1
+      end
+      f.puts "#{system},#{nclasses},#{nmods}"
+      puts "#{system},#{nclasses},#{nmods}"
+    end
+  end
+end
+
+#file 'cdir/metrics.csv' => files do |t|
+task :cdirmetrics do
+  File.open("cdir/metrics.csv", "w") do |fm|
+    fm.puts("filename,kbytes,classes")
+    files.each do |file|
+      File.open(file, 'r') do |cdir|
+        entries = entries_from_cdir(cdir).select {|k,v| k =~ /\.jar$/}.map { |a, b| b }
+
+        size = entries.inject(0) { |sum, e| sum + e.size } / 1000
+        fm.puts "#{File.basename(file).ext},#{size},#{(524.6 + 0.459*size).to_i}"
+      end
+    end
+  end
+end
+

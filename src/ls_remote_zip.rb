@@ -38,7 +38,7 @@ def print_entries(entries)
   end
 end
 
-def entries_from_uri(uri)
+def cdir_from_uri(uri)
   uri = URI.parse(uri)
   
   Net::HTTP.start(uri.host, uri.port) do |http|
@@ -51,10 +51,7 @@ def entries_from_uri(uri)
       offset = cdir_offset(trail)
 
       cdir = http.get(uri.path, 'Range' => "bytes=#{offset}-").body
-      cdir = StringIO.new(cdir)
-      entries = entries_from_cdir(cdir)
-
-      return entries
+      return cdir
     end
   end
 
