@@ -401,6 +401,68 @@ def souza2009_game(size_limit, arch, alpha, beta, gamma,
   return g
 end
 
+def bcrplus_game(size_limit, arch, alpha, beta, gamma, 
+    delta_in, delta_out, prob_out)
+  g = Network.new
+
+  next_eid = 0
+  arch.each_vertex do |module_|
+    # remove auto-loops
+    e = arch.edge?(module_, module_)
+    arch.remove_edge e if e
+
+    v = g.node!(next_eid, module_.eid)
+    g.edge!(v, v)
+    next_eid += 1
+  end
+
+  #prob_out = mixing.to_f / beta
+
+  sum = 0  
+  event_prob_acc = [alpha, beta, gamma].map { |x| sum += x; sum }
+  while g.size < size_limit
+    event = choose_random_acc(event_prob_acc, [:alpha, :beta, :gamma])
+
+    case event
+    when :alpha
+      w = choose_random(g.nodes.map{ |x| x.in_degree + delta_in }, g.nodes)
+      v = g.node!(next_eid, w.cluster)
+      g.edge!(v, w)
+    when :beta
+      if rand < prob_out # external edge
+        clusters = arch.nodes.select { |n| !n.out_nodes.empty? }
+        clusters.map! { |n| g.cluster?(n.eid) }
+        nodes = clusters.inject([]) { |union, c| union + c.nodes.to_a }
+        v = choose_random(nodes.map{ |x| x.out_degree + delta_out}, nodes)
+
+        arch_node = arch.node?(v.cluster.eid)
+        clusters = arch_node.out_nodes.map { |n| g.cluster?(n.eid) }
+        nodes = clusters.inject([]) { |union, c| union + c.nodes.to_a }
+        nodes = nodes - v.out_nodes
+
+        unless nodes.empty?
+          w = choose_random(nodes.map{ |x| x.in_degree + delta_in }, nodes)
+          g.edge!(v, w)
+        end
+      else # internal edge
+        v = choose_random(g.nodes.map { |x| x.out_degree + delta_out }, g.nodes)
+        nodes = v.cluster.nodes.to_a - [v] - v.out_nodes
+
+        unless nodes.empty?
+          w = choose_random(nodes.map { |x| x.in_degree + delta_in }, nodes)
+          g.edge!(v, w)
+        end
+      end
+    when :gamma
+      v = choose_random(g.nodes.map{ |x| x.out_degree + delta_out }, g.nodes)
+      w = g.node!(next_eid, v.cluster)
+      g.edge!(v, w)
+    end
+    next_eid += 1 if (event == :alpha || event == :gamma)
+  end
+
+  return g
+end
 #require 'test/unit'
 #include Test::Unit::Assertions
 # Assigns each module_graph to a node in arch_graph

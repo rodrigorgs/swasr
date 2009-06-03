@@ -18,12 +18,25 @@ class Network
     @data = Choice::LazyHash.new
   end
 
-  def save(edges_file, modules_file, attr=:eid)
+  def external_edges
+    edges.select { |e| e.from.cluster != e.to.cluster }
+  end
+
+
+  def save(edges_file, modules_file, attr=nil)
     File.open(edges_file, "w") do |f|
-      edges.each { |e| f.puts "#{e.from.send(attr)} #{e.to.send(attr)}" }
+      if attr.nil?
+        edges.each { |e| f.puts "#{e.from.eid} #{e.to.eid}" }
+      else
+        edges.each { |e| f.puts "#{e.from.data.send(attr)} #{e.to.data.send(attr)}" }
+      end
     end
     File.open(modules_file, "w") do |f|
-      nodes.each { |n| f.puts "#{n.send(attr)} #{n.cluster.send(attr)}" }
+      if attr.nil?
+        nodes.each { |n| f.puts "#{n.eid} #{n.cluster.eid}" }
+      else
+        nodes.each { |n| f.puts "#{n.data.send(attr)} #{n.cluster.data.send(attr)}" }
+      end
     end
   end
 
