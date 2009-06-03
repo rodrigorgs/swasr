@@ -17,6 +17,23 @@ class TC_Network < Test::Unit::TestCase
     assert_equal(2, net.clusters.size)
   end
 
+  def test_reduce_size
+    net = Network.new
+    20.times { |i| net.edge!(2*i, 1+2*i) }
+    40.upto(49) { |i| net.node!(i) }
+
+    net.reduce_size(45)
+    assert_equal(45, net.size)
+    0.upto(39) { |i| assert_not_nil(net.node?(i)) }
+    count = 0
+    40.upto(49) { |i| count += 1 if net.node?(i).nil?  }
+    assert_equal(5, count)
+
+    net.reduce_size(30)
+    40.upto(49) { |i| assert_nil(net.node?(i)) }
+    assert_equal(30, net.size)
+  end
+
   def test_edge_remove
     net = Network.new [[0, 1], [1, 0], [0, 2], [2, 3]]
     assert_equal(4, net.edges.size)
@@ -26,6 +43,16 @@ class TC_Network < Test::Unit::TestCase
     assert_equal(1, net.node?(0).out_edges.size)
     assert_equal(1, net.node?(1).out_edges.size)
     assert_equal(0, net.node?(1).in_edges.size)
+  end
+  
+  def test_node_remove
+    net = Network.new [[0, 1], [1, 0], [0, 2], [2, 3]]
+    net.remove_node(0)
+    assert_equal(3, net.size)
+    assert_equal(1, net.edges.size)
+    assert_equal(0, net.node?(1).degree)
+    assert_equal(1, net.node?(2).degree)
+    assert_equal(1, net.node?(3).degree)
   end
 
   def test_undirected
