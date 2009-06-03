@@ -44,10 +44,31 @@ class Network
     save(basename + '.arc', basename + '.mod')
   end
 
+  def Network.load(*args)
+    n = Network.new
+    n.load(*args)
+    return n
+  end
+  
+  def Network.load2(*args)
+    n = Network.new
+    n.load2(*args)
+    return n
+  end
+
+
   # using PAIRS format
   def load(edges_file, modules_file)
     edges_file = read_pairs(edges_file) if edges_file.kind_of?(String)
     modules_file = read_pairs(modules_file) if modules_file.kind_of?(String)
+
+    if !modules_file.nil?
+      node_labels = modules_file.map { |a, b| a }
+      if node_labels.uniq.size != node_labels.size
+        raise 'There are nodes in more than one module' 
+      end
+    end
+
     set_clusters(modules_file) unless modules_file.nil?
     add_edges(edges_file) unless edges_file.nil?
   end
@@ -206,9 +227,42 @@ class Network
   end
 
   def remove_edge(e)
+    return if e.nil?
     e.from.out_edges_map.delete(e.to)
     e.to.in_edges_map.delete(e.from)
     @edges.delete(e) 
+  end
+
+  def remove_node(n)
+    n = node?(n)
+    return if n.nil?
+    n.edges.each { |e| remove_edge(e) }
+    @nodes.delete(n.eid)
+  end
+
+  ###############################################
+
+  def inspect
+    ""
+  end
+
+  def to_dot
+    s = "digraph G {\n"
+    nodes.each { |n| s += "#{n.eid}[shape=box];\n" }
+    edges.each { |e| s += "#{e.from.eid}->#{e.to.eid}\n" }
+    s += "}"
+  end
+
+  def reduce_size(target_size)
+    raise "size < target_size!" if size < target_size
+
+    degree = 0
+    while size > target_size
+      extra = size - target_size
+      set = nodes.select { |n| n.degree == degree }
+      set[0..([extra,set.size].min - 1)].each { |n| remove_node(n) }
+      degree += 1
+    end
   end
 
   ############ RGL interface ####################
