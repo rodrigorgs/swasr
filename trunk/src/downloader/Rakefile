@@ -12,8 +12,13 @@ SYSTEMS = 'systems'
 urls = IO.readlines("links.txt").map { |x| x.chomp }.select { |x| !x.empty? }
 files = urls.map { |url| CDIR + "/" + File.basename(url).ext("cdir") }
 
+desc "Get the list of files inside each zip file"
 task :getcdirs => files
+
+desc "Download the zip files"
 task :getzips => files.map { |x| ZIPS + "/" + File.basename(x).ext("zip") }
+
+desc "Unpack the zip files"
 task :unpack => files.map { |x| "#{SYSTEMS}/#{File.basename(x).ext}" }
 #task :cdirmetrics => 'cdir/metrics.csv'
 #task :metrics => "#{SYSTEMS}/metrics.csv"
@@ -27,6 +32,7 @@ files.each do |name|
 
   file name => CDIR do
     uri = urls.find { |s| s.include? File.basename(name).ext("zip") }
+    puts "Getting cdir from #{uri}"
     cdir = cdir_from_uri(uri)
     File.open(name, "w") { |f| f.write(cdir) }
   end
@@ -49,7 +55,8 @@ files.each do |name|
 end
 
 #file "#{SYSTEMS}/metrics.csv" do
-task :metrics do
+desc "Compute metrics from the jar files"
+task :jarmetrics do
   File.open("#{SYSTEMS}/metrics.csv", "w") do |f|
     f.puts "system,classes,modules"
     puts "system,classes,modules"
@@ -60,7 +67,11 @@ task :metrics do
       #puts ("#{SYSTEMS}/#{system}/**/*.jar")
       Dir.glob("#{SYSTEMS}/#{system}/**/*.jar") do |jar|
         puts jar
-        Zip::ZipFile.foreach(jar) { |entry| nclasses += 1 if entry.to_s =~ /\.class$/ }
+        begin
+          Zip::ZipFile.foreach(jar) { |entry| nclasses += 1 if entry.to_s =~ /\.class$/ }
+        rescue
+          puts "ERRRRRRROOOOOOOOOOO"
+        end
         nmods += 1
       end
       f.puts "#{system},#{nclasses},#{nmods}"
@@ -70,15 +81,17 @@ task :metrics do
 end
 
 #file 'cdir/metrics.csv' => files do |t|
+desc "Compute metrics from the cdir files"
 task :cdirmetrics do
   File.open("cdir/metrics.csv", "w") do |fm|
-    fm.puts("filename,kbytes,classes")
+    fm.puts("filename,jarfiles,kbytes,classes")
     files.each do |file|
+      puts "Processing file #{file}"
       File.open(file, 'r') do |cdir|
         entries = entries_from_cdir(cdir).select {|k,v| k =~ /\.jar$/}.map { |a, b| b }
-
-        size = entries.inject(0) { |sum, e| sum + e.size } / 1000
-        fm.puts "#{File.basename(file).ext},#{size},#{(524.6 + 0.459*size).to_i}"
+        kbytes = entries.inject(0) { |sum, e| sum + e.size } / 1000
+        nclasses = (524.6 + 0.459*kbytes).to_i
+        fm.puts "#{File.basename(file).ext},#{entries.size},#{kbytes},#{nclasses}"
       end
     end
   end

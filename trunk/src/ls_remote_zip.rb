@@ -59,29 +59,10 @@ def cdir_from_uri(uri)
 end
 
 if __FILE__ == $0
-  #uri = URI.parse "http://app.dcc.ufba.br/~rodrigo/zipruby.zip"
-  uri = URI.parse ARGV[0] #"http://ufpr.dl.sourceforge.net/sourceforge/jboss/jboss-5.1.0.GA-jdk6.zip"
-  
-  Net::HTTP.start(uri.host, uri.port) do |http|
-    response = http.head(uri.path)
-    if response.kind_of? Net::HTTPOK
-      length = response['Content-Length']
-
-      STDERR.puts "Length: #{length}"
-
-      trail = http.get(uri.path, 'Range' => 'bytes=-280').body
-      trail = StringIO.new(trail)
-      offset = cdir_offset(trail)
-
-      STDERR.puts "Offset: #{offset}. Size = #{length.to_i - offset.to_i}"
-
-      cdir = http.get(uri.path, 'Range' => "bytes=#{offset}-").body
-      cdir = StringIO.new(cdir)
-      entries = entries_from_cdir(cdir)
-
-      STDERR.puts "Number of files: #{entries.size}"
-
-      print_entries entries
+  File.open(ARGV[0]) do |f|
+    entries = entries_from_cdir(f)
+    entries.values.each do |e|
+      puts e.name
     end
   end
 end
