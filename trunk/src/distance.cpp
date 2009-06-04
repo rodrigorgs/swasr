@@ -199,7 +199,7 @@ void go(t_dist *a, t_dist *b, int n) {
   //printf("% 5d %f\n", 0, mindist);
   float fastdist, indicesdist;
   int iterations;
-  for (iterations = 1; iterations < 34000; iterations++) {
+  for (iterations = 0; iterations < 34000; iterations++) {
     olddist = lastdist;
 
     i = rand() % n;
@@ -244,12 +244,12 @@ void go(t_dist *a, t_dist *b, int n) {
       */ else swap_int(indices + i, indices + j); //swap_matrix_indices(b, n, i, j);
 
     //printf("% 5d %f\n", iterations, mindist);
-    //if (iterations % 500 == 0)
-      fprintf(stderr, "% 5d %f\n", iterations, mindist);
+    if (iterations % 500 == 0)
+      fprintf(stderr, "% 5d %f\n", iterations, sqrt((float)mindist / (n * n)));
 
     temperature *= alpha;
   }
-  printf("%f", mindist);
+  printf("%f", sqrt((float)mindist / (n * n)));
 }
 
 void test(t_dist *a, t_dist *b, int n) {

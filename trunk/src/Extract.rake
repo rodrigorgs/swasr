@@ -28,6 +28,9 @@ task :distance_matrix
 desc "Compute statistics"
 task :stats
 
+desc "Motifs"
+task :motifs => 'motifs.data'
+
 #directory 'jars'
 
 file DEPS => 'jars' do
@@ -45,10 +48,16 @@ end
 
 #file NUMBERS_ARC => NUMBERS_MOD
 #file NUMBERS_MOD do 
-task :numbers do
+task :numbers do |t|
   if !File.file?(NUMBERS_ARC) || !File.file?(NUMBERS_MOD)
     Rake::Task['pairs'].invoke # or .execute
     system "to_numeric_network.rb #{NAMES_ARC} #{NAMES_MOD} #{NUMBERS_ARC} #{NUMBERS_MOD}"
+  else
+    class << t
+      def needed?
+        false
+      end
+    end
   end
 end
 
@@ -60,8 +69,18 @@ task :stats => :analysis do
   system "stat_analysis.R vertices.data clusters.data global.data"
 end
 
-task :distance_matrix => :numbers do
+task :distance_matrix => ['distances-und.csv', 'distances-dir.csv']
+
+file 'distances-und.csv' => :numbers do
   system "distances.R #{NUMBERS_ARC} distances-und.csv FALSE"
+end
+
+file 'distances-dir.csv' => :numbers do
+  system "distances.R #{NUMBERS_ARC} distances-dir.csv TRUE"
+end
+
+file 'motifs.data' => NUMBERS_ARC do
+  system "motifs.R #{NUMBERS_ARC} motifs.data"
 end
 
 if __FILE__ == $0; system "rake --trace -f #{$0} #{ARGV.join(' ')}"; end
