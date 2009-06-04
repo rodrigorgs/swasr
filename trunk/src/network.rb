@@ -253,15 +253,26 @@ class Network
     s += "}"
   end
 
+  #def reduce_size(target_size)
+  #  raise "size < target_size!" if size < target_size
+
+  #  degree = 0
+  #  while size > target_size
+  #    extra = size - target_size
+  #    set = nodes.select { |n| n.degree == degree }
+  #    set[0..([extra,set.size].min - 1)].each { |n| remove_node(n) }
+  #    degree += 1
+  #  end
+  #end
+
   def reduce_size(target_size)
     raise "size < target_size!" if size < target_size
 
-    degree = 0
     while size > target_size
-      extra = size - target_size
-      set = nodes.select { |n| n.degree == degree }
-      set[0..([extra,set.size].min - 1)].each { |n| remove_node(n) }
-      degree += 1
+      min_degree = nodes.map{ |n| n.degree }.min
+      min_degree_nodes = nodes.select { |n| n.degree == min_degree }
+      n = min_degree_nodes[rand(min_degree_nodes.size)]
+      remove_node(n) if n.cluster.size > 1
     end
   end
 
