@@ -4,6 +4,7 @@ require 'rexml/document'
 require 'hpricot'
 require 'grok'
 require 'network'
+require 'zlib'
 
 include REXML
 
@@ -97,10 +98,12 @@ end
 # Usa como entrada um grafo xml extraido pelo DependencyExtractor
 def depxml_to_pairs2(depxml, pairsfile)
   handler = DepxmlHandler2.new(pairsfile)
-  Document.parse_stream(File.new(depxml), handler)
+  file = File.new(depxml)
+  file = Zlib::GzipReader.new(file) if depxml[-3..-1] == '.gz'
+  Document.parse_stream(file, handler)
+  file.close
   return handler.pairs
 end
-
 
 # depfind.sf.net, c2c output
 # Usa como entrada um grafo xml transformado pelo c2c (do depfind.sf.net)

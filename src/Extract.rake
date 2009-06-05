@@ -8,7 +8,7 @@ NUMBERS_ARC = 'numbers.arc'
 NUMBERS_MOD = 'numbers.mod'
 NAMES_ARC = 'names.arc'
 NAMES_MOD = 'names.mod'
-DEPS = 'deps.xml'
+DEPS = 'deps.xml.gz'
 
 task :extract => [DEPS, NAMES_ARC, NAMES_MOD]
 task :default => [:stats, :distance_matrix]
@@ -34,7 +34,7 @@ task :motifs => 'motifs.data'
 #directory 'jars'
 
 file DEPS => 'jars' do
-  system "DependencyExtractor -xml -out #{DEPS} jars"
+  system "DependencyExtractor -xml jars | gzip > #{DEPS}"
 end
 
 file NAMES_ARC => DEPS do
