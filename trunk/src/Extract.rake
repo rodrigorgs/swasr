@@ -11,7 +11,7 @@ NAMES_MOD = 'names.mod'
 DEPS = 'deps.xml.gz'
 
 task :extract => [DEPS, NAMES_ARC, NAMES_MOD]
-task :default => [:stats, :distance_matrix]
+task :default => [:stats, :distance_matrix, :motifs]
 
 desc "Extract dependencies using Dependency Finder"
 task :depfind => DEPS
