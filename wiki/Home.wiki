@@ -4,8 +4,9 @@
 
 Veja as [Instalacao instruções de instalação do ambiente swasr].
 
-== Blog ==
+== Log de pesquisa ==
 
+  * [MotifsRealVsSintetico Como se comparam as distribuições de motifs de redes reais e sintéticas?]
   * [ExperimentosMetricasArquitetura Experimentos com métricas de arquitetura]
   * [MetricasDeArquitetura Métricas de redes complexas com módulos]
   * [ModeloLancichinetti Sobre o modelo de grafos de Lancichinetti para avaliar algoritmos de detecção de comunidade]
