@@ -1,0 +1,13 @@
+﻿#summary Como se comparam as distribuições de motifs de redes reais e sintéticas?
+
+Estou em uma etapa do meu projeto de mestrado em que preciso avaliar se as redes sintetizadas pelos modelos são similares às redes de dependências entre componentes de software, extraídas através de análise estática de bytecode Java. Na primeira rodada de avaliação eu usei uma [Andrade2008 métrica de distância entre redes]. A idéia é que, se um sistema sintético fosse mais distante de sistemas reais do que os sistemas reais são entre si, então o sistema sintético não é realista o bastante. Essa métrica de distância, no entanto, é calculada através de uma busca heurística demorada. Deveria haver uma maneira mais rápida de dizer se uma rede sintética se parece com redes reais do domínio de software.
+
+Foi aí que eu me perguntei: o que todos os sistemas de software reais possuem em comum? Pensei na distribuição de motivos (motifs) e coloquei a mão na massa para testar essa hipótese. Calculei a distribuição de motivos de 8 sistemas Java possuindo entre 1658 e 3527 classes e de duas redes sintéticas, uma gerada pelo modelo LFR e outra pelo BCR+. A figura a seguir mostra cada motivo e sua respectiva numeração:
+
+http://swasr.googlecode.com/svn/wiki/images/motifs3.png
+
+O gráfico a seguir mostra, para cada motivo, sua frequência nas redes consideradas. A linha vermelha grossa é a rede gerada pelo modelo LFR e a preta grossa, pelo BCR+. As demais linhas representam os valores para redes reais.
+
+http://swasr.googlecode.com/svn/wiki/images/motifs3_lfr_bcr.png
+
+Nota-se que, ao menos visualmente, os sistemas reais seguem um padrão de distribuição de motivos, que é parcialmente seguido pelos sistemas sintéticos. Há diferenças notáveis, no entanto, na frequências dos motivos 1 e 2. Os modelos tendem a subestimar a ocorrência de motivos do tipo 1 e superestimar a ocorrência de motivos do tipo 2. Resta saber se essa discrepância pode ser eliminada através da escolha de diferentes parâmetros para os modelos ou se ela é uma limitação inerente.
