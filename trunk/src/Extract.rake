@@ -9,6 +9,8 @@ NUMBERS_MOD = 'numbers.mod'
 NAMES_ARC = 'names.arc'
 NAMES_MOD = 'names.mod'
 DEPS = 'deps.xml.gz'
+ARCH_NAMES_ARC = 'arch-names.arc'
+ARCH_NAMES_MOD = 'arch-names.mod'
 
 task :extract => [DEPS, NAMES_ARC, NAMES_MOD]
 task :default => [:stats, :distance_matrix, :motifs]
@@ -28,10 +30,33 @@ task :distance_matrix
 desc "Compute statistics"
 task :stats
 
+desc "Compute L2 architecture"
+task :arch_names
+
 desc "Motifs"
-task :motifs => 'motifs.data'
+task :motifs => 'motifs.data' 
+task :motifs4 => 'motifs4.data'
 
 #directory 'jars'
+
+task :arch_names => [ARCH_NAMES_ARC, ARCH_NAMES_MOD]
+
+file ARCH_NAMES_ARC => ARCH_NAMES_MOD
+
+file "arch-names.png" => "arch-names.dot" do
+  system "dot -Tpng arch-names.dot -o arch-names.png"
+end
+
+file "arch-names.dot" => "arch-names.arc" do
+  g = Network.new "arch-names.arc", "arch-names.mod"
+  g.save_dot "arch-names.dot"
+end
+
+file ARCH_NAMES_MOD => [NAMES_ARC, NAMES_MOD] do
+  g = Network.new NAMES_ARC, NAMES_MOD
+  arch = g.lift
+  arch.save2("arch-names")
+end
 
 file DEPS => 'jars' do
   system "DependencyExtractor -xml jars | gzip > #{DEPS}"
@@ -80,7 +105,11 @@ file 'distances-dir.csv' => :numbers do
 end
 
 file 'motifs.data' => NUMBERS_ARC do
-  system "motifs.R #{NUMBERS_ARC} motifs.data"
+  system "motifs.R #{NUMBERS_ARC} motifs.data 3"
+end
+
+file 'motifs4.data' => NUMBERS_ARC do
+  system "motifs.R #{NUMBERS_ARC} motifs4.data 4"
 end
 
 if __FILE__ == $0; system "rake --trace -f #{$0} #{ARGV.join(' ')}"; end

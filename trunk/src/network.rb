@@ -199,7 +199,7 @@ class Network
   def lift
     links = self.edges.map { |e| [e.from.cluster.eid, e.to.cluster.eid] }.uniq
     g = new_network
-    self.clusters.each { |c| g.node!(c.eid) }
+    self.clusters.each { |c| g.node!(c.eid, 0) }
     g.add_edges(links.select { |l| l[0] != l[1] } )
     return g
   end
@@ -246,11 +246,19 @@ class Network
     ""
   end
 
+  def dot_id(id)
+    id.gsub(/[^A-Za-z0-9]/, "_")
+  end
+
   def to_dot
     s = "digraph G {\n"
-    nodes.each { |n| s += "#{n.eid}[shape=box];\n" }
-    edges.each { |e| s += "#{e.from.eid}->#{e.to.eid}\n" }
+    nodes.each { |n| s += "#{dot_id(n.eid)}[shape=box];\n" }
+    edges.each { |e| s += "#{dot_id(e.from.eid)} -> #{dot_id(e.to.eid)}\n" }
     s += "}"
+  end
+
+  def save_dot(filename)
+    File.open(filename, "w") { |f| f.write(to_dot) }
   end
 
   #def reduce_size(target_size)
