@@ -39,7 +39,7 @@ task :motifs4 => 'motifs4.data'
 
 #directory 'jars'
 
-task :arch_names => [ARCH_NAMES_ARC, ARCH_NAMES_MOD]
+task :arch_names => "arch-names.png"
 
 file ARCH_NAMES_ARC => ARCH_NAMES_MOD
 
