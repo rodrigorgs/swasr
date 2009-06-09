@@ -33,11 +33,18 @@ task :stats
 desc "Compute L2 architecture"
 task :arch_names
 
+desc "Find vertices associated to more than one module"
+task :duplicates => 'duplicates.txt'
+
 desc "Motifs"
 task :motifs => 'motifs.data' 
 task :motifs4 => 'motifs4.data'
 
 #directory 'jars'
+
+file 'duplicates.txt' => 'names.mod' do
+  system "duplicates.rb names.mod > duplicates.txt"
+end
 
 task :arch_names => "arch-names.png"
 
