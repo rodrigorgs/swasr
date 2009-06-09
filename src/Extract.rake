@@ -2,7 +2,6 @@
 
 require 'rake'
 require 'gxl'
-require 'jars_as_modules'
 
 NUMBERS_ARC = 'numbers.arc'
 NUMBERS_MOD = 'numbers.mod'
@@ -74,8 +73,9 @@ file NAMES_ARC => DEPS do
 end
 
 file NAMES_MOD => 'jars' do
-  pairs = extract_modules(Dir.glob("jars/**/*.jar"))
-  puts_pairs(pairs, NAMES_MOD)
+  system "ClassFinder -compact jars/ | sed -e 's/: jars\\// /g' > #{NAMES_MOD}"
+  #pairs = extract_modules(Dir.glob("jars/**/*.jar"))
+  #puts_pairs(pairs, NAMES_MOD)
 end
 
 #file NUMBERS_ARC => NUMBERS_MOD

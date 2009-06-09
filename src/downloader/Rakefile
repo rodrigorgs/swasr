@@ -3,14 +3,37 @@
 require 'ls_remote_zip'
 require 'net/http'
 require 'zip/zip'
+require 'fileutils'
+require 'grok'
+require 'network'
+include FileUtils
 
 LINKS = "links.txt"
 CDIR = 'cdir'
 ZIPS = 'zips'
 SYSTEMS = 'systems'
 
-urls = IO.readlines("links.txt").map { |x| x.chomp }.select { |x| !x.empty? }
+urls = IO.readlines("links.txt").map { |x| x.chomp }.select { |x| !x.empty? && !(x =~ /\s*#.*/) }
 files = urls.map { |url| CDIR + "/" + File.basename(url).ext("cdir") }
+
+
+###########################################################################
+###########################################################################
+###########################################################################
+
+# The Array power set is stolen from http://snippets.dzone.com/posts/show/3524  
+class Array  
+  # Returns the "power set" for this Array. This means that an array with all  
+  # subsets of the array's elements will be returned.  
+  def power_set  
+    # the power set line is stolen from http://johncarrino.net/blog/2006/08/11/powerset-in-ruby/  
+    inject([[]]){|c,y|r=[];c.each{|i|r<<i;r<<i+[y]};r}  
+  end  
+end  
+
+###########################################################################
+###########################################################################
+###########################################################################
 
 desc "Get the list of files inside each zip file"
 task :getcdirs => files
@@ -20,8 +43,6 @@ task :getzips => files.map { |x| ZIPS + "/" + File.basename(x).ext("zip") }
 
 desc "Unpack the zip files"
 task :unpack => files.map { |x| "#{SYSTEMS}/#{File.basename(x).ext}" }
-#task :cdirmetrics => 'cdir/metrics.csv'
-#task :metrics => "#{SYSTEMS}/metrics.csv"
 
 directory CDIR
 directory ZIPS
@@ -29,6 +50,12 @@ directory SYSTEMS
 
 files.each do |name|
   basename = File.basename(name).ext
+
+  file "#{SYSTEMS}/#{basename}/duplicates.txt" do
+    chdir "#{SYSTEMS}/#{basename}"
+    system "Extract.rake duplicates"
+    chdir "../.."
+  end
 
   file name => CDIR do
     uri = urls.find { |s| s.include? File.basename(name).ext("zip") }
@@ -54,28 +81,28 @@ files.each do |name|
   end
 end
 
-#file "#{SYSTEMS}/metrics.csv" do
-desc "Compute metrics from the jar files"
-task :jarmetrics do
-  File.open("#{SYSTEMS}/metrics.csv", "w") do |f|
+desc "Compute metrics from names.mod"
+task :modmetrics do # TODO: dependencies
+  File.open("mod-metrics.csv", "w") do |f|
     f.puts "system,classes,modules"
-    puts "system,classes,modules"
     Dir.glob("#{SYSTEMS}/*").select{ |x| File.directory?(x) }.each do |system|
-      system = File.basename(system)
-      nclasses = 0
-      nmods = 0
-      #puts ("#{SYSTEMS}/#{system}/**/*.jar")
-      Dir.glob("#{SYSTEMS}/#{system}/**/*.jar") do |jar|
-        puts jar
-        begin
-          Zip::ZipFile.foreach(jar) { |entry| nclasses += 1 if entry.to_s =~ /\.class$/ }
-        rescue
-          puts "ERRRRRRROOOOOOOOOOO"
+      puts system
+      pairs = read_pairs("#{system}/names.mod")
+      modules = pairs.map { |_,m| m }.uniq.count
+      classes = pairs.size
+      f.puts "#{system},#{classes},#{modules}"
+      arch = Network.new
+      arch.load2 "#{system}/arch-names"
+      isolated = arch.nodes.select { |n| n.degree == 0 }.map { |n| n.eid }
+      #if isolated.size <= 4
+        isolated.power_set.each do |set|
+          next if set.empty?
+          p set
+          classes = pairs.select { |c, m| !set.include?(m) }.size
+          name = set.inspect.delete(",", '"', "[", "]")
+          f.puts "#{system} - #{set.inspect},#{name},#{modules - set.size}"
         end
-        nmods += 1
-      end
-      f.puts "#{system},#{nclasses},#{nmods}"
-      puts "#{system},#{nclasses},#{nmods}"
+      #end
     end
   end
 end
@@ -97,3 +124,27 @@ task :cdirmetrics do
   end
 end
 
+#desc "Compute metrics from the jar files"
+#task :jarmetrics do
+#  File.open("jar-metrics.csv", "w") do |f|
+#    f.puts "system,classes,modules"
+#    puts "system,classes,modules"
+#    Dir.glob("#{SYSTEMS}/*").select{ |x| File.directory?(x) }.each do |system|
+#      system = File.basename(system)
+#      nclasses = 0
+#      nmods = 0
+#      #puts ("#{SYSTEMS}/#{system}/**/*.jar")
+#      Dir.glob("#{SYSTEMS}/#{system}/**/*.jar") do |jar|
+#        puts jar
+#        begin
+#          Zip::ZipFile.foreach(jar) { |entry| nclasses += 1 if entry.to_s =~ /\.class$/ }
+#        rescue
+#          puts "ERRRRRRROOOOOOOOOOO"
+#        end
+#        nmods += 1
+#      end
+#      f.puts "#{system},#{nclasses},#{nmods}"
+#      puts "#{system},#{nclasses},#{nmods}"
+#    end
+#  end
+#end
