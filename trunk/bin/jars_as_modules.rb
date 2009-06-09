@@ -3,6 +3,7 @@
 # between fully-qualified class/interface name and JAR file. The output can
 # be used as a modules pairs file, considering that a JAR file is a module.
 #
+# DEPRECATED. Use ClassFinder (from depfind.sf.net) instead.
 
 require 'zip/zip'
 
