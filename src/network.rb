@@ -38,10 +38,12 @@ class Network
         nodes.each { |n| f.puts "#{n.data.send(attr)} #{n.cluster.data.send(attr)}" }
       end
     end
+    true
   end
 
   def save2(basename, attributed=:eid)
     save(basename + '.arc', basename + '.mod')
+    true
   end
 
   def Network.load(*args)
@@ -238,6 +240,12 @@ class Network
     return if n.nil?
     n.edges.each { |e| remove_edge(e) }
     @nodes.delete(n.eid)
+  end
+
+  def remove_cluster(c)
+    c = cluster?(c)
+    c.nodes.each { |n| remove_node(n) }
+    @clusters.delete(c.eid)
   end
 
   ###############################################
