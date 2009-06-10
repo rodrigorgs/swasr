@@ -2,6 +2,25 @@
 
 require 'network'
 
+def index_network(net)
+  net.nodes.each_with_index { |n, idx| n.data.i = idx }
+  net.clusters.each_with_index { |c, idx| c.data.i = idx }
+  true
+end
+
+def to_numeric_network(iarc, imod, oarc, omod)
+  net = Network.new
+  net.load(iarc, imod)
+
+  net.nodes.each_with_index { |n, idx| n.data.i = idx }
+  net.clusters.each_with_index { |c, idx| c.data.i = idx }
+  net.save(oarc, omod, :i)
+end
+
+def to_numeric_network_base(input, output)
+  to_numeric_network(input + '.arc', input + '.mod', output + '.arc', output + '.mod')
+end
+
 if __FILE__ == $0
   def help_to_numeric
     puts "
@@ -15,17 +34,11 @@ if __FILE__ == $0
   end
 
   if ARGV.size == 2
-    files = [ARGV[0] + '.arc', ARGV[0] + '.mod', ARGV[1] + '.arc' + ARGV[1] + '.mod']
+    to_numeric_network_base(*ARGV)
   elsif ARGV.size == 4
-    files = ARGV
+    to_numeric_network(*ARGV)
   else
     help_to_numeric
   end
 
-  net = Network.new
-  net.load(files[0], files[1] )
-
-  net.nodes.each_with_index { |n, idx| n.data.i = idx }
-  net.clusters.each_with_index { |c, idx| c.data.i = idx }
-  net.save(files[2], files[3], :i)
 end

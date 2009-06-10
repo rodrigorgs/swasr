@@ -199,7 +199,7 @@ void go(t_dist *a, t_dist *b, int n) {
   float fastdist, indicesdist;
   int iterations;
   int miniteration = 0;
-  for (iterations = 0; iterations - miniteration < 100; iterations++) {
+  for (iterations = 0; iterations - miniteration < 500; iterations++) {
     olddist = lastdist;
 
     i = rand() % n;
@@ -257,15 +257,39 @@ void test(t_dist *a, t_dist *b, int n) {
   
 }
 
+int nlinhas(char *filename) {
+  int n;
+  char buf[256];
+
+  sprintf(buf, "wc -l %s", filename);
+  FILE *wc = popen(buf, "r");
+  fscanf(wc, "%d", &n);
+  pclose(wc);
+  return n;
+}
+
 int main(int argc, char *argv[]) {
   int n;
+  char buf[255];
+  char *filename1, *filename2;
 
-  if (argc < 4) help();
+  if (argc < 3) help();
 
-  n = atoi(argv[1]);
+  filename1 = argv[1];
+  filename2 = argv[2];
+
+  int n1 = nlinhas(filename1);
+  int n2 = nlinhas(filename2);
+
+  if (n1 != n2) {
+    printf("Matrix sizes differ! Sizes are %d and %d.\n", n1, n2);
+    exit(2);
+  }
+
+  n = n1;
   t_dist a[n*n], b[n*n];
 
-  load_files(argv[2], argv[3], n, a, b);
+  load_files(filename1, filename2, n, a, b);
   srand(time(NULL));
 
   if (argc < 5)
