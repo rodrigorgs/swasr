@@ -43,7 +43,7 @@ http://ufpr.dl.sourceforge.net/sourceforge/jasperreports/jasperreports-3.5.2-pro
 http://ufpr.dl.sourceforge.net/sourceforge/jfreereport/pentaho-reporting-engine-classic-0.8.9.11.zip
 http://ufpr.dl.sourceforge.net/sourceforge/jgnash/jGnash-2.2.0.zip
 http://ufpr.dl.sourceforge.net/sourceforge/jgraph/jgraphpad-5.10.0.2.zip
-http://ufpr.dl.sourceforge.net/sourceforge/jimm/jimm-0.5.1.zip
+#http://ufpr.dl.sourceforge.net/sourceforge/jimm/jimm-0.5.1.zip # Arquitetura sem arestas
 http://ufpr.dl.sourceforge.net/sourceforge/jmsn/jmsn-0.9.9b2.zip
 http://ufpr.dl.sourceforge.net/sourceforge/juel/juel-2.1.2.zip
 http://ufpr.dl.sourceforge.net/sourceforge/jxplorer/JXv3.2rc2deploy.zip
@@ -53,7 +53,7 @@ http://ufpr.dl.sourceforge.net/sourceforge/mjrz/iFreeBudget-2.0.9.zip
 http://ufpr.dl.sourceforge.net/sourceforge/mondrian/mondrian-3.1.1.12687.zip
 http://ufpr.dl.sourceforge.net/sourceforge/ojob/oddjob-0.26.0.zip
 http://ufpr.dl.sourceforge.net/sourceforge/openxava/openxava-3.1.2.zip
-http://ufpr.dl.sourceforge.net/sourceforge/ordrumbox/ordrumbox-V0.8.04-src.zip
+#http://ufpr.dl.sourceforge.net/sourceforge/ordrumbox/ordrumbox-V0.8.04-src.zip # sem JARS
 http://ufpr.dl.sourceforge.net/sourceforge/pjirc/pjirc_2_2_1_bin.zip
 http://ufpr.dl.sourceforge.net/sourceforge/pmd/pmd-bin-4.2.5.zip
 http://ufpr.dl.sourceforge.net/sourceforge/proguard/proguard4.3.zip
@@ -64,10 +64,20 @@ http://ufpr.dl.sourceforge.net/sourceforge/tvbrowser/tvbrowser-2.7.3-bin.zip
 http://ufpr.dl.sourceforge.net/sourceforge/yale/rapidminer-4.4-community.zip
 http://ufpr.dl.sourceforge.net/sourceforge/zk1/zk-bin-3.6.1.zip
 http://www.dbwrench.com/download/files/dbwrench.zip
-http://www.h2database.com/h2-2009-06-01.zip
+#http://www.h2database.com/h2-2009-06-01.zip # Arquitetura sem arestas
 http://www.myjgui.com/downloads/older%20versions/0.6/myjgui_0.6.6.zip
 http://www.ourgrid.org/images/ourgrid/dist/4/4.1.5/broker-4.1.5.zip
 http://www.ourgrid.org/images/ourgrid/dist/4/4.1.5/peer-4.1.5.zip
 http://www.ourgrid.org/images/ourgrid/dist/4/4.1.5/worker-4.1.5.zip
 http://www.thinkui.com/download/thinkui_sqlclient-1.1.2.zip
-http://www.umlgraph.org/UMLGraph-5.2.zip
+#http://www.umlgraph.org/UMLGraph-5.2.zip # 1 JAR
+# Da pasta corpora
+http://ufpr.dl.sourceforge.net/sourceforge/jfreechart/jfreechart-1.0.13.zip
+http://ufpr.dl.sourceforge.net/sourceforge/villonanny/villonanny-2.3.0.b02.bin.zip
+http://gdata-java-client.googlecode.com/files/gdata-src.java-1.31.1.zip
+http://ufpr.dl.sourceforge.net/sourceforge/pdfsam/pdfsam-1.1.3-out.zip
+http://ufpr.dl.sourceforge.net/sourceforge/jabref/JabRef-2.5b2-src.zip
+http://ufpr.dl.sourceforge.net/sourceforge/battlefieldjava/battlefieldjava-0.1.zip
+http://ufpr.dl.sourceforge.net/sourceforge/abaguibuilder/AbaGuiBuilder-1.8.zip
+http://s3.amazonaws.com/ec2-downloads/ec2-api-tools.zip
+http://www.receita.fazenda.gov.br/Publico/programas/irpf/2009/PGDIrpf200911/Java/ZIP/IRPF2009v1.1.zip

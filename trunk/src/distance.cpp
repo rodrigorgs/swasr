@@ -5,8 +5,7 @@
  * Baseado no artigo de Andrade et al, 2008:
  * "Measuring distances between complex networks"
  *
- * TODO: fastcalc
- * TODO: guardar um vetor das permutacoes
+ * TODO: calcular o tamanho do arquivo
  */
 #include <cstdio>
 #include <cstdlib>
@@ -199,7 +198,8 @@ void go(t_dist *a, t_dist *b, int n) {
   //printf("% 5d %f\n", 0, mindist);
   float fastdist, indicesdist;
   int iterations;
-  for (iterations = 0; iterations < 34000; iterations++) {
+  int miniteration = 0;
+  for (iterations = 0; iterations - miniteration < 100; iterations++) {
     olddist = lastdist;
 
     i = rand() % n;
@@ -231,6 +231,7 @@ void go(t_dist *a, t_dist *b, int n) {
 
     if (lastdist < mindist) {
       mindist = lastdist;
+      miniteration = iterations;
     }
     /*
     else if (delta > 0) { // nova solucao e' pior do que a ultima

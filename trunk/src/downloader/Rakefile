@@ -65,13 +65,13 @@ files.each do |name|
   end
 
   zipname = "#{ZIPS}/#{basename}.zip"
-  file zipname => [name, ZIPS] do
-    url = urls.find { |s| s.include?(basename) }
-    #contents = Net::HTTP.get(URI.parse(url)).body
-    #File.open(zipname, "w") { |f| f.write contents }
-    #puts "Downloaded #{zipname}."
-    system "wget #{url} --output-document=#{zipname}"
-    touch zipname
+  file zipname => ZIPS do
+    puts zipname
+    if !File.exist? zipname
+      url = urls.find { |s| s.include?(basename) }
+      system "wget #{url} --output-document=#{zipname}"
+      touch zipname
+    end
   end
 
   file "#{SYSTEMS}/#{basename}" => zipname do |t|
@@ -84,13 +84,14 @@ end
 desc "Compute metrics from names.mod"
 task :modmetrics do # TODO: dependencies
   File.open("mod-metrics.csv", "w") do |f|
-    f.puts "system,classes,modules"
+    f.puts "system,classes,modules,artificial"
     Dir.glob("#{SYSTEMS}/*").select{ |x| File.directory?(x) }.each do |system|
+      sysname = File.basename(system)
       puts system
       pairs = read_pairs("#{system}/names.mod")
       modules = pairs.map { |_,m| m }.uniq.count
       classes = pairs.size
-      f.puts "#{system},#{classes},#{modules}"
+      f.puts "#{sysname},#{classes},#{modules},N"
       arch = Network.new
       arch.load2 "#{system}/arch-names"
       isolated = arch.nodes.select { |n| n.degree == 0 }.map { |n| n.eid }
@@ -99,8 +100,8 @@ task :modmetrics do # TODO: dependencies
           next if set.empty?
           p set
           classes = pairs.select { |c, m| !set.include?(m) }.size
-          name = set.inspect.delete(",", '"', "[", "]")
-          f.puts "#{system} - #{set.inspect},#{name},#{modules - set.size}"
+          name = set.inspect.gsub(/[,"]/, "")
+          f.puts "#{sysname} - #{name},#{classes},#{modules - set.size},Y"
         end
       #end
     end
