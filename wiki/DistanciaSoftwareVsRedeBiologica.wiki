@@ -1,4 +1,4 @@
-<wiki:comment>
+
 Dalton deu a ideia de medir a distância entre a rede de um sistema de software e outros tipos de rede (redes sociais, biológicas etc.). Se a métrica de distância for boa mesmo, ela deve ser capaz de diferenciar os tipos de rede.
 
 Calculei a distância de 6 sistemas de software para o sistema proguard 4.3, com 618 vértices. Resultados:
@@ -26,5 +26,3 @@ Qual não foi minha surpresa ao calcular a distância da rede biológica [http:/
 
 Pelo gráfico fica bem claro qual rede é diferente das outras... 
 
-
-</wiki:comment>
