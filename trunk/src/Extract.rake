@@ -111,11 +111,11 @@ file 'distances-dir.csv' => :numbers do
   system "distances.R #{NUMBERS_ARC} distances-dir.csv TRUE"
 end
 
-file 'motifs.data' => NUMBERS_ARC do
+file 'motifs.data' => :numbers do
   system "motifs.R #{NUMBERS_ARC} motifs.data 3"
 end
 
-file 'motifs4.data' => NUMBERS_ARC do
+file 'motifs4.data' => :numbers do
   system "motifs.R #{NUMBERS_ARC} motifs4.data 4"
 end
 
