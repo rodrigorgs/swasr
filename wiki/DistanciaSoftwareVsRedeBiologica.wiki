@@ -1,0 +1,30 @@
+<wiki:comment>
+Dalton deu a ideia de medir a distância entre a rede de um sistema de software e outros tipos de rede (redes sociais, biológicas etc.). Se a métrica de distância for boa mesmo, ela deve ser capaz de diferenciar os tipos de rede.
+
+Calculei a distância de 6 sistemas de software para o sistema proguard 4.3, com 618 vértices. Resultados:
+
+<pre>
+==> ./JXv3.2rc2deploy-red618/dist <==
+2.293912
+==> ./battlefieldjava-0.1-red618/dist <==
+2.311015
+==> ./ermodeller-1.9.2-binary-red618/dist <==
+2.030995
+==> ./smc_6_0_0-red618/dist <==
+1.875550
+==> ./guice-2.0-red618/dist <==
+1.282101
+==> ./myjgui_0.6.6-red618/dist <==
+2.296488
+</pre>
+
+Valores ordenados: (1.282101, 1.875550, 2.030995, 2.293912, 2.296488, 2.311015)
+
+Qual não foi minha surpresa ao calcular a distância da rede biológica [http://pil.phys.uniroma1.it/~gcalda/cosinsite/extra/data/proteins/helico rede de interações proteína-proteína para a Helicobacter Pylori]: 1.338623. Das duas uma: ou (a) essa rede é mais parecida com redes de software do que as próprias redes de software ou (b) a métrica de distância não caracteriza bem as redes de software (não a diferencia das outras redes). Resolvi então plotar a distribuição de motifs dos 7 sistemas de software e da rede helico:
+
+
+
+Pelo gráfico fica bem claro qual rede é diferente das outras... 
+
+
+</wiki:comment>
