@@ -1,0 +1,22 @@
+#summary Mais uma tentativa de caracterizar redes de software e... não foi desta vez.
+
+Após uma tentativa frustrada de desenvolver uma métrica de distância entre redes baseada em distribuição de motifs e testes estatísticos como R² e qui-quadrado, pensei ter enfim encontrado a técnica perfeita para medir a "softwaressimilhança" de uma rede -- medida que informa o grau de semelhança entre uma rede e redes típicas de sistemas de software.
+
+Pra começar eu calculei a distribuição de motifs de 65 sistemas escritos em Java. Eu esperava encontrar a frequência média de cada motif dentre os 65 sistemas. Por exemplo, eu poderia achar que o motif 1 aparece com frequência 0.60 +- 0.15. Então pra calcular a softwaressimilhança de uma rede eu compararia os valores de frequências obtidos com os valores esperados (as médias). Por exemplo, eu poderia encontrar que a frequência do motif 1 na rede analisada é 0.76. Como esse valor está a pouco mais de 1 desvio-padrão do valor esperado, então eu poderia dizer, com x% de confiança, que a distribuição do motif 1 não caracteriza a rede como um sistema de software. De alguma forma os resultados para cada motif seriam combinados em um número e se tornaria a métrica de softwaressimilhança.
+
+Tudo muito bonito, eu só tinha que verificar rapidamente se de fato existe as frequências de cada motif oscilavam harmoniosamente em torno de uma média. Em outras palavras, tinha que confirmar que a distribuição era normal. O teste de normalidade de Shapiro-Wilk não foi muito animador, e os gráficos quantil-quantil não ficaram como eu esperava... Enfim plotei os histogramas e, mais uma vez, não encontrei vestígios claros de uma curva de Gauss. 
+
+http://swasr.googlecode.com/svn/wiki/images/motif01-hist.png
+http://swasr.googlecode.com/svn/wiki/images/motif02-hist.png
+http://swasr.googlecode.com/svn/wiki/images/motif03-hist.png
+http://swasr.googlecode.com/svn/wiki/images/motif04-hist.png
+http://swasr.googlecode.com/svn/wiki/images/motif05-hist.png
+http://swasr.googlecode.com/svn/wiki/images/motif06-hist.png
+http://swasr.googlecode.com/svn/wiki/images/motif07-hist.png
+http://swasr.googlecode.com/svn/wiki/images/motif08-hist.png
+http://swasr.googlecode.com/svn/wiki/images/motif09-hist.png
+http://swasr.googlecode.com/svn/wiki/images/motif10-hist.png
+http://swasr.googlecode.com/svn/wiki/images/motif11-hist.png
+http://swasr.googlecode.com/svn/wiki/images/motif12-hist.png
+
+É... ainda não foi dessa vez que eu construí meu oráculo que determina se uma rede foi ou não foi extraída de um sistema de software.

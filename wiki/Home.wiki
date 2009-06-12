@@ -6,6 +6,7 @@ Veja as [Instalacao instruções de instalação do ambiente swasr].
 
 == Log de pesquisa ==
 
+  * [FrequenciasMediasPorMotif Mais uma tentativa de caracterizar redes de software e... não foi desta vez.]
   * [MotifsRealVsSintetico Como se comparam as distribuições de motifs de redes reais e sintéticas?]
   * [ExperimentosMetricasArquitetura Experimentos com métricas de arquitetura]
   * [MetricasDeArquitetura Métricas de redes complexas com módulos]
