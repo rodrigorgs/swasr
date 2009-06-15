@@ -29,4 +29,6 @@ size = argv[3]
 
 g = read.graph(inputFile)
 m = graph.motifs(g, size)
+m = c(m[3], m[5:16])
+m = m / sum(m)
 write(m, outputFile, 1)
