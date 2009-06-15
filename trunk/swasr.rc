@@ -46,6 +46,9 @@ export DEPENDENCYFINDER_HOME=$DIR/opt/DependencyFinder-1.2.1-beta1
 export DEPENDENCYFINDER_OPTS=-Xmx512m
 export PATH=$DEPENDENCYFINDER_HOME/bin:$PATH
 
+# mfinder
+export PATH=$PATH:$DIR/opt/mfinder1.2
+
 # swasr
 export PATH=$PATH:$DIR/sandbox
 export RUBYLIB=$RUBYLIB:$DIR/sandbox
