@@ -49,6 +49,9 @@ export PATH=$DEPENDENCYFINDER_HOME/bin:$PATH
 # mfinder
 export PATH=$PATH:$DIR/opt/mfinder1.2
 
+# FANMOD
+export PATH=$PATH:$DIR/opt
+
 # swasr
 export PATH=$PATH:$DIR/sandbox
 export RUBYLIB=$RUBYLIB:$DIR/sandbox
