@@ -50,7 +50,8 @@ export PATH=$DEPENDENCYFINDER_HOME/bin:$PATH
 export PATH=$PATH:$DIR/opt/mfinder1.2
 
 # FANMOD
-export PATH=$PATH:$DIR/opt
+export PATH=$PATH:$DIR/opt/fanmod
+export PATH=$PATH:$DIR/opt/randesu
 
 # swasr
 export PATH=$PATH:$DIR/sandbox

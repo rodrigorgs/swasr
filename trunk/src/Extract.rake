@@ -119,4 +119,13 @@ file 'motifs4.data' => :numbers do
   system "motifs.R #{NUMBERS_ARC} motifs4.data 4"
 end
 
+require 'read_randesu'
+file 'zscores' => 'randesu.log' do
+  extract_zscores('randesu.log', 'zscores')
+end
+
+file 'randesu.log' => 'numbers.arc' do
+  system "randesu numbers.arc -s 3 -r 1000 -f randesu.log"
+end
+
 if __FILE__ == $0; system "rake --trace -f #{$0} #{ARGV.join(' ')}"; end

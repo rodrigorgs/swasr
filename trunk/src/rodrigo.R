@@ -20,13 +20,14 @@ plot.logbins <- function(data, pow=2, func=plot, ...) {
 plot.motifs <- function(motifs) {
   n = length(motifs[,1])
   for (x in 1:n) {
-    motifs[x,] = motifs[x,] / sum(motifs[x,])
+    motifs[x,] = motifs[x,] / sum(abs(motifs[x,]))
   }
-  maximum = max(motifs)
-  plot(motifs[1,] / sum(motifs[1,]), ylim=c(0,maximum))
+
+  plot(motifs[1,], ylim=c(min(motifs), max(motifs)))
+  abline(0, 0)
   for (x in 1:n) {
     z = motifs[x,]
-    z = z / sum(z)
+    #z = z / sum(z)
     points(z, col=x)
     lines(z, col=x)
   }
