@@ -63,9 +63,11 @@ sistema.
 Sistemas de software, no nível de implementação, são formados por vários
 componentes que interagem entre si. Programas orientados a objetos, por exemplo,
 são compostos por classes que interagem com outras classes através de mecanismos
-como herança e troca de mensagens. As interações estabelecem relações de
-dependência entre os componentes, de forma que cada componente só funciona
-corretamente na presença dos componentes dos quais ele depende.
+como herança e agregação. As interações estabelecem relações de dependência
+entre os componentes, de forma que cada componente só funciona corretamente na
+presença dos componentes dos quais ele depende. Essas dependências formam uma
+rede de software, na qual os vértices representam as classes e as arestas
+representam dependências.
 
 %análise estática e suas limitações. Enumerar tipos de dependências extraídas
 %pelo depfind.sf.net.
@@ -77,21 +79,50 @@ corretamente, em todos os casos, se existe uma dependência entre dois
 componentes [cite].
 
 %Caracterização das redes de software. Teoria das redes complexas. Redes livres
-%de escala (dar exemplo de redes que NÃO SÃO livres de escala). Modelos
-%estocásticos de redes complexas.
-Estudos recentes analisaram redes de dependências entre componentes sob a luz da
-teoria das redes complexas e encontraram propriedades topológicas marcantes que
-também estão presentes em redes de diversos domínios, como redes de interações
-entre proteínas e redes sociais.
+%de escala (dar exemplo de redes que NÃO SÃO livres de escala).
+Estudos recentes analisaram redes de software sob a luz da teoria das redes
+complexas e encontraram propriedades topológicas marcantes que também estão
+presentes em redes de interações entre proteínas, redes sociais e muitas outras
+[cite]. Descobriu-se que nessas redes a distribuição dos graus dos vértices é
+bem aproximada por uma lei de potência $N(k) ~ k^{-\gamma}$, isto é, o número de
+vértices ligados a exatamente $k$ arestas é proporcional a uma potência de $k$
+com expoente negativo e constante. Redes caracterizadas por essa distribuição de
+graus específica foram chamadas de redes livres de escala.
 
+% XXX Figura de Barabási que está na revisão bibliográfica
+
+%Modelos estocásticos de redes complexas.
+A partir dessa observação foram desenvolvidos diversos modelos estocásticos que
+produzem redes livres de escala. %XXX
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Identificação do Problema} 
-% "Identificação do Problema" a ser investigado na pesquisa bem como sua relevância para a área de conhecimento;
+% "Identificação do Problema" a ser investigado na pesquisa bem como sua
+% relevância para a área de conhecimento;
 
-Avaliação é importante. Dizer como é feita a avaliação de algoritmos de recuperação de arquitetura.
-Dificuldade em se avaliar algoritmos de recuperação (por causa da escassez de sistemas cuja estrutura modular é documentada).
+Espera-se que os algoritmos de modularização de software encontrem organizações
+modulares semelhantes àquelas que seriam encontradas por especialistas nos
+sistemas analisados. % XXX relevância da avaliação?
+Uma forma de testar os algoritmos consiste, pois, em
+aplicá-los ao código-fonte de um sistema cuja organização modular esteja
+documentada e então comparar a organização encontrada com a organização
+documentada. Infelizmente é difícil encontrar sistemas documentados nesse nível
+de detalhe e por essa razão a avaliação empírica dos algoritmos ainda é
+incipiente.
+
+% a deficiência de soluções comprovadas...
+A deficiência na avaliação dos algoritmos de modularização de software é uma
+barreira para a adoção dos algoritmos na indústria e um obstáculo para o avanço
+das pesquisas. 
+% consequencias da deficiência na avaliação
+% - não dá pra comparar algoritmos
+% - não dá pra melhorar algoritmos (pois não há como atestar que um é melhor do
+%   que outro e em que situações)
+% - não há evidências de que um algoritmo é bom
+
+%Avaliação é importante. Dizer como é feita a avaliação de algoritmos de recuperação de arquitetura.
+%Dificuldade em se avaliar algoritmos de recuperação (por causa da escassez de sistemas cuja estrutura modular é documentada).
 
 %(eu estou atacando uma forma de avaliação, por ser inviável e não fornecer muitos insights)
 %Objetivo: avaliar uma nova forma de avaliação, identificar pontos fortes e fraquezas dessa forma de avaliação
@@ -101,19 +132,40 @@ Dificuldade em se avaliar algoritmos de recuperação (por causa da escassez de si
 \section{Objetivos}
 % "Objetivos" geral e específicos da pesquisa;
 
-Resumir em um parágrafo a nossa abordagem de redes sintéticas.
+Para suprir a escassez de sistemas cuja organização modular é documentada,
+propomos o uso de modelos estocásticos capazes de sintetizar redes de
+software organizadas em módulos para servirem como conjunto de teste.
+Para que essa abordagem seja bem-sucedida, no entanto, é preciso que as redes
+sintéticas sejam realistas, isto é, semelhantes a redes extraídas de sistemas de
+software reais. 
 
-O OBJETIVO DE PESQUISA É**ANALISAR MODELOS ESTOCÁSTICOS QUE POSSAM SER USADOS PARA AVALIAR ALGORITMOS DE RECUPERAÇÃO DE ARQUITETURA
-- Descobrir modelos estocásticos de redes livres de escala organizadas em módulos.
-- Caracterizar redes de software.
-- Desenvolver método para atestar a "softwaressimilhança" de uma rede. Avaliar esse método. Ele deve atestar que redes de software são softwaressímeis, enquanto redes de interações entre proteínas não são.
-- Avaliar os modelos quantitativamente quanto à verossimilhança das redes de software que eles geram.
-- Aplicar algoritmos de recuperação de arquitetura a redes sintéticas, calcular authoritativeness e comparar resultados com aqueles disponíveis na literatura. Estudo exploratório.
+Assim, o objetivo desta pesquisa é analisar modelos estocásticos que possam ser
+usados para avaliar algoritmos de modularização de software. Esse objetivo pode
+ser decomposto nos objetivos específicos apresentados a seguir.
 
-Descobrir modelos estocásticos capazes de sintetizar sistemas de software organizados em módulos e avaliá-los quantitativamente quanto à capacidade de gerar sistemas semelhantes a sistemas reais (sobretudo desenvolver o método para avaliação). 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Descobrir modelos estocásticos de redes livres de escala organizadas em módulos.
 
-(E, principalmente: Desenvolver um método!)
-Objetivo: demonstrar que a hipótese X é verdadeira
+Caracterizar redes de software.
+
+Desenvolver um método para medir o realismo de uma rede de software sintética.
+Avaliar esse método. Ele deve atestar que redes de software são softwaressímeis,
+enquanto redes de interações entre proteínas não são.
+
+Avaliar o realismo dos modelos. (Um modelo é realista se é capaz de produzir
+redes realistas).
+
+Aplicar algoritmos de recuperação de arquitetura a redes sintéticas, calcular
+authoritativeness e comparar resultados com aqueles disponíveis na literatura.
+Estudo exploratório.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%O OBJETIVO DE PESQUISA É**ANALISAR MODELOS ESTOCÁSTICOS QUE POSSAM SER USADOS PARA AVALIAR ALGORITMOS DE RECUPERAÇÃO DE ARQUITETURA
+
+%Descobrir modelos estocásticos capazes de sintetizar sistemas de software organizados em módulos e avaliá-los quantitativamente quanto à capacidade de gerar sistemas semelhantes a sistemas reais (sobretudo desenvolver o método para avaliação). 
+
+%(E, principalmente: Desenvolver um método!)
+%Objetivo: demonstrar que a hipótese X é verdadeira
 
 \section{Atividades Planejadas e Realizadas}
 % "Atividades Realizadas e Planejadas" com estimativas de conclusão;
