@@ -145,19 +145,25 @@ ser decomposto nos objetivos específicos apresentados a seguir.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Descobrir modelos estocásticos de redes livres de escala organizadas em módulos.
+A maioria dos modelos disponíveis na literatura ignora a organização modular.
+%mas alguns deles podem ser adaptados com facilidade.
 
-Caracterizar redes de software.
+%Caracterizar redes de software. A distribuição de graus da forma lei de potência
+%é apenas uma característica das redes de software. Existem outras
+%características documentadas na literatura.
 
-Desenvolver um método para medir o realismo de uma rede de software sintética.
-Avaliar esse método. Ele deve atestar que redes de software são softwaressímeis,
-enquanto redes de interações entre proteínas não são.
+Desenvolver um método para avaliar o realismo de uma rede. Esse método deve
+encontrar um grau de realismo alto para redes de software reais e um grau de
+realismo baixo para redes de outros domínios. %Para isso a métrica
+%deve levar em consideração características únicas de redes de software.
 
-Avaliar o realismo dos modelos. (Um modelo é realista se é capaz de produzir
-redes realistas).
+Avaliar o realismo dos modelos estocásticos. Um modelo é realista se ele é capaz
+de produzir redes realistas.
 
-Aplicar algoritmos de recuperação de arquitetura a redes sintéticas, calcular
-authoritativeness e comparar resultados com aqueles disponíveis na literatura.
-Estudo exploratório.
+Avaliar algoritmos de modularização através de sua aplicação a um grande número
+de redes sintéticas. Os resultados poderão ser comparados com resultados
+experimentais encontrados na literatura.
+% avaliativos
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %O OBJETIVO DE PESQUISA É**ANALISAR MODELOS ESTOCÁSTICOS QUE POSSAM SER USADOS PARA AVALIAR ALGORITMOS DE RECUPERAÇÃO DE ARQUITETURA
@@ -167,26 +173,66 @@ Estudo exploratório.
 %(E, principalmente: Desenvolver um método!)
 %Objetivo: demonstrar que a hipótese X é verdadeira
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Atividades Planejadas e Realizadas}
 % "Atividades Realizadas e Planejadas" com estimativas de conclusão;
 
-Realizadas:
-- Produção de uma revisão bibliográfica
-- Produção de um manuscrito com resultados preliminares da pesquisa
-- Implementação de modelos
-- Coleta de um corpo de sistemas de software
-- Coleta de um corpo de redes não-software
-- Desenvolvimento de um método de avaliação de realismo (e aplicação a um corpus pequeno) -- DESCREVER O MÉTODO sucintamente.
-- Avaliação qualitativa e quantitativa de modelos (2 modelos não-orientados) através de um experimento.
+Foram encontrados na literatura dois modelos que produzem redes organizadas em
+módulos [cite]. Um terceiro modelo de redes modulares foi desenvolvido a partir
+da adaptação de um modelo de redes não-modulares [cite].
 
-Planejadas:
-- Refinamento do método de avaliação de realismo. Est.:
-  - Avaliar modelos de redes orientadas.
-  - Achar uma métrica que não dependa de achar softwares de mesmo tamanho. (e que se aplique a redes orientadas, uma vez que em redes orientadas a distância de Andrade gera matrizes muito esparsas, afetando negativamente a relevância do valor calculado)
-- Publicação com resultados preliminares. Est.: outubro?
-- Aplicação de algoritmos de clustering e comparação com literatura: Est.:
-- Dissertação
-- Publicação dos resultados finais da pesquisa
+Para apoiar a avaliação de realismo dos modelos, coletamos um corpo de 65
+sistemas de software escritos na linguagem Java. A rede de dependências entre
+componentes de cada sistema foi extraída através da ferramenta Dependency Finder
+[footnote]. Coletamos ainda cerca de cem redes de diversos domínios, sobretudo
+redes sociais e redes biológicas. De cada rede (do domínio de software ou de
+outros domínios) foram extraídas diversas métricas, tais como número de
+vértices, número de arestas, número médio de arestas por vértice, o expoente
+$\gamma$ da distribuição de graus, entre outras. 
+
+Foi encontrada na literatura uma métrica de distância entre duas redes [cite].
+Essa métrica foi utilizada em um experimento, descrito em detalhes em um artigo
+não publicado [footnote], que procurou avaliar o realismo dos modelos. Essa métrica
+de distância foi, no entanto, descartada, uma vez que indicou que uma rede
+biológica está mais próxima de redes de software do que as redes de software
+estão próximas entre si.
+%descrito em um artigo não publicado
+%métrica poderia ser usada para avaliar o realismo de uma rede. Primeiramente
+%seriam calculadas distâncias entre diversas redes de software reais e então
+%a distância entre a rede sob avaliação e as redes reais. Para a rede ser
+%considerada realista, ela não deveria ser mais distante de redes reais do que as
+%redes reais são distantes entre si. 
+
+No momento estamos procurando outro método para avaliar o realismo de redes e,
+consequentemente, de modelos. % XXX-Estimativa
+
+Com isso pronto, queremos publicar. Afinal, o setup experimental está pronto.
+%%XXX-Estimativa
+
+A seguir pretendemos avaliar algoritmos de modularização de software. %% XXX-Est
+
+E então escrever a dissertação. %% XXX-Estimativa
+
+Por fim, publicar %% XXX-Estimativa
+
+%Realizadas:
+%- Produção de uma revisão bibliográfica
+%- Produção de um manuscrito com resultados preliminares da pesquisa
+%- Implementação de modelos
+%- Coleta de um corpo de sistemas de software
+%- Coleta de um corpo de redes não-software
+%- Desenvolvimento de um método de avaliação de realismo (e aplicação a um corpus pequeno) -- DESCREVER O MÉTODO sucintamente.
+%- Avaliação qualitativa e quantitativa de modelos (2 modelos não-orientados) através de um experimento.
+%
+%Planejadas:
+%- Refinamento do método de avaliação de realismo. Est.:
+%  - Avaliar modelos de redes orientadas.
+%  - Achar uma métrica que não dependa de achar softwares de mesmo tamanho. (e que se aplique a redes orientadas, uma vez que em redes orientadas a distância de Andrade gera matrizes muito esparsas, afetando negativamente a relevância do valor calculado)
+%- Publicação com resultados preliminares. Est.: outubro?
+%- Aplicação de algoritmos de clustering e comparação com literatura: Est.:
+%- Dissertação
+%- Publicação dos resultados finais da pesquisa
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
