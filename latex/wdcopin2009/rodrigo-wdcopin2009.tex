@@ -1,3 +1,6 @@
+%vim: tw=8
+% gqap formata paragrafos
+% gq formata selecao
 \documentclass[12pt]{article}
 \usepackage{sbc-template}
 \usepackage{graphicx,url}
@@ -93,7 +96,7 @@ graus específica foram chamadas de redes livres de escala.
 
 %Modelos estocásticos de redes complexas.
 A partir dessa observação foram desenvolvidos diversos modelos estocásticos que
-produzem redes livres de escala. %XXX
+produzem redes livres de escala. %XXX-continuar
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -103,8 +106,7 @@ produzem redes livres de escala. %XXX
 
 Espera-se que os algoritmos de modularização de software encontrem organizações
 modulares semelhantes àquelas que seriam encontradas por especialistas nos
-sistemas analisados. % XXX relevância da avaliação?
-Uma forma de testar os algoritmos consiste, pois, em
+sistemas analisados.  Uma forma de testar os algoritmos consiste, pois, em
 aplicá-los ao código-fonte de um sistema cuja organização modular esteja
 documentada e então comparar a organização encontrada com a organização
 documentada. Infelizmente é difícil encontrar sistemas documentados nesse nível
@@ -114,7 +116,8 @@ incipiente.
 % a deficiência de soluções comprovadas...
 A deficiência na avaliação dos algoritmos de modularização de software é uma
 barreira para a adoção dos algoritmos na indústria e um obstáculo para o avanço
-das pesquisas. 
+das pesquisas. %XXX-continuar
+
 % consequencias da deficiência na avaliação
 % - não dá pra comparar algoritmos
 % - não dá pra melhorar algoritmos (pois não há como atestar que um é melhor do
@@ -133,35 +136,37 @@ das pesquisas.
 % "Objetivos" geral e específicos da pesquisa;
 
 Para suprir a escassez de sistemas cuja organização modular é documentada,
-propomos o uso de modelos estocásticos capazes de sintetizar redes de
-software organizadas em módulos para servirem como conjunto de teste.
-Para que essa abordagem seja bem-sucedida, no entanto, é preciso que as redes
-sintéticas sejam realistas, isto é, semelhantes a redes extraídas de sistemas de
-software reais. 
+propomos o uso de modelos estocásticos capazes de sintetizar redes de software
+organizadas em módulos para servirem como conjunto de teste.  Para que essa
+abordagem seja bem-sucedida, no entanto, é preciso que as redes sintéticas sejam
+realistas, isto é, semelhantes a redes extraídas de sistemas de software reais. 
+
+%XXX Figura 1 do artigo (rede orientada organizada em quatro módulos)
 
 Assim, o objetivo desta pesquisa é analisar modelos estocásticos que possam ser
 usados para avaliar algoritmos de modularização de software. Esse objetivo pode
 ser decomposto nos objetivos específicos apresentados a seguir.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Descobrir modelos estocásticos de redes livres de escala organizadas em módulos.
-A maioria dos modelos disponíveis na literatura ignora a organização modular.
+\textbf{Descobrir modelos estocásticos de redes livres de escala organizadas em
+módulos}.  A maioria dos modelos disponíveis na literatura ignora a organização
+modular.
 %mas alguns deles podem ser adaptados com facilidade.
 
 %Caracterizar redes de software. A distribuição de graus da forma lei de potência
 %é apenas uma característica das redes de software. Existem outras
 %características documentadas na literatura.
 
-Desenvolver um método para avaliar o realismo de uma rede. Esse método deve
-encontrar um grau de realismo alto para redes de software reais e um grau de
-realismo baixo para redes de outros domínios. %Para isso a métrica
+\textbf{Desenvolver um método para avaliar o realismo de uma rede}. Esse método
+deve encontrar um grau de realismo alto para redes de software reais e um grau
+de realismo baixo para redes de outros domínios. %Para isso a métrica
 %deve levar em consideração características únicas de redes de software.
 
-Avaliar o realismo dos modelos estocásticos. Um modelo é realista se ele é capaz
-de produzir redes realistas.
+\textbf{Avaliar o realismo dos modelos estocásticos}. Um modelo é realista se
+ele é capaz de produzir redes realistas.
 
-Avaliar algoritmos de modularização através de sua aplicação a um grande número
-de redes sintéticas. Os resultados poderão ser comparados com resultados
+\textbf{Avaliar algoritmos de modularização através de sua aplicação a um grande
+número de redes sintéticas}. Os resultados poderão ser comparados com resultados
 experimentais encontrados na literatura.
 % avaliativos
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -193,16 +198,15 @@ $\gamma$ da distribuição de graus, entre outras.
 
 Foi encontrada na literatura uma métrica de distância entre duas redes [cite].
 Essa métrica foi utilizada em um experimento, descrito em detalhes em um artigo
-não publicado [footnote], que procurou avaliar o realismo dos modelos. Essa métrica
-de distância foi, no entanto, descartada, uma vez que indicou que uma rede
-biológica está mais próxima de redes de software do que as redes de software
-estão próximas entre si.
-%descrito em um artigo não publicado
-%métrica poderia ser usada para avaliar o realismo de uma rede. Primeiramente
-%seriam calculadas distâncias entre diversas redes de software reais e então
-%a distância entre a rede sob avaliação e as redes reais. Para a rede ser
-%considerada realista, ela não deveria ser mais distante de redes reais do que as
-%redes reais são distantes entre si. 
+não publicado [footnote], que procurou avaliar o realismo dos modelos. Essa
+métrica de distância foi, no entanto, descartada, uma vez que indicou que uma
+rede biológica está mais próxima de redes de software do que as redes de
+software estão próximas entre si.
+%descrito em um artigo não publicado métrica poderia ser usada para avaliar o
+%realismo de uma rede. Primeiramente seriam calculadas distâncias entre diversas
+%redes de software reais e então a distância entre a rede sob avaliação e as
+%redes reais. Para a rede ser considerada realista, ela não deveria ser mais
+%distante de redes reais do que as redes reais são distantes entre si. 
 
 No momento estamos procurando outro método para avaliar o realismo de redes e,
 consequentemente, de modelos. % XXX-Estimativa
@@ -214,7 +218,7 @@ A seguir pretendemos avaliar algoritmos de modularização de software. %% XXX-Est
 
 E então escrever a dissertação. %% XXX-Estimativa
 
-Por fim, publicar %% XXX-Estimativa
+Por fim, publicar resultado completo %% XXX-Estimativa
 
 %Realizadas:
 %- Produção de uma revisão bibliográfica
@@ -256,7 +260,9 @@ Estudo qualitativo e quantitativo sobre a verossimilhança dos modelos. Mostrar r
 - Mostrar tabela das métricas (distribuição de graus etc).
 - Mostrar gráfico da distribuição de motifs e mostrar que há uma diferença visual.
 
-%\renewcommand{\refname}{Referências Bibliográficas}
+% XXX-Figura de frequência de motifs (mostrar que há uma diferença visual)
+
+\renewcommand{\refname}{Referências Bibliográficas}
 \bibliographystyle{sbc}
 \bibliography{sbc-template}
 
