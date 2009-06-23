@@ -46,15 +46,15 @@
 %Importância de se conhecer a arquitetura modular de um sistema durante o seu
 %desenvolvimento.
 A divisão conceitual de um sistema de software em módulos é uma informação
-valiosa durante o seu desenvolvimento, sobretudo para a divisão de tarefas entre
-desenvolvedores [cite]. Essa informação muitas vezes não é documentada
+valiosa durante o seu desenvolvimento, sobretudo para a divisão de tarefas
+entre desenvolvedores [cite]. Essa informação muitas vezes não é documentada
 adequadamente e, à medida que os desenvolvedores são substituídos, pode se
 perder.
 
 %Recuperação de Arquitetura Modular de Software. (não falar agora sobre
 %avaliação de algoritmos)
-Algoritmos de modularização de software procuram identificar a organização de um
-sistema de software a partir de sua implementação e, por isso, auxiliam
+Algoritmos de modularização de software procuram identificar a organização de
+um sistema de software a partir de sua implementação e, por isso, auxiliam
 desenvolvedores a recuperar a organização modular de um sistema sobre o qual se
 tem pouco conhecimento. Para realizar a divisão em módulos, alguns algoritmos
 usam heurísticas baseadas em identificadores, ou então informações sobre o
@@ -64,22 +64,22 @@ sistema.
 
 %Representação de software como rede de dependências entre componentes 
 Sistemas de software, no nível de implementação, são formados por vários
-componentes que interagem entre si. Programas orientados a objetos, por exemplo,
-são compostos por classes que interagem com outras classes através de mecanismos
-como herança e agregação. As interações estabelecem relações de dependência
-entre os componentes, de forma que cada componente só funciona corretamente na
-presença dos componentes dos quais ele depende. Essas dependências formam uma
-rede de software, na qual os vértices representam as classes e as arestas
-representam dependências.
+componentes que interagem entre si. Programas orientados a objetos, por
+exemplo, são compostos por classes que interagem com outras classes através de
+mecanismos como herança e agregação. As interações estabelecem relações de
+dependência entre os componentes, de forma que cada componente só funciona
+corretamente na presença dos componentes dos quais ele depende. Essas
+dependências formam uma rede de software, na qual os vértices representam as
+classes e as arestas representam dependências.
 
 %análise estática e suas limitações. Enumerar tipos de dependências extraídas
 %pelo depfind.sf.net.
 A rede de dependências entre componentes de um sistema pode ser extraída
 automaticamente através de ferramentas de análise estática de código-fonte ou
 código objeto. A rede extraída deve ser considerada apenas uma aproximação da
-rede de dependências real, pois nenhuma técnica automática é capaz de determinar
-corretamente, em todos os casos, se existe uma dependência entre dois
-componentes [cite].
+rede de dependências real, pois nenhuma técnica automática é capaz de
+determinar corretamente, em todos os casos, se existe uma dependência entre
+dois componentes [cite].
 
 %Caracterização das redes de software. Teoria das redes complexas. Redes livres
 %de escala (dar exemplo de redes que NÃO SÃO livres de escala).
@@ -87,12 +87,17 @@ Estudos recentes analisaram redes de software sob a luz da teoria das redes
 complexas e encontraram propriedades topológicas marcantes que também estão
 presentes em redes de interações entre proteínas, redes sociais e muitas outras
 [cite]. Descobriu-se que nessas redes a distribuição dos graus dos vértices é
-bem aproximada por uma lei de potência $N(k) ~ k^{-\gamma}$, isto é, o número de
-vértices ligados a exatamente $k$ arestas é proporcional a uma potência de $k$
-com expoente negativo e constante. Redes caracterizadas por essa distribuição de
-graus específica foram chamadas de redes livres de escala.
+bem aproximada por uma lei de potência $N(k) ~ k^{-\gamma}$, isto é, o número
+de vértices ligados a exatamente $k$ arestas é proporcional a uma potência de
+$k$ com expoente negativo e constante. Redes caracterizadas por essa
+distribuição de graus específica foram chamadas de redes livres de escala.
 
-% XXX Figura de Barabási que está na revisão bibliográfica
+\begin{figure} \label{fig:leidepotencia}
+\centering
+\includegraphics[width=0.5\textwidth]{leidepotencia}
+\caption{Distribuição de graus como lei de potência. Adaptado de
+\cite{Barabasi2007}.}
+\end{figure}
 
 %Modelos estocásticos de redes complexas.
 A partir dessa observação foram desenvolvidos diversos modelos estocásticos que
@@ -109,7 +114,9 @@ modulares semelhantes àquelas que seriam encontradas por especialistas nos
 sistemas analisados.  Uma forma de testar os algoritmos consiste, pois, em
 aplicá-los ao código-fonte de um sistema cuja organização modular esteja
 documentada e então comparar a organização encontrada com a organização
-documentada. Infelizmente é difícil encontrar sistemas documentados nesse nível
+documentada. 
+% XXX-essa comparação é feita com MoJo etc.
+Infelizmente é difícil encontrar sistemas documentados nesse nível
 de detalhe e por essa razão a avaliação empírica dos algoritmos ainda é
 incipiente.
 
@@ -140,16 +147,21 @@ propomos o uso de modelos estocásticos capazes de sintetizar redes de software
 organizadas em módulos para servirem como conjunto de teste.  Para que essa
 abordagem seja bem-sucedida, no entanto, é preciso que as redes sintéticas sejam
 realistas, isto é, semelhantes a redes extraídas de sistemas de software reais. 
+% XXX-esse tipo de abordagem é comum em redes e sistemas, mas pouco usado em ES.
 
-%XXX Figura 1 do artigo (rede orientada organizada em quatro módulos)
+\begin{figure} \label{fig:rede-modular}
+\centering
+\includegraphics[width=0.5\textwidth]{rede-modular}
+\caption{} %XXX
+\end{figure}
 
 Assim, o objetivo desta pesquisa é analisar modelos estocásticos que possam ser
 usados para avaliar algoritmos de modularização de software. Esse objetivo pode
 ser decomposto nos objetivos específicos apresentados a seguir.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\textbf{Descobrir modelos estocásticos de redes livres de escala organizadas em
-módulos}.  A maioria dos modelos disponíveis na literatura ignora a organização
+Descobrir modelos estocásticos de redes livres de escala organizadas em
+módulos.  A maioria dos modelos disponíveis na literatura ignora a organização
 modular.
 %mas alguns deles podem ser adaptados com facilidade.
 
@@ -157,16 +169,16 @@ modular.
 %é apenas uma característica das redes de software. Existem outras
 %características documentadas na literatura.
 
-\textbf{Desenvolver um método para avaliar o realismo de uma rede}. Esse método
-deve encontrar um grau de realismo alto para redes de software reais e um grau
-de realismo baixo para redes de outros domínios. %Para isso a métrica
+Desenvolver um método para avaliar o realismo de uma rede. Esse método deve
+encontrar um grau de realismo alto para redes de software reais e um grau de
+realismo baixo para redes de outros domínios. %Para isso a métrica
 %deve levar em consideração características únicas de redes de software.
 
-\textbf{Avaliar o realismo dos modelos estocásticos}. Um modelo é realista se
-ele é capaz de produzir redes realistas.
+Avaliar o realismo dos modelos estocásticos. Um modelo é realista se ele é
+capaz de produzir redes realistas.
 
-\textbf{Avaliar algoritmos de modularização através de sua aplicação a um grande
-número de redes sintéticas}. Os resultados poderão ser comparados com resultados
+Avaliar algoritmos de modularização através de sua aplicação a um grande número
+de redes sintéticas. Os resultados poderão ser comparados com resultados
 experimentais encontrados na literatura.
 % avaliativos
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -243,24 +255,30 @@ Por fim, publicar resultado completo %% XXX-Estimativa
 \section{Resultados Obtidos}
 % "Resultados Obtidos" até então no desenvolvimento da pesquisa
 
-Desenvolvemos o modelo BCR+, que produz redes orientadas modulares que satisfazem a uma arquitetura modular fornecida como parâmetro. Ele foi baseado em um modelo de redes livres de escala orientadas sem módulos [cite]. Encontramos ainda dois outros modelos de redes orientadas modulares, o LR e o CGW, e um modelo de rede modular não-orientada, o LFR.
+Como já foi mencionado, um dos resultados da pesquisa foi a concepção e a
+implementação de um modelo de redes modulares. Ainda não foi possível comparar
+esse modelo aos dois modelos encontrados na literatura, uma vez que ainda não
+encontramos uma métrica para quantificar o realismo de uma rede de software. Já
+descobrimos, no entanto, que a métrica de distância entre redes encontrada em
+[cite] não é adequada.
 
-Desenvolvemos um procedimento experimental para responder à seguinte pergunta: os modelos são capazes de produzir redes semelhantes a redes extraídas de sistemas reais? Consideramos que um modelo é bem sucedido se ele é capaz de sintetizar uma rede cuja distância para uma rede real tomada como referência não seja maior do que a distância entre redes reais com o mesmo número de vértices da rede de referência.
+Estamos trabalhando em uma nova métrica de realismo e já temos alguns
+resultados.
 
-Nesse experimento tomamos como referência a rede do jogo VilloNanny 2.2.4, com 1658 vértices. Avaliamos os modelos BCR+ e LR.
+%Desenvolvemos um procedimento experimental para responder à seguinte pergunta: os modelos são capazes de produzir redes semelhantes a redes extraídas de sistemas reais? Consideramos que um modelo é bem sucedido se ele é capaz de sintetizar uma rede cuja distância para uma rede real tomada como referência não seja maior do que a distância entre redes reais com o mesmo número de vértices da rede de referência.
 
-avaliar o realismo das redes de software sintéticas, baseado na distância de Andrade. 
-Esse procedimento foi executado para avaliar o realismo. O procedimento foi descrito em um artigo ainda não publicado.
-
-Os dados mostram que o modelo BCR+ foi o que mais se aproximou da rede de referência; uma das redes geradas ficou mais próxima à rede de referência do que a rede do sistema JFreeChart. O modelo LFR produziu redes mais próximas entre si, como revela o pequeno desvio-padrão, porém mais distantes da rede de referência.
-
-Estudo qualitativo e quantitativo sobre a verossimilhança dos modelos. Mostrar resultados experimentais:
-- Medição de frequência de motifs.
-- Mostrar tabela de distâncias.
-- Mostrar tabela das métricas (distribuição de graus etc).
-- Mostrar gráfico da distribuição de motifs e mostrar que há uma diferença visual.
+%Estudo qualitativo e quantitativo sobre a verossimilhança dos modelos. Mostrar resultados experimentais:
+%- Medição de frequência de motifs.
+%- Mostrar tabela de distâncias.
+%- Mostrar tabela das métricas (distribuição de graus etc).
+%- Mostrar gráfico da distribuição de motifs e mostrar que há uma diferença visual.
 
 % XXX-Figura de frequência de motifs (mostrar que há uma diferença visual)
+\begin{figure} \label{fig:motifs}
+\centering
+\includegraphics[width=0.5\textwidth]{motifs}
+\caption{} %XXX
+\end{figure}
 
 \renewcommand{\refname}{Referências Bibliográficas}
 \bibliographystyle{sbc}
