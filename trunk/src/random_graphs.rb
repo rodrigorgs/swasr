@@ -605,23 +605,23 @@ end
 
 require 'igraph'
 
-def save_igraph(igraph, basename)
+def save_igraph(g, basename)
   basename = basename[0..-2] if basename[-1..-1] == '.'
 
   File.open(basename + '.arc', 'w') do |f|
     g.each_edge(IGraph::EDGEORDER_ID) { |x, y| f.puts "#{x} #{y}" }
   end
-  File.open(basename + '.arc', 'w') do |f|
-    n.times { |i| f.puts "#{i} 0" }
+  File.open(basename + '.mod', 'w') do |f|
+    g.vcount.times { |i| f.puts "#{i} 0" }
   end
 end
 
-def erdos_renyi_nm(n, m, basename=nil)
+def erdos_renyi_nm(n, m, directed=true, basename=nil)
   g = IGraph::GenerateRandom.erdos_renyi_game(
     IGraph::ERDOS_RENYI_GNM,
     n,
     m,
-    true, # directed?
+    directed, # directed?
     false) # loops?
 
   save_igraph(g, basename) if basename
