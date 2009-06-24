@@ -2241,7 +2241,7 @@ reference "fig:arquitetura-villonanny"
 
 .
 \begin_inset Note Note
-status collapsed
+status open
 
 \begin_layout Standard
 
@@ -2320,8 +2320,11 @@ Substituindo os valores de
 , os parâmetros do modelo são a solução do sistema formado pelas duas equações
  apresentadas.
  r=0,754; p=0,123; 
-\backslash
-delta=1,924.
+\begin_inset Formula $\delta$
+\end_inset
+
+=1,924.
+ ---- OPA! DEVERIA SER 4.370.
 \end_layout
 
 \begin_layout Standard
@@ -3103,7 +3106,7 @@ bibfiles "complex-networks,rodrigo-mestrado"
 
 \begin_layout Standard
 \begin_inset Note Note
-status collapsed
+status open
 
 \begin_layout Standard
 
@@ -3311,7 +3314,7 @@ end{equation}
 
 \begin_layout Standard
 \begin_inset Note Note
-status collapsed
+status open
 
 \begin_layout Standard
 

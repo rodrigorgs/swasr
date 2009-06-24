@@ -7,7 +7,7 @@ argv = commandArgs(T)
 if (length(argv) < 3){
   cat("This script takes a network and outputs a distance matrix.
 
-Parameters: input-network output-file directed?
+Parameters: input-network output-file directed? [number_of_nodes]
 
   input-network: a text file which represents a network, in a format
 that can be understood by igraph (for example, a text file in which which pair
@@ -29,8 +29,14 @@ by empty space. In other words the format is a CSV separated by spaces.
 inputFile = argv[1]
 outputFile = argv[2]
 directed = as.logical(argv[3])
+n = argv[4]
 
-g = read.graph(inputFile, directed=directed)
+edges = as.matrix(read.table(inputFile, header=F))
+if (length(argv) == 3) {
+  g = graph(edges, directed=directed)
+} else {
+  g = graph(edges, n=argv[4], directed=directed)
+}
 s = shortest.paths(g)
 s[s == Inf] = 0
 write.table(s, file=outputFile, row.names=F, col.names=F)
