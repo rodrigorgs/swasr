@@ -46,21 +46,22 @@
 %Importância de se conhecer a arquitetura modular de um sistema durante o seu
 %desenvolvimento.
 A divisão conceitual de um sistema de software em módulos é uma informação
-valiosa durante o seu desenvolvimento, sobretudo para a divisão de tarefas
-entre desenvolvedores [cite]. Essa informação muitas vezes não é documentada
-adequadamente e, à medida que os desenvolvedores são substituídos, pode se
-perder.
+valiosa durante o seu desenvolvimento, sobretudo para a divisão de tarefas entre
+desenvolvedores [cite]. Uma boa organização modular deve revelar subconjuntos de
+um sistema que podem ser desenvolvidos por equipes trabalhando de forma mais ou
+menos independente, o que contribui para reduzir o tempo de desenvolvimento. O
+conhecimento sobre a organização de um sistema muitas vezes é mal documentado e,
+à medida que os desenvolvedores são substituídos, pode se perder.
 
 %Recuperação de Arquitetura Modular de Software. (não falar agora sobre
 %avaliação de algoritmos)
-Algoritmos de modularização de software procuram identificar a organização de
-um sistema de software a partir de sua implementação e, por isso, auxiliam
-desenvolvedores a recuperar a organização modular de um sistema sobre o qual se
-tem pouco conhecimento. Para realizar a divisão em módulos, alguns algoritmos
-usam heurísticas baseadas em identificadores, ou então informações sobre o
-histórico de desenvolvimento (CVS). Muitos algoritmos, no entanto, consideram
-apenas o conjunto de dependências entre os componentes da implementação do
-sistema.
+Algoritmos de modularização de software procuram identificar a organização
+modular de um sistema de software a partir de sua implementação e, por isso,
+auxiliam desenvolvedores a compreender um sistema. Para realizar a divisão em
+módulos, alguns algoritmos usam heurísticas baseadas em identificadores de
+funções e de tipos, ou então informações sobre o histórico de desenvolvimento
+(CVS). Muitos algoritmos, no entanto, consideram apenas o conjunto de
+dependências entre os componentes da implementação do sistema.
 
 %Representação de software como rede de dependências entre componentes 
 Sistemas de software, no nível de implementação, são formados por vários
