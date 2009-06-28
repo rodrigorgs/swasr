@@ -9,6 +9,10 @@
 \usepackage[latin1]{inputenc}  
 \sloppy
 
+% TODO: emph
+% TODO: cite
+% TODO: title, abstract, resumo
+% TODO: descrever modelo BCR+
 \title{Instructions for Authors of WDCOPIN}
 
 \author{Rodrigo Souza\inst{1}
@@ -43,55 +47,38 @@
 \section{Introdução}
 % "Introdução" caracterizando o contexto em que o trabalho se insere;
 
-%Importância de se conhecer a arquitetura modular de um sistema durante o seu
-%desenvolvimento.
 A divisão conceitual de um sistema de software em módulos é uma informação
-valiosa durante o seu desenvolvimento, sobretudo para a divisão de tarefas entre
-desenvolvedores [cite]. Uma boa organização modular deve revelar subconjuntos de
-um sistema que podem ser desenvolvidos por equipes trabalhando de forma mais ou
-menos independente, o que contribui para reduzir o tempo de desenvolvimento. O
-conhecimento sobre a organização de um sistema muitas vezes é mal documentado e,
-à medida que os desenvolvedores são substituídos, pode se perder.
+valiosa durante o seu desenvolvimento. Uma boa organização modular revela
+subconjuntos de um sistema que podem ser desenvolvidos por equipes trabalhando
+de forma mais ou menos independente, o que contribui para reduzir o tempo de
+implementação. Apesar disso, o conhecimento sobre a organização de um sistema
+muitas vezes é mal documentado e acaba se perdendo à medida que os
+desenvolvedores são substituídos. % TODO: citações. Parnas, Documenting Sw. Arch.
 
-%Recuperação de Arquitetura Modular de Software. (não falar agora sobre
-%avaliação de algoritmos)
 Algoritmos de modularização de software procuram identificar a organização
 modular de um sistema de software a partir de sua implementação e, por isso,
-auxiliam desenvolvedores a compreender um sistema. Para realizar a divisão em
-módulos, alguns algoritmos usam heurísticas baseadas em identificadores de
-funções e de tipos, ou então informações sobre o histórico de desenvolvimento
-(CVS). Muitos algoritmos, no entanto, consideram apenas o conjunto de
-dependências entre os componentes da implementação do sistema.
+auxiliam a divisão de tarefas entre desenvolvedores. Para realizar a
+decomposição de um sistema em módulos, muitos desses algoritmos usam heurísticas
+baseadas nas dependências existentes entre os componentes básicos da
+implementação do sistema.
 
-%Representação de software como rede de dependências entre componentes 
-Sistemas de software, no nível de implementação, são formados por vários
-componentes que interagem entre si. Programas orientados a objetos, por
-exemplo, são compostos por classes que interagem com outras classes através de
-mecanismos como herança e agregação. As interações estabelecem relações de
-dependência entre os componentes, de forma que cada componente só funciona
-corretamente na presença dos componentes dos quais ele depende. Essas
-dependências formam uma rede de software, na qual os vértices representam as
-classes e as arestas representam dependências.
+Em sistemas implementados em linguagens orientadas a objetos, os componentes
+básicos são as classes e as interfaces, as quais se relacionam através de
+mecanismos como herança e agregação. Essas relações estabelecem dependências
+entre os componentes que, unidas, formam uma rede de dependências, também
+chamada de rede de software. Formalmente, a entrada de um algoritmo de
+modularização de software é uma rede de software, modelada como grafo orientado,
+e a saída é um particionamento dessa rede.
 
-%análise estática e suas limitações. Enumerar tipos de dependências extraídas
-%pelo depfind.sf.net.
-A rede de dependências entre componentes de um sistema pode ser extraída
-automaticamente através de ferramentas de análise estática de código-fonte ou
-código objeto. A rede extraída deve ser considerada apenas uma aproximação da
-rede de dependências real, pois nenhuma técnica automática é capaz de
-determinar corretamente, em todos os casos, se existe uma dependência entre
-dois componentes [cite].
-
-%Caracterização das redes de software. Teoria das redes complexas. Redes livres
-%de escala (dar exemplo de redes que NÃO SÃO livres de escala).
-Estudos recentes analisaram redes de software sob a luz da teoria das redes
-complexas e encontraram propriedades topológicas marcantes que também estão
-presentes em redes de interações entre proteínas, redes sociais e muitas outras
-[cite]. Descobriu-se que nessas redes a distribuição dos graus dos vértices é
-bem aproximada por uma lei de potência $N(k) ~ k^{-\gamma}$, isto é, o número
-de vértices ligados a exatamente $k$ arestas é proporcional a uma potência de
-$k$ com expoente negativo e constante. Redes caracterizadas por essa
-distribuição de graus específica foram chamadas de redes livres de escala.
+Recentemente alguns pesquisadores analisaram redes de software sob a luz da
+teoria das redes complexas e encontraram propriedades topológicas marcantes que
+também estão presentes em redes de interações entre proteínas, redes sociais e
+muitas outras [cite]. Descobriu-se que nessas redes a distribuição dos graus dos
+vértices é bem aproximada por uma lei de potência, $N(k) ~ k^{-\gamma}$ ---
+o número de vértices ligados a exatamente $k$ arestas é proporcional a uma
+potência de $k$ com expoente negativo e constante, como mostra a Figura
+\ref{fig:leidepotencia}. Redes caracterizadas por essa distribuição de graus
+específica são chamadas de redes livres de escala.
 
 \begin{figure} \label{fig:leidepotencia}
 \centering
@@ -100,9 +87,13 @@ distribuição de graus específica foram chamadas de redes livres de escala.
 \cite{Barabasi2007}.}
 \end{figure}
 
-%Modelos estocásticos de redes complexas.
-A partir dessa observação foram desenvolvidos diversos modelos estocásticos que
-produzem redes livres de escala. %XXX-continuar
+Para tentar explicar os mecanismos responsáveis pela formação de redes livres de
+escala em diversos domínios, pesquisadores criaram vários modelos estocásticos.
+Esses modelos são algoritmos que geram vértices e arestas de maneira
+probabilística porém de acordo com certas regras que garantem que, quando o
+número de vértices tende a infinito, a distribuição dos graus dos vértices tende
+a uma lei de potência. Por essa razão tais modelos podem produzir redes
+similares a redes de software, ao menos quanto à distribuição de graus.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -110,21 +101,28 @@ produzem redes livres de escala. %XXX-continuar
 % "Identificação do Problema" a ser investigado na pesquisa bem como sua
 % relevância para a área de conhecimento;
 
-Espera-se que os algoritmos de modularização de software encontrem organizações
+Idealmente os algoritmos de modularização de software devem encontrar organizações
 modulares semelhantes àquelas que seriam encontradas por especialistas nos
 sistemas analisados.  Uma forma de testar os algoritmos consiste, pois, em
 aplicá-los ao código-fonte de um sistema cuja organização modular esteja
 documentada e então comparar a organização encontrada com a organização
-documentada. 
-% XXX-essa comparação é feita com MoJo etc.
-Infelizmente é difícil encontrar sistemas documentados nesse nível
-de detalhe e por essa razão a avaliação empírica dos algoritmos ainda é
-incipiente.
+documentada. A diferença entre as organizações pode ser quantificada por uma
+métrica de distância entre particionamentos [cite Mojo etc].
+
+Infelizmente é difícil encontrar sistemas cuja organização modular é bem
+documentada, e por isso a avaliação de algoritmos de modularização de software é
+deficiente. Os trabalhos presentes na literatura sobre a avaliação desses
+algoritmos se limitam a estudos de caso. [cite]. 
+Para que os resultados sejam estatisticamente significativos e,
+portanto, generalizáveis, seria necessário realizar estudos em larga escala, com
+uma grande amostra de sistemas com organização modular conhecida.
 
 % a deficiência de soluções comprovadas...
-A deficiência na avaliação dos algoritmos de modularização de software é uma
-barreira para a adoção dos algoritmos na indústria e um obstáculo para o avanço
-das pesquisas. %XXX-continuar
+Como não existe um \emph{benchmark} para esses algoritmos, qualquer
+reivindicação do tipo ``o algoritmo A é melhor do algoritmo B'' deve ser olhada
+com desconfiança. Essa lacuna representa uma barreira para a adoção dos
+algoritmos na indústria e um obstáculo para o avanço das pesquisas.
+%XXX-continuar
 
 % consequencias da deficiência na avaliação
 % - não dá pra comparar algoritmos
