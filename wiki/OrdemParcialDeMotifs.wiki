@@ -1,7 +1,5 @@
 ﻿#summary Caracterizando classes de redes complexas através de ordem parcial de frequência de tríades (motifs de tamanho 3)
 
-== Caracterizando classes de redes complexas através de ordem parcial de frequência de tríades ==
-
 Embora as curvas de frequências de motifs de redes de software tenham uma
 amplitude bastante variável, parece haver um padrão. É notável, por exemplo,
 que nas 65 redes analisadas, o motif #1 é sempre o motif mais frequente. Em
