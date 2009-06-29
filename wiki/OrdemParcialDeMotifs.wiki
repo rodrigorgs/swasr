@@ -63,3 +63,14 @@ supracitadas. Legenda: preto = rapidminer, vermelho = gfp, verde =
 celegansneural, azul = polblogs.
 
 http://swasr.googlecode.com/svn/wiki/images/motifs-partial-order.png
+
+UPDATE: ranking de outras redes que não são de software
+
+{{{
+beta3sreduced
+3  7  8  2  1  4 12 13 10  5  6 11  9
+
+ecoli-metabolic
+2  1  4  3  7  5  8  9 10 11  6 12 13
+}}}
+
