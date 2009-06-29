@@ -120,8 +120,8 @@ uma grande amostra de sistemas com organização modular conhecida.
 % a deficiência de soluções comprovadas...
 Como não existe um \emph{benchmark} para esses algoritmos, qualquer
 reivindicação do tipo ``o algoritmo A é melhor do algoritmo B'' deve ser olhada
-com desconfiança. Essa lacuna representa uma barreira para a adoção dos
-algoritmos na indústria e um obstáculo para o avanço das pesquisas.
+com desconfiança. Essa dificuldade de avaliação representa uma barreira para a
+adoção dos algoritmos na indústria e um obstáculo para o avanço das pesquisas.
 %XXX-continuar
 
 % consequencias da deficiência na avaliação
@@ -143,9 +143,10 @@ algoritmos na indústria e um obstáculo para o avanço das pesquisas.
 
 Para suprir a escassez de sistemas cuja organização modular é documentada,
 propomos o uso de modelos estocásticos capazes de sintetizar redes de software
-organizadas em módulos para servirem como conjunto de teste.  Para que essa
-abordagem seja bem-sucedida, no entanto, é preciso que as redes sintéticas sejam
-realistas, isto é, semelhantes a redes extraídas de sistemas de software reais. 
+com organização modular embutida para servirem como conjunto de teste. Para que
+essa abordagem seja bem-sucedida, no entanto, é preciso que as redes sintéticas
+sejam realistas, isto é, semelhantes a redes extraídas de sistemas de software
+reais. 
 % XXX-esse tipo de abordagem é comum em redes e sistemas, mas pouco usado em ES.
 
 \begin{figure} \label{fig:rede-modular}
@@ -159,8 +160,9 @@ usados para avaliar algoritmos de modularização de software. Esse objetivo pode
 ser decomposto nos objetivos específicos apresentados a seguir.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Descobrir modelos estocásticos de redes livres de escala organizadas em
-módulos.  A maioria dos modelos disponíveis na literatura ignora a organização
+\begin{itemize}
+\item Descobrir modelos estocásticos de redes livres de escala organizadas em
+módulos. A maioria dos modelos disponíveis na literatura ignora a organização
 modular.
 %mas alguns deles podem ser adaptados com facilidade.
 
@@ -168,17 +170,18 @@ modular.
 %é apenas uma característica das redes de software. Existem outras
 %características documentadas na literatura.
 
-Desenvolver um método para avaliar o realismo de uma rede. Esse método deve
-encontrar um grau de realismo alto para redes de software reais e um grau de
-realismo baixo para redes de outros domínios. %Para isso a métrica
+\item Desenvolver um método para avaliar o realismo de uma rede. Esse método
+deve encontrar um grau de realismo alto para redes de software reais e um grau
+de realismo baixo para redes de outros domínios. %Para isso a métrica
 %deve levar em consideração características únicas de redes de software.
 
-Avaliar o realismo dos modelos estocásticos. Um modelo é realista se ele é
+\item Avaliar o realismo dos modelos estocásticos. Um modelo é realista se ele é
 capaz de produzir redes realistas.
 
-Avaliar algoritmos de modularização através de sua aplicação a um grande número
-de redes sintéticas. Os resultados poderão ser comparados com resultados
-experimentais encontrados na literatura.
+\item Avaliar algoritmos de modularização através de sua aplicação a um grande
+número de redes sintéticas. Os resultados poderão ser comparados com resultados
+experimentais encontrados na literatura.  \end{itemize}
+
 % avaliativos
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -196,7 +199,7 @@ experimentais encontrados na literatura.
 
 Foram encontrados na literatura dois modelos que produzem redes organizadas em
 módulos [cite]. Um terceiro modelo de redes modulares foi desenvolvido a partir
-da adaptação de um modelo de redes não-modulares [cite].
+da adaptação de um modelo que produz redes sem módulos [cite].
 
 Para apoiar a avaliação de realismo dos modelos, coletamos um corpo de 65
 sistemas de software escritos na linguagem Java. A rede de dependências entre
@@ -204,15 +207,15 @@ componentes de cada sistema foi extraída através da ferramenta Dependency Finder
 [footnote]. Coletamos ainda cerca de cem redes de diversos domínios, sobretudo
 redes sociais e redes biológicas. De cada rede (do domínio de software ou de
 outros domínios) foram extraídas diversas métricas, tais como número de
-vértices, número de arestas, número médio de arestas por vértice, o expoente
-$\gamma$ da distribuição de graus, entre outras. 
+vértices, número de arestas, número médio de arestas por vértice e o expoente
+$\gamma$ da distribuição de graus.
 
 Foi encontrada na literatura uma métrica de distância entre duas redes [cite].
-Essa métrica foi utilizada em um experimento, descrito em detalhes em um artigo
-não publicado [footnote], que procurou avaliar o realismo dos modelos. Essa
-métrica de distância foi, no entanto, descartada, uma vez que indicou que uma
-rede biológica está mais próxima de redes de software do que as redes de
-software estão próximas entre si.
+Utilizamos a métrica em um experimento, descrito em detalhes em um artigo não
+publicado [footnote], que procurou avaliar o realismo dos modelos. Essa métrica
+de distância foi, no entanto, descartada, uma vez que indicou que redes de
+interações entre proteínas estão mais próximas de redes de software do que as
+redes de software estão próximas entre si.
 %descrito em um artigo não publicado métrica poderia ser usada para avaliar o
 %realismo de uma rede. Primeiramente seriam calculadas distâncias entre diversas
 %redes de software reais e então a distância entre a rede sob avaliação e as
@@ -220,16 +223,26 @@ software estão próximas entre si.
 %distante de redes reais do que as redes reais são distantes entre si. 
 
 No momento estamos procurando outro método para avaliar o realismo de redes e,
-consequentemente, de modelos. % XXX-Estimativa
+consequentemente, de modelos. Temos enfrentado dificuldades em encontrar
+trabalhos maduros que nos ajudem nessa avaliação. Atualmente estamos tentando
+desenvolver um método baseado em frequência de tríades. Usando algumas idéias do
+método, descritas na próxima seção, já conseguimos detectar diferenças
+fundamentais entre redes de software e redes de interações entre proteínas.
+Estimamos a conclusão dessa etapa para o final de julho.
 
-Com isso pronto, queremos publicar. Afinal, o setup experimental está pronto.
-%%XXX-Estimativa
+Encontrando um método satisfatório de avaliação de realismo, podemos aplicá-los
+à avaliação dos três modelos estocásticos modulares. Esperamos aproveitar boa
+parte da base de dados e do conhecimento acumulados durante o experimento que
+realizamos anteriormente, e por isso estimamos concluir essa avaliação no final
+de agosto. Pretendemos submeter para publicação, em setembro ou outubro, um
+artigo com os resultados.
 
-A seguir pretendemos avaliar algoritmos de modularização de software. %% XXX-Est
+Em paralelo aplicaremos algoritmos de modularização de software a redes
+sintéticas realistas a fim de comparar os algoritmos. Esperamos concluir essa
+etapa no final de setembro.
 
-E então escrever a dissertação. %% XXX-Estimativa
-
-Por fim, publicar resultado completo %% XXX-Estimativa
+Então escreverei a dissertação de mestrado, aproveitando textos e registros de
+pesquisa escritos até então. A conclusão está prevista para meados de novembro.
 
 %Realizadas:
 %- Produção de uma revisão bibliográfica
@@ -255,14 +268,33 @@ Por fim, publicar resultado completo %% XXX-Estimativa
 % "Resultados Obtidos" até então no desenvolvimento da pesquisa
 
 Como já foi mencionado, um dos resultados da pesquisa foi a concepção e a
-implementação de um modelo de redes modulares. Ainda não foi possível comparar
+implementação de um modelo de redes modulares. Não foi possível comparar
 esse modelo aos dois modelos encontrados na literatura, uma vez que ainda não
 encontramos uma métrica para quantificar o realismo de uma rede de software. Já
 descobrimos, no entanto, que a métrica de distância entre redes encontrada em
 [cite] não é adequada.
 
-Estamos trabalhando em uma nova métrica de realismo e já temos alguns
-resultados.
+Estamos trabalhando em uma nova métrica de realismo baseada na frequência de
+tríades e já temos alguns resultados. Tríades são subgrafos com três vértices.
+Existem 16 tríades, embora consideremos apenas as 13 tríades conexas, mostradas
+n a Figura [fig] (descartamos tríades em que há pelo menos um vértice sem
+arestas). Ao contarmos a quantidade de cada tipo de tríade em uma rede, obtemos
+o perfil de frequência de tríades (PFT) da rede. 
+% XXX
+A Figura [] mostra o PFT dos perfis de frequência de tríades de XXX sistemas de
+software e de duas redes de interações entre proteínas.
+
+
+Estudos descritivos mostram que redes de diferentes domínios possuem perfis
+aparentemente diferentes, mas não há uma definição sobre como quantificar essa
+diferença. 
+e nem se redes de
+software podem ser caracterizadas por um perfil.
+
+Medições de PFTs de diversas redes mostram perfis diferentes de um 
+
+% estudos descritivos
+
 
 %Desenvolvemos um procedimento experimental para responder à seguinte pergunta: os modelos são capazes de produzir redes semelhantes a redes extraídas de sistemas reais? Consideramos que um modelo é bem sucedido se ele é capaz de sintetizar uma rede cuja distância para uma rede real tomada como referência não seja maior do que a distância entre redes reais com o mesmo número de vértices da rede de referência.
 
