@@ -1,0 +1,66 @@
+﻿#summary Caracterizando classes de redes complexas através de ordem parcial de frequência de tríades (motifs de tamanho 3)
+
+Embora as curvas de frequências de motifs de redes de software tenham uma
+amplitude bastante variável, parece haver um padrão. É notável, por exemplo,
+que nas 65 redes analisadas, o motif #1 é sempre o motif mais frequente. Em
+segundo lugar vem o motif #4 ou o motif #2, a depender do sistema. Daí veio a
+idéia de caracterizar redes de um domínio a partir do ranking de tríades mais
+frequentes.
+
+Pelo exemplo dado, fica claro que a posição das tríades no ranking varia de
+rede de software para rede de software. Podemos, no entanto, extrair uma ordem
+parcial. Consideremos os rankings de tríades de duas redes de software. O
+primeiro número é o identificador da tríade mais frequente, seguido da segunda
+mais frequente, e assim por diante:
+
+{{{
+1,4,2,5,8,3,7,11,6,12,10,13,9
+1,2,4,3,5,7,6,8,11,10,12,9,13
+}}}
+
+Consideremos a relação de ordem parcial &lt;: x &lt; y significa que, em uma
+dada rede, a tríade x é mais frequente do que a tríade y. Na primeira rede,
+encontramos várias dessas relações: 1 &lt; 4, 1 &lt; 2, ..., 1 &lt; 9, 4 &lt; 2,
+..., 13 &lt; 9. A segunda rede possui algumas relações em comum com a primeira
+e também relações novas. Ao tomarmos apenas as relações que aparecem nas duas
+redes, obtemos uma ordem parcial que descreve as duas redes simultaneamente.
+Note que nessa ordem as tríades 4 e 2 não são relacionadas (não pode se afirmar
+que 2 &lt; 4 e nem que 4 &lt; 2). 
+
+Analisando as 65 redes de software, obtemos a ordem parcial ilustrada na figura
+a seguir. A tríade mais acima é a mais frequente, e as setas representam a
+relação &lt;. Para tornar a figura mais clara removemos setas redundantes.
+
+http://swasr.googlecode.com/svn/wiki/images/ordem-parcial.png
+
+De posse dessa ordem parcial podemos dizer que redes que violam essa ordem
+parcial não são redes características de sistemas de software. Vejamos os
+rankings de tríades de duas redes:
+
+{{{
+celegansneural
+1  2  4  7  3  5 11  8  6 10 12  9 13
+
+polblogs
+1  4  2  3  7  5  8  6 11 12 10 13  9
+
+czech
+4  1  3  2  7  8  6 11  5 13 12 10  9
+}}}
+
+É fácil observar que, na celegansneural, não existe nenhum relação x &lt; y tal
+que na ordem parcial das redes de software existe a relação y &lt; x. Por isso
+essa rede é considerada uma rede característica de sistemas de software (embora
+seja uma rede biológica). Idem para a rede polblogs (links entre blogs sobre
+política nos Estados Unidos). Já na rede czech logo de cara vemos a relação 4
+&lt; 1, que viola a relação 1 &lt; da ordem parcial da figura. 
+
+Será que essas redes (celegansneural e polblogs) são realmente indistinguíveis
+de redes de software? Ou é possível melhorar nossa caracterização de redes de
+software? Deixo para reflexão a figura a seguir, com o perfil de frequências de
+tríades de dois sistemas de software (rapidminer e gfp) e mais as duas redes
+supracitadas. Legenda: preto = rapidminer, vermelho = gfp, verde =
+celegansneural, azul = polblogs.
+
+http://swasr.googlecode.com/svn/wiki/images/motifs-partial-order.png
+
