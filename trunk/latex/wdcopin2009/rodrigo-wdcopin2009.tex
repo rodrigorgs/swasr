@@ -53,14 +53,14 @@ subconjuntos de um sistema que podem ser desenvolvidos por equipes trabalhando
 de forma mais ou menos independente, o que contribui para reduzir o tempo de
 implementação. Apesar disso, o conhecimento sobre a organização de um sistema
 muitas vezes é mal documentado e acaba se perdendo à medida que os
-desenvolvedores são substituídos. % TODO: citações. Parnas, Documenting Sw. Arch.
+desenvolvedores são substituídos \cite{Clements2002}. % cit Parnas?
 
 Algoritmos de modularização de software procuram identificar a organização
 modular de um sistema de software a partir de sua implementação e, por isso,
 auxiliam a divisão de tarefas entre desenvolvedores. Para realizar a
 decomposição de um sistema em módulos, muitos desses algoritmos usam heurísticas
 baseadas nas dependências existentes entre os componentes básicos da
-implementação do sistema.
+implementação do sistema \cite{Czibula2007}.
 
 Em sistemas implementados em linguagens orientadas a objetos, os componentes
 básicos são as classes e as interfaces, as quais se relacionam através de
@@ -68,17 +68,20 @@ mecanismos como herança e agregação. Essas relações estabelecem dependências
 entre os componentes que, unidas, formam uma rede de dependências, também
 chamada de rede de software. Formalmente, a entrada de um algoritmo de
 modularização de software é uma rede de software, modelada como grafo orientado,
-e a saída é um particionamento dessa rede.
+e a saída é uma rede modular resultante do particionamento em módulos da rede
+original, como mostra a Figura \ref{fig:rede-modular}. Os vértices do grafo
+representam componentes e as arestas, relações de dependência entre componentes.
 
 Recentemente alguns pesquisadores analisaram redes de software sob a luz da
 teoria das redes complexas e encontraram propriedades topológicas marcantes que
 também estão presentes em redes de interações entre proteínas, redes sociais e
-muitas outras [cite]. Descobriu-se que nessas redes a distribuição dos graus dos
-vértices é bem aproximada por uma lei de potência, $N(k) ~ k^{-\gamma}$ ---
-o número de vértices ligados a exatamente $k$ arestas é proporcional a uma
-potência de $k$ com expoente negativo e constante, como mostra a Figura
-\ref{fig:leidepotencia}. Redes caracterizadas por essa distribuição de graus
-específica são chamadas de redes livres de escala.
+muitas outras \cite{Myers2003,Valverde2003}. Descobriu-se que nessas redes a
+distribuição dos graus dos vértices é bem aproximada por uma lei de potência,
+$N(k) ~ k^{-\gamma}$ --- o número de vértices ligados a exatamente $k$ arestas
+é proporcional a uma potência de $k$ com expoente negativo e constante, como
+mostra a Figura \ref{fig:leidepotencia}. Redes caracterizadas por essa
+distribuição de graus específica são chamadas de redes livres de escala
+\cite{Barabasi1999}.
 
 \begin{figure} \label{fig:leidepotencia}
 \centering
@@ -101,28 +104,40 @@ similares a redes de software, ao menos quanto à distribuição de graus.
 % "Identificação do Problema" a ser investigado na pesquisa bem como sua
 % relevância para a área de conhecimento;
 
-Idealmente os algoritmos de modularização de software devem encontrar organizações
-modulares semelhantes àquelas que seriam encontradas por especialistas nos
-sistemas analisados.  Uma forma de testar os algoritmos consiste, pois, em
-aplicá-los ao código-fonte de um sistema cuja organização modular esteja
-documentada e então comparar a organização encontrada com a organização
-documentada. A diferença entre as organizações pode ser quantificada por uma
-métrica de distância entre particionamentos [cite Mojo etc].
+% MODULARIZAÇÃO DE REFERÊNCIA
 
-Infelizmente é difícil encontrar sistemas cuja organização modular é bem
-documentada, e por isso a avaliação de algoritmos de modularização de software é
-deficiente. Os trabalhos presentes na literatura sobre a avaliação desses
-algoritmos se limitam a estudos de caso. [cite]. 
-Para que os resultados sejam estatisticamente significativos e,
-portanto, generalizáveis, seria necessário realizar estudos em larga escala, com
-uma grande amostra de sistemas com organização modular conhecida.
+Idealmente os algoritmos de modularização de software devem encontrar
+organizações modulares semelhantes àquelas que seriam encontradas por
+especialistas nos sistemas analisados. Uma forma de testar os algoritmos
+consiste, pois, em aplicá-los à rede de um sistema para o qual exista
+uma organização modular de referência e então comparar essa organização à
+organização encontrada pelo algoritmo. A diferença entre as organizações
+modulares pode ser quantificada por uma métrica de distância entre
+particionamentos \cite{Tzerpos2001}.
 
-% a deficiência de soluções comprovadas...
-Como não existe um \emph{benchmark} para esses algoritmos, qualquer
-reivindicação do tipo ``o algoritmo A é melhor do algoritmo B'' deve ser olhada
-com desconfiança. Essa dificuldade de avaliação representa uma barreira para a
-adoção dos algoritmos na indústria e um obstáculo para o avanço das pesquisas.
-%XXX-continuar
+Infelizmente é difícil encontrar organizações modulares de referência. Elas
+organizações podem ser obtidas através de um experimento controlado no qual um
+grupo de programadores experientes analisa o código-fonte de um sistema e
+propõe uma organização modular para ele \cite{Koschke2000}. Trata-se, no
+entanto, de um experimento caro, e por isso os trabalhos presentes na literatura
+se limitam a analisar um pequeno número de sistemas\cite{Wu2005}.
+
+%Koschke e Eisenbarth \cite{Koschke2000} propuseram um \emph{framework}
+%experimental no qual organizações de referência são obtidas através de experimento
+%controlado no qual um grupo de programadores experientes 
+
+
+%, e por isso a avaliação de algoritmos de modularização de software é
+%deficiente. Os trabalhos presentes na literatura sobre a avaliação desses
+%algoritmos se limitam a estudos de caso \cite{Wu2005}.
+Para que os resultados sejam estatisticamente significativos e, portanto,
+generalizáveis, seria necessário realizar estudos em larga escala, com uma
+grande amostra de sistemas com organização modular conhecida.  Na falta de um
+\emph{benchmark} extensivo para esses algoritmos, qualquer reivindicação do tipo
+``o algoritmo A é melhor do algoritmo B'' deve ser olhada com desconfiança. Essa
+dificuldade de avaliação representa uma barreira para a adoção dos algoritmos na
+indústria e um obstáculo para o avanço das pesquisas.
+%XXX-continuar a deficiência de soluções comprovadas...
 
 % consequencias da deficiência na avaliação
 % - não dá pra comparar algoritmos
@@ -151,8 +166,8 @@ reais.
 
 \begin{figure} \label{fig:rede-modular}
 \centering
-\includegraphics[width=0.5\textwidth]{rede-modular}
-\caption{} %XXX
+\includegraphics[width=0.4\textwidth]{rede-modular}
+\caption{Uma rede modular com 10 vértices organizados em 4 módulos.}
 \end{figure}
 
 Assim, o objetivo desta pesquisa é analisar modelos estocásticos que possam ser
@@ -198,8 +213,9 @@ experimentais encontrados na literatura.  \end{itemize}
 % "Atividades Realizadas e Planejadas" com estimativas de conclusão;
 
 Foram encontrados na literatura dois modelos que produzem redes organizadas em
-módulos [cite]. Um terceiro modelo de redes modulares foi desenvolvido a partir
-da adaptação de um modelo que produz redes sem módulos [cite].
+módulos \cite{Chen2008,Lancichinetti2009}. Um terceiro modelo de redes modulares
+foi desenvolvido a partir da adaptação de um modelo que produz redes sem módulos
+\cite{Bollobas2003}.
 
 Para apoiar a avaliação de realismo dos modelos, coletamos um corpo de 65
 sistemas de software escritos na linguagem Java. A rede de dependências entre
@@ -210,12 +226,13 @@ outros domínios) foram extraídas diversas métricas, tais como número de
 vértices, número de arestas, número médio de arestas por vértice e o expoente
 $\gamma$ da distribuição de graus.
 
-Foi encontrada na literatura uma métrica de distância entre duas redes [cite].
-Utilizamos a métrica em um experimento, descrito em detalhes em um artigo não
-publicado [footnote], que procurou avaliar o realismo dos modelos. Essa métrica
-de distância foi, no entanto, descartada, uma vez que indicou que redes de
-interações entre proteínas estão mais próximas de redes de software do que as
-redes de software estão próximas entre si.
+Foi encontrada na literatura uma métrica de distância entre duas redes
+\cite{Andrade2008}.  Utilizamos a métrica em um experimento, descrito em
+detalhes em um artigo não publicado\footnote{Disponível em
+\url{http://code.google.com/p/swasr/wiki/Home}.}, que procurou avaliar o
+realismo dos modelos. Essa métrica de distância foi, no entanto, descartada, uma
+vez que indicou que redes de interações entre proteínas estão mais próximas de
+redes de software do que as redes de software estão próximas entre si.
 %descrito em um artigo não publicado métrica poderia ser usada para avaliar o
 %realismo de uma rede. Primeiramente seriam calculadas distâncias entre diversas
 %redes de software reais e então a distância entre a rede sob avaliação e as
@@ -272,26 +289,31 @@ implementação de um modelo de redes modulares. Não foi possível comparar
 esse modelo aos dois modelos encontrados na literatura, uma vez que ainda não
 encontramos uma métrica para quantificar o realismo de uma rede de software. Já
 descobrimos, no entanto, que a métrica de distância entre redes encontrada em
-[cite] não é adequada.
+\cite{Andrade2008} não é adequada.
 
 Estamos trabalhando em uma nova métrica de realismo baseada na frequência de
-tríades e já temos alguns resultados. Tríades são subgrafos com três vértices.
-Existem 16 tríades, embora consideremos apenas as 13 tríades conexas, mostradas
-n a Figura [fig] (descartamos tríades em que há pelo menos um vértice sem
-arestas). Ao contarmos a quantidade de cada tipo de tríade em uma rede, obtemos
-o perfil de frequência de tríades (PFT) da rede. 
+tríades e já temos alguns resultados. Tríades, ou grafos com três vértices,
+podem ser resumidas em 16 possíveis configurações. A Figura \ref{fig:triades}
+mostra apenas as 13 tríades nas quais todos os vértices estão ligados a arestas.
+
+%%% XXX FIGURA DE TRIADES
+
+   Ao contarmos a quantidade de cada tipo de tríade em uma rede, obtemos
+  o perfil de frequência de tríades (PFT) da rede. 
 % XXX
-A Figura [] mostra o PFT dos perfis de frequência de tríades de XXX sistemas de
-software e de duas redes de interações entre proteínas.
+  A Figura [] mostra o PFT de XXX sistemas de
+  software e de duas redes de interações entre proteínas.
+
+  A tríade 1 é a mais frequente... etc. e tal.
 
 
-Estudos descritivos mostram que redes de diferentes domínios possuem perfis
-aparentemente diferentes, mas não há uma definição sobre como quantificar essa
-diferença. 
-e nem se redes de
-software podem ser caracterizadas por um perfil.
-
-Medições de PFTs de diversas redes mostram perfis diferentes de um 
+%Estudos descritivos mostram que redes de diferentes domínios possuem perfis
+%aparentemente diferentes, mas não há uma definição sobre como quantificar essa
+%diferença. 
+%e nem se redes de
+%software podem ser caracterizadas por um perfil.
+%
+%Medições de PFTs de diversas redes mostram perfis diferentes de um 
 
 % estudos descritivos
 
@@ -313,7 +335,7 @@ Medições de PFTs de diversas redes mostram perfis diferentes de um
 
 \renewcommand{\refname}{Referências Bibliográficas}
 \bibliographystyle{sbc}
-\bibliography{sbc-template}
+\bibliography{rodrigo-mestrado,complex-networks}
 
 \end{document}
 
