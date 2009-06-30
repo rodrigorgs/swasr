@@ -29,20 +29,17 @@ Campina Grande -- PB -- Brazil
 
 Software modularization recovery algorithms automatically recognize a system's
 modular structure by analyzing its implementation. Because the empirical
-evaluation of these algorithms depends on the availability test sets composed by
-systems with documented modular structure, most empirical studies are, in fact,
-small case studies that cannot be generalized. We propose an evaluation method
-which uses software models capable of producing arbitrary-sized test sets. We
+evaluation of these algorithms depends on the availability of test sets composed
+of systems with documented modular structure, most empirical studies are, in
+fact, small case studies that cannot be generalized. We propose an evaluation
+method that rely on software models to produce arbitrarily large test sets. We
 hope this approach will increase the available knowledge about the algorithms
-and how they can be improved.
-% TODO Abstracts should not have more than 10 lines and must be in the first
-% page of the paper.
+and will provide insights on how they can be improved.
 
 \end{abstract}
      
 \begin{resumo} 
 
-% XXX não é A estrutura de módulos, é UMA
 Algoritmos de recuperação modularização de \emph{software} procuram identificar
 automaticamente a estrutura de módulos de um sistema de \emph{software} a partir
 de sua implementação. Como a avaliação empírica desses algoritmos depende da
@@ -82,23 +79,23 @@ básicos são as classes e as interfaces, as quais se relacionam através de
 mecanismos como herança e agregação. Essas relações estabelecem dependências
 entre os componentes que, unidas, formam uma rede de dependências, também
 chamada de rede de \emph{software}. Formalmente, a entrada de um algoritmo de
-recuperação de modularização é uma rede de \emph{software}, modelada como
-grafo orientado, e a saída é uma rede modular resultante do particionamento em
-módulos da rede original, como mostra a Figura \ref{fig:rede-modular}. Os
+recuperação de modularização é uma rede de \emph{software}, modelada como grafo
+orientado, e a saída é uma rede modular resultante do agrupamento dos
+componentes da rede original, como mostra a Figura \ref{fig:rede-modular}. Os
 vértices do grafo representam componentes e as arestas, relações de dependência
 entre componentes.
 
 
 Recentemente alguns pesquisadores analisaram redes de \emph{software} sob a luz
 da teoria das redes complexas e encontraram propriedades topológicas marcantes
-que também estão presentes em redes de interações entre proteínas, redes
-sociais e muitas outras \cite{Myers2003,Valverde2003}. Descobriu-se que nessas
-redes a distribuição dos graus dos vértices é bem aproximada por uma lei de
-potência, $N(k) \sim k^{-\gamma}$, ou seja, o número de vértices ligados a
-exatamente $k$ arestas é proporcional a uma potência de $k$ com expoente
-negativo e constante, como mostra a Figura \ref{fig:leidepotencia}. Redes
-caracterizadas por essa distribuição de graus específica são chamadas de redes
-livres de escala. % \cite{Barabasi1999}.
+que também estão presentes em redes biológicas, redes sociais e muitas outras
+\cite{Myers2003,Valverde2003}. Descobriu-se que nessas redes a distribuição dos
+graus dos vértices é bem aproximada por uma lei de potência, $N(k) \sim
+k^{-\gamma}$, ou seja, o número de vértices ligados a exatamente $k$ arestas é
+proporcional a uma potência de $k$ com expoente negativo e constante, como
+mostra a Figura \ref{fig:leidepotencia}. Redes caracterizadas por essa
+distribuição de graus específica são chamadas de redes livres de escala. %
+\cite{Barabasi1999}.
 
 
 %\begin{figure}[ht]
@@ -152,12 +149,12 @@ livres de escala. % \cite{Barabasi1999}.
 %\end{figure}
 
 Para tentar explicar os mecanismos responsáveis pela formação de redes livres de
-escala em diversos domínios, pesquisadores criaram vários modelos estocásticos.
-Esses modelos são algoritmos que geram vértices e arestas de maneira
-probabilística porém de acordo com certas regras que garantem que, quando o
-número de vértices tende a infinito, a distribuição dos graus dos vértices tende
-a uma lei de potência. Por essa razão tais modelos podem produzir redes
-similares a redes de \emph{software}, ao menos quanto à distribuição de graus.
+escala em diversos domínios, pesquisadores criaram vários modelos.  Esses
+modelos são algoritmos que geram vértices e arestas de maneira probabilística
+porém de acordo com certas regras que garantem que, quando o número de vértices
+tende a infinito, a distribuição dos graus dos vértices tende a uma lei de
+potência. Por essa razão tais modelos produzem redes similares a redes de
+\emph{software}, ao menos quanto à distribuição de graus.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -177,12 +174,12 @@ modulares pode ser quantificada por uma métrica de distância entre
 particionamentos \cite{Tzerpos1999}.
 
 Infelizmente é difícil encontrar sistemas cuja organização modular é
-documentada. Organizações modulares de referência podem ser obtidas através de
-um experimento controlado no qual um grupo de programadores experientes analisa
-o código-fonte de um sistema e propõe uma organização modular para ele
-\cite{Koschke2000}. Trata-se, no entanto, de um experimento caro, e por isso os
-trabalhos presentes na literatura se limitam a analisar um pequeno número de
-sistemas\cite{Wu2005}.
+documentada, e por isso é mais comum que organizações modulares de referência
+sejam obtidas através de um experimento controlado no qual um grupo de
+programadores experientes analisa o código-fonte de um sistema e propõe uma
+organização modular para ele \cite{Koschke2000}. Trata-se, no entanto, de um
+experimento caro, e por isso os trabalhos presentes na literatura se limitam a
+analisar um pequeno número de sistemas \cite{Wu2005}.
 
 %Koschke e Eisenbarth \cite{Koschke2000} propuseram um \emph{framework}
 %experimental no qual organizações de referência são obtidas através de
@@ -197,7 +194,7 @@ generalizáveis, seria necessário realizar estudos em larga escala, com uma
 grande amostra de sistemas com organização modular conhecida. Como não há um
 \emph{benchmark} abrangente para esses algoritmos, qualquer reivindicação do
 tipo ``o algoritmo A é melhor do algoritmo B'' deve ser olhada com
-desconfiança. Essa dificuldade de avaliação representa uma barreira para a
+desconfiança. Essa dificuldade de avaliação é uma barreira para a
 adoção dos algoritmos na indústria e um obstáculo para o avanço das pesquisas.
 %XXX-continuar a deficiência de soluções comprovadas...
 
@@ -221,15 +218,15 @@ adoção dos algoritmos na indústria e um obstáculo para o avanço das pesquis
 \section{Objetivos}
 % "Objetivos" geral e específicos da pesquisa;
 
-Para suprir a escassez de sistemas cuja organização modular é documentada,
-propomos o uso de modelos estocásticos capazes de sintetizar redes de
+Para suprir a escassez de sistemas que possuem organização modular de
+referência, propomos o uso de modelos capazes de sintetizar redes de
 \emph{software} com organização modular embutida para servirem como conjunto de
 teste. Para que essa abordagem seja bem-sucedida, no entanto, é preciso que as
 redes sintéticas sejam realistas, isto é, semelhantes a redes extraídas de
 sistemas de \emph{software} reais. 
 % XXX-esse tipo de abordagem é comum em redes e sistemas, mas pouco usado em ES.
 
-Assim, o objetivo desta pesquisa é analisar modelos estocásticos que possam ser
+Assim, o objetivo desta pesquisa é analisar modelos que possam ser
 usados para avaliar algoritmos de recuperação de modularização de
 \emph{software}. Esse objetivo pode ser decomposto nos objetivos específicos
 apresentados a seguir:
@@ -237,7 +234,7 @@ apresentados a seguir:
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{itemize}
 
-\item Descobrir modelos estocásticos de redes livres de escala organizadas em
+\item Descobrir modelos de redes livres de escala organizadas em
 módulos. Embora a maioria dos modelos disponíveis na literatura ignorem a
 organização modular, encontramos dois modelos que produzem redes organizadas em
 módulos \cite{Chen2008,Lancichinetti2009}. Um terceiro modelo de redes modulares
@@ -254,7 +251,7 @@ deve encontrar um grau de realismo alto para redes de \emph{software} reais e um
 grau de realismo baixo para redes de outros domínios. %Para isso a métrica
 %deve levar em consideração características únicas de redes de \emph{software}.
 
-\item Avaliar o realismo dos modelos estocásticos. Um modelo é realista se ele é
+\item Avaliar o realismo dos modelos. Um modelo é realista se ele é
 capaz de produzir redes realistas.
 
 \item Avaliar algoritmos de recuperação de modularização através de sua
@@ -288,51 +285,49 @@ sistemas de \emph{software} escritos na linguagem Java\footnote{Disponíveis em
 \url{http://sourceforge.net/}.}. A rede de dependências entre componentes de
 cada sistema foi extraída através da ferramenta Dependency
 Finder\footnote{Disponível em \url{http://depfind.sourceforge.net/}.}.
-Coletamos ainda cerca de cem redes de diversos domínios, sobretudo redes
-sociais e redes biológicas. De cada rede (do domínio de \emph{software} ou de
-outros domínios) foram extraídas diversas métricas, tais como número de
-vértices, número de arestas e o número médio de arestas por vértice.
-%e o expoente
-%$\gamma$ da distribuição de graus.
+Coletamos ainda cerca de 100 redes de diversos domínios, sobretudo redes
+biológicas. %De cada rede (do domínio de \emph{software} ou de outros domínios)
+%foram extraídas diversas métricas, tais como número de vértices e número de
+%arestas.
+%e o expoente $\gamma$ da distribuição de graus.
 
-Encontramos na literatura uma métrica de distância entre duas redes
+Encontramos na literatura uma métrica de distância entre redes
 \cite{Andrade2008}.  Utilizamos a métrica em um experimento, descrito em
 detalhes em um artigo não publicado\footnote{Disponível em
 \url{http://code.google.com/p/swasr/wiki/Home}.}, que procurou avaliar o
-realismo dos modelos através da comparação da distância entre redes sintéticas
-e redes reais com distâncias típicas entre redes reais. Essa métrica de
-distância foi, no entanto, descartada, uma vez que indicou que redes
-metabólicas \cite{Jeong2000} estão mais próximas de redes de \emph{software} do
-que as redes de \emph{software} estão próximas entre si.
+realismo dos modelos através da comparação de distâncias entre redes sintéticas e
+redes de \emph{software} reais com distâncias típicas entre redes de
+\emph{software} reais. Essa métrica de distância foi, no entanto, descartada,
+uma vez que indicou que redes metabólicas \cite{Jeong2000} estão mais próximas
+de redes de \emph{software} do que as redes de \emph{software} estão próximas
+entre si.
 %descrito em um artigo não publicado métrica poderia ser usada para avaliar o
-%realismo de uma rede. Primeiramente seriam calculadas distâncias entre
-%diversas redes de \emph{software} reais e então a distância entre a rede sob
-%avaliação e as redes reais. Para a rede ser considerada realista, ela não
-%deveria ser mais distante de redes reais do que as redes reais são distantes
-%entre si. 
+%realismo de uma rede. Primeiramente seriam calculadas distâncias entre diversas
+%redes de \emph{software} reais e então a distância entre a rede sob avaliação e
+%as redes reais. Para a rede ser considerada realista, ela não deveria ser mais
+%distante de redes reais do que as redes reais são distantes entre si. 
 
 No momento estamos procurando outro método para avaliar o realismo de redes e,
 consequentemente, de modelos. 
 %Temos enfrentado dificuldades em encontrar trabalhos maduros que nos ajudem
 %nessa avaliação. 
-Atualmente estamos trabalhando em um método baseado na frequência de tríades,
-descrito na próxima seção. Com esse método já conseguimos detectar diferenças
-fundamentais entre redes de \emph{software} e redes metabólicas Estimamos a
-conclusão dessa etapa para o final de julho.
+Estamos trabalhando em um método baseado na frequência de tríades, descrito na
+próxima seção, que pretendemos concluir até o final de julho. A análise da
+frequência de tríades já nos permitiu detectar diferenças fundamentais entre
+redes de \emph{software} e redes metabólicas. 
 
-Encontrando um método satisfatório de avaliação de realismo, podemos aplicá-los
-à avaliação dos três modelos estocásticos. Esperamos aproveitar boa parte da
-base de dados e do conhecimento acumulados durante o experimento que realizamos
-anteriormente, e por isso estimamos concluir essa avaliação no final de agosto.
-Pretendemos submeter para publicação, em setembro ou outubro, um artigo com os
-resultados.
+Poderemos então usar o método para avaliar os três modelos. Esperamos aproveitar
+boa parte da base de dados e do conhecimento que acumulamos durante o
+experimento realizado anteriormente, e por isso estimamos concluir essa
+avaliação no final de agosto. Em setembro ou outubro submeteremos para
+publicação um artigo com os resultados desta etapa.
+%Pretendemos submeter para publicação, em setembro ou outubro, um artigo com os
+%resultados.
 
 Em paralelo aplicaremos algoritmos de recuperação de modularização a redes
 sintéticas realistas a fim de comparar os algoritmos. Esperamos concluir essa
-etapa no final de setembro.
-
-Então escreverei a dissertação de mestrado, aproveitando textos e registros de
-pesquisa escritos até então. A conclusão está prevista para meados de novembro.
+etapa no final de setembro. A conclusão da dissertação de mestrado está prevista
+para meados de novembro.
 
 %Realizadas: - Produção de uma revisão bibliográfica - Produção de um manuscrito
 %com resultados preliminares da pesquisa - Implementação de modelos - Coleta de
@@ -356,20 +351,14 @@ pesquisa escritos até então. A conclusão está prevista para meados de novemb
 \section{Resultados Obtidos}
 % "Resultados Obtidos" até então no desenvolvimento da pesquisa
 
-Como já foi mencionado, um dos resultados da pesquisa foi a concepção e a
-implementação de um modelo de redes modulares. Não foi possível comparar esse
-modelo aos dois modelos encontrados na literatura, uma vez que ainda não
-encontramos uma métrica para quantificar o realismo de uma rede de
-\emph{software}. Já descobrimos, no entanto, que a métrica de distância entre
-redes encontrada em \cite{Andrade2008} não é adequada.
+Um dos resultados da pesquisa foi a concepção e a implementação de um modelo de
+redes modulares. Não foi possível comparar quantitativamente esse modelo aos
+dois modelos encontrados na literatura, uma vez que ainda não temos uma métrica
+para quantificar o realismo de uma rede de \emph{software}. Já descobrimos, no
+entanto, que a métrica de distância entre redes descrita em \cite{Andrade2008}
+não é adequada.
 
-Estamos trabalhando em uma nova métrica de realismo baseada na frequência de
-tríades e já temos alguns resultados. As tríades, ou grafos com três vértices,
-podem ser resumidas em 16 possíveis configurações, das quais 13 possuem todos
-os vértices conectados. A Figura \ref{fig:triades} mostra essas 13 tríades e
-seus números de identificação.
-
-\begin{figure}
+\begin{figure}[t]
 \centering
 \includegraphics[width=0.8\textwidth]{triades} 
 \caption{As 13 tríades e seus números de identificação. Adaptado de 
@@ -377,10 +366,19 @@ seus números de identificação.
 \label{fig:triades} 
 \end{figure}
 
+Estamos trabalhando em uma nova métrica de realismo baseada na frequência de
+tríades e já temos alguns resultados. As tríades, ou grafos com três vértices,
+podem ser resumidas em 16 possíveis configurações, das quais 13 possuem todos
+os vértices conectados. A Figura \ref{fig:triades} mostra essas 13 tríades e
+seus números de identificação.
+
 Analisamos as redes dos 65 sistemas em Java já mencionados e constatamos que em
 todos eles a tríade de número 1 é a que aparece com maior frequência,
-respondendo por 30\% a 90\% das tríades de cada rede. Já as redes metabólicas
-\cite{Jeong2000} se diferenciam por apresentar predominância da tríade 2.
+respondendo por 30\% a 90\% das tríades de cada rede. A identificação da tríade
+mais frequente é suficiente para diferenciar redes de software de redes
+metabólicas, pois nestas últimas predomina a tríade de número 2.
+%Já as redes metabólicas \cite{Jeong2000} se diferenciam por apresentar
+%predominância da tríade 2.
 
 \renewcommand{\refname}{Referências Bibliográficas} \bibliographystyle{sbc}
 \bibliography{rodrigo-mestrado,complex-networks,extra}
