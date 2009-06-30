@@ -3,25 +3,19 @@
 \usepackage{sbc-template}
 \usepackage{graphicx,url}
 \usepackage[brazil]{babel}
-\usepackage[latin1]{inputenc}
+\usepackage[utf8]{inputenc}
 \usepackage{multicol}
 
 \sloppy
 
-% TODO: abstract
-% XXX: trocar, no texto, modularizaÁ„o por recuperaÁ„o de modularizaÁ„o 
-% XXX: talvez os modelos sejam modelos de \emph{software} 
-% XXX: acentos da bibliografia est„o defeituosos. Tentar trocar este arquivo para UTF8.
-%
-
-\title{Redes de Software SintÈticas Aplicadas ‡ AvaliaÁ„o de Algoritmos de
-RecuperaÁ„o de ModularizaÁ„o}
+\title{Redes de Software Sint√©ticas Aplicadas √† Avalia√ß√£o de Algoritmos de
+Recupera√ß√£o de Modulariza√ß√£o}
 
 \author{Rodrigo Rocha Gomes e Souza\inst{1}
 %, Dalton Guerrero\inst{1}, Jorge Figueiredo\inst{1}
 }
 
-\address{Departamento de Sistemas e ComputaÁ„o\\
+\address{Departamento de Sistemas e Computa√ß√£o\\
 Universidade Federal de Campina Grande (UFCG)\\ 
 Caixa Postal 10.106 -- CEP 58.109-970 \\
 Campina Grande -- PB -- Brazil
@@ -33,6 +27,14 @@ Campina Grande -- PB -- Brazil
 
 \begin{abstract} 
 
+Software modularization recovery algorithms automatically recognize a system's
+modular structure by analyzing its implementation. Because the empirical
+evaluation of these algorithms depends on the availability test sets composed by
+systems with documented modular structure, most empirical studies are, in fact,
+small case studies that cannot be generalized. We propose an evaluation method
+which uses software models capable of producing arbitrary-sized test sets. We
+hope this approach will increase the available knowledge about the algorithms
+and how they can be improved.
 % TODO Abstracts should not have more than 10 lines and must be in the first
 % page of the paper.
 
@@ -40,62 +42,62 @@ Campina Grande -- PB -- Brazil
      
 \begin{resumo} 
 
-% XXX n„o È A estrutura de mÛdulos, È UMA
-Algoritmos de recuperaÁ„o modularizaÁ„o de \emph{software} procuram identificar
-automaticamente a estrutura de mÛdulos de um sistema de \emph{software} a partir
-de sua implementaÁ„o. Como a avaliaÁ„o empÌrica desses algoritmos depende da
-disponibilidade de um conjunto de testes formado por sistemas cuja organizaÁ„o
-modular È bem documentada, a maioria dos estudos empÌricos s„o pequenos estudos
-de caso que n„o podem ser generalizados.  Propomos uma forma de avaliaÁ„o que
+% XXX n√£o √© A estrutura de m√≥dulos, √© UMA
+Algoritmos de recupera√ß√£o modulariza√ß√£o de \emph{software} procuram identificar
+automaticamente a estrutura de m√≥dulos de um sistema de \emph{software} a partir
+de sua implementa√ß√£o. Como a avalia√ß√£o emp√≠rica desses algoritmos depende da
+disponibilidade de um conjunto de testes formado por sistemas cuja organiza√ß√£o
+modular √© bem documentada, a maioria dos estudos emp√≠ricos s√£o pequenos estudos
+de caso que n√£o podem ser generalizados.  Propomos uma forma de avalia√ß√£o que
 usa modelos de \emph{software} para produzir conjuntos de teste de tamanho
-arbitr·rio.  Esperamos com isso aumentar o conhecimento disponÌvel sobre os
+arbitr√°rio.  Esperamos com isso aumentar o conhecimento dispon√≠vel sobre os
 algoritmos e sobre como eles podem ser melhorados.
-% O resumo (e o abstract) n„o ultrapassem 10 linhas cada, sendo que ambos devem
-% estar na primeira p·gina do artigo.
+% O resumo (e o abstract) n√£o ultrapassem 10 linhas cada, sendo que ambos devem
+% estar na primeira p√°gina do artigo.
 
 \end{resumo}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{IntroduÁ„o}
-% "IntroduÁ„o" caracterizando o contexto em que o trabalho se insere;
+\section{Introdu√ß√£o}
+% "Introdu√ß√£o" caracterizando o contexto em que o trabalho se insere;
 
-A divis„o conceitual de um sistema de \emph{software} em mÛdulos È uma
-informaÁ„o valiosa durante o seu desenvolvimento. Uma boa organizaÁ„o modular
+A divis√£o conceitual de um sistema de \emph{software} em m√≥dulos √© uma
+informa√ß√£o valiosa durante o seu desenvolvimento. Uma boa organiza√ß√£o modular
 revela subconjuntos de um sistema que podem ser desenvolvidos por equipes
 trabalhando de forma mais ou menos independente, o que contribui para reduzir o
-tempo de implementaÁ„o. Apesar disso, o conhecimento sobre a organizaÁ„o de um
-sistema muitas vezes È mal documentado e acaba se perdendo ‡ medida que os
-desenvolvedores s„o substituÌdos \cite{Clements2002}. % cit Parnas?
+tempo de implementa√ß√£o. Apesar disso, o conhecimento sobre a organiza√ß√£o de um
+sistema muitas vezes √© mal documentado e acaba se perdendo √† medida que os
+desenvolvedores s√£o substitu√≠dos \cite{Clements2002}. % cit Parnas?
 
-Algoritmos de modularizaÁ„o de \emph{software} procuram identificar a
-organizaÁ„o modular de um sistema de \emph{software} a partir de sua
-implementaÁ„o e, por isso, auxiliam a divis„o de tarefas entre desenvolvedores.
-Para realizar a decomposiÁ„o de um sistema em mÛdulos, muitos desses algoritmos
-usam heurÌsticas baseadas nas dependÍncias existentes entre os componentes
-b·sicos da implementaÁ„o do sistema.
+Algoritmos de recupera√ß√£o de modulariza√ß√£o de \emph{software} procuram extrair
+da implementa√ß√£o de um sistema uma organiza√ß√£o modular e, por isso, auxiliam a
+divis√£o de tarefas entre desenvolvedores.  Para realizar a decomposi√ß√£o de um
+sistema em m√≥dulos, muitos desses algoritmos usam heur√≠sticas baseadas nas
+depend√™ncias existentes entre os componentes b√°sicos da implementa√ß√£o do
+sistema.
 
 Em sistemas implementados em linguagens orientadas a objetos, os componentes
-b·sicos s„o as classes e as interfaces, as quais se relacionam atravÈs de
-mecanismos como heranÁa e agregaÁ„o. Essas relaÁıes estabelecem dependÍncias
-entre os componentes que, unidas, formam uma rede de dependÍncias, tambÈm
+b√°sicos s√£o as classes e as interfaces, as quais se relacionam atrav√©s de
+mecanismos como heran√ßa e agrega√ß√£o. Essas rela√ß√µes estabelecem depend√™ncias
+entre os componentes que, unidas, formam uma rede de depend√™ncias, tamb√©m
 chamada de rede de \emph{software}. Formalmente, a entrada de um algoritmo de
-modularizaÁ„o de \emph{software} È uma rede de \emph{software}, modelada como
-grafo orientado, e a saÌda È uma rede modular resultante do particionamento em
-mÛdulos da rede original, como mostra a Figura \ref{fig:rede-modular}. Os
-vÈrtices do grafo representam componentes e as arestas, relaÁıes de dependÍncia
+recupera√ß√£o de modulariza√ß√£o √© uma rede de \emph{software}, modelada como
+grafo orientado, e a sa√≠da √© uma rede modular resultante do particionamento em
+m√≥dulos da rede original, como mostra a Figura \ref{fig:rede-modular}. Os
+v√©rtices do grafo representam componentes e as arestas, rela√ß√µes de depend√™ncia
 entre componentes.
 
 
 Recentemente alguns pesquisadores analisaram redes de \emph{software} sob a luz
-da teoria das redes complexas e encontraram propriedades topolÛgicas marcantes
-que tambÈm est„o presentes em redes de interaÁıes entre proteÌnas, redes
+da teoria das redes complexas e encontraram propriedades topol√≥gicas marcantes
+que tamb√©m est√£o presentes em redes de intera√ß√µes entre prote√≠nas, redes
 sociais e muitas outras \cite{Myers2003,Valverde2003}. Descobriu-se que nessas
-redes a distribuiÁ„o dos graus dos vÈrtices È bem aproximada por uma lei de
-potÍncia, $N(k) \sim k^{-\gamma}$, ou seja, o n˙mero de vÈrtices ligados a
-exatamente $k$ arestas È proporcional a uma potÍncia de $k$ com expoente
+redes a distribui√ß√£o dos graus dos v√©rtices √© bem aproximada por uma lei de
+pot√™ncia, $N(k) \sim k^{-\gamma}$, ou seja, o n√∫mero de v√©rtices ligados a
+exatamente $k$ arestas √© proporcional a uma pot√™ncia de $k$ com expoente
 negativo e constante, como mostra a Figura \ref{fig:leidepotencia}. Redes
-caracterizadas por essa distribuiÁ„o de graus especÌfica s„o chamadas de redes
+caracterizadas por essa distribui√ß√£o de graus espec√≠fica s√£o chamadas de redes
 livres de escala. % \cite{Barabasi1999}.
 
 
@@ -120,15 +122,15 @@ livres de escala. % \cite{Barabasi1999}.
 \begin{figure}[ht]
 \begin{minipage}[b]{0.5\linewidth}
 \centering
-\includegraphics[width=0.7\textwidth]{rede-modular} 
-\caption{Uma rede modular com 10 vÈrtices organizados em 4 mÛdulos.} 
+\includegraphics[width=0.6\textwidth]{rede-modular} 
+\caption{Uma rede modular com 10 v√©rtices organizados em 4 m√≥dulos.} 
 \label{fig:rede-modular}
 \end{minipage}
 \hspace{0.5cm}
 \begin{minipage}[b]{0.5\linewidth}
 \centering
-\includegraphics[width=1.0\textwidth]{leidepotencia}
-\caption{DistribuiÁ„o de graus como lei de potÍncia. Adaptado de 
+\includegraphics[width=0.9\textwidth]{leidepotencia}
+\caption{Distribui√ß√£o de graus como lei de pot√™ncia. Adaptado de 
 \cite{Barabasi2007}.} 
 \label{fig:leidepotencia}
 \end{minipage}
@@ -137,248 +139,250 @@ livres de escala. % \cite{Barabasi1999}.
 %\begin{figure}
 %\centering
 %\includegraphics[width=0.3\textwidth]{rede-modular} 
-%\caption{Uma rede modular com 10 vÈrtices organizados em 4 mÛdulos.} 
+%\caption{Uma rede modular com 10 v√©rtices organizados em 4 m√≥dulos.} 
 %\label{fig:rede-modular}
 %\end{figure}
 %
 %\begin{figure} 
 %\centering
 %\includegraphics[width=0.5\textwidth]{leidepotencia}
-%\caption{DistribuiÁ„o de graus como lei de potÍncia. Adaptado de 
+%\caption{Distribui√ß√£o de graus como lei de pot√™ncia. Adaptado de 
 %\cite{Barabasi2007}.} 
 %\label{fig:leidepotencia}
 %\end{figure}
 
-Para tentar explicar os mecanismos respons·veis pela formaÁ„o de redes livres de
-escala em diversos domÌnios, pesquisadores criaram v·rios modelos estoc·sticos.
-Esses modelos s„o algoritmos que geram vÈrtices e arestas de maneira
-probabilÌstica porÈm de acordo com certas regras que garantem que, quando o
-n˙mero de vÈrtices tende a infinito, a distribuiÁ„o dos graus dos vÈrtices tende
-a uma lei de potÍncia. Por essa raz„o tais modelos podem produzir redes
-similares a redes de \emph{software}, ao menos quanto ‡ distribuiÁ„o de graus.
+Para tentar explicar os mecanismos respons√°veis pela forma√ß√£o de redes livres de
+escala em diversos dom√≠nios, pesquisadores criaram v√°rios modelos estoc√°sticos.
+Esses modelos s√£o algoritmos que geram v√©rtices e arestas de maneira
+probabil√≠stica por√©m de acordo com certas regras que garantem que, quando o
+n√∫mero de v√©rtices tende a infinito, a distribui√ß√£o dos graus dos v√©rtices tende
+a uma lei de pot√™ncia. Por essa raz√£o tais modelos podem produzir redes
+similares a redes de \emph{software}, ao menos quanto √† distribui√ß√£o de graus.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{IdentificaÁ„o do Problema} 
-% "IdentificaÁ„o do Problema" a ser investigado na pesquisa bem como sua
-% relev‚ncia para a ·rea de conhecimento;
+\section{Identifica√ß√£o do Problema} 
+% "Identifica√ß√£o do Problema" a ser investigado na pesquisa bem como sua
+% relev√¢ncia para a √°rea de conhecimento;
 
-% MODULARIZA«√O DE REFER NCIA
+% MODULARIZA√á√ÉO DE REFER√äNCIA
 
-Idealmente os algoritmos de modularizaÁ„o de \emph{software} devem encontrar
-organizaÁıes modulares semelhantes ‡quelas que seriam encontradas por
-especialistas nos sistemas analisados. Uma forma de testar os algoritmos
-consiste, pois, em aplic·-los ‡ rede de um sistema para o qual exista uma
-organizaÁ„o modular de referÍncia e ent„o comparar essa organizaÁ„o ‡
-organizaÁ„o encontrada pelo algoritmo. A diferenÁa entre as organizaÁıes
-modulares pode ser quantificada por uma mÈtrica de dist‚ncia entre
+Idealmente os algoritmos de recupera√ß√£o de modulariza√ß√£o de \emph{software}
+devem encontrar organiza√ß√µes modulares semelhantes √†quelas que seriam
+encontradas por especialistas nos sistemas analisados. Uma forma de testar os
+algoritmos consiste, pois, em aplic√°-los √† rede de um sistema para o qual
+exista uma organiza√ß√£o modular de refer√™ncia e ent√£o comparar essa organiza√ß√£o
+√† organiza√ß√£o encontrada pelo algoritmo. A diferen√ßa entre as organiza√ß√µes
+modulares pode ser quantificada por uma m√©trica de dist√¢ncia entre
 particionamentos \cite{Tzerpos1999}.
 
-Infelizmente È difÌcil encontrar sistemas cuja organizaÁ„o modular È
-documentada. OrganizaÁıes modulares de referÍncia podem ser obtidas atravÈs de
+Infelizmente √© dif√≠cil encontrar sistemas cuja organiza√ß√£o modular √©
+documentada. Organiza√ß√µes modulares de refer√™ncia podem ser obtidas atrav√©s de
 um experimento controlado no qual um grupo de programadores experientes analisa
-o cÛdigo-fonte de um sistema e propıe uma organizaÁ„o modular para ele
+o c√≥digo-fonte de um sistema e prop√µe uma organiza√ß√£o modular para ele
 \cite{Koschke2000}. Trata-se, no entanto, de um experimento caro, e por isso os
-trabalhos presentes na literatura se limitam a analisar um pequeno n˙mero de
+trabalhos presentes na literatura se limitam a analisar um pequeno n√∫mero de
 sistemas\cite{Wu2005}.
 
 %Koschke e Eisenbarth \cite{Koschke2000} propuseram um \emph{framework}
-%experimental no qual organizaÁıes de referÍncia s„o obtidas atravÈs de
+%experimental no qual organiza√ß√µes de refer√™ncia s√£o obtidas atrav√©s de
 %experimento controlado no qual um grupo de programadores experientes 
 
 
-%, e por isso a avaliaÁ„o de algoritmos de modularizaÁ„o de \emph{software} È
-%deficiente. Os trabalhos presentes na literatura sobre a avaliaÁ„o desses
+%, e por isso a avalia√ß√£o de algoritmos de modulariza√ß√£o de \emph{software} √©
+%deficiente. Os trabalhos presentes na literatura sobre a avalia√ß√£o desses
 %algoritmos se limitam a estudos de caso \cite{Wu2005}.
 Para que os resultados sejam estatisticamente significativos e, portanto,
-generaliz·veis, seria necess·rio realizar estudos em larga escala, com uma
-grande amostra de sistemas com organizaÁ„o modular conhecida. Como n„o h· um
-\emph{benchmark} abrangente para esses algoritmos, qualquer reivindicaÁ„o do
-tipo ``o algoritmo A È melhor do algoritmo B'' deve ser olhada com
-desconfianÁa. Essa dificuldade de avaliaÁ„o representa uma barreira para a
-adoÁ„o dos algoritmos na ind˙stria e um obst·culo para o avanÁo das pesquisas.
-%XXX-continuar a deficiÍncia de soluÁıes comprovadas...
+generaliz√°veis, seria necess√°rio realizar estudos em larga escala, com uma
+grande amostra de sistemas com organiza√ß√£o modular conhecida. Como n√£o h√° um
+\emph{benchmark} abrangente para esses algoritmos, qualquer reivindica√ß√£o do
+tipo ``o algoritmo A √© melhor do algoritmo B'' deve ser olhada com
+desconfian√ßa. Essa dificuldade de avalia√ß√£o representa uma barreira para a
+ado√ß√£o dos algoritmos na ind√∫stria e um obst√°culo para o avan√ßo das pesquisas.
+%XXX-continuar a defici√™ncia de solu√ß√µes comprovadas...
 
-% consequencias da deficiÍncia na avaliaÁ„o
-% - n„o d· pra comparar algoritmos
-% - n„o d· pra melhorar algoritmos (pois n„o h· como atestar que um È melhor do
-%   que outro e em que situaÁıes)
-% - n„o h· evidÍncias de que um algoritmo È bom
+% consequencias da defici√™ncia na avalia√ß√£o
+% - n√£o d√° pra comparar algoritmos
+% - n√£o d√° pra melhorar algoritmos (pois n√£o h√° como atestar que um √© melhor do
+%   que outro e em que situa√ß√µes)
+% - n√£o h√° evid√™ncias de que um algoritmo √© bom
 
-%AvaliaÁ„o È importante. Dizer como È feita a avaliaÁ„o de algoritmos de
-%recuperaÁ„o de arquitetura.  Dificuldade em se avaliar algoritmos de
-%recuperaÁ„o (por causa da escassez de sistemas cuja estrutura modular È
+%Avalia√ß√£o √© importante. Dizer como √© feita a avalia√ß√£o de algoritmos de
+%recupera√ß√£o de arquitetura.  Dificuldade em se avaliar algoritmos de
+%recupera√ß√£o (por causa da escassez de sistemas cuja estrutura modular √©
 %documentada).
 
-%(eu estou atacando uma forma de avaliaÁ„o, por ser invi·vel e n„o fornecer
-%muitos insights) Objetivo: avaliar uma nova forma de avaliaÁ„o, identificar
-%pontos fortes e fraquezas dessa forma de avaliaÁ„o
+%(eu estou atacando uma forma de avalia√ß√£o, por ser invi√°vel e n√£o fornecer
+%muitos insights) Objetivo: avaliar uma nova forma de avalia√ß√£o, identificar
+%pontos fortes e fraquezas dessa forma de avalia√ß√£o
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Objetivos}
-% "Objetivos" geral e especÌficos da pesquisa;
+% "Objetivos" geral e espec√≠ficos da pesquisa;
 
-Para suprir a escassez de sistemas cuja organizaÁ„o modular È documentada,
-propomos o uso de modelos estoc·sticos capazes de sintetizar redes de
-\emph{software} com organizaÁ„o modular embutida para servirem como conjunto de
-teste. Para que essa abordagem seja bem-sucedida, no entanto, È preciso que as
-redes sintÈticas sejam realistas, isto È, semelhantes a redes extraÌdas de
+Para suprir a escassez de sistemas cuja organiza√ß√£o modular √© documentada,
+propomos o uso de modelos estoc√°sticos capazes de sintetizar redes de
+\emph{software} com organiza√ß√£o modular embutida para servirem como conjunto de
+teste. Para que essa abordagem seja bem-sucedida, no entanto, √© preciso que as
+redes sint√©ticas sejam realistas, isto √©, semelhantes a redes extra√≠das de
 sistemas de \emph{software} reais. 
-% XXX-esse tipo de abordagem È comum em redes e sistemas, mas pouco usado em ES.
+% XXX-esse tipo de abordagem √© comum em redes e sistemas, mas pouco usado em ES.
 
-Assim, o objetivo desta pesquisa È analisar modelos estoc·sticos que possam ser
-usados para avaliar algoritmos de modularizaÁ„o de \emph{software}. Esse
-objetivo pode ser decomposto nos objetivos especÌficos apresentados a seguir:
+Assim, o objetivo desta pesquisa √© analisar modelos estoc√°sticos que possam ser
+usados para avaliar algoritmos de recupera√ß√£o de modulariza√ß√£o de
+\emph{software}. Esse objetivo pode ser decomposto nos objetivos espec√≠ficos
+apresentados a seguir:
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{itemize}
 
-\item Descobrir modelos estoc·sticos de redes livres de escala organizadas em
-mÛdulos. Embora a maioria dos modelos disponÌveis na literatura ignorem a
-organizaÁ„o modular, encontramos dois modelos que produzem redes organizadas em
-mÛdulos \cite{Chen2008,Lancichinetti2009}. Um terceiro modelo de redes modulares
-foi desenvolvido a partir da adaptaÁ„o de um modelo que produz redes sem mÛdulos
+\item Descobrir modelos estoc√°sticos de redes livres de escala organizadas em
+m√≥dulos. Embora a maioria dos modelos dispon√≠veis na literatura ignorem a
+organiza√ß√£o modular, encontramos dois modelos que produzem redes organizadas em
+m√≥dulos \cite{Chen2008,Lancichinetti2009}. Um terceiro modelo de redes modulares
+foi desenvolvido a partir da adapta√ß√£o de um modelo que produz redes sem m√≥dulos
 \cite{Bollobas2003}.
 %mas alguns deles podem ser adaptados com facilidade.
 
-%Caracterizar redes de \emph{software}. A distribuiÁ„o de graus da forma lei de
-%potÍncia È apenas uma caracterÌstica das redes de \emph{software}. Existem
-%outras caracterÌsticas documentadas na literatura.
+%Caracterizar redes de \emph{software}. A distribui√ß√£o de graus da forma lei de
+%pot√™ncia √© apenas uma caracter√≠stica das redes de \emph{software}. Existem
+%outras caracter√≠sticas documentadas na literatura.
 
-\item Desenvolver um mÈtodo para avaliar o realismo de uma rede. Esse mÈtodo
+\item Desenvolver um m√©todo para avaliar o realismo de uma rede. Esse m√©todo
 deve encontrar um grau de realismo alto para redes de \emph{software} reais e um
-grau de realismo baixo para redes de outros domÌnios. %Para isso a mÈtrica
-%deve levar em consideraÁ„o caracterÌsticas ˙nicas de redes de \emph{software}.
+grau de realismo baixo para redes de outros dom√≠nios. %Para isso a m√©trica
+%deve levar em considera√ß√£o caracter√≠sticas √∫nicas de redes de \emph{software}.
 
-\item Avaliar o realismo dos modelos estoc·sticos. Um modelo È realista se ele È
+\item Avaliar o realismo dos modelos estoc√°sticos. Um modelo √© realista se ele √©
 capaz de produzir redes realistas.
 
-\item Avaliar algoritmos de modularizaÁ„o atravÈs de sua aplicaÁ„o a um grande
-n˙mero de redes modulares sintÈticas. Os resultados poder„o ser comparados com
-resultados experimentais encontrados na literatura.
+\item Avaliar algoritmos de recupera√ß√£o de modulariza√ß√£o atrav√©s de sua
+aplica√ß√£o a um grande n√∫mero de redes modulares sint√©ticas. Os resultados
+poder√£o ser comparados com resultados experimentais encontrados na literatura.
 
 \end{itemize}
 
 % avaliativos
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%O OBJETIVO DE PESQUISA …**ANALISAR MODELOS ESTOC¡STICOS QUE POSSAM SER USADOS
-%PARA AVALIAR ALGORITMOS DE RECUPERA«√O DE ARQUITETURA
+%O OBJETIVO DE PESQUISA √â**ANALISAR MODELOS ESTOC√ÅSTICOS QUE POSSAM SER USADOS
+%PARA AVALIAR ALGORITMOS DE RECUPERA√á√ÉO DE ARQUITETURA
 
-%Descobrir modelos estoc·sticos capazes de sintetizar sistemas de
-%\emph{software} organizados em mÛdulos e avali·-los quantitativamente quanto ‡
+%Descobrir modelos estoc√°sticos capazes de sintetizar sistemas de
+%\emph{software} organizados em m√≥dulos e avali√°-los quantitativamente quanto √†
 %capacidade de gerar sistemas semelhantes a sistemas reais (sobretudo
-%desenvolver o mÈtodo para avaliaÁ„o). 
+%desenvolver o m√©todo para avalia√ß√£o). 
 
-%(E, principalmente: Desenvolver um mÈtodo!) Objetivo: demonstrar que a hipÛtese
-%X È verdadeira
+%(E, principalmente: Desenvolver um m√©todo!) Objetivo: demonstrar que a hip√≥tese
+%X √© verdadeira
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Atividades Planejadas e Realizadas}
-% "Atividades Realizadas e Planejadas" com estimativas de conclus„o;
+% "Atividades Realizadas e Planejadas" com estimativas de conclus√£o;
 
 
-Para apoiar a avaliaÁ„o de realismo dos modelos, coletamos um corpo de 65
-sistemas de \emph{software} escritos na linguagem Java\footnote{DisponÌveis em
-\url{http://sourceforge.net/}.}. A rede de dependÍncias entre componentes de
-cada sistema foi extraÌda atravÈs da ferramenta Dependency
-Finder\footnote{DisponÌvel em \url{http://depfind.sourceforge.net/}.}.
-Coletamos ainda cerca de cem redes de diversos domÌnios, sobretudo redes
-sociais e redes biolÛgicas. De cada rede (do domÌnio de \emph{software} ou de
-outros domÌnios) foram extraÌdas diversas mÈtricas, tais como n˙mero de
-vÈrtices, n˙mero de arestas, n˙mero mÈdio de arestas por vÈrtice e o expoente
-$\gamma$ da distribuiÁ„o de graus.
+Para apoiar a avalia√ß√£o de realismo dos modelos, coletamos um corpo de 65
+sistemas de \emph{software} escritos na linguagem Java\footnote{Dispon√≠veis em
+\url{http://sourceforge.net/}.}. A rede de depend√™ncias entre componentes de
+cada sistema foi extra√≠da atrav√©s da ferramenta Dependency
+Finder\footnote{Dispon√≠vel em \url{http://depfind.sourceforge.net/}.}.
+Coletamos ainda cerca de cem redes de diversos dom√≠nios, sobretudo redes
+sociais e redes biol√≥gicas. De cada rede (do dom√≠nio de \emph{software} ou de
+outros dom√≠nios) foram extra√≠das diversas m√©tricas, tais como n√∫mero de
+v√©rtices, n√∫mero de arestas e o n√∫mero m√©dio de arestas por v√©rtice.
+%e o expoente
+%$\gamma$ da distribui√ß√£o de graus.
 
-Encontramos na literatura uma mÈtrica de dist‚ncia entre duas redes
-\cite{Andrade2008}.  Utilizamos a mÈtrica em um experimento, descrito em
-detalhes em um artigo n„o publicado\footnote{DisponÌvel em
+Encontramos na literatura uma m√©trica de dist√¢ncia entre duas redes
+\cite{Andrade2008}.  Utilizamos a m√©trica em um experimento, descrito em
+detalhes em um artigo n√£o publicado\footnote{Dispon√≠vel em
 \url{http://code.google.com/p/swasr/wiki/Home}.}, que procurou avaliar o
-realismo dos modelos atravÈs da comparaÁ„o da dist‚ncia entre redes sintÈticas
-e redes reais com dist‚ncias tÌpicas entre redes reais. Essa mÈtrica de
-dist‚ncia foi, no entanto, descartada, uma vez que indicou que redes
-metabÛlicas \cite{Jeong2000} est„o mais prÛximas de redes de \emph{software} do
-que as redes de \emph{software} est„o prÛximas entre si.
-%descrito em um artigo n„o publicado mÈtrica poderia ser usada para avaliar o
-%realismo de uma rede. Primeiramente seriam calculadas dist‚ncias entre
-%diversas redes de \emph{software} reais e ent„o a dist‚ncia entre a rede sob
-%avaliaÁ„o e as redes reais. Para a rede ser considerada realista, ela n„o
-%deveria ser mais distante de redes reais do que as redes reais s„o distantes
+realismo dos modelos atrav√©s da compara√ß√£o da dist√¢ncia entre redes sint√©ticas
+e redes reais com dist√¢ncias t√≠picas entre redes reais. Essa m√©trica de
+dist√¢ncia foi, no entanto, descartada, uma vez que indicou que redes
+metab√≥licas \cite{Jeong2000} est√£o mais pr√≥ximas de redes de \emph{software} do
+que as redes de \emph{software} est√£o pr√≥ximas entre si.
+%descrito em um artigo n√£o publicado m√©trica poderia ser usada para avaliar o
+%realismo de uma rede. Primeiramente seriam calculadas dist√¢ncias entre
+%diversas redes de \emph{software} reais e ent√£o a dist√¢ncia entre a rede sob
+%avalia√ß√£o e as redes reais. Para a rede ser considerada realista, ela n√£o
+%deveria ser mais distante de redes reais do que as redes reais s√£o distantes
 %entre si. 
 
-No momento estamos procurando outro mÈtodo para avaliar o realismo de redes e,
+No momento estamos procurando outro m√©todo para avaliar o realismo de redes e,
 consequentemente, de modelos. 
 %Temos enfrentado dificuldades em encontrar trabalhos maduros que nos ajudem
-%nessa avaliaÁ„o. 
-Atualmente estamos trabalhando em um mÈtodo baseado na frequÍncia de trÌades,
-descrito na prÛxima seÁ„o. Com esse mÈtodo j· conseguimos detectar diferenÁas
-fundamentais entre redes de \emph{software} e redes metabÛlicas Estimamos a
-conclus„o dessa etapa para o final de julho.
+%nessa avalia√ß√£o. 
+Atualmente estamos trabalhando em um m√©todo baseado na frequ√™ncia de tr√≠ades,
+descrito na pr√≥xima se√ß√£o. Com esse m√©todo j√° conseguimos detectar diferen√ßas
+fundamentais entre redes de \emph{software} e redes metab√≥licas Estimamos a
+conclus√£o dessa etapa para o final de julho.
 
-Encontrando um mÈtodo satisfatÛrio de avaliaÁ„o de realismo, podemos aplic·-los
-‡ avaliaÁ„o dos trÍs modelos estoc·sticos. Esperamos aproveitar boa parte da
+Encontrando um m√©todo satisfat√≥rio de avalia√ß√£o de realismo, podemos aplic√°-los
+√† avalia√ß√£o dos tr√™s modelos estoc√°sticos. Esperamos aproveitar boa parte da
 base de dados e do conhecimento acumulados durante o experimento que realizamos
-anteriormente, e por isso estimamos concluir essa avaliaÁ„o no final de agosto.
-Pretendemos submeter para publicaÁ„o, em setembro ou outubro, um artigo com os
+anteriormente, e por isso estimamos concluir essa avalia√ß√£o no final de agosto.
+Pretendemos submeter para publica√ß√£o, em setembro ou outubro, um artigo com os
 resultados.
 
-Em paralelo aplicaremos algoritmos de modularizaÁ„o de \emph{software} a redes
-sintÈticas realistas a fim de comparar os algoritmos. Esperamos concluir essa
+Em paralelo aplicaremos algoritmos de recupera√ß√£o de modulariza√ß√£o a redes
+sint√©ticas realistas a fim de comparar os algoritmos. Esperamos concluir essa
 etapa no final de setembro.
 
-Ent„o escreverei a dissertaÁ„o de mestrado, aproveitando textos e registros de
-pesquisa escritos atÈ ent„o. A conclus„o est· prevista para meados de novembro.
+Ent√£o escreverei a disserta√ß√£o de mestrado, aproveitando textos e registros de
+pesquisa escritos at√© ent√£o. A conclus√£o est√° prevista para meados de novembro.
 
-%Realizadas: - ProduÁ„o de uma revis„o bibliogr·fica - ProduÁ„o de um manuscrito
-%com resultados preliminares da pesquisa - ImplementaÁ„o de modelos - Coleta de
+%Realizadas: - Produ√ß√£o de uma revis√£o bibliogr√°fica - Produ√ß√£o de um manuscrito
+%com resultados preliminares da pesquisa - Implementa√ß√£o de modelos - Coleta de
 %um corpo de sistemas de \emph{software} - Coleta de um corpo de redes
-%n„o-software - Desenvolvimento de um mÈtodo de avaliaÁ„o de realismo (e
-%aplicaÁ„o a um corpus pequeno) -- DESCREVER O M…TODO sucintamente.  - AvaliaÁ„o
-%qualitativa e quantitativa de modelos (2 modelos n„o-orientados) atravÈs de um
+%n√£o-software - Desenvolvimento de um m√©todo de avalia√ß√£o de realismo (e
+%aplica√ß√£o a um corpus pequeno) -- DESCREVER O M√âTODO sucintamente.  - Avalia√ß√£o
+%qualitativa e quantitativa de modelos (2 modelos n√£o-orientados) atrav√©s de um
 %experimento.
 %
-%Planejadas: - Refinamento do mÈtodo de avaliaÁ„o de realismo. Est.: - Avaliar
-%modelos de redes orientadas.  - Achar uma mÈtrica que n„o dependa de achar
+%Planejadas: - Refinamento do m√©todo de avalia√ß√£o de realismo. Est.: - Avaliar
+%modelos de redes orientadas.  - Achar uma m√©trica que n√£o dependa de achar
 %\emph{software}s de mesmo tamanho. (e que se aplique a redes orientadas, uma
-%vez que em redes orientadas a dist‚ncia de Andrade gera matrizes muito
-%esparsas, afetando negativamente a relev‚ncia do valor calculado) - PublicaÁ„o
-%com resultados preliminares. Est.: outubro?  - AplicaÁ„o de algoritmos de
-%clustering e comparaÁ„o com literatura: Est.: - DissertaÁ„o - PublicaÁ„o dos
+%vez que em redes orientadas a dist√¢ncia de Andrade gera matrizes muito
+%esparsas, afetando negativamente a relev√¢ncia do valor calculado) - Publica√ß√£o
+%com resultados preliminares. Est.: outubro?  - Aplica√ß√£o de algoritmos de
+%clustering e compara√ß√£o com literatura: Est.: - Disserta√ß√£o - Publica√ß√£o dos
 %resultados finais da pesquisa
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Resultados Obtidos}
-% "Resultados Obtidos" atÈ ent„o no desenvolvimento da pesquisa
+% "Resultados Obtidos" at√© ent√£o no desenvolvimento da pesquisa
 
-Como j· foi mencionado, um dos resultados da pesquisa foi a concepÁ„o e a
-implementaÁ„o de um modelo de redes modulares. N„o foi possÌvel comparar esse
-modelo aos dois modelos encontrados na literatura, uma vez que ainda n„o
-encontramos uma mÈtrica para quantificar o realismo de uma rede de
-\emph{software}. J· descobrimos, no entanto, que a mÈtrica de dist‚ncia entre
-redes encontrada em \cite{Andrade2008} n„o È adequada.
+Como j√° foi mencionado, um dos resultados da pesquisa foi a concep√ß√£o e a
+implementa√ß√£o de um modelo de redes modulares. N√£o foi poss√≠vel comparar esse
+modelo aos dois modelos encontrados na literatura, uma vez que ainda n√£o
+encontramos uma m√©trica para quantificar o realismo de uma rede de
+\emph{software}. J√° descobrimos, no entanto, que a m√©trica de dist√¢ncia entre
+redes encontrada em \cite{Andrade2008} n√£o √© adequada.
 
-Estamos trabalhando em uma nova mÈtrica de realismo baseada na frequÍncia de
-trÌades e j· temos alguns resultados. As trÌades, ou grafos com trÍs vÈrtices,
-podem ser resumidas em 16 possÌveis configuraÁıes, das quais 13 possuem todos
-os vÈrtices conectados. A Figura \ref{fig:triades} mostra essas 13 trÌades e
-seus n˙meros de identificaÁ„o.
+Estamos trabalhando em uma nova m√©trica de realismo baseada na frequ√™ncia de
+tr√≠ades e j√° temos alguns resultados. As tr√≠ades, ou grafos com tr√™s v√©rtices,
+podem ser resumidas em 16 poss√≠veis configura√ß√µes, das quais 13 possuem todos
+os v√©rtices conectados. A Figura \ref{fig:triades} mostra essas 13 tr√≠ades e
+seus n√∫meros de identifica√ß√£o.
 
 \begin{figure}
 \centering
-\includegraphics[width=0.9\textwidth]{triades} 
-\caption{As 13 trÌades e seus n˙meros de identificaÁ„o. Adaptado de 
+\includegraphics[width=0.8\textwidth]{triades} 
+\caption{As 13 tr√≠ades e seus n√∫meros de identifica√ß√£o. Adaptado de 
 \cite{Milo2002}.} 
 \label{fig:triades} 
 \end{figure}
 
-Analisamos as redes dos 65 sistemas em Java j· mencionados e constatamos que em
-todos eles a trÌade de n˙mero 1 È a que aparece com maior frequÍncia,
-respondendo por 30\% a 90\% das trÌades de cada rede. J· as redes metabÛlicas
-\cite{Jeong2000} se diferenciam por apresentar predomin‚ncia da trÌade 2.
+Analisamos as redes dos 65 sistemas em Java j√° mencionados e constatamos que em
+todos eles a tr√≠ade de n√∫mero 1 √© a que aparece com maior frequ√™ncia,
+respondendo por 30\% a 90\% das tr√≠ades de cada rede. J√° as redes metab√≥licas
+\cite{Jeong2000} se diferenciam por apresentar predomin√¢ncia da tr√≠ade 2.
 
-\renewcommand{\refname}{ReferÍncias Bibliogr·ficas} \bibliographystyle{sbc}
+\renewcommand{\refname}{Refer√™ncias Bibliogr√°ficas} \bibliographystyle{sbc}
 \bibliography{rodrigo-mestrado,complex-networks,extra}
 
 \end{document}
