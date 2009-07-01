@@ -6,7 +6,7 @@ require 'grok'
 pairs = read_pairs(ARGV[0]).uniq
 non_mutual = pairs.map { |x| x.sort }.uniq
 
-if non_mutual.size < pairs.size
+if non_mutual.size < pairs.size && non_mutual.size != pairs.size/2
   puts "TRUE"
   exit 0
 else

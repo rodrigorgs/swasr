@@ -130,6 +130,10 @@ file 'motifs4.data' => NUMBERS_ARC do
   system "motifs.R #{NUMBERS_ARC} motifs4.data 4"
 end
 
+file 'dyads' => [NUMBERS_ARC, NUMBERS_MOD] do
+  system 'dyad_census.rb numbers > dyads'
+end
+
 require 'read_randesu'
 file 'zscores' => 'randesu.log' do
   extract_zscores('randesu.log', 'zscores')
