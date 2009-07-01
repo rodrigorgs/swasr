@@ -16,6 +16,32 @@ class TC_Network < Test::Unit::TestCase
     assert_equal(4, net.edges.size)
     assert_equal(2, net.clusters.size)
   end
+ 
+  #
+  # 0 <-> 1
+  # |
+  # v
+  # 2 <-> 3
+  #
+  def test_dyad_census
+    net = Network.new [[0, 1], [1, 0], [0, 2], [2, 3], [3, 2]]
+    net.set_cluster(2, :x)
+    census = net.dyad_census
+    assert_equal 0, census[:internal_asym]
+    assert_equal 1, census[:internal_mutual]
+    assert_equal 1, census[:external_asym]
+    assert_equal 1, census[:external_mutual]
+  end
+
+  def test_connects_to
+    net = Network.new [[0, 1], [1, 0], [0, 2], [2, 3]]
+    n0 = net.node?(0)
+    n1 = net.node?(1)
+    n2 = net.node?(2)
+    assert n0.connects_to(n2)
+    assert !n2.connects_to(n0)
+    assert !n1.connects_to(n2)
+  end
 
   def test_reduce_size
     net = Network.new

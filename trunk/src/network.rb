@@ -248,6 +248,33 @@ class Network
     @clusters.delete(c.eid)
   end
 
+  def dyad_census
+    edges.each { |e| e.data.visited = false }
+    census = { 
+      :external_asym => 0,
+      :external_mutual => 0,
+      :internal_asym => 0,
+      :internal_mutual => 0,
+      }
+    type = nil
+
+    edges.each do |e|
+      next if e.data.visited
+      e.data.visited = true
+      if e.to.connects_to(e.from) # mutual
+        edge?(e.to, e.from).data.visited = true
+        type = (e.from.cluster == e.to.cluster) ? :internal_mutual : :external_mutual
+      else
+        type = (e.from.cluster == e.to.cluster) ? :internal_asym : :external_asym
+      end
+      census[type] += 1
+    end
+
+    sum = census.values.inject(0) { |acc, x| acc + x }.to_f
+    census.keys.each { |k| census[k] /= sum }
+    return census
+  end
+
   ###############################################
 
   def inspect
@@ -395,6 +422,10 @@ class Node
 
   def _clusters(nodes)
     nodes.map { |n| n.cluster }.uniq
+  end
+
+  def connects_to(node)
+    @out_edges_map.has_key?(node)
   end
 
   def in_nodes; @in_edges_map.map { |n, e| n }; end

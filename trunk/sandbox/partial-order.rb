@@ -1,13 +1,15 @@
 #!/usr/bin/env ruby
+# input: csv file, each line is a sequence of N numbers
+# output: a partial order of the N positions
 
-systems = IO.readlines('motifs-orders').map { |x| x.split(',').map{|y|y.to_i} }
-
+sequences = IO.readlines(ARGV[0]).map { |x| x.split(',').map{|y|y.to_i} }
 
 orders = []
-systems.each do |indices|
+sequences.each do |sequence|
   ord = []
-  indices.each_with_index do |index, i|
-    z = indices[(i+1)..-1].map { |x| [index, x] }
+  sequence.each_with_index do |value, i|
+    indices = (0..(sequence.size-1)).select { |j| sequence[j] > value }
+    z = indices.map { |x| [i, x] }
     ord |= z
   end
   orders << ord unless ord.empty?
