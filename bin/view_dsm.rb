@@ -62,6 +62,7 @@ if __FILE__ == $0
     exit 1
   end
 
+  clusters = nil
   network = Network.new
   STDERR.puts "Reading edges..."
   network.add_edges(read_pairs(c.edges_file))
@@ -86,6 +87,16 @@ if __FILE__ == $0
   image.draw do |canvas|
     canvas.color = GD2::Color::WHITE
     canvas.fill
+
+    if clusters
+      i = 0
+      canvas.color = GD2::Color[1.0, 1.0, 0]
+      clusters.map { |clust| clust.size }.each do |w|
+        canvas.rectangle(i, i, i + w -1, i + w -1, true)
+        i += w
+      end
+    end
+
     canvas.color = GD2::Color::BLACK
     network.edges.each do |e|
       canvas.circle(e.from.data.pos, e.to.data.pos, c.psize, true)
