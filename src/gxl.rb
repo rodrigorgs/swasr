@@ -10,6 +10,15 @@ include REXML
 
 require 'rexml/streamlistener'
 
+def bunch_to_mod(bunch_file, output_file)
+  File.open(output_file, 'w') do |f|
+    IO.readlines(bunch_file).each_with_index do |line, m|
+      vertices = line[(line.index('=') + 2)..-1].strip.split(", ")
+      vertices.each { |v| f.puts "#{v} #{m}" }
+    end
+  end
+end
+
 def pairs_to_metis(pairs, metis_file)
   pairs = read_pairs(pairs) if pairs.kind_of?(String)
   net = Network.new
