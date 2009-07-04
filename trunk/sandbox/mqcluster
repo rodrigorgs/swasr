@@ -1,0 +1,47 @@
+#!/usr/bin/env ruby
+require 'tempfile'
+require 'gxl'
+
+def tempname
+  x = Tempfile.open('temp')
+  path = x.path
+  x.delete
+  return path
+end
+
+properties = tempname
+File.open(properties, 'w') do |f|
+  f.puts <<EOT
+clustererType = modularizationQuality
+
+# Logging parameters
+verboseMode = true
+logFile = MQLog.log
+
+# GXL file parameters
+keepUnclustered = false
+edgeType = multiple
+
+# Random Algorithm
+MQAlgorithm = RANDOMIZED_SEARCH
+optimizationFunction = TURBO
+convergenceThreshold = 1.0E-6
+maxIterations = 1000
+numPaths = 10
+EOT
+end
+
+txt_input = ARGV[0]
+txt_output = ARGV[1]
+
+gxl_input = tempname
+gxl_output = tempname
+
+l1_to_gxl(txt_input, gxl_input)
+
+cmd = "abstract #{properties} #{gxl_input} #{gxl_output} modularizationQuality"
+puts cmd
+system cmd
+
+gxl_to_l2(gxl_output, txt_output)
+
