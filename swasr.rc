@@ -49,7 +49,6 @@ export PATH=$DEPENDENCYFINDER_HOME/bin:$PATH
 # mfinder
 export PATH=$PATH:$DIR/opt/mfinder1.2
 
-
 # FANMOD
 export PATH=$PATH:$DIR/opt/fanmod
 export PATH=$PATH:$DIR/opt/randesu
@@ -62,3 +61,4 @@ export RUBYLIB=$RUBYLIB:$DIR/src
 export PATH=$PATH:$DIR/bin
 export PATH=$PATH:$DIR/opt/bin
 export RUBYLIB=$RUBYLIB:$DIR/bin
+export CLASSPATH=$CLASSPATH:$DIR/java/SwasrConformance
