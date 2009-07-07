@@ -24,4 +24,6 @@ better_modularity = -1
 
 #p better_group
 
-save_mod g.community_to_membership(merges, merges.nrow - num_clusters + 1, g.vcount)
+#save_mod g.community_to_membership(merges, merges.nrow - num_clusters + 1, g.vcount)
+
+save_merges merges, 'merges_eb'
