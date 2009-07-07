@@ -9,4 +9,6 @@ g.to_undirected(1)
 
 merges, modularity = g.community_fastgreedy()
 
-save_mod g.community_to_membership(merges, merges.nrow - num_clusters + 1, g.vcount)
+#save_mod g.community_to_membership(merges, merges.nrow - num_clusters + 1, g.vcount)
+
+save_merges merges, 'merges_fast'
