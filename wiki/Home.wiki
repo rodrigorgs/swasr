@@ -6,6 +6,7 @@ Veja as [Instalacao instruções de instalação do ambiente swasr].
 
 == Log de pesquisa ==
 
+  * [OnModularity On modularity]
   * [OrdemParcialDeMotifs Caracterizando classes de redes complexas através de ordem parcial de  frequência de tríades (motifs de tamanho 3)]
   * [FrequenciasMediasPorMotif Mais uma tentativa de caracterizar redes de software e... não foi desta vez.]
   * [DistanciaSoftwareVsRedeBiologica Surpresa na medição da distância entre uma rede biológica e uma rede de software]
