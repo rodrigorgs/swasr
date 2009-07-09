@@ -1,7 +1,7 @@
 ﻿#summary On modularity
 
 Based on some experiments with clustering algorithms, Newman's modularity
-metric and the MoJoSim metric for comparison between decompositions, I've
+metric and the !MoJoSim metric for comparison between decompositions, I've
 made two observations.
 
 First: there's no correlation between modularity and authoritativeness.

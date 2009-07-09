@@ -1,32 +1,32 @@
-﻿#summary MiojoSim: A decomposition comparison metric for instant analysis!
+﻿#summary!MiojoSim: A decomposition comparison metric for instant analysis!
 
 
 === The Marketplace ===
 
-MoJo is a metric used to compare two decompositions by counting the number of
+!MoJo is a metric used to compare two decompositions by counting the number of
 move and join operations needed in order to transform the first decomposition
 into the second one. This metric is frequently used to tell how well a
 clustering algorithm performs in comparison to its rivals, by applying the
-algorithms to a network and then computing the MoJo score between the found
-decompositions and a reference decomposition. The smaller the MoJo score, the
+algorithms to a network and then computing the !MoJo score between the found
+decompositions and a reference decomposition. The smaller the !MoJo score, the
 better.
 
 === The Niche ===
 
 Some clustering algorithms, mostly hierarchical algorithms, get sensibly small
-MoJo scores by packing together almost all elements into a giant cluster.
-While, tecnically, this implies a MoJo score of (n - C) -- where n is the
+!MoJo scores by packing together almost all elements into a giant cluster.
+While, tecnically, this implies a !MoJo score of (n - C) -- where n is the
 number of elements and C is the size of the largest cluster --, it just doesn't
 feel quite right to win the big prize with such a trivial and useless solution.
 
 === The Product ===
 
-Tired of peeking at low-MoJo-scores decompositions just to find out that it is
+Tired of peeking at low-!MoJo-scores decompositions just to find out that it is
 dominated by a giant and overweight cluster? Seeking better tools to satisfy
-your knowledge hunger? No more! Replace MoJo with MiojoSim to get instantaneous,
-ready to consume information. MiojoSim gives a score of zero for one-cluster
-decompositions, up to 1 for identical decompositions, and down to -1 for
-completely dissimilar decompositions.
+your knowledge hunger? No more! Replace !MoJo with !MiojoSim to get
+instantaneous, ready to consume information. !MiojoSim gives a score of zero
+for one-cluster decompositions, up to 1 for identical decompositions, and down
+to -1 for completely dissimilar decompositions.
 
 === Acknowledgments ===
 
