@@ -13,7 +13,7 @@ $gu = IGraph::FileRead.read_graph_edgelist(File.new('numbers.arc'), 1)
 $gu.to_undirected(1)
 
 algorithms = %w{fast eb}
-default_tasks = algorithms.map { |x| "mod-#{x}/best_miojo" }
+default_tasks = algorithms.map { |x| ["mod-#{x}/best_miojo", "mod-#{x}/best_mojo"] }.flatten
 
 task :default => default_tasks
 
@@ -34,11 +34,17 @@ end
 ######################################################################
 #
 rule(%r{mod-(.+)/mojos} => proc { |x| x.sub(/mojos/, 'merges') }) do |t|
-  compute_mojos('numbers.mod', t.source, t.name)
+  system "java_merge_mojos.rb numbers.mod #{t.source} #{t.name}"
+  #compute_mojos('numbers.mod', t.source, t.name)
 end
 
-rule(%r{mod-(.+)/best_miojo} => proc { |x| x.sub(/best_miojo/, 'mojos') }) do |t|
+rule(%r{mod-.*/best_miojo} => proc { |x| x.sub(/best_miojo/, 'mojos') }) do |t|
   miojos = IO.readlines(t.source)[1..-1].map { |line| line.strip.split(" ")[1] }
+  File.open(t.name, 'w') { |f| f.puts miojos.max }
+end
+
+rule(%r{mod-.*/best_mojo} => proc { |x| x.sub(/best_mojo/, 'mojos') }) do |t|
+  miojos = IO.readlines(t.source)[1..-1].map { |line| line.strip.split(" ")[0] }
   File.open(t.name, 'w') { |f| f.puts miojos.max }
 end
 
