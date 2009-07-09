@@ -1,0 +1,19 @@
+﻿#summary On modularity
+
+Based on some experiments with clustering algorithms, Newman's modularity
+metric and the MoJoSim metric for comparison between decompositions, I've
+made two observations.
+
+First: there's no correlation between modularity and authoritativeness (in
+fact, there is a weak _negative_ correlation). It means that algorithms based
+on modularity optimization, such as Bunch, don't necessarily give the best
+decompositions.
+
+http://swasr.googlecode.com/svn/wiki/images/big_systems_are_modular.png
+
+Second: Big systems are more modular than the average of the systems. Although
+small and medium systems span a wide spectrum of modularities, big systems are
+consistently more modular. So, for this specific class of systems,
+modularization optimization may give good results. 
+
+http://swasr.googlecode.com/svn/wiki/images/mojo_vs_modularity.png
