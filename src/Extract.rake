@@ -2,6 +2,7 @@
 
 require 'rake'
 require 'gxl'
+require 'igraph'
 
 NUMBERS_ARC = 'numbers.arc'
 NUMBERS_MOD = 'numbers.mod'
@@ -141,6 +142,14 @@ end
 
 file 'randesu.log' => 'numbers.arc' do
   system "randesu numbers.arc -s 3 -r 1000 -f randesu.log"
+end
+
+file 'modularity' => ['numbers.arc', 'numbers.mod'] do |t|
+  g = IGraph::FileRead.read_graph_edgelist(File.new('numbers.arc'), 1)
+  mods = read_pairs('numbers.mod').map { |a, b| [a.to_i, b.to_i] }
+  mods = mods.group_by { |a, b| b }.values.map { |c| c.map { |a, b| a } }
+  modularity = g.modularity(mods)
+  File.open(t.name, 'w') { |f| f.puts modularity }
 end
 
 if __FILE__ == $0; system "rake --trace -f #{$0} #{ARGV.join(' ')}"; end
