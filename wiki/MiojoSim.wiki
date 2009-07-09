@@ -1,4 +1,4 @@
-﻿#summary!MiojoSim: A decomposition comparison metric for instant analysis!
+﻿#summary MiojoSim: A decomposition comparison metric for instant analysis!
 
 
 === The Marketplace ===
@@ -15,7 +15,7 @@ better.
 
 Some clustering algorithms, mostly hierarchical algorithms, get sensibly small
 !MoJo scores by packing together almost all elements into a giant cluster.
-While, tecnically, this implies a !MoJo score of (n - C) -- where n is the
+While, technically, this implies a !MoJo score of (n - C) -- where n is the
 number of elements and C is the size of the largest cluster --, it just doesn't
 feel quite right to win the big prize with such a trivial and useless solution.
 
@@ -31,4 +31,3 @@ to -1 for completely dissimilar decompositions.
 === Acknowledgments ===
 
 Miojo is a popular brand of instant noodles in Brazil.
-
