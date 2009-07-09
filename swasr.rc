@@ -62,4 +62,4 @@ export PATH=$PATH:$DIR/bin
 export PATH=$PATH:$DIR/opt/bin
 export RUBYLIB=$RUBYLIB:$DIR/bin
 export CLASSPATH=$CLASSPATH:$DIR/java/SwasrConformance/bin
-export CLASSPATH=$CLASSPATH:$DIR/opt/clustering
+export CLASSPATH=$CLASSPATH:$DIR/opt/clustering:$DIR/opt/clustering/mojo
