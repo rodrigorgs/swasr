@@ -1,5 +1,6 @@
 #!/usr/bin/env ruby
 require 'tempfile'
+require 'fileutils'
 
 def pairs_to_rsf(pairs, rsf)
   File.open(rsf, 'w') do |g|
@@ -14,12 +15,14 @@ def mojo(file1, file2)
   g = Tempfile.new('mojo')
   a = f.path
   b = g.path
-  f.delete
-  g.delete
+  f.close(true)
+  g.close(true)
 
   pairs_to_rsf file1, a
   pairs_to_rsf file2, b
-  return `java mojo.MoJo #{a} #{b}`.to_i
+  value = `java mojo.MoJo #{a} #{b}`.to_i
+  FileUtils.rm [a, b]
+  return value
 end
 
 def mojosim(file1, file2)
