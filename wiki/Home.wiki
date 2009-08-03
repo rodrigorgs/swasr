@@ -22,7 +22,7 @@ Veja as [Instalacao instruções de instalação do ambiente swasr].
 
 == Material acadêmico ==
 
-
+  * [http://swasr.googlecode.com/files/rodrigo-wdcopin2009.pdf Artigo: Redes de Software Sintéticas Aplicadas à Avaliação de Algoritmos de Recuperação de Modularização]
   * [http://swasr.googlecode.com/svn/trunk/latex/relatorio-tecnico1/relatorio-tecnico1.pdf Revisão Bibliográfica: Redes Complexas e Dependências entre Componentes de Software]
   * [http://swasr.googlecode.com/files/Rodrigo%20Rocha%20-%20Proposta%20de%20dissertacao%20de%20mestrado%20%28slides%29.pdf Proposta de mestrado (slides)] - arquivo pdf
   * [http://swasr.googlecode.com/files/proposta-rodrigo-final.doc Proposta de mestrado (texto)] - arquivo doc
