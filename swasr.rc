@@ -53,6 +53,9 @@ export PATH=$PATH:$DIR/opt/mfinder1.2
 export PATH=$PATH:$DIR/opt/fanmod
 export PATH=$PATH:$DIR/opt/randesu
 
+# bunch
+export CLASSPATH=$CLASSPATH:$DIR/opt/clustering/bunch/bunch.jar:$DIR/opt/clustering/bunch
+
 # swasr
 export PATH=$PATH:$DIR/sandbox
 export RUBYLIB=$RUBYLIB:$DIR/sandbox
