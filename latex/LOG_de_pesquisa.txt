@@ -1,0 +1,181 @@
+-----------------------------------------------------------------------------
+
+11/08/2009
+
+Peguei outras redes de outros domínios, usadas em Superfamilies of Evolved and Designed Networks. Automatizei o cálculo de correlação, e ele mostrou que, das redes de outros domínios, apenas a polblogs e a celegansneural são similares a redes de software.
+
+Próximo passo: gerar várias redes sintéticas, variando os parâmetros em todo o domínio dos parâmetros. Pensar em um jeito de guardar esses parâmetros em um arquivo (ideia: key/value pairs; outra idéia: arquivo de colunas separado por tabs)
+
+-----------------------------------------------------------------------------
+
+10/08/2009
+
+Usei a métrica correlação (de Pearson?) e ela mostra que CGW tem forte correlação com software e redes de outros domínios tem correlação baixa, nula ou negativa. Yeah!
+
+-----------------------------------------------------------------------------
+
+05/08/2009
+
+Calculei distâncias entre 180 redes, sendo 65 redes em Java. Usei 5 distâncias:
+- KL divergence (descartada)
+- Entropy distance (descartada)
+- Histogram intersection
+- Modified qui-squared
+- Euclidean distance
+
+Essas distâncias são encontradas no trabalho de Sarabandi, e histogram intersection de um outro trabalho (procure no google)
+
+-----------------------------------------------------------------------------
+
+Plotando matriz de correlação clusterizada
+
+library(sma)
+x = um dataframe qualquer, dados de um elemento em cada coluna
+c = cor(t(x))
+d = dist(c)
+h = hclust(d)
+plot(h)
+# observa um bom ponto de corte. Por exemplo 0.5
+cut = cutree(h, h=0.5)
+y = x[,order(cut)]
+plot.cor(cor(y))
+
+Sistemas 14, 20, 39, 52 (em ordem alfabética) são meio diferentes dos outros 
+freetts-1.2.2-bin  gfp_0.8.1 jmsn-0.9.9b2 pjirc_2_2_1_bin
+Sistemas 29, 51, 30, 8 etc. (em ordem alfabética) são bem típicos
+IRPF2009v1.1 pentaho-reporting-engine-classic-0.8.9.11 JabRef-2.5b2-src dbwrench 
+
+
+-----------
+
+TODO: descobrir como fazer bunch rodar em batch. Ver clue.zip em http://www.swag.uwaterloo.ca/lsedit/downloads/index.html e BunchClusterLayout.java no Desktop -- VER TESE PHD DE MITCHELL (lá ele explica tudo, com exemplo de código)
+
+TODO: ver AA Clusterer: http://www.swag.uwaterloo.ca/lsedit/AA.html
+
+fazer uma revisão bibliográfica sistemática dos artigos que avaliam algoritmos de modularização de software. UPDATE: Feito
+
+TODO: entregue uma rede modular sintética a uma pessoa e a peça para identificar os módulos. Coincide com os módulos embutidos?
+
+ler os artigos sobre synthetic data sets. UPDATE: folheado
+
+-----------------------------------------------------------------------------
+
+TODO: Cluster.rake em squirrel-sql-base. 
+
+MoJo dá resultados bons mesmo quando o algoritmo acha apenas um grande cluster. Será que não devemos criar uma métrica MoJo que tome como base de comparação esse caso do cluster gigante? Ou então comparar com clusterings aleatórios, sei lá.
+
+Ver unbiased Ellenberg Measure no artigo de Maqbool
+
+Hierarchical Clustering in R
+g = read.graph("numbers.arc")
+m = get.adjacency(g)
+d = dist(m, "binary")
+h = hclust(d)    
+plot(h, hang=-1)
+c = cutree(h, 3)
+c
+h$merge
+
+Os próximos textos que eu escrever serão em inglês.
+
+Medir métricas em redes extraídas por Roberto e redes extraídas por Myers
+Podemos usar algoritmos de redes complexas implementados pelo igraph
+tkigraph()
+
+Agenda:
+- Implementar contagem de modular-based dyads. Folhear artigo de Barabási et al. sobre dyads.
+  * Feito. Uma característica marcante é a ausência de mutual external edges, o que é trivialmente explicado pela forma como decompusemos sistemas em módulos (arquivos JAR)
+- Organizar artigos no pendrive em pastas, já que pouco tenho usado o JabRef. Convém aproveitar e dar uma limpada no Desktop.
+  * Parcialmente feito.
+- Ler IntroducaoExperimentacao.pdf e artigo de Koschke sobre avaliação de algoritmos de recuperação de arquitetura.
+
+: today's new systems are tomorrow's legacy systems -- minha justificativa para estudar sistemas orientados a objetos
+: a SCRT [subsystem classification recovery technique] will be more effective in recovering modular subsystems for programs with better modular designs as opposed to ill-designed programs -- eu posso verificar isso ao introduzir violações propositais em redes sintéticas que possuem a mesma arquitetura, ou variando o grau de mixing.
+
+TODO: usar modelos evolutivos para comparar estabilidade.
+
+
+
+--
+
+8 Girard, Koschke, "A Comparison of Abstract Data Type and Objects Recovery Techniques" (experimentos) - não baixado
+
+16 Lakhotia, Gravely, "Toward Experimental Evaluation of Subsystem Classification Recovery Techniques". - /recuperacao-arquitetural/papers 1995 -- Introdução muito boa, não foi contaminada pelo jargão dos auto-proclamados arquitetos de software.
+
+--
+
+Rede biológica HELICO é mais próxima do sistema de referência (proguard) do que outros sistemas de software! (1,33 vs. 2,0 em média)
+
+Agenda:
+- Mudar formato de motifs.data para mostrar frequencia relativa (e ignorar motifs desconexos)
+- Para cada motif, plotar a distribuição dos valores das frequencias ao longo dos diversos sistemas. É uma distribuição normal? (qqplot, ks.test etc.)
+- Para cada motif, determinar intervalos de confiança para as suas frequências (dá pra fazer um gráfico que mostra as faixas (talvez com radial.plot sobre o log dos dados, ver http://onertipaday.blogspot.com/2009/01/radar-chart.html)
+- Desenvolver métrica de softwaressimilhança. Se as frequencias de motifs de uma rede estiverem dentro dos intervalos de confiança, então a softwaressimilhança é alta.
+- Medir a softwaressimilhança de redes de Erdos-Renyi, configuration model, redes não-software (biológicas, sociais etc.). Espera-se que essas redes tenham baixa softwaressimilhança.
+
+- Talvez, se der tempo, só pra constar, repetir teste do qui-quadrado e do R² usando frequencias relativas --- Testado. Resultado: deu na mesma.
+
+
+== Reunião do dia 10 de junho de 2009 ==
+Planejamento de tópicos para a reunião:
+- Novos modelos: CGW, ER, configuration, LR, melhorias no BCR+
+- Estudo preliminar de sintonia dos parâmetros do modelo CGW.
+- Estudo preliminar de uma nova métrica de distância entre redes, baseada em motifs -- que pode ser generalizada para considerar módulos
+  - Permite distinguir graficamente sistemas reais de sistemas sintéticos (ver wiki)
+  - Não consegui resumir essa diferença em um número (tentei qui-quadrado e R²) -- estudei estatística
+- 70 sistemas baixados e analisados, relatórios de número de classes e módulos
+- Esquema de amostragem de rede através da remoção de módulos, totalizando c. 2600 variações. Posterior remoção de vértices para ajustar tamanho da rede. Tudo automatizado.
+- Seleção de 7 sistemas de tamanho similar e cálculos das distâncias entre eles.
+- Próximo passo: sintonizar parâmetros dos modelos
+
+Agora prefiro preparar o texto para o WDCOPIN.
+
+--
+
+Tirar o foco dos motifs
+Focar no método de pesquisa, no processo (que pode ser futuramente usado em outras aplicações, ex.: análise de impacto)
+Melhorar discussão sobre a distância
+Mensagem mais clara, arredondar artigo, contar a história bem. 
+
+CSMR - October 9, 2009 Abstract Submission
+ICSE - Submission Sunday 6 September
+ESELAW não.
+
+junho ou inicio de julho, 2-3 dias, +1 voo, resposta semana que vem
+
+
+continuar os experimentos
+pensar viagem
+wdcopin
+- Usar o modelo ER para avaliar a métrica de distância é legal, mas a prova de fogo é ver se a métrica de distância consegue separar redes de software de, por exemplo, redes sociais
+
+----
+
+
+TODO:
+   * calcular distâncias!
+   * tuning de parametros
+
+[OK] Redes não-orientadas, não-ponderadas
+   * Redes orientadas, não-ponderadas
+   * Redes orientadas e ponderadas
+
+Lugares para baixar programas em Java
+- http://www.findjar.com/
+- http://www.tigris.org/servlets/Search?mode=advanced&resultsPerPage=40&query=java&scope=domain&artifact=helm+project&Button=Search
+- Freshmeat tag Java
+- Google Code
+  - lang:java file:\.jar package:.*\.zip
+- SourceForge
+  - http://sourceforge.net/search/index.php?words=description%3A(%2Bjava)+AND+-has_file%3A(0)&sort=num_downloads&sortdir=desc&offset=0&type_of_search=soft&pmode=0&form_cat=18
+- http://java.net/
+  - http://download.java.net/NOME_DO_PROJETO
+- ftp://ufpr.dl.sourceforge.net/mirrors/eclipse/
+  - ftp://ufpr.dl.sourceforge.net/mirrors/eclipse/eclipse/downloads/drops/R-3.4.2-200902111700/
+- Eclipse
+
+MISC
+  DAR UMA OLHADA NO IGRAPH! Tem motif analysis, community detection, interface pra R com plot de grafos etc. power.law.fit
+  Fazer Network->DOT, cada cluster corresponde a uma cor
+  Fazer uma funcao para view_dsm que recebe um Network (e não ficar apenas na linha de comando)
+  Incrementar os testes de Network
