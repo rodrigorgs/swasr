@@ -1,0 +1,378 @@
+#summary A successful experiment that evaluates the realism of networks.
+
+I'm trying to build an oracle that is capable of telling whether a given
+network is a software network or not. The rationale behind this task is that
+I'm looking for a model that can produce networks that are similar to software
+networks. If this oracle accepts software networks as such and rejects networks
+from other domains (biological, social etc.), then I can apply the oracle to a
+synthetic network, produced by a model, and let the oracle tell me if it's 
+similar enough to a software network.
+
+After playing with [FrequenciasMediasPorMotif some] 
+[OrdemParcialDeMotifs ideas], I finally decided to try again Pearson's 
+correlation coefficient. The idea is simple. First we compute the concentration
+of each of the 13 triads for each network. Then we compute the correlation 
+between triad concentrations of each network and the 65 software networks, and
+take the average correlation.
+
+The results are presented in Table 1. Software networks have an average
+correlation of 0.97, with standard deviation of 0.03. Using the 3-sigma rule,
+we can treat as outliers all networks with average correlation below 0.88.
+Outliers, in this case, are the networks that are reject by the oracle. With
+this rule, the oracle rejects 3 software networks, giving it a recall of 
+95.4%. Also, the oracle correctly rejects 65 out of 66 networks from other
+domains, which gives a precision of 98.5%. With such impressive results, we
+can go further and apply the oracle to synthetic networks. Here we analyse two
+models: the classic Erdos-Renyi model, that is known to produce non-realistic 
+networks, and the CGW model, suggested as a model for software systems. Indeed,
+all networks produced by the Erdos-Renyi model were rejected, while all
+networks produced by the CGW model were accepted. This novel result shows that
+the CGW model indeed produces networks that are similar to software networks
+(in fact, from the point of view of the oracle, they are indistinguible from
+software networks).
+
+*Table 1*. Note: networks marked with a plus sign were rejected by the oracle.
+The remaining were accepted as software networks.
+
+|| *Note* || *Avg Corr* || *Network* || 
+|| 	|| 0.97	|| 01-java/AbaGuiBuilder-1.8 ||
+|| 	|| 0.97	|| 01-java/ArgoUML-0.28 ||
+|| 	|| 0.97	|| 01-java/GEF-0.13-bin ||
+|| 	|| 0.97	|| 01-java/Hl7Comm.1.0.1 ||
+|| 	|| 0.98	|| 01-java/IRPF2009v1.1 ||
+|| 	|| 0.96	|| 01-java/JXv3.2rc2deploy ||
+|| 	|| 0.98	|| 01-java/JabRef-2.5b2-src ||
+|| 	|| 0.98	|| 01-java/MegaMek-v0.34.3 ||
+|| 	|| 0.97	|| 01-java/alfresco-labs-deployment-3Stable ||
+|| 	|| 0.98	|| 01-java/aoi272 ||
+|| 	|| 0.98	|| 01-java/battlefieldjava-0.1 ||
+|| 	|| 0.97	|| 01-java/broker-4.1.5 ||
+|| 	|| 0.98	|| 01-java/checkstyle-5.0 ||
+|| 	|| 0.98	|| 01-java/dbwrench ||
+|| 	|| 0.98	|| 01-java/dom4j-1.6.1 ||
+|| 	|| 0.98	|| 01-java/ec2-api-tools ||
+|| 	|| 0.97	|| 01-java/ermodeller-1.9.2-binary ||
+|| 	|| 0.98	|| 01-java/findbugs-1.3.8 ||
+|| 	|| 0.97	|| 01-java/flyingsaucer-R8 ||
+|| 	|| 0.91	|| 01-java/freetts-1.2.2-bin ||
+|| 	|| 0.98	|| 01-java/ganttproject-2.0.9 ||
+|| 	|| 0.97	|| 01-java/gdata-src.java-1.31.1 ||
+|| 	|| 0.97	|| 01-java/geoserver-2.0-beta1-bin ||
+|| 	|| 0.97	|| 01-java/geotools-2.5.5-bin ||
+||+	|| 0.87	|| 01-java/gfp_0.8.1 ||
+|| 	|| 0.98	|| 01-java/guice-2.0 ||
+|| 	|| 0.98	|| 01-java/gwt-windows-1.6.4 ||
+|| 	|| 0.98	|| 01-java/hibernate-distribution-3.3.1.GA-dist ||
+|| 	|| 0.95	|| 01-java/hsqldb_1_8_0_10 ||
+|| 	|| 0.95	|| 01-java/iBATIS_DBL-2.1.5.582 ||
+|| 	|| 0.98	|| 01-java/iFreeBudget-2.0.9 ||
+|| 	|| 0.97	|| 01-java/iReport-nb-3.5.1 ||
+|| 	|| 0.98	|| 01-java/jGnash-2.2.0 ||
+|| 	|| 0.96	|| 01-java/jai-1_1_4-pre-dr-b03-lib-linux-i586-08_Jun_2009 ||
+|| 	|| 0.97	|| 01-java/jailer_2.9.9 ||
+|| 	|| 0.98	|| 01-java/jakarta-tomcat-5.0.28-embed ||
+|| 	|| 0.98	|| 01-java/jalopy-1.5rc3 ||
+|| 	|| 0.98	|| 01-java/jasperreports-3.5.2-project ||
+|| 	|| 0.97	|| 01-java/jfreechart-1.0.13 ||
+|| 	|| 0.96	|| 01-java/jgraphpad-5.10.0.2 ||
+||+	|| 0.83	|| 01-java/jmsn-0.9.9b2 ||
+|| 	|| 0.94	|| 01-java/juel-2.1.2 ||
+|| 	|| 0.97	|| 01-java/juxy-0.8 ||
+|| 	|| 0.98	|| 01-java/makagiga-3.4 ||
+|| 	|| 0.97	|| 01-java/mondrian-3.1.1.12687 ||
+|| 	|| 0.96	|| 01-java/myjgui_0.6.6 ||
+|| 	|| 0.98	|| 01-java/oddjob-0.26.0 ||
+|| 	|| 0.98	|| 01-java/openxava-3.1.2 ||
+|| 	|| 0.97	|| 01-java/pdfsam-1.1.3-out ||
+|| 	|| 0.97	|| 01-java/peer-4.1.5 ||
+|| 	|| 0.98	|| 01-java/pentaho-reporting-engine-classic-0.8.9.11 ||
+||+	|| 0.84	|| 01-java/pjirc_2_2_1_bin ||
+|| 	|| 0.98	|| 01-java/pmd-bin-4.2.5 ||
+|| 	|| 0.98	|| 01-java/proguard4.3 ||
+|| 	|| 0.96	|| 01-java/rapidminer-4.4-community ||
+|| 	|| 0.97	|| 01-java/smc_6_0_0 ||
+|| 	|| 0.98	|| 01-java/squirrel-sql-3.0.1-base ||
+|| 	|| 0.98	|| 01-java/squirrel-sql-3.0.1-standard ||
+|| 	|| 0.97	|| 01-java/stendhal-0.74 ||
+|| 	|| 0.98	|| 01-java/subethasmtp-3.1 ||
+|| 	|| 0.97	|| 01-java/thinkui_sqlclient-1.1.2 ||
+|| 	|| 0.97	|| 01-java/tvbrowser-2.7.3-bin ||
+|| 	|| 0.98	|| 01-java/villonanny-2.3.0.b02.bin ||
+|| 	|| 0.97	|| 01-java/worker-4.1.5 ||
+|| 	|| 0.95	|| 01-java/zk-bin-3.6.1 ||
+||+	|| 0.05	|| 02-non-sw/beta3sreduced ||
+||+	|| 0.87	|| 02-non-sw/celegansneural ||
+||+	|| 0.44	|| 02-non-sw/circuit-s208 ||
+||+	|| 0.43	|| 02-non-sw/circuit-s420 ||
+||+	|| 0.43	|| 02-non-sw/circuit-s838 ||
+||+	|| 0.78	|| 02-non-sw/czech ||
+||+	|| 0.69	|| 02-non-sw/ecoli-metabolic ||
+||+	|| -0.14|| 	02-non-sw/facebook-Caltech36 ||
+||+	|| -0.13|| 	02-non-sw/facebook-Georgetown ||
+||+	|| -0.13|| 	02-non-sw/facebook-Oklahoma ||
+||+	|| -0.13|| 	02-non-sw/facebook-Princeton ||
+||+	|| -0.12|| 	02-non-sw/facebook-UNC28 ||
+||+	|| 0.49	|| 02-non-sw/lang-english ||
+||+	|| 0.60	|| 02-non-sw/lang-french ||
+||+	|| 0.64	|| 02-non-sw/lang-japanese ||
+||+	|| 0.56	|| 02-non-sw/lang-spanish ||
+||+	|| 0.52	|| 02-non-sw/metabolic-AA ||
+||+	|| 0.52	|| 02-non-sw/metabolic-AB ||
+||+	|| 0.53	|| 02-non-sw/metabolic-AG ||
+||+	|| 0.50	|| 02-non-sw/metabolic-AP ||
+||+	|| 0.51	|| 02-non-sw/metabolic-AT ||
+||+	|| 0.49	|| 02-non-sw/metabolic-BB ||
+||+	|| 0.49	|| 02-non-sw/metabolic-BS ||
+||+	|| 0.52	|| 02-non-sw/metabolic-CA ||
+||+	|| 0.50	|| 02-non-sw/metabolic-CE ||
+||+	|| 0.51	|| 02-non-sw/metabolic-CJ ||
+||+	|| 0.53	|| 02-non-sw/metabolic-CL ||
+||+	|| 0.48	|| 02-non-sw/metabolic-CQ ||
+||+	|| 0.50	|| 02-non-sw/metabolic-CT ||
+||+	|| 0.52	|| 02-non-sw/metabolic-CY ||
+||+	|| 0.48	|| 02-non-sw/metabolic-DR ||
+||+	|| 0.50	|| 02-non-sw/metabolic-EC ||
+||+	|| 0.50	|| 02-non-sw/metabolic-EF ||
+||+	|| 0.50	|| 02-non-sw/metabolic-EN ||
+||+	|| 0.51	|| 02-non-sw/metabolic-HI ||
+||+	|| 0.53	|| 02-non-sw/metabolic-HP ||
+||+	|| 0.49	|| 02-non-sw/metabolic-MB ||
+||+	|| 0.48	|| 02-non-sw/metabolic-MG ||
+||+	|| 0.53	|| 02-non-sw/metabolic-MJ ||
+||+	|| 0.51	|| 02-non-sw/metabolic-ML ||
+||+	|| 0.50	|| 02-non-sw/metabolic-MP ||
+||+	|| 0.51	|| 02-non-sw/metabolic-MT ||
+||+	|| 0.52	|| 02-non-sw/metabolic-NG ||
+||+	|| 0.52	|| 02-non-sw/metabolic-NM ||
+||+	|| 0.50	|| 02-non-sw/metabolic-OS ||
+||+	|| 0.51	|| 02-non-sw/metabolic-PA ||
+||+	|| 0.53	|| 02-non-sw/metabolic-PF ||
+||+	|| 0.52	|| 02-non-sw/metabolic-PG ||
+||+	|| 0.53	|| 02-non-sw/metabolic-PH ||
+||+	|| 0.51	|| 02-non-sw/metabolic-PN ||
+||+	|| 0.52	|| 02-non-sw/metabolic-RC ||
+||+	|| 0.48	|| 02-non-sw/metabolic-RP ||
+||+	|| 0.51	|| 02-non-sw/metabolic-SC ||
+||+	|| 0.51	|| 02-non-sw/metabolic-ST ||
+||+	|| 0.53	|| 02-non-sw/metabolic-TH ||
+||+	|| 0.51	|| 02-non-sw/metabolic-TM ||
+||+	|| 0.50	|| 02-non-sw/metabolic-TP ||
+||+	|| 0.50	|| 02-non-sw/metabolic-TY ||
+||+	|| 0.51	|| 02-non-sw/metabolic-YP ||
+|| 	|| 0.96	|| 02-non-sw/polblogs ||
+||+	|| 0.50	|| 02-non-sw/protein-AOR ||
+||+	|| 0.53	|| 02-non-sw/protein-a4j ||
+||+	|| 0.59	|| 02-non-sw/protein-eaw ||
+||+	|| 0.73	|| 02-non-sw/social-leader ||
+||+	|| 0.38	|| 02-non-sw/social-prison ||
+||+	|| 0.22	|| 02-non-sw/yeast ||
+||+	|| 0.55	|| 03-erdos/x00 ||
+||+	|| 0.54	|| 03-erdos/x01 ||
+||+	|| 0.55	|| 03-erdos/x02 ||
+||+	|| 0.53	|| 03-erdos/x03 ||
+||+	|| 0.54	|| 03-erdos/x04 ||
+||+	|| 0.55	|| 03-erdos/x05 ||
+||+	|| 0.55	|| 03-erdos/x06 ||
+||+	|| 0.54	|| 03-erdos/x07 ||
+||+	|| 0.55	|| 03-erdos/x08 ||
+||+	|| 0.54	|| 03-erdos/x09 ||
+||+	|| 0.54	|| 03-erdos/x10 ||
+||+	|| 0.54	|| 03-erdos/x11 ||
+||+	|| 0.54	|| 03-erdos/x12 ||
+||+	|| 0.55	|| 03-erdos/x13 ||
+||+	|| 0.54	|| 03-erdos/x14 ||
+||+	|| 0.54	|| 03-erdos/x15 ||
+||+	|| 0.55	|| 03-erdos/x16 ||
+||+	|| 0.55	|| 03-erdos/x17 ||
+||+	|| 0.54	|| 03-erdos/x18 ||
+||+	|| 0.54	|| 03-erdos/x19 ||
+||+	|| 0.54	|| 03-erdos/x20 ||
+||+	|| 0.54	|| 03-erdos/x21 ||
+||+	|| 0.54	|| 03-erdos/x22 ||
+||+	|| 0.54	|| 03-erdos/x23 ||
+||+	|| 0.54	|| 03-erdos/x24 ||
+||+	|| 0.54	|| 03-erdos/x25 ||
+||+	|| 0.55	|| 03-erdos/x26 ||
+||+	|| 0.54	|| 03-erdos/x27 ||
+||+	|| 0.54	|| 03-erdos/x28 ||
+||+	|| 0.55	|| 03-erdos/x29 ||
+||+	|| 0.54	|| 03-erdos/x30 ||
+||+	|| 0.54	|| 03-erdos/x31 ||
+||+	|| 0.54	|| 03-erdos/x32 ||
+||+	|| 0.53	|| 03-erdos/x33 ||
+||+	|| 0.54	|| 03-erdos/x34 ||
+||+	|| 0.54	|| 03-erdos/x35 ||
+||+	|| 0.54	|| 03-erdos/x36 ||
+||+	|| 0.54	|| 03-erdos/x37 ||
+||+	|| 0.54	|| 03-erdos/x38 ||
+||+	|| 0.53	|| 03-erdos/x39 ||
+||+	|| 0.55	|| 03-erdos/x40 ||
+||+	|| 0.54	|| 03-erdos/x41 ||
+||+	|| 0.54	|| 03-erdos/x42 ||
+||+	|| 0.55	|| 03-erdos/x43 ||
+||+	|| 0.54	|| 03-erdos/x44 ||
+||+	|| 0.54	|| 03-erdos/x45 ||
+||+	|| 0.54	|| 03-erdos/x46 ||
+||+	|| 0.55	|| 03-erdos/x47 ||
+||+	|| 0.54	|| 03-erdos/x48 ||
+||+	|| 0.54	|| 03-erdos/x49 ||
+||+	|| 0.54	|| 03-erdos/x50 ||
+||+	|| 0.54	|| 03-erdos/x51 ||
+||+	|| 0.54	|| 03-erdos/x52 ||
+||+	|| 0.54	|| 03-erdos/x53 ||
+||+	|| 0.54	|| 03-erdos/x54 ||
+||+	|| 0.54	|| 03-erdos/x55 ||
+||+	|| 0.54	|| 03-erdos/x56 ||
+||+	|| 0.54	|| 03-erdos/x57 ||
+||+	|| 0.54	|| 03-erdos/x58 ||
+||+	|| 0.55	|| 03-erdos/x59 ||
+||+	|| 0.53	|| 03-erdos/x60 ||
+||+	|| 0.54	|| 03-erdos/x61 ||
+||+	|| 0.54	|| 03-erdos/x62 ||
+||+	|| 0.54	|| 03-erdos/x63 ||
+||+	|| 0.55	|| 03-erdos/x64 ||
+||+	|| 0.54	|| 03-erdos/x65 ||
+||+	|| 0.54	|| 03-erdos/x66 ||
+||+	|| 0.54	|| 03-erdos/x67 ||
+||+	|| 0.54	|| 03-erdos/x68 ||
+||+	|| 0.54	|| 03-erdos/x69 ||
+||+	|| 0.54	|| 03-erdos/x70 ||
+||+	|| 0.54	|| 03-erdos/x71 ||
+||+	|| 0.54	|| 03-erdos/x72 ||
+||+	|| 0.54	|| 03-erdos/x73 ||
+||+	|| 0.55	|| 03-erdos/x74 ||
+||+	|| 0.54	|| 03-erdos/x75 ||
+||+	|| 0.54	|| 03-erdos/x76 ||
+||+	|| 0.54	|| 03-erdos/x77 ||
+||+	|| 0.54	|| 03-erdos/x78 ||
+||+	|| 0.54	|| 03-erdos/x79 ||
+||+	|| 0.54	|| 03-erdos/x80 ||
+||+	|| 0.54	|| 03-erdos/x81 ||
+||+	|| 0.54	|| 03-erdos/x82 ||
+||+	|| 0.55	|| 03-erdos/x83 ||
+||+	|| 0.54	|| 03-erdos/x84 ||
+||+	|| 0.55	|| 03-erdos/x85 ||
+||+	|| 0.55	|| 03-erdos/x86 ||
+||+	|| 0.54	|| 03-erdos/x87 ||
+||+	|| 0.54	|| 03-erdos/x88 ||
+||+	|| 0.54	|| 03-erdos/x89 ||
+||+	|| 0.55	|| 03-erdos/x90 ||
+||+	|| 0.54	|| 03-erdos/x91 ||
+||+	|| 0.54	|| 03-erdos/x92 ||
+||+	|| 0.54	|| 03-erdos/x93 ||
+||+	|| 0.54	|| 03-erdos/x94 ||
+||+	|| 0.54	|| 03-erdos/x95 ||
+||+	|| 0.55	|| 03-erdos/x96 ||
+||+	|| 0.54	|| 03-erdos/x97 ||
+||+	|| 0.54	|| 03-erdos/x98 ||
+||+	|| 0.54	|| 03-erdos/x99 ||
+|| 	|| 0.93	|| 04-cgw/1 ||
+|| 	|| 0.93	|| 04-cgw/10 ||
+|| 	|| 0.94	|| 04-cgw/100 ||
+|| 	|| 0.94	|| 04-cgw/1000 ||
+|| 	|| 0.93	|| 04-cgw/11 ||
+|| 	|| 0.94	|| 04-cgw/12 ||
+|| 	|| 0.94	|| 04-cgw/13 ||
+|| 	|| 0.93	|| 04-cgw/14 ||
+|| 	|| 0.94	|| 04-cgw/15 ||
+|| 	|| 0.92	|| 04-cgw/150 ||
+|| 	|| 0.93	|| 04-cgw/1500 ||
+|| 	|| 0.91	|| 04-cgw/16 ||
+|| 	|| 0.92	|| 04-cgw/17 ||
+|| 	|| 0.93	|| 04-cgw/18 ||
+|| 	|| 0.93	|| 04-cgw/19 ||
+|| 	|| 0.94	|| 04-cgw/2 ||
+|| 	|| 0.93	|| 04-cgw/20 ||
+|| 	|| 0.93	|| 04-cgw/200 ||
+|| 	|| 0.93	|| 04-cgw/2000 ||
+|| 	|| 0.92	|| 04-cgw/21 ||
+|| 	|| 0.92	|| 04-cgw/22 ||
+|| 	|| 0.93	|| 04-cgw/23 ||
+|| 	|| 0.92	|| 04-cgw/24 ||
+|| 	|| 0.91	|| 04-cgw/25 ||
+|| 	|| 0.94	|| 04-cgw/26 ||
+|| 	|| 0.93	|| 04-cgw/27 ||
+|| 	|| 0.92	|| 04-cgw/28 ||
+|| 	|| 0.92	|| 04-cgw/29 ||
+|| 	|| 0.93	|| 04-cgw/3 ||
+|| 	|| 0.93	|| 04-cgw/30 ||
+|| 	|| 0.93	|| 04-cgw/300 ||
+|| 	|| 0.93	|| 04-cgw/31 ||
+|| 	|| 0.94	|| 04-cgw/32 ||
+|| 	|| 0.93	|| 04-cgw/33 ||
+|| 	|| 0.92	|| 04-cgw/34 ||
+|| 	|| 0.94	|| 04-cgw/35 ||
+|| 	|| 0.94	|| 04-cgw/36 ||
+|| 	|| 0.94	|| 04-cgw/37 ||
+|| 	|| 0.94	|| 04-cgw/38 ||
+|| 	|| 0.94	|| 04-cgw/39 ||
+|| 	|| 0.92	|| 04-cgw/4 ||
+|| 	|| 0.93	|| 04-cgw/40 ||
+|| 	|| 0.93	|| 04-cgw/400 ||
+|| 	|| 0.94	|| 04-cgw/41 ||
+|| 	|| 0.92	|| 04-cgw/42 ||
+|| 	|| 0.93	|| 04-cgw/43 ||
+|| 	|| 0.91	|| 04-cgw/44 ||
+|| 	|| 0.92	|| 04-cgw/45 ||
+|| 	|| 0.94	|| 04-cgw/46 ||
+|| 	|| 0.92	|| 04-cgw/47 ||
+|| 	|| 0.92	|| 04-cgw/48 ||
+|| 	|| 0.92	|| 04-cgw/49 ||
+|| 	|| 0.93	|| 04-cgw/5 ||
+|| 	|| 0.92	|| 04-cgw/50 ||
+|| 	|| 0.94	|| 04-cgw/500 ||
+|| 	|| 0.93	|| 04-cgw/5000 ||
+|| 	|| 0.94	|| 04-cgw/6 ||
+|| 	|| 0.93	|| 04-cgw/60 ||
+|| 	|| 0.93	|| 04-cgw/7 ||
+|| 	|| 0.91	|| 04-cgw/8 ||
+|| 	|| 0.91	|| 04-cgw/80 ||
+|| 	|| 0.94	|| 04-cgw/9 ||
+|| 	|| 0.95	|| 04-cgw/a100m1 ||
+|| 	|| 0.93	|| 04-cgw/a100m100 ||
+|| 	|| 0.93	|| 04-cgw/a100m1000 ||
+|| 	|| 0.93	|| 04-cgw/a100m12 ||
+|| 	|| 0.92	|| 04-cgw/a100m15 ||
+|| 	|| 0.92	|| 04-cgw/a100m150 ||
+|| 	|| 0.93	|| 04-cgw/a100m1500 ||
+|| 	|| 0.95	|| 04-cgw/a100m2 ||
+|| 	|| 0.92	|| 04-cgw/a100m20 ||
+|| 	|| 0.92	|| 04-cgw/a100m200 ||
+|| 	|| 0.92	|| 04-cgw/a100m2000 ||
+|| 	|| 0.92	|| 04-cgw/a100m25 ||
+|| 	|| 0.95	|| 04-cgw/a100m3 ||
+|| 	|| 0.93	|| 04-cgw/a100m30 ||
+|| 	|| 0.92	|| 04-cgw/a100m300 ||
+|| 	|| 0.95	|| 04-cgw/a100m4 ||
+|| 	|| 0.92	|| 04-cgw/a100m400 ||
+|| 	|| 0.93	|| 04-cgw/a100m5 ||
+|| 	|| 0.93	|| 04-cgw/a100m500 ||
+|| 	|| 0.92	|| 04-cgw/a100m5000 ||
+|| 	|| 0.92	|| 04-cgw/a100m60 ||
+|| 	|| 0.94	|| 04-cgw/a100m7 ||
+|| 	|| 0.91	|| 04-cgw/a100m80 ||
+|| 	|| 0.94	|| 04-cgw/a100m9 ||
+|| 	|| 0.94	|| 04-cgw/a10m1 ||
+|| 	|| 0.92	|| 04-cgw/a10m100 ||
+|| 	|| 0.93	|| 04-cgw/a10m1000 ||
+|| 	|| 0.94	|| 04-cgw/a10m12 ||
+|| 	|| 0.92	|| 04-cgw/a10m15 ||
+|| 	|| 0.92	|| 04-cgw/a10m150 ||
+|| 	|| 0.94	|| 04-cgw/a10m1500 ||
+|| 	|| 0.95	|| 04-cgw/a10m2 ||
+|| 	|| 0.95	|| 04-cgw/a10m20 ||
+|| 	|| 0.94	|| 04-cgw/a10m200 ||
+|| 	|| 0.92	|| 04-cgw/a10m2000 ||
+|| 	|| 0.93	|| 04-cgw/a10m25 ||
+|| 	|| 0.95	|| 04-cgw/a10m3 ||
+|| 	|| 0.92	|| 04-cgw/a10m30 ||
+|| 	|| 0.93	|| 04-cgw/a10m300 ||
+|| 	|| 0.95	|| 04-cgw/a10m4 ||
+|| 	|| 0.94	|| 04-cgw/a10m400 ||
+|| 	|| 0.93	|| 04-cgw/a10m5 ||
+|| 	|| 0.93	|| 04-cgw/a10m500 ||
+|| 	|| 0.93	|| 04-cgw/a10m5000 ||
+|| 	|| 0.92	|| 04-cgw/a10m60 ||
+|| 	|| 0.92	|| 04-cgw/a10m7 ||
+|| 	|| 0.93	|| 04-cgw/a10m80 ||
+|| 	|| 0.91	|| 04-cgw/a10m9 ||
