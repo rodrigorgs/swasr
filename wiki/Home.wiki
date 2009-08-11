@@ -6,6 +6,7 @@ Veja as [Instalacao instruções de instalação do ambiente swasr].
 
 == Log de pesquisa ==
 
+  * [AnOracleUsingCorrelationAnalysis A successful experiment that evaluates the realism of networks]
   * [MiojoSim MiojoSim: A decomposition comparison metric for instant analysis!]
   * [OnModularity On modularity]
   * [OrdemParcialDeMotifs Caracterizando classes de redes complexas através de ordem parcial de  frequência de tríades (motifs de tamanho 3)]
