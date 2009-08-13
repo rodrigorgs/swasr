@@ -10,7 +10,7 @@ class NetworkGenerator
 
   def pinterval(from, to)
     from = 0.2 if from < 0
-    return (5 * from).to_i.upto((5 * to).to_i).to_a.map { |x| x / 5.0 }
+    return ((5 * from).to_i..((5 * to).to_i)).to_a.map { |x| x / 5.0 }
   end
 
   def n_params
