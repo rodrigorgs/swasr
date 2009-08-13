@@ -4,7 +4,6 @@
 #
 
 require 'set'
-require 'choice/lazyhash'
 require 'grok'
 
 class Network
@@ -15,7 +14,7 @@ class Network
     @clusters = {}
     @edges    = []
     @default_cluster = Cluster.new('DEFAULT')
-    @data = Choice::LazyHash.new
+    @data = LazyHash2.new
   end
 
   def external_edges
@@ -358,7 +357,7 @@ class Cluster
  
   def initialize(eid)
     @eid = eid
-    @data = Choice::LazyHash.new
+    @data = LazyHash2.new
     @nodes = Set.new
   end
 
@@ -381,7 +380,7 @@ class Edge
   
   def initialize(from, to)
     @from, @to = from, to
-    @data = Choice::LazyHash.new
+    @data = LazyHash2.new
   end
 
   def to_s
@@ -397,7 +396,7 @@ class Node
     @eid = eid
     @out_edges_map = {}
     @in_edges_map  = {}
-    @data = Choice::LazyHash.new
+    @data = LazyHash2.new
   end
 
   def to_s
@@ -462,7 +461,7 @@ class NumberedNetwork < Network
     @clusters = []
     @edges    = []
     @default_cluster = Cluster.new('DEFAULT')
-    @data = Choice::LazyHash.new
+    @data = LazyHash2.new
     @start_from = nil
   end
 
@@ -483,3 +482,70 @@ class NumberedNetwork < Network
   end
 end
 
+#
+# Extracted from Choice library.
+#
+# This class lets us get away with really bad, horrible, lazy hash accessing.
+# Like so:
+#   hash = LazyHash.new
+#   hash[:someplace] = "somewhere"
+#   puts hash[:someplace]
+#   puts hash['someplace']
+#   puts hash.someplace
+#
+# If you'd like, you can pass in a current hash when initializing to convert
+# it into a lazyhash.  Or you can use the .to_lazyhash method attached to the 
+# Hash object (evil!).
+class LazyHash2 < Hash 
+  
+  # Keep the old methods around.
+  alias_method :old_store, :store
+  alias_method :old_fetch, :fetch
+  
+  # You can pass in a normal hash to convert it to a LazyHash.
+  def initialize(hash = nil)
+    hash.each { |key, value| self[key] = value } if !hash.nil? && hash.is_a?(Hash)
+  end
+
+  # Wrapper for []
+  def store(key, value)
+    self[key] = value
+  end
+  
+  # Wrapper for []=
+  def fetch(key)
+    self[key]
+  end
+
+  # Store every key as a string.
+  def []=(key, value)
+    key = key.to_s if key.is_a? Symbol
+    self.old_store(key, value)
+  end
+  
+  # Every key is stored as a string.  Like a normal hash, nil is returned if
+  # the key does not exist.
+  def [](key)
+    key = key.to_s if key.is_a? Symbol
+    self.old_fetch(key) rescue return nil
+  end
+
+  # You can use hash.something or hash.something = 'thing' since this is
+  # truly a lazy hash.
+  def method_missing(meth, *args)
+    meth = meth.to_s
+    if meth =~ /=/
+      self[meth.sub('=','')] = args.first
+    else
+      self[meth]
+    end
+  end
+  
+end
+
+# Really ugly, horrible, extremely fun hack.
+class Hash #:nodoc: 
+  def to_lazyhash2
+    return LazyHash2.new(self) 
+  end
+end
