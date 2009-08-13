@@ -405,6 +405,12 @@ def bcrplus_game(size_limit, arch, alpha, beta, gamma,
     delta_in, delta_out, prob_out)
   g = Network.new
 
+  if arch.kind_of? String
+    filename = arch
+    arch = Network.new
+    arch.load2(filename)
+  end
+
   next_eid = 0
   arch.each_vertex do |module_|
     # remove auto-loops
