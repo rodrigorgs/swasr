@@ -44,11 +44,11 @@ class NetworkGenerator
     end
   end
 
-  def iterations(&block)
-  end
+  #def iterations(&block)
+  #end
 
-  def gen_net(args)
-  end
+  #def gen_net(args)
+  #end
 
   def generate_networks(range=nil)
     files = Dir.glob("**/model_params").sort
@@ -150,7 +150,7 @@ end
 
 if __FILE__ == $0
   if ARGV[0].nil?
-    puts "Parameters: (cgw|bcr) (params|nets) [from to]"
+    puts "Parameters: (cgw|bcr) (params|nets|total) [from to]"
     exit 1
   end
 
@@ -165,6 +165,7 @@ if __FILE__ == $0
   case operation
   when 'params' then generator.create_params(range)
   when 'nets' then generator.generate_networks(range)
+  when 'total' then puts generator.n_params
   else puts 'invalid operation'
   end
 end
