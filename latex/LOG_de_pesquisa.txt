@@ -1,5 +1,38 @@
 -----------------------------------------------------------------------------
 
+13/08/2009
+
+Fiz o script para gerar redes BCR.
+
+Ganhei acesso ao cluster! 
+- Gostaria de ter uma pasta compartilhada.
+- Configurar chaves ssh. UPDATE: Feito
+
+Refatorar o código comum de scripts de geração de redes dos modelos. UPDATE: Feito.
+
+Refatorar o swasr para facilitar o deploy em outras máquinas. UPDATE: Feito.
+
+Escrever motifs.R em C. UPDATE: Feito.
+
+TODO: Fazer script para o modelo LF.
+
+Ruby mais rápido
+- JRuby com JIT é 200% a 300% mais rápido do que Ruby 1.8
+- Ruby 1.9 é mais rápido do que JRuby JIT
+- YARV é o mais rápido(?).
+
+screen: http://en.gentoo-wiki.com/wiki/Screen
+- Ctrl+A c -- cria tela
+- Ctrl+A A -- renomeia tela
+- Ctrl+A numero -- vai para tela numero numero
+- Ctrl+A " -- lista telas
+- Ctrl+A d -- detach (ou basta fechar a janela)
+- reattach:
+- - screen -ls --- lista
+- - screen -R --- reattach
+
+-----------------------------------------------------------------------------
+
 11/08/2009
 
 Peguei outras redes de outros domínios, usadas em Superfamilies of Evolved and Designed Networks. Automatizei o cálculo de correlação, e ele mostrou que, das redes de outros domínios, apenas a polblogs e a celegansneural são similares a redes de software.
