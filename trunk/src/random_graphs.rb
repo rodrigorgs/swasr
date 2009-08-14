@@ -242,7 +242,7 @@ begin
     return g
   end
 rescue LoadError
-  puts "Could not load igraph."
+  #puts "Could not load igraph."
 end
 
 #def igraph_ba_game(n, m)
