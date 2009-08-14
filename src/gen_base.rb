@@ -53,9 +53,12 @@ class NetworkGenerator
   def generate_networks(range=nil)
     files = Dir.glob("**/model_params").sort
     total = files.size
-    time_start = Time.now
+
+    old_cycle_time = Time.now
+    start_time = Time.now
 
     count = 0
+    count_nets_generated = 0
     files.each do |file|
       if range.nil? || (count >= range.first && count <= range.last)
         dir = File.dirname(file)
@@ -66,16 +69,23 @@ class NetworkGenerator
           srand 0
           g = gen_net(args)
           g.save2("#{dir}/numbers")
+          count_nets_generated += 1
           #system "motifs.R #{dir}/numbers.arc #{dir}/motifs.data 3"
         else
           total -= 1
         end
-        interval = (Time.now - time_start)
-        puts interval
+
+        time_now = Time.now
+        cycle_interval = time_now - old_cycle_time
+        old_cycle_time = time_now
+
+        count_interval = time_now - start_time
+        total_interval = (count_interval * total) / count_nets_generated
+        
         # interval  --  count
         # X         --  total
-        remaining = (interval * total) / count # seconds
-        puts "Time remaining: #{remaining / 3600.0} hours"
+        puts "  This network: #{cycle_interval} seconds"
+        puts "  Time remaining: #{(total_interval - count_interval) / 3600.00} hours"
       end 
       count += 1
     end
@@ -100,15 +110,7 @@ class CgwGenerator < NetworkGenerator
                   [-1, 0, 1, 10, 100, 1000].each do |alpha|
                     [2, 4, 8, 16, 32].each do |m|
                       block.call [n, p1, p2, p3, p4, e1, e2, e3, e4, alpha, m]
-                    end
-                  end
-                end
-              end
-            end
-          end
-        end
-      end
-    end
+    end; end; end; end; end; end; end; end; end
   end
   
   def gen_net(args)
@@ -126,22 +128,43 @@ class BcrGenerator < NetworkGenerator
     pinterval(0.0, 1.0).each do |alpha|
       pinterval(0.0, 1.0 - alpha).each do |beta|
         gamma = 1.0 - alpha - beta
-	next if alpha + gamma < 0.01
+        next if alpha + gamma < 0.01
         deltas.each do |delta_in|
           deltas.each do |delta_out|
             probs.each do |prob_out|
               architectures.each do |arch|
                 block.call [n, arch, alpha, beta, gamma, delta_in, delta_out, prob_out]
-              end
-            end
-          end
-        end
-      end
-    end
+    end; end; end; end; end; end
   end
 
   def gen_net(args)
     bcrplus_game(*args)
+  end
+end
+
+class LfGenerator < NetworkGenerator
+  def iterations(&block)
+    # TODO: study parameters
+    n = 1000
+    on = 0
+    om = 0
+    mus = [0.0, 0.2, 0.4, 0.6]
+    degseq_exps = [1.5, 2.0, 2.5, 3.0]
+    size_exps = [1.0]
+    ks = [10, 15, 20]
+    maxks = [100, 500, 1000]
+    mincs = [10, 25, 50]
+    maxcs = [100, 200, 300]
+
+    ks.each do |k|
+      maxks.each do |maxk|
+        mus.each do |mu|
+          degseq_exps.each do |t1|
+            size_exps.each do |t2|
+              mincs.each do |minc|
+                maxcs.each do |maxc|
+                  block.call [n, k, maxk, mu, t1, minc, maxc, on, om]
+    end; end; end; end; end; end; end
   end
 end
 
@@ -151,7 +174,7 @@ end
 
 if __FILE__ == $0
   if ARGV[0].nil?
-    puts "Parameters: (cgw|bcr) (params|nets|total) [from to]"
+    puts "Parameters: (cgw|bcr|lf) (params|nets|total) [from to]"
     exit 1
   end
 
