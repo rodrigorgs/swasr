@@ -126,6 +126,7 @@ class BcrGenerator < NetworkGenerator
     pinterval(0.0, 1.0).each do |alpha|
       pinterval(0.0, 1.0 - alpha).each do |beta|
         gamma = 1.0 - alpha - beta
+	next if alpha + gamma < 0.01
         deltas.each do |delta_in|
           deltas.each do |delta_out|
             probs.each do |prob_out|
