@@ -6,6 +6,7 @@ Veja as [Instalacao instruções de instalação do ambiente swasr].
 
 == Log de pesquisa ==
 
+  * [ClusterAndBcr First results brought by the computer cluster]
   * [AnOracleUsingCorrelationAnalysis A successful experiment that evaluates the realism of networks]
   * [MiojoSim MiojoSim: A decomposition comparison metric for instant analysis!]
   * [OnModularity On modularity]
