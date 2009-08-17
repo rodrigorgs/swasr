@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 
 require 'network'
+require 'fileutils'
 
 # choose one index, with probability proportional to its weight
 def choose_random_acc(acc_weights, labels=(0..acc_weights.size-1).to_a)
@@ -207,6 +208,31 @@ def gu_game(size, p1, p2, p3, p4, e1, e2, e3, e4, alpha, num_modules)
     end    
   end
   return g
+end
+
+# Lancichinetti, Fortunato. Directed unweighted networks
+def lf_game(n, kin, maxkin, mu, degexp, cexp, minc, maxc, seed, outfile)
+  params = "-N #{n} -k #{kin} -maxk #{maxkin} -mu #{mu} "
+  params += "-t1 #{degexp} " unless degexp.nil?
+  params += "-t2 #{cexp} " unless cexp.nil?
+  params += "-minc #{minc} " unless minc.nil?
+  params += "-maxc #{maxc} " unless maxc.nil?
+
+  puts params
+
+  network = nil
+  modules = nil
+  Dir.chdir(Dir.tmpdir) do
+    File.open('time_seed.dat', 'w') { |f| f.puts(seed || 0) }
+    system "benchmark-directed #{params}"
+    network = read_pairs("network.dat")
+    network.map! { |a, b| [(a.to_i - 1).to_s, (b.to_i - 1).to_s] }
+    modules = read_pairs("community.dat")
+    modules.map! { |a, b| [(a.to_i - 1).to_s, (b.to_i - 1).to_s] }
+    FileUtils.rm_f %w(network.dat community.dat statistics.dat)
+  end
+  puts_pairs(network, "#{outfile}.arc")
+  puts_pairs(modules, "#{outfile}.mod")
 end
 
 begin
