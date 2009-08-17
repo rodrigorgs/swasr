@@ -63,7 +63,7 @@ class NetworkGenerator
       if range.nil? || (count >= range.first && count <= range.last)
         dir = File.dirname(file)
         puts dir
-        if !File.exists?("#{dir}/numbers.arc")
+        if !File.exist?("#{dir}/numbers.arc")
           args = read_params(file)
           puts "  #{args.join(",")}"
           srand 0
