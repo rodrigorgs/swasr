@@ -2,6 +2,7 @@
 
 require 'network'
 require 'fileutils'
+require 'tmpdir'
 
 # choose one index, with probability proportional to its weight
 def choose_random_acc(acc_weights, labels=(0..acc_weights.size-1).to_a)

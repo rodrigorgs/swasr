@@ -67,8 +67,9 @@ class NetworkGenerator
           args = read_params(file)
           puts "  #{args.join(",")}"
           srand 0
+          @dir = dir
           g = gen_net(args)
-          g.save2("#{dir}/numbers")
+          #g.save2("#{dir}/numbers")
           count_nets_generated += 1
           #system "motifs.R #{dir}/numbers.arc #{dir}/motifs.data 3"
         else
@@ -114,7 +115,8 @@ class CgwGenerator < NetworkGenerator
   end
   
   def gen_net(args)
-    gu_game(*args)
+    g = gu_game(*args)
+    g.save2("#{@dir}/numbers")
   end
 end
 
@@ -138,7 +140,8 @@ class BcrGenerator < NetworkGenerator
   end
 
   def gen_net(args)
-    bcrplus_game(*args)
+    g = bcrplus_game(*args)
+    g.save2("#{@dir}/numbers")
   end
 end
 
@@ -148,13 +151,32 @@ class LfGenerator < NetworkGenerator
     n = 1000
     on = 0
     om = 0
+
+    # var  n mean   sd median trimmed mad min  max range skew kurtosis   se
+    #   1 65 0.13 0.11   0.11    0.11 0.1   0 0.47  0.46  1.3     1.23 0.01
     mus = [0.0, 0.2, 0.4, 0.6]
-    degseq_exps = [1.5, 2.0, 2.5, 3.0]
-    size_exps = [1.0]
-    ks = [10, 15, 20]
-    maxks = [100, 500, 1000]
-    mincs = [10, 25, 50]
-    maxcs = [100, 200, 300]
+    
+    # var  n mean   sd median trimmed  mad  min  max range skew kurtosis   se
+    #   1 65 2.69 0.22    2.7    2.68 0.22 2.18 3.35  1.17  0.3     0.18 0.03
+    degseq_exps = [2.18, 2.7, 3.35]
+
+    # var  n mean   sd median trimmed mad  min  max range skew kurtosis   se
+    #   1 65 1.01 0.12   0.99       1 0.1 0.76 1.58  0.82  1.4     5.62 0.02
+    size_exps = [0.76, 0.99, 1.58]
+
+    ks = [5, 10, 15, 25]
+
+    maxks = [58, 157, 482]
+
+    # var  n  mean    sd median trimmed  mad min max range skew kurtosis  se
+    #   1 65 23.48 52.37      6   10.49 7.41   1 303   302 3.76    14.92 6.5
+    mincs = [1, 10, 273]
+
+    #maxcs = [100, 200, 300]
+    #maxcs = [nil]
+    maxc = nil
+
+    seed = 0
 
     ks.each do |k|
       maxks.each do |maxk|
@@ -162,14 +184,13 @@ class LfGenerator < NetworkGenerator
           degseq_exps.each do |t1|
             size_exps.each do |t2|
               mincs.each do |minc|
-                maxcs.each do |maxc|
-                  block.call [n, k, maxk, mu, t1, minc, maxc, on, om]
-    end; end; end; end; end; end; end
+                block.call [n, k, maxk, mu, t1, t2, minc, maxc, seed]
+    end; end; end; end; end; end
   end
-end
 
-def main
-  # model op from to
+  def gen_net(args)
+    lf_game(*(args + ["#{@dir}/numbers"]))
+  end
 end
 
 if __FILE__ == $0
