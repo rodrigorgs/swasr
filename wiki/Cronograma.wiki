@@ -21,29 +21,34 @@
   * Leitura sobre *redes complexas* (teoria, modelos, motifs, comunidades, hierarquia e modularidade, redes de software): *completa*, com revisões.
   * Leitura sobre *recuperação de arquitetura*: foi feita uma leitura não-sistemática no ano passado.
   * *Relatório*: [http://swasr.googlecode.com/svn/trunk/latex/relatorio-tecnico1/relatorio-tecnico1.pdf concluído].
+  * *Planejamento de experimentos*, *Modelagem* e *Avaliação*: análise de realismo completa para 2/3 dos modelos. Comecei a escrever o artigo. Comecei a me organizar para testar os algoritmos de recuperação de modularização.
 
 == Planejamento de experimentos e Modelagem ==
 
-  * *Artigo com avaliação de modelos*: [http://swasr.googlecode.com/svn/trunk/latex/artigo1/artigo1.pdf concluído].
-  * Foram feitas [MetricasDeArquitetura análises preliminares] sobre a [HubsConectamModulos organização de sistemas em módulos], sem conclusões fortes.
-
-Nessa linha de modelagem e avaliação dos modelos os seguintes avanços podem ser feitos:
-
-  * Desenvolver uma nova versão do modelo BCR+ que evite recriar arestas que já existem. Espera-se que, com essa versão, seja possível prever as medidas da rede a partir dos parâmetros usando fórmulas descritas no artigo de Bollobás.
-  * Avaliar o modelo mais recente de Lancichinetti, que produz redes orientadas e ponderadas, com módulos sobrepostos.
-  * Conseguir o modelo de Gu (ele não respondeu meu e-mail) e então avaliá-lo.
-  * Implementar o modelo de Erdos-Renyi e o modelo de configuração a fim de avaliar as métricas de distância entre redes. Se espera que redes produzidas por esses modelos sejam mais distantes das redes reais. Se isso não acontecer pode ser que a métrica de distância não seja adequada.
-  * Avaliar uma métrica de distância baseada em frequência de motifs (só faz sentido no caso de redes orientadas). 
-  * Implementar e avaliar a ideia de module-based motifs. Essa seria uma métrica de distância entre redes que leva em consideração a organização modular.
-  * Pensar em como extrair de repositórios de software certas propriedades da evolução de software que pode ser futuramente incorporada em um modelo e, com isso, se conectar ao trabalho de Roberto e de Jemerson.
-  * Repetir o experimento do artigo com mais sistemas. Talvez considerar várias versões de um mesmo sistema.
-  * Otimizar implementação da distância entre redes. Se as redes forem não-orientadas dá pra fazer apenas metade dos cálculos.
-  * Adaptar os sintetizadores de acordo com as [http://code.google.com/p/swasr/wiki/Reuniao20090513 orientações de Roberto] sobre o formato de saída.
-
-Feito:
-  * Organizar o código, fazer um Rakefile pra automatizar os experimentos. (o código não ficou organizado, mas o Rakefile está pronto)
-  * Encontrar uma ferramenta estatística para comparar duas distribuições de dados categóricos (a distribuição de frequências dos motifs). (Encontrado: [http://en.wikipedia.org/wiki/Pearson%27s_chi-square_test Teste chi-quadrado]. Ver também [http://en.wikipedia.org/wiki/Contingency_tables tabela de contingência], [http://www.stats.gla.ac.uk/steps/glossary/categorical_data.html glossário] e [http://graphpad.com/quickcalcs/chisquaredEx.cfm calculadora]. No R: sejam x e y as frequencias dos motifs (x e y são vetores nos quais cada posição representa um motif). Chamada: chisq.test(rbind(x, y)))
+  * *Artigo com avaliação de modelos*: [http://swasr.googlecode.com/svn/trunk/latex/artigo1/artigo1.pdf concluído]. UPDATE: Esse artigo está obsoleto.
+  * Defini os três modelos a serem utilizados e os critérios de avaliação.
 
 == Avaliação ==
 
+  * Completei a avaliação de realismo de 2/3 dos modelos.
+  * Comecei a escrever o novo artigo.
+  * Comecei a me organizar para estudar os algoritmos de recuperação de modularização.
+
 == Escrita e publicação ==
+
+= Histórico =
+
+Atividades realizadas:
+  * Organizar o código, fazer um Rakefile pra automatizar os experimentos. (o código não ficou organizado, mas o Rakefile está pronto)
+  * Encontrar uma ferramenta estatística para comparar duas distribuições de dados categóricos (a distribuição de frequências dos motifs). (Encontrado: [http://en.wikipedia.org/wiki/Pearson%27s_chi-square_test Teste chi-quadrado]. Ver também [http://en.wikipedia.org/wiki/Contingency_tables tabela de contingência], [http://www.stats.gla.ac.uk/steps/glossary/categorical_data.html glossário] e [http://graphpad.com/quickcalcs/chisquaredEx.cfm calculadora]. No R: sejam x e y as frequencias dos motifs (x e y são vetores nos quais cada posição representa um motif). Chamada: chisq.test(rbind(x, y)))
+  * Desenvolver uma nova versão do modelo BCR+ que evite recriar arestas que já existem. Espera-se que, com essa versão, seja possível prever as medidas da rede a partir dos parâmetros usando fórmulas descritas no artigo de Bollobás. UPDATE: Feito.
+  * Avaliar o modelo mais recente de Lancichinetti, que produz redes orientadas e ponderadas, com módulos sobrepostos. UPDATE: Feito.
+  * Conseguir o modelo de Gu (ele não respondeu meu e-mail) e então avaliá-lo. UPDATE: Feito. Eu implementei o modelo.
+  * Implementar o modelo de Erdos-Renyi e o modelo de configuração a fim de avaliar as métricas de distância entre redes. Se espera que redes produzidas por esses modelos sejam mais distantes das redes reais. Se isso não acontecer pode ser que a métrica de distância não seja adequada. UPDATE: Feito. Usando correlação entre concentrações de motifs de fato o modelo ER fica mais distante do que os outros das redes reais.
+  * Avaliar uma métrica de distância baseada em frequência de motifs (só faz sentido no caso de redes orientadas).  UPDATE: Feito. Escolhi correlação entre concentrações de motifs.
+  * Implementar e avaliar a ideia de module-based motifs. Essa seria uma métrica de distância entre redes que leva em consideração a organização modular. UPDATE: Implementei module-based dyads. No entanto esse tipo de análise não será feito no mestrado.
+  * Pensar em como extrair de repositórios de software certas propriedades da evolução de software que pode ser futuramente incorporada em um modelo e, com isso, se conectar ao trabalho de Roberto e de Jemerson.
+  * Repetir o experimento do artigo com mais sistemas. Talvez considerar várias versões de um mesmo sistema. UPDATE: estou usando 65 sistemas. Não considerarei várias versões.
+  * Otimizar implementação da distância entre redes. Se as redes forem não-orientadas dá pra fazer apenas metade dos cálculos. UPDATE: Não estou mais usando a distância de Andrade.
+  * Adaptar os sintetizadores de acordo com as [http://code.google.com/p/swasr/wiki/Reuniao20090513 orientações de Roberto] sobre o formato de saída. UPDATE: Não consegui, mesmo usando a API de Roberto.
+  * Foram feitas [MetricasDeArquitetura análises preliminares] sobre a [HubsConectamModulos organização de sistemas em módulos], sem conclusões fortes.
