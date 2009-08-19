@@ -1,5 +1,15 @@
 -----------------------------------------------------------------------------
 
+até 18/08/2009
+
+Descobri que BCR+ e LF geram redes realistas.
+
+CGW ainda está rodando. Preciso tentar reduzir a explosão combinatória.
+
+Esbocei o artigo em inglês, já usando o template do CSMR.
+
+-----------------------------------------------------------------------------
+
 13/08/2009
 
 Fiz o script para gerar redes BCR.
