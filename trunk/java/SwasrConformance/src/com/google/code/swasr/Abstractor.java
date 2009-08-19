@@ -12,7 +12,6 @@ import java.util.Set;
 import abstractor.util.FileUtilities;
 import design.model.Design;
 import design.model.HierarchicalSparseGraph;
-import design.util.Utilities;
 import edu.uci.ics.jung.algorithms.blockmodel.GraphCollapser.CollapsedSparseVertex;
 import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.graph.Vertex;
@@ -23,7 +22,7 @@ import edu.uci.ics.jung.utils.UserData;
 public class Abstractor {
 	static int vindex = 0;
 
-	public static Vertex getVertex(Graph g, HashMap<String, Vertex> vertices, String name) {
+	private static Vertex getVertex(Graph g, HashMap<String, Vertex> vertices, String name) {
 		Vertex v = vertices.get(name);
 		if (v == null) {
 			v = new SparseVertex();
@@ -35,12 +34,12 @@ public class Abstractor {
 			vindex++;
 
 			vertices.put(name, v);
-			g.addVertex(v);			
+			g.addVertex(v);
 		}
 		return v;
 	}
 	
-	public static Graph loadArcs(String filename) throws IOException {
+	private static Graph loadArcs(String filename) throws IOException {
 		Graph g = new HierarchicalSparseGraph();
 		HashMap<String, Vertex> vertices = new HashMap<String, Vertex>();
 		
@@ -48,15 +47,15 @@ public class Abstractor {
 		String line;
 		while ((line = br.readLine()) != null) {
 			String[] ids = line.split(" ");
-			Vertex v1 = getVertex(g, vertices, ids[0]);
-			Vertex v2 = getVertex(g, vertices, ids[1]);
+			Vertex v1 = getVertex(g, vertices, ids[0].trim());
+			Vertex v2 = getVertex(g, vertices, ids[1].trim());
 			if (!v2.isSuccessorOf(v1))
 				g.addEdge(new DirectedSparseEdge(v1, v2));
 		}
 		return g;
 	}
 	
-	public static void saveMod(Graph g, String filename) throws IOException {
+	private static void saveMod(Graph g, String filename) throws IOException {
 		FileWriter fw = new FileWriter(filename);
 		int i = 0;
 		for (Object o : g.getVertices()) {

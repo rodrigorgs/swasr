@@ -6,14 +6,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Properties;
 import java.util.Set;
 import java.util.Map.Entry;
-
-import abstractor.cluster.GeneralClusterer;
-import abstractor.cluster.jung.ClusterSet;
-import abstractor.cluster.jung.VertexClusterSet;
-import abstractor.util.FileUtilities;
 
 import design.model.Design;
 import design.model.HierarchicalSparseGraph;
@@ -25,13 +19,9 @@ import edu.uci.ics.jung.graph.impl.DirectedSparseEdge;
 import edu.uci.ics.jung.graph.impl.SparseVertex;
 import edu.uci.ics.jung.utils.UserData;
 
-public class ArcToGxl extends GeneralClusterer {
+public class ArcToGxl {
 	static int vindex = 0;
 
-	public ArcToGxl(Properties arg0) {
-		super(arg0);
-	}
-	
 	private static Set getSet(Graph g, HashMap<String, Set> sets, String name) {
 		Set cs = sets.get(name);
 		if (cs == null) {
