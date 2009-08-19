@@ -16,19 +16,18 @@
 
 Última atualização: 07/03/2009.
 
-== Revisão bibliográfica ==
+== Revisão bibliográfica (ok) ==
 
   * Leitura sobre *redes complexas* (teoria, modelos, motifs, comunidades, hierarquia e modularidade, redes de software): *completa*, com revisões.
   * Leitura sobre *recuperação de arquitetura*: foi feita uma leitura não-sistemática no ano passado.
   * *Relatório*: [http://swasr.googlecode.com/svn/trunk/latex/relatorio-tecnico1/relatorio-tecnico1.pdf concluído].
-  * *Planejamento de experimentos*, *Modelagem* e *Avaliação*: análise de realismo completa para 2/3 dos modelos. Comecei a escrever o artigo. Comecei a me organizar para testar os algoritmos de recuperação de modularização.
 
-== Planejamento de experimentos e Modelagem ==
+== Planejamento de experimentos e Modelagem (ok) ==
 
   * *Artigo com avaliação de modelos*: [http://swasr.googlecode.com/svn/trunk/latex/artigo1/artigo1.pdf concluído]. UPDATE: Esse artigo está obsoleto.
   * Defini os três modelos a serem utilizados e os critérios de avaliação.
 
-== Avaliação ==
+== Avaliação (em andamento) ==
 
   * Completei a avaliação de realismo de 2/3 dos modelos.
   * Comecei a escrever o novo artigo.
