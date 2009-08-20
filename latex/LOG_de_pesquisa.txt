@@ -1,4 +1,10 @@
 -----------------------------------------------------------------------------
+19/08/2009
+
+Implementei o modelo CGW em C++. É muuuuuito mais rápido do que em Ruby.
+TODO: validar essa implementação através da comparação de motifs com software.
+
+-----------------------------------------------------------------------------
 
 até 18/08/2009
 

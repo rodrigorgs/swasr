@@ -12,6 +12,8 @@ public:
   int maxnode;
   int *modules;
   int *degrees;
+  double *tmpdouble;
+  int *tmpint;
 
   Network(int size) {
     this->size = size;
@@ -20,10 +22,13 @@ public:
     maxnode = -1;
     modules = new int[size];
     degrees = new int[size];
+    tmpdouble = new double[size + 1];
+    tmpint = new int[size + 1];
 
     memset(g, 0, sizeof(char)*size*size);
     memset(modules, 0, sizeof(int)*size);
     memset(degrees, 0, sizeof(int)*size);
+
   }
 
   int new_node() {
@@ -58,9 +63,6 @@ public:
   }
 
   int choose_with_mbpa(int _v, double alpha) {
-    int tmpint[size + 1];
-    double tmpdouble[size + 1];
-
     int _w;
     int _j;
     int _i;
@@ -96,6 +98,20 @@ public:
     return -1;
   }
 
+  int pick_out_edge(int v) {
+    int j = 0;
+    int w;
+
+    for (w = 0; w <= maxnode; w++)
+      if (v != w && has_edge(v, w))
+        tmpint[j++] = w;
+
+    if (j == 0)
+      return -1;
+    else
+      return tmpint[rand() % j];
+  }
+
   void print() {
     int i, j;
     char *p = g;
@@ -110,7 +126,7 @@ public:
 };
 
 // sample parameters:
-// 100,1,0,0,0,2,0,0,0,100,3
+// 100,0.4,0.2,0.2,0.2,2,2,2,2,100,3,0
 int main(int argc, char *argv[]) {
   // parameters
   int size;
@@ -118,6 +134,7 @@ int main(int argc, char *argv[]) {
   int e1, e2, e3, e4;
   double alpha;
   int num_modules;
+  int seed;
 
   // work variables
   double event;
@@ -125,10 +142,10 @@ int main(int argc, char *argv[]) {
   int w;
   int tmp, i, j;
 
-  sscanf(argv[1], "%d,%lf,%lf,%lf,%lf,%d,%d,%d,%d,%lf,%d", &size, 
+  sscanf(argv[1], "%d,%lf,%lf,%lf,%lf,%d,%d,%d,%d,%lf,%d,%d", &size, 
       &p1, &p2, &p3, &p4, 
       &e1, &e2, &e3, &e4,
-      &alpha, &num_modules);
+      &alpha, &num_modules, &seed);
 
   //puts("== ARGS ==");
   //printf("size = %d\n", size);
@@ -140,6 +157,7 @@ int main(int argc, char *argv[]) {
   v = g.new_node();
   w = g.new_node();
   g.add_edge(v, w);
+
   //g.print();
   //puts("   ");
   
@@ -149,24 +167,24 @@ int main(int argc, char *argv[]) {
   p4 += p3;
   //printf("p1 = %lf, p2 = %lf, p3 = %lf, p4 = %lf\n", p1, p2, p3, p4);
  
-  srand(0);
+  srand(seed);
 
   while (g.maxnode < g.size - 1) {
     event = rnd();
     //printf("event %lf, p1 %lf, maxnode = %d\n", event, p1, g.maxnode);
 
-    if (event <= p1) {
-      //printf("%d\n", maxnode);
+    if (event <= p1) { // new node
+      //puts("p1");
       v = g.new_node();
       g.modules[v] = rand() % num_modules;
       for (i = 0; i < e1; i++) {
         w = g.choose_with_mbpa(v, alpha);
-        //printf("w = %d\n", w);
         if (w >= 0)
           g.add_edge(v, w);
       }
     }
-    else if (event <= p2) {
+    else if (event <= p2) { // new edge
+      //puts("p2");
       for (i = 0; i < e2; i++) {
         v = rand() % (g.maxnode + 1);
         w = g.choose_with_mbpa(v, alpha);
@@ -174,16 +192,30 @@ int main(int argc, char *argv[]) {
           g.add_edge(v, w);
       }
     }
-    else if (event <= p3) {
-      // TODO: implement rewire
+    else if (event <= p3) { // rewire
+      //puts("p3");
+      for (i = 0; i < e3; i++) {
+        v = rand() % (g.maxnode + 1);
+        j = g.pick_out_edge(v);
+        if (j >= 0) {
+          w = g.choose_with_mbpa(v, alpha);
+          if (w >= 0) {
+            g.remove_edge(v, j);
+            g.add_edge(v, w);
+          }
+        }
+      }
     }
-    else if (event <= p4) {
+    else if (event <= p4) { // remove edge
+      //puts("p4");
       for (i = 0; i < e4; i++) {
         if (g.num_edges > 0) {
           while (1) {
             v = rand() % (g.maxnode + 1);
-            w = rand() % (g.maxnode + 1);
-            if (g.remove_edge(v, w))
+            //w = rand() % (g.maxnode + 1);
+            w = g.pick_out_edge(v);
+            //printf("v, w = %d, %d\n", v, w);
+            if (w >= 0 && g.remove_edge(v, w))
               break;
           }
         }
