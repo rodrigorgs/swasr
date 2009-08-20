@@ -12,6 +12,7 @@ public:
   int maxnode;
   int *modules;
   int *degrees;
+  int *out_degrees;
   double *tmpdouble;
   int *tmpint;
 
@@ -22,13 +23,14 @@ public:
     maxnode = -1;
     modules = new int[size];
     degrees = new int[size];
+    out_degrees = new int[size];
     tmpdouble = new double[size + 1];
     tmpint = new int[size + 1];
 
     memset(g, 0, sizeof(char)*size*size);
     memset(modules, 0, sizeof(int)*size);
     memset(degrees, 0, sizeof(int)*size);
-
+    memset(out_degrees, 0, sizeof(int)*size);
   }
 
   int new_node() {
@@ -43,6 +45,7 @@ public:
     int index = from * size + to;
     if (!g[index]) { 
       g[index] = 1; 
+      out_degrees[from] += 1;
       degrees[from] += 1; 
       degrees[to] += 1; 
       num_edges++; 
@@ -53,6 +56,7 @@ public:
     int index = from * size + to;
     if (g[index]) {
       g[index] = 0;
+      out_degrees[from] -= 1;
       degrees[from] -= 1;
       degrees[to] -= 1;
       num_edges--;
@@ -60,6 +64,22 @@ public:
     }
     else
       return 0;
+  }
+
+  // TODO: use it on random selection of edge.
+  int pick_node_by_out_degree() {
+    int sum_degrees = num_edges * 2;
+    int prob = rand() % sum_degrees;
+    int sum = 0;
+    int i;
+
+    for (i = 0; i <= maxnode; i++) {
+      sum += out_degrees[i];
+      if (sum > prob)
+        return i;
+    }
+
+    return maxnode;
   }
 
   int choose_with_mbpa(int _v, double alpha) {
@@ -211,7 +231,7 @@ int main(int argc, char *argv[]) {
       for (i = 0; i < e4; i++) {
         if (g.num_edges > 0) {
           while (1) {
-            v = rand() % (g.maxnode + 1);
+            v = g.pick_node_by_out_degree();
             //w = rand() % (g.maxnode + 1);
             w = g.pick_out_edge(v);
             //printf("v, w = %d, %d\n", v, w);

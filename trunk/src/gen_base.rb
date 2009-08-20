@@ -62,10 +62,10 @@ class NetworkGenerator
     files.each do |file|
       if range.nil? || (count >= range.first && count <= range.last)
         dir = File.dirname(file)
-        puts dir
+        #puts dir
         if !File.exist?("#{dir}/numbers.arc")
           args = read_params(file)
-          puts "  #{args.join(",")}"
+          #puts "  #{args.join(",")}"
           srand 0
           @dir = dir
           g = gen_net(args)
@@ -85,8 +85,11 @@ class NetworkGenerator
         
         # interval  --  count
         # X         --  total
-        puts "  This network: #{cycle_interval} seconds"
-        puts "  Time remaining: #{(total_interval - count_interval) / 3600.00} hours"
+        if (count % 100 == 0)
+          puts dir
+          puts "  This network: #{cycle_interval} seconds"
+          puts "  Time remaining: #{(total_interval - count_interval) / 3600.00} hours"
+        end
       end 
       count += 1
     end
@@ -104,10 +107,12 @@ class CgwGenerator < NetworkGenerator
       pinterval(0.0, 1.0 - p1).each do |p2|
         pinterval(0.0, 1.0 - p1 - p2).each do |p3|
           p4 = 1.0 - p1 - p2 - p3
+          p4 = 0.0 if p4 < 0.001
           e_values(p1).each do |e1|
             e_values(p2).each do |e2|
               e_values(p3).each do |e3|
                 e_values(p4).each do |e4|
+                  next if 2*p4*e4 >= p1*e1 + p2*e2
                   [-1, 0, 1, 10, 100, 1000].each do |alpha|
                     [2, 4, 8, 16, 32].each do |m|
                       block.call [n, p1, p2, p3, p4, e1, e2, e3, e4, alpha, m]
@@ -115,8 +120,7 @@ class CgwGenerator < NetworkGenerator
   end
   
   def gen_net(args)
-    g = gu_game(*args)
-    g.save2("#{@dir}/numbers")
+    system "cgw #{args.join(',')} > #{@dir}/numbers.arc" 
   end
 end
 
