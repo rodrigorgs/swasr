@@ -1,4 +1,68 @@
 -----------------------------------------------------------------------------
+21/08/2009
+
+Softwares de data mining:
+- Tanagra - é pra Windows
+- Weka
+- Rapidminer
+
+Entendendo a relação entre parâmetros e realismo:
+ Resultado do OneR para regras de classificacao
+ java -cp weka.jar weka.classifiers.rules.OneR -B 6 -v -t ARQUIVO.CSV
+== LF ==
+degexp
+        < 2.4400000000000004    ->
+        >= 2.4400000000000004   -> *
+        (1023/1296 instances correct) (78.9352%)
+
+(removendo parametro degexp:)
+maxk:
+        < 319.5 -> *
+        >= 319.5        ->
+        (957/1296 instances correct) (73.8426%)
+
+== BCR ==
+alpha:
+        < 0.7   -> *
+        >= 0.7  ->
+        (7832/9500 instances correct) (82.4421%)
+
+(removendo parametro alpha:)
+gamma:
+        < 0.1   ->
+        >= 0.1  -> *
+        (7564/9500 instances correct) (79.6211%)
+
+
+== CGW (C++) ==
+p1:
+        < 0.5   -> *
+        >= 0.5  ->
+        (31920/38790 instances correct) (82.2892%)
+
+(removendo parametro p1:)
+dá uma resposta sem sentido
+
+--
+Outra analise interessante:
+java -cp weka.jar weka.classifiers.bayes.NaiveBayes -v -t ARQUIVO.CSV
+
+-----------------------------------------------------------------------------
+20/08/2009
+
+Os motifs do CGW-C ficaram parecidos com os motifs do CGW-Ruby (correlação
+99,7%), embora sejam visivelmente diferentes.
+
+Se p1=1 e alpha in (100, 1000), então a rede é realista
+Se p3=0.8 entao a rede nao e realista
+
+Em geral parece que p3 ou p4 altos prejudicam o realismo, e p1 alto 
+beneficia.
+
+IDEIA: eu podia usar regras de classificacao para tentar entender como os
+parametros influenciam o realismo. (ver weka)
+
+-----------------------------------------------------------------------------
 19/08/2009
 
 Implementei o modelo CGW em C++. É muuuuuito mais rápido do que em Ruby.
