@@ -1,13 +1,12 @@
 #!/usr/bin/env ruby
+# Functions related to conversion between graph formats
 
 require 'rexml/document'
 require 'hpricot'
 require 'grok'
 require 'network'
 require 'zlib'
-
 include REXML
-
 require 'rexml/streamlistener'
 
 def bunch_to_mod(bunch_file, output_file)
