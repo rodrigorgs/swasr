@@ -1,4 +1,16 @@
 -----------------------------------------------------------------------------
+24/08/2009
+
+Descobri onde eu achei o link do software de clustering de Anquetil:
+foi na tese de PhD de Tzerpos, Appendix B. O link não funciona mais, mas
+na tese há uma descrição do formato de arquivo. Ele também descreve o Bunch.
+Vale a pena dar uma olhada!
+
+Instruções para fazer clustering com a ferramenta de Anquetil:
+$ ruby -r gdm -e "arc_to_gdm 'numbers.arc', nil" > rodrigo
+$ cat rodrigo | ./prelude | ./cluster | ./prune -s75 | ./pprint | less
+
+-----------------------------------------------------------------------------
 21/08/2009
 
 Softwares de data mining:
