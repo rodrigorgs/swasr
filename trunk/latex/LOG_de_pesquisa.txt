@@ -1,4 +1,12 @@
 -----------------------------------------------------------------------------
+25/08/2009
+
+Link da página de Anquetil (via archive.org)
+http://web.archive.org/web/20050427174815/http://www.csi.uottawa.ca/~anquetil/Clusters/index.html
+
+Implementei com classes um wrapper para o clusterer de Anquetil.
+
+-----------------------------------------------------------------------------
 24/08/2009
 
 Descobri onde eu achei o link do software de clustering de Anquetil:
@@ -9,6 +17,21 @@ Vale a pena dar uma olhada!
 Instruções para fazer clustering com a ferramenta de Anquetil:
 $ ruby -r gdm -e "arc_to_gdm 'numbers.arc', nil" > rodrigo
 $ cat rodrigo | ./prelude | ./cluster | ./prune -s75 | ./pprint | less
+
+--
+Bunch fica suspenso na linha 1191:
+
+/*      */     ExecuteClusteringEngine()
+/*      */     {                                                                /* 1146 */       this.monitor = new Object();
+/* 1147 */       run();                                                         /*      */     }
+/*      */                                                                      /*      */     public void run()
+/*      */     {                                                                /* 1152 */       Runnable runThread = new BunchEngine.2(this);
+/*      */                                                                      /* 1183 */       Thread t = new Thread(runThread);
+/*      */                                                                      /* 1185 */       t.start();
+/*      */       try                                                            /*      */       {
+/* 1190 */         synchronized (this.monitor) {                                /* 1191 */           this.monitor.wait(); }
+/*      */       } catch (Exception e1) {                                       /* 1193 */         e1.printStackTrace();
+/*      */       }                                    
 
 -----------------------------------------------------------------------------
 21/08/2009
