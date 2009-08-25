@@ -5,6 +5,7 @@ Link da página de Anquetil (via archive.org)
 http://web.archive.org/web/20050427174815/http://www.csi.uottawa.ca/~anquetil/Clusters/index.html
 
 Implementei com classes um wrapper para o clusterer de Anquetil.
+Implementei o wrapper para o ACDC.
 
 -----------------------------------------------------------------------------
 24/08/2009
