@@ -18,7 +18,16 @@ def read_rsf_pairs(filename=nil, relations=[])
 end
 
 def read_pairs(filename=nil)
-  lines = filename.nil? ? STDIN.readlines : IO.readlines(filename)
+  lines = (if filename.nil?
+    STDIN.readlines
+  elsif filename.kind_of?(String) 
+    IO.readlines(filename)
+  elsif filename.kind_of?(IO)
+    filename.readlines
+  else
+    raise Exception("Unsupported filename parameter type.")
+  end)
+    
   pairs = lines.map{ |line| line.strip.split(/\s+/) }
   return pairs
 end
@@ -37,6 +46,53 @@ end
 
 def grep(pairs, regex1, regex2=/.*/)
   pairs.select { |x, y| x =~ regex1 && y =~ regex2 }
+end
+
+# adjacency list:
+# The nth-row contains the indices of nodes that are adjacent to the nth-node
+# (zero-based). 
+# Note that the pair's elements  must be sequential numbers starting from 0.
+#
+# adjacency list:
+#
+#  [
+#   [1, 2, 3],
+#   [2],
+#   [],
+#   [1, 2]
+#  ]
+#
+# is equivalent to:
+#  [
+#   [0, 1], [0, 2], [0,3],
+#   [1, 2],
+#   [3, 2]
+#  ]
+#   
+def numbered_pairs_to_adjacency_list(pairs, directed=false)
+  nodes = entities(pairs).sort
+  n = nodes[-1] + 1
+  array = Array.new(n) { Array.new }
+  pairs.each do |a, b| 
+    array[a] << b
+    array[b] << a if !directed
+  end
+  return array
+end
+
+# adjacency matrix: a NxN matrix, where N is the number of nodes
+# the element i,j is 1 if there exists a pair [i, j], and 0 otherwise.
+#
+# Note that the pair's elements  must be sequential numbers starting from 0.
+def numbered_pairs_to_adjacency_matrix(pairs, directed=false)
+  nodes = entities(pairs).sort
+  n = nodes[-1] + 1
+  matrix = Array.new(n) { Array.new(n) { 0 } }
+  pairs.each do |a, b| 
+    matrix[a][b] = 1
+    matrix[b][a] = 1 if !directed
+  end
+  return matrix
 end
 
 class Array
