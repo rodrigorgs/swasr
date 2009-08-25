@@ -1,5 +1,7 @@
 require 'grok'
 require 'open3'
+require 'tempfile'
+require 'tmpdir'
 include Open3
 
 class Clusterer
@@ -105,9 +107,40 @@ protected
   end
 end
 
+# Pre-requisite: acdc must be in CLASSPATH
+class AcdcClusterer < Clusterer
+
+  def arc_to_intermediate(pairs, ostream, params="-l9999 -u")
+    ifile = "#{Dir.tmpdir}/input.rsf"
+    File.open(ifile, "w") do |f|
+      pairs.each { |a, b| f.puts "depend #{a} #{b}" }
+    end
+
+    ofile = "#{Dir.tmpdir}/output.rsf"
+    system "java acdc.ACDC #{ifile} #{ofile} #{params}"
+    lastmod = nil
+    mod = -1
+    IO.foreach(ofile) do |line|
+      pair = line.split(" ")[1..2]
+      if pair[0] != lastmod
+        lastmod = pair[0]
+        mod += 1
+      end
+      ostream.puts "#{pair[1]} #{mod}"
+    end
+  end
+
+end
+
 if __FILE__ == $0
+  clusterer = AcdcClusterer.new
+  clusterer.cluster("/tmp/numbers.arc", "/tmp/acdc.mod", "-l9999 -u")
+  
+  exit 0
+
   clusterer = HcasClusterer.new
   clusterer.cluster("/tmp/numbers.arc", "/tmp/intermediate", "")
   clusterer.post_process("/tmp/intermediate", "/tmp/anquetil.mod", 0.90)
 end
+
 
