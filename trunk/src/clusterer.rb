@@ -132,7 +132,51 @@ class AcdcClusterer < Clusterer
 
 end
 
+class MqClusterer < Clusterer # Bunch impl. by Roberto et al
+# properties input output
+
+  def arc_to_intermediate(pairs, ostream, params=nil)
+    pfile = "#{Dir.tmpdir}/bunch.properties"
+
+    File.open(pfile, 'w') do |f|
+      f.puts <<-EOT
+      clustererType = modularizationQuality
+
+      # Logging parameters
+      verboseMode = true
+      logFile = MQLog.log
+
+      # GXL file parameters
+      keepUnclustered = false
+      edgeType = multiple
+
+      # Random Algorithm
+      MQAlgorithm = RANDOMIZED_SEARCH
+      optimizationFunction = TURBO
+      convergenceThreshold = 1.0E-6
+      maxIterations = 1000
+      numPaths = 10
+      EOT
+    end
+
+    ifile = "#{Dir.tmpdir}/bunch.arc"
+    puts_pairs(pairs, ifile)
+
+    ofile = "#{Dir.tmpdir}/bunch.mod"
+
+    system "java com.google.code.swasr.Abstractor #{pfile} #{ifile} #{ofile}"
+
+    ostream.write(IO.read(ofile))
+  end
+
+end
+
 if __FILE__ == $0
+  clusterer = MqClusterer.new
+  clusterer.cluster("/tmp/numbers.arc", "/tmp/mq.mod", "")
+
+  exit 0
+
   clusterer = AcdcClusterer.new
   clusterer.cluster("/tmp/numbers.arc", "/tmp/acdc.mod", "-l9999 -u")
   
