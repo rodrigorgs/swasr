@@ -3,7 +3,7 @@
 Software modularization recovery algorithms automatically recognize a system's
 modular structure by analyzing its implementation.
 Due to the lack of well document software systems, though, the issue of testing
-these algorithms is still underexplored, PREJUDICANDO both their ADOCAO in the
+these algorithms is still underexplored, limiting both their adoption in the
 industry and the development of better algorithms.
 We propose to rely on software models to produce arbitrarily large test sets. In
 this paper we consider three such models and analyze how similar the artifacts
@@ -87,9 +87,52 @@ Directed weighted networks with overlapping modules.
 
 \subsection{BCR plus}
 
-We propose an extension to BCR model... Growth model.
+We propose an extension to BCR model...
+
+The BCR+ model builds networks that respect a module-dependency network, that
+is, a network that contains modules and allowed dependencies between modules. 
+In the component dependency network, an edge between two vertices is only
+allowed if there exist an edge between their respective modules.
+
+First of all, the model generates a network that is a copy of the module
+dependency network, each vertex belonging to its respective module. Then the
+algorithm runs iteratively, and on each iteration it picks a event that evolves
+the network. Each event has an associated probability.
+
+TODO: present in pseudo-language?
+
+* With probability p, a new vertex is added to the network, together with an
+edge from the new vertex to an existing vertex, chosen preferentially according
+to .... Considering din = 0, this means that a vertex with indegree = 8 is
+twice more likely to receive the edge than a vertex with indegree = 4. The
+parameter din can be used to alleviate the handicap. (If din = 4, the first
+vertex will only be 3/2 more likely to receive the edge). The new vertex is
+put on the same cluster as the old vertex.
+* With probability q, a new vertex is added to the network, together with an
+edge from an existing vertex, chosen preferentially accordingly to dout +
+outdegree, to the new vertex. The new vertex is put on the same cluster as the
+old vertex
+* With probability r, a new edge is added between two vertices, v and w. v is
+chosen according to .... After that, with prob X, w is chosen from one of the
+modules connected to v's module, else it's chosen from v's own module. In any
+case, the exact choice is made according to ...
+
+It's a growth model, that is, it can take as input an existing network and
+evolve it.
 
 \subsection{CGW}
+
+The CGW model is similar to BCR+ in which it is a growth model. The initial
+network is composed of two vertices with a directed edge between, belonging
+to the same module. The other M - 1 modules are initially empty.
+
+Then, at each iteration, the algorithm executes one of the following events:
+
+* With probability p1, one vertex is added to a randomly-chosen module, together
+with e1 edges from p1 to vertices chosen according to module-based preferential
+attachment.
+
+* With probability 
 
 Accounts for the removal of edges. Growth model.
 
@@ -152,7 +195,20 @@ We cannot blame one single parameter for the non-realism.
 
 \section{Conclusion and Future Work}
 
-Bla-bla
+The use of models lead to a more controlled way of experimented, and allows us
+to play with a large data set and a wide variety of characteristics. Although
+we have shown that the models studied can produce realistic networks according
+to one criterium, we can't just discard the experimentation with real software
+systems, as they are the subjects in which algorithms will be used in the
+real world. In particular, it's an open question whether the models can 
+reproduce any software system or if they just generate a subset of systems.
+We believe that there are software systems that cannot be simulated by none
+of these models.
+
+Although common in distributed computing research, simulation is underexplored
+in software engineering. This work opens a door to the usage of simulation in
+the field of reverse engineering of software in order to evaluate RE 
+algorithms.
 
 Future work: to apply algorithms to the networks and compare the results with
 results found in the literature.
