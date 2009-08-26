@@ -1,4 +1,24 @@
 -----------------------------------------------------------------------------
+26/08/2009
+
+Descobri qual é o problema do Bunch: ele só funciona (bem) no Windows. Deve
+ter algo a ver com as diferentes implementações de threads na JVM entre
+sistemas operacionais. (Curiosamente, isso parece só valer para a API. O
+aplicativo Swing funciona bem no Linux).
+
+Hashtable results = api.getResults();
+int totalLevels = Integer.parseInt((String)results.get(BunchAPI.TOTAL_CLUSTER_LEVELS));
+BunchGraph bg = api.getPartitionedGraph(0);
+for (Object o : bg.getNodes()) {
+  BunchNode node = (BunchNode)o;
+  System.out.println(node.getName() + " " + node.getCluster());
+}
+
+Sendo N = TOTAL_CLUSTER_LEVELS
+nível 0: muitos clusters (não necessariamente singletons)
+nível N - 1 : um só cluster.
+
+-----------------------------------------------------------------------------
 25/08/2009
 
 Link da página de Anquetil (via archive.org)
