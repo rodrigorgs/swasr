@@ -7,6 +7,8 @@ http://web.archive.org/web/20050427174815/http://www.csi.uottawa.ca/~anquetil/Cl
 Implementei com classes um wrapper para o clusterer de Anquetil.
 Implementei o wrapper para o ACDC.
 
+O Bunch original roda rapidinho mil vértices. O do projeto conformance está rodando até agora (50 minutos)...
+
 -----------------------------------------------------------------------------
 24/08/2009
 

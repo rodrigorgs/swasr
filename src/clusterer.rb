@@ -1,3 +1,4 @@
+#!/usr/bin/env ruby
 require 'grok'
 require 'open3'
 require 'tempfile'
@@ -164,7 +165,7 @@ class MqClusterer < Clusterer # Bunch impl. by Roberto et al
 
     ofile = "#{Dir.tmpdir}/bunch.mod"
 
-    system "java com.google.code.swasr.Abstractor #{pfile} #{ifile} #{ofile}"
+    system "java -server com.google.code.swasr.Abstractor #{pfile} #{ifile} #{ofile}"
 
     ostream.write(IO.read(ofile))
   end
