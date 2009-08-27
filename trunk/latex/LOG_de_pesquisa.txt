@@ -1,4 +1,12 @@
 -----------------------------------------------------------------------------
+27/08/2009
+
+Estou com a pasta shared no cluster. Instalei o Java 6.
+
+Bunch. fórmula que computa o nível mediano:
+median = ceiling[(totalLevels - 2) / 2]
+
+-----------------------------------------------------------------------------
 26/08/2009
 
 Descobri qual é o problema do Bunch: ele só funciona (bem) no Windows. Deve
