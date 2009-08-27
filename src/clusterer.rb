@@ -167,7 +167,7 @@ class MqClusterer < Clusterer # Bunch impl. by Roberto et al
 
     system "java -server com.google.code.swasr.Abstractor #{pfile} #{ifile} #{ofile}"
 
-    ostream.write(IO.read(ofile))
+    ostream.write(ofile)
   end
 
 end
