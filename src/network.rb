@@ -99,7 +99,7 @@ class Network
 
   # ------ end Factory methods
   def edges_undirected
-    edges.map { |e| [e.from, e.to].sort_by(&:eid) }.uniq.map { |a, b| new_edge(a, b) }
+    edges.map { |e| [e.from, e.to].sort_by { |x| x.eid} }.uniq.map { |a, b| new_edge(a, b) }
   end
 
   # using PAIRS format
@@ -435,12 +435,12 @@ class Node
   def degree; neighbors.size; end
   def in_degree; @in_edges_map.size; end
   def out_degree; @out_edges_map.size; end
-  def internal_degree; neighbors.count { |n| n.cluster == @cluster }; end
-  def internal_in_degree; @in_edges_map.count { |n, e| n.cluster == @cluster }; end
-  def internal_out_degree; @out_edges_map.count { |n, e| n.cluster == @cluster }; end
-  def external_degree; neighbors.count { |n| n.cluster != @cluster }; end
-  def external_in_degree; @in_edges_map.count { |n, e| n.cluster != @cluster }; end
-  def external_out_degree; @out_edges_map.count { |n, e| n.cluster != @cluster }; end
+  def internal_degree; neighbors.select { |n| n.cluster == @cluster }.size; end
+  def internal_in_degree; @in_edges_map.select { |n, e| n.cluster == @cluster }.size; end
+  def internal_out_degree; @out_edges_map.select { |n, e| n.cluster == @cluster }.size ; end
+  def external_degree; neighbors.select { |n| n.cluster != @cluster }.size ; end
+  def external_in_degree; @in_edges_map.select { |n, e| n.cluster != @cluster }.size; end
+  def external_out_degree; @out_edges_map.select { |n, e| n.cluster != @cluster }.size; end
   def cluster_span; _clusters(in_nodes + out_nodes).size; end
   def in_cluster_span; _clusters(in_nodes).size; end
   def out_cluster_span; _clusters(out_nodes).size; end
