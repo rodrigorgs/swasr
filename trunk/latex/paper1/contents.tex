@@ -91,7 +91,8 @@ Directed weighted networks with overlapping modules.
 
 \subsection{BCR plus}
 
-We propose an extension to BCR model...
+We propose an extension to BCR model... which was proposed to model the links
+between web pages.
 
 The BCR+ model builds networks that respect a module-dependency network, that
 is, a network that contains modules and allowed dependencies between modules. 
@@ -100,10 +101,21 @@ allowed if there exist an edge between their respective modules.
 
 First of all, the model generates a network that is a copy of the module
 dependency network, each vertex belonging to its respective module. Then the
-algorithm runs iteratively, and on each iteration it picks a event that evolves
-the network. Each event has an associated probability.
+algorithm runs iteratively, and on each iteration it executes an operations that
+modifies the network. It can add a new vertex together with an edge connecting it
+to an old vertex, or it can add an edge between two existing vertices. The
+choice of vertices, though, is not fully random. The probability that a
+particular vertex v is choosen, P(v), is proportional to a function that involves the
+in-degree or the out-degree of the node. We say that a vertex is chosen within a
+set V according to a function f if
 
-TODO: present in pseudo-language?
+P(choose v) = f(v) / sum(v in V, f(v))
+
+The denominator is a normalizing factor that assures that the probabilities sum
+to 1.
+
+picks a event that evolves
+the network. Each event has an associated probability.
 
 * With probability p, a new vertex is added to the network, together with an
 edge from the new vertex to an existing vertex, chosen preferentially according
@@ -115,7 +127,7 @@ put on the same cluster as the old vertex.
 * With probability q, a new vertex is added to the network, together with an
 edge from an existing vertex, chosen preferentially accordingly to dout +
 outdegree, to the new vertex. The new vertex is put on the same cluster as the
-old vertex
+old vertex. This case is similar to the previous case.
 * With probability r, a new edge is added between two vertices, v and w. v is
 chosen according to .... After that, with prob X, w is chosen from one of the
 modules connected to v's module, else it's chosen from v's own module. In any
@@ -127,6 +139,9 @@ evolve it.
 TODO: Argument: why the imposed modules are natural modules?
 
 \subsection{CGW}
+
+The CGW was proposed to model the evolution of software systems organized in
+modules. It was proven formally to generate scale-free networks.
 
 The CGW model is similar to BCR+ in which it is a growth model. The initial
 network is composed of two vertices with a directed edge between, belonging
@@ -144,8 +159,8 @@ Accounts for the removal of edges. Growth model.
 
 \section{Experimental Setup}
 
-We want to show investigate if the models can produce networks that resemble
-software networks. We know that they share with software networks the scale-free
+We want to investigate if the models can produce networks that resemble software
+networks. We know that they share with software networks the scale-free
 property. This is not enough, since many real networks share this property. So
 we looked for a method to differentiate between software networks and other
 networks.
@@ -201,6 +216,11 @@ We chose five different module dependency networks, which where extracted from
 actual dependencies between modules of five different software systems of our
 sample, ranging from 2 to 32 modules. The module dependency networks are shown
 on Figure XXX. 
+%02-gef
+%04-ibatis
+%08-megamek
+%16-findbugs
+%32-zk
 
 The probabilities p, q and r were given all possible values from 0.0 upto 1.0,
 in 0.2 steps, such as the sum of the probabilities was 1. Since the only events
@@ -213,36 +233,34 @@ Finally, we chose mu from 0.0 to 0.6 in 0.2 steps. It does not make sense to
 choose higher values since they mean that there will be more edges connecting
 different models.
 
-%02-gef
-%04-ibatis
-%08-megamek
-%16-findbugs
-%32-zk
+Total: 9,500 networks.
 
-In order to asses the realism of the models we should test them with 
+\subsubsection{LF}
 
-In order to assess the realism of the models, we generated a large number of
-networks using the models with many combinations of parameters. 
+Like BCR, we choose mu ranging from 0.0 to 0.6 in 0.2 steps. For the remaining
+parameters we selected values from our sample of software systems. For degexp,
+..., we picked the minimum, the median and the max values.
 
-We expect that,
-if a model is capable of producing a realistic network, then 
+Total: 1296 networks
 
-We generated networks with many combinations of parameters...
+\subsubsection{CGW}
 
-BCR: 5 different architectures, 
-p, q, r in (0.0, 0.2, 0.4, 0.6, 0.8, 1.0), with p+q+r = 1 and p + q > 0.
-...
-Total: X networks
+p1,p2,p3,p4 ranging from 0.0 to 1.0 in 0.2 steps, with p1 > 0, p1 + p2 + p3 + p4 = 1.0.
+e1,e2,e3,e4 in 1, 2, 4, 8 (except that when pi = 0, ei is ignored).
+2*p4*e4 >= p1*e1 + p2*e2, so the number of edges created is at least the 
+double of the number of edges removed
+alpha in -1, 0, 1, 10, 100, 1000. 
+m in 2, 4, 8, 16, 32 (just like bcr and lfr)
 
-LR: ...
+Total: 38790 networks
 
-CGW: ...
+\subsubsection{ER}
 
-ER: ...
+Number of edges chosen randomly in the range ...
 
-\section{Experimental Results}
+\section{Realism Evaluation}
 
-Table: Model | Number of Networks | Realistic Networks | \%
+Table: Model | Number of Networks | Realistic Networks | Percent \%
 
 Show some graphs: histogram of average correlations for each model.
 
@@ -272,7 +290,8 @@ Even when considering only structural information, is it true
 that experts would find a decomposition similar to the reference decomposition
 imposed by the model?
 
-We generated only one network for each set of parameters.
+We generated only one network for each set of parameters. (as we've shown, some
+parameters are redundant as they do not change significantly the realism)
 
 Some clustering algorithms use weights and they weren't studied here.
 
