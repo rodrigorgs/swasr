@@ -23,7 +23,7 @@ system, how its different parts interact to accomplish the system's goal.
 
 Unfortunately, in the case of legacy systems, such knowledge isn't available.
 Depending on its size, it might take months to understand the system so well as
-to find a good modularization.
+to find a good modularization. % CITE Parnas' modules
 
 POR ISSO SURGIRAM software modularization recovery algorithms, also known as
 software clustering algorithms or software architecture recovery algorithms. In
@@ -41,6 +41,8 @@ The empirical evaluations consist of selecting a collection of systems with
 known reference modularizations and then applying the algorithms to the systems.
 The modularizations found by the algorithms are then compared to the reference
 decompositions by a metric such as MoJo CITE or PrecisionRecall CITE.
+
+% TODO: diagram showing the evaluation of a clustering algorithm
 
 Unfortunately there are few systems with known reference modularizations and,
 because to obtain reference modularizations is costly, there are few empirical
@@ -64,7 +66,14 @@ The remaining sections are organized as .... Section 2, ...
 
 %alike, resembling, exchangeable, indistiguible
 
-\section{Software Networks and Software Clustering}
+\section{Software Modularization Recovery}
+
+Aka software architecture recovery, software architecture reconstruction,
+software clustering...
+
+It's an task of reverse engineering, as defined by Tonella...
+
+%\section{Software Networks and Software Clustering}
 
 directed graph, (un)weighted
 
@@ -76,7 +85,13 @@ Software dependency networks are scale free. CITE Valverde, Myers
 
 Scale free means ... $N(k) \sim k^{-\gamma}$
 
-\section{Models}
+(in fact we can't argue the degree distribution is perfectly fit by a power law.
+Anyway, the distribution is much more assymetric than normal ou Poisson's)
+
+software indegree distribution (power law), outdegree distribution (not so power
+law)
+
+\section{Network Models}
 
 Many scale-free models have been proposed. Only a few, though, produce modular
 networks. 
@@ -84,6 +99,9 @@ networks.
 Glossary: preferential attachment
 
 \subsection{ER (Erdos-Renyi)}
+
+%\subsection{Configuration model}
+% take the most typical software system and steal its degree sequence
 
 \subsection{LF}
 
@@ -117,18 +135,20 @@ to 1.
 picks a event that evolves
 the network. Each event has an associated probability.
 
-* With probability p, a new vertex is added to the network, together with an
+* Add a node with ongoing edge. With probability p, a new vertex is added to the network, together with an
 edge from the new vertex to an existing vertex, chosen preferentially according
 to .... Considering din = 0, this means that a vertex with indegree = 8 is
 twice more likely to receive the edge than a vertex with indegree = 4. The
 parameter din can be used to alleviate the handicap. (If din = 4, the first
 vertex will only be 3/2 more likely to receive the edge). The new vertex is
 put on the same cluster as the old vertex.
-* With probability q, a new vertex is added to the network, together with an
+
+* Add a node with ingoing edge. With probability q, a new vertex is added to the network, together with an
 edge from an existing vertex, chosen preferentially accordingly to dout +
 outdegree, to the new vertex. The new vertex is put on the same cluster as the
 old vertex. This case is similar to the previous case.
-* With probability r, a new edge is added between two vertices, v and w. v is
+
+* Add an edge. With probability r, a new edge is added between two vertices, v and w. v is
 chosen according to .... After that, with prob X, w is chosen from one of the
 modules connected to v's module, else it's chosen from v's own module. In any
 case, the exact choice is made according to ...
@@ -157,45 +177,135 @@ attachment.
 
 Accounts for the removal of edges. Growth model.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \section{Experimental Setup}
 
-We want to investigate if the models can produce networks that resemble software
-networks. We know that they share with software networks the scale-free
-property. This is not enough, since many real networks share this property. So
-we looked for a method to differentiate between software networks and other
-networks.
+% Is there such a thing as softwareness? Can we reproduce it?
 
-What we are looking for, after all, is an oracle that accepts software networks
-and rejects non-software networks. If the oracle has these two properties, we
-can be confident that it'll accept only synthetic networks that resemble
-software networks.
+``softwareness''
 
-In a recent work, Milo et al. proposed the study of triads in order to
-characterize different classes of networks. We thus follow their work here.
+Our hypothesis is that at least one of the presented models can synthesize
+networks that resemble software networks. We already know that they produce
+networks that, just like software networks, are scale-free. This single
+property, though, isn't enough to prove the hypothesis, since there are many
+known scale-free networks extracted from many distinct domains of knowledge. It
+is important to distinguish between software and non-software networks.
 
-Triads are...
+% v.  differentiate, differ; distinguish; contrast; discern 
 
-Figure 1a show triads for a software system... Figure 2a show triads for network
-from domain X.
+The approach we chose to test our hypothesis was to build a network classifier:
+an algorithm that analyses a network and classifies it as a software network or
+as a non-software network. If a classifier is capable of classifying with high
+accuracy both software and non-software networks...
+it gives a fair approximation apply it on synthetic networks. We expect that
+some synthetic networks will be so similar to software networks that they will
+be classified as software networks.
 
-\subsection{Software Network Extraction}
+The experiment we conducted to evaluate the models, described in details in the
+following sections, can be summarized as such:
+* First of all, we collected both software and non-software networks
+* Then, we devised a classifier
+* After that, we applied the classifier to our data set and evaluated its
+accuracy, precision and recall.
+* After we came to an acceptable classifier, we synthesized many networks by
+varying the parameters on the models we presented.
+* Finally, we classified all synthesized networks as software or non-software.
+
+After that we analysed the results and tried to understand which parameters
+of each model contribute mostly to the softwareness of their networks
+
+%First of all, we need a data set containg both software and non-software
+%networks. 
+%Therefore, in order to prove our hypothesis we must show that, according to some
+%criterion, some of at least some of
+%the synthetic networks are more similar to software networks than other networks
+%are.
+%What we are looking for, after all, is an oracle that accepts software networks
+%and rejects non-software networks. If the oracle has these two properties, we
+%can be confident that it'll accept only synthetic networks that resemble
+%software networks.
+
+\subsection{Real Networks Data Set}
 
 We've collected 65 systems written in Java and X networks from many domains,
 such as sociology, biology, technology and linguistics.
-Table 1 ...
 
-\subsection{Oracle Training and Evaluation}
+See Appendix A
 
-We then used Pearson's correlation coefficient as a similarity measure between
-two networks. For each software network, We then computed the average
-correlation coefficient (ACC) to the other software networks. We've observed
-that among software networks the ACC is X +- Y.
+\subsection{Classifier} % Software network classifier
 
-We then computed, for each non-software network, the ACC to the 65 software
-networks. By the 3-sigma rule, we use X as the threshold for realistic software
-networks: networks whose ACC is below this threshold are rejected.
+In a recent work, Milo et al. proposed to distinguish networks of different
+domains by analyzing the triad concentration of each network. A triad is simply
+a network with three vertices in which all vertices are connected. There are
+only 13 distinct triads -- one for each configuration of directed edges --, as
+shown in Figure X.
+%CONSIDERING all the possible configurations of
+%directed edges between three vertices, there are to 13 triads in which all
+%vertices are connected, as shown in Figure X. 
 
-The oracle has X precision and X recall...
+% Figure X: triad id vs. graphical representation
+
+In order to characterize a network, one can count how many times each of the
+13 triads appear on the network. The result is a triad concentration profile.
+Figure 1a show triads for a software system... Figure 2a show triads for network
+from domain X.
+
+Then, in order to measure how similar two networks are, Milo et al computed
+Pearson's correlation coefficient between the two corresponding profiles.
+
+In order two measure the softwareness of a network, we measure the correlation
+between the network's profile and the profile of each of the 65 software
+networks in our sample. We then compute the average of these correlations and
+call it the S-score, that varies between 0 and 1. The greater the S-score, more
+likely that the network is a software network.
+
+In order to build our classifier, we need a threshold for the S-score, so
+networks are classified as software networks only when they have S-score greater
+or equal to this threshold. We computed the S-score for each of the 65 software
+systems and found an average S-score of 0.97 with standard deviation of 0.03.
+Using the three-sigma rule from statistics, we chose the threshold as 0.97 - 3 *
+0.3, that is 0.88. 
+
+The small standard deviation shows that triad concentration profiles indeed
+characterize well the software domain.
+
+\subsubsection{Classifier Validation}
+
+In order to assess if the classifier is capable of distinguishing between
+software and non-software networks, we applied it to all the networks from our
+sample. 
+
+Most software networks were classified correctly, which is not surprising since
+the classifier was based on them.
+
+Precision: X, recall: Y
+
+Curiously, polblog had a very high S-score. This issue requires further 
+investigation. Anyway, we cannot deny the possibility that it is really very
+software-like.
+
+We could have chosen another value for the threshold, and it would affect the
+precision and the recall. For instance, had we chosen 0.82, we would end with
+100\% recall and x\% precision. For us, though, it is more important to have a
+high precision, so we keep the threshold 0.88.
+
+We also generated networks with the ER model, which is known to generate
+networks that are not scale-free and, thus, are very different from software
+networks. All the ER networks were classified as non-software.
+
+%Following Milo et al., We then used Pearson's correlation coefficient as a
+%similarity measure between two networks. For each software network, we then
+%computed the average correlation coefficient (ACC) to the other software
+%networks. We've observed that among software networks the ACC is X +- Y.
+
+% avg: 0.97. stdev: 0.03
+%We then computed, for each non-software network, the ACC to the 65 software
+%networks. By the 3-sigma rule, we use X as the threshold for realistic software
+%networks: networks whose ACC is below this threshold are rejected.
+%The oracle has X precision and X recall...
 
 \subsection{Network Synthesis}
 
@@ -241,30 +351,26 @@ Like BCR, we choose mu ranging from 0.0 to 0.6 in 0.2 steps. For the remaining
 parameters we selected values from our sample of software systems. For degexp,
 ..., we picked the minimum, the median and the max values.
 
-Total: 1296 networks
+Total: 1,296 networks
 
 \subsubsection{CGW}
 
 p1,p2,p3,p4 ranging from 0.0 to 1.0 in 0.2 steps, with p1 > 0, p1 + p2 + p3 + p4 = 1.0.
 e1,e2,e3,e4 in 1, 2, 4, 8 (except that when pi = 0, ei is ignored).
-2*p4*e4 >= p1*e1 + p2*e2, so the number of edges created is at least the 
-double of the number of edges removed
+2*p4*e4 >= p1*e1 + p2*e2, so the number of edges created is at least twice
+the number of edges removed (to avoid long run times)
 alpha in -1, 0, 1, 10, 100, 1000. 
 m in 2, 4, 8, 16, 32 (just like bcr and lfr)
 
-Total: 38790 networks
+Total: 38,790 networks
 
-\subsubsection{ER}
+\section{Softwareness Evaluation}
 
-Number of edges chosen randomly in the range ...
-
-\section{Realism Evaluation}
+We used our classifier ...
 
 Table: Model | Number of Networks | Realistic Networks | Percent \%
 
 Show some graphs: histogram of average correlations for each model.
-
-As expected, ER produces non-realistic software networks.
 
 All models produce networks that resemble software networks.  For some
 parameters, though, the networks are not realistic.
@@ -278,9 +384,12 @@ Naive Bayes
 \subsection{Homogeinity}
 
 Pick realistic networks from a model. Are they similar to each other? (see
-standard deviation) Are they similar to networks generated by the other models?
+standard deviation) In other words: do the parameters make a difference?
 
-\section{Threads to validity}
+Are they similar to networks generated by the other models? In other words: are
+the models equivalent?
+
+\section{Threats to validity}
 
 % External validity (EV): can it be generalized?
 Structural information isn't enough for a expert do produce a
@@ -303,37 +412,140 @@ other paradigms. The choice of a particular technique for extracting
 dependencies (static analysis) may also have impact on the structure of the
 networks.
 
-# Koschke says that experts decompositions vary by no more than 80? percent.
+% Koschke says that experts decompositions vary by no more than 80? percent.
 
 \section{Conclusion and Future Work}
 
-The use of models lead to a more controlled way of experimented, and allows us
-to play with a large data set and a wide variety of characteristics. Although
-we have shown that the models studied can produce realistic networks according
-to one criterium, we can't just discard the experimentation with real software
-systems, as they are the subjects in which algorithms will be used in the
-real world. In particular, it's an open question whether the models can 
-reproduce any software system or if they just generate a subset of systems.
-We believe that there are software systems that cannot be simulated by none
-of these models.
+We have shown empirically that network models found in the literature can
+produce synthetic networks that are similar to the network of dependencies
+between classes in object-oriented systems. This result supports the use of
+synthetic networks in the evaluation of software modularization algorithms that
+operate on class dependency networks. 
 
-Although common in distributed computing research, simulation is underexplored
-in software engineering. This work opens a door to the usage of simulation in
-the field of reverse engineering of software in order to evaluate RE 
-algorithms.
+% review
+The use of synthetic data is common in distributed computing research, but still
+underexplored in software engineering research. Since many reverse engineering
+tasks extract from component dependencies information useful for the maintenance
+of a software system, we expect this work to have impact beyond the software
+modularization recovery community.
 
-Future work: to apply algorithms to the networks and compare the results with
-results found in the literature.
+%Although the use of models and synthetic data is somewhat common in distributed
+%computing research, it is underexplored in software engineering research. We
+%expect this work to contribute to explore t
+%common in distributed computing research, simulation is underexplored
+%in software engineering. This work opens a door to the usage of simulation in
+%the field of reverse engineering of software in order to evaluate RE 
+%algorithms.
+
+We accept that it is very important to test the algorithms with networks
+extracted from real software systems, but we argue that the use of synthetic
+networks in a complementary manner can give researchers new insights about the
+algorithms. First, the use of models allows the creation of large test sets,
+thus diminishing the small sample effects. Moreover, the networks are created in
+a controlled way, accordingly to model parameters, so it is possible to study
+the behavior of the algorithms with different parameter values.
+
+In a future work, we intend to evaluate with synthetic networks some software
+clustering algorithms that were previously studied with real data. We will,
+then, be able to compare the results obtained with the two approaches.
 
 \section{Appendix A: list of networks}
 
 Software networks:
 
-Name | Source
+From SourceForge:
+AbaGuiBuilder-1.8
+alfresco-labs-deployment-3Stable
+aoi272
+stendhal-0.74
+battlefieldjava-0.1
+checkstyle-5.0
+dom4j-1.6.1
+findbugs-1.3.8
+freetts-1.2.2-bin
+ganttproject-2.0.9
+geoserver-2.0-beta1-bin
+geotools-2.5.5-bin
+gfp\_0.8.1
+hibernate-distribution-3.3.1.GA-dist
+hsqldb\_1\_8\_0\_10
+iBATIS\_DBL-2.1.5.582
+iReport-nb-3.5.1
+JabRef-2.5b2-src
+jailer\_2.9.9
+jalopy-1.5rc3
+jasperreports-3.5.2-project
+jfreechart-1.0.13
+pentaho-reporting-engine-classic-0.8.9.11
+jGnash-2.2.0
+jgraphpad-5.10.0.2
+jmsn-0.9.9b2
+juel-2.1.2
+JXv3.2rc2deploy
+makagiga-3.4
+MegaMek-v0.34.3
+iFreeBudget-2.0.9
+mondrian-3.1.1.12687
+oddjob-0.26.0
+openxava-3.1.2
+pdfsam-1.1.3-out
+pjirc\_2\_2\_1\_bin
+pmd-bin-4.2.5
+proguard4.3
+smc\_6\_0\_0
+squirrel-sql-3.0.1-base
+squirrel-sql-3.0.1-standard
+tvbrowser-2.7.3-bin
+villonanny-2.3.0.b02.bin
+rapidminer-4.4-community
+zk-bin-3.6.1
+
+From other places:
+
+ArgoUML-0.28
+GEF-0.13-bin
+Hl7Comm.1.0.1
+IRPF2009v1.1
+broker-4.1.5
+dbwrench
+ec2-api-tools
+ermodeller-1.9.2-binary
+flyingsaucer-R8
+gdata-src.java-1.31.1
+guice-2.0
+gwt-windows-1.6.4
+jai-1\_1\_4-pre-dr-b03-lib-linux-i586-08\_Jun\_2009
+jakarta-tomcat-5.0.28-embed
+juxy-0.8
+myjgui\_0.6.6
+peer-4.1.5
+subethasmtp-3.1
+thinkui\_sqlclient-1.1.2
+worker-4.1.5
 
 Other networks:
 
-Description | Source
+3 circuit networks (circuit-s208 circuit-s420 circuit-s838)
 
+5 facebook networks (facebook-Caltech36 facebook-Georgetown facebook-Oklahoma
+facebook-Princeton facebook-UNC28)
 
+5 language networks (lang-english  lang-french lang-japanese lang-spanish)
 
+43 metabolic networks
+
+polblogs
+
+3 protein networks (protein-a4j protein-AOR protein-eaw)
+
+2 social networks (social-leader social-prison)
+
+other networks:
+
+yeast
+
+beta3sreduced
+celegansneural
+
+czech
+ecoli-metabolic
