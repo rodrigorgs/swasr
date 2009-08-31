@@ -77,13 +77,17 @@ It's an task of reverse engineering, as defined by Tonella...
 
 directed graph, (un)weighted
 
-\section{Complex Networks}
+\section{Networks Theory}
 
-Complex network theory found many scale-free networks
+Network theory research studies general properties of many types of networks by
+using statistical analysis. In the last decade, it has been found that many
+networks arising from sociology, biology, technology and other domains have
+remarkable similarities. It has been shown that, in these networks, the number
+of vertices connected to k edges, N(k), is proportional to $k^{\-gamma}$, where
+$\gamma$ is a positive constant. These networks were called scale-free networks.
 
-Software dependency networks are scale free. CITE Valverde, Myers
-
-Scale free means ... $N(k) \sim k^{-\gamma}$
+Network theory has been applied to software networks and it was shown that they
+are also scale-free networks CITE Valverde, Myers.
 
 (in fact we can't argue the degree distribution is perfectly fit by a power law.
 Anyway, the distribution is much more assymetric than normal ou Poisson's)
@@ -93,8 +97,10 @@ law)
 
 \section{Network Models}
 
-Many scale-free models have been proposed. Only a few, though, produce modular
-networks. 
+Many models were proposed to explain the formation of scale-free networks. These
+models are simple algorithms that can be proven, either formally or emprically,
+to generate networks that are scale-free.
+
 
 Glossary: preferential attachment
 
@@ -131,6 +137,30 @@ P(choose v) = f(v) / sum(v in V, f(v))
 
 The denominator is a normalizing factor that assures that the probabilities sum
 to 1.
+
+out-neighbors(v) 
+module(v)
+neighbor-modules(v)
+
+choose event with probabilities (p, q, r)
+event 1:
+  choose w within V according to f(x) = din + in-degree(x)
+  add new vertex v to the module of w
+  add edge from v to w
+event 2:
+  choose w within V according to f(x) = dout + out-degree(x)
+  add new vertex v to the module of w
+  add edge from w to v
+event 3:
+  choose v within V according to f(x) = dout + out-degree(x)
+  choose case with probabilities (mu, 1 - mu)
+  case 1: # out
+    choose w within neighbor-modules(v) - neighbors(v) according to f(x) = din + in-degree(x)
+    add edge from v to w
+  case 2:
+    choose w within module(v) - neighbors(v) according to f(x) = din + in-degree(x)
+    add edge from v to w
+end
 
 picks a event that evolves
 the network. Each event has an associated probability.
@@ -199,7 +229,8 @@ is important to distinguish between software and non-software networks.
 The approach we chose to test our hypothesis was to build a network classifier:
 an algorithm that analyses a network and classifies it as a software network or
 as a non-software network. If a classifier is capable of classifying with high
-accuracy both software and non-software networks...
+accuracy both software and non-software networks, then we can apply it to
+synthetic networks and see if they are discernable from software networks.
 it gives a fair approximation apply it on synthetic networks. We expect that
 some synthetic networks will be so similar to software networks that they will
 be classified as software networks.
@@ -230,10 +261,27 @@ of each model contribute mostly to the softwareness of their networks
 
 \subsection{Real Networks Data Set}
 
-We've collected 65 systems written in Java and X networks from many domains,
-such as sociology, biology, technology and linguistics.
+For this experiment we have collected 65 software systems written in the Java
+programming language and 66 networks from other domains, such as biology,
+sociology and linguistics. Both the software systems and the networks are freely
+available on the Internet.
 
-See Appendix A
+As of this writing, Java is a popular programming language, for which there is
+plenty of open source software CITE. Also, there are many dependency extractors
+for this language. We have extracted the dependency network for each software
+system using a tool called Dependency Finder CITE, for its easy integration with
+scripts. Dependency Finder looks for dependencies by means of static analysis of
+Java bytecode and outputs the dependency network in a XML file. Although this
+network is in a detailed level, showing dependencies between fine-grained
+implementation entities such as attributes and methods, we have abstracted it to
+a network of dependencies between classes. The network is directed and
+non-weighted. The size of the networks range from XXX to YYY.
+
+% JARs?
+
+The networks from other domains were collected in websites of complex network
+research groups. The domains include sociology, linguistics, biology and
+technology. The size of the networks range from XXX to YYY vertices.
 
 \subsection{Classifier} % Software network classifier
 
@@ -419,8 +467,8 @@ networks.
 We have shown empirically that network models found in the literature can
 produce synthetic networks that are similar to the network of dependencies
 between classes in object-oriented systems. This result supports the use of
-synthetic networks in the evaluation of software modularization algorithms that
-operate on class dependency networks. 
+synthetic networks in the evaluation of software modularization algorithms.
+%that operate on class dependency networks. 
 
 % review
 The use of synthetic data is common in distributed computing research, but still
@@ -447,7 +495,7 @@ the behavior of the algorithms with different parameter values.
 
 In a future work, we intend to evaluate with synthetic networks some software
 clustering algorithms that were previously studied with real data. We will,
-then, be able to compare the results obtained with the two approaches.
+then, be able to compare the results obtained by both approaches.
 
 \section{Appendix A: list of networks}
 
