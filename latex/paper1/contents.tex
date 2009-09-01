@@ -154,7 +154,7 @@ event 2:
 event 3:
   choose v within V according to f(x) = dout + out-degree(x)
   choose case with probabilities (mu, 1 - mu)
-  case 1: # out
+  case 1: % out
     choose w within neighbor-modules(v) - neighbors(v) according to f(x) = din + in-degree(x)
     add edge from v to w
   case 2:
