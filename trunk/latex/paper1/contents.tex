@@ -8,6 +8,7 @@ industry and the development of better algorithms.
 We propose to rely on software models to produce arbitrarily large test sets. In
 this paper we consider three such models and analyze how similar the artifacts
 they produce are from artifacts from real software systems.
+\cite{Pollet2007}
 
 \section{Introduction}
 
@@ -23,7 +24,7 @@ system, how its different parts interact to accomplish the system's goal.
 
 Unfortunately, in the case of legacy systems, such knowledge isn't available.
 Depending on its size, it might take months to understand the system so well as
-to find a good modularization. % CITE Parnas' modules
+to find a good modularization. XXX \cite{Parnas1972}
 
 POR ISSO SURGIRAM software modularization recovery algorithms, also known as
 software clustering algorithms or software architecture recovery algorithms. In
@@ -40,7 +41,7 @@ with known reference modularizations.
 The empirical evaluations consist of selecting a collection of systems with
 known reference modularizations and then applying the algorithms to the systems.
 The modularizations found by the algorithms are then compared to the reference
-decompositions by a metric such as MoJo CITE or PrecisionRecall CITE.
+decompositions by a metric such as MoJo \cite{Tzerpos1999} or PrecisionRecall.
 
 % TODO: diagram showing the evaluation of a clustering algorithm
 
@@ -71,7 +72,7 @@ The remaining sections are organized as .... Section 2, ...
 Aka software architecture recovery, software architecture reconstruction,
 software clustering...
 
-It's an task of reverse engineering, as defined by Tonella...
+It's an task of reverse engineering, as defined by Tonella \cite{Tonella2007}...
 
 %\section{Software Networks and Software Clustering}
 
@@ -87,7 +88,7 @@ of vertices connected to k edges, N(k), is proportional to $k^{\-gamma}$, where
 $\gamma$ is a positive constant. These networks were called scale-free networks.
 
 Network theory has been applied to software networks and it was shown that they
-are also scale-free networks CITE Valverde, Myers.
+are also scale-free networks \cite{Myers2003,Valverde2003}.
 
 (in fact we can't argue the degree distribution is perfectly fit by a power law.
 Anyway, the distribution is much more assymetric than normal ou Poisson's)
@@ -289,20 +290,40 @@ In a recent work, Milo et al. proposed to distinguish networks of different
 domains by analyzing the triad concentration of each network. A triad is simply
 a network with three vertices in which all vertices are connected. There are
 only 13 distinct triads -- one for each configuration of directed edges --, as
-shown in Figure X.
+shown in Figure \ref{fig:triads}.
+\cite{Milo2002}
 %CONSIDERING all the possible configurations of
 %directed edges between three vertices, there are to 13 triads in which all
 %vertices are connected, as shown in Figure X. 
 
-% Figure X: triad id vs. graphical representation
+\begin{figure*}[!t]
+\centering
+\includegraphics[width=1.0\textwidth]{triads}
+\caption{Triads (id vs. graph. reprs.)}
+\label{fig:triads}
+\end{figure*}
 
 In order to characterize a network, one can count how many times each of the
 13 triads appear on the network. The result is a triad concentration profile.
 Figure 1a show triads for a software system... Figure 2a show triads for network
-from domain X.
+from domain X. \ref{fig:profiles}
+
+\begin{figure*}[!t]
+\center
+\subfigure[ref1][Software
+network]{\includegraphics[width=2.5in]{triads-software}}
+\hfil
+\subfigure[ref2][Non-software network]{\includegraphics[width=2.5in]{triads-nonsw}%
+}
+\caption{Triad profiles}
+\label{fig:profiles}
+\end{figure*}
+
 
 Then, in order to measure how similar two networks are, Milo et al computed
 Pearson's correlation coefficient between the two corresponding profiles.
+
+CITE igraph
 
 In order two measure the softwareness of a network, we measure the correlation
 between the network's profile and the profile of each of the 65 software
@@ -373,7 +394,15 @@ each model.
 We chose five different module dependency networks, which where extracted from
 actual dependencies between modules of five different software systems of our
 sample, ranging from 2 to 32 modules. The module dependency networks are shown
-on Figure XXX. 
+on Figure \ref{fig:architectures}. 
+
+\begin{figure*}[!t]
+\centering
+\includegraphics[width=1.0\textwidth]{architectures}
+\caption{Module dependency graphs}
+\label{fig:architectures}
+\end{figure*}
+
 %02-gef
 %04-ibatis
 %08-megamek
@@ -419,6 +448,21 @@ We used our classifier ...
 Table: Model | Number of Networks | Realistic Networks | Percent \%
 
 Show some graphs: histogram of average correlations for each model.
+\ref{fig:histograms}
+
+
+\begin{figure*}[!t]
+\center
+
+\subfigure[Software network]{\includegraphics[width=1.0in]{hist-cgw}}
+
+\subfigure[Non-software network]{\includegraphics[width=1.0in]{hist-bcr}}
+
+\subfigure[Non-software network]{\includegraphics[width=1.0in]{hist-lf}}
+
+\caption{Triad profiles}
+\label{fig:histograms}
+\end{figure*}
 
 All models produce networks that resemble software networks.  For some
 parameters, though, the networks are not realistic.
@@ -495,7 +539,7 @@ the behavior of the algorithms with different parameter values.
 
 In a future work, we intend to evaluate with synthetic networks some software
 clustering algorithms that were previously studied with real data. We will,
-then, be able to compare the results obtained by both approaches.
+then, be able to compare the results obtained by both approaches. \cite{Wu2005}
 
 \section{Appendix A: list of networks}
 
