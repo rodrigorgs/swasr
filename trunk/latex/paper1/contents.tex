@@ -74,6 +74,8 @@ software clustering...
 
 It's an task of reverse engineering, as defined by Tonella \cite{Tonella2007}...
 
+external edge...
+
 %\section{Software Networks and Software Clustering}
 
 directed graph, (un)weighted
@@ -110,10 +112,7 @@ Glossary: preferential attachment
 %\subsection{Configuration model}
 % take the most typical software system and steal its degree sequence
 
-\subsection{LF}
-
-Directed weighted networks with overlapping modules.
-\cite{Lancichinetti2009}
+In common: the were proven formally to generate scale-free directed networks.
 
 \subsection{BCR plus}
 
@@ -121,98 +120,182 @@ We propose an extension to BCR model... which was proposed to model the links
 between web pages.
 \cite{Bollobas2003}
 
-The BCR+ model builds networks that respect a module-dependency network, that
-is, a network that contains modules and allowed dependencies between modules. 
-In the component dependency network, an edge between two vertices is only
-allowed if there exist an edge between their respective modules.
+The BCR model aims to model the network of hyperlinks between web pages as a
+directed graph without modules \cite{Bollobas2003}. It was proven analitically
+to generate scale-free networks. We have developed an extension to this model,
+which we will call BCR+, that adds the concept of module. The model accepts the
+following parameters:
 
-First of all, the model generates a network that is a copy of the module
-dependency network, each vertex belonging to its respective module. Then the
-algorithm runs iteratively, and on each iteration it executes an operations that
-modifies the network. It can add a new vertex together with an edge connecting it
-to an old vertex, or it can add an edge between two existing vertices. The
-choice of vertices, though, is not fully random. The probability that a
-particular vertex v is choosen, P(v), is proportional to a function that involves the
-in-degree or the out-degree of the node. We say that a vertex is chosen within a
-set V according to a function f if
+\begin{itemize}
+\item number of vertices, $n$;
+\item a graph, $G$;
+\item three probabilities, $p$, $q$, and $r$, such as $p + q + r = 1$;
+\item a probability, $mu$;
+\item two real numbers, din and dout.
+\end{itemize}
 
-P(choose v) = f(v) / sum(v in V, f(v))
+In a network with modules, one can define a MDG as a graph where the two
+following conditions hold:
+* each vertex represents a module in the original network;
+* there is an edge from M1 to M2 in the MDG only if there is an edge from 
+v1 to v2 in the original network, where v1 in M1 and v2 in M2.
+
+The BCR+ model generates networks whose MDG is equal to G by adding vertices and
+edges to an initial network until it reaches n vertices. The initial network is
+isomorphic to G: it contains one vertex for each module and one edge for each
+edge in G, connecting vertices whose corresponding modules are are connected.
+Thus, the networks's MDG is equal to G from the very beginning.
+
+After that, the algorithm consists of successive applications of one out of
+three operations on the network: (1) adding a vertex with an outgoing edge; (2)
+adding a vertex with an ingoing edge; (3) adding a edge between existing
+vertices. The choice of the vertices that will be connected by a new edge,
+although non-deterministic, is not fully random. The probability that a
+particular vertex v is choosen, P(v), is proportional to a function of the
+in-degree or of the out-degree of the node. We say that we choose a vertex
+within a set V according to a function f if
+
+  P(choose v) = f(v) / sum(v in V, f(v))
 
 The denominator is a normalizing factor that assures that the probabilities sum
 to 1.
 
-out-neighbors(v) 
-module(v)
-neighbor-modules(v)
+Before we present the algorithm in detail, using pseudo-code, we must explain
+some definitions. V is the set of vertices in the network being generated. This
+set grows as the algorithm is executed. Being v a vertex, we define the
+following three functions:
 
-choose event with probabilities (p, q, r)
-event 1:
-  choose w within V according to f(x) = din + in-degree(x)
-  add new vertex v to the module of w
-  add edge from v to w
-event 2:
-  choose w within V according to f(x) = dout + out-degree(x)
-  add new vertex v to the module of w
-  add edge from w to v
-event 3:
-  choose v within V according to f(x) = dout + out-degree(x)
-  choose case with probabilities (mu, 1 - mu)
-  case 1: % out
-    choose w within neighbor-modules(v) - neighbors(v) according to f(x) = din + in-degree(x)
-    add edge from v to w
-  case 2:
-    choose w within module(v) - neighbors(v) according to f(x) = din + in-degree(x)
-    add edge from v to w
-end
+* out-neighbors(v): the set of all vertices that are connected to v by an edge
+starting in v.
+* same-module(v): the set of all vertices that are in the same module as v (except
+v itself).
+* other\_modules(v): the set of all vertices that are in modules that are connected
+to v's module (in the graph G) by an edge starting in v's module.
 
-picks a event that evolves
-the network. Each event has an associated probability.
+After the initial network is created, the algorithm proceeds as follows:
 
-* Add a node with ongoing edge. With probability p, a new vertex is added to the network, together with an
-edge from the new vertex to an existing vertex, chosen preferentially according
-to .... Considering din = 0, this means that a vertex with indegree = 8 is
-twice more likely to receive the edge than a vertex with indegree = 4. The
-parameter din can be used to alleviate the handicap. (If din = 4, the first
-vertex will only be 3/2 more likely to receive the edge). The new vertex is
-put on the same cluster as the old vertex.
+while the network has less than n vertices:
+  choose one of the operations according to probabilities (p, q, r)
+  operation 1: (add a vertex with an outgoing edge)
+    choose a vertex w within V according to f(x) = din + in-degree(x)
+    add a new vertex v to w's module
+    add an edge from v to w
+  operation 2: (add a vertex with an ingoing edge)
+    choose a vertex w within V according to f(x) = dout + out-degree(x)
+    add a new vertex v to w's module
+    add an edge from w to v
+  operation 3: (add an edge between two existing vertices)
+    choose a vertex v within V according to f(x) = dout + out-degree(x)
+    choose a case according to probabilities (mu, 1 - mu)
+    case 1: (distinct modules)
+  	choose a vertex w within (other\_modules(v) - neighbors(v)) according to f(x) = din + in-degree(x)
+      add an edge from v to w
+    case 2: (same module)
+      choose w within (same-module(v) - neighbors(v)) according to f(x) = din + in-degree(x)
+      add an edge from v to w
+  end
 
-* Add a node with ingoing edge. With probability q, a new vertex is added to the network, together with an
-edge from an existing vertex, chosen preferentially accordingly to dout +
-outdegree, to the new vertex. The new vertex is put on the same cluster as the
-old vertex. This case is similar to the previous case.
+We can see that the probabilities p, q and r control how often each operation is
+performed. Because the operation associated with probability r does not add any
+vertices, greater values of r imply more edges in the resulting network. It is
+easy to see that nodes connected to many ingoing edges are more likely to get
+another ingoing edge, and the same reasoning can be applied to outgoing edges.
+The parameter din can alleviate the handicap by providing a ``base in-degree''
+that is applied to all vertices when computing the probabilities. Consider
+two vertices, v1 with in-degree 4, and v2 with in-degree 8. If din = 0, v2 is
+twice more likely to receive a new incoming edge; if, otherwise, din = 4, v2 is
+only 3/2 more likely to receive the edge.
 
-* Add an edge. With probability r, a new edge is added between two vertices, v and w. v is
-chosen according to .... After that, with prob X, w is chosen from one of the
-modules connected to v's module, else it's chosen from v's own module. In any
-case, the exact choice is made according to ...
+The parameter mu controls the proportion of edges between vertices in distinct
+modules. Lower values of mu lend to networks that are more modular.
 
-It's a growth model, that is, it can take as input an existing network and
-evolve it.
+The BCR+ model is a growth model, meaning that the network is generated vertex
+by vertex, growing from an initial network. It can, therefore, simulate the
+evolution of a software network. Moreover, it can simulate the evolution of a
+software system subject to constraints in module interaction, as is the case
+with top-down design methodologies CITE.
 
-TODO: Argument: why the imposed modules are natural modules?
+%* Add a node with ongoing edge. With probability p, a new vertex is added to the network, together with an
+%edge from the new vertex to an existing vertex, chosen preferentially according
+%to .... Considering din = 0, this means that a vertex with indegree = 8 is
+%twice more likely to receive the edge than a vertex with indegree = 4. The
+%parameter din can be used to alleviate the handicap. (If din = 4, the first
+%vertex will only be 3/2 more likely to receive the edge). The new vertex is
+%put on the same cluster as the old vertex.
+%
+%* Add a node with ingoing edge. With probability q, a new vertex is added to the network, together with an
+%edge from an existing vertex, chosen preferentially accordingly to dout +
+%outdegree, to the new vertex. The new vertex is put on the same cluster as the
+%old vertex. This case is similar to the previous case.
+%
+%* Add an edge. With probability r, a new edge is added between two vertices, v and w. v is
+%chosen according to .... After that, with prob X, w is chosen from one of the
+%modules connected to v's module, else it's chosen from v's own module. In any
+%case, the exact choice is made according to ...
+%
+%It's a growth model, that is, it can take as input an existing network and
+%evolve it.
+%
+%TODO: Argument: why the imposed modules are natural modules?
 
 \subsection{CGW}
 
-The CGW was proposed to model the evolution of software systems organized in
+The CGW model was proposed to model the evolution of software systems organized in
 modules. It was proven formally to generate scale-free networks. \cite{Chen2008}
+It accepts the following parameters:
 
-The CGW model is similar to BCR+ in which it is a growth model. The initial
-network is composed of two vertices with a directed edge between, belonging
-to the same module. The other M - 1 modules are initially empty.
+* n, m
+* Probabilities p1, p2, p3, p4, summing 1
+* Natural numbers e1, e2, e3, e4
+* alpha
 
-Then, at each iteration, the algorithm executes one of the following events:
+Just like BCR+, this is a growth model. Its initial network is composed of two
+vertices belonging to the same module and a directed edge between them. The
+remaining m - 1 modules are initially empty. Because the original implementation
+of the model is not available, we describe in detail the algorithm we
+implemented:
 
-* With probability p1, one vertex is added to a randomly-chosen module, together
-with e1 edges from p1 to vertices chosen according to module-based preferential
-attachment.
+while the network has less than n vertices:
+  choose operation (p1, p2, p3, p4)
+  operation 1: (adding a vertex with e1 edges)
+    create a new vertex v and add it to a randomly chosen module
+    do e1 times:
+      choose a vertex w according to mbpa(v)
+      add an edge from v to w
+  operation 2: (adding e2 edges)
+    do e2 times:
+      choose a vertex v randomly
+      choose a vertex w according to mbpa(v)
+      add edge from v to w
+  operation 3: (rewiring e3 edges)
+    do e3 times:
+      choose a vertex v randomly
+      choose an edge e randomly within edges that start in v
+      choose w according to mbpa(v)
+      remove e
+      add an edge from v to w
+  operation 3: (removing e4 edges)
+    do e4 times:
+      remove and randomly chosen edge
+    
 
-* With probability 
-
-Accounts for the removal of edges. Growth model.
+Unlike BCR+, this model does not allow constraints on the connection between
+modules, however it accounts for the rewiring and the removal of edges. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{LF}
+
+The LF model is a very flexible model that can generated weighted directed
+networks with overlapping modules, that is, in which a vertex can belong to more
+than one module. Unlike the previous models, this is not a growth model: all
+vertices are generated at once and then the edges are added.
+
+There is also a special version of the model in which the edges weights are
+discarded and the modules are non overlapping. We used the original
+implementation of this version, available at http://. 
 
 \section{Experimental Setup}
 
@@ -628,13 +711,13 @@ facebook-Princeton facebook-UNC28)
 
 43 metabolic networks
 
-polblogs
-
 3 protein networks (protein-a4j protein-AOR protein-eaw)
 
 2 social networks (social-leader social-prison)
 
 other networks:
+
+polblogs
 
 yeast
 
