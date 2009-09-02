@@ -1,4 +1,12 @@
 -----------------------------------------------------------------------------
+01/09/2009
+
+Reunião.
+Sugestões de Dalton:
+correlação entre software e biológicas etc.
+correção entre sintéticas e biológicas etc.
+
+-----------------------------------------------------------------------------
 27/08/2009
 
 Estou com a pasta shared no cluster. Instalei o Java 6.
