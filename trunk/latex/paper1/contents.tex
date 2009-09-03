@@ -1,3 +1,6 @@
+% TODO: CITACAO DEPOIS DO CONCEITO
+In the context of our research, we consider classes as the components
+
 \section{Abstract}
 
 Software modularization recovery algorithms automatically recognize a system's
@@ -43,6 +46,13 @@ known reference modularizations and then applying the algorithms to the systems.
 The modularizations found by the algorithms are then compared to the reference
 decompositions by a metric such as MoJo \cite{Tzerpos1999} or PrecisionRecall.
 
+  \begin{figure*}[!t]
+  \centering
+  \includegraphics[width=1.0\textwidth]{diagram}
+  \caption{Evaluation of a software modularization recovery algorithm}
+  \label{fig:diagram}
+  \end{figure*}
+
 % TODO: diagram showing the evaluation of a clustering algorithm
 
 Unfortunately there are few systems with known reference modularizations and,
@@ -63,16 +73,20 @@ systems. In this paper we study three models and show that all of them are, by
 means of a careful parameter choosing, capable of producing realistic software
 networks.
 
-The remaining sections are organized as .... Section 2, ...
+The remaining sections are organized as follows. .... Section 2, ...
 
 %alike, resembling, exchangeable, indistiguible
 
-\section{Software Modularization Recovery}
+\section{Related Work}
+
+\section{Software Modularization Recovery: an Overview}
 
 Aka software architecture recovery, software architecture reconstruction,
 software clustering...
 
 It's an task of reverse engineering, as defined by Tonella \cite{Tonella2007}...
+
+DEFINITIONS
 
 external edge...
 
@@ -80,14 +94,15 @@ external edge...
 
 directed graph, (un)weighted
 
-\section{Networks Theory}
+\section{Network Theory}
 
 Network theory research studies general properties of many types of networks by
 using statistical analysis. In the last decade, it has been found that many
-networks arising from sociology, biology, technology and other domains have
-remarkable similarities. It has been shown that, in these networks, the number
-of vertices connected to k edges, N(k), is proportional to $k^{\-gamma}$, where
-$\gamma$ is a positive constant. These networks were called scale-free networks.
+networks arising from sociology, biology, technology and other domains present
+remarkable structural similarities. It has been shown that, in these networks,
+the number of vertices connected to k edges, N(k), is proportional to
+$k^{\-gamma}$, where $\gamma$ is a positive constant. These networks were called
+scale-free networks.
 
 Network theory has been applied to software networks and it was shown that they
 are also scale-free networks \cite{Myers2003,Valverde2003}.
@@ -101,7 +116,7 @@ law)
 \section{Network Models}
 
 Many models were proposed to explain the formation of scale-free networks. These
-models are simple algorithms that can be proven, either formally or emprically,
+models are simple algorithms that can be proven, either formally or empirically,
 to generate networks that are scale-free.
 
 
@@ -298,6 +313,7 @@ discarded and the modules are non overlapping. We used the original
 implementation of this version, available at http://. 
 
 \section{Experimental Setup}
+% TODO: use simple past tense
 
 % Is there such a thing as softwareness? Can we reproduce it?
 
@@ -369,99 +385,7 @@ The networks from other domains were collected in websites of complex network
 research groups. The domains include sociology, linguistics, biology and
 technology. The size of the networks range from XXX to YYY vertices.
 
-\subsection{Classifier} % Software network classifier
-
-In a recent work, Milo et al. proposed to distinguish networks of different
-domains by analyzing the triad concentration of each network. A triad is simply
-a network with three vertices in which all vertices are connected. There are
-only 13 distinct triads -- one for each configuration of directed edges --, as
-shown in Figure \ref{fig:triads}.
-\cite{Milo2002}
-%CONSIDERING all the possible configurations of
-%directed edges between three vertices, there are to 13 triads in which all
-%vertices are connected, as shown in Figure X. 
-
-\begin{figure*}[!t]
-\centering
-\includegraphics[width=1.0\textwidth]{triads}
-\caption{Triads (id vs. graph. reprs.)}
-\label{fig:triads}
-\end{figure*}
-
-In order to characterize a network, one can count how many times each of the
-13 triads appear on the network. The result is a triad concentration profile.
-Figure 1a show triads for a software system... Figure 2a show triads for network
-from domain X. \ref{fig:profiles}
-
-\begin{figure*}[!t]
-\center
-\subfigure[ref1][Software
-network]{\includegraphics[width=2.5in]{triads-software}}
-\hfil
-\subfigure[ref2][Non-software network]{\includegraphics[width=2.5in]{triads-nonsw}%
-}
-\caption{Triad profiles}
-\label{fig:profiles}
-\end{figure*}
-
-
-Then, in order to measure how similar two networks are, Milo et al computed
-Pearson's correlation coefficient between the two corresponding profiles.
-
-CITE igraph
-
-In order two measure the softwareness of a network, we measure the correlation
-between the network's profile and the profile of each of the 65 software
-networks in our sample. We then compute the average of these correlations and
-call it the S-score, that varies between 0 and 1. The greater the S-score, more
-likely that the network is a software network.
-
-In order to build our classifier, we need a threshold for the S-score, so
-networks are classified as software networks only when they have S-score greater
-or equal to this threshold. We computed the S-score for each of the 65 software
-systems and found an average S-score of 0.97 with standard deviation of 0.03.
-Using the three-sigma rule from statistics, we chose the threshold as 0.97 - 3 *
-0.3, that is 0.88. 
-
-The small standard deviation shows that triad concentration profiles indeed
-characterize well the software domain.
-
-\subsubsection{Classifier Validation}
-
-In order to assess if the classifier is capable of distinguishing between
-software and non-software networks, we applied it to all the networks from our
-sample. 
-
-Most software networks were classified correctly, which is not surprising since
-the classifier was based on them.
-
-Precision: X, recall: Y
-
-Curiously, polblog had a very high S-score. This issue requires further 
-investigation. Anyway, we cannot deny the possibility that it is really very
-software-like.
-
-We could have chosen another value for the threshold, and it would affect the
-precision and the recall. For instance, had we chosen 0.82, we would end with
-100\% recall and x\% precision. For us, though, it is more important to have a
-high precision, so we keep the threshold 0.88.
-
-We also generated networks with the ER model, which is known to generate
-networks that are not scale-free and, thus, are very different from software
-networks. All the ER networks were classified as non-software.
-
-%Following Milo et al., We then used Pearson's correlation coefficient as a
-%similarity measure between two networks. For each software network, we then
-%computed the average correlation coefficient (ACC) to the other software
-%networks. We've observed that among software networks the ACC is X +- Y.
-
-% avg: 0.97. stdev: 0.03
-%We then computed, for each non-software network, the ACC to the 65 software
-%networks. By the 3-sigma rule, we use X as the threshold for realistic software
-%networks: networks whose ACC is below this threshold are rejected.
-%The oracle has X precision and X recall...
-
-\subsection{Network Synthesis}
+\subsection{Synthetic Data Set}
 
 In assessing the realism of a model, we want to know if, with a proper choice of
 parameters, the model is capable of producing a realistic network. In order to
@@ -525,6 +449,103 @@ alpha in -1, 0, 1, 10, 100, 1000.
 m in 2, 4, 8, 16, 32 (just like bcr and lfr)
 
 Total: 38,790 networks
+
+\subsection{Classifier} % Software network classifier
+
+In a recent work, Milo et al. proposed to distinguish networks of different
+domains by analyzing the triad concentration of each network. A triad is simply
+a network with three vertices in which all vertices are connected. There are
+only 13 distinct triads -- one for each configuration of directed edges --, as
+shown in Figure \ref{fig:triads}.
+\cite{Milo2002}
+%CONSIDERING all the possible configurations of
+%directed edges between three vertices, there are to 13 triads in which all
+%vertices are connected, as shown in Figure X. 
+
+\begin{figure*}[!t]
+\centering
+\includegraphics[width=1.0\textwidth]{triads}
+\caption{Triads (id vs. graph. reprs.)}
+\label{fig:triads}
+\end{figure*}
+
+In order to characterize a network, one can count how many times each of the
+13 triads appear on the network. The result is a triad concentration profile.
+Figure 1a show triads for a software system... Figure 2a show triads for network
+from domain X. \ref{fig:profiles}
+
+\begin{figure*}[!t]
+\center
+\subfigure[ref1][Software
+network]{\includegraphics[width=2.5in]{triads-software}}
+\hfil
+\subfigure[ref2][Non-software network]{\includegraphics[width=2.5in]{triads-nonsw}%
+}
+\caption{Triad profiles}
+\label{fig:profiles}
+\end{figure*}
+
+
+Then, in order to measure how similar two networks are, Milo et al computed
+Pearson's correlation coefficient between the two corresponding profiles.
+
+CITE igraph
+
+In order two measure the softwareness of a network, we measure the correlation
+between the network's profile and the profile of each of the 65 software
+networks in our sample. We then compute the average of these correlations and
+call it the S-score, that varies between -1 and 1. The greater the S-score, more
+likely that the network is a software network.
+
+In order to build our classifier, we need a threshold for the S-score, so
+networks are classified as software networks only when they have S-score greater
+or equal to this threshold. We computed the S-score for each of the 65 software
+systems and found an average S-score of 0.97 with standard deviation of 0.03.
+Using the three-sigma rule from statistics, we chose the threshold as 0.97 - 3 *
+0.3, that is 0.88. 
+
+The small standard deviation shows that triad concentration profiles indeed
+characterize well the software domain.
+
+TODO: show histogram of S-scores for sw networks (x axis from -1.0 to 1.0)
+TODO: Is there need for cross validation in order to choose a threshold?
+ - do cross-validation and choose threshold with max precision
+
+\subsubsection{Classifier Validation}
+
+In order to assess if the classifier is capable of distinguishing between
+software and non-software networks, we applied it to all the networks from our
+sample. 
+
+Most software networks were classified correctly, which is not surprising since
+the classifier was based on them.
+
+Precision: X, recall: Y
+
+Curiously, polblog had a very high S-score. This issue requires further 
+investigation. Anyway, we cannot deny the possibility that it is really very
+software-like.
+
+We could have chosen another value for the threshold, and it would affect the
+precision and the recall. For instance, had we chosen 0.82, we would end with
+100\% recall and x\% precision. For us, though, it is more important to have a
+high precision, so we keep the threshold 0.88.
+
+We also generated networks with the ER model, which is known to generate
+networks that are not scale-free and, thus, are very different from software
+networks. All the ER networks were classified as non-software.
+
+%Following Milo et al., We then used Pearson's correlation coefficient as a
+%similarity measure between two networks. For each software network, we then
+%computed the average correlation coefficient (ACC) to the other software
+%networks. We've observed that among software networks the ACC is X +- Y.
+
+% avg: 0.97. stdev: 0.03
+%We then computed, for each non-software network, the ACC to the 65 software
+%networks. By the 3-sigma rule, we use X as the threshold for realistic software
+%networks: networks whose ACC is below this threshold are rejected.
+%The oracle has X precision and X recall...
+
 
 \section{Softwareness Evaluation}
 
@@ -592,19 +613,18 @@ networks.
 % Koschke says that experts decompositions vary by no more than 80? percent.
 
 \section{Conclusion and Future Work}
+% revised 2009-09-03
 
 We have shown empirically that network models found in the literature can
-produce synthetic networks that are similar to the network of dependencies
-between classes in object-oriented systems. This result supports the use of
-synthetic networks in the evaluation of software modularization algorithms.
+synthesize networks that resemble the network of dependencies between classes in
+object-oriented systems. This result supports the use of synthetic networks in
+the evaluation of software clustering algorithms.
 %that operate on class dependency networks. 
 
-% review
 The use of synthetic data is common in distributed computing research, but still
-underexplored in software engineering research. Since many reverse engineering
-tasks extract from component dependencies information useful for the maintenance
-of a software system, we expect this work to have impact beyond the software
-modularization recovery community.
+underexplored in software engineering research. Because many reverse engineering
+tasks rely on dependency data, we expect this work to have impact beyond the
+software clustering community.
 
 %Although the use of models and synthetic data is somewhat common in distributed
 %computing research, it is underexplored in software engineering research. We
@@ -614,19 +634,22 @@ modularization recovery community.
 %the field of reverse engineering of software in order to evaluate RE 
 %algorithms.
 
-We accept that it is very important to test the algorithms with networks
-extracted from real software systems, but we argue that the use of synthetic
-networks in a complementary manner can give researchers new insights about the
-algorithms. First, the use of models allows the creation of large test sets,
-thus diminishing the small sample effects. Moreover, the networks are created in
-a controlled way, accordingly to model parameters, so it is possible to study
-the behavior of the algorithms with different parameter values.
+We accept that it is important to evaluate the algorithms with real software
+networks, but we argue that the use of synthetic networks in a complementary
+manner can give researchers new insights about the algorithms. First, the use of
+models allows the creation of large test sets, thus diminishing the small sample
+effects. Moreover, the networks are created in a controlled way, according to
+model parameters, so it is possible to study the behavior of the algorithms with
+different parameter values.
 
-In a future work, we intend to evaluate with synthetic networks some software
-clustering algorithms that were previously studied with real data. We will,
-then, be able to compare the results obtained by both approaches. \cite{Wu2005}
+In a future work, we intend to use synthetic networks in the evaluation of
+software clustering algorithms that were previously studied with real networks
+\cite{Wu2005}. After that we will be able to compare the results obtained by
+both approaches.
 
 \section{Appendix A: list of networks}
+
+TODO: Show as Table: Name, Vertices, Edges
 
 Software networks:
 

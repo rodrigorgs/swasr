@@ -8,3 +8,136 @@ Fazer tabela com resultados
 Descrever resultados
 Rodar experimento de Dalton
 Vai falar sobre análise estática?
+
+---
+
+Order of writing: (what advisors must read come first)
+- Empirical evaluation of models
+<B> Introduction
+
+
+Glossary:
+- Modular decomposition
+- Software clustering = architecture recovery etc.
+- Reverse engineering
+- Software network = component dependency network
+- Synthetic network (vs. real network)
+- Module
+- Scale-free network
+----- Modular directed network
+- Triad, triad concentration profile
+- Correlation coefficient, average
+----- Softwareness
+- Oracle / classifier
+- Static code analysis
+- Module dependency graph
+- Precision/recall/accuracy
+
+Introduction
+- Development of large sw is tough.
+- It is useful to decompose a sw into modules
+- To decompose a sw, one need to know it deeply
+- Knowledge is not always available
+- Software clustering algorithms
+  - using static analysis
+- Is the automatic decomposition good?
+- How to evaluate empirically
+- Problem: lack of reference decompositions
+- We propose to use synthetic ...
+- Do the synthetic networks resemble sw networks?
+- Goal of the research: evaluate synth net models.
+- Sections...
+
+Related work
+- Koschke proposed a framework for eval of sw clust.
+  - Expensive
+- Wu? - used packages as reference decomposition
+  It is not good because ...
+- Anquetil etc., linux decomposition...
+- Lancichinetti et al. proposes a benchmark for clust.
+  - Aimed at no particular domain
+
+TODO: review (MAYBE THE LAST THING TO WRITE, after 3ª)
+Software networks
+- Sw components - files, classes, methods etc.
+  - In the context of this research, classes
+- Sw clustering is also called arch recovery etc.
+  - It's a task of reverse engineering.
+- Sw clustering can be based on
+  - non-formal attributes (flnames, commts, modif hstory)
+  - formal - interaction between sw components
+    - software network: deps between components
+    - static code analysis (THIS RESEARCH)
+- Software network representation
+  - Modular directed graph
+  - G(V, E, M)
+  - module-dependency network
+  - degree
+  - What we don't consider
+    - edge weights
+    - hierarchical modules
+    - edge/vertex types
+- Network theory: statistical analysis of networks
+  - Scale-free
+  - Sw is scale-free
+  - Network models
+
+Network models
+- General discussion
+- BCR+
+- CGW
+- LF
+
+Empirical evaluation of models
+- Research hypothesis
+- Approach: synthesize many networks, evaluate and
+  try to understand parameter influence
+- Approach to network evaluation: oracle
+  - sw and non-sw networks
+  - oracle evaluation (accuracy, precision, recall)
+
+
+- Real data sets
+  - sw
+  - non-sw
+
+- Synthetic data sets
+  - introduction
+  - BCR+
+  - CGW
+  - LF
+
+- Oracle
+  - Oracle construction
+    - Triads
+    - Similarity btw nets: correlation coefficient
+    - S-score or average correlation to sw networks
+    - Choice of a threshold for S-score
+  - Oracle evaluation
+    - Concepts: accuracy, precision, recall
+    - We want high precision
+    - Results
+
+- Model evaluation
+  - What are we evaluating
+    - We do not intend to compare one model to another
+    - Just want to know which models can synthesize
+      networks that resemble sw networks
+    - Results
+      - X% of model ZZZ resemble sw network
+  - Predictor based on parameters
+    - The previous results are of little use if we do not
+      know how to configure the model to synthesize nets
+      that resemble sw networks
+    - Predictor using rule classifiers
+    - Evaluation
+      - accuracy/precision/recall
+      - minimal S-score
+    - Results: 1R
+    - Naive bayes?
+  - Homogeinety?
+
+- Discussion: Threats to validity?
+  - 
+
+Appendix: Network data set
