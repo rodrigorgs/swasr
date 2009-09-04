@@ -12,9 +12,11 @@ Vai falar sobre análise estática?
 ---
 
 Order of writing: (what advisors must read come first)
-- Empirical evaluation of models
-<B> Introduction
-
+- Empirical evaluation of models A-1
+- Introduction B-1
+- Network models B-2
+- Related Work B-3
+- Software networks: an overview C
 
 Glossary:
 - Modular decomposition
@@ -58,7 +60,7 @@ Related work
   - Aimed at no particular domain
 
 TODO: review (MAYBE THE LAST THING TO WRITE, after 3ª)
-Software networks
+Software networks: an overview
 - Sw components - files, classes, methods etc.
   - In the context of this research, classes
 - Sw clustering is also called arch recovery etc.
@@ -90,8 +92,9 @@ Network models
 
 Empirical evaluation of models
 - Research hypothesis
-- Approach: synthesize many networks, evaluate and
-  try to understand parameter influence
+- Approach to investigate the hypothesis: synthesize many 
+  networks, evaluate and try to understand parameter 
+  influence
 - Approach to network evaluation: oracle
   - sw and non-sw networks
   - oracle evaluation (accuracy, precision, recall)
@@ -107,7 +110,7 @@ Empirical evaluation of models
   - CGW
   - LF
 
-- Oracle
+- Oracle / metric
   - Oracle construction
     - Triads
     - Similarity btw nets: correlation coefficient
@@ -139,5 +142,7 @@ Empirical evaluation of models
 
 - Discussion: Threats to validity?
   - 
+
+- Conclusions and Future Work
 
 Appendix: Network data set
