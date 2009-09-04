@@ -317,14 +317,25 @@ implementation of this version, available at http://.
 
 % Is there such a thing as softwareness? Can we reproduce it?
 
-``softwareness''
+Our research hypothesis is that at least one of the presented models can
+synthesize networks that resemble software networks. In order to investigate the
+hypothesis we conducted an experiment. First we generated many synthetic
+networks, using all three models and different combinations of parameters.
+After that we selected the networks that were more similar to software networks.
+Finally, we sought patterns in the parameters of the selected networks.
 
-Our hypothesis is that at least one of the presented models can synthesize
-networks that resemble software networks. We already know that they produce
-networks that, just like software networks, are scale-free. This single
+We assume that software networks possess a intrinsic quality, that we will call
+``softwareness'', that distinguish them from networks in other domains. A
+measure of the softwareness is essential to the experiment. One possible measure
+is described and evaluated in the following sections. The measured softwareness
+of a network represents how likely it is a software network.
+
+We already know that they
+produce networks that, just like software networks, are scale-free. This single
 property, though, isn't enough to prove the hypothesis, since there are many
-known scale-free networks extracted from many distinct domains of knowledge. It
-is important to distinguish between software and non-software networks.
+known scale-free networks extracted from many distinct domains of knowledge.
+
+To support the analysis of softwareness
 
 % v.  differentiate, differ; distinguish; contrast; discern 
 
@@ -363,47 +374,71 @@ of each model contribute mostly to the softwareness of their networks
 
 \subsection{Real Networks Data Set}
 
-For this experiment we have collected 65 software systems written in the Java
-programming language and 66 networks from other domains, such as biology,
-sociology and linguistics. Both the software systems and the networks are freely
-available on the Internet.
+We have collected 131 networks to support the experiment. The networks are
+described in detail in Appendix A.
 
-As of this writing, Java is a popular programming language, for which there is
-plenty of open source software CITE. Also, there are many dependency extractors
-for this language. We have extracted the dependency network for each software
-system using a tool called Dependency Finder CITE, for its easy integration with
-scripts. Dependency Finder looks for dependencies by means of static analysis of
-Java bytecode and outputs the dependency network in a XML file. Although this
-network is in a detailed level, showing dependencies between fine-grained
-implementation entities such as attributes and methods, we have abstracted it to
-a network of dependencies between classes. The network is directed and
-non-weighted. The size of the networks range from XXX to YYY.
+Software networks. We have collected 65 software systems written in Java. Java
+is a popular programming language, for which there is plenty of open source
+software.  The corresponding software networks were extracted by the tool
+Dependency Finder CITE, considering classes and interfaces as components.
+Dependency Finder was used because it can be easily integrated with scripts.
+
+Non-software networks. We have collected 66 networks from distinct domains, such
+as biology, sociology, technology, and linguistics. These networks are freely
+available on the Internet and have been used in previous researches.
+
+%We collected 65 software systems written in the Java
+%programming language and 66 networks from other domains, such as biology,
+%sociology and linguistics. Both the software systems and the networks are freely
+%available on the Internet.
+%
+%As of this writing, Java is a popular programming language, for which there is
+%plenty of open source software CITE. Also, there are many dependency extractors
+%for this language. We have extracted the dependency network for each software
+%system using a tool called Dependency Finder CITE, for its easy integration with
+%scripts. Dependency Finder looks for dependencies by means of static analysis of
+%Java bytecode and outputs the dependency network in a XML file. Although this
+%network is in a detailed level, showing dependencies between fine-grained
+%implementation entities such as attributes and methods, we have abstracted it to
+%a network of dependencies between classes. The network is directed and
+%non-weighted. The size of the networks range from XXX to YYY.
 
 % JARs?
 
-The networks from other domains were collected in websites of complex network
-research groups. The domains include sociology, linguistics, biology and
-technology. The size of the networks range from XXX to YYY vertices.
+%The networks from other domains were collected in websites of complex network
+%research groups. The domains include sociology, linguistics, biology and
+%technology. The size of the networks range from XXX to YYY vertices.
 
 \subsection{Synthetic Data Set}
 
-In assessing the realism of a model, we want to know if, with a proper choice of
-parameters, the model is capable of producing a realistic network. In order to
-do so, we must generate many networks using different combinations of
-parameters. 
+We want to investigate if, with a proper choice of parameters, a model is
+capable of synthesizing a network that resembles software networks. In this
+section we describe which combinations of parameters values were used for each
+model.
 
-Since most of the parameters can assume infinite distinct values, we chose to
-fix some of them and vary the others in discrete steps. In all models the number
-of vertices was fixed to 1000. We generated one network for each set of
-parameters. Here we describe the criteria we use to choose the parameters for
-each model.
+%In assessing the realism of a model, we want to know if, with a proper choice of
+%parameters, the model is capable of producing a realistic network. In order to
+%do so, we must generate many networks using different combinations of
+%parameters. 
+
+In order to keep the networks in a tractable number, we have set the number of
+vertices in each network to 1000, and varied the remaining parameters in
+discrete steps such as each parameter assumed no more than 6 values. We have
+generated one network for each combination of parameter values.
+
+%Since most parameters are continuous, we had to 
+%we chose to threat the number of vertices
+%as a constant and vary the other parameters in discrete steps. In all models the
+%number of vertices was fixed to 1000. We generated one network for each set of
+%parameters.
+%Here we describe the criteria we use to choose the parameters for each model.
 
 \subsubsection{BCR+}
 
 We chose five different module dependency networks, which where extracted from
-actual dependencies between modules of five different software systems of our
-sample, ranging from 2 to 32 modules. The module dependency networks are shown
-on Figure \ref{fig:architectures}. 
+actual dependencies between archives of five different software systems of our
+sample. The module dependency networks are shown on Figure
+\ref{fig:architectures}. 
 
 \begin{figure*}[!t]
 \centering
@@ -418,7 +453,7 @@ on Figure \ref{fig:architectures}.
 %16-findbugs
 %32-zk
 
-The probabilities p, q and r were given all possible values from 0.0 upto 1.0,
+The probabilities p, q and r were given all possible values from 0.0 up to 1.0,
 in 0.2 steps, such as the sum of the probabilities was 1. Since the only events
 that create vertices are those associated with probabilities p and q, we imposed
 the additional restriction that p + q > 0.
