@@ -184,6 +184,8 @@ to v's module (in the graph G) by an edge starting in v's module.
 
 After the initial network is created, the algorithm proceeds as follows:
 
+\begin{figure*}
+\begin{verbatim}
 while the network has less than n vertices:
   choose one of the operations according to probabilities (p, q, r)
   operation 1: (add a vertex with an outgoing edge)
@@ -204,6 +206,8 @@ while the network has less than n vertices:
       choose w within (same-module(v) - neighbors(v)) according to f(x) = din + in-degree(x)
       add an edge from v to w
   end
+\end{verbatim}
+\end{figure*}
 
 We can see that the probabilities p, q and r control how often each operation is
 performed. Because the operation associated with probability r does not add any
@@ -265,6 +269,8 @@ remaining m - 1 modules are initially empty. Because the original implementation
 of the model is not available, we describe in detail the algorithm we
 implemented:
 
+\begin{figure*}
+\begin{verbatim}
 while the network has less than n vertices:
   choose operation (p1, p2, p3, p4)
   operation 1: (adding a vertex with e1 edges)
@@ -287,7 +293,8 @@ while the network has less than n vertices:
   operation 3: (removing e4 edges)
     do e4 times:
       remove and randomly chosen edge
-    
+\end{verbatim}
+\end{figure*}
 
 Unlike BCR+, this model does not allow constraints on the connection between
 modules, however it accounts for the rewiring and the removal of edges. 
@@ -389,7 +396,7 @@ similarity between the network and a sample of software networks:
 
 $$
 \mathrm{S\mbox{-}score}(a) = \frac{
-\sum_{s \in S} cor(a, s)
+\sum_{s \in S} \mathrm{sim}(a, s)
 }{|S|} \mathrm{,}
 $$
 
@@ -571,7 +578,7 @@ Show some graphs: histogram of average correlations for each model.
 All models produce networks that resemble software networks.  For some
 parameters, though, the networks are not realistic.
 
-\subsection{Patterns in Parameters}
+\subsection{Parameter-Based Classification Models}
 
 1R
 
@@ -588,12 +595,13 @@ the models equivalent?
 \section{Threats to validity}
 
 % External validity (EV): can it be generalized?
-Structural information isn't enough for a expert do produce a
-decomposition (s/he may use data such as names and external documentation). 
 
-Even when considering only structural information, is it true
-that experts would find a decomposition similar to the reference decomposition
-imposed by the model?
+%Structural information isn't enough for a expert do produce a
+%decomposition (s/he may use data such as names and external documentation). 
+%
+%Even when considering only structural information, is it true
+%that experts would find a decomposition similar to the reference decomposition
+%imposed by the model?
 
 We generated only one network for each set of parameters. (as we've shown, some
 parameters are redundant as they do not change significantly the realism)
