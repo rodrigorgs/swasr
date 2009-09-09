@@ -1,0 +1,4 @@
+#summary Coisas que não abordarei no mestrado
+
+  * Module-based motifs
+  * Software clustering algorithm authoritativeness evaluation using my 65 system sample.
