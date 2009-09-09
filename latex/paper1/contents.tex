@@ -376,34 +376,42 @@ the networks in the data set. A suitable metric must fullfil two conditions: (i)
 it must yield high similarity between software networks, and (ii) it must yield
 lower similarity between software networks and networks from other domains.
 
-We measured the similarity between each pair of software networks and then
-calculated the average and the standard deviation. The average similarity was
-0.97 and the standard deviation, 0.03. The high average similarity and the low
-standard deviation show that software networks have common structural patterns
-that are captured by the metric. The minimum similarity was 0.83.
+Using the data set we can define the S-score of a network to be the average
+similarity between the network and all 65 software networks. S-score summarizes
+in a number between -1 and 1 how much a particular network resembles software
+networks.
+
+We measured the S-score for each software network and then calculated the
+average and the standard deviation. The average S-score was 0.97 and the
+standard deviation, 0.03. The high average S-score and the low standard
+deviation show that software networks have common structural patterns that are
+captured by the metric. The minimum S-score was 0.83.
 
 TODO: Boxplot by network class (software, metabolic, neural, social etc.)
 
-Then, for each non-software network, we measured the average similarity between
-the network and all software networks. The majority of the networks (X\%) had an
-average similarity lower than 0.83, which shows that they are ... Networks
-extracted from the social network Facebook had negative similarities.
+Then we measured the S-score for each non-software network. The majority of the
+networks (X\%) have a S-score lower than 0.83, which shows that they
+are ... Networks extracted from the social network Facebook have negative
+S-score.
 
-A few networks, though, showed high similarity to software networks. The network
+A few networks, though, showed high S-score. The network
 polblogs, showing links between blogs on politics, had similarity 0.97. The
 neural network of C Elegans also had a high similarity (0.88). Further
 investigation is needed in order to discover why does it happen and whether
 auxiliary metrics can differentiate these networks from software networks.
 
-TODO: histogram of similarities? (maybe boxplot is enough)
+TODO: histogram of S-scores? (maybe boxplot is enough)
 
 \subsection{A Network Classification Model}
 
-Although the similarity metric tells how close a network is from software
+Although the S-score of a network tells how close it is from software
 networks, it does not tell whether a network is close enough that it can be
-considered a software network. Therefore, in this section we present a
-classification model that splits networks into two classes: software-like
-networks and non software-like networks.
+considered software-like. In order to do so we need to set a similarity
+threshold, so 
+
+Therefore, in this section we present a classification
+model that splits networks into two classes: software-like networks and non
+software-like networks.
 
 We chose a simple classification model based on the similarity metric. We need
 to define a similarity threshold, so networks with similarity below this
@@ -417,12 +425,22 @@ Classification models are subject to two types of errors: false negatives
 The choice of a threshold is arbitrary.
 We want to maximize precision.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \section{Evaluation of Network Models}
 
 In the previous section it was shown that many networks, although scale-free,
 can be distinguished from software networks by a triad-based metric. In this
 section we show empirically that the three network models previously presented
 synthesize networks that are indistinguishable from software networks.
+
+First, we present a binary classification model / whether is software-like.
+Then, we describe the procedure to synthesize networks, parameters choosed
+After that, show results
+Finally, build a classification model based on parameters
+
 
 % TODO: use simple past tense
 
