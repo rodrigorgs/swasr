@@ -117,23 +117,18 @@ law)
 
 Many models were proposed to explain the formation of scale-free networks. These
 models are simple algorithms that can be proven, either formally or empirically,
-to generate networks that are scale-free.
-
-
-Glossary: preferential attachment
+to generate networks that are scale-free. In this section we present three
+models that generate directed networks with built-in modular decomposition:
+BCR+, CGW and LR. The first two models grow networks using a mechanism called
+preferential attachment CITE Barabasi, by which nodes with many edges tend to
+receive more edges in the process.
 
 %\subsection{ER (Erdos-Renyi)}
 
 %\subsection{Configuration model}
 % take the most typical software system and steal its degree sequence
 
-In common: the were proven formally to generate scale-free directed networks.
-
 \subsection{BCR plus}
-
-We propose an extension to BCR model... which was proposed to model the links
-between web pages.
-\cite{Bollobas2003}
 
 The BCR model aims to model the network of hyperlinks between web pages as a
 directed graph without modules \cite{Bollobas2003}. It was proven analitically
@@ -297,10 +292,6 @@ while the network has less than n vertices:
 Unlike BCR+, this model does not allow constraints on the connection between
 modules, however it accounts for the rewiring and the removal of edges. 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \subsection{LF}
 
 The LF model is a very flexible model that can generated weighted directed
@@ -312,22 +303,26 @@ There is also a special version of the model in which the edges weights are
 discarded and the modules are non overlapping. We used the original
 implementation of this version, available at http://. 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \section{Characterization of Software Networks}
 
 Our research hypothesis is that at least one of the presented models can
 synthesize networks that resemble software networks. A central issue, thus, is
-how to measure similarity between networks. In order to be useful, the
-metric must yield high similarity between software networks and low similarity
-between networks from distinct domains. In this section we present such a
-metric, together with an experiment that evaluates the metric by applying it to
-both software and non-software networks.
+how to measure similarity between networks. In order to be useful, the metric
+must be able to differentiate between software and non-software networks. In
+this section we present such a metric, together with an experiment that
+evaluates its usefulness by applying it to both software and non-software
+networks. %Then we show a classification model 
 
 \subsection{A Metric for the Similarity Between Networks}
 
 In a recent work, Milo et al. \cite{Milo2002} proposed to characterize networks
 by analyzing their triad concentration. A triad is a network with three vertices
-in which all vertices are connected. There are only 13 distinct triads -- one
-for each configuration of directed edges --, as shown in Figure \ref{fig:triads}.
+in which all vertices are connected. There are only 13 distinct triads, one for
+each configuration of directed edges, as shown in Figure \ref{fig:triads}.
 
 \begin{figure*}[!t]
 \centering
@@ -337,11 +332,11 @@ for each configuration of directed edges --, as shown in Figure \ref{fig:triads}
 \end{figure*}
 
 By counting how many times each triad appears in a network, one can build a
-triad concentration profile (TCP). A TCP is, therefore, a vector with 13
-elements that summarize the network. Figure \ref{fig:profiles} shows the TCP for
-three distinct networks.
+triad concentration profile (TCP), which is a vector with 13 numbers that
+summarize the local structure of the network. Figure \ref{fig:profiles} shows
+the TCP for three distinct networks.
 
-Similarity between two networks can be measured by computing the Pearson's
+Similarity between two networks can be measured by computing Pearson's
 correlation coefficient between the corresponding TCPs, which yields a value
 between -1 (most dissimilar) and 1 (most similar). This is the similarity metric
 used in this research.
@@ -362,37 +357,73 @@ network]{\includegraphics[width=2.5in]{triads-software}}
 To support the evaluation of the metric, we have collected 131 networks. The
 networks are described in detail in Appendix A.
 
-Software networks. We have collected 65 software systems written in Java. Java
-is a popular programming language, for which there is plenty of open source
-software.  The corresponding software networks were extracted by the tool
-Dependency Finder CITE, considering classes and interfaces as components.
-Dependency Finder was used because it can be easily integrated with scripts.
+\textbf{Software networks}. We have collected 65 software systems written in
+Java, with size ranging from 111 to 35,363 classes. Java was chosen for being a
+popular programming language in which many open source systems were written. The
+software networks, representing dependencies between classes, were extracted
+with the tool Dependency Finder CITE.
 
-Non-software networks. We have collected 66 networks from distinct domains, such
-as biology, sociology, technology, and linguistics. These networks are freely
-available on the Internet and have been used in previous researches.
+\textbf{Non-software networks}. We have collected 66 networks from distinct
+domains, such as biology, sociology, technology, and linguistics. These networks
+are freely available on the Internet and have been used in previous researches.
 
-\subsection{Evalution of the Similarity Metric}
+% S-score
+
+\subsection{Evaluation of the Similarity Metric}
+
+In order to evaluate the similarity metric, we measured the similarity between
+the networks in the data set. A suitable metric must fullfil two conditions: (i)
+it must yield high similarity between software networks, and (ii) it must yield
+lower similarity between software networks and networks from other domains.
 
 We measured the similarity between each pair of software networks and then
 calculated the average and the standard deviation. The average similarity was
-0.97 and the standard deviation, 0.03. The high similarity and the low standard
-deviation shows that the metric indeed captures the commonalities in software
-networks.
+0.97 and the standard deviation, 0.03. The high average similarity and the low
+standard deviation show that software networks have common structural patterns
+that are captured by the metric. The minimum similarity was 0.83.
+
+TODO: Boxplot by network class (software, metabolic, neural, social etc.)
 
 Then, for each non-software network, we measured the average similarity between
-the network and all software networks. 
+the network and all software networks. The majority of the networks (X\%) had an
+average similarity lower than 0.83, which shows that they are ... Networks
+extracted from the social network Facebook had negative similarities.
 
+A few networks, though, showed high similarity to software networks. The network
+polblogs, showing links between blogs on politics, had similarity 0.97. The
+neural network of C Elegans also had a high similarity (0.88). Further
+investigation is needed in order to discover why does it happen and whether
+auxiliary metrics can differentiate these networks from software networks.
 
+TODO: histogram of similarities? (maybe boxplot is enough)
 
-In order to evaluate the similarity metric, we conducted an experiment on the
-data set. ...
-- high similarity between software networks;
-- lower similarity between software networks and networks from other domains.
+\subsection{A Network Classification Model}
 
+Although the similarity metric tells how close a network is from software
+networks, it does not tell whether a network is close enough that it can be
+considered a software network. Therefore, in this section we present a
+classification model that splits networks into two classes: software-like
+networks and non software-like networks.
 
+We chose a simple classification model based on the similarity metric. We need
+to define a similarity threshold, so networks with similarity below this
+threshold are classified as non software-like, and networks with similarity
+greater or equal are classified as software-like. 
 
-\section{Experimental Setup}
+Classification models are subject to two types of errors: false negatives
+(software networks that are classified as non software-like) and false positives
+(non-software networks that are classified as software-like). 
+
+The choice of a threshold is arbitrary.
+We want to maximize precision.
+
+\section{Evaluation of Network Models}
+
+In the previous section it was shown that many networks, although scale-free,
+can be distinguished from software networks by a triad-based metric. In this
+section we show empirically that the three network models previously presented
+synthesize networks that are indistinguishable from software networks.
+
 % TODO: use simple past tense
 
 % Is there such a thing as softwareness? Can we reproduce it?
@@ -454,31 +485,6 @@ of each model contribute mostly to the softwareness of their networks
 %and rejects non-software networks. If the oracle has these two properties, we
 %can be confident that it'll accept only synthetic networks that resemble
 %software networks.
-
-\subsection{Real Networks Data Set}
-
-
-%We collected 65 software systems written in the Java
-%programming language and 66 networks from other domains, such as biology,
-%sociology and linguistics. Both the software systems and the networks are freely
-%available on the Internet.
-%
-%As of this writing, Java is a popular programming language, for which there is
-%plenty of open source software CITE. Also, there are many dependency extractors
-%for this language. We have extracted the dependency network for each software
-%system using a tool called Dependency Finder CITE, for its easy integration with
-%scripts. Dependency Finder looks for dependencies by means of static analysis of
-%Java bytecode and outputs the dependency network in a XML file. Although this
-%network is in a detailed level, showing dependencies between fine-grained
-%implementation entities such as attributes and methods, we have abstracted it to
-%a network of dependencies between classes. The network is directed and
-%non-weighted. The size of the networks range from XXX to YYY.
-
-% JARs?
-
-%The networks from other domains were collected in websites of complex network
-%research groups. The domains include sociology, linguistics, biology and
-%technology. The size of the networks range from XXX to YYY vertices.
 
 \subsection{Synthetic Data Set}
 
