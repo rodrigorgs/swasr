@@ -30,7 +30,7 @@ Glossary:
 - Triad, triad concentration profile
 - Correlation coefficient, average
 ----- Softwareness
-- Oracle / classifier
+- Oracle / --classifier-- classification model
 - Static code analysis
 - Module dependency graph
 - Precision/recall/accuracy
