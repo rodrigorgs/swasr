@@ -34,6 +34,7 @@ Veja as [Instalacao instruções de instalação do ambiente swasr].
 
 == Esboços ==
 
+  * [ArtigosFuturos Coisas que NÃO abordarei no mestrado]
   * [http://swasr.googlecode.com/svn/trunk/latex/artigo1/artigo1.pdf Artigo: Modelos Estocásticos para Síntese de Sistemas de Software Organizados em Módulos]
   * [EnsaioRedesComplexasSoftware Ensaio sobre redes complexas e software]
   * [Modularidade Idéias sobre modularidade]
