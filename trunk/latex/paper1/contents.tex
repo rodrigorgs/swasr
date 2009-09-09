@@ -317,7 +317,7 @@ this section we present such a metric, together with an experiment that
 evaluates its usefulness by applying it to both software and non-software
 networks. %Then we show a classification model 
 
-\subsection{A Metric for the Similarity Between Networks}
+\subsection{Similarity Between Networks}
 
 In a recent work, Milo et al. \cite{Milo2002} proposed to characterize networks
 by analyzing their triad concentration. A triad is a network with three vertices
@@ -336,10 +336,17 @@ triad concentration profile (TCP), which is a vector with 13 numbers that
 summarize the local structure of the network. Figure \ref{fig:profiles} shows
 the TCP for three distinct networks.
 
-Similarity between two networks can be measured by computing Pearson's
-correlation coefficient between the corresponding TCPs, which yields a value
-between -1 (most dissimilar) and 1 (most similar). This is the similarity metric
-used in this research.
+Following the work by Milo et al. \cite{Milo2002}, similarity between two
+networks can be measured by computing Pearson's correlation coefficient between
+the corresponding TCPs, which yields a value between -1 (most dissimilar) and 1
+(most similar):
+
+$$
+\mathrm{sim}(a, b) ~=~ \mathrm{cor}(\mathrm{TCP}(a), \mathrm{TCP}(b))\mathrm{,}
+$$
+
+where $a$ and $b$ are networks, TCP($x$) is the triad concentration profile for
+network $x$, and cor($x$, $y$) is Pearson's correlation coefficient.
 
 \begin{figure*}[!t]
 \center
@@ -359,9 +366,9 @@ networks are described in detail in Appendix A.
 
 \textbf{Software networks}. We have collected 65 software systems written in
 Java, with size ranging from 111 to 35,363 classes. Java was chosen for being a
-popular programming language in which many open source systems were written. The
-software networks, representing dependencies between classes, were extracted
-with the tool Dependency Finder CITE.
+popular programming language in which many open source systems have been
+written. The software networks, representing dependencies between classes, were
+extracted with the tool Dependency Finder CITE.
 
 \textbf{Non-software networks}. We have collected 66 networks from distinct
 domains, such as biology, sociology, technology, and linguistics. These networks
@@ -376,16 +383,24 @@ the networks in the data set. A suitable metric must fullfil two conditions: (i)
 it must yield high similarity between software networks, and (ii) it must yield
 lower similarity between software networks and networks from other domains.
 
-Using the data set we can define the S-score of a network to be the average
-similarity between the network and all 65 software networks. S-score summarizes
-in a number between -1 and 1 how much a particular network resembles software
+Using the data set we can define S-score, a metric that represents how much a
+particular network resemble software networks. It is defined as the average
+similarity between the network and a sample of software networks:
+
+$$
+\mathrm{S\mbox{-}score}(a) = \frac{
+\sum_{s \in S} cor(a, s)
+}{|S|} \mathrm{,}
+$$
+
+where $S$ is the set of sample software networks, and $|S|$ is the cardinality
+of $S$. In this work we use the full software data set consisting of 65 software
 networks.
 
-We measured the S-score for each software network and then calculated the
-average and the standard deviation. The average S-score was 0.97 and the
-standard deviation, 0.03. The high average S-score and the low standard
-deviation show that software networks have common structural patterns that are
-captured by the metric. The minimum S-score was 0.83.
+We measured the S-score for each software network, which ranged from 0.83 to
+0.98. The average S-score was 0.97 and the standard deviation, 0.03. The high
+average S-score and the low standard deviation show that the metric successfully
+captures common structural patterns in software networks.
 
 TODO: Boxplot by network class (software, metabolic, neural, social etc.)
 
@@ -400,139 +415,82 @@ neural network of C Elegans also had a high similarity (0.88). Further
 investigation is needed in order to discover why does it happen and whether
 auxiliary metrics can differentiate these networks from software networks.
 
-TODO: histogram of S-scores? (maybe boxplot is enough)
-
 \subsection{A Network Classification Model}
 
-Although the S-score of a network tells how close it is from software
-networks, it does not tell whether a network is close enough that it can be
-considered software-like. In order to do so we need to set a similarity
-threshold, so 
+Although the S-score of a network tells how close it is from software networks,
+it does not tell whether a network is close enough that it can be considered
+software-like. What is needed is a binary classification model that
+distinguishes software-like networks from the other networks. The distinction
+can be made by choosing a suitable S-score threshold. Networks with S-score
+below the threshold are considered dissimilar from software networks; only
+networks with S-score above the threshold are considered software-like. 
 
-Therefore, in this section we present a classification
-model that splits networks into two classes: software-like networks and non
-software-like networks.
+As we have shown on the previous section, there are non-software networks with
+high S-scores, hence it is impossible to build a perfect classification model,
+regardless of the threshold. Nonetheless, such a model can be evaluated by its
+precision and recall. Consider a data set with both software and non-software
+networks. Let $S$ be the set of all software networks, and $L$ the set of all
+networks that were classified as software-like. The precision of the model is
 
-We chose a simple classification model based on the similarity metric. We need
-to define a similarity threshold, so networks with similarity below this
-threshold are classified as non software-like, and networks with similarity
-greater or equal are classified as software-like. 
+$$
+precision: \frac{S \cap L}{L}
+$$
 
-Classification models are subject to two types of errors: false negatives
-(software networks that are classified as non software-like) and false positives
-(non-software networks that are classified as software-like). 
+and the recall is
 
-The choice of a threshold is arbitrary.
-We want to maximize precision.
+$$
+recall: \frac{S \cap L}{S}
+$$
+
+Increasing the threshold has the effect of reducing the recall, because fewer
+software networks are classified as software-like. Decreasing the threshold has
+the effect of reducing the precision, since many non-software networks are
+classified as software-like. 
+
+The choice of a proper threshold, thus, depends on whether it is more important
+to have high precision of high recall. Because our research hypothesis is that
+networks synthesized by the presented models are software-like, higher precision
+means a stronger test, as fewer networks are classified as software-like.
+
+To get 100\% precision, the threshold needs to be 0.98, so the non-software
+network with highest S-score is below the threshold. The recall in this case,
+though, would be X\%, which is too low, meaning the most software networks are
+misclassified. So we chose the value 0.88, that is immediatly greater than the second greater
+non-software network S-score. With this value, we have a high recall (X\%) and a
+still high precision (X\%).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Evaluation of Network Models}
-
-In the previous section it was shown that many networks, although scale-free,
-can be distinguished from software networks by a triad-based metric. In this
-section we show empirically that the three network models previously presented
-synthesize networks that are indistinguishable from software networks.
-
-First, we present a binary classification model / whether is software-like.
-Then, we describe the procedure to synthesize networks, parameters choosed
-After that, show results
-Finally, build a classification model based on parameters
-
-
-% TODO: use simple past tense
-
-% Is there such a thing as softwareness? Can we reproduce it?
-
-Our research hypothesis is that at least one of the presented models can
-synthesize networks that resemble software networks. In order to investigate the
-hypothesis we conducted an experiment. First we generated many synthetic
-networks, using all three models and different combinations of parameters.
-After that we selected the networks that were more similar to software networks.
-Finally, we sought patterns in the parameters of the selected networks.
-
-A central issue is what 
-
-We assume that software networks possess a intrinsic quality, that we will call
-``softwareness'', that distinguish them from networks in other domains. A
-measure of the softwareness is essential to the experiment. One possible measure
-is described and evaluated in the following sections. The measured softwareness
-of a network represents how likely it is a software network.
-
-% TODO: move to the section on the oracle
-We already know that they
-produce networks that, just like software networks, are scale-free. This single
-property, though, isn't enough to prove the hypothesis, since there are many
-known scale-free networks extracted from many distinct domains of knowledge.
-
-To support the analysis of softwareness
-
 % v.  differentiate, differ; distinguish; contrast; discern 
 
-The approach we chose to test our hypothesis was to build a network classifier:
-an algorithm that analyses a network and classifies it as a software network or
-as a non-software network. If a classifier is capable of classifying with high
-accuracy both software and non-software networks, then we can apply it to
-synthetic networks and see if they are discernable from software networks.
-it gives a fair approximation apply it on synthetic networks. We expect that
-some synthetic networks will be so similar to software networks that they will
-be classified as software networks.
+In the previous section it was shown that many networks, although scale-free,
+can be distinguished from software networks by a simple classification model
+based on triad concentration profiles. In this section we show empirically that
+the three network models previously presented synthesize networks that are
+indistinguishable from software networks.
 
-The experiment we conducted to evaluate the models, described in details in the
-following sections, can be summarized as such:
-* First of all, we collected both software and non-software networks
-* Then, we devised a classifier
-* After that, we applied the classifier to our data set and evaluated its
-accuracy, precision and recall.
-* After we came to an acceptable classifier, we synthesized many networks by
-varying the parameters on the models we presented.
-* Finally, we classified all synthesized networks as software or non-software.
-
-After that we analysed the results and tried to understand which parameters
-of each model contribute mostly to the softwareness of their networks
-
-%First of all, we need a data set containg both software and non-software
-%networks. 
-%Therefore, in order to prove our hypothesis we must show that, according to some
-%criterion, some of at least some of
-%the synthetic networks are more similar to software networks than other networks
-%are.
-%What we are looking for, after all, is an oracle that accepts software networks
-%and rejects non-software networks. If the oracle has these two properties, we
-%can be confident that it'll accept only synthetic networks that resemble
-%software networks.
+The experiment consists of synthesizing networks using many combinations of
+parameters from the three models, and then classifying each network as
+software-like or non software-like. After that, we build a classification model
+for each model, based on model parameters.
 
 \subsection{Synthetic Data Set}
 
 We want to investigate if, with a proper choice of parameters, a model is
-capable of synthesizing a network that resembles software networks. In this
-section we describe which combinations of parameters values were used for each
+capable of synthesizing a network that resembles software networks. Because the
+possible combinations of parameter values are infinite, we have set the number
+of vertices to 1000 and then varied the remaining parameters in discrete steps.
+In this section we describe the combinations of parameters values used for each
 model.
-
-%In assessing the realism of a model, we want to know if, with a proper choice of
-%parameters, the model is capable of producing a realistic network. In order to
-%do so, we must generate many networks using different combinations of
-%parameters. 
-
-In order to keep the networks in a tractable number, we have set the number of
-vertices in each network to 1000, and varied the remaining parameters in
-discrete steps such as each parameter assumed no more than 6 values. We have
-generated one network for each combination of parameter values.
-
-%Since most parameters are continuous, we had to 
-%we chose to threat the number of vertices
-%as a constant and vary the other parameters in discrete steps. In all models the
-%number of vertices was fixed to 1000. We generated one network for each set of
-%parameters.
-%Here we describe the criteria we use to choose the parameters for each model.
 
 \subsubsection{BCR+}
 
-We chose five different module dependency networks, which where extracted from
-actual dependencies between archives of five different software systems of our
-sample. The module dependency networks are shown on Figure
+We have chosen five different module dependency networks, which where extracted
+from actual dependencies between archives of five different software systems of
+our sample. The module dependency networks are shown on Figure
 \ref{fig:architectures}. 
 
 \begin{figure*}[!t]
@@ -557,9 +515,9 @@ For deltain and deltaout we assigned the integer numbers from 0 to 4. TODO: why
 
 Finally, we chose mu from 0.0 to 0.6 in 0.2 steps. It does not make sense to
 choose higher values since they mean that there will be more edges connecting
-different models.
+different modules.
 
-Total: 9,500 networks.
+In total, 9,500 networks were synthesized.
 
 \subsubsection{LF}
 
@@ -571,75 +529,23 @@ Total: 1,296 networks
 
 \subsubsection{CGW}
 
-p1,p2,p3,p4 ranging from 0.0 to 1.0 in 0.2 steps, with p1 > 0, p1 + p2 + p3 + p4 = 1.0.
-e1,e2,e3,e4 in 1, 2, 4, 8 (except that when pi = 0, ei is ignored).
-2*p4*e4 >= p1*e1 + p2*e2, so the number of edges created is at least twice
-the number of edges removed (to avoid long run times)
+We have varied each of the probabilities p1, p2, p3, and p4 from 0.0 to 1.0, in
+0.2 steps, with $p1 > 0$ and $p1 + p2 + p3 + p4 = 1$. Each of the parameters
+$e1$, $e2$, $e3$, and $e4$ assumed the values 1, 2, 4, and 8.
+
+% We have imposed
+%the additional restriction that $2 \cdot p4\cdot e4 \ge p1 \cdot e1 + p2\cdot e2$, 
+%so the number of edges created is at least twice the number of edges removed
+%(otherwise 
+% TODO: DOES NOT MAKE SENSE
+
 alpha in -1, 0, 1, 10, 100, 1000. 
 m in 2, 4, 8, 16, 32 (just like bcr and lfr)
 
-Total: 38,790 networks
+In total, 38,790 networks were synthesized.
 
-\subsection{Classifier} % Software network classifier
-
-
-In order two measure the softwareness of a network, we measure the correlation
-between the network's profile and the profile of each of the 65 software
-networks in our sample. We then compute the average of these correlations and
-call it the S-score, that varies between -1 and 1. The greater the S-score, more
-likely that the network is a software network.
-
-In order to build our classifier, we need a threshold for the S-score, so
-networks are classified as software networks only when they have S-score greater
-or equal to this threshold. We computed the S-score for each of the 65 software
-systems and found an average S-score of 0.97 with standard deviation of 0.03.
-Using the three-sigma rule from statistics, we chose the threshold as 0.97 - 3 *
-0.3, that is 0.88. 
-
-The small standard deviation shows that triad concentration profiles indeed
-characterize well the software domain.
-
-TODO: show histogram of S-scores for sw networks (x axis from -1.0 to 1.0)
-TODO: Is there need for cross validation in order to choose a threshold?
- - do cross-validation and choose threshold with max precision
-
-\subsubsection{Classifier Validation}
-
-In order to assess if the classifier is capable of distinguishing between
-software and non-software networks, we applied it to all the networks from our
-sample. 
-
-Most software networks were classified correctly, which is not surprising since
-the classifier was based on them.
-
-Precision: X, recall: Y
-
-Curiously, polblog had a very high S-score. This issue requires further 
-investigation. Anyway, we cannot deny the possibility that it is really very
-software-like.
-
-We could have chosen another value for the threshold, and it would affect the
-precision and the recall. For instance, had we chosen 0.82, we would end with
-100\% recall and x\% precision. For us, though, it is more important to have a
-high precision, so we keep the threshold 0.88.
-
-We also generated networks with the ER model, which is known to generate
-networks that are not scale-free and, thus, are very different from software
-networks. All the ER networks were classified as non-software.
-
-%Following Milo et al., We then used Pearson's correlation coefficient as a
-%similarity measure between two networks. For each software network, we then
-%computed the average correlation coefficient (ACC) to the other software
-%networks. We've observed that among software networks the ACC is X +- Y.
-
-% avg: 0.97. stdev: 0.03
-%We then computed, for each non-software network, the ACC to the 65 software
-%networks. By the 3-sigma rule, we use X as the threshold for realistic software
-%networks: networks whose ACC is below this threshold are rejected.
-%The oracle has X precision and X recall...
-
-
-\section{Softwareness Evaluation}
+\subsection{Results}
+% This subsection needn't to be big. It's just numbers.
 
 We used our classifier ...
 
