@@ -7,7 +7,7 @@ def read_motifs(filename)
 end
 
 if __FILE__ == $0
-  all_files = Dir.glob("../0*/**/motifs.data")
+  all_files = Dir.glob("../01*/**/motifs.data")
   java_files, other_files = all_files.partition { |x| x =~ /..\/01/ }
 
   all_files.sort!
@@ -27,6 +27,6 @@ if __FILE__ == $0
       sum_correlation += correlation(all_motifs[i], java_motifs[j])
     end
     mean_correlation = sum_correlation / java_files.size
-    printf "%s\t%.2f\t%s\n", (mean_correlation < CUTOFF ? "*" : " "), mean_correlation, label
+    printf "%s\t%.5f\t%s\n", (mean_correlation < CUTOFF ? "*" : " "), mean_correlation, label
   end
 end

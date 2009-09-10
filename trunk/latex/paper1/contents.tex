@@ -343,7 +343,7 @@ triad concentration profile (TCP), which is a vector with 13 numbers that
 summarize the local structure of the network. Figure \ref{fig:profiles} shows
 the TCP for three distinct networks.
 
-Following the work by Milo et al. \cite{Milo2002}, similarity between two
+Following the work by Milo et al. \cite{Milo2004}, similarity between two
 networks can be measured by computing Pearson's correlation coefficient between
 the corresponding TCPs, which yields a value between -1 (most dissimilar) and 1
 (most similar):
@@ -355,16 +355,28 @@ $$
 where $a$ and $b$ are networks, TCP($x$) is the triad concentration profile for
 network $x$, and cor($x$, $y$) is Pearson's correlation coefficient.
 
-\begin{figure*}[!t]
+
+% Word adjacency network: word Y follows word X => X->Y
+%\begin{figure*}[!t]
+%\center
+%\subfigure[ref1][Software
+%network]{\includegraphics[width=2.5in]{triad-jabref}}
+%\hfil
+%\subfigure[ref2][Non-software network]{\includegraphics[width=2.5in]{triad-lang}%
+%}
+%\caption{Triad profiles}
+%\label{fig:profiles}
+%\end{figure*}
+
+\begin{figure}[!t]
 \center
-\subfigure[ref1][Software
-network]{\includegraphics[width=2.5in]{triads-software}}
-\hfil
-\subfigure[ref2][Non-software network]{\includegraphics[width=2.5in]{triads-nonsw}%
-}
-\caption{Triad profiles}
+\includegraphics{tcp}
+
+\caption{Triad concentration profiles (TCP) for two networks. On the left,
+network extracted from the software system JabRef (see Appendix A). On the
+right, word adjacency network for the Japanese language \cite{Milo2004}.}
 \label{fig:profiles}
-\end{figure*}
+\end{figure}
 
 \subsection{Data Set}
 
@@ -562,18 +574,18 @@ Show some graphs: histogram of average correlations for each model.
 \ref{fig:histograms}
 
 
-\begin{figure*}[!t]
-\center
-
-\subfigure[Software network]{\includegraphics[width=1.0in]{hist-cgw}}
-
-\subfigure[Non-software network]{\includegraphics[width=1.0in]{hist-bcr}}
-
-\subfigure[Non-software network]{\includegraphics[width=1.0in]{hist-lf}}
-
-\caption{Triad profiles}
-\label{fig:histograms}
-\end{figure*}
+%\begin{figure*}[!t]
+%\center
+%
+%\subfigure[CGW]{\includegraphics[width=1.0in]{hist-cgw}}
+%
+%\subfigure[BCR+]{\includegraphics[width=1.0in]{hist-bcr}}
+%
+%\subfigure[LF]{\includegraphics[width=1.0in]{hist-lf}}
+%
+%\caption{Triad profiles}
+%\label{fig:histograms}
+%\end{figure*}
 
 All models produce networks that resemble software networks.  For some
 parameters, though, the networks are not realistic.
