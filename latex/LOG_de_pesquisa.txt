@@ -1,4 +1,33 @@
 -----------------------------------------------------------------------------
+09/09/2009
+
+
+
+-----------------------------------------------------------------------------
+03/09/2009
+
+Transcrevendo um papel de Campina Grande que eu vou jogar fora:
+
+MODULE-BASED MOTIFS: IGNORA
+[V] VER TRÍADES APENAS NO JAR PRINCIPAL (CURIOSIDADE)
+ - ESTUDEI OS 15 SISTEMAS DE ROBERTO E ALGUNS VIOLARAM A REGRA "A 1ª TRÍADE É A MAIOR"
+REVER E REGISTRAR (SISTEMATIZAR) COMPARAÇÃO DE HISTOGRAMAS ATRAVÉS DE CORRELAÇÃO, QUI-QUADRADO, DISTÂNCIA EUCLIDEANA ETC.
+CLASSIFICAR SW (CLUSTERING) DE ACORDO COM PERFIL DE TRÍADES E CALCULAR ORDEM PARCIAL NO MAIOR CLUSTER
+[X] MANDAR E-MAIL PARA GARCIA COM O ARTIGO E PEDIR REDES DE OUTROS DOMÍNIOS
+[X] AJEITAR NOTAS DOS SLIDES E PUBLICAR
+[X] IMPLEMENTAR ARC/MOD -> GXL, EM JAVA
+[X] IMPLEMENTAR CGW EM JAVA
+[V] ESTUDAR DISTRIBUIÇÃO DE PESOS [PL FIT COM GAMMA ~= 2.25, ÓTIMO FIT] E DE FORÇAS (GRAU COM PESO) [PLFIT IDEM, FIT +-] DOS 15 SISTEMAS DE ROBERTO
+MODIFICAR CGW PARA GERAR PESOS
+[V] ESTUDAR FACEBOOK [É NÃO-ORIENTADO]
+--
+KL-divergence (descartado)
+entropy-distance (descartado)
+histogram intersection (ok)
+modified x² (ok)
+euclidean distance (ok)
+
+-----------------------------------------------------------------------------
 01/09/2009
 
 Reunião.
