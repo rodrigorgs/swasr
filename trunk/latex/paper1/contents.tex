@@ -58,8 +58,9 @@ decompositions by a metric such as MoJo \cite{Tzerpos1999} or PrecisionRecall.
 % TODO: diagram showing the evaluation of a clustering algorithm
 
 Unfortunately there are few systems with known reference modularizations and,
-because to obtain reference modularizations is costly, there are few empirical
-studies, and most of them consider a couple of small and medium systems.
+because it is costly to obtain reference modularizations, there are few
+empirical studies, and most of them consider a couple of small and medium
+systems.
 
 We therefore propose to use synthetic, i.e., computer-generated, software
 dependency networks, to evaluate software modularization recovery algorithms.
@@ -121,22 +122,23 @@ Many models were proposed to explain the formation of scale-free networks. These
 models are simple algorithms that can be proven, either formally or empirically,
 to generate networks that are scale-free. In this section we present three
 models that generate directed networks with built-in modular decomposition:
-BCR+, CGW and LR. The first two models grow networks using a mechanism called
-preferential attachment CITE Barabasi, by which nodes with many edges tend to
-receive more edges in the process.
+BCR+, CGW and LR. 
+%The first two models grow networks using a mechanism called
+%preferential attachment CITE Barabasi, by which nodes with many edges tend to
+%receive more edges in the process.
 
 %\subsection{ER (Erdos-Renyi)}
 
 %\subsection{Configuration model}
 % take the most typical software system and steal its degree sequence
 
-\subsection{BCR plus}
+\subsection{BCR+}
 
 The BCR model aims to model the network of hyperlinks between web pages as a
 directed graph without modules \cite{Bollobas2003}. It was proven analitically
 to generate scale-free networks. We have developed an extension to this model,
-which we will call BCR+, that adds the concept of module. The model accepts the
-following parameters:
+called BCR+, that adds modules to the construction of the network. The model
+accepts the following parameters:
 
 \begin{itemize}
 \item number of vertices, $n$;
@@ -146,28 +148,36 @@ following parameters:
 \item two real numbers, din and dout.
 \end{itemize}
 
-In a network with modules, one can define a MDG as a graph where the two
-following conditions hold:
-* each vertex represents a module in the original network;
-* there is an edge from M1 to M2 in the MDG only if there is an edge from 
-v1 to v2 in the original network, where v1 in M1 and v2 in M2.
+In a network with modules, one can define its module dependency graph (MDG) as a
+graph where the two following conditions hold: 
+
+\begin{itemize}
+\item each vertex represents a module in the original network; 
+\item there is an edge from M1 to M2 in the MDG only if there is an edge from v1
+to v2 in the original network, where v1 in M1 and v2 in M2.
+\end{itemize}
 
 The BCR+ model generates networks whose MDG is equal to G by adding vertices and
 edges to an initial network until it reaches n vertices. The initial network is
 isomorphic to G: it contains one vertex for each module and one edge for each
 edge in G, connecting vertices whose corresponding modules are are connected.
-Thus, the networks's MDG is equal to G from the very beginning.
+Thus, the MDG for the generated network is equal to G from the very beginning.
 
 After that, the algorithm consists of successive applications of one out of
 three operations on the network: (1) adding a vertex with an outgoing edge; (2)
 adding a vertex with an ingoing edge; (3) adding a edge between existing
-vertices. The choice of the vertices that will be connected by a new edge,
-although non-deterministic, is not fully random. The probability that a
-particular vertex v is choosen, P(v), is proportional to a function of the
-in-degree or of the out-degree of the node. We say that we choose a vertex
-within a set V according to a function f if
+vertices. In operation 3, the edge can connect either vertices that belong
+to the same module or vertices in distinct modules. 
 
-  P(choose v) = f(v) / sum(v in V, f(v))
+The choice of the vertices that will be connected by a new edge, although
+non-deterministic, is not fully random. The probability that a particular vertex
+v is choosen, P(v), is proportional to a function of the in-degree or the
+out-degree of the node. We say that we choose a vertex within a set of vertices
+S according to a function f if
+
+$$
+  P(choose v) ~=~ \frac{ f(v) }{ \sum_{v \in S, f(v)} }.
+$$
 
 The denominator is a normalizing factor that assures that the probabilities sum
 to 1.
@@ -177,37 +187,43 @@ some definitions. V is the set of vertices in the network being generated. This
 set grows as the algorithm is executed. Being v a vertex, we define the
 following three functions:
 
-* out-neighbors(v): the set of all vertices that are connected to v by an edge
+\begin{itemize}
+
+\item out-neighbors(v): the set of all vertices that are connected to the vertex v by an edge
 starting in v.
-* same-module(v): the set of all vertices that are in the same module as v (except
-v itself).
-* other\_modules(v): the set of all vertices that are in modules that are connected
-to v's module (in the graph G) by an edge starting in v's module.
+
+\item same-module(v): the set of all vertices that are in the same module as the
+vertex v, except for v itself and vertices in out-neighbors(v).
+
+\item other\_modules(v): the set of all vertices that are in modules that are
+connected to v's module (in the graph G) by an edge starting in v's module,
+except for vertices in out-neighbors(v).
+
+\end{itemize}
 
 After the initial network is created, the algorithm proceeds as follows:
 
 \begin{figure*}
 \begin{verbatim}
-while the network has less than n vertices:
+while the number of nodes in the network is less than n:
   choose one of the operations according to probabilities (p, q, r)
   operation 1: (add a vertex with an outgoing edge)
     choose a vertex w within V according to f(x) = din + in-degree(x)
-    add a new vertex v to w's module
+    add a new vertex, v, to w's module
     add an edge from v to w
   operation 2: (add a vertex with an ingoing edge)
     choose a vertex w within V according to f(x) = dout + out-degree(x)
-    add a new vertex v to w's module
+    add a new vertex, v, to w's module
     add an edge from w to v
   operation 3: (add an edge between two existing vertices)
     choose a vertex v within V according to f(x) = dout + out-degree(x)
     choose a case according to probabilities (mu, 1 - mu)
     case 1: (distinct modules)
-  	choose a vertex w within (other\_modules(v) - neighbors(v)) according to f(x) = din + in-degree(x)
+  	  choose a vertex w within other\_modules(v) according to f(x) = din + in-degree(x)
       add an edge from v to w
     case 2: (same module)
-      choose w within (same-module(v) - neighbors(v)) according to f(x) = din + in-degree(x)
+      choose w within same-module(v) according to f(x) = din + in-degree(x)
       add an edge from v to w
-  end
 \end{verbatim}
 \end{figure*}
 
@@ -260,10 +276,13 @@ The CGW model was proposed to model the evolution of software systems organized 
 modules. It was proven formally to generate scale-free networks. \cite{Chen2008}
 It accepts the following parameters:
 
-* n, m
-* Probabilities p1, p2, p3, p4, summing 1
-* Natural numbers e1, e2, e3, e4
-* alpha
+\begin{itemize}
+\item Number of vertices, n;
+\item Number of modules, m;
+\item Probabilities p1, p2, p3, p4, summing 1;
+\item Natural numbers e1, e2, e3, e4;
+\item Number alpha, with alpha >= -1
+\end{itemize}
 
 Just like BCR+, this is a growth model. Its initial network is composed of two
 vertices belonging to the same module and a directed edge between them. The
@@ -303,14 +322,27 @@ modules, however it accounts for the rewiring and the removal of edges.
 
 \subsection{LF}
 
-The LF model is a very flexible model that can generated weighted directed
-networks with overlapping modules, that is, in which a vertex can belong to more
-than one module. Unlike the previous models, this is not a growth model: all
-vertices are generated at once and then the edges are added.
+The LF model \cite{Lancichinetti2009} is a very flexible model that can
+generated weighted directed networks with overlapping modules, that is, in which
+a vertex can belong to more than one module. Unlike the previous models, this is
+not a growth model: all vertices are generated at once and then the edges are
+added.
 
 There is also a special version of the model in which the edges weights are
 discarded and the modules are non overlapping. We used the original
-implementation of this version, available at http://. 
+implementation of this version, available at http://. It accepts the following
+parameters:
+
+\begin{itemize}
+\item number of nodes, n;
+\item average in-degree, k;
+\item maximum in-degree, maxk;
+\item mixing parameter, mu;
+\item exponent for the degree distribution, t1;
+\item exponent for the module size distribution, t2;
+\item minimum module size, minm;
+\item maximum module size, maxm;
+\end{itemize}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -320,18 +352,21 @@ implementation of this version, available at http://.
 
 Our research hypothesis is that at least one of the presented models can
 synthesize networks that resemble software networks. A central issue, thus, is
-how to measure similarity between networks. In order to be useful, the metric
-must be able to differentiate between software and non-software networks. In
-this section we present such a metric, together with an experiment that
+how to measure similarity between networks. In order to be useful, a similarity
+metric must be able to differentiate between software and non-software networks.
+In this section we present such a metric, together with an experiment that
 evaluates its usefulness by applying it to both software and non-software
 networks. %Then we show a classification model 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Similarity Between Networks}
 
 In a recent work, Milo et al. \cite{Milo2002} proposed to characterize networks
 by analyzing their triad concentration. A triad is a network with three vertices
 in which all vertices are connected. There are only 13 distinct triads, one for
 each configuration of directed edges, as shown in Figure \ref{fig:triads}.
+
+CITE igraph
 
 \begin{figure*}[!t]
 \centering
@@ -343,7 +378,7 @@ each configuration of directed edges, as shown in Figure \ref{fig:triads}.
 By counting how many times each triad appears in a network, one can build a
 triad concentration profile (TCP), which is a vector with 13 numbers that
 summarize the local structure of the network. Figure \ref{fig:profiles} shows
-the TCP for three distinct networks.
+the TCP for networks from distinct domains.
 
 Following the work by Milo et al. \cite{Milo2004}, similarity between two
 networks can be measured by computing Pearson's correlation coefficient between
@@ -357,29 +392,17 @@ $$
 where $a$ and $b$ are networks, TCP($x$) is the triad concentration profile for
 network $x$, and cor($x$, $y$) is Pearson's correlation coefficient.
 
-
 % Word adjacency network: word Y follows word X => X->Y
-%\begin{figure*}[!t]
-%\center
-%\subfigure[ref1][Software
-%network]{\includegraphics[width=2.5in]{triad-jabref}}
-%\hfil
-%\subfigure[ref2][Non-software network]{\includegraphics[width=2.5in]{triad-lang}%
-%}
-%\caption{Triad profiles}
-%\label{fig:profiles}
-%\end{figure*}
-
 \begin{figure}[!t]
 \center
 \includegraphics{tcp}
-
 \caption{Triad concentration profiles (TCP) for two networks. On the left,
 network extracted from the software system JabRef (see Appendix A). On the
 right, word adjacency network for the Japanese language \cite{Milo2004}.}
 \label{fig:profiles}
 \end{figure}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Data Set}
 
 To support the evaluation of the metric, we have collected 131 networks. The
@@ -394,9 +417,11 @@ extracted with the tool Dependency Finder CITE.
 \textbf{Non-software networks}. We have collected 66 networks from distinct
 domains, such as biology, sociology, technology, and linguistics. These networks
 are freely available on the Internet and have been used in previous researches.
+CITE
 
 % S-score
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Evaluation of the Similarity Metric}
 
 In order to evaluate the similarity metric, we measured the similarity between
@@ -414,27 +439,28 @@ $$
 }{|S|} \mathrm{,}
 $$
 
-where $S$ is the set of sample software networks, and $|S|$ is the cardinality
-of $S$. In this work we use the full software data set consisting of 65 software
-networks.
+where $S$ is the set of sample software networks, and $|S|$ is the number of
+networks in $S$. In this work we use the full software data set consisting of 65
+software networks as our sample.
 
 We measured the S-score for each software network, which ranged from 0.83 to
 0.98. The average S-score was 0.97 and the standard deviation, 0.03. The high
 average S-score and the low standard deviation show that the metric successfully
-captures common structural patterns in software networks.
+characterizes software networks by capturing common structural patterns
 
 TODO: Boxplot by network class (software, metabolic, neural, social etc.)
 
 Then we measured the S-score for each non-software network. The majority of the
-networks (X\%) have a S-score lower than 0.83, which shows that they
-are ... Networks extracted from the social network Facebook have negative
-S-score.
+networks (X\%) had a S-score lower than 0.83, which is the lowest S-score for
+software networks in the sample. Some social networks even showed negative
+S-score, meaning that they are very different from software networks.
 
-A few networks, though, showed high S-score. The network
-polblogs, showing links between blogs on politics, had similarity 0.97. The
-neural network of C Elegans also had a high similarity (0.88). Further
-investigation is needed in order to discover why does it happen and whether
-auxiliary metrics can differentiate these networks from software networks.
+Two networks, though, showed high S-score, above 0.83. The network polblogs,
+showing links between blogs on politics, showed S-score 0.97. The neural network
+of the worm C.  Elegans also showed a high S-score (0.88). Further investigation
+is needed in order to discover the reasons behind these high S-scores and
+whether auxiliary metrics can differentiate these networks from software
+networks.
 
 \subsection{A Network Classification Model}
 
@@ -451,7 +477,8 @@ high S-scores, hence it is impossible to build a perfect classification model,
 regardless of the threshold. Nonetheless, such a model can be evaluated by its
 precision and recall. Consider a data set with both software and non-software
 networks. Let $S$ be the set of all software networks, and $L$ the set of all
-networks that were classified as software-like. The precision of the model is
+networks that were classified by the model as software-like. The precision of
+the model is
 
 $$
 precision: \frac{S \cap L}{L}
@@ -476,9 +503,9 @@ means a stronger test, as fewer networks are classified as software-like.
 To get 100\% precision, the threshold needs to be 0.98, so the non-software
 network with highest S-score is below the threshold. The recall in this case,
 though, would be X\%, which is too low, meaning the most software networks are
-misclassified. So we chose the value 0.88, that is immediatly greater than the second greater
-non-software network S-score. With this value, we have a high recall (X\%) and a
-still high precision (X\%).
+misclassified. So we chose the value 0.88, that is immediatly greater than the
+second greater non-software network S-score. With this value, we have both a
+high recall (X\%) and a high precision (X\%).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -530,9 +557,9 @@ our sample. The module dependency networks are shown on Figure
 The probabilities p, q and r were given all possible values from 0.0 up to 1.0,
 in 0.2 steps, such as the sum of the probabilities was 1. Since the only events
 that create vertices are those associated with probabilities p and q, we imposed
-the additional restriction that p + q > 0.
+the additional restriction that $p + q > 0$.
 
-For deltain and deltaout we assigned the integer numbers from 0 to 4. TODO: why
+For deltain and deltaout we assigned integer numbers ranging from 0 to 4. TODO: why
 
 Finally, we chose mu from 0.0 to 0.6 in 0.2 steps. It does not make sense to
 choose higher values since they mean that there will be more edges connecting
@@ -542,40 +569,63 @@ In total, 9,500 networks were synthesized.
 
 \subsection{LF networks}
 
-Like BCR, we choose mu ranging from 0.0 to 0.6 in 0.2 steps. For the remaining
-parameters we selected values from our sample of software systems. For degexp,
-..., we picked the minimum, the median and the max values.
+Like BCR+, we choose mu ranging from 0.0 to 0.6 in 0.2 steps. For the remaining
+parameters, the following values were used:
 
-Total: 1,296 networks
+\begin{itemize}
+  \item t1 in 2.18, 2.70, 3.35 (degree exponent distribution)
+  \item t2 in 0.76, 0.99, 1.58
+  \item k in 5, 10, 15, 25 
+  \item maxk in 58, 157, 482
+  \item minc 1, 10, 273
+\end{itemize}
+
+In order to choose these values, we analyzed software networks from our sample
+with approximately 500 to 2,000 nodes, so no network was much bigger or much
+smaller than the synthetic networks. We computed the exponents for the degree
+and module size distributions using KOLMOGOROV-SMIRNOV, GOODNESS-OF-FIT., and
+then chose the minimum, median and maximum values. For k, maxk, minc the values
+extracted from the network were divided by the number of nodes in the network
+and then multiplied by 1000. For maxk and minc we chose the minimum, median and
+maximum values. For k .... The parameter maxc was left unbound to avoid
+impossible combinations of minc, maxc, and t2.
+
+In total, 1,296 networks where synthesized.
 
 \subsection{CGW networks}
 
-We have varied each of the probabilities p1, p2, p3, and p4 from 0.0 to 1.0, in
-0.2 steps, with $p1 > 0$ and $p1 + p2 + p3 + p4 = 1$. Each of the parameters
-$e1$, $e2$, $e3$, and $e4$ assumed the values 1, 2, 4, and 8.
+The parameters values were chosen as such:
 
-% We have imposed
-%the additional restriction that $2 \cdot p4\cdot e4 \ge p1 \cdot e1 + p2\cdot e2$, 
-%so the number of edges created is at least twice the number of edges removed
-%(otherwise 
-% TODO: DOES NOT MAKE SENSE
+\begin{itemize}
+\item $p1, p2, p3, p4 \in {0.0, 0.2, 0.4, 0.6, 0.8, 1.0}$, with $p1 > 0$ and $p1
+  + p2 + p3 + p4 = 1$;
+\item $e1, e2, e3, e4 \in {1, 2, 4, 8}$;
+\item $\alpha \in {-1, 0, 1, 10, 100, 1000}$;
+\item number of modules: $m \in {2, 4, 8, 16, 32}$.
+\end{itemize}
 
-alpha in -1, 0, 1, 10, 100, 1000. 
-m in 2, 4, 8, 16, 32 (just like bcr and lfr)
+Notice that ei has no effect when pi is zero; in this case ei was just set to
+zero.
 
 In total, 38,790 networks were synthesized.
 
 \subsection{Results}
 % This subsection needn't to be big. It's just numbers.
 
-We used our classifier ...
+Each synthesized network was classified as software-like or non software-like,
+using the classification model presented in section XXX. The results are
+summarized in Table X. 
 
-Table: Model | Number of Networks | Realistic Networks | Percent \%
+\begin{table}
+Table: Model | Realistic Networks | Percent \%
+\end{table}
 
-Show some graphs: histogram of average correlations for each model.
-\ref{fig:histograms}
+All models synthesized both software-like and non software-like networks. The
+proportion of software-like networks was greater than X\% for all models,
+discarding the possibility that this result was obtained by pure chance.
 
-
+%Show some graphs: histogram of average correlations for each model.
+%\ref{fig:histograms}
 %\begin{figure*}[!t]
 %\center
 %
@@ -589,48 +639,62 @@ Show some graphs: histogram of average correlations for each model.
 %\label{fig:histograms}
 %\end{figure*}
 
-All models produce networks that resemble software networks.  For some
-parameters, though, the networks are not realistic.
+Of course, this result is of little practical value unless there is a
+relationship between parameter values and S-score. For the purpose of this
+research, it is important to know which values are more likely to lead to
+software-like networks.
 
-\subsection{Parameter-Based Classification Models}
+The algorithm 1R from data mining was used to help discover such relationship.
+It analyzes the parameters and the classification of each network and finds a
+rule that relates the value of one single parameter with the classification. We
+are interested in rules for networks classified as software-like and in the
+precision of these rules. The rules found by 1R are shown in Table X.
 
-1R
+Model | Rule | Precision
 
-Naive Bayes
+Despite its simplicity, 1R found rules with high precision. These rules allow
+one to know if a particular combination of parameter values is likely to lead to
+software-like networks.
 
-\subsection{Homogeinity}
-
-Pick realistic networks from a model. Are they similar to each other? (see
-standard deviation) In other words: do the parameters make a difference?
-
-Are they similar to networks generated by the other models? In other words: are
-the models equivalent?
-
-\section{Threats to validity}
-
-% External validity (EV): can it be generalized?
-
-%Structural information isn't enough for a expert do produce a
-%decomposition (s/he may use data such as names and external documentation). 
+%\subsection{Parameter-Based Classification Models}
 %
-%Even when considering only structural information, is it true
-%that experts would find a decomposition similar to the reference decomposition
-%imposed by the model?
+%1R
 
-We generated only one network for each set of parameters. (as we've shown, some
-parameters are redundant as they do not change significantly the realism)
+%Naive Bayes
 
-Some clustering algorithms use weights and they weren't studied here.
+%\subsection{Homogeinity}
+%
+%Pick realistic networks from a model. Are they similar to each other? (see
+%standard deviation) In other words: do the parameters make a difference?
+%
+%Are they similar to networks generated by the other models? In other words: are
+%the models equivalent?
 
-EV: We've only studied 65 systems, which is not that much.
-
-We only studied object-oriented systems implemented in Java. Maybe the results
-would be different if we studied systems implement in other languagens or using
-other paradigms. The choice of a particular technique for extracting
-dependencies (static analysis) may also have impact on the structure of the
-networks.
-
-% Koschke says that experts decompositions vary by no more than 80? percent.
+%\section{Threats to validity}
+%
+%% External validity (EV): can it be generalized?
+%
+%%Structural information isn't enough for a expert do produce a
+%%decomposition (s/he may use data such as names and external documentation). 
+%%
+%%Even when considering only structural information, is it true
+%%that experts would find a decomposition similar to the reference decomposition
+%%imposed by the model?
+%
+%We generated only one network for each set of parameters. (as we've shown, some
+%parameters are redundant as they do not change significantly the realism)
+%
+%Some clustering algorithms use weights and they weren't studied here.
+%
+%EV: We've only studied 65 systems, which is not that much.
+%
+%We only studied object-oriented systems implemented in Java. Maybe the results
+%would be different if we studied systems implement in other languagens or using
+%other paradigms. The choice of a particular technique for extracting
+%dependencies (static analysis) may also have impact on the structure of the
+%networks.
+%
+%% Koschke says that experts decompositions vary by no more than 80? percent.
 
 \section{Conclusion and Future Work}
 % revised 2009-09-03
