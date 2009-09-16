@@ -663,7 +663,7 @@ results are summarized in Table \ref{tab:results}.
 \begin{table}
 \caption{Results for the classification of synthetic networks}
 Table: Model | Networks classified as software-like
-\begin{tabular}{ l | r }
+\begin{tabular}{ l | l }
 \hline
 Model & Networks classified as software-like \\
 \hline \\
@@ -711,7 +711,7 @@ classified. The rules found by 1R are shown in Table \ref{tab:rules}.
 \caption{Rules for predicting the classification of a synthetic network. S
 stands for software-like and N stands for non software like.}
 Table: Model | Networks classified as software-like
-\begin{tabular}{ l | r }
+\begin{tabular}{ l | l | l }
 \hline
 Model & Rule & Accuracy \\
 \hline \\
@@ -719,56 +719,23 @@ Model & Rule & Accuracy \\
 \multirow{2}{*}{BCR+}
      & $\alpha \ge 0.7 \Rightarrow S$ & \multirow{2}{*}{82.4\%}  \\ 
      & $\alpha < 0.7 \Rightarrow N$ & \\ 
-
-CGW  & $p_1 \ge 0.5 \Rightarrow S$ & 82.3\% \\  
+\hline
+\multirow{2}{*}{CGW}
+     & $p_1 \ge 0.5 \Rightarrow S$ & \multirow{2}{*}{82.3\%} \\  
      & $p_1 < 0.5 \Rightarrow N$ & \\  
-
-LF   & $\gamma \ge 2.44$ & 78.9\% \\ 
+\hline
+\multirow{2}{*}{LF}   
+     & $\gamma \ge 2.44$ & \multirow{2}{*}{78.9\%} \\ 
      & $\gamma \ge 2.44$ &  \\ 
 \hline
 \end{tabular}
 \label{tab:rules}
 \end{table}
 
-== LF ==
-degexp
-        < 2.4400000000000004    ->
-        >= 2.4400000000000004   -> *
-        (1023/1296 instances correct) (78.9352%)
-
-(removendo parametro degexp:)
-maxk:
-        < 319.5 -> *
-        >= 319.5        ->
-        (957/1296 instances correct) (73.8426%)
-
-== BCR ==
-alpha:
-        < 0.7   -> *
-        >= 0.7  ->
-        (7832/9500 instances correct) (82.4421%)
-
-(removendo parametro alpha:)
-gamma:
-        < 0.1   ->
-        >= 0.1  -> *
-        (7564/9500 instances correct) (79.6211%)
-
-
-== CGW (C++) ==
-p1:
-        < 0.5   -> *
-        >= 0.5  ->
-        (31920/38790 instances correct) (82.2892%)
-
-(removendo parametro p1:)
-dá uma resposta sem sentido
-
-
-
-Despite its simplicity, 1R found rules with high precision. These rules allow
-one to know if a particular combination of parameter values is likely to lead to
-software-like networks.
+The rules are very simple and, thus, easy to follow. Despite their simplicity,
+they have high accuracy, approximately 80\% in all models.  
+%These rules allow one to know if a particular combination of parameter values
+%is likely to lead to software-like networks.
 
 %\subsection{Parameter-Based Classification Models}
 %
@@ -843,7 +810,7 @@ different parameter values.
 In a future work, we intend to use synthetic networks in the evaluation of
 software clustering algorithms that were previously studied with real networks
 \cite{Wu2005}. After that we will be able to compare the results obtained by
-both approaches.
+the approaches.
 
 \section{Appendix A: list of networks}
 
@@ -921,29 +888,32 @@ subethasmtp-3.1
 thinkui\_sqlclient-1.1.2
 worker-4.1.5
 
-Other networks:
+Networks from other domains:
 
-3 circuit networks (circuit-s208 circuit-s420 circuit-s838)
+3 electronic circuit networks (circuit-s208 circuit-s420 circuit-s838)
+\cite{Milo2004}
 
-5 facebook networks (facebook-Caltech36 facebook-Georgetown facebook-Oklahoma
-facebook-Princeton facebook-UNC28)
+5 friendship networks (facebook-Caltech36 facebook-Georgetown facebook-Oklahoma
+facebook-Princeton facebook-UNC28) \cite{Traud2008}
 
-5 language networks (lang-english  lang-french lang-japanese lang-spanish)
+4 word adjacency networks (lang-english lang-french lang-japanese lang-spanish)
+\cite{Milo2004}
 
-43 metabolic networks
+3 protein structure networks (protein-a4j protein-AOR protein-eaw)
+\cite{Milo2004}
 
-3 protein networks (protein-a4j protein-AOR protein-eaw)
+2 social networks of positive sentiment (social-leader social-prison)
+\cite{Milo2004}
 
-2 social networks (social-leader social-prison)
+43 metabolic networks \cite{Jeong2000}.
 
-other networks:
+Protein interaction network for yeast \cite{Jeong2001}
 
-polblogs
+polblogs \cite{Adamic2005} 
 
-yeast
 
 beta3sreduced
-celegansneural
+celegansneural \cite{Watts1998}
 
 czech
 ecoli-metabolic
