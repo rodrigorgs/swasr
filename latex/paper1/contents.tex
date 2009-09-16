@@ -340,8 +340,14 @@ $$
 where
 
 $$
-f_v(w) = 1 + degree(w) \cdot (1 + \alpha), if module(w) = module(v)
-, 1 + degree(w), otherwise
+f_v(w) = \left\{
+\begin{array}{ll}
+
+1 + degree(w) \cdot (1 + \alpha) &  \mathrm{if}\ module(w) = \\%= module(v) \\
+                                 &  = module(v) \\
+1 + degree(w) & \mathrm{otherwise}
+\end{array}
+\right.
 $$
 
 Because the original paper did not provide an implementation for the model, we
@@ -436,7 +442,7 @@ CITE igraph
 \begin{figure*}[!t]
 \centering
 \includegraphics[width=1.0\textwidth]{triads}
-\caption{Triads (id vs. graph. reprs.)}
+\caption{The 13 network triads.}
 \label{fig:triads}
 \end{figure*}
 
@@ -477,7 +483,8 @@ networks are described in detail in the Appendix.
 Java, with size ranging from 111 to 35,363 classes. Java was chosen for being a
 popular programming language in which many open source systems have been
 written. The software networks, representing dependencies between classes, were
-extracted with the tool Dependency Finder CITE.
+extracted with the tool Dependency Finder\footnote{Available at
+\url{http://depfind.sf.net}.}.
 
 \textbf{Non-software networks}. We have collected 66 networks from distinct
 domains, such as biology, sociology, technology, and linguistics. These networks
