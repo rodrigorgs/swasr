@@ -11,11 +11,10 @@ industry and the development of better algorithms.
 We propose to rely on software models to produce arbitrarily large test sets. In
 this paper we consider three such models and analyze how similar the artifacts
 they produce are from artifacts from real software systems.
-\cite{Pollet2007}
 
 \section{Introduction}
 
-Development of large-scale software systems is a challenge.
+Development of large-scale software systems is a challenge. \cite{Northrop2006}
 
 A key to success is the ability to decompose a system into weakly-coupled
 modules, so each module can be developed by a distinct team. Failing to do so
@@ -34,6 +33,7 @@ software clustering algorithms or software architecture recovery algorithms. In
 its most common flavor, these algorithms analyze the dependencies between
 implementation components, such as classes, and then group them into modules
 such as there are few dependencies between classes in distinct modules.
+\cite{Pollet2007}
 
 TODO: sw clustering is a task of reverse engineering \cite{Tonella2007}.
 
@@ -80,8 +80,8 @@ The remaining sections are organized as follows. .... Section 2, ...
 
 %alike, resembling, exchangeable, indistiguible
 
-\section{Related Work}
-
+%\section{Related Work}
+%
 %\section{Software Modularization Recovery: an Overview}
 %Aka software architecture recovery, software architecture reconstruction,
 %software clustering...
@@ -90,8 +90,8 @@ The remaining sections are organized as follows. .... Section 2, ...
 %external edge...
 
 %\section{Software Networks and Software Clustering}
-
-directed graph, (un)weighted
+%
+%directed graph, (un)weighted
 
 \section{Software Networks}
 
@@ -103,18 +103,18 @@ Network theory research studies general properties of many types of networks by
 using statistical analysis. In the last decade, it has been found that many
 networks arising from sociology, biology, technology and other domains present
 remarkable structural similarities. It has been shown that, in these networks,
-the number of vertices connected to k edges, N(k), is proportional to
-$k^{\-gamma}$, where $\gamma$ is a positive constant. These networks were called
-scale-free networks.
+the degree distribution is a power law: the number of vertices connected to k
+edges, N(k), is proportional to $k^{\-gamma}$, where $\gamma$ is a positive
+constant. These networks are called scale-free networks.
 
 Network theory has been applied to software networks and it was shown that they
 are also scale-free networks \cite{Myers2003,Valverde2003}.
 
-(in fact we can't argue the degree distribution is perfectly fit by a power law.
-Anyway, the distribution is much more assymetric than normal ou Poisson's)
-
-software indegree distribution (power law), outdegree distribution (not so power
-law)
+%(in fact we can't argue the degree distribution is perfectly fit by a power law.
+%Anyway, the distribution is much more assymetric than normal ou Poisson's)
+%
+%software indegree distribution (power law), outdegree distribution (not so power
+%law)
 
 \section{Network Models}
 
@@ -497,8 +497,9 @@ TODO: Boxplot by network class (software, metabolic, neural, social etc.)
 
 Then we measured the S-score for each non-software network. The majority of the
 networks (X\%) had a S-score lower than 0.83, which is the lowest S-score for
-software networks in the sample. Some social networks even showed negative
-S-score, meaning that they are very different from software networks.
+software networks in the sample. Some networks, showing friendship between
+students, showed negative S-score, meaning that they are very different from
+software networks.
 
 Two networks, though, showed high S-score, above 0.83. The network of links
 between blogs on politics showed S-score 0.97. The neural network of the worm
@@ -812,108 +813,98 @@ software clustering algorithms that were previously studied with real networks
 \cite{Wu2005}. After that we will be able to compare the results obtained by
 the approaches.
 
-\section{Appendix A: list of networks}
+\appendix{Network Data Set}
 
-TODO: Show as Table: Name, Vertices, Edges
+\section{Software Networks}
 
-Software networks:
+Systems hosted by SourceForge (\url{http://sourceforge.net/}):
+\begin{itemize}
+\item AbaGuiBuilder-1.8
+\item alfresco-labs-deployment-3Stable
+\item aoi272
+\item stendhal-0.74
+\item battlefieldjava-0.1
+\item checkstyle-5.0
+\item dom4j-1.6.1
+\item findbugs-1.3.8
+\item freetts-1.2.2-bin
+\item ganttproject-2.0.9
+\item geoserver-2.0-beta1-bin
+\item geotools-2.5.5-bin
+\item gfp\_0.8.1
+\item hibernate-distribution-3.3.1.GA-dist
+\item hsqldb\_1\_8\_0\_10
+\item iBATIS\_DBL-2.1.5.582
+\item iReport-nb-3.5.1
+\item JabRef-2.5b2-src
+\item jailer\_2.9.9
+\item jalopy-1.5rc3
+\item jasperreports-3.5.2-project
+\item jfreechart-1.0.13
+\item pentaho-reporting-engine-classic-0.8.9.11
+\item jGnash-2.2.0
+\item jgraphpad-5.10.0.2
+\item jmsn-0.9.9b2
+\item juel-2.1.2
+\item JXv3.2rc2deploy
+\item makagiga-3.4
+\item MegaMek-v0.34.3
+\item iFreeBudget-2.0.9
+\item mondrian-3.1.1.12687
+\item oddjob-0.26.0
+\item openxava-3.1.2
+\item pdfsam-1.1.3-out
+\item pjirc\_2\_2\_1\_bin
+\item pmd-bin-4.2.5
+\item proguard4.3
+\item smc\_6\_0\_0
+\item squirrel-sql-3.0.1-base
+\item squirrel-sql-3.0.1-standard
+\item tvbrowser-2.7.3-bin
+\item villonanny-2.3.0.b02.bin
+\item rapidminer-4.4-community
+\item zk-bin-3.6.1
+\end{itemize}
 
-From SourceForge:
-AbaGuiBuilder-1.8
-alfresco-labs-deployment-3Stable
-aoi272
-stendhal-0.74
-battlefieldjava-0.1
-checkstyle-5.0
-dom4j-1.6.1
-findbugs-1.3.8
-freetts-1.2.2-bin
-ganttproject-2.0.9
-geoserver-2.0-beta1-bin
-geotools-2.5.5-bin
-gfp\_0.8.1
-hibernate-distribution-3.3.1.GA-dist
-hsqldb\_1\_8\_0\_10
-iBATIS\_DBL-2.1.5.582
-iReport-nb-3.5.1
-JabRef-2.5b2-src
-jailer\_2.9.9
-jalopy-1.5rc3
-jasperreports-3.5.2-project
-jfreechart-1.0.13
-pentaho-reporting-engine-classic-0.8.9.11
-jGnash-2.2.0
-jgraphpad-5.10.0.2
-jmsn-0.9.9b2
-juel-2.1.2
-JXv3.2rc2deploy
-makagiga-3.4
-MegaMek-v0.34.3
-iFreeBudget-2.0.9
-mondrian-3.1.1.12687
-oddjob-0.26.0
-openxava-3.1.2
-pdfsam-1.1.3-out
-pjirc\_2\_2\_1\_bin
-pmd-bin-4.2.5
-proguard4.3
-smc\_6\_0\_0
-squirrel-sql-3.0.1-base
-squirrel-sql-3.0.1-standard
-tvbrowser-2.7.3-bin
-villonanny-2.3.0.b02.bin
-rapidminer-4.4-community
-zk-bin-3.6.1
+Systems hosted in other sites:
 
-From other places:
+\begin{itemize}
+\item ArgoUML-0.28
+\item GEF-0.13-bin
+\item Hl7Comm.1.0.1
+\item IRPF2009v1.1
+\item broker-4.1.5 (OurGrid)
+\item dbwrench
+\item ec2-api-tools
+\item ermodeller-1.9.2-binary
+\item flyingsaucer-R8
+\item gdata-src.java-1.31.1
+\item guice-2.0
+\item gwt-windows-1.6.4
+\item jai-1\_1\_4-pre-dr-b03-lib-linux-i586-08\_Jun\_2009
+\item jakarta-tomcat-5.0.28-embed
+\item juxy-0.8
+\item myjgui\_0.6.6
+\item peer-4.1.5 (OurGrid)
+\item subethasmtp-3.1
+\item thinkui\_sqlclient-1.1.2
+\item worker-4.1.5 (OurGrid)
+\end{itemize}
 
-ArgoUML-0.28
-GEF-0.13-bin
-Hl7Comm.1.0.1
-IRPF2009v1.1
-broker-4.1.5
-dbwrench
-ec2-api-tools
-ermodeller-1.9.2-binary
-flyingsaucer-R8
-gdata-src.java-1.31.1
-guice-2.0
-gwt-windows-1.6.4
-jai-1\_1\_4-pre-dr-b03-lib-linux-i586-08\_Jun\_2009
-jakarta-tomcat-5.0.28-embed
-juxy-0.8
-myjgui\_0.6.6
-peer-4.1.5
-subethasmtp-3.1
-thinkui\_sqlclient-1.1.2
-worker-4.1.5
+\subsection{Networks from Other Domains}
 
-Networks from other domains:
+\begin{itemize}
+\item 5 friendship networks from Facebook \cite{Traud2008};
+\item 3 electronic circuit networks \cite{Milo2004};
+\item 4 word adjacency networks \cite{Milo2004};
+\item 3 protein structure networks \cite{Milo2004};
+\item 2 social networks of positive sentiment \cite{Milo2004};
+\item 43 metabolic networks \cite{Jeong2000};
+\item Protein interaction network for yeast \cite{Jeong2001};
+\item Links between political blogs \cite{Adamic2005};
+\item Neural network of C Elegans \cite{Watts1998};
+\item Network ``beta3sreduced'' (unknown source);
+\item Network ``czech'' (unknown source);
+\item Network ``ecoli-metabolic'' (unknown source).
+\end{itemize}
 
-3 electronic circuit networks (circuit-s208 circuit-s420 circuit-s838)
-\cite{Milo2004}
-
-5 friendship networks (facebook-Caltech36 facebook-Georgetown facebook-Oklahoma
-facebook-Princeton facebook-UNC28) \cite{Traud2008}
-
-4 word adjacency networks (lang-english lang-french lang-japanese lang-spanish)
-\cite{Milo2004}
-
-3 protein structure networks (protein-a4j protein-AOR protein-eaw)
-\cite{Milo2004}
-
-2 social networks of positive sentiment (social-leader social-prison)
-\cite{Milo2004}
-
-43 metabolic networks \cite{Jeong2000}.
-
-Protein interaction network for yeast \cite{Jeong2001}
-
-polblogs \cite{Adamic2005} 
-
-
-beta3sreduced
-celegansneural \cite{Watts1998}
-
-czech
-ecoli-metabolic
