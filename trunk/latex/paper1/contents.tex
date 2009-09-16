@@ -120,9 +120,11 @@ law)
 
 Many models were proposed to explain the formation of scale-free networks. These
 models are simple algorithms that can be proven, either formally or empirically,
-to generate networks that are scale-free. In this section we present three
-models that generate directed networks with built-in modular decomposition:
-BCR+, CGW and LR. 
+to synthesize networks that are scale-free. Most models, though, do not account
+for modular structure, a feature present in some networks, in particular
+software networks. In this section we present three models that generate
+directed networks with built-in modular decomposition: BCR+, CGW and LR. 
+
 %The first two models grow networks using a mechanism called
 %preferential attachment CITE Barabasi, by which nodes with many edges tend to
 %receive more edges in the process.
@@ -134,34 +136,36 @@ BCR+, CGW and LR.
 
 \subsection{BCR+}
 
-The BCR model aims to model the network of hyperlinks between web pages as a
-directed graph without modules \cite{Bollobas2003}. It was proven analitically
-to generate scale-free networks. We have developed an extension to this model,
-called BCR+, that adds modules to the construction of the network. The model
-accepts the following parameters:
+The BCR model \cite{Bollobas2003} aims to model the network of hyperlinks
+between web pages as a directed graph without modules. It was proven
+analitically to generate scale-free networks. We have developed an extension to
+this model, called BCR+, that adds modules to the construction of the network.
+The model accepts the following parameters:
 
 \begin{itemize}
 \item number of vertices, $n$;
 \item a graph, $G$;
 \item three probabilities, $p$, $q$, and $r$, such as $p + q + r = 1$;
 \item a probability, $mu$;
-\item two real numbers, din and dout.
+\item two real numbers, $din$ and $dout$.
 \end{itemize}
 
-In a network with modules, one can define its module dependency graph (MDG) as a
+In a network with modules, one can define a module dependency graph (MDG) as a
 graph where the two following conditions hold: 
 
 \begin{itemize}
 \item each vertex represents a module in the original network; 
-\item there is an edge from M1 to M2 in the MDG only if there is an edge from v1
-to v2 in the original network, where v1 in M1 and v2 in M2.
+\item there is an edge from $M_1$ to $M_2$ in the MDG only if there is an edge
+from $v_1$ to $v_2$ in the original network, where $v_1 \in M_1$ and $v_2 \in
+M_2$.
 \end{itemize}
 
-The BCR+ model generates networks whose MDG is equal to G by adding vertices and
-edges to an initial network until it reaches n vertices. The initial network is
-isomorphic to G: it contains one vertex for each module and one edge for each
-edge in G, connecting vertices whose corresponding modules are are connected.
-Thus, the MDG for the generated network is equal to G from the very beginning.
+The BCR+ model generates networks whose MDG is equal to $G$ by adding vertices
+and edges to an initial network until it reaches $n$ vertices. The initial
+network is isomorphic to $G$: it contains one vertex for each module and one
+edge for each edge in $G$, connecting vertices whose corresponding modules are
+connected. Thus, the MDG for the generated network is equal to $G$ from the very
+beginning.
 
 After that, the algorithm consists of successive applications of one out of
 three operations on the network: (1) adding a vertex with an outgoing edge; (2)
@@ -171,26 +175,34 @@ to the same module or vertices in distinct modules.
 
 The choice of the vertices that will be connected by a new edge, although
 non-deterministic, is not fully random. The probability that a particular vertex
-v is choosen, P(v), is proportional to a function of the in-degree or the
+v is choosen, P($v$), is proportional to a function of the in-degree or the
 out-degree of the node. We say that we choose a vertex within a set of vertices
-S according to a function f if
+$S$ according to a function f if
 
 $$
-  P(choose v) ~=~ \frac{ f(v) }{ \sum_{v \in S, f(v)} }.
+  P(v) ~=~ \frac{ f(v) }{ \sum_{v \in S, f(v)} }.
 $$
 
 The denominator is a normalizing factor that assures that the probabilities sum
 to 1.
 
-Before we present the algorithm in detail, using pseudo-code, we must explain
-some definitions. V is the set of vertices in the network being generated. This
-set grows as the algorithm is executed. Being v a vertex, we define the
-following three functions:
+Before we present the algorithm in detail, using pseudo-code, we must define
+some functions:
+
+%Let V be the set of vertices in the network being generated. This
+%set grows as the algorithm is executed. Being v a vertex, we define the
+%following three functions:
 
 \begin{itemize}
 
-\item out-neighbors(v): the set of all vertices that are connected to the vertex v by an edge
-starting in v.
+\item in-degree(v): the number of edges that enter in the vertex v;
+
+\item out-degree(v): the number of edges that leave the vertex v;
+
+\item module(v): the module to which the vertex v belongs;
+
+\item out-neighbors(v): the set of all vertices that are connected to the vertex
+v by an edge starting in v.
 
 \item same-module(v): the set of all vertices that are in the same module as the
 vertex v, except for v itself and vertices in out-neighbors(v).
@@ -209,11 +221,11 @@ while the number of nodes in the network is less than n:
   choose one of the operations according to probabilities (p, q, r)
   operation 1: (add a vertex with an outgoing edge)
     choose a vertex w within V according to f(x) = din + in-degree(x)
-    add a new vertex, v, to w's module
+    add a new vertex, v, to module(w)
     add an edge from v to w
   operation 2: (add a vertex with an ingoing edge)
     choose a vertex w within V according to f(x) = dout + out-degree(x)
-    add a new vertex, v, to w's module
+    add a new vertex, v, to module(w)
     add an edge from w to v
   operation 3: (add an edge between two existing vertices)
     choose a vertex v within V according to f(x) = dout + out-degree(x)
@@ -227,25 +239,26 @@ while the number of nodes in the network is less than n:
 \end{verbatim}
 \end{figure*}
 
-We can see that the probabilities p, q and r control how often each operation is
-performed. Because the operation associated with probability r does not add any
-vertices, greater values of r imply more edges in the resulting network. It is
-easy to see that nodes connected to many ingoing edges are more likely to get
-another ingoing edge, and the same reasoning can be applied to outgoing edges.
-The parameter din can alleviate the handicap by providing a ``base in-degree''
-that is applied to all vertices when computing the probabilities. Consider
-two vertices, v1 with in-degree 4, and v2 with in-degree 8. If din = 0, v2 is
-twice more likely to receive a new incoming edge; if, otherwise, din = 4, v2 is
-only 3/2 more likely to receive the edge.
+We can see that the probabilities $p$, $q$, and $r$ control how often each
+operation is performed. Because the operation associated with probability $r$
+does not add any vertices, greater values of $r$ imply more edges in the
+resulting network. It is easy to see that nodes connected to many ingoing edges
+are more likely to get another ingoing edge, and the same reasoning can be
+applied to outgoing edges. The parameter $din$ can alleviate the handicap by
+providing a ``base in-degree'' that is applied to all vertices when computing
+the probabilities. Consider two vertices, $v_1$ with in-degree 4, and $v_2$ with
+in-degree 8. If $din = 0$, $v_2$ is twice more likely to receive a new incoming
+edge; if, otherwise, $din = 4$, $v_2$ is only $\frac{3}{2}$ more likely to
+receive the edge.
 
-The parameter mu controls the proportion of edges between vertices in distinct
-modules. Lower values of mu lend to networks that are more modular.
+The parameter $mu$ controls the proportion of edges between vertices in distinct
+modules. Lower values of $mu$ lead to networks with weakly coupled modules.
 
 The BCR+ model is a growth model, meaning that the network is generated vertex
 by vertex, growing from an initial network. It can, therefore, simulate the
 evolution of a software network. Moreover, it can simulate the evolution of a
 software system subject to constraints in module interaction, as is the case
-with top-down design methodologies CITE.
+with top-down system design methodologies CITE.
 
 %* Add a node with ongoing edge. With probability p, a new vertex is added to the network, together with an
 %edge from the new vertex to an existing vertex, chosen preferentially according
@@ -272,43 +285,67 @@ with top-down design methodologies CITE.
 
 \subsection{CGW}
 
-The CGW model was proposed to model the evolution of software systems organized in
-modules. It was proven formally to generate scale-free networks. \cite{Chen2008}
-It accepts the following parameters:
+The CGW model \cite{Chen2008} was proposed to model the evolution of software
+systems organized in modules. It was proven formally to generate scale-free
+networks.  It accepts the following parameters:
 
 \begin{itemize}
 \item Number of vertices, n;
 \item Number of modules, m;
 \item Probabilities p1, p2, p3, p4, summing 1;
 \item Natural numbers e1, e2, e3, e4;
-\item Number alpha, with alpha >= -1
+\item Number alpha, with $alpha \ge -1$
 \end{itemize}
 
 Just like BCR+, this is a growth model. Its initial network is composed of two
 vertices belonging to the same module and a directed edge between them. The
-remaining m - 1 modules are initially empty. Because the original implementation
-of the model is not available, we describe in detail the algorithm we
-implemented:
+remaining $m - 1$ modules are initially empty. 
+
+After that, the algorithm consists of successive applications of one out of four
+operations on the network, which are chosen according to probabilities p1, p2,
+p3, and p4: 
+(1) adding a vertex with e1 outgoing edges; 
+(2) adding e2 edges;
+(3) rewiring e3 edges;
+(4) removing e4 randomly chosen edges.
+
+Whenever an edge is added from a vertex $v$ to a vertex $w$ (operations 1, 2,
+and 3), $v$ is chosen randomly, and $w$ is chosen according to the following
+probability function:
+
+$$
+  P_v(w) ~=~ \frac{ f_v(w) }{ \sum_{w \in S, f_v(w)} },
+$$
+
+where
+
+$$
+f_v(w) = 1 + degree(w) \cdot (1 + \alpha), if module(w) = module(v)
+, 1 + degree(w), otherwise
+$$
+
+Because the original paper did not provide an implementation for the model, we
+now present the pseudo-code for our implementation:
 
 \begin{figure*}
 \begin{verbatim}
 while the network has less than n vertices:
   choose operation (p1, p2, p3, p4)
-  operation 1: (adding a vertex with e1 edges)
+  operation 1: (adding a vertex with e1 outgoing edges)
     create a new vertex v and add it to a randomly chosen module
     do e1 times:
-      choose a vertex w according to mbpa(v)
+      choose a vertex w according to f_v(w)
       add an edge from v to w
   operation 2: (adding e2 edges)
     do e2 times:
       choose a vertex v randomly
-      choose a vertex w according to mbpa(v)
+      choose a vertex w according to f_v(w)
       add edge from v to w
   operation 3: (rewiring e3 edges)
     do e3 times:
       choose a vertex v randomly
       choose an edge e randomly within edges that start in v
-      choose w according to mbpa(v)
+      choose w according to f_v(w)
       remove e
       add an edge from v to w
   operation 3: (removing e4 edges)
@@ -330,19 +367,27 @@ added.
 
 There is also a special version of the model in which the edges weights are
 discarded and the modules are non overlapping. We used the original
-implementation of this version, available at http://. It accepts the following
+implementation of this version, available at
+\url{http://santo.fortunato.googlepages.com/inthepress2}. It accepts the following
 parameters:
 
 \begin{itemize}
-\item number of nodes, n;
-\item average in-degree, k;
-\item maximum in-degree, maxk;
-\item mixing parameter, mu;
-\item exponent for the degree distribution, t1;
-\item exponent for the module size distribution, t2;
-\item minimum module size, minm;
-\item maximum module size, maxm;
+\item number of nodes, $n$;
+\item average in-degree, $k$, with $k < n$;
+\item maximum in-degree, $max_k$, with $max_k \ge k$ and $max_k < n$;
+\item mixing parameter, $\mu$, with $0 \le \mu \le 1$;
+\item minus exponent for the degree distribution, $\gamma$;
+\item minus exponent for the module size distribution, $\beta$;
+\item minimum module size, $min_m$;
+\item maximum module size, $max_m$, with $max_k \ge min_k$;
 \end{itemize}
+
+The sizes of the modules are selected from a power law distribution with
+exponent $-\beta$. The mixing parameter, $\mu$ is the proportion of edges in the
+network that connect vertices from distinct modules. In this model, some
+combinations of parameter values are unfeasible. For example, if $n = 100$ then
+$min_m$ cannot be 60 (otherwise there would be modules smaller than the minimum
+module size).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -455,14 +500,13 @@ networks (X\%) had a S-score lower than 0.83, which is the lowest S-score for
 software networks in the sample. Some social networks even showed negative
 S-score, meaning that they are very different from software networks.
 
-Two networks, though, showed high S-score, above 0.83. The network polblogs,
-showing links between blogs on politics, showed S-score 0.97. The neural network
-of the worm C.  Elegans also showed a high S-score (0.88). Further investigation
-is needed in order to discover the reasons behind these high S-scores and
-whether auxiliary metrics can differentiate these networks from software
-networks.
+Two networks, though, showed high S-score, above 0.83. The network of links
+between blogs on politics showed S-score 0.97. The neural network of the worm
+C. Elegans also showed a high S-score (0.88). Further investigation is needed
+in order to discover the reasons behind these high S-scores and whether
+auxiliary metrics can differentiate these networks from software networks.
 
-\subsection{A Network Classification Model}
+\subsection{A Network Classification Model} \label{sec:classmodel}
 
 Although the S-score of a network tells how close it is from software networks,
 it does not tell whether a network is close enough that it can be considered
@@ -481,31 +525,35 @@ networks that were classified by the model as software-like. The precision of
 the model is
 
 $$
-precision: \frac{S \cap L}{L}
+\mathrm{precision}: ~\frac{S \cap L}{L},
 $$
 
 and the recall is
 
 $$
-recall: \frac{S \cap L}{S}
+\mathrm{recall}: ~\frac{S \cap L}{S}.
 $$
 
 Increasing the threshold has the effect of reducing the recall, because fewer
 software networks are classified as software-like. Decreasing the threshold has
-the effect of reducing the precision, since many non-software networks are
+the effect of reducing the precision, since more non-software networks are
 classified as software-like. 
 
 The choice of a proper threshold, thus, depends on whether it is more important
-to have high precision of high recall. Because our research hypothesis is that
+to have high precision or high recall. Because our research hypothesis is that
 networks synthesized by the presented models are software-like, higher precision
 means a stronger test, as fewer networks are classified as software-like.
 
 To get 100\% precision, the threshold needs to be 0.98, so the non-software
 network with highest S-score is below the threshold. The recall in this case,
-though, would be X\%, which is too low, meaning the most software networks are
-misclassified. So we chose the value 0.88, that is immediatly greater than the
-second greater non-software network S-score. With this value, we have both a
-high recall (X\%) and a high precision (X\%).
+though, would be too low, because most software networks would be misclassified.
+So we chose the value 0.88, that is immediatly greater than the second greater
+non-software network S-score. With this value, we have both a high recall
+(95.4\%) and a high precision (96.9\%).
+
+%threshold 0.88: 2/66 non-sw misclassified, 3/65 sw misclassified
+%precision: 62 / 64
+%recall: 62 / 65
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -522,8 +570,8 @@ indistinguishable from software networks.
 
 The experiment consists of synthesizing networks using many combinations of
 parameters from the three models, and then classifying each network as
-software-like or non software-like. After that, we build a classification model
-for each model, based on model parameters.
+software-like or non software-like. After that, we present rules for the choice
+of parameter values that lead to software-like networks.
 
 \subsection{Synthetic Data Set}
 
@@ -536,61 +584,32 @@ model.
 
 \subsection{BCR+ networks}
 
-We have chosen five different module dependency networks, which where extracted
+We have chosen five different module dependency graphs, which where extracted
 from actual dependencies between archives of five different software systems of
-our sample. The module dependency networks are shown on Figure
-\ref{fig:architectures}. 
+our sample: GEF (2 archives), iBATIS (4 archives), MegaMek (8 archives),
+findbugs (16 archives), and zk (32 archives). 
+%The module dependency networks are shown on Figure \ref{fig:architectures}. 
+%\begin{figure*}[!t]
+%\centering
+%\includegraphics[width=1.0\textwidth]{architectures}
+%\caption{Module dependency graphs}
+%\label{fig:architectures}
+%\end{figure*}
 
-\begin{figure*}[!t]
-\centering
-\includegraphics[width=1.0\textwidth]{architectures}
-\caption{Module dependency graphs}
-\label{fig:architectures}
-\end{figure*}
-
-%02-gef
-%04-ibatis
-%08-megamek
-%16-findbugs
-%32-zk
-
-The probabilities p, q and r were given all possible values from 0.0 up to 1.0,
-in 0.2 steps, such as the sum of the probabilities was 1. Since the only events
-that create vertices are those associated with probabilities p and q, we imposed
-the additional restriction that $p + q > 0$.
-
-For deltain and deltaout we assigned integer numbers ranging from 0 to 4. TODO: why
-
-Finally, we chose mu from 0.0 to 0.6 in 0.2 steps. It does not make sense to
-choose higher values since they mean that there will be more edges connecting
-different modules.
-
-In total, 9,500 networks were synthesized.
-
-\subsection{LF networks}
-
-Like BCR+, we choose mu ranging from 0.0 to 0.6 in 0.2 steps. For the remaining
-parameters, the following values were used:
+For the remaining parameters, the following values were given:
 
 \begin{itemize}
-  \item t1 in 2.18, 2.70, 3.35 (degree exponent distribution)
-  \item t2 in 0.76, 0.99, 1.58
-  \item k in 5, 10, 15, 25 
-  \item maxk in 58, 157, 482
-  \item minc 1, 10, 273
+\item $p, q, r \in {0.0, 0.2, 0.4, 0.6, 0.8, 1.0}$, with $p + q + r = 1$ and $p
++ q > 0$;
+\item $din, dout \in {0, 1, 2, 3, 4}$;
+\item $\mu in {0.0, 0.2, 0.4, 0.6}$.
 \end{itemize}
 
-In order to choose these values, we analyzed software networks from our sample
-with approximately 500 to 2,000 nodes, so no network was much bigger or much
-smaller than the synthetic networks. We computed the exponents for the degree
-and module size distributions using KOLMOGOROV-SMIRNOV, GOODNESS-OF-FIT., and
-then chose the minimum, median and maximum values. For k, maxk, minc the values
-extracted from the network were divided by the number of nodes in the network
-and then multiplied by 1000. For maxk and minc we chose the minimum, median and
-maximum values. For k .... The parameter maxc was left unbound to avoid
-impossible combinations of minc, maxc, and t2.
+We chose $p + q > 0$ because otherwise no node would be created by the model
+after the creation of the initial network. We also avoided large values for
+$\mu$ in order to ignore networks with highly-coupled modules. 
 
-In total, 1,296 networks where synthesized.
+In total, 9,500 BCR+ networks were synthesized.
 
 \subsection{CGW networks}
 
@@ -604,24 +623,61 @@ The parameters values were chosen as such:
 \item number of modules: $m \in {2, 4, 8, 16, 32}$.
 \end{itemize}
 
-Notice that ei has no effect when pi is zero; in this case ei was just set to
-zero.
+Notice that $e_i$ has no effect when $p_i = 0$; in this case $e_i$ was just set
+to zero.
 
-In total, 38,790 networks were synthesized.
+In total, 38,790 CGW networks were synthesized.
+
+\subsection{LF networks}
+
+The following values were chosen:
+
+\begin{itemize}
+  \item $\mu in {0.0, 0.2, 0.4, 0.6}$;
+  \item degree exponent distribution: $\gamma \in {2.18, 2.70, 3.35}$;
+  \item module size distribution: $\beta \in {0.76, 0.99, 1.58}$;
+  \item average degree: $k \in {5, 10, 15, 25}$;
+  \item maximum degree: $max_k \in {58, 157, 482}$;
+  \item minimum module size: $min_m \in {1, 10, 273}$.
+\end{itemize}
+
+In order to choose these values, we analyzed software networks from our sample
+with approximately 500 to 2,000 nodes, so no network was much bigger or much
+smaller than the synthetic networks. We computed the exponents for the degree
+and module size distributions using the maximum likelihood estimation method
+CITE-NEWMAN, and then chose the minimum, median and maximum values. For $k$,
+$maxk$, and $min_m$, the values extracted from the software networks were
+divided by the number of nodes in the network and then multiplied by 1000. We
+then selected the minimum, median and maximum values. The parameter $max_m$ was
+left unbound to avoid impossible combinations of parameters.
+
+In total, 1,296 LF networks where synthesized.
 
 \subsection{Results}
 % This subsection needn't to be big. It's just numbers.
 
 Each synthesized network was classified as software-like or non software-like,
-using the classification model presented in section XXX. The results are
-summarized in Table X. 
+using the classification model presented in section \ref{sec:classmodel}. The
+results are summarized in Table \ref{tab:results}. 
 
 \begin{table}
-Table: Model | Realistic Networks | Percent \%
+\caption{Results for the classification of synthetic networks}
+Table: Model | Networks classified as software-like
+\begin{tabular}{ l | r }
+\hline
+Model & Networks classified as software-like \\
+\hline \\
+\hline
+BCR+ & 21.18\% \\ % 2012 / 9500
+CGW  & 19.40\% \\  % 7524 / 38790
+LF   & 31.25\% \\ %  405 / 1296
+\hline
+\end{tabular}
+\label{tab:results}
 \end{table}
 
 All models synthesized both software-like and non software-like networks. The
-proportion of software-like networks was greater than X\% for all models,
+proportion of software-like networks was greater than 19\% for all models,
 discarding the possibility that this result was obtained by pure chance.
 
 %Show some graphs: histogram of average correlations for each model.
@@ -648,9 +704,67 @@ The algorithm 1R from data mining was used to help discover such relationship.
 It analyzes the parameters and the classification of each network and finds a
 rule that relates the value of one single parameter with the classification. We
 are interested in rules for networks classified as software-like and in the
-precision of these rules. The rules found by 1R are shown in Table X.
+accuracy of these rules, i.e., the proportion of networks that are correctly
+classified. The rules found by 1R are shown in Table \ref{tab:rules}.
 
-Model | Rule | Precision
+\begin{table}
+\caption{Rules for predicting the classification of a synthetic network. S
+stands for software-like and N stands for non software like.}
+Table: Model | Networks classified as software-like
+\begin{tabular}{ l | r }
+\hline
+Model & Rule & Accuracy \\
+\hline \\
+\hline
+\multirow{2}{*}{BCR+}
+     & $\alpha \ge 0.7 \Rightarrow S$ & \multirow{2}{*}{82.4\%}  \\ 
+     & $\alpha < 0.7 \Rightarrow N$ & \\ 
+
+CGW  & $p_1 \ge 0.5 \Rightarrow S$ & 82.3\% \\  
+     & $p_1 < 0.5 \Rightarrow N$ & \\  
+
+LF   & $\gamma \ge 2.44$ & 78.9\% \\ 
+     & $\gamma \ge 2.44$ &  \\ 
+\hline
+\end{tabular}
+\label{tab:rules}
+\end{table}
+
+== LF ==
+degexp
+        < 2.4400000000000004    ->
+        >= 2.4400000000000004   -> *
+        (1023/1296 instances correct) (78.9352%)
+
+(removendo parametro degexp:)
+maxk:
+        < 319.5 -> *
+        >= 319.5        ->
+        (957/1296 instances correct) (73.8426%)
+
+== BCR ==
+alpha:
+        < 0.7   -> *
+        >= 0.7  ->
+        (7832/9500 instances correct) (82.4421%)
+
+(removendo parametro alpha:)
+gamma:
+        < 0.1   ->
+        >= 0.1  -> *
+        (7564/9500 instances correct) (79.6211%)
+
+
+== CGW (C++) ==
+p1:
+        < 0.5   -> *
+        >= 0.5  ->
+        (31920/38790 instances correct) (82.2892%)
+
+(removendo parametro p1:)
+dá uma resposta sem sentido
+
+
 
 Despite its simplicity, 1R found rules with high precision. These rules allow
 one to know if a particular combination of parameter values is likely to lead to
