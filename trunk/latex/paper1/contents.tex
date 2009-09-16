@@ -21,41 +21,50 @@ they produce are from artifacts from real software systems.
 %
 % (needn't be large)
 
-One of the challenges of software engineering is the reduction of the time
-needed to develop or maintain a software system. In
+One of the most obvious ways to reduce the time needed to develop or maintain a
+software system is to assign more developers to it. When combined with poor
+management, though, adding developers may in fact raise the development time,
+due to the increasing communication cost between developers \cite{Brooks1995}.
+Poor management may result in developers working on overlapping tasks, writing
+duplicated code, and inadvertently breaking the code written by another
+developer.
 
-\cite{Brooks1995}
+%The development and maintenance of large software systems is a big challenge for
+%software engineering \cite{Northrop2006}. In order to reduce the development
+%time of such a system, a tempting idea is to assign more developers for the
+%project. 
 
-The development and maintenance of large software systems is a big challenge for
-software engineering \cite{Northrop2006}. In order to reduce the development
-time of such a system, a tempting idea is to assign more developers for the
-project. 
+In order to take advantage of a team of developers, therefore, a key issue is
+the ability to decompose a system into weakly coupled modules, so that each
+module is maintained by a distinct group of developers \cite{Parnas1972}.
+Because of the weak coupling between modules, the need for communication between
+groups of developers is reduced, and so is the development time.
+ 
+The ability of decomposing a system into modules depends on global knowledge
+about how its implementation components (i.e., functions, classes, variables)
+interact. Often, specially in legacy systems, this information is not readily
+available. Instead, it must be extracted from the system's source code. Even
+then the task of finding modules may be overwhelming because of the large number
+of components.
 
-Because of communication costs between
-developers, adding more developers to a project 
+The task can be made easier by the use of software clustering algorithms. The
+algorithms, also known as architecture recovery algorithms \cite{Pollet2007},
+automatically decompose a software system into weakly coupled modules. Often
+this is accomplished by analyzing the network of dependencies between components
+of a software system.
 
-Adding more developers to a software
-project does not
+% sw clustering is a task of reverse engineering \cite{Tonella2007}.
 
-A key to success is the ability to decompose a system into weakly-coupled
-modules, so each module can be independently maintained by a distinct team.
-Failing to do so results in duplicated code, non-parallelism, one's work
-impacting another's work etc.
+An important quality criterion for software clustering algorithms is their
+ability to find decompositions similar to reference decompositions find by
+experienced developers. 
+% adoption, choice of algorithm 
 
-The ability do modularize depends decisively on a vast knowledge about the
-system, how its different parts interact to accomplish the system's goal.
+%called authoritativeness \cite{Anquetil1999},
 
-Unfortunately, in the case of legacy systems, such knowledge isn't available.
-Depending on its size, it might take months to understand the system so well as
-to find a good modularization. XXX \cite{Parnas1972}
-
-POR ISSO SURGIRAM software clustering algorithms, also known as software
-architecture recovery algorithms \cite{Pollet2007}. In its most common flavor,
-these algorithms analyze the dependencies between implementation components,
-such as classes, and then group them into modules such as there are few
-dependencies between classes in distinct modules. 
-
-TODO: sw clustering is a task of reverse engineering \cite{Tonella2007}.
+A central issue is whether the modules found by software clustering algorithms
+for a system are similar to modules that would be found by an experienced
+developer. 
 
 Software modularization recovery algorithms can, therefore, do in minutes what a
 person would spend weeks or months. The question is: are the found
@@ -66,12 +75,13 @@ with known reference modularizations.
 The empirical evaluations consist of selecting a collection of systems with
 known reference modularizations and then applying the algorithms to the systems.
 The modularizations found by the algorithms are then compared to the reference
-decompositions by a metric such as MoJo \cite{Tzerpos1999} or PrecisionRecall.
+decompositions by a metric such as MoJo \cite{Tzerpos1999} and EdgeSim
+\cite{Mitchell2001}.
 
   \begin{figure*}[!t]
   \centering
   \includegraphics[width=1.0\textwidth]{diagram}
-  \caption{Evaluation of a software modularization recovery algorithm}
+  \caption{Evaluation of a software clustering recovery algorithm}
   \label{fig:diagram}
   \end{figure*}
 
