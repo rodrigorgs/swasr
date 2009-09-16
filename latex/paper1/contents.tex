@@ -14,12 +14,33 @@ they produce are from artifacts from real software systems.
 
 \section{Introduction}
 
-Development of large-scale software systems is a challenge. \cite{Northrop2006}
+%   I want less time, so I hire more programmers
+%   Thee project can consume more time, due to comunication costs between
+% programmers.
+%   Unless there is a good division of tasks
+%
+% (needn't be large)
+
+One of the challenges of software engineering is the reduction of the time
+needed to develop or maintain a software system. In
+
+\cite{Brooks1995}
+
+The development and maintenance of large software systems is a big challenge for
+software engineering \cite{Northrop2006}. In order to reduce the development
+time of such a system, a tempting idea is to assign more developers for the
+project. 
+
+Because of communication costs between
+developers, adding more developers to a project 
+
+Adding more developers to a software
+project does not
 
 A key to success is the ability to decompose a system into weakly-coupled
-modules, so each module can be developed by a distinct team. Failing to do so
-results in duplicated code, non-parallelism, one's work impacting another's work
-etc.
+modules, so each module can be independently maintained by a distinct team.
+Failing to do so results in duplicated code, non-parallelism, one's work
+impacting another's work etc.
 
 The ability do modularize depends decisively on a vast knowledge about the
 system, how its different parts interact to accomplish the system's goal.
@@ -28,12 +49,11 @@ Unfortunately, in the case of legacy systems, such knowledge isn't available.
 Depending on its size, it might take months to understand the system so well as
 to find a good modularization. XXX \cite{Parnas1972}
 
-POR ISSO SURGIRAM software modularization recovery algorithms, also known as
-software clustering algorithms or software architecture recovery algorithms. In
-its most common flavor, these algorithms analyze the dependencies between
-implementation components, such as classes, and then group them into modules
-such as there are few dependencies between classes in distinct modules.
-\cite{Pollet2007}
+POR ISSO SURGIRAM software clustering algorithms, also known as software
+architecture recovery algorithms \cite{Pollet2007}. In its most common flavor,
+these algorithms analyze the dependencies between implementation components,
+such as classes, and then group them into modules such as there are few
+dependencies between classes in distinct modules. 
 
 TODO: sw clustering is a task of reverse engineering \cite{Tonella2007}.
 
@@ -55,8 +75,6 @@ decompositions by a metric such as MoJo \cite{Tzerpos1999} or PrecisionRecall.
   \label{fig:diagram}
   \end{figure*}
 
-% TODO: diagram showing the evaluation of a clustering algorithm
-
 Unfortunately there are few systems with known reference modularizations and,
 because it is costly to obtain reference modularizations, there are few
 empirical studies, and most of them consider a couple of small and medium
@@ -70,11 +88,10 @@ modularizations that are similar to the reference modularization embedded in the
 network. With this approach we can CONTAR COM a large volume of test data that
 is composed of networks of different sizes and controllable characteristics.
 
-Of course the success of this approach depends on the realism of the synthetic
-networks, ie, how well they resemble networks extracted from real software
-systems. In this paper we study three models and show that all of them are, by
-means of a careful parameter choosing, capable of producing realistic software
-networks.
+Of course the success of this approach depends on the similarity between
+synthetic networks and networks extracted from real software systems. In this
+paper we study three models and show that all of them, by means of a careful
+choice of parameter values, are capable of producing software-like networks.
 
 The remaining sections are organized as follows. .... Section 2, ...
 
@@ -600,15 +617,15 @@ findbugs (16 archives), and zk (32 archives).
 For the remaining parameters, the following values were given:
 
 \begin{itemize}
-\item $p, q, r \in {0.0, 0.2, 0.4, 0.6, 0.8, 1.0}$, with $p + q + r = 1$ and $p
-+ q > 0$;
-\item $din, dout \in {0, 1, 2, 3, 4}$;
-\item $\mu in {0.0, 0.2, 0.4, 0.6}$.
+\item $p, q, r \in \{0.0, 0.2, 0.4, 0.6, 0.8, 1.0\}$, with $p + q + r = 1$ and
+$p + q > 0$;
+\item $din, dout \in \{0, 1, 2, 3, 4\}$;
+\item $\mu \in \{0.0, 0.2, 0.4, 0.6\}$.
 \end{itemize}
 
-We chose $p + q > 0$ because otherwise no node would be created by the model
-after the creation of the initial network. We also avoided large values for
-$\mu$ in order to ignore networks with highly-coupled modules. 
+We chose $p + q > 0$ because otherwise no node would be added after the
+creation of the initial network. We also avoided large values for $\mu$ in
+order to ignore networks with highly-coupled modules. 
 
 In total, 9,500 BCR+ networks were synthesized.
 
@@ -617,11 +634,11 @@ In total, 9,500 BCR+ networks were synthesized.
 The parameters values were chosen as such:
 
 \begin{itemize}
-\item $p1, p2, p3, p4 \in {0.0, 0.2, 0.4, 0.6, 0.8, 1.0}$, with $p1 > 0$ and $p1
-  + p2 + p3 + p4 = 1$;
-\item $e1, e2, e3, e4 \in {1, 2, 4, 8}$;
-\item $\alpha \in {-1, 0, 1, 10, 100, 1000}$;
-\item number of modules: $m \in {2, 4, 8, 16, 32}$.
+\item $p1, p2, p3, p4 \in \{0.0, 0.2, 0.4, 0.6, 0.8, 1.0\}$, with $p1 > 0$ and
+$p1 + p2 + p3 + p4 = 1$;
+\item $e1, e2, e3, e4 \in \{1, 2, 4, 8\}$;
+\item $\alpha \in \{-1, 0, 1, 10, 100, 1000\}$;
+\item number of modules: $m \in \{2, 4, 8, 16, 32\}$.
 \end{itemize}
 
 Notice that $e_i$ has no effect when $p_i = 0$; in this case $e_i$ was just set
@@ -634,20 +651,20 @@ In total, 38,790 CGW networks were synthesized.
 The following values were chosen:
 
 \begin{itemize}
-  \item $\mu in {0.0, 0.2, 0.4, 0.6}$;
-  \item degree exponent distribution: $\gamma \in {2.18, 2.70, 3.35}$;
-  \item module size distribution: $\beta \in {0.76, 0.99, 1.58}$;
-  \item average degree: $k \in {5, 10, 15, 25}$;
-  \item maximum degree: $max_k \in {58, 157, 482}$;
-  \item minimum module size: $min_m \in {1, 10, 273}$.
+  \item mixing parameter: $\mu \in \{0.0, 0.2, 0.4, 0.6\}$;
+  \item degree exponent distribution: $\gamma \in \{2.18, 2.70, 3.35\}$;
+  \item module size distribution: $\beta \in \{0.76, 0.99, 1.58\}$;
+  \item average degree: $k \in \{5, 10, 15, 25\}$;
+  \item maximum degree: $max_k \in \{58, 157, 482\}$;
+  \item minimum module size: $min_m \in \{1, 10, 273\}$.
 \end{itemize}
 
 In order to choose these values, we analyzed software networks from our sample
 with approximately 500 to 2,000 nodes, so no network was much bigger or much
 smaller than the synthetic networks. We computed the exponents for the degree
 and module size distributions using the maximum likelihood estimation method
-CITE-NEWMAN, and then chose the minimum, median and maximum values. For $k$,
-$maxk$, and $min_m$, the values extracted from the software networks were
+\cite{Clauset2007}, and then chose the minimum, median and maximum values. For
+$k$, $maxk$, and $min_m$, the values extracted from the software networks were
 divided by the number of nodes in the network and then multiplied by 1000. We
 then selected the minimum, median and maximum values. The parameter $max_m$ was
 left unbound to avoid impossible combinations of parameters.
@@ -663,14 +680,16 @@ results are summarized in Table \ref{tab:results}.
 
 \begin{table}
 \caption{Results for the classification of synthetic networks}
-Table: Model | Networks classified as software-like
-\begin{tabular}{ l | l }
+\centering
+\begin{tabular}{|l|l|}
 \hline
 Model & Networks classified as software-like \\
-\hline \\
+\hline 
 \hline
 BCR+ & 21.18\% \\ % 2012 / 9500
+\hline
 CGW  & 19.40\% \\  % 7524 / 38790
+\hline
 LF   & 31.25\% \\ %  405 / 1296
 \hline
 \end{tabular}
@@ -711,11 +730,11 @@ classified. The rules found by 1R are shown in Table \ref{tab:rules}.
 \begin{table}
 \caption{Rules for predicting the classification of a synthetic network. S
 stands for software-like and N stands for non software like.}
-Table: Model | Networks classified as software-like
-\begin{tabular}{ l | l | l }
+\centering
+\begin{tabular}{|l|l|l|}
 \hline
 Model & Rule & Accuracy \\
-\hline \\
+\hline 
 \hline
 \multirow{2}{*}{BCR+}
      & $\alpha \ge 0.7 \Rightarrow S$ & \multirow{2}{*}{82.4\%}  \\ 
@@ -726,8 +745,8 @@ Model & Rule & Accuracy \\
      & $p_1 < 0.5 \Rightarrow N$ & \\  
 \hline
 \multirow{2}{*}{LF}   
-     & $\gamma \ge 2.44$ & \multirow{2}{*}{78.9\%} \\ 
-     & $\gamma \ge 2.44$ &  \\ 
+     & $\gamma \ge 2.44 \Rightarrow S$ & \multirow{2}{*}{78.9\%} \\ 
+     & $\gamma < 2.44 \Rightarrow N$ & \\ 
 \hline
 \end{tabular}
 \label{tab:rules}
