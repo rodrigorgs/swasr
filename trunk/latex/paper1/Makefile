@@ -17,7 +17,8 @@ view: $(SOURCEDOCUMENT).pdf
 fast: $(SOURCEDOCUMENT).tex $(CAPITULOS) $(BIBS) $(GRAPHICS) 
 	pdflatex $<
 
-$(SOURCEDOCUMENT).pdf: $(SOURCEDOCUMENT).tex $(CAPITULOS) $(BIBS) $(GRAPHICS) 
+#$(BIBS) $(GRAPHICS) 
+$(SOURCEDOCUMENT).pdf: $(SOURCEDOCUMENT).tex $(CAPITULOS) 
 	pdflatex $< && \
 	bibtex $(SOURCEDOCUMENT) && \
 	pdflatex $< && \
