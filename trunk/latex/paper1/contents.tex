@@ -1,9 +1,12 @@
+\newcommand{\din}[0]{\ensuremath{\delta_{in}}}
+\newcommand{\dout}[0]{\ensuremath{\delta_{out}}}
+
 % TODO: CITACAO DEPOIS DO CONCEITO
 In the context of our research, we consider classes as the components
 
 \section{Abstract}
 
-Software modularization recovery algorithms automatically recognize a system's
+Software clustering algorithms automatically recognize a system's
 modular structure by analyzing its implementation.
 Due to the lack of well document software systems, though, the issue of testing
 these algorithms is still underexplored, limiting both their adoption in the
@@ -62,10 +65,11 @@ by applying it to a sample of systems with known reference decompositions, and
 then compare the two decompositions for each system by means of a metric such as
 MoJo \cite{Tzerpos1999} and EdgeSim \cite{Mitchell2001}.
 
-Unfortunately there are few systems with known reference modularizations.
-Furthermore, because it is costly to obtain reference modularizations
+Unfortunately there are few systems with known reference decompositions.
+Furthermore, because it is costly to obtain reference decompositions
 \cite{Koschke2000}, there are few empirical studies about software clustering
-algorithms, most of them based on a couple of small and medium systems.
+algorithms, most of them based on a couple of small and medium systems
+\cite{Anquetil1999,Maqbool2007,Bittencourt2009}.
 
 %  \begin{figure*}[!t]
 %  \centering
@@ -142,7 +146,7 @@ Many models were proposed to explain the formation of scale-free networks. These
 models are simple algorithms that can be proven, either formally or empirically,
 to synthesize networks that are scale-free. Most models, though, do not account
 for modular structure, a feature present in some networks, in particular
-software networks. In this section we present three models that generate
+software networks. In this section we present three models that synthesize
 directed networks with built-in modular decompositions: BCR+, CGW and LR. 
 
 %The first two models grow networks using a mechanism called
@@ -157,17 +161,16 @@ directed networks with built-in modular decompositions: BCR+, CGW and LR.
 \subsection{BCR+}
 
 The BCR model \cite{Bollobas2003} aims to model the network of hyperlinks
-between web pages as a directed graph without modules. It was proven
-analitically to generate scale-free networks. We have developed an extension to
-this model, called BCR+, that adds modules to the construction of the network.
-The model accepts the following parameters:
+between web pages as a directed graph without modules. We have developed an
+extension to this model, called BCR+, that adds modules to the construction of
+the network. The model accepts the following parameters:
 
 \begin{itemize}
 \item number of vertices, $n$;
 \item a graph, $G$;
 \item three probabilities, $p$, $q$, and $r$, such as $p + q + r = 1$;
 \item a probability, $mu$;
-\item two real numbers, $din$ and $dout$.
+\item two real numbers, $\din$ and $\dout$.
 \end{itemize}
 
 In a network with modules, one can define a module dependency graph (MDG) as a
@@ -180,7 +183,7 @@ from $v_1$ to $v_2$ in the original network, where $v_1 \in M_1$ and $v_2 \in
 M_2$.
 \end{itemize}
 
-The BCR+ model generates networks whose MDG is equal to $G$ by adding vertices
+The BCR+ model synthesizes networks whose MDG is equal to $G$ by adding vertices
 and edges to an initial network until it reaches $n$ vertices. The initial
 network is isomorphic to $G$: it contains one vertex for each module and one
 edge for each edge in $G$, connecting vertices whose corresponding modules are
@@ -200,7 +203,7 @@ out-degree of the node. We say that we choose a vertex within a set of vertices
 $S$ according to a function f if
 
 $$
-  P(v) ~=~ \frac{ f(v) }{ \sum_{v \in S, f(v)} }.
+  P(v) ~=~ \frac{ \mathrm{f}(v) }{ \displaystyle\sum_{v \in S} \mathrm{f}(v) }.
 $$
 
 The denominator is a normalizing factor that assures that the probabilities sum
@@ -215,21 +218,21 @@ some functions:
 
 \begin{itemize}
 
-\item in-degree(v): the number of edges that enter in the vertex v;
+\item \textbf{in-degree(v)}: the number of edges that enter the vertex v;
 
-\item out-degree(v): the number of edges that leave the vertex v;
+\item \textbf{out-degree(v)}: the number of edges that leave the vertex v;
 
-\item module(v): the module to which the vertex v belongs;
+\item \textbf{module(v)}: the module to which the vertex v belongs;
 
-\item out-neighbors(v): the set of all vertices that are connected to the vertex
-v by an edge starting in v.
+\item \textbf{out-neighbors(v)}: the set of all vertices that are connected to
+the vertex v by an edge starting in v.
 
-\item same-module(v): the set of all vertices that are in the same module as the
-vertex v, except for v itself and vertices in out-neighbors(v).
+\item \textbf{same-module(v)}: the set of all vertices that are in the same
+module as the vertex v, except for v itself and vertices in out-neighbors(v).
 
-\item other\_modules(v): the set of all vertices that are in modules that are
-connected to v's module (in the graph G) by an edge starting in v's module,
-except for vertices in out-neighbors(v).
+\item \textbf{other\_modules(v)}: the set of all vertices that are in modules
+that are connected to v's module (in the graph G) by an edge starting in v's
+module, except for vertices in out-neighbors(v).
 
 \end{itemize}
 
@@ -263,19 +266,18 @@ We can see that the probabilities $p$, $q$, and $r$ control how often each
 operation is performed. Because the operation associated with probability $r$
 does not add any vertices, greater values of $r$ imply more edges in the
 resulting network. It is easy to see that nodes connected to many ingoing edges
-are more likely to get another ingoing edge, and the same reasoning can be
-applied to outgoing edges. The parameter $din$ can alleviate the handicap by
-providing a ``base in-degree'' that is applied to all vertices when computing
-the probabilities. Consider two vertices, $v_1$ with in-degree 4, and $v_2$ with
-in-degree 8. If $din = 0$, $v_2$ is twice more likely to receive a new incoming
-edge; if, otherwise, $din = 4$, $v_2$ is only $\frac{3}{2}$ more likely to
-receive the edge.
+are more likely to get another ingoing edge. The parameter $\din$ can alleviate
+the handicap by providing a ``base in-degree'' that is applied to all vertices
+when computing the probabilities. Consider two vertices, $v_1$ with in-degree 4,
+and $v_2$ with in-degree 8. If $\din = 0$, $v_2$ is twice more likely to receive
+a new incoming edge; if, otherwise, $d\in = 4$, $v_2$ is only $\frac{3}{2}$ more
+likely to receive the edge. The same reasoning applies to $\dout$.
 
 The parameter $mu$ controls the proportion of edges between vertices in distinct
 modules. Lower values of $mu$ lead to networks with weakly coupled modules.
 
-The BCR+ model is a growth model, meaning that the network is generated vertex
-by vertex, growing from an initial network. It can, therefore, simulate the
+The BCR+ model is a growth model, meaning that the network is created vertex by
+vertex, growing from an initial network. It can, therefore, simulate the
 evolution of a software network. Moreover, it can simulate the evolution of a
 software system subject to constraints in module interaction, as is the case
 with top-down system design methodologies CITE.
@@ -306,14 +308,13 @@ with top-down system design methodologies CITE.
 \subsection{CGW}
 
 The CGW model \cite{Chen2008} was proposed to model the evolution of software
-systems organized in modules. It was proven formally to generate scale-free
-networks.  It accepts the following parameters:
+systems organized in modules. It accepts the following parameters:
 
 \begin{itemize}
 \item Number of vertices, n;
 \item Number of modules, m;
-\item Probabilities p1, p2, p3, p4, summing 1;
-\item Natural numbers e1, e2, e3, e4;
+\item Probabilities $p_1, p_2, p_3, p_4$, summing to 1;
+\item Natural numbers $e_1, e_2, e_3, e_4$;
 \item Constant $\alpha$, with $\alpha \ge -1$
 \end{itemize}
 
@@ -322,19 +323,19 @@ vertices belonging to the same module and a directed edge between them. The
 remaining $m - 1$ modules are initially empty. 
 
 After that, the algorithm consists of successive applications of one out of four
-operations on the network, which are chosen according to probabilities p1, p2,
-p3, and p4: 
-(1) adding a vertex with e1 outgoing edges; 
-(2) adding e2 edges;
-(3) rewiring e3 edges;
-(4) removing e4 randomly chosen edges.
+operations on the network, which are chosen according to probabilities $p_1, p_2,
+p_3, and p_4$: 
+(1) adding a vertex with $e_1$ outgoing edges; 
+(2) adding $e_2$ edges;
+(3) rewiring $e_3$ edges;
+(4) removing $e_4$ randomly chosen edges.
 
 Whenever an edge is added from a vertex $v$ to a vertex $w$ (operations 1, 2,
 and 3), $v$ is chosen randomly, and $w$ is chosen according to the following
 probability function:
 
 $$
-  P_v(w) ~=~ \frac{ f_v(w) }{ \sum_{w \in S, f_v(w)} },
+  P_v(w) ~=~ \frac{ f_v(w) }{ \displaystyle\sum_{w \in S, f_v(w)} },
 $$
 
 where
@@ -350,33 +351,40 @@ f_v(w) = \left\{
 \right.
 $$
 
+The constant $\alpha$ controls the proportion of edges that connect vertices
+from distinct modules. For $\alpha = -1$, most edges will connect distinct
+modules. For $\alpha > 0$, most edges will connect vertices in the same module,
+and the greater the $\alpha$, more strong is the tendency. For $\alpha = 0$
+there is no bias, the two kinds of edges are equaly likely.
+
 Because the original paper did not provide an implementation for the model, we
 now present the pseudo-code for our implementation:
 
 \begin{figure*}
 \begin{verbatim}
-while the network has less than n vertices:
-  choose operation (p1, p2, p3, p4)
   operation 1: (adding a vertex with e1 outgoing edges)
     create a new vertex v and add it to a randomly chosen module
-    do e1 times:
-      choose a vertex w according to f_v(w)
+    repeat e1 times:
+      choose a vertex w according to f\_v(w)
       add an edge from v to w
+
   operation 2: (adding e2 edges)
-    do e2 times:
+    repeat e2 times:
       choose a vertex v randomly
-      choose a vertex w according to f_v(w)
+      choose a vertex w according to f\_v(w)
       add edge from v to w
+
   operation 3: (rewiring e3 edges)
-    do e3 times:
+    repeat e3 times:
       choose a vertex v randomly
       choose an edge e randomly within edges that start in v
-      choose w according to f_v(w)
+      choose w according to f\_v(w)
       remove e
       add an edge from v to w
+
   operation 3: (removing e4 edges)
-    do e4 times:
-      remove and randomly chosen edge
+    repeat e4 times:
+      remove a randomly chosen edge
 \end{verbatim}
 \end{figure*}
 
@@ -400,12 +408,12 @@ parameters:
 \begin{itemize}
 \item number of nodes, $n$;
 \item average in-degree, $k$, with $k < n$;
-\item maximum in-degree, $max_k$, with $max_k \ge k$ and $max_k < n$;
+\item maximum in-degree, $max_k$, with $k \le max_k < n$;
 \item mixing parameter, $\mu$, with $0 \le \mu \le 1$;
 \item minus exponent for the degree distribution, $\gamma$;
 \item minus exponent for the module size distribution, $\beta$;
 \item minimum module size, $min_m$;
-\item maximum module size, $max_m$, with $max_k \ge min_k$;
+\item maximum module size, $max_m$, with $max_m \ge min_m$;
 \end{itemize}
 
 The sizes of the modules are selected from a power law distribution with
@@ -479,14 +487,14 @@ right, word adjacency network for the Japanese language \cite{Milo2004}.}
 To support the evaluation of the metric, we have collected 131 networks. The
 networks are described in detail in the Appendix.
 
-\textbf{Software networks}. We have collected 65 software systems written in
+\subsubsection{Software networks}. We have collected 65 software systems written in
 Java, with size ranging from 111 to 35,363 classes. Java was chosen for being a
 popular programming language in which many open source systems have been
 written. The software networks, representing dependencies between classes, were
 extracted with the tool Dependency Finder\footnote{Available at
 \url{http://depfind.sf.net}.}.
 
-\textbf{Non-software networks}. We have collected 66 networks from distinct
+\subsubsection{Non-software networks}. We have collected 66 networks from distinct
 domains, such as biology, sociology, technology, and linguistics. These networks
 are freely available on the Internet and have been used in previous researches.
 CITE
@@ -507,7 +515,7 @@ similarity between the network and a sample of software networks:
 
 $$
 \mathrm{S\mbox{-}score}(a) = \frac{
-\sum_{s \in S} \mathrm{sim}(a, s)
+\displaystyle\sum_{s \in S} \mathrm{sim}(a, s)
 }{|S|} \mathrm{,}
 $$
 
@@ -629,13 +637,13 @@ For the remaining parameters, the following values were given:
 \begin{itemize}
 \item $p, q, r \in \{0.0, 0.2, 0.4, 0.6, 0.8, 1.0\}$, with $p + q + r = 1$ and
 $p + q > 0$;
-\item $din, dout \in \{0, 1, 2, 3, 4\}$;
+\item $\din, \dout \in \{0, 1, 2, 3, 4\}$;
 \item $\mu \in \{0.0, 0.2, 0.4, 0.6\}$.
 \end{itemize}
 
 We chose $p + q > 0$ because otherwise no node would be added after the
 creation of the initial network. We also avoided large values for $\mu$ in
-order to ignore networks with highly-coupled modules. 
+order to ignore networks with strongly coupled modules. 
 
 In total, 9,500 BCR+ networks were synthesized.
 
