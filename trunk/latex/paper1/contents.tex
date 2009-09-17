@@ -4,7 +4,7 @@
 % TODO: CITACAO DEPOIS DO CONCEITO
 In the context of our research, we consider classes as the components
 
-\section{Abstract}
+\section{Abstract} 
 
 Software clustering algorithms automatically recognize a system's
 modular structure by analyzing its implementation.
@@ -15,7 +15,7 @@ We propose to rely on software models to produce arbitrarily large test sets. In
 this paper we consider three such models and analyze how similar the artifacts
 they produce are from artifacts from real software systems.
 
-\section{Introduction}
+\section{Introduction} \label{sec:introduction}
 
 %   I want less time, so I hire more programmers
 %   Thee project can consume more time, due to comunication costs between
@@ -66,7 +66,7 @@ then compare the two decompositions for each system by means of a metric such as
 MoJo \cite{Tzerpos1999} and EdgeSim \cite{Mitchell2001}.
 
 Unfortunately there are few systems with known reference decompositions.
-Furthermore, because it is costly to obtain reference decompositions
+Furthermore, because such decompositions are costly do obtain
 \cite{Koschke2000}, there are few empirical studies about software clustering
 algorithms, most of them based on a couple of small and medium systems
 \cite{Anquetil1999,Maqbool2007,Bittencourt2009}.
@@ -89,7 +89,12 @@ about three models that synthesize networks with built-in decompositions. We
 show empirically that all three models are capable of synthesizing networks that
 resemble software networks.
 
-The remaining sections are organized as follows. .... Section 2, ...
+The remaining sections are organized as follows. 
+Section \ref{sec:swnets}...
+Section \ref{sec:models}...
+Section \ref{sec:characterization}...
+Section \ref{sec:evaluation}...
+Section \ref{sec:conclusion}...
 
 %alike, resembling, exchangeable, indistiguible
 
@@ -106,33 +111,36 @@ The remaining sections are organized as follows. .... Section 2, ...
 %
 %directed graph, (un)weighted
 
-\section{Software Networks}
+\section{Software Networks} \label{sec:swnets}
+% TODO: consider merging with introduction
 
-The implementation of a software system can be viewed as a network of
+At the implementation level, a software system can be viewed as a network of
 interacting components. In a object-oriented system, for example, classes
 interact with other classes through mechanisms such as inheritance and
-aggregation. By abstract the particular mechanisms of interaction, it is
+aggregation. By abstracting the particular mechanisms of interaction, it is
 possible to build a network of dependencies between components, represented as a
 directed graph. This kind of network is the input for many software clustering
 algorithms \cite{Mancoridis1998,Anquetil1999,Tzerpos2000,Andritsos2005}.
 
 In this paper we will study networks of dependencies between classes in
-object-oriented systems. We will call any such a network a \emph{software
-network}. 
+object-oriented systems. We will call any network of this kind a \emph{software
+network}. Software networks can be studied by network theory.
 
 %Define: Component. Component dependency network. Directed unweighted graph.
 %Clustering based on dependencies.
 
-Network theory research studies general properties of many types of networks by
+Network theory researchers study general properties of many types of networks by
 using statistical analysis. In the last decade, it has been found that many
 networks arising from sociology, biology, technology and other domains present
 remarkable structural similarities. It has been shown that, in these networks,
 the distribution of vertex degrees is a power law, i.e., the number of vertices
-connected to $k$ edges, N($k$), is proportional to $k^{\-gamma}$, where $\gamma$
-is a positive constant. These networks are called scale-free networks.
+connected to $k$ edges is proportional to $k^{\-\gamma}$, where $\gamma$ is a
+positive constant. These networks are called scale-free networks.
 
 Network theory has been applied to software networks and it was shown that they
-are also scale-free networks \cite{Myers2003,Valverde2003}.
+are also scale-free networks \cite{Myers2003,Valverde2003}. Because of this
+fact, it is possible to take advantage of network theory tools and techniques
+when studying the structure of software systems in general.
 
 %(in fact we can't argue the degree distribution is perfectly fit by a power law.
 %Anyway, the distribution is much more assymetric than normal ou Poisson's)
@@ -140,14 +148,13 @@ are also scale-free networks \cite{Myers2003,Valverde2003}.
 %software indegree distribution (power law), outdegree distribution (not so power
 %law)
 
-\section{Network Models}
+\section{Network Models} \label{sec:models} 
 
 Many models were proposed to explain the formation of scale-free networks. These
-models are simple algorithms that can be proven, either formally or empirically,
-to synthesize networks that are scale-free. Most models, though, do not account
-for modular structure, a feature present in some networks, in particular
-software networks. In this section we present three models that synthesize
-directed networks with built-in modular decompositions: BCR+, CGW and LR. 
+models are algorithms that can be proven, either formally or empirically, to
+synthesize networks that are scale-free. Most models, though, do not account for
+modular structure. In this section we present three models that synthesize
+directed networks with built-in modular decompositions: BCR+, CGW and LF. 
 
 %The first two models grow networks using a mechanism called
 %preferential attachment CITE Barabasi, by which nodes with many edges tend to
@@ -167,143 +174,90 @@ the network. The model accepts the following parameters:
 
 \begin{itemize}
 \item number of vertices, $n$;
-\item a graph, $G$;
-\item three probabilities, $p$, $q$, and $r$, such as $p + q + r = 1$;
-\item a probability, $mu$;
-\item two real numbers, $\din$ and $\dout$.
+\item a directed graph of modules, $G$;
+\item three probabilities, $p_1$, $p_2$, and $p_3$, summing to 1;
+\item constant $\mu$, with $0 \le \mu \le 1$;
+\item base in-degree, $\din$;
+\item base out-degree, $\dout$.
 \end{itemize}
 
-In a network with modules, one can define a module dependency graph (MDG) as a
-graph where the two following conditions hold: 
+The graph $G$ contains one vertex for each module that will be created and
+determines a ``supply'' relationship between modules. We say that module $M_2$
+is a supplier of module $M_1$ if, and only if, $G$ contains an edge from $M_1$
+to $M_2$.  
 
-\begin{itemize}
-\item each vertex represents a module in the original network; 
-\item there is an edge from $M_1$ to $M_2$ in the MDG only if there is an edge
-from $v_1$ to $v_2$ in the original network, where $v_1 \in M_1$ and $v_2 \in
-M_2$.
-\end{itemize}
+Networks generated by the model can contain both internal edges and external
+edges. An internal edge connects two vertices in the same module. An external
+edge connects vertices in distinct modules. In this model, an external edge from
+a vertex $v_1 \in M_1$ to a vertex $v_2 \in M_2$ is only allowed if $M_2$ is a
+supplier of $M_1$.
 
-The BCR+ model synthesizes networks whose MDG is equal to $G$ by adding vertices
-and edges to an initial network until it reaches $n$ vertices. The initial
-network is isomorphic to $G$: it contains one vertex for each module and one
-edge for each edge in $G$, connecting vertices whose corresponding modules are
-connected. Thus, the MDG for the generated network is equal to $G$ from the very
-beginning.
+The parameter $\mu$ controls the proportion external edges in the network. Lower
+values of $\mu$ lead to networks with fewer external edges and, therefore, to
+weakly coupled modules.
 
-After that, the algorithm consists of successive applications of one out of
-three operations on the network: (1) adding a vertex with an outgoing edge; (2)
-adding a vertex with an ingoing edge; (3) adding a edge between existing
-vertices. In operation 3, the edge can connect either vertices that belong
-to the same module or vertices in distinct modules. 
+First the model creates an initial network in which each module contains exactly
+one vertex. Then all allowed external edges are added. Finally, the networks is
+modified by sucessive choices between three operations that add vertices or
+edges to the network, until it reaches $n$ vertices. Each time, the probability
+of choosing the $i$-th operation is $p_i$.
 
-The choice of the vertices that will be connected by a new edge, although
-non-deterministic, is not fully random. The probability that a particular vertex
-v is choosen, P($v$), is proportional to a function of the in-degree or the
-out-degree of the node. We say that we choose a vertex within a set of vertices
-$S$ according to a function f if
+Before describing the operations, some definitions are needed. The expression
+in-degree($x$) means the number of edges that enter the vertex $x$;
+out-degree($x$), likewise, is the number of edges that leave vertex $x$. The
+expression ``to choose a vertex according to f(x)'' means that the probability
+of choosing a vertex $x$ is given by the following probability function:
 
 $$
-  P(v) ~=~ \frac{ \mathrm{f}(v) }{ \displaystyle\sum_{v \in S} \mathrm{f}(v) }.
+  \mathrm{P}(x) ~=~ \frac{ \mathrm{f}(x) }
+  { \displaystyle\sum_{i} \mathrm{f}(i) }
 $$
 
-The denominator is a normalizing factor that assures that the probabilities sum
-to 1.
+(the denominator is a normalizing factor, so the sum of probabilities is 1).
 
-Before we present the algorithm in detail, using pseudo-code, we must define
-some functions:
+The three operations are described next:
 
-%Let V be the set of vertices in the network being generated. This
-%set grows as the algorithm is executed. Being v a vertex, we define the
-%following three functions:
+\begin{enumerate}
 
-\begin{itemize}
+\item \emph{Adding a vertex with an outgoing edge}. An existing vertex, $w$, is
+chosen according to $\mathrm{f}(x) = \din + \mathrm{in\mbox{-}degree}(x)$. A new
+vertex, $v$, is added to the module of $w$, together with an edge from $v$ to
+$w$.
 
-\item \textbf{in-degree(v)}: the number of edges that enter the vertex v;
+\item \emph{Adding a vertex with an ingoing edge}. An existing vertex, $w$, is
+chosen according to $\mathrm{f}(x) = \dout + \mathrm{out\mbox{-}degree}(x)$. A
+new vertex, $v$, is added to the module of $w$, together with an edge from $w$
+to $v$.
 
-\item \textbf{out-degree(v)}: the number of edges that leave the vertex v;
+\item \emph{Adding an edge between existing vertices}. A vertex, $v$, is choosen
+from the network according to $\mathrm{f}(x) = \dout +
+\mathrm{out\mbox{-}degree}(x)$.  Then an edge is added from vertex $v$ to an
+existing vertex $w$, which is chosen according to one of the following cases:
 
-\item \textbf{module(v)}: the module to which the vertex v belongs;
+\begin{enumerate}
+  \item with probability $\mu$, $w$ is chosen among vertices in modules that are
+  suppliers of the module of $v$;
+  \item with probability $1 - \mu$, $w$ is chosen among vertices in that same
+  module as $v$.
+\end{enumerate}
 
-\item \textbf{out-neighbors(v)}: the set of all vertices that are connected to
-the vertex v by an edge starting in v.
+\end{enumerate}
 
-\item \textbf{same-module(v)}: the set of all vertices that are in the same
-module as the vertex v, except for v itself and vertices in out-neighbors(v).
-
-\item \textbf{other\_modules(v)}: the set of all vertices that are in modules
-that are connected to v's module (in the graph G) by an edge starting in v's
-module, except for vertices in out-neighbors(v).
-
-\end{itemize}
-
-After the initial network is created, the algorithm proceeds as follows:
-
-\begin{figure*}
-\begin{verbatim}
-while the number of nodes in the network is less than n:
-  choose one of the operations according to probabilities (p, q, r)
-  operation 1: (add a vertex with an outgoing edge)
-    choose a vertex w within V according to f(x) = din + in-degree(x)
-    add a new vertex, v, to module(w)
-    add an edge from v to w
-  operation 2: (add a vertex with an ingoing edge)
-    choose a vertex w within V according to f(x) = dout + out-degree(x)
-    add a new vertex, v, to module(w)
-    add an edge from w to v
-  operation 3: (add an edge between two existing vertices)
-    choose a vertex v within V according to f(x) = dout + out-degree(x)
-    choose a case according to probabilities (mu, 1 - mu)
-    case 1: (distinct modules)
-  	  choose a vertex w within other\_modules(v) according to f(x) = din + in-degree(x)
-      add an edge from v to w
-    case 2: (same module)
-      choose w within same-module(v) according to f(x) = din + in-degree(x)
-      add an edge from v to w
-\end{verbatim}
-\end{figure*}
-
-We can see that the probabilities $p$, $q$, and $r$ control how often each
-operation is performed. Because the operation associated with probability $r$
-does not add any vertices, greater values of $r$ imply more edges in the
-resulting network. It is easy to see that nodes connected to many ingoing edges
-are more likely to get another ingoing edge. The parameter $\din$ can alleviate
-the handicap by providing a ``base in-degree'' that is applied to all vertices
-when computing the probabilities. Consider two vertices, $v_1$ with in-degree 4,
-and $v_2$ with in-degree 8. If $\din = 0$, $v_2$ is twice more likely to receive
-a new incoming edge; if, otherwise, $d\in = 4$, $v_2$ is only $\frac{3}{2}$ more
-likely to receive the edge. The same reasoning applies to $\dout$.
-
-The parameter $mu$ controls the proportion of edges between vertices in distinct
-modules. Lower values of $mu$ lead to networks with weakly coupled modules.
+It is easy to see that nodes with high in-degree are more likely to receive new
+ingoing edges. The parameter $\din$ can reduce this bias by providing a base
+in-degree that is applied to all vertices when computing the probabilities.
+Consider two vertices, $v_1$ with in-degree 4, and $v_2$ with in-degree 8. If
+$\din = 0$, $v_2$ is twice more likely to receive a new incoming edge; if,
+otherwise, $\din = 4$, $v_2$ is only $\frac{3}{2}$ more likely to receive the
+edge. The same reasoning applies to $\dout$.
 
 The BCR+ model is a growth model, meaning that the network is created vertex by
 vertex, growing from an initial network. It can, therefore, simulate the
 evolution of a software network. Moreover, it can simulate the evolution of a
 software system subject to constraints in module interaction, as is the case
-with top-down system design methodologies CITE.
+with top-down system design methodologies.
 
-%* Add a node with ongoing edge. With probability p, a new vertex is added to the network, together with an
-%edge from the new vertex to an existing vertex, chosen preferentially according
-%to .... Considering din = 0, this means that a vertex with indegree = 8 is
-%twice more likely to receive the edge than a vertex with indegree = 4. The
-%parameter din can be used to alleviate the handicap. (If din = 4, the first
-%vertex will only be 3/2 more likely to receive the edge). The new vertex is
-%put on the same cluster as the old vertex.
-%
-%* Add a node with ingoing edge. With probability q, a new vertex is added to the network, together with an
-%edge from an existing vertex, chosen preferentially accordingly to dout +
-%outdegree, to the new vertex. The new vertex is put on the same cluster as the
-%old vertex. This case is similar to the previous case.
-%
-%* Add an edge. With probability r, a new edge is added between two vertices, v and w. v is
-%chosen according to .... After that, with prob X, w is chosen from one of the
-%modules connected to v's module, else it's chosen from v's own module. In any
-%case, the exact choice is made according to ...
-%
-%It's a growth model, that is, it can take as input an existing network and
-%evolve it.
-%
-%TODO: Argument: why the imposed modules are natural modules?
+%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*
 
 \subsection{CGW}
 
@@ -311,45 +265,25 @@ The CGW model \cite{Chen2008} was proposed to model the evolution of software
 systems organized in modules. It accepts the following parameters:
 
 \begin{itemize}
-\item Number of vertices, n;
-\item Number of modules, m;
-\item Probabilities $p_1, p_2, p_3, p_4$, summing to 1;
-\item Natural numbers $e_1, e_2, e_3, e_4$;
-\item Constant $\alpha$, with $\alpha \ge -1$
+\item number of vertices, $n$;
+\item number of modules, $m$;
+\item probabilities $p_1, p_2, p_3, p_4$, summing to 1;
+\item natural numbers $e_1, e_2, e_3, e_4$;
+\item constant $\alpha$, with $\alpha \ge -1$.
 \end{itemize}
 
-Just like BCR+, this is a growth model. Its initial network is composed of two
-vertices belonging to the same module and a directed edge between them. The
-remaining $m - 1$ modules are initially empty. 
+Because the model is described in detail in the original paper, only an
+intuitive notion of the meaning of the parameters is provided here. This model
+is similar to BCR+ in which it grows an initial network by sucessive
+applications of operations. In this case, there four operations, which are
+chosen according to probabilities $p_1$, $p_2$, $p_3$, and $p_4$: 
 
-After that, the algorithm consists of successive applications of one out of four
-operations on the network, which are chosen according to probabilities $p_1, p_2,
-p_3, and p_4$: 
-(1) adding a vertex with $e_1$ outgoing edges; 
-(2) adding $e_2$ edges;
-(3) rewiring $e_3$ edges;
-(4) removing $e_4$ randomly chosen edges.
-
-Whenever an edge is added from a vertex $v$ to a vertex $w$ (operations 1, 2,
-and 3), $v$ is chosen randomly, and $w$ is chosen according to the following
-probability function:
-
-$$
-  P_v(w) ~=~ \frac{ f_v(w) }{ \displaystyle\sum_{w \in S, f_v(w)} },
-$$
-
-where
-
-$$
-f_v(w) = \left\{
-\begin{array}{ll}
-
-1 + degree(w) \cdot (1 + \alpha) &  \mathrm{if}\ module(w) = \\%= module(v) \\
-                                 &  = module(v) \\
-1 + degree(w) & \mathrm{otherwise}
-\end{array}
-\right.
-$$
+\begin{enumerate}
+\item adding a vertex with $e_1$ outgoing edges; 
+\item adding $e_2$ edges;
+\item rewiring $e_3$ edges;
+\item removing $e_4$ randomly chosen edges.
+\end{enumerate}
 
 The constant $\alpha$ controls the proportion of edges that connect vertices
 from distinct modules. For $\alpha = -1$, most edges will connect distinct
@@ -357,39 +291,10 @@ modules. For $\alpha > 0$, most edges will connect vertices in the same module,
 and the greater the $\alpha$, more strong is the tendency. For $\alpha = 0$
 there is no bias, the two kinds of edges are equaly likely.
 
-Because the original paper did not provide an implementation for the model, we
-now present the pseudo-code for our implementation:
+%Unlike BCR+, this model does not allow constraints on the connection between
+%modules, however it accounts for the rewiring and the removal of edges. 
 
-\begin{figure*}
-\begin{verbatim}
-  operation 1: (adding a vertex with e1 outgoing edges)
-    create a new vertex v and add it to a randomly chosen module
-    repeat e1 times:
-      choose a vertex w according to f\_v(w)
-      add an edge from v to w
-
-  operation 2: (adding e2 edges)
-    repeat e2 times:
-      choose a vertex v randomly
-      choose a vertex w according to f\_v(w)
-      add edge from v to w
-
-  operation 3: (rewiring e3 edges)
-    repeat e3 times:
-      choose a vertex v randomly
-      choose an edge e randomly within edges that start in v
-      choose w according to f\_v(w)
-      remove e
-      add an edge from v to w
-
-  operation 3: (removing e4 edges)
-    repeat e4 times:
-      remove a randomly chosen edge
-\end{verbatim}
-\end{figure*}
-
-Unlike BCR+, this model does not allow constraints on the connection between
-modules, however it accounts for the rewiring and the removal of edges. 
+%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*
 
 \subsection{LF}
 
@@ -402,8 +307,8 @@ added.
 There is also a special version of the model in which the edges weights are
 discarded and the modules are non overlapping. We used the original
 implementation of this version, available at
-\url{http://santo.fortunato.googlepages.com/inthepress2}. It accepts the following
-parameters:
+\url{http://santo.fortunato.googlepages.com/inthepress2}. It accepts the
+following parameters:
 
 \begin{itemize}
 \item number of nodes, $n$;
@@ -417,7 +322,7 @@ parameters:
 \end{itemize}
 
 The sizes of the modules are selected from a power law distribution with
-exponent $-\beta$. The mixing parameter, $\mu$ is the proportion of edges in the
+exponent $-\beta$. The mixing parameter, $\mu$, is the proportion of edges in the
 network that connect vertices from distinct modules. In this model, some
 combinations of parameter values are unfeasible. For example, if $n = 100$ then
 $min_m$ cannot be 60 (otherwise there would be modules smaller than the minimum
@@ -427,15 +332,16 @@ module size).
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Characterization of Software Networks}
+\section{Characterization of Software Networks} \label{sec:characterization}
 
 Our research hypothesis is that at least one of the presented models can
 synthesize networks that resemble software networks. A central issue, thus, is
 how to measure similarity between networks. In order to be useful, a similarity
-metric must be able to differentiate between software and non-software networks.
-In this section we present such a metric, together with an experiment that
-evaluates its usefulness by applying it to both software and non-software
-networks. %Then we show a classification model 
+metric must be able to differentiate between software and non-software networks
+(e.g., biologic networks). % TODO: whooo, too fast here.
+In this section we present such a metric, together
+with an experiment that evaluates its usefulness by applying it to both software
+and non-software networks. %Then we show a classification model 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Similarity Between Networks}
@@ -444,8 +350,6 @@ In a recent work, Milo et al. \cite{Milo2002} proposed to characterize networks
 by analyzing their triad concentration. A triad is a network with three vertices
 in which all vertices are connected. There are only 13 distinct triads, one for
 each configuration of directed edges, as shown in Figure \ref{fig:triads}.
-
-CITE igraph
 
 \begin{figure*}[!t]
 \centering
@@ -457,19 +361,7 @@ CITE igraph
 By counting how many times each triad appears in a network, one can build a
 triad concentration profile (TCP), which is a vector with 13 numbers that
 summarize the local structure of the network. Figure \ref{fig:profiles} shows
-the TCP for networks from distinct domains.
-
-Following the work by Milo et al. \cite{Milo2004}, similarity between two
-networks can be measured by computing Pearson's correlation coefficient between
-the corresponding TCPs, which yields a value between -1 (most dissimilar) and 1
-(most similar):
-
-$$
-\mathrm{sim}(a, b) ~=~ \mathrm{cor}(\mathrm{TCP}(a), \mathrm{TCP}(b))\mathrm{,}
-$$
-
-where $a$ and $b$ are networks, TCP($x$) is the triad concentration profile for
-network $x$, and cor($x$, $y$) is Pearson's correlation coefficient.
+the TCP for networks from two distinct domains.
 
 % Word adjacency network: word Y follows word X => X->Y
 \begin{figure}[!t]
@@ -480,6 +372,19 @@ network extracted from the software system JabRef (see the Appendix). On the
 right, word adjacency network for the Japanese language \cite{Milo2004}.}
 \label{fig:profiles}
 \end{figure}
+
+Following the work by Milo et al. \cite{Milo2004}, similarity between two
+networks can be measured by computing Pearson's correlation coefficient between
+the corresponding TCPs, which yields a value between -1 (most dissimilar) and 1
+(most similar):
+
+$$
+\mathrm{similarity}(a, b) ~=~ 
+  \mathrm{cor}(\mathrm{TCP}(a), \mathrm{TCP}(b))\mathrm{,}
+$$
+
+where $a$ and $b$ are networks, TCP($x$) is the triad concentration profile for
+network $x$, and cor($x$, $y$) is Pearson's correlation coefficient.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Data Set}
@@ -515,7 +420,7 @@ similarity between the network and a sample of software networks:
 
 $$
 \mathrm{S\mbox{-}score}(a) = \frac{
-\displaystyle\sum_{s \in S} \mathrm{sim}(a, s)
+\displaystyle\sum_{s \in S} \mathrm{similarity}(a, s)
 }{|S|} \mathrm{,}
 $$
 
@@ -531,16 +436,16 @@ characterizes software networks by capturing common structural patterns
 TODO: Boxplot by network class (software, metabolic, neural, social etc.)
 
 Then we measured the S-score for each non-software network. The majority of the
-networks (X\%) had a S-score lower than 0.83, which is the lowest S-score for
-software networks in the sample. Some networks, showing friendship between
-students, showed negative S-score, meaning that they are very different from
-software networks.
+networks (97.0\%) had a S-score lower than 0.83, which is the lowest S-score for
+software networks in the sample. Some networks, e.g., the friendship networks
+between students, showed negative S-score, meaning that they are very different
+from software networks.
 
 Two networks, though, showed high S-score, above 0.83. The network of links
-between blogs on politics showed S-score 0.97. The neural network of the worm
-C. Elegans also showed a high S-score (0.88). Further investigation is needed
-in order to discover the reasons behind these high S-scores and whether
-auxiliary metrics can differentiate these networks from software networks.
+between blogs on politics showed S-score 0.97. The neural network of the worm C.
+Elegans also showed a high S-score (0.88). Further investigation is needed in
+order to discover the reasons behind the high values and whether auxiliary
+metrics can differentiate these networks from software networks.
 
 \subsection{A Network Classification Model} \label{sec:classmodel}
 
@@ -595,7 +500,7 @@ non-software network S-score. With this value, we have both a high recall
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Evaluation of Network Models}
+\section{Evaluation of Network Models} \label{sec:evaluation}
 % v.  differentiate, differ; distinguish; contrast; discern 
 
 In the previous section it was shown that many networks, although scale-free,
@@ -635,7 +540,7 @@ findbugs (16 archives), and zk (32 archives).
 For the remaining parameters, the following values were given:
 
 \begin{itemize}
-\item $p, q, r \in \{0.0, 0.2, 0.4, 0.6, 0.8, 1.0\}$, with $p + q + r = 1$ and
+\item $p_1, p_2, p_3 \in \{0.0, 0.2, 0.4, 0.6, 0.8, 1.0\}$, with $p + q + r = 1$ and
 $p + q > 0$;
 \item $\din, \dout \in \{0, 1, 2, 3, 4\}$;
 \item $\mu \in \{0.0, 0.2, 0.4, 0.6\}$.
@@ -755,8 +660,8 @@ Model & Rule & Accuracy \\
 \hline 
 \hline
 \multirow{2}{*}{BCR+}
-     & $\alpha \ge 0.7 \Rightarrow S$ & \multirow{2}{*}{82.4\%}  \\ 
-     & $\alpha < 0.7 \Rightarrow N$ & \\ 
+     & $p_1 \ge 0.7 \Rightarrow S$ & \multirow{2}{*}{82.4\%}  \\ 
+     & $p_1 < 0.7 \Rightarrow N$ & \\ 
 \hline
 \multirow{2}{*}{CGW}
      & $p_1 \ge 0.5 \Rightarrow S$ & \multirow{2}{*}{82.3\%} \\  
@@ -815,7 +720,7 @@ they have high accuracy, approximately 80\% in all models.
 %
 %% Koschke says that experts decompositions vary by no more than 80? percent.
 
-\section{Conclusion and Future Work}
+\section{Conclusion and Future Work} \label{sec:conclusion}
 % revised 2009-09-03
 
 We have shown empirically that network models found in the literature can
@@ -933,17 +838,17 @@ Systems hosted in other sites:
 \subsection{Networks from Other Domains}
 
 \begin{itemize}
-\item 5 friendship networks from Facebook \cite{Traud2008};
-\item 3 electronic circuit networks \cite{Milo2004};
-\item 4 word adjacency networks \cite{Milo2004};
-\item 3 protein structure networks \cite{Milo2004};
-\item 2 social networks of positive sentiment \cite{Milo2004};
-\item 43 metabolic networks \cite{Jeong2000};
-\item Protein interaction network for yeast \cite{Jeong2001};
-\item Links between political blogs \cite{Adamic2005};
-\item Neural network of C Elegans \cite{Watts1998};
-\item Network ``beta3sreduced'' (unknown source);
-\item Network ``czech'' (unknown source);
+\item 5 friendship networks from Facebook \cite{Traud2008}
+\item 3 electronic circuit networks \cite{Milo2004}
+\item 4 word adjacency networks \cite{Milo2004}
+\item 3 protein structure networks \cite{Milo2004}
+\item 2 social networks of positive sentiment \cite{Milo2004}
+\item 43 metabolic networks \cite{Jeong2000}
+\item Protein interaction network for yeast \cite{Jeong2001}
+\item Links between political blogs \cite{Adamic2005}
+\item Neural network of C Elegans \cite{Watts1998}
+\item Network ``beta3sreduced'' (unknown source)
+\item Network ``czech'' (unknown source)
 \item Network ``ecoli-metabolic'' (unknown source).
 \end{itemize}
 
