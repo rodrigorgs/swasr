@@ -124,23 +124,25 @@ algorithms \cite{Mancoridis1998,Anquetil1999,Tzerpos2000,Andritsos2005}.
 
 In this paper we will study networks of dependencies between classes in
 object-oriented systems. We will call any network of this kind a \emph{software
-network}. Software networks can be studied by network theory.
+network}. This representation of a software system is amenable to analysis
+through network theory. %Software networks can be studied by network theory.
 
 %Define: Component. Component dependency network. Directed unweighted graph.
 %Clustering based on dependencies.
 
-Network theory researchers study general properties of many types of networks by
-using statistical analysis. In the last decade, it has been found that many
-networks arising from sociology, biology, technology and other domains present
-remarkable structural similarities. It has been shown that, in these networks,
-the distribution of vertex degrees is a power law, i.e., the number of vertices
+Network theory studies general properties of many types of networks by using
+statistical analysis. In the last decade, it has been found that many networks
+arising from sociology, biology, technology and other domains present remarkable
+structural similarities. It has been shown that, in these networks, the
+distribution of vertex degrees is a power law, i.e., the number of vertices
 connected to $k$ edges is proportional to $k^{\-\gamma}$, where $\gamma$ is a
-positive constant. These networks are called scale-free networks.
+positive constant. These networks are called scale-free networks
+\cite{Barabasi1999}.
 
 Network theory has been applied to software networks and it was shown that they
-are also scale-free networks \cite{Myers2003,Valverde2003}. Because of this
-fact, it is possible to take advantage of network theory tools and techniques
-when studying the structure of software systems in general.
+are also scale-free networks \cite{Myers2003,Valverde2003}. Thus, the study of
+the structure of software systems in general can be benefited from the vast
+literature available about scale-free networks.
 
 %(in fact we can't argue the degree distribution is perfectly fit by a power law.
 %Anyway, the distribution is much more assymetric than normal ou Poisson's)
@@ -335,13 +337,17 @@ module size).
 \section{Characterization of Software Networks} \label{sec:characterization}
 
 Our research hypothesis is that at least one of the presented models can
-synthesize networks that resemble software networks. A central issue, thus, is
-how to measure similarity between networks. In order to be useful, a similarity
-metric must be able to differentiate between software and non-software networks
-(e.g., biologic networks). % TODO: whooo, too fast here.
-In this section we present such a metric, together
-with an experiment that evaluates its usefulness by applying it to both software
-and non-software networks. %Then we show a classification model 
+synthesize networks that are similar to software networks. A central issue,
+thus, is how to measure similarity between networks.
+
+We already know that the models synthesize networks that, just like software
+networks, are scale-free. This single property, though, isn't enough to prove
+the hypothesis, since many known scale-free networks are not software networks
+(e.g., biologic networks). Therefore, the similarity metric should be able to
+distinguish between software and non-software networks.
+
+In this section we present a similarity metric and validate the metric by
+appplying it to a data set containing both software and non-software networks. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Similarity Between Networks}
@@ -349,7 +355,8 @@ and non-software networks. %Then we show a classification model
 In a recent work, Milo et al. \cite{Milo2002} proposed to characterize networks
 by analyzing their triad concentration. A triad is a network with three vertices
 in which all vertices are connected. There are only 13 distinct triads, one for
-each configuration of directed edges, as shown in Figure \ref{fig:triads}.
+each possible configuration of directed edges, as shown in Figure
+\ref{fig:triads}.
 
 \begin{figure*}[!t]
 \centering
@@ -392,14 +399,14 @@ network $x$, and cor($x$, $y$) is Pearson's correlation coefficient.
 To support the evaluation of the metric, we have collected 131 networks. The
 networks are described in detail in the Appendix.
 
-\subsubsection{Software networks}. We have collected 65 software systems written in
+\subsubsection{Software networks} We have collected 65 software systems written in
 Java, with size ranging from 111 to 35,363 classes. Java was chosen for being a
 popular programming language in which many open source systems have been
 written. The software networks, representing dependencies between classes, were
 extracted with the tool Dependency Finder\footnote{Available at
 \url{http://depfind.sf.net}.}.
 
-\subsubsection{Non-software networks}. We have collected 66 networks from distinct
+\subsubsection{Non-software networks} We have collected 66 networks from distinct
 domains, such as biology, sociology, technology, and linguistics. These networks
 are freely available on the Internet and have been used in previous researches.
 CITE
@@ -409,10 +416,13 @@ CITE
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Evaluation of the Similarity Metric}
 
-In order to evaluate the similarity metric, we measured the similarity between
-the networks in the data set. A suitable metric must fullfil two conditions: (i)
-it must yield high similarity between software networks, and (ii) it must yield
-lower similarity between software networks and networks from other domains.
+%In order to evaluate the similarity metric, we measured the similarity between
+%the networks in the data set. 
+
+For the purposes of this research, a similarity metric must fullfil two
+conditions: (i) it must yield high similarity between software networks, and
+(ii) it must yield lower similarity between software networks and networks from
+other domains.
 
 Using the data set we can define S-score, a metric that represents how much a
 particular network resemble software networks. It is defined as the average
@@ -428,12 +438,14 @@ where $S$ is the set of sample software networks, and $|S|$ is the number of
 networks in $S$. In this work we use the full software data set consisting of 65
 software networks as our sample.
 
-We measured the S-score for each software network, which ranged from 0.83 to
-0.98. The average S-score was 0.97 and the standard deviation, 0.03. The high
-average S-score and the low standard deviation show that the metric successfully
-characterizes software networks by capturing common structural patterns
+We used the tool igraph \cite{igraph} to extract the TCP for each network in the
+data set. Then, we measured the S-score for each software network, which ranged
+from 0.83 to 0.98. The average S-score was 0.97 and the standard deviation,
+0.03. The high average S-score and the low standard deviation show that the
+metric successfully characterizes software networks by capturing their common
+structural patterns.
 
-TODO: Boxplot by network class (software, metabolic, neural, social etc.)
+%TODO: Boxplot by network class (software, metabolic, neural, social etc.)
 
 Then we measured the S-score for each non-software network. The majority of the
 networks (97.0\%) had a S-score lower than 0.83, which is the lowest S-score for
@@ -459,11 +471,11 @@ networks with S-score above the threshold are considered software-like.
 
 As we have shown on the previous section, there are non-software networks with
 high S-scores, hence it is impossible to build a perfect classification model,
-regardless of the threshold. Nonetheless, such a model can be evaluated by its
-precision and recall. Consider a data set with both software and non-software
-networks. Let $S$ be the set of all software networks, and $L$ the set of all
-networks that were classified by the model as software-like. The precision of
-the model is
+regardless of the threshold. Nonetheless, a classification model can be
+evaluated by its precision and recall. Consider our data set with both software
+and non-software networks. Let $S$ be the set of all software networks, and $L$
+the set of all networks that were classified by the model as software-like. The
+precision of the model is
 
 $$
 \mathrm{precision}: ~\frac{S \cap L}{L},
@@ -489,8 +501,8 @@ To get 100\% precision, the threshold needs to be 0.98, so the non-software
 network with highest S-score is below the threshold. The recall in this case,
 though, would be too low, because most software networks would be misclassified.
 So we chose the value 0.88, that is immediatly greater than the second greater
-non-software network S-score. With this value, we have both a high recall
-(95.4\%) and a high precision (96.9\%).
+non-software network S-score. With this value, we have both high recall (95.4\%)
+and high precision (96.9\%).
 
 %threshold 0.88: 2/66 non-sw misclassified, 3/65 sw misclassified
 %precision: 62 / 64
@@ -508,11 +520,10 @@ can be distinguished from software networks by a simple classification model
 based on triad concentration profiles. In this section we show empirically that
 the three network models previously presented synthesize networks that are
 indistinguishable from software networks.
-
 The experiment consists of synthesizing networks using many combinations of
 parameters from the three models, and then classifying each network as
-software-like or non software-like. After that, we present rules for the choice
-of parameter values that lead to software-like networks.
+software-like or non software-like. %After that, we present rules for the choice
+%of parameter values that lead to software-like networks.
 
 \subsection{Synthetic Data Set}
 
@@ -525,19 +536,19 @@ model.
 
 \subsection{BCR+ networks}
 
-We have chosen five different module dependency graphs, which where extracted
-from actual dependencies between archives of five different software systems of
-our sample: GEF (2 archives), iBATIS (4 archives), MegaMek (8 archives),
-findbugs (16 archives), and zk (32 archives). 
-%The module dependency networks are shown on Figure \ref{fig:architectures}. 
-%\begin{figure*}[!t]
-%\centering
-%\includegraphics[width=1.0\textwidth]{architectures}
-%\caption{Module dependency graphs}
-%\label{fig:architectures}
-%\end{figure*}
+We have chosen five different module graphs, which where extracted from actual
+dependencies between Java archives distributed with five different software
+systems of our sample: GEF (2 archives), iBATIS (4 archives), MegaMek (8
+archives), findbugs (16 archives), and zk (32 archives). Because many of these
+archives are intended to be reused in distinct projects, they provide a good
+coarse-grained approximation of the concept of module.
 
-For the remaining parameters, the following values were given:
+%The module dependency networks are shown on Figure \ref{fig:architectures}.
+%\begin{figure*}[!t] \centering
+%\includegraphics[width=1.0\textwidth]{architectures} \caption{Module dependency
+%graphs} \label{fig:architectures} \end{figure*}
+
+For the remaining parameters, the following values were chosen:
 
 \begin{itemize}
 \item $p_1, p_2, p_3 \in \{0.0, 0.2, 0.4, 0.6, 0.8, 1.0\}$, with $p + q + r = 1$ and
@@ -731,8 +742,8 @@ the evaluation of software clustering algorithms.
 
 The use of synthetic data is common in distributed computing research, but still
 underexplored in software engineering research. Because many reverse engineering
-tasks rely on dependency data, we expect this work to have impact beyond the
-software clustering community.
+tasks rely on dependency data \cite{Tonella2007}, we expect this work to have
+impact beyond the software clustering community.
 
 %Although the use of models and synthetic data is somewhat common in distributed
 %computing research, it is underexplored in software engineering research. We
