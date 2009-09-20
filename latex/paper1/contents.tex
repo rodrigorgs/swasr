@@ -1,19 +1,76 @@
 \newcommand{\din}[0]{\ensuremath{\delta_{in}}}
 \newcommand{\dout}[0]{\ensuremath{\delta_{out}}}
 
+% DEPENDENCY ANALYSIS
+%
+% component dependency isn't a good description...
+% reference?
+% usage?
+
+% Martin Fowler
+%
+%   Coupling also occurs when code in one
+%module uses code from another, perhaps by
+%calling a function or accessing some data. 
+%   When I use the term dependency, I use it as
+%defined in the Unified Modeling Language
+%(UML). So, the UI module depends on the do-
+%main module if any code in the UI module ref-
+%erences any code in the domain model - by
+%calling a function, using some data, 
+%or using types defined in the domain module
+%
+% A dependency is unidirectional
+
+%A dependency is a semantic relationship where a change to the influent or
+%independent modeling element may affect the semantics of the dependent
+%modeling element. http://en.wikipedia.org/wiki/Dependency_(UML)
+
+% Neeraj Sangal
+% Dependencies are extracted from the code by a conventional static analysis
+%
+% Ao falar de dependências, cita
+%   Designing Software for Ease of Extension and Contraction
+%
+%The LDM tool uses a standard notion of dependency, in which a
+%module A depends on a module B if there are explicit references
+%in A to syntactic elements of B. Currently, a module is a Java
+%class, but a more fine-grained analysis is possible. This simple but
+%effective notion of dependency works well for understanding
+%design dependencies, in which modifications to one module might XXX
+%affect another. It is less well suited to determining runtime
+%properties (such as how failures can propagate between modules),
+%which require a deeper static analysis.
+%
+%---------
+%
+% Parnas
+%
+% A uses B if correct execution of B may be necessary for A to complete the
+% task described in its specification.
+%
+% A uses B if there exist situations in which the correct functioning of A
+% depends upon the availability of a correct implementation of B.
+%
+% "Uses" can also be formulated as "requires the presence of a correct version
+% of".
+%
+% Uses vs. invokes
+
+
 % TODO: CITACAO DEPOIS DO CONCEITO
 In the context of our research, we consider classes as the components
 
 \section{Abstract} 
 
-Software clustering algorithms automatically recognize a system's
-modular structure by analyzing its implementation.
-Due to the lack of well document software systems, though, the issue of testing
-these algorithms is still underexplored, limiting both their adoption in the
-industry and the development of better algorithms.
-We propose to rely on software models to produce arbitrarily large test sets. In
-this paper we consider three such models and analyze how similar the artifacts
-they produce are from artifacts from real software systems.
+Software clustering algorithms automatically recognize a system's modular
+structure by analyzing its implementation.  Due to the lack of well document
+software systems, though, the issue of testing these algorithms is still
+underexplored, limiting both their adoption in the industry and the development
+of better algorithms.  We propose to rely on software models to produce
+arbitrarily large test sets. In this paper we consider three such models and
+analyze how similar the artifacts they produce are from artifacts from real
+software systems.
 
 \section{Introduction} \label{sec:introduction}
 
@@ -27,33 +84,38 @@ they produce are from artifacts from real software systems.
 One of the most obvious ways to reduce the time needed to develop or maintain a
 software system is to assign more developers to it. When combined with poor
 management, though, adding developers may in fact raise the development time,
-due to the increasing communication cost between developers \cite{Brooks1995}.
-Poor management may result in developers working on overlapping tasks, writing
-duplicated code, and inadvertently breaking the code written by another
-developer.
+due to the increasing communication costs between developers \cite{Brooks1995}.
 
-%The development and maintenance of large software systems is a big challenge for
-%software engineering \cite{Northrop2006}. In order to reduce the development
-%time of such a system, a tempting idea is to assign more developers for the
-%project. 
+The communication costs are affected by the assignment of developers to
+implementation components of a system.
+%The assignment of developers to implementation components of a system affects
+%the amount of communication needed between developers. 
+If two development teams are responsible for maintaining components that are
+highly interdependent, they need to coordinate their work often in order avoid
+code duplication and breaking each other's component funcionality.
 
-In order to take advantage of a team of developers, therefore, a key issue is
-the ability to decompose a system into weakly coupled modules, so that each
-module is maintained by a distinct group of developers \cite{Parnas1972}.
-Because of the weak coupling between modules, the need for communication between
-groups of developers is reduced, and so is the development time.
- 
-The ability of decomposing a system into modules depends on global knowledge
-about how its implementation components (e.g., functions, classes, variables)
-interact. Often, specially in legacy systems, this information is not readily
-available. Instead, it must be extracted from the system's source code. Even
-then the task of finding modules may be overwhelming because of the large number
-of components and interactions.
+Therefore, to optimize the development, the manager can decompose the system
+into modules, or groups of components, so that there are as few inter-module
+dependencies as possible (i.e., the modules are weakly coupled). Each module is,
+then, threated as an unit of work assignment \cite{Parnas1972}: each module is
+assigned to one team and, because of the little inter-module dependency, the
+communication between teams is reduced, therefore speeding up the development.
+
+To decompose a system into weakly coupled modules, it is necessary to have a
+global knowledge of the dependencies between its components. Although dependency
+analysis tools can provide such information, the task of finding modules can be
+overwhelming because of the large number of components and dependencies.
 
 The task can be made easier by the use of software clustering algorithms, also
 known as also known as architecture recovery algorithms \cite{Pollet2007}. They
 automatically decompose a software system into weakly coupled modules by
 analyzing the network of dependencies between its components.
+
+%This kind of network is the input for many software clustering
+%algorithms \cite{Mancoridis1998,Anquetil1999,Tzerpos2000,Andritsos2005}.
+
+Many algorithms were proposed, but there is little information concerning their
+empirical evaluation.
 
 % sw clustering is a task of reverse engineering \cite{Tonella2007}.
 
@@ -89,12 +151,20 @@ about three models that synthesize networks with built-in decompositions. We
 show empirically that all three models are capable of synthesizing networks that
 resemble software networks.
 
-The remaining sections are organized as follows. 
-Section \ref{sec:swnets}...
-Section \ref{sec:models}...
-Section \ref{sec:characterization}...
-Section \ref{sec:evaluation}...
-Section \ref{sec:conclusion}...
+% TODO: antropomorphic sections!
+The remaining sections are organized as follows:
+Section \ref{sec:swnets} is a overview of the main concepts used in this paper.
+%
+Section \ref{sec:models} presents three network models.
+%
+Section \ref{sec:characterization} demonstrates a method to tell if a network
+resembles a software network.
+%
+Section \ref{sec:evaluation} describes an experiment that shows that the three
+models synthesize networks that resemble software networks.
+%
+Section \ref{sec:conclusion} discusses the impact of this research and future
+work.
 
 %alike, resembling, exchangeable, indistiguible
 
@@ -130,6 +200,15 @@ through network theory. %Software networks can be studied by network theory.
 %Define: Component. Component dependency network. Directed unweighted graph.
 %Clustering based on dependencies.
 
+
+%(in fact we can't argue the degree distribution is perfectly fit by a power law.
+%Anyway, the distribution is much more assymetric than normal ou Poisson's)
+%
+%software indegree distribution (power law), outdegree distribution (not so power
+%law)
+
+\section{Network Models} \label{sec:models} 
+
 Network theory studies general properties of many types of networks by using
 statistical analysis. In the last decade, it has been found that many networks
 arising from sociology, biology, technology and other domains present remarkable
@@ -140,17 +219,9 @@ positive constant. These networks are called scale-free networks
 \cite{Barabasi1999}.
 
 Network theory has been applied to software networks and it was shown that they
-are also scale-free networks \cite{Myers2003,Valverde2003}. Thus, the study of
+are also scale-free networks \cite{Myers2003,Valverde2002}. Thus, the study of
 the structure of software systems in general can be benefited from the vast
 literature available about scale-free networks.
-
-%(in fact we can't argue the degree distribution is perfectly fit by a power law.
-%Anyway, the distribution is much more assymetric than normal ou Poisson's)
-%
-%software indegree distribution (power law), outdegree distribution (not so power
-%law)
-
-\section{Network Models} \label{sec:models} 
 
 Many models were proposed to explain the formation of scale-free networks. These
 models are algorithms that can be proven, either formally or empirically, to
