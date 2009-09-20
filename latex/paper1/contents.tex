@@ -1,6 +1,8 @@
 \newcommand{\din}[0]{\ensuremath{\delta_{in}}}
 \newcommand{\dout}[0]{\ensuremath{\delta_{out}}}
 
+% TODO: say that we use DIRECTED GRAPHS
+
 % DEPENDENCY ANALYSIS
 %
 % component dependency isn't a good description...
@@ -37,7 +39,7 @@
 %in A to syntactic elements of B. Currently, a module is a Java
 %class, but a more fine-grained analysis is possible. This simple but
 %effective notion of dependency works well for understanding
-%design dependencies, in which modifications to one module might XXX
+%design dependencies, in which modifications to one module might
 %affect another. It is less well suited to determining runtime
 %properties (such as how failures can propagate between modules),
 %which require a deeper static analysis.
@@ -56,10 +58,6 @@
 % of".
 %
 % Uses vs. invokes
-
-
-% TODO: CITACAO DEPOIS DO CONCEITO
-In the context of our research, we consider classes as the components
 
 \section{Abstract} 
 
@@ -81,80 +79,74 @@ software systems.
 %
 % (needn't be large)
 
-One of the most obvious ways to reduce the time needed to develop or maintain a
-software system is to assign more developers to it. When combined with poor
-management, though, adding developers may in fact raise the development time,
-due to the increasing communication costs between developers \cite{Brooks1995}.
-
-The communication costs are affected by the assignment of developers to
-implementation components of a system.
-%The assignment of developers to implementation components of a system affects
-%the amount of communication needed between developers. 
+% TODO: this paragraph can mostly disappear.
+%
+The time spent on the maintenance of a software system can be affected by the
+assignment of developers to implementation components of the system.
 If two development teams are responsible for maintaining components that are
 highly interdependent, they need to coordinate their work often in order avoid
 code duplication and breaking each other's component funcionality.
 
-Therefore, to optimize the development, the manager can decompose the system
-into modules, or groups of components, so that there are as few inter-module
-dependencies as possible (i.e., the modules are weakly coupled). Each module is,
-then, threated as an unit of work assignment \cite{Parnas1972}: each module is
-assigned to one team and, because of the little inter-module dependency, the
-communication between teams is reduced, therefore speeding up the development.
+%One of the most obvious ways to reduce the time needed to develop or maintain a
+%software system is to assign more developers to it. When combined with poor
+%management, though, adding developers may in fact raise the development time,
+%due to the increasing communication costs between developers \cite{Brooks1995}.
+%
+%The communication costs are affected by the assignment of developers to
+%implementation components of a system.
+%%The assignment of developers to implementation components of a system affects
+%%the amount of communication needed between developers. 
+%If two development teams are responsible for maintaining components that are
+%highly interdependent, they need to coordinate their work often in order avoid
+%code duplication and breaking each other's component funcionality.
 
-To decompose a system into weakly coupled modules, it is necessary to have a
-global knowledge of the dependencies between its components. Although dependency
-analysis tools can provide such information, the task of finding modules can be
-overwhelming because of the large number of components and dependencies.
+Therefore, to optimize the development, a development manager can decompose the
+system into modules, or groups of components, so that there are as few
+inter-module dependencies as possible.% (i.e., the modules are weakly couple.).
+Each module is, then, threated as an unit of work assignment \cite{Parnas1972}:
+each module is assigned to one team and, because of the little inter-module
+dependency, the communication between teams is reduced, therefore speeding up
+the development.
 
-The task can be made easier by the use of software clustering algorithms, also
-known as also known as architecture recovery algorithms \cite{Pollet2007}. They
-automatically decompose a software system into weakly coupled modules by
-analyzing the network of dependencies between its components.
+Therefore, to decompose a system, a manager needs to have global knowledge of
+the dependencies between its components. Although dependency analysis tools can
+extract such information from the source code of the system, the task of finding
+modules can be overwhelming because of the large number of components and
+dependencies.
 
-%This kind of network is the input for many software clustering
-%algorithms \cite{Mancoridis1998,Anquetil1999,Tzerpos2000,Andritsos2005}.
+Software clustering algorithms, also known as architecture recovery algorithms
+\cite{Mancoridis1998,Anquetil1999,Tzerpos2000,Andritsos2005},
+%\cite{Pollet2007}, 
+automatically decompose a software system modules by analyzing the network of
+dependencies between its components.  Although many algorithms have been
+proposed, there are few comparative studies.
+%empirical studies regarding the quality of the decompositions they find.
+%EVALUATION CRITERION
+One important test for a software clustering algorithm is to apply it to a
+collection of software systems with known reference decompositions made by
+experienced developers \cite{Anquetil1999}. It is expected that a good algorithm
+finds decompositions that are similar to reference decompositions, which can be
+measured by a similarity metric such as MoJo \cite{Tzerpos1999} or EdgeSim
+\cite{Mitchell2001}.
 
-Many algorithms were proposed, but there is little information concerning their
-empirical evaluation.
-
-% sw clustering is a task of reverse engineering \cite{Tonella2007}.
-
-An important question for the adoption of a software clustering algorithm is
-whether the decomposition it finds for a system is similar to a reference
-decomposition for that system, i.e., a decomposition found by a group of
-experienced developers. To answer this question one needs to test the algorithm
-by applying it to a sample of systems with known reference decompositions, and
-then compare the two decompositions for each system by means of a metric such as
-MoJo \cite{Tzerpos1999} and EdgeSim \cite{Mitchell2001}.
-
-Unfortunately there are few systems with known reference decompositions.
-Furthermore, because such decompositions are costly do obtain
-\cite{Koschke2000}, there are few empirical studies about software clustering
-algorithms, most of them based on a couple of small and medium systems
+Unfortunately there are few publicly available reference decompositions
+\cite{Koschke2000} and, as a result, few comparative studies exist. Also,
+because it is costly to obtain reference decompositions for large systems, most
+studies test the algorithms with a couple of small and medium systems
 \cite{Anquetil1999,Maqbool2007,Bittencourt2009}.
 
-%  \begin{figure*}[!t]
-%  \centering
-%  \includegraphics[width=1.0\textwidth]{diagram}
-%  \caption{Evaluation of a software clustering recovery algorithm}
-%  \label{fig:diagram}
-%  \end{figure*}
-
-In this research we propose to evaluate software clustering algorithms by
+In our research we propose to evaluate software clustering algorithms by
 applying them to synthetic, i.e., computer generated, component dependency
-networks with built-in decompositions. With this approach it is feasible to test
-algorithms with arbitrarily large samples in a controlled manner.
+networks with built-in reference decompositions. This approach enables one to
+test algorithms with arbitrarily large samples in a controlled manner.
 
 Of course, it is desirable that the synthetic networks resemble networks
-extracted from real software systems. Hence, in this paper, we describe a study
-about three models that synthesize networks with built-in decompositions. We
-show empirically that all three models are capable of synthesizing networks that
-resemble software networks.
+extracted from real software systems. In this paper, we present three network
+models and show empirically that all three models are capable of synthesizing
+networks that resemble software networks. We consider object-oriented systems
+with classes as components.
 
-% TODO: antropomorphic sections!
-The remaining sections are organized as follows:
-Section \ref{sec:swnets} is a overview of the main concepts used in this paper.
-%
+The paper is organized as follows:
 Section \ref{sec:models} presents three network models.
 %
 Section \ref{sec:characterization} demonstrates a method to tell if a network
@@ -166,46 +158,12 @@ models synthesize networks that resemble software networks.
 Section \ref{sec:conclusion} discusses the impact of this research and future
 work.
 
-%alike, resembling, exchangeable, indistiguible
-
-%\section{Related Work}
-%
-%\section{Software Modularization Recovery: an Overview}
-%Aka software architecture recovery, software architecture reconstruction,
-%software clustering...
-%It's an task of reverse engineering, as defined by Tonella \cite{Tonella2007}...
-%DEFINITIONS
-%external edge...
-
-%\section{Software Networks and Software Clustering}
-%
-%directed graph, (un)weighted
-
-\section{Software Networks} \label{sec:swnets}
-% TODO: consider merging with introduction
-
-At the implementation level, a software system can be viewed as a network of
-interacting components. In a object-oriented system, for example, classes
-interact with other classes through mechanisms such as inheritance and
-aggregation. By abstracting the particular mechanisms of interaction, it is
-possible to build a network of dependencies between components, represented as a
-directed graph. This kind of network is the input for many software clustering
-algorithms \cite{Mancoridis1998,Anquetil1999,Tzerpos2000,Andritsos2005}.
-
-In this paper we will study networks of dependencies between classes in
-object-oriented systems. We will call any network of this kind a \emph{software
-network}. This representation of a software system is amenable to analysis
-through network theory. %Software networks can be studied by network theory.
-
-%Define: Component. Component dependency network. Directed unweighted graph.
-%Clustering based on dependencies.
-
-
-%(in fact we can't argue the degree distribution is perfectly fit by a power law.
-%Anyway, the distribution is much more assymetric than normal ou Poisson's)
-%
-%software indegree distribution (power law), outdegree distribution (not so power
-%law)
+%  \begin{figure*}[!t]
+%  \centering
+%  \includegraphics[width=1.0\textwidth]{diagram}
+%  \caption{Evaluation of a software clustering recovery algorithm}
+%  \label{fig:diagram}
+%  \end{figure*}
 
 \section{Network Models} \label{sec:models} 
 
@@ -214,29 +172,25 @@ statistical analysis. In the last decade, it has been found that many networks
 arising from sociology, biology, technology and other domains present remarkable
 structural similarities. It has been shown that, in these networks, the
 distribution of vertex degrees is a power law, i.e., the number of vertices
-connected to $k$ edges is proportional to $k^{\-\gamma}$, where $\gamma$ is a
+connected to $k$ edges is proportional to $k^{-\gamma}$, where $\gamma$ is a
 positive constant. These networks are called scale-free networks
 \cite{Barabasi1999}.
 
-Network theory has been applied to software networks and it was shown that they
-are also scale-free networks \cite{Myers2003,Valverde2002}. Thus, the study of
-the structure of software systems in general can be benefited from the vast
-literature available about scale-free networks.
+Network theory has been applied to class dependency networks and it was shown
+that they are also scale-free networks \cite{Myers2003,Valverde2002}. Thus, the
+study of the structure of object-oriented software systems can benefit from the
+vast literature available about scale-free networks.
 
-Many models were proposed to explain the formation of scale-free networks. These
-models are algorithms that can be proven, either formally or empirically, to
-synthesize networks that are scale-free. Most models, though, do not account for
-modular structure. In this section we present three models that synthesize
-directed networks with built-in modular decompositions: BCR+, CGW and LF. 
+In particular, many scale-free network models were proposed. These models are
+algorithms that were proven, either formally or empirically, to synthesize
+networks that are scale-free. In this section we present three models that
+synthesize scale-free networks with built-in modular decompositions: BCR+, CGW,
+and LF. Their output can be used to test software clustering algorithms.
 
-%The first two models grow networks using a mechanism called
-%preferential attachment CITE Barabasi, by which nodes with many edges tend to
-%receive more edges in the process.
+% directed unweighted graphs
 
 %\subsection{ER (Erdos-Renyi)}
-
-%\subsection{Configuration model}
-% take the most typical software system and steal its degree sequence
+%\subsection{Configuration model} %XXX consider using with the most typical sw
 
 \subsection{BCR+}
 
@@ -571,8 +525,8 @@ means a stronger test, as fewer networks are classified as software-like.
 To get 100\% precision, the threshold needs to be 0.98, so the non-software
 network with highest S-score is below the threshold. The recall in this case,
 though, would be too low, because most software networks would be misclassified.
-So we chose the value 0.88, that is immediatly greater than the second greater
-non-software network S-score. With this value, we have both high recall (95.4\%)
+So we chose the value 0.88, that is immediatly above the second greater S-score
+for a non-software network. With this value, we have both high recall (95.4\%)
 and high precision (96.9\%).
 
 %threshold 0.88: 2/66 non-sw misclassified, 3/65 sw misclassified
