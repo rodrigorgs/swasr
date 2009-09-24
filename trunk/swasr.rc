@@ -1,10 +1,8 @@
 # Please include in ~/.bashrc the following line (without the #):
 #   source /path/to/swasr.rc
 
-DIR=~/svn/swasr
-
 # SWAG's QLDX
-export QLDX=$DIR/opt/QLDX
+export QLDX=$SWASR_HOME/opt/QLDX
 export PATH=$PATH:$QLDX/bin
 export CLASSPATH=$CLASSPATH:$QLDX/lib/jar/ql.jar
 export CLASSPATH=$CLASSPATH:$QLDX/lib/jar/lsedit.jar
@@ -12,57 +10,59 @@ export CLASSPATH=$CLASSPATH:$QLDX/lib/jar/java_readline.jar
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$QLDX/lib/ld
 
 # RGL: Ruby Graph Library
-export RUBYLIB=$RUBYLIB:$DIR/opt/rgl-0.4.0/lib:$DIR/opt/stream-0.5/lib
+export RUBYLIB=$RUBYLIB:$SWASR_HOME/opt/rgl-0.4.0/lib:$DIR/opt/stream-0.5/lib
 
 # IGraph (Ruby) -- depends on libigraph
-export RUBYLIB=$RUBYLIB:$DIR/opt/igraph-0.9.5/ext
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$DIR/opt/igraph-0.9.5/ext
+export RUBYLIB=$RUBYLIB:$SWASR_HOME/opt/igraph-0.9.5/ext
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$SWASR_HOME/opt/igraph-0.9.5/ext
 
 # Hpricot (Ruby XML Parser)
-export RUBYLIB=$RUBYLIB:$DIR/opt/hpricot
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$DIR/opt/hpricot
+export RUBYLIB=$RUBYLIB:$SWASR_HOME/opt/hpricot
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$SWASR_HOME/opt/hpricot
 
 # RandomR
-export RUBYLIB=$RUBYLIB:$DIR/opt/randomr-0-1-1/lib
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$DIR/opt/randomr-0-1-1/lib
+export RUBYLIB=$RUBYLIB:$SWASR_HOME/opt/randomr-0-1-1/lib
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$SWASR_HOME/opt/randomr-0-1-1/lib
 
 # Ruby/GD2 (for graphics)
-export RUBYLIB=$RUBYLIB:$DIR/opt/gd2
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$DIR/opt/gd2
+export RUBYLIB=$RUBYLIB:$SWASR_HOME/opt/gd2
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$SWASR_HOME/opt/gd2
 
 # Benchmark (Lancichinetti et al, 2008)
-export PATH=$PATH:$DIR/opt/models
+export PATH=$PATH:$SWASR_HOME/opt/models
 
 # RSRuby (R) -- depends on r-base
 export R_HOME=`R cmd BATCH RHOME 2> /dev/null`
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$R_HOME/lib
-export RUBYLIB=$RUBYLIB:$DIR/opt/rsruby-0.5/lib
+export RUBYLIB=$RUBYLIB:$SWASR_HOME/opt/rsruby-0.5/lib
 
 # Choice (for command-line options parsing)
-export RUBYLIB=$RUBYLIB:$DIR/opt/choice-0.1.3/lib
+export RUBYLIB=$RUBYLIB:$SWASR_HOME/opt/choice-0.1.3/lib
 
 # DepFinder
-export DEPENDENCYFINDER_HOME=$DIR/opt/DependencyFinder-1.2.1-beta1
+export DEPENDENCYFINDER_HOME=$SWASR_HOME/opt/DependencyFinder-1.2.1-beta1
 export DEPENDENCYFINDER_OPTS=-Xmx512m
 export PATH=$DEPENDENCYFINDER_HOME/bin:$PATH
 
 # mfinder
-export PATH=$PATH:$DIR/opt/mfinder1.2
+export PATH=$PATH:$SWASR_HOME/opt/mfinder1.2
 
 # FANMOD
-export PATH=$PATH:$DIR/opt/fanmod
-export PATH=$PATH:$DIR/opt/randesu
+export PATH=$PATH:$SWASR_HOME/opt/fanmod
+export PATH=$PATH:$SWASR_HOME/opt/randesu
 
 # bunch
-export CLASSPATH=$CLASSPATH:$DIR/opt/clustering/bunch/bunch.jar:$DIR/opt/clustering/bunch
+export CLASSPATH=$CLASSPATH:$SWASR_HOME/opt/clustering/bunch/bunch.jar:$DIR/opt/clustering/bunch
 
 # swasr
-export PATH=$PATH:$DIR/sandbox
-export RUBYLIB=$RUBYLIB:$DIR/sandbox
-export PATH=$PATH:$DIR/src
-export RUBYLIB=$RUBYLIB:$DIR/src
-export PATH=$PATH:$DIR/bin
-export PATH=$PATH:$DIR/opt/bin
-export RUBYLIB=$RUBYLIB:$DIR/bin
-export CLASSPATH=$CLASSPATH:$DIR/java/SwasrConformance/bin
-export CLASSPATH=$CLASSPATH:$DIR/opt/clustering:$DIR/opt/clustering/mojo
+export PATH=$PATH:$SWASR_HOME/sandbox
+export RUBYLIB=$RUBYLIB:$SWASR_HOME/sandbox
+export PATH=$PATH:$SWASR_HOME/src
+export RUBYLIB=$RUBYLIB:$SWASR_HOME/src
+export PATH=$PATH:$SWASR_HOME/fork
+export RUBYLIB=$RUBYLIB:$SWASR_HOME/fork
+export PATH=$PATH:$SWASR_HOME/bin
+export PATH=$PATH:$SWASR_HOME/opt/bin
+export RUBYLIB=$RUBYLIB:$SWASR_HOME/bin
+export CLASSPATH=$CLASSPATH:$SWASR_HOME/java/SwasrConformance/bin
+export CLASSPATH=$CLASSPATH:$SWASR_HOME/opt/clustering:$DIR/opt/clustering/mojo
