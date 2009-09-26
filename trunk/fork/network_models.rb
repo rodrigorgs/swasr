@@ -149,28 +149,27 @@ def generate_cgw(params)
 end
 
 # Lancichinetti, Fortunato. Directed unweighted networks
-def lf_game(n, kin, maxkin, mu, degexp, cexp, minc, maxc, seed, outfile)
-  params = "-N #{n} -k #{kin} -maxk #{maxkin} -mu #{mu} "
-  params += "-t1 #{degexp} " unless degexp.nil?
-  params += "-t2 #{cexp} " unless cexp.nil?
-  params += "-minc #{minc} " unless minc.nil?
-  params += "-maxc #{maxc} " unless maxc.nil?
-
-  puts params
+def generate_lf(params)
+  cmd_params = "-N #{params[:n]} -k #{params[:avgk]} -maxk #{params[:maxk]} -mu #{params[:mixing]} "
+  cmd_params += "-t1 #{params[:expdegree]} " unless params[:expdegree].nil?
+  cmd_params += "-t2 #{params[:expsize]} " unless params[:expsize].nil?
+  cmd_params += "-minc #{params[:minm]} " unless params[:minm].nil?
+  cmd_params += "-maxc #{params[:maxm]} " unless params[:maxm].nil?
+  seed = params[:seed] || 0
 
   network = nil
   modules = nil
   Dir.chdir(Dir.tmpdir) do
-    File.open('time_seed.dat', 'w') { |f| f.puts(seed || 0) }
-    system "benchmark-directed #{params}"
+    File.open('time_seed.dat', 'w') { |f| f.puts(seed) }
+    system "benchmark-directed #{cmd_params}"
     network = read_pairs("network.dat")
     network.map! { |a, b| [(a.to_i - 1).to_s, (b.to_i - 1).to_s] }
     modules = read_pairs("community.dat")
     modules.map! { |a, b| [(a.to_i - 1).to_s, (b.to_i - 1).to_s] }
     FileUtils.rm_f %w(network.dat community.dat statistics.dat)
   end
-  puts_pairs(network, "#{outfile}.arc")
-  puts_pairs(modules, "#{outfile}.mod")
+
+  return [pairs_to_string(network), pairs_to_string(modules)]
 end
 
 begin
