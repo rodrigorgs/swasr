@@ -153,7 +153,7 @@ class ClusteringExperiment
   end
 
   def generate_networks
-    @db[:synthetic_network].filter(:fkmodel => MODEL_BCR).and('arc IS NULL')
+    @db[:synthetic_network].filter(:arc => nil, :fkmodel => MODEL_BCR)
     .graph(:bcr_params, :id => :fkparams)
     .graph(:architecture, :id => :fkarchitecture).each do |row|
       puts 'generate'
@@ -161,15 +161,20 @@ class ClusteringExperiment
       @db[:synthetic_network].filter(:id => row[:synthetic_network][:id]).update(:arc => g[0], :mod => g[1])
     end
 
-    @db[:synthetic_network].filter(:fkmodel => MODEL_CGW).and('arc IS NULL')
+    @db[:synthetic_network].filter(:arc => nil, :fkmodel => MODEL_CGW)
     .graph(:cgw_params, :id => :fkparams).each do |row|
       puts 'generate'
       g = generate_cgw(row[:cgw_params])
       @db[:synthetic_network].filter(:id => row[:synthetic_network][:id]).update(:arc => g[0], :mod => g[1])
     end
-
+    
+    @db[:synthetic_network].filter(:arc => nil, :fkmodel => MODEL_LF)
+    .graph(:lf_params, :id => :fkparams).each do |row|
+      puts 'generate lf'
+      g = generate_lf(row[:lf_params])
+      @db[:synthetic_network].filter(:id => row[:synthetic_network][:id]).update(:arc => g[0], :mod => g[1])
+    end
   end
-
 end
 
 if __FILE__ == $0

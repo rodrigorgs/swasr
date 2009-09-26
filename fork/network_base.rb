@@ -601,3 +601,6 @@ def entities(pairs)
   pairs.flatten.uniq
 end
 
+def pairs_to_string(pairs)
+  return pairs.map { |a, b| "#{a} #{b}" }.join("\n")
+end
