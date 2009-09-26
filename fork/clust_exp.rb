@@ -70,6 +70,30 @@ class ClusteringExperiment
   end
 
   def create_tables
+    @db.create_table? :acdc_params do
+      primary_key :pkalgparams
+    end
+
+    @db.create_table? :hcas_params do
+      primary_key :pkalgparams
+      Boolean :single_linkage
+      Float :cut_height
+    end
+
+    @db.create_table? :acdc_params do
+      primary_key :pkalgparams
+      # TODO
+    end
+
+    @db.create_table :clustering do
+      primary_key :pkclustering
+      Integer :fksynthetic_network
+      Integer :fkalgorithm
+      Integer :fkalgparams
+      String :clusteringmod
+      String :mojo
+    end
+
     @db.create_table? :synthetic_network do
       primary_key :pksynthetic_network
       Integer :fkmodel
