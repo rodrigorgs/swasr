@@ -1,0 +1,2 @@
+Adapt clusterer to work with strings (input: string, return: clustering as string)
+Adapt clusterer to do clustering in one step
