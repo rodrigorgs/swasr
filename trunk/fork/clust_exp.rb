@@ -46,7 +46,7 @@ class ClusteringExperiment
     if exp.db[:architecture].empty?
       exp.db[:architecture].insert(:arch_name => 'dummy', :arch_arc => '0 1', :arch_mod => '0 0')
     end
-    arch_id = exp.db[:architecture].first[:id]
+    arch_id = exp.db[:architecture].first[:pkarchitecture]
 
     p exp.insert_synthetic_network_params(ClusteringExperiment::MODEL_BCR,
         :seed => 0,
@@ -59,8 +59,8 @@ class ClusteringExperiment
         :dout => 3,
         :mu => 0.3)
 
-    p exp.db[:synthetic_network].filter(:fkmodel => ClusteringExperiment::MODEL_BCR).inner_join(:bcr_params, :id => :fkparams)
-      .inner_join(:architecture, :id => :fkarchitecture)
+    p exp.db[:synthetic_network].filter(:fkmodel => ClusteringExperiment::MODEL_BCR).inner_join(:bcr_params, :pkparams => :fkparams)
+      .inner_join(:architecture, :pkarchitecture => :fkarchitecture)
       .all
   end
   attr_reader :db
@@ -71,7 +71,7 @@ class ClusteringExperiment
 
   def create_tables
     @db.create_table? :synthetic_network do
-      primary_key :id
+      primary_key :pksynthetic_network
       Integer :fkmodel
       Integer :fkparams
       String :arc
@@ -79,7 +79,7 @@ class ClusteringExperiment
     end
 
     @db.create_table? :cgw_params do
-      primary_key :id
+      primary_key :pkparams
       Integer :seed
       Float :p1
       Float :p2
@@ -95,7 +95,7 @@ class ClusteringExperiment
     end
 
     @db.create_table? :bcr_params do
-      primary_key :id
+      primary_key :pkparams
       Integer :seed
       Integer :n
       Integer :fkarchitecture
@@ -108,24 +108,41 @@ class ClusteringExperiment
     end
 
     @db.create_table? :lf_params do
-      primary_key :id
+      primary_key :pkparams
       Integer :n
       Float :avgk
       Integer :maxk
       Float :mixing
         # parameters below are optional
-      Integer :seed
-      Float :expdegree
-      Float :expsize
-      Integer :minm
-      Integer :maxm
+      Integer :seed, :null => true
+      Float :expdegree, :null => true
+      Float :expsize, :null => true
+      Integer :minm, :null => true
+      Integer :maxm, :null => true
     end
 
     @db.create_table? :architecture do
-      primary_key :id
+      primary_key :pkarchitecture
       String :arch_name
       String :arch_arc
       String :arch_mod
+    end
+
+    @db.create_table? :motifs do
+      primary_key :pkmotifs
+      Float :m1
+      Float :m2
+      Float :m3
+      Float :m4
+      Float :m5
+      Float :m6
+      Float :m7
+      Float :m8
+      Float :m9
+      Float :m10
+      Float :m11
+      Float :m12
+      Float :m13
     end
   end
 
@@ -148,31 +165,34 @@ class ClusteringExperiment
     raise RuntimeError, "Invalid model" if table.nil?
 
     insert_safe table, params
-    id = @db[table].filter(params).first[:id]
+    id = @db[table].filter(params).first[:pkparams]
     insert_safe :synthetic_network, :fkmodel => model, :fkparams => id
   end
 
-  def generate_networks
-    @db[:synthetic_network].filter(:arc => nil, :fkmodel => MODEL_BCR)
-    .graph(:bcr_params, :id => :fkparams)
-    .graph(:architecture, :id => :fkarchitecture).each do |row|
-      puts 'generate'
-      g = generate_bcrplus(row[:bcr_params].merge(row[:architecture]))
-      @db[:synthetic_network].filter(:id => row[:synthetic_network][:id]).update(:arc => g[0], :mod => g[1])
+  def dataset_params(model)
+    params_table = HASH_MODEL_TO_TABLE(model)
+    dataset = @db[:synthetic_network].filter(:fkmodel => model)
+              .inner_join(params_table, :pkparams => :fkparams)
+    if model == MODEL_BCR
+      dataset = @db.inner_join(:architecture, :pkarchitecture => :fkarchitecture)
     end
+    return dataset
+  end
 
-    @db[:synthetic_network].filter(:arc => nil, :fkmodel => MODEL_CGW)
-    .graph(:cgw_params, :id => :fkparams).each do |row|
-      puts 'generate'
-      g = generate_cgw(row[:cgw_params])
-      @db[:synthetic_network].filter(:id => row[:synthetic_network][:id]).update(:arc => g[0], :mod => g[1])
-    end
-    
-    @db[:synthetic_network].filter(:arc => nil, :fkmodel => MODEL_LF)
-    .graph(:lf_params, :id => :fkparams).each do |row|
-      puts 'generate lf'
-      g = generate_lf(row[:lf_params])
-      @db[:synthetic_network].filter(:id => row[:synthetic_network][:id]).update(:arc => g[0], :mod => g[1])
+  def generate_network(model, params)
+    return (case model
+    when MODEL_BCR then generate_bcrplus(params)
+    when MODEL_CGW then generate_cgw(params)
+    when MODEL_LF  then generate_lf(params)
+    else raise RuntimeError, 'Invalid model'
+    end)
+  end
+
+  def generate_missing_networks(model)
+    dataset = dataset_params(model)
+    dataset.filter(:arc => nil).each do |row|
+      g = generate_network(model, row)
+      @db[:synthetic_network].filter(:pksynthetic_network => row[:pksynthetic_network]).update(:arc => g[0], :mod => g[1])
     end
   end
 end
@@ -181,7 +201,7 @@ if __FILE__ == $0
   ClusteringExperiment::xxx_test_insert_params
 
   exp = ClusteringExperiment.new
-  exp.generate_networks
+  #exp.generate_networks
   #p exp.db[:synthetic_network].filter(:arc => '123').count
   #p exp.db[:synthetic_network].update(:arc => nil)
 end
