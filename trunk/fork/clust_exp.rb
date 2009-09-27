@@ -14,8 +14,23 @@ class ClusteringExperiment
     MODEL_CGW => :cgw_params,
     MODEL_LF => :lf_params}
 
+  ALGORITHM_ACDC = 1
+  ALGORITHM_HCAS = 2
+
+  HASH_ALGORITHM_TO_TABLE = {
+    ALGORITHM_ACDC => :acdc_params,
+    ALGORITHM_HCAS => :hcas_params}
+
+  def drop_all_tables
+    #sequences = @db["SELECT sequence_name FROM information_schema.sequences WHERE sequence_schema='public'"].all
+    #p sequences
+    tables=@db["SELECT table_name FROM information_schema.tables WHERE table_schema='public' AND table_type != 'VIEW' AND table_name NOT LIKE 'pg_ts_%%'"].all.map { |h| h.values[0] }
+    tables.each { |t| @db.drop_table t }
+  end
+
   def self.xxx_test_insert_params
     exp = ClusteringExperiment.new
+    #exp.drop_all_tables
     exp.create_tables
 
     p exp.insert_synthetic_network_params(ClusteringExperiment::MODEL_LF, 
@@ -59,19 +74,35 @@ class ClusteringExperiment
         :dout => 3,
         :mu => 0.3)
 
-    p exp.db[:synthetic_network].filter(:fkmodel => ClusteringExperiment::MODEL_BCR).inner_join(:bcr_params, :pkparams => :fkparams)
-      .inner_join(:architecture, :pkarchitecture => :fkarchitecture)
-      .all
+#    p exp.db[:synthetic_network].filter(:fkmodel => ClusteringExperiment::MODEL_BCR).inner_join(:bcr_params, :pkparams => :fkparams)
+#      .inner_join(:architecture, :pkarchitecture => :fkarchitecture)
+#      .all
+
+    #exp.db[:clustering].delete
+    #exp.db[:clustering].insert(
+    #  :fksynthetic_network => 0,
+    #  :fkalgorithm => ALGORITHM_ACDC,
+    #  :fkalgparams => 1)
+
+    exp.db[:algorithm].delete
+    exp.db[:algorithm].insert :pkalgorithm => ALGORITHM_ACDC, :algname => 'ACDC'
+    exp.db[:algorithm].insert :pkalgorithm => ALGORITHM_HCAS, :algname => 'HCAS'
+    exp.db[:acdc_params].delete
+    exp.db[:acdc_params].insert :top_level_clusters => true
+    exp.db[:clustering].delete
   end
+
   attr_reader :db
 
   def initialize
-    @db = Sequel.sqlite('teste.db')
+    #@db = Sequel.sqlite('teste.db')
+    @db = Sequel.postgres('rodrigo', :user => 'rodrigo', :password => 'rodrigodb', :host => 'mainha')
   end
 
   def create_tables
     @db.create_table? :acdc_params do
       primary_key :pkalgparams
+      Boolean :top_level_clusters
     end
 
     @db.create_table? :hcas_params do
@@ -80,18 +111,21 @@ class ClusteringExperiment
       Float :cut_height
     end
 
-    @db.create_table? :acdc_params do
-      primary_key :pkalgparams
-      # TODO
+    @db.create_table? :algorithm do
+      Integer :pkalgorithm
+      String :algname
     end
 
-    @db.create_table :clustering do
+    @db.create_table? :clustering do
       primary_key :pkclustering
       Integer :fksynthetic_network
       Integer :fkalgorithm
       Integer :fkalgparams
       String :clusteringmod
       String :mojo
+      Integer :n_modules
+      Integer :min_module_size
+      Integer :max_module_size
     end
 
     @db.create_table? :synthetic_network do
@@ -194,11 +228,11 @@ class ClusteringExperiment
   end
 
   def dataset_params(model)
-    params_table = HASH_MODEL_TO_TABLE(model)
+    params_table = HASH_MODEL_TO_TABLE[model]
     dataset = @db[:synthetic_network].filter(:fkmodel => model)
               .inner_join(params_table, :pkparams => :fkparams)
     if model == MODEL_BCR
-      dataset = @db.inner_join(:architecture, :pkarchitecture => :fkarchitecture)
+      dataset = dataset.inner_join(:architecture, :pkarchitecture => :fkarchitecture)
     end
     return dataset
   end
@@ -212,11 +246,64 @@ class ClusteringExperiment
     end)
   end
 
+  
+  def generate_all_missing_networks
+    HASH_MODEL_TO_TABLE.keys.each do |model|
+      generate_missing_networks(model)
+    end
+  end
+
   def generate_missing_networks(model)
     dataset = dataset_params(model)
     dataset.filter(:arc => nil).each do |row|
       g = generate_network(model, row)
       @db[:synthetic_network].filter(:pksynthetic_network => row[:pksynthetic_network]).update(:arc => g[0], :mod => g[1])
+    end
+  end
+
+  def prepare_clustering_for_algorithm(algorithm)
+    params_table = HASH_ALGORITHM_TO_TABLE[algorithm]
+#    dataset_all = @db[:synthetic_network].select(:pksynthetic_network)
+#              .join_table(:cross, :algorithm, nil).select_more(:pkalgorithm)
+#              .join_table(:cross, params_table, nil).select_more(:pkalgparams)
+
+    dataset_all = @db[<<-EOT
+      SELECT sn.pksynthetic_network AS fksynthetic_network,
+        pkalgorithm AS fkalgorithm,
+        pkalgparams AS fkalgparams
+      FROM synthetic_network AS sn
+      CROSS JOIN algorithm AS alg
+      CROSS JOIN #{params_table} AS par
+    EOT
+    ]
+
+    puts "prepare_clustering_for_algorithm(#{params_table})"
+    p dataset_all.all
+    dataset_created = @db[:clustering].select(:fksynthetic_network,
+                                              :fkalgorithm,
+                                              :fkalgparams)
+
+    dataset_to_create = dataset_all.except(dataset_created)
+
+    @db[:clustering].insert_multiple(dataset_to_create.all)
+  end
+
+  def prepare_clustering
+    HASH_ALGORITHM_TO_TABLE.keys.each do |algorithm|
+      prepare_clustering_for_algorithm(algorithm)
+    end
+  end
+
+  def do_clustering
+    prepare_clustering
+    dataset = @db[:synthetic_network]
+              .inner_join(:clustering, :fksynthetic_network => :pksynthetic_network)
+              .inner_join(:acdc_params, :pkalgparams => :fkalgparams)
+              .filter(:fkalgorithm => 0)
+
+    dataset.each do |row|
+      mod = Clusterer::acdc(dataset[:arc])
+      # TODO: Update table
     end
   end
 end
@@ -225,7 +312,9 @@ if __FILE__ == $0
   ClusteringExperiment::xxx_test_insert_params
 
   exp = ClusteringExperiment.new
-  #exp.generate_networks
+  exp.generate_all_missing_networks
+  exp.do_clustering
+
   #p exp.db[:synthetic_network].filter(:arc => '123').count
   #p exp.db[:synthetic_network].update(:arc => nil)
 end
