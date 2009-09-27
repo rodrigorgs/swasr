@@ -3,11 +3,16 @@ require 'sequel'
   # http://sequel.rubyforge.org/static/mwrc2009_presentation.html
 
 require 'network_models'
+require 'mojosim'
+require 'clusterer'
+Clusterer::acdc
 
 class ClusteringExperiment
-  MODEL_BCR = 0
-  MODEL_CGW = 1
-  MODEL_LF = 2
+  attr_reader :db
+  
+  MODEL_BCR = 1
+  MODEL_CGW = 2
+  MODEL_LF = 3
 
   HASH_MODEL_TO_TABLE = {
     MODEL_BCR => :bcr_params, 
@@ -21,82 +26,12 @@ class ClusteringExperiment
     ALGORITHM_ACDC => :acdc_params,
     ALGORITHM_HCAS => :hcas_params}
 
-  def drop_all_tables
-    #sequences = @db["SELECT sequence_name FROM information_schema.sequences WHERE sequence_schema='public'"].all
-    #p sequences
-    tables=@db["SELECT table_name FROM information_schema.tables WHERE table_schema='public' AND table_type != 'VIEW' AND table_name NOT LIKE 'pg_ts_%%'"].all.map { |h| h.values[0] }
-    tables.each { |t| @db.drop_table t }
-  end
-
-  def self.xxx_test_insert_params
-    exp = ClusteringExperiment.new
-    #exp.drop_all_tables
-    exp.create_tables
-
-    p exp.insert_synthetic_network_params(ClusteringExperiment::MODEL_LF, 
-      :seed => 0, 
-      :n => 1000, 
-      :avgk => 10, 
-      :maxk => 100, 
-      :mixing => 0.5,
-      :expdegree => 2.5,
-      :expsize => 1.0,
-      :minm => 5,
-      :maxm => nil)
-    
-    p exp.insert_synthetic_network_params(ClusteringExperiment::MODEL_CGW, 
-      :seed => 0,
-      :p1 => 0.6,
-      :p2 => 0.2,
-      :p3 => 0.0,
-      :p4 => 0.2,
-      :e1 => 2,
-      :e2 => 1,
-      :e3 => 1,
-      :e4 => 1,
-      :n => 1000,
-      :m => 16,
-      :alpha => 100)
-
-    if exp.db[:architecture].empty?
-      exp.db[:architecture].insert(:arch_name => 'dummy', :arch_arc => '0 1', :arch_mod => '0 0')
-    end
-    arch_id = exp.db[:architecture].first[:pkarchitecture]
-
-    p exp.insert_synthetic_network_params(ClusteringExperiment::MODEL_BCR,
-        :seed => 0,
-        :n => 1000,
-        :fkarchitecture => arch_id,
-        :p1 => 0.7,
-        :p2 => 0.2,
-        :p3 => 0.1,
-        :din => 2,
-        :dout => 3,
-        :mu => 0.3)
-
-#    p exp.db[:synthetic_network].filter(:fkmodel => ClusteringExperiment::MODEL_BCR).inner_join(:bcr_params, :pkparams => :fkparams)
-#      .inner_join(:architecture, :pkarchitecture => :fkarchitecture)
-#      .all
-
-    #exp.db[:clustering].delete
-    #exp.db[:clustering].insert(
-    #  :fksynthetic_network => 0,
-    #  :fkalgorithm => ALGORITHM_ACDC,
-    #  :fkalgparams => 1)
-
-    exp.db[:algorithm].delete
-    exp.db[:algorithm].insert :pkalgorithm => ALGORITHM_ACDC, :algname => 'ACDC'
-    exp.db[:algorithm].insert :pkalgorithm => ALGORITHM_HCAS, :algname => 'HCAS'
-    exp.db[:acdc_params].delete
-    exp.db[:acdc_params].insert :top_level_clusters => true
-    exp.db[:clustering].delete
-  end
-
-  attr_reader :db
-
   def initialize
     #@db = Sequel.sqlite('teste.db')
-    @db = Sequel.postgres('rodrigo', :user => 'rodrigo', :password => 'rodrigodb', :host => 'mainha')
+    @db = Sequel.postgres('rodrigo', 
+        :user => 'rodrigo', 
+        :password => 'rodrigodb', 
+        :host => 'mainha')
   end
 
   def create_tables
@@ -299,23 +234,14 @@ class ClusteringExperiment
     dataset = @db[:synthetic_network]
               .inner_join(:clustering, :fksynthetic_network => :pksynthetic_network)
               .inner_join(:acdc_params, :pkalgparams => :fkalgparams)
-              .filter(:fkalgorithm => 0)
+              .filter(:fkalgorithm => ALGORITHM_ACDC)
 
     dataset.each do |row|
-      mod = Clusterer::acdc(dataset[:arc])
+      puts 1
+      mod = Clusterer::acdc(row[:arc])
+      p dataset.update_sql
+        
       # TODO: Update table
     end
   end
 end
-
-if __FILE__ == $0
-  ClusteringExperiment::xxx_test_insert_params
-
-  exp = ClusteringExperiment.new
-  exp.generate_all_missing_networks
-  exp.do_clustering
-
-  #p exp.db[:synthetic_network].filter(:arc => '123').count
-  #p exp.db[:synthetic_network].update(:arc => nil)
-end
-

@@ -7,13 +7,14 @@ require 'stringio'
 include Open3
 
 class Clusterer
-public
   def self.acdc(arcs_string) #, params)
     out = StringIO.new
     clusterer = AcdcClusterer.new
     clusterer.cluster(arcs_string, out) #, params)
     return out.string
   end
+
+public
 
   def cluster(input, output, params)
     ostream = new_IO(output, 'w')
@@ -136,6 +137,7 @@ class AcdcClusterer < Clusterer
 end
 
 if __FILE__ == $0
+  #Clusterer::acdc
   #clusterer = AcdcClusterer.new
   #clusterer.cluster("/tmp/numbers.arc", "/tmp/acdc.mod", "-l9999 -u")
   #
