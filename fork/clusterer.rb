@@ -8,6 +8,13 @@ include Open3
 
 class Clusterer
 public
+  def self.acdc(arcs_string) #, params)
+    out = StringIO.new
+    clusterer = AcdcClusterer.new
+    clusterer.cluster(arcs_string, out) #, params)
+    return out.string
+  end
+
   def cluster(input, output, params)
     ostream = new_IO(output, 'w')
     pairs = read_pairs(input).map { |a, b| [a.to_i, b.to_i] }
