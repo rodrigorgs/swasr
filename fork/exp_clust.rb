@@ -4,8 +4,7 @@ require 'sequel'
 
 require 'network_models'
 require 'mojosim'
-require 'clusterer'
-Clusterer::acdc
+require 'clustering'
 
 class ClusteringExperiment
   attr_reader :db
