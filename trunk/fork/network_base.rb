@@ -604,3 +604,8 @@ end
 def pairs_to_string(pairs)
   return pairs.map { |a, b| "#{a} #{b}" }.join("\n")
 end
+
+def pairs_from_string(string)
+  return string.chomp.split("\n").map { |line| line.split(" ") }
+end
+

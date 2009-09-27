@@ -236,10 +236,9 @@ class ClusteringExperiment
               .filter(:fkalgorithm => ALGORITHM_ACDC)
 
     dataset.each do |row|
-      puts 1
       mod = Clusterer::acdc(row[:arc])
-      p dataset.update_sql
-        
+      @db[:clustering].filter(:pkclustering => row[:pkclustering])
+          .update(:clusteringmod => mod)
       # TODO: Update table
     end
   end
