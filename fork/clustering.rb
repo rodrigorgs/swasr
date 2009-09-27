@@ -10,7 +10,7 @@ class Clusterer
   def self.acdc(arcs_string) #, params)
     out = StringIO.new
     clusterer = AcdcClusterer.new
-    clusterer.cluster(arcs_string, out) #, params)
+    clusterer.cluster(arcs_string, out, '-u') #, params)
     return out.string
   end
 
@@ -18,7 +18,8 @@ public
 
   def cluster(input, output, params)
     ostream = new_IO(output, 'w')
-    pairs = read_pairs(input).map { |a, b| [a.to_i, b.to_i] }
+    #pairs = read_pairs(input).map { |a, b| [a.to_i, b.to_i] }
+    pairs = pairs_from_string(input).map { |a, b| [a.to_i, b.to_i] }
 
     arc_to_intermediate(pairs, ostream, params)
 
@@ -137,7 +138,6 @@ class AcdcClusterer < Clusterer
 end
 
 if __FILE__ == $0
-  #Clusterer::acdc
   #clusterer = AcdcClusterer.new
   #clusterer.cluster("/tmp/numbers.arc", "/tmp/acdc.mod", "-l9999 -u")
   #
