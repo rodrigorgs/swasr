@@ -7,14 +7,26 @@ require 'stringio'
 include Open3
 
 class Clusterer
-  def self.acdc(arcs_string) #, params)
+
+public
+  def self.acdc(arcs_string, params)
     out = StringIO.new
     clusterer = AcdcClusterer.new
-    clusterer.cluster(arcs_string, out, '-u') #, params)
+    clusterer.cluster(arcs_string, out, params)
+    return out.string
+  end
+  
+  def self.hcas(arcs_string, params)
+    inter = StringIO.new
+    out = StringIO.new
+    clusterer = HcasClusterer.new
+    clusterer.cluster(arcs_string, inter, params)
+    inter.rewind
+    clusterer.post_process(inter, out, params)
     return out.string
   end
 
-public
+  ###################################################################### 
 
   def cluster(input, output, params)
     ostream = new_IO(output, 'w')
@@ -69,7 +81,9 @@ protected
 
   # params is a string that is given to the command ``cluster''.
   def arc_to_intermediate(pairs, ostream, params)
-    popen3 "prelude | cluster #{params}" do |stdin, stdout, stderr|
+    cmd_params = " -#{params[:coefficient]} -l#{params[:linkage]}"
+    cmd = "prelude | cluster #{cmd_params}"
+    popen3 cmd do |stdin, stdout, stderr|
       arc_to_gdm(pairs, stdin)
       stdin.close
       ostream.write(stdout.read)
@@ -78,8 +92,7 @@ protected
 
   # params is the height of the cut (from 0.0 to 1.0)
   def intermediate_to_clusters(istream, ostream, params)
-    cmd = "prune -s#{params} | pprint"
-    puts cmd
+    cmd = "prune -s#{params[:cut_height]} | pprint"
     popen3 cmd do |stdin, stdout, stderr|
       stdin.write(istream.read)
       stdin.close
@@ -87,7 +100,7 @@ protected
     end
   end
 
-  # extracts the top clusters
+  # extracts the topmost clusters
   #
   # From http://web.archive.org/web/20050427174815/http://www.csi.uottawa.ca/~anquetil/Clusters/index.html :
   # Usually, what you want is the top most clusters. 
@@ -115,14 +128,20 @@ end
 # Pre-requisite: acdc must be in CLASSPATH
 class AcdcClusterer < Clusterer
 
-  def arc_to_intermediate(pairs, ostream, params="-l9999 -u")
+  def arc_to_intermediate(pairs, ostream, params)
+    cmd_params = params[:patterns] || '+bso'
+    cmd_params.downcase!
+    cmd_params += " -u" if params[:top_level_clusters]
+    cmd_params += " -l#{params[:max_cluster_size]}" if params[:max_cluster_size]
+
     ifile = "#{Dir.tmpdir}/input.rsf"
     File.open(ifile, "w") do |f|
       pairs.each { |a, b| f.puts "depend #{a} #{b}" }
     end
 
     ofile = "#{Dir.tmpdir}/output.rsf"
-    system "java acdc.ACDC #{ifile} #{ofile} #{params}"
+    cmd = "java acdc.ACDC #{ifile} #{ofile} #{cmd_params}"
+    system cmd
     lastmod = nil
     mod = -1
     IO.foreach(ofile) do |line|

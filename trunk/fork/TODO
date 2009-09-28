@@ -1,3 +1,6 @@
-Adapt clusterer to work with strings (input: string, return: clustering as string)
-Adapt clusterer to do clustering in one step
-Consider using table inheritance (model_params <|-- bcr_params, cgw_params, lf_params ; network <|-- synthetic_net, natural_net)
+  Consider using table inheritance (model_params <|-- bcr_params, cgw_params, 
+lf_params ; network <|-- synthetic_net, natural_net)
+- Not feasible. Primary key index is not shared among parent/child tables
+- P of EAA suggests merging all columns into one big table
+
+
