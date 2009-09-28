@@ -254,4 +254,18 @@ class ClusteringExperiment
           .update(:clusteringmod => mod)
     end
   end
+
+  def compute_mojos
+    dataset = @db[:clustering]
+        .inner_join(:synthetic_network, :pksynthetic_network => :fksynthetic_network)
+        .filter(:mojo => nil)
+
+    dataset.each do |row|
+      reference = StringIO.new(row[:mod])
+      found = StringIO.new(row[:clusteringmod])
+      m = mojo(found, reference)
+      @db[:clustering].filter(:pkclustering => row[:pkclustering])
+          .update(:mojo => m)
+    end
+  end
 end

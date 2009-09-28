@@ -183,7 +183,7 @@ int main(int argc, char *argv[]) {
   int w;
   int tmp, i, j;
 
-  if (argc < 12)
+  if (argc < 2)
     help_and_exit();
 
   sscanf(argv[1], "%d,%lf,%lf,%lf,%lf,%d,%d,%d,%d,%lf,%d,%d", &size, 

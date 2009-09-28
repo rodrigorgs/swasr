@@ -95,5 +95,6 @@ if __FILE__ == $0
   exp = ClusteringExperiment.new
   exp.generate_all_missing_networks
   exp.do_all_clustering
+  exp.compute_mojos
 end
 
