@@ -73,6 +73,7 @@ class ClusteringExperiment
       index [:fkmodel, :fkparams], :unique => true
       String :arc
       String :mod
+      Integer :fkexperiment, :default => 1
     end
 
     @db.create_table? :cgw_params do
@@ -235,16 +236,45 @@ class ClusteringExperiment
     end
   end
 
+#  def do_clustering(algorithm)
+#    table_alg = HASH_ALGORITHM_TO_TABLE[algorithm]
+#    puts "do_clustering(#{table_alg})"
+#    prepare_clustering
+#    dataset = @db[:synthetic_network]
+#              .inner_join(:clustering, :fksynthetic_network => :pksynthetic_network)
+#              .inner_join(table_alg, :pkalgparams => :fkalgparams)
+#              .filter(:fkalgorithm => algorithm, :clusteringmod => nil)
+#
+#    dataset.each do |row|
+#      mod = case algorithm
+#        when ALGORITHM_ACDC then Clusterer::acdc(row[:arc], row)
+#        when ALGORITHM_HCAS then Clusterer::hcas(row[:arc], row)
+#        else raise RuntimeError, "Unknown algorithm."
+#        end
+#      @db[:clustering].filter(:pkclustering => row[:pkclustering])
+#          .update(:clusteringmod => mod)
+#    end
+#  end
+  
   def do_clustering(algorithm)
     table_alg = HASH_ALGORITHM_TO_TABLE[algorithm]
-    puts "do_clustering(#{table_alg})"
     prepare_clustering
-    dataset = @db[:synthetic_network]
-              .inner_join(:clustering, :fksynthetic_network => :pksynthetic_network)
-              .inner_join(table_alg, :pkalgparams => :fkalgparams)
-              .filter(:fkalgorithm => algorithm, :clusteringmod => nil)
 
-    dataset.each do |row|
+    while true
+      row = @db[<<-EOT
+      SELECT *
+      FROM clustering c
+      INNER JOIN synthetic_network sn ON sn.pksynthetic_network = c.fksynthetic_network
+      INNER JOIN #{table_alg} par ON par.pkalgparams = c.fkalgparams
+      WHERE c.fkalgorithm = #{algorithm}
+      AND c.clusteringmod IS NULL
+      AND c.pkclustering >= RANDOM() * (SELECT MAX(pkclustering) FROM clustering)
+      LIMIT 1
+      EOT
+      ].all
+      break if row.empty?
+      row = row[0]
+
       mod = case algorithm
         when ALGORITHM_ACDC then Clusterer::acdc(row[:arc], row)
         when ALGORITHM_HCAS then Clusterer::hcas(row[:arc], row)

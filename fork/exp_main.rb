@@ -90,11 +90,28 @@ class ClusteringExperiment
 end
 
 if __FILE__ == $0
-  ClusteringExperiment::xxx_test_insert_params
+  #ClusteringExperiment::xxx_test_insert_params
 
   exp = ClusteringExperiment.new
-  exp.generate_all_missing_networks
-  exp.do_all_clustering
+   
+  #0.upto(10).map { |x| x / 10.0 }.each do |mixing|
+  #p mixing
+  #100.times do |seed|
+  #  exp.insert_synthetic_network_params(ClusteringExperiment::MODEL_LF, 
+  #    :seed => seed, 
+  #    :n => 1000, 
+  #    :avgk => 15, 
+  #    :maxk => 300, 
+  #    :mixing => mixing,
+  #    :expdegree => 2.5,
+  #    :expsize => 1.0,
+  #    :minm => 5,
+  #    :maxm => nil)
+  #end
+  #end
+
+  #exp.generate_all_missing_networks
+  exp.do_clustering(ClusteringExperiment::ALGORITHM_HCAS)
   exp.compute_mojos
 end
 
