@@ -37,11 +37,14 @@ class ClusteringExperiment
     @db.create_table? :acdc_params do
       primary_key :pkalgparams
       Boolean :top_level_clusters
+      Integer :max_cluster_size
+      String :patterns, :size => 4
     end
 
     @db.create_table? :hcas_params do
       primary_key :pkalgparams
-      Boolean :single_linkage
+      String :linkage, :size => 1
+      String :coefficient, :size => 2
       Float :cut_height
     end
 
@@ -55,6 +58,7 @@ class ClusteringExperiment
       Integer :fksynthetic_network
       Integer :fkalgorithm
       Integer :fkalgparams
+      index [:fksynthetic_network, :fkalgorithm, :fkalgparams], :unique => true
       String :clusteringmod
       String :mojo
       Integer :n_modules
@@ -66,6 +70,7 @@ class ClusteringExperiment
       primary_key :pksynthetic_network
       Integer :fkmodel
       Integer :fkparams
+      index [:fkmodel, :fkparams], :unique => true
       String :arc
       String :mod
     end
@@ -191,6 +196,7 @@ class ClusteringExperiment
     dataset = dataset_params(model)
     dataset.filter(:arc => nil).each do |row|
       g = generate_network(model, row)
+      puts 'generate network'
       @db[:synthetic_network].filter(:pksynthetic_network => row[:pksynthetic_network]).update(:arc => g[0], :mod => g[1])
     end
   end
@@ -201,25 +207,20 @@ class ClusteringExperiment
 #              .join_table(:cross, :algorithm, nil).select_more(:pkalgorithm)
 #              .join_table(:cross, params_table, nil).select_more(:pkalgparams)
 
-    dataset_all = @db[<<-EOT
+    dataset = @db[<<-EOT
       SELECT sn.pksynthetic_network AS fksynthetic_network,
-        pkalgorithm AS fkalgorithm,
-        pkalgparams AS fkalgparams
+        #{algorithm} AS fkalgorithm,
+        par.pkalgparams AS fkalgparams
       FROM synthetic_network AS sn
-      CROSS JOIN algorithm AS alg
       CROSS JOIN #{params_table} AS par
+      EXCEPT
+      SELECT fksynthetic_network, fkalgorithm, fkalgparams
+      FROM clustering
+      WHERE fkalgorithm = #{algorithm}
     EOT
     ]
 
-    puts "prepare_clustering_for_algorithm(#{params_table})"
-    p dataset_all.all
-    dataset_created = @db[:clustering].select(:fksynthetic_network,
-                                              :fkalgorithm,
-                                              :fkalgparams)
-
-    dataset_to_create = dataset_all.except(dataset_created)
-
-    @db[:clustering].insert_multiple(dataset_to_create.all)
+    @db[:clustering].insert_multiple(dataset.all)
   end
 
   def prepare_clustering
@@ -228,18 +229,29 @@ class ClusteringExperiment
     end
   end
 
-  def do_clustering
+  def do_all_clustering
+    HASH_ALGORITHM_TO_TABLE.keys.each do |algorithm|
+      do_clustering(algorithm)
+    end
+  end
+
+  def do_clustering(algorithm)
+    table_alg = HASH_ALGORITHM_TO_TABLE[algorithm]
+    puts "do_clustering(#{table_alg})"
     prepare_clustering
     dataset = @db[:synthetic_network]
               .inner_join(:clustering, :fksynthetic_network => :pksynthetic_network)
-              .inner_join(:acdc_params, :pkalgparams => :fkalgparams)
-              .filter(:fkalgorithm => ALGORITHM_ACDC)
+              .inner_join(table_alg, :pkalgparams => :fkalgparams)
+              .filter(:fkalgorithm => algorithm, :clusteringmod => nil)
 
     dataset.each do |row|
-      mod = Clusterer::acdc(row[:arc])
+      mod = case algorithm
+        when ALGORITHM_ACDC then Clusterer::acdc(row[:arc], row)
+        when ALGORITHM_HCAS then Clusterer::hcas(row[:arc], row)
+        else raise RuntimeError, "Unknown algorithm."
+        end
       @db[:clustering].filter(:pkclustering => row[:pkclustering])
           .update(:clusteringmod => mod)
-      # TODO: Update table
     end
   end
 end

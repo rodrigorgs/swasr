@@ -4,26 +4,14 @@ require 'exp_clust'
 
 class ClusteringExperiment
 
-  def drop_all_tables
-    tables=@db[<<-EOT
-      SELECT table_name 
-      FROM information_schema.tables 
-      WHERE table_schema='public' A
-      ND table_type != 'VIEW' 
-      AND table_name NOT LIKE 'pg_ts_%%'
-      EOT
-      ].all.map { |h| h.values[0] }
-    tables.each { |t| @db.drop_table t }
-  end
-
   def self.xxx_test_insert_params
     exp = ClusteringExperiment.new
-    #exp.drop_all_tables
+    exp.drop_all_tables
     exp.create_tables
 
-    p exp.insert_synthetic_network_params(ClusteringExperiment::MODEL_LF, 
+    exp.insert_synthetic_network_params(ClusteringExperiment::MODEL_LF, 
       :seed => 0, 
-      :n => 1000, 
+      :n => 300, 
       :avgk => 10, 
       :maxk => 100, 
       :mixing => 0.5,
@@ -32,7 +20,7 @@ class ClusteringExperiment
       :minm => 5,
       :maxm => nil)
     
-    p exp.insert_synthetic_network_params(ClusteringExperiment::MODEL_CGW, 
+    exp.insert_synthetic_network_params(ClusteringExperiment::MODEL_CGW, 
       :seed => 0,
       :p1 => 0.6,
       :p2 => 0.2,
@@ -42,7 +30,7 @@ class ClusteringExperiment
       :e2 => 1,
       :e3 => 1,
       :e4 => 1,
-      :n => 1000,
+      :n => 300,
       :m => 16,
       :alpha => 100)
 
@@ -51,9 +39,9 @@ class ClusteringExperiment
     end
     arch_id = exp.db[:architecture].first[:pkarchitecture]
 
-    p exp.insert_synthetic_network_params(ClusteringExperiment::MODEL_BCR,
+    exp.insert_synthetic_network_params(ClusteringExperiment::MODEL_BCR,
         :seed => 0,
-        :n => 1000,
+        :n => 300,
         :fkarchitecture => arch_id,
         :p1 => 0.7,
         :p2 => 0.2,
@@ -66,18 +54,38 @@ class ClusteringExperiment
 #      .inner_join(:architecture, :pkarchitecture => :fkarchitecture)
 #      .all
 
-    #exp.db[:clustering].delete
-    #exp.db[:clustering].insert(
-    #  :fksynthetic_network => 0,
-    #  :fkalgorithm => ALGORITHM_ACDC,
-    #  :fkalgparams => 1)
-
     exp.db[:algorithm].delete
     exp.db[:algorithm].insert :pkalgorithm => ALGORITHM_ACDC, :algname => 'ACDC'
     exp.db[:algorithm].insert :pkalgorithm => ALGORITHM_HCAS, :algname => 'HCAS'
+
+    exp.db[:hcas_params].delete
+    exp.db[:hcas_params].insert(
+      :linkage => 'C',
+      :coefficient => 'aJ',
+      :cut_height => 0.90)
+    #exp.db[:hcas_params].insert(
+    #  :linkage => 'S',
+    #  :coefficient => 'aJ',
+    #  :cut_height => 0.75)
+
     exp.db[:acdc_params].delete
-    exp.db[:acdc_params].insert :top_level_clusters => true
+    exp.db[:acdc_params].insert(
+        :top_level_clusters => true,
+        :patterns => "+so",
+        :max_cluster_size => 99999)
     exp.db[:clustering].delete
+  end
+
+  def drop_all_tables
+    tables=@db[<<-EOT
+      SELECT table_name 
+      FROM information_schema.tables 
+      WHERE table_schema='public'
+      AND table_type != 'VIEW' 
+      AND table_name NOT LIKE 'pg_ts_%%'
+      EOT
+      ].all.map { |h| h.values[0] }
+    tables.each { |t| @db.drop_table t }
   end
 end
 
@@ -86,9 +94,6 @@ if __FILE__ == $0
 
   exp = ClusteringExperiment.new
   exp.generate_all_missing_networks
-  exp.do_clustering
-
-  #p exp.db[:synthetic_network].filter(:arc => '123').count
-  #p exp.db[:synthetic_network].update(:arc => nil)
+  exp.do_all_clustering
 end
 
