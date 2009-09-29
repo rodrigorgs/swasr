@@ -93,8 +93,6 @@ if __FILE__ == $0
   #ClusteringExperiment::xxx_test_insert_params
 
   exp = ClusteringExperiment.new
-  p exp.db[:clustering].filter(:pkclustering => 9876).first
-
   #0.upto(10).map { |x| x / 10.0 }.each do |mixing|
   #p mixing
   #100.times do |seed|
@@ -112,7 +110,7 @@ if __FILE__ == $0
   #end
 
   #exp.generate_all_missing_networks
-  exp.do_clustering(ClusteringExperiment::ALGORITHM_ACDC)
-  #exp.compute_mojos
+  #exp.do_clustering(ClusteringExperiment::ALGORITHM_ACDC)
+  exp.compute_mojos
 end
 
