@@ -8,13 +8,13 @@ where fkalgorithm = 1
 and clusteringmod is null;
 
 -- LF mixing vs. MoJo
-SELECT par.mixing, avg(int4(mojo)), stddev(int4(mojo))
+SELECT cl.fkalgorithm, par.mixing, avg(int4(mojo)), stddev(int4(mojo))
 FROM clustering cl
 INNER JOIN synthetic_network snet ON snet.pksynthetic_network = cl.fksynthetic_network
 INNER JOIN lf_params par ON par.pkparams = snet.fkparams
 WHERE mojo IS NOT NULL
-GROUP BY par.mixing
-ORDER BY par.mixing;
+GROUP BY 1, 2
+ORDER BY 1, 2;
 
 http://rpgsql.sourceforge.net/ ?
 

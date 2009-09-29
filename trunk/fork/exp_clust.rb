@@ -274,7 +274,7 @@ class ClusteringExperiment
       row = @db[:clustering]
           .inner_join(:synthetic_network, :pksynthetic_network => :fksynthetic_network)
           .filter(:mojo => nil).and("clusteringmod IS NOT NULL")
-          .and("pkclustering >= #{pkclusteringmax}")
+          .and("pkclustering >= RANDOM() * #{pkclusteringmax}")
           .limit(1)
           .first
       break if row.nil?
