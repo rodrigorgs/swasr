@@ -140,7 +140,8 @@ class AcdcClusterer < Clusterer
     end
 
     ofile = "#{Dir.tmpdir}/output.rsf"
-    cmd = "java acdc.ACDC #{ifile} #{ofile} #{cmd_params}"
+    cmd = "java -server acdc.ACDC #{ifile} #{ofile} #{cmd_params}"
+    #cmd = "acdc.exe #{ifile} #{ofile} #{cmd_params}"
     system cmd
     lastmod = nil
     mod = -1

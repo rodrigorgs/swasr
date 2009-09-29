@@ -1,4 +1,24 @@
-  Consider using table inheritance (model_params <|-- bcr_params, cgw_params, 
+PostgreSQL schemas are namespaces. Useful to isolate data from distinct
+experiments.
+
+-- during the clustering process
+select count(*) 
+from clustering 
+where fkalgorithm = 1 
+and clusteringmod is null;
+
+-- LF mixing vs. MoJo
+SELECT par.mixing, avg(int4(mojo)), stddev(int4(mojo))
+FROM clustering cl
+INNER JOIN synthetic_network snet ON snet.pksynthetic_network = cl.fksynthetic_network
+INNER JOIN lf_params par ON par.pkparams = snet.fkparams
+WHERE mojo IS NOT NULL
+GROUP BY par.mixing
+ORDER BY par.mixing;
+
+http://rpgsql.sourceforge.net/ ?
+
+Consider using table inheritance (model_params <|-- bcr_params, cgw_params, 
 lf_params ; network <|-- synthetic_net, natural_net)
 - Not feasible. Primary key index is not shared among parent/child tables
 - P of EAA suggests merging all columns into one big table

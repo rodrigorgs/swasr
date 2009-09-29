@@ -60,7 +60,7 @@ class ClusteringExperiment
       Integer :fkalgparams
       index [:fksynthetic_network, :fkalgorithm, :fkalgparams], :unique => true
       String :clusteringmod
-      String :mojo
+      Integer :mojo
       Integer :n_modules
       Integer :min_module_size
       Integer :max_module_size
@@ -193,20 +193,24 @@ class ClusteringExperiment
     end
   end
 
+  def pksynthetic_networkmax
+    @db[:synthetic_network].max(:pksynthetic_network)
+  end
+
   def generate_missing_networks(model)
-    dataset = dataset_params(model)
-    dataset.filter(:arc => nil).each do |row|
+    while true
+      row = dataset_params(model).filter(:arc => nil)
+            .and("pksynthetic_network >= RANDOM() * #{pksynthetic_networkmax}")
+            .limit(1)
+            .first
+      break if row.nil?
       g = generate_network(model, row)
-      puts 'generate network'
       @db[:synthetic_network].filter(:pksynthetic_network => row[:pksynthetic_network]).update(:arc => g[0], :mod => g[1])
     end
   end
 
   def prepare_clustering_for_algorithm(algorithm)
     params_table = HASH_ALGORITHM_TO_TABLE[algorithm]
-#    dataset_all = @db[:synthetic_network].select(:pksynthetic_network)
-#              .join_table(:cross, :algorithm, nil).select_more(:pkalgorithm)
-#              .join_table(:cross, params_table, nil).select_more(:pkalgparams)
 
     dataset = @db[<<-EOT
       SELECT sn.pksynthetic_network AS fksynthetic_network,
@@ -236,44 +240,20 @@ class ClusteringExperiment
     end
   end
 
-#  def do_clustering(algorithm)
-#    table_alg = HASH_ALGORITHM_TO_TABLE[algorithm]
-#    puts "do_clustering(#{table_alg})"
-#    prepare_clustering
-#    dataset = @db[:synthetic_network]
-#              .inner_join(:clustering, :fksynthetic_network => :pksynthetic_network)
-#              .inner_join(table_alg, :pkalgparams => :fkalgparams)
-#              .filter(:fkalgorithm => algorithm, :clusteringmod => nil)
-#
-#    dataset.each do |row|
-#      mod = case algorithm
-#        when ALGORITHM_ACDC then Clusterer::acdc(row[:arc], row)
-#        when ALGORITHM_HCAS then Clusterer::hcas(row[:arc], row)
-#        else raise RuntimeError, "Unknown algorithm."
-#        end
-#      @db[:clustering].filter(:pkclustering => row[:pkclustering])
-#          .update(:clusteringmod => mod)
-#    end
-#  end
-  
   def do_clustering(algorithm)
     table_alg = HASH_ALGORITHM_TO_TABLE[algorithm]
+    puts "do_clustering(#{table_alg})"
     prepare_clustering
 
     while true
-      row = @db[<<-EOT
-      SELECT *
-      FROM clustering c
-      INNER JOIN synthetic_network sn ON sn.pksynthetic_network = c.fksynthetic_network
-      INNER JOIN #{table_alg} par ON par.pkalgparams = c.fkalgparams
-      WHERE c.fkalgorithm = #{algorithm}
-      AND c.clusteringmod IS NULL
-      AND c.pkclustering >= RANDOM() * (SELECT MAX(pkclustering) FROM clustering)
-      LIMIT 1
-      EOT
-      ].all
-      break if row.empty?
-      row = row[0]
+      row = @db[:synthetic_network]
+              .inner_join(:clustering, :fksynthetic_network => :pksynthetic_network)
+              .inner_join(table_alg, :pkalgparams => :fkalgparams)
+              .filter(:fkalgorithm => algorithm, :clusteringmod => nil)
+              .and("pkclustering >= RANDOM() * #{pkclusteringmax}")
+              .limit(1)
+              .first
+      break if row.nil?
 
       mod = case algorithm
         when ALGORITHM_ACDC then Clusterer::acdc(row[:arc], row)
@@ -285,12 +265,20 @@ class ClusteringExperiment
     end
   end
 
-  def compute_mojos
-    dataset = @db[:clustering]
-        .inner_join(:synthetic_network, :pksynthetic_network => :fksynthetic_network)
-        .filter(:mojo => nil)
+  def pkclusteringmax
+    @db[:clustering].max(:pkclustering)
+  end
 
-    dataset.each do |row|
+  def compute_mojos
+    while true
+      row = @db[:clustering]
+          .inner_join(:synthetic_network, :pksynthetic_network => :fksynthetic_network)
+          .filter(:mojo => nil).and("clusteringmod IS NOT NULL")
+          .and("pkclustering >= #{pkclusteringmax}")
+          .limit(1)
+          .first
+      break if row.nil?
+
       reference = StringIO.new(row[:mod])
       found = StringIO.new(row[:clusteringmod])
       m = mojo(found, reference)
