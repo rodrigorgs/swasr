@@ -1,22 +1,13 @@
+Experiment.
+
+Measure authoritativeness and NED.
+
+Use MoJoSim.
+Define NED based on min module size and max module size for each model.
+
+------------------------------------------------------------------------------
 PostgreSQL schemas are namespaces. Useful to isolate data from distinct
 experiments.
-
--- during the clustering process
-select count(*) 
-from clustering 
-where fkalgorithm = 1 
-and clusteringmod is null;
-
--- LF mixing vs. MoJo
-SELECT cl.fkalgorithm, par.mixing, avg(int4(mojo)), stddev(int4(mojo))
-FROM clustering cl
-INNER JOIN synthetic_network snet ON snet.pksynthetic_network = cl.fksynthetic_network
-INNER JOIN lf_params par ON par.pkparams = snet.fkparams
-WHERE mojo IS NOT NULL
-GROUP BY 1, 2
-ORDER BY 1, 2;
-
-http://rpgsql.sourceforge.net/ ?
 
 Consider using table inheritance (model_params <|-- bcr_params, cgw_params, 
 lf_params ; network <|-- synthetic_net, natural_net)
