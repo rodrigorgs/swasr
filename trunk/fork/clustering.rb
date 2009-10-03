@@ -83,6 +83,7 @@ protected
   def arc_to_intermediate(pairs, ostream, params)
     cmd_params = " -#{params[:coefficient]} -l#{params[:linkage]}"
     cmd = "prelude | cluster #{cmd_params}"
+    LOG.info(cmd)
     popen3 cmd do |stdin, stdout, stderr|
       arc_to_gdm(pairs, stdin)
       stdin.close
@@ -93,6 +94,7 @@ protected
   # params is the height of the cut (from 0.0 to 1.0)
   def intermediate_to_clusters(istream, ostream, params)
     cmd = "prune -s#{params[:cut_height]} | pprint"
+    LOG.info(cmd)
     popen3 cmd do |stdin, stdout, stderr|
       stdin.write(istream.read)
       stdin.close
@@ -141,6 +143,7 @@ class AcdcClusterer < Clusterer
 
     ofile = "#{Dir.tmpdir}/output.rsf"
     cmd = "java -server acdc.ACDC #{ifile} #{ofile} #{cmd_params}"
+    LOG.info(cmd)
     #cmd = "acdc.exe #{ifile} #{ofile} #{cmd_params}"
     system cmd
     lastmod = nil
