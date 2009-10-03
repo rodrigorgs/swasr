@@ -65,7 +65,7 @@ def generate_bcrplus(params)
   g = Network.new
 
   arch = Network.new.load_from_string(arch_arc, arch_mod)
-
+  LOG.info("bcrplus #{p1}, #{p2}, #{p3}, #{delta_in}, #{delta_out}, #{prob_out}, #{seed}, #{n}, arch.size = #{arch.size}")
   next_eid = 0
   arch.each_vertex do |module_|
     # remove auto-loops
@@ -143,6 +143,8 @@ def generate_cgw(params)
 ,#{params[:m]}\
 ,#{params[:seed]}"
 
+  LOG.info(cmd)
+
   ret = nil
   Open3.popen3(cmd) { |_, stdout, stderr| ret = [stdout.read, stderr.read] }
   return ret
@@ -161,7 +163,9 @@ def generate_lf(params)
   modules = nil
   Dir.chdir(Dir.tmpdir) do
     File.open('time_seed.dat', 'w') { |f| f.puts(seed) }
-    system "benchmark-directed #{cmd_params}"
+    cmd = "benchmark-directed #{cmd_params}"
+    LOG.info(cmd)
+    system cmd
     network = read_pairs("network.dat")
     network.map! { |a, b| [(a.to_i - 1).to_s, (b.to_i - 1).to_s] }
     modules = read_pairs("community.dat")

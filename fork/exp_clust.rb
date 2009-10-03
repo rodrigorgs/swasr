@@ -346,14 +346,15 @@ class ClusteringExperiment
   end
 
   def compute_decomposition(row)
-      puts 'compute_decomposition'
-      mod = case row[:fk_clusterer]
-        when CLUSTERER_ACDC then Clusterer::acdc(row[:arc], row)
-        when CLUSTERER_HCAS then Clusterer::hcas(row[:arc], row)
-        else raise RuntimeError, "Unknown algorithm."
-        end
-      @db[:decomposition].filter(:pk_decomposition => row[:pk_decomposition])
-          .update(:mod => mod)
+    n = row[:arc] && row[:arc].size || 'nil'
+    LOG.info "compute_decomposition: #{n} arcs"
+    mod = case row[:fk_clusterer]
+      when CLUSTERER_ACDC then Clusterer::acdc(row[:arc], row)
+      when CLUSTERER_HCAS then Clusterer::hcas(row[:arc], row)
+      else raise RuntimeError, "Unknown algorithm."
+      end
+    @db[:decomposition].filter(:pk_decomposition => row[:pk_decomposition])
+        .update(:mod => mod)
   end
   
   def compute_missing_decompositions
@@ -402,7 +403,7 @@ if __FILE__ == $0
   [0.0, 0.2, 0.4, 0.6, 0.8, 1.0].each do |mixing|
   exp.insert_model_config :fk_model => ClusteringExperiment::MODEL_LF,
       :seed => seed, 
-      :n => 1000, 
+      :n => 300, 
       :avgk => 10, 
       :maxk => 100, 
       :mixing => mixing,
