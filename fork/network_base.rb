@@ -609,6 +609,10 @@ def pairs_from_string(string)
   return string.chomp.split("\n").map { |line| line.split(" ") }
 end
 
+def int_pairs_from_string(string)
+  return string.chomp.split("\n").map { |line| line.split(" ").map { |x| x.to_i } }
+end
+
 # adjacency list:
 # The nth-row contains the indices of nodes that are adjacent to the nth-node
 # (zero-based). 

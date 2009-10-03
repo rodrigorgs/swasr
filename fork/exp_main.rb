@@ -89,7 +89,24 @@ class ClusteringExperiment
   end
 end
 
+def import_sw_networks
+  exp = ClusteringExperiment.new
+  base = '/home/rodrigo/dataset/01-java'
+  Dir.foreach(base) do |dir|
+    next if dir[0] == '.'
+    puts dir
+    arc = IO.read("#{base}/#{dir}/numbers.arc")
+    mod = IO.read("#{base}/#{dir}/numbers.mod")
+    name = dir
+    classification = ClusteringExperiment::CLASS_SOFTWARE
+    exp.insert_natural_network name, arc, mod, classification
+  end
+end
+
 if __FILE__ == $0
+  import_sw_networks
+  exit 2
+
   #ClusteringExperiment::xxx_test_insert_params
 
   exp = ClusteringExperiment.new
@@ -108,9 +125,22 @@ if __FILE__ == $0
   #    :maxm => nil)
   #end
   #end
+    
+    exp.db[:hcas_params].insert(
+      :linkage => 'C',
+      :coefficient => 'aJ',
+      :cut_height => 0.75)
+    exp.db[:hcas_params].insert(
+      :linkage => 'S',
+      :coefficient => 'aJ',
+      :cut_height => 0.75)
+    exp.db[:hcas_params].insert(
+      :linkage => 'S',
+      :coefficient => 'aJ',
+      :cut_height => 0.90)
 
   #exp.generate_all_missing_networks
-  #exp.do_clustering(ClusteringExperiment::ALGORITHM_ACDC)
+  exp.do_all_clustering
   exp.compute_mojos
 end
 
