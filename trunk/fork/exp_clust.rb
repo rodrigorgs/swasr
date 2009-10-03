@@ -330,11 +330,12 @@ class ClusteringExperiment
   def insert_stub_decompositions
     ds = @db[<<-EOT
       SELECT net.pk_network AS fk_network, 
-          cconf.pk_clusterer_config AS fk_clusterer_config
+          cconf.pk_clusterer_config AS fk_clusterer_config,
+          FALSE as reference
       FROM network AS net
       CROSS JOIN clusterer_config AS cconf
      EXCEPT
-      SELECT fk_network, fk_clusterer_config
+      SELECT fk_network, fk_clusterer_config, FALSE as reference
       FROM decomposition
     EOT
     ]
@@ -343,7 +344,7 @@ class ClusteringExperiment
   end
 
   def compute_decomposition(row)
-      p row
+      puts 'compute_decomposition'
       mod = case row[:fk_clusterer]
         when CLUSTERER_ACDC then Clusterer::acdc(row[:arc], row)
         when CLUSTERER_HCAS then Clusterer::hcas(row[:arc], row)
@@ -395,9 +396,10 @@ if __FILE__ == $0
   #exp.create_tables
   exp.create_initial_values
 
+  0.upto(99).each do |seed|
   [0.0, 0.2, 0.4, 0.6, 0.8, 1.0].each do |mixing|
   exp.insert_model_config :fk_model => ClusteringExperiment::MODEL_LF,
-      :seed => 0, 
+      :seed => seed, 
       :n => 1000, 
       :avgk => 10, 
       :maxk => 100, 
@@ -406,6 +408,7 @@ if __FILE__ == $0
       :expsize => 1.0,
       :minm => 5,
       :maxm => nil
+  end
   end
 
   exp.generate_missing_networks
