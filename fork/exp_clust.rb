@@ -69,7 +69,7 @@ class ClusteringExperiment
         # ACDC
       Boolean :top_level_clusters
       Integer :max_cluster_size
-      String :patterns, :size => 4, :default => '+BSO'
+      String :patterns, :size => 4
     end
 
     # read-only table
@@ -298,7 +298,7 @@ class ClusteringExperiment
   end
 
   def compute_decomposition_metrics(row)
-    raise RuntimeError, "Empty mod" if row[:mod].nil? || row[:mod].strip.size == 0
+    raise RuntimeError, "Empty mod, pk_decomposition =  #{row[:pk_decomposition]}" if row[:mod].nil? || row[:mod].strip.size == 0
 
     pairs = int_pairs_from_string(row[:mod])  
     gr = pairs.group_by { |x| x[1] }
@@ -316,11 +316,21 @@ class ClusteringExperiment
 
   def compute_missing_decomposition_metrics
     ds = @db[:decomposition]
-        .filter(:n_modules => nil)
-        .or(:min_module_size => nil)
-        .or(:max_module_size => nil)
-        .or(:n_singletons => nil)
-        .or(:n_subfive => nil)
+        .filter(<<-EOT
+        mod IS NOT NULL AND (
+          n_modules is null
+          or min_module_size is null
+          or max_module_size is null
+          or n_singletons is null
+          or n_subfive is null
+        )
+        EOT
+        )
+        #.filter(:n_modules => nil)
+        #.or(:min_module_size => nil)
+        #.or(:max_module_size => nil)
+        #.or(:n_singletons => nil)
+        #.or(:n_subfive => nil)
 
     each_random_row(ds, :decomposition) do |row|
       compute_decomposition_metrics(row)
@@ -363,7 +373,7 @@ class ClusteringExperiment
     ds = @db[:decomposition]
         .inner_join(:clusterer_config, :pk_clusterer_config => :fk_clusterer_config)
         .inner_join(:network, :pk_network => :decomposition__fk_network)
-        .filter(:mod => nil)
+        .filter(:mod => nil).and('arc IS NOT NULL')
 
     each_random_row(ds, :decomposition) do |row|
       compute_decomposition(row)
@@ -397,19 +407,19 @@ if __FILE__ == $0
   exp = ClusteringExperiment.new
   #exp.drop_all_tables
   #exp.create_tables
-  #exp.create_initial_values
+  exp.create_initial_values
 
-  0.upto(5).each do |seed|
-  [0.0, 0.2, 0.4, 0.6, 0.8, 1.0].each do |mixing|
+  0.upto(2).each do |seed|
+  [0.0, 0.2, 0.3, 0.4, 0.5, 0.6].each do |mixing|
   exp.insert_model_config :fk_model => ClusteringExperiment::MODEL_LF,
       :seed => seed, 
       :n => 300, 
-      :avgk => 10, 
-      :maxk => 100, 
+      :avgk => 5, 
+      :maxk => 33, 
       :mixing => mixing,
       :expdegree => 2.18,
       :expsize => 1.0,
-      :minm => 5,
+      :minm => 1,
       :maxm => nil
   end
   end

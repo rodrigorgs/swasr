@@ -26,7 +26,7 @@ r.legend(0.8, 600, :pch => 1,
 
 configurations.each do |config|
   ds = exp.db[<<-EOT
-  SELECT mconf.mixing, avg(dec.n_modules) AS avg, count(*) AS count, cconf.nme_clusterer_config
+  SELECT mconf.mixing, avg(dec.mojo) AS avg, count(*) AS count, cconf.nme_clusterer_config
   FROM decomposition AS dec
   INNER JOIN network AS net ON net.pk_network = dec.fk_network
   INNER JOIN model_config mconf ON mconf.pk_model_config = net.fk_model_config
