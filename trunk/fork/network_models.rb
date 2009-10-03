@@ -56,8 +56,8 @@ def generate_bcrplus(params)
   delta_out = params[:dout]
   prob_out = params[:mu]
   seed = params[:seed]
-  arch_arc = params[:arch_arc]
-  arch_mod = params[:arch_mod]
+  arch_arc = params[:arc_architecture]
+  arch_mod = params[:mod_architecture]
   size_limit = params[:n]
 
   srand(seed)

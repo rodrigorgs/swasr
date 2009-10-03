@@ -6,6 +6,15 @@ require 'network_models'
 require 'mojosim'
 require 'clustering'
 
+class Object # Sequel::Postgres::Dataset
+  def random_row(table, column=nil)
+    column = "pk_#{table}" if column.nil?
+    return self.and("#{column} >= RANDOM() * (SELECT MAX(pk_#{table}) FROM #{table})")
+            .limit(1)
+            .first
+  end
+end
+
 class ClusteringExperiment
   attr_reader :db
   
@@ -13,17 +22,17 @@ class ClusteringExperiment
   MODEL_CGW = 2
   MODEL_LF = 3
 
-  HASH_MODEL_TO_TABLE = {
-    MODEL_BCR => :bcr_params, 
-    MODEL_CGW => :cgw_params,
-    MODEL_LF => :lf_params}
+  CLUSTERER_ACDC = 1
+  CLUSTERER_HCAS = 2
 
-  ALGORITHM_ACDC = 1
-  ALGORITHM_HCAS = 2
+  CONFIG_SL75 = 1
+  CONFIG_SL90 = 2
+  CONFIG_CL75 = 3
+  CONFIG_CL90 = 4
+  CONFIG_ACDC = 5
 
-  HASH_ALGORITHM_TO_TABLE = {
-    ALGORITHM_ACDC => :acdc_params,
-    ALGORITHM_HCAS => :hcas_params}
+  CLASS_SOFTWARE = 1
+  CLASS_WORD = 2
 
   def initialize
     #@db = Sequel.sqlite('teste.db')
@@ -33,115 +42,182 @@ class ClusteringExperiment
         :host => 'mainha')
   end
 
+  def drop_all_tables
+    tables=@db[<<-EOT
+      SELECT table_name 
+      FROM information_schema.tables 
+      WHERE table_schema='public'
+      AND table_type != 'VIEW' 
+      AND table_name NOT LIKE 'pg_ts_%%'
+      EOT
+      ].all.map { |h| h.values[0] }
+    tables.each { |t| @db.drop_table t }
+  end
+
   def create_tables
-    @db.create_table? :acdc_params do
-      primary_key :pkalgparams
+    # read-only table
+    @db.create_table? :clusterer_config do
+      primary_key :pk_clusterer_config
+      Integer :fk_clusterer
+
+      String :nme_clusterer_config, :size => 10
+
+        # HCAS
+      String :linkage, :size => 1 # (C)omplete, (S)ingle
+      String :coefficient, :size => 2 # aJ = Jaccard
+      Float :cut_height
+        # ACDC
       Boolean :top_level_clusters
       Integer :max_cluster_size
-      String :patterns, :size => 4
+      String :patterns, :size => 4, :default => '+BSO'
     end
 
-    @db.create_table? :hcas_params do
-      primary_key :pkalgparams
-      String :linkage, :size => 1
-      String :coefficient, :size => 2
-      Float :cut_height
+    # read-only table
+    @db.create_table? :clusterer do
+      primary_key :pk_clusterer
+      String :nme_clusterer
     end
 
-    @db.create_table? :algorithm do
-      Integer :pkalgorithm
-      String :algname
-    end
+    @db.create_table? :decomposition do
+      primary_key :pk_decomposition
+      Boolean :reference   # is it a reference decomposition?
+      Integer :fk_network
+      Integer :fk_clusterer_config
 
-    @db.create_table? :clustering do
-      primary_key :pkclustering
-      Integer :fksynthetic_network
-      Integer :fkalgorithm
-      Integer :fkalgparams
-      index [:fksynthetic_network, :fkalgorithm, :fkalgparams], :unique => true
-      String :clusteringmod
-      Integer :mojo
+      String :mod
       Integer :n_modules
       Integer :min_module_size
       Integer :max_module_size
+      Integer :n_singletons
+      Integer :n_subfive
+      
+      Integer :mojo
+      
+      index [:fk_network, :fk_clusterer_config], :unique => true
     end
 
-    @db.create_table? :synthetic_network do
-      primary_key :pksynthetic_network
-      Integer :fkmodel
-      Integer :fkparams
-      index [:fkmodel, :fkparams], :unique => true
+    @db.create_table? :network do
+      primary_key :pk_network
+      String :nme_network
+      Integer :fk_classification
+      Integer :fk_model_config
+      Boolean :synthetic
+
       String :arc
-      String :mod
-      Integer :fkexperiment, :default => 1
+      Float :s_score
     end
 
-    @db.create_table? :cgw_params do
-      primary_key :pkparams
-      Integer :seed
-      Float :p1
-      Float :p2
-      Float :p3
+    # read-only table
+    @db.create_table? :classification do
+      primary_key :pk_classification
+      String :nme_classification
+    end
+
+    # read-only table
+    @db.create_table? :model do
+      primary_key :pk_model
+      String :nme_model
+    end
+
+    @db.create_table? :model_config do
+      primary_key :pk_model_config
+      Integer :fk_model
+
+      # All models
+      Integer :seed, :default => 0
+      Integer :n
+
+      # CGW and BCR      
+      Float :p1 # CGW, BCR
+      Float :p2 # CGW, BCR
+      Float :p3 # CGW, BCR
+
+      # CGW only
       Float :p4
       Integer :e1
       Integer :e2
       Integer :e3
       Integer :e4
-      Integer :n
       Integer :m
-      Float :alpha
-    end
+      Float :alpha # CGW
 
-    @db.create_table? :bcr_params do
-      primary_key :pkparams
-      Integer :seed
-      Integer :n
-      Integer :fkarchitecture
-      Float :p1
-      Float :p2
-      Float :p3
+      # BCR only
+      Integer :fk_architecture
       Float :din
       Float :dout
-      Float :mu
-    end
+      Float :mixing # BCR 
 
-    @db.create_table? :lf_params do
-      primary_key :pkparams
-      Integer :n
+      # LR only
       Float :avgk
       Integer :maxk
-      Float :mixing
-        # parameters below are optional
-      Integer :seed, :null => true
+      Float :mu
       Float :expdegree, :null => true
       Float :expsize, :null => true
       Integer :minm, :null => true
       Integer :maxm, :null => true
     end
 
+    # read-only table
     @db.create_table? :architecture do
-      primary_key :pkarchitecture
-      String :arch_name
-      String :arch_arc
-      String :arch_mod
+      primary_key :pk_architecture
+      String :nme_architecture
+      String :arc_architecture
+      String :mod_architecture
     end
 
-    @db.create_table? :motifs do
-      primary_key :pkmotifs
-      Float :m1
-      Float :m2
-      Float :m3
-      Float :m4
-      Float :m5
-      Float :m6
-      Float :m7
-      Float :m8
-      Float :m9
-      Float :m10
-      Float :m11
-      Float :m12
-      Float :m13
+    @db.create_table? :triads do
+      Integer :fk_network
+      Float :triad1
+      Float :triad2
+      Float :triad3
+      Float :triad4
+      Float :triad5
+      Float :triad6
+      Float :triad7
+      Float :triad8
+      Float :triad9
+      Float :triad10
+      Float :triad11
+      Float :triad12
+      Float :triad13
     end
+  end
+
+  def create_initial_values
+    ds = @db[:classification]
+    ds.delete
+    ds.insert(:pk_classification => CLASS_SOFTWARE, :nme_classification => 'software')
+    ds.insert(:pk_classification => CLASS_WORD, :nme_classification => 'word adjacency')
+
+    ds = @db[:clusterer]
+    ds.delete
+    ds.insert(:pk_clusterer => CLUSTERER_ACDC, :nme_clusterer => 'ACDC')
+    ds.insert(:pk_clusterer => CLUSTERER_HCAS, :nme_clusterer => 'HCAS')
+
+    ds = @db[:clusterer_config]
+    ds.delete
+    ds.insert(:pk_clusterer_config => CONFIG_SL75, 
+        :fk_clusterer => CLUSTERER_HCAS, :nme_clusterer_config => 'SL75',
+        :linkage => 'S', :coefficient => 'aJ', :cut_height => 0.75)
+    ds.insert(:pk_clusterer_config => CONFIG_SL90, 
+        :fk_clusterer => CLUSTERER_HCAS, :nme_clusterer_config => 'SL90',
+        :linkage => 'S', :coefficient => 'aJ', :cut_height => 0.90)
+    ds.insert(:pk_clusterer_config => CONFIG_CL75, 
+        :fk_clusterer => CLUSTERER_HCAS, :nme_clusterer_config => 'CL75',
+        :linkage => 'C', :coefficient => 'aJ', :cut_height => 0.75)
+    ds.insert(:pk_clusterer_config => CONFIG_CL90, 
+        :fk_clusterer => CLUSTERER_HCAS, :nme_clusterer_config => 'CL90',
+        :linkage => 'C', :coefficient => 'aJ', :cut_height => 0.90)
+    ds.insert(:pk_clusterer_config => CONFIG_ACDC, 
+        :fk_clusterer => CLUSTERER_ACDC, :nme_clusterer_config => 'ACDC',
+        :top_level_clusters => true, :max_cluster_size => 99999, 
+        :patterns => '+SO')
+
+    ds = @db[:model]
+    ds.delete
+    ds.insert(:pk_model => MODEL_BCR, :nme_model => 'BCR+')
+    ds.insert(:pk_model => MODEL_CGW, :nme_model => 'CGW')
+    ds.insert(:pk_model => MODEL_LF,  :nme_model => 'LF')
   end
 
   def insert_safe(table, values)
@@ -158,23 +234,29 @@ class ClusteringExperiment
     return ret
   end
 
-  def insert_synthetic_network_params(model, params)
-    table = HASH_MODEL_TO_TABLE[model]
-    raise RuntimeError, "Invalid model" if table.nil?
-
-    insert_safe table, params
-    id = @db[table].filter(params).first[:pkparams]
-    insert_safe :synthetic_network, :fkmodel => model, :fkparams => id
+  def insert_safe_get_pk(table, values)
+    insert_safe(table, values)
+    pkcolumn = ('pk_' + table.to_s).to_sym
+    return @db[table].filter(values).first[pkcolumn]
   end
 
-  def dataset_params(model)
-    params_table = HASH_MODEL_TO_TABLE[model]
-    dataset = @db[:synthetic_network].filter(:fkmodel => model)
-              .inner_join(params_table, :pkparams => :fkparams)
-    if model == MODEL_BCR
-      dataset = dataset.inner_join(:architecture, :pkarchitecture => :fkarchitecture)
-    end
-    return dataset
+  def insert_natural_network(name, arc, mod, classification)
+    pk_network = insert_safe_get_pk :network, 
+        :nme_network => name,
+        :arc => arc,
+        :fk_classification => classification,
+        :synthetic => false
+
+    insert_safe :decomposition,
+        :fk_network => pk_network,
+        :mod => mod, :reference => true
+  end
+
+  def insert_model_config(params)
+    pk_model_config = insert_safe_get_pk :model_config, params
+    insert_safe_get_pk :network, 
+        :fk_model_config => pk_model_config,
+        :synthetic => true
   end
 
   def generate_network(model, params)
@@ -185,105 +267,151 @@ class ClusteringExperiment
     else raise RuntimeError, 'Invalid model'
     end)
   end
-
   
-  def generate_all_missing_networks
-    HASH_MODEL_TO_TABLE.keys.each do |model|
-      generate_missing_networks(model)
-    end
-  end
 
-  def pksynthetic_networkmax
-    @db[:synthetic_network].max(:pksynthetic_network)
-  end
-
-  def generate_missing_networks(model)
+  def each_random_row(ds, table, column=nil, &block)
     while true
-      row = dataset_params(model).filter(:arc => nil)
-            .and("pksynthetic_network >= RANDOM() * #{pksynthetic_networkmax}")
-            .limit(1)
-            .first
+      row = ds.random_row(table, column)
       break if row.nil?
-      g = generate_network(model, row)
-      @db[:synthetic_network].filter(:pksynthetic_network => row[:pksynthetic_network]).update(:arc => g[0], :mod => g[1])
+      block.call(row)
     end
   end
 
-  def prepare_clustering_for_algorithm(algorithm)
-    params_table = HASH_ALGORITHM_TO_TABLE[algorithm]
+  def synthesize_network_from_db(row)
+    g = generate_network(row[:fk_model], row)
+    @db[:network].filter(:pk_network => row[:pk_network])
+        .update(:arc => g[0])
+    @db[:decomposition].insert :reference => true,
+        :fk_network => row[:pk_network],
+        :mod => g[1]
+  end
 
-    dataset = @db[<<-EOT
-      SELECT sn.pksynthetic_network AS fksynthetic_network,
-        #{algorithm} AS fkalgorithm,
-        par.pkalgparams AS fkalgparams
-      FROM synthetic_network AS sn
-      CROSS JOIN #{params_table} AS par
-      EXCEPT
-      SELECT fksynthetic_network, fkalgorithm, fkalgparams
-      FROM clustering
-      WHERE fkalgorithm = #{algorithm}
+  def generate_missing_networks
+    ds = @db[:network]
+            .inner_join(:model_config, :pk_model_config => :fk_model_config)
+            .left_outer_join(:architecture, :pk_architecture => :fk_architecture)
+            .filter(:arc => nil, :synthetic => true)
+
+    each_random_row(ds, :network) do |row|
+      synthesize_network_from_db(row)
+    end
+  end
+
+  def compute_decomposition_metrics(row)
+    raise RuntimeError, "Empty mod" if row[:mod].nil? || row[:mod].strip.size == 0
+
+    pairs = int_pairs_from_string(row[:mod])  
+    gr = pairs.group_by { |x| x[1] }
+    module_sizes = gr.values.map { |x| x.size }
+    
+    row[:n_modules] = module_sizes.size if row[:n_modules].nil?
+    row[:min_module_size] = module_sizes.min if row[:min_module_size].nil?
+    row[:max_module_size] = module_sizes.max if row[:max_module_size].nil?
+    row[:n_singletons] = module_sizes.count { |x| x == 1 } if row[:n_singletons].nil?
+    row[:n_subfive] = module_sizes.count { |x| x <= 1 } if row[:n_subfive].nil?
+
+    @db[:decomposition].filter(:pk_decomposition => row[:pk_decomposition])
+        .update(row)
+  end
+
+  def compute_missing_decomposition_metrics
+    ds = @db[:decomposition]
+        .filter(:n_modules => nil)
+        .or(:min_module_size => nil)
+        .or(:max_module_size => nil)
+        .or(:n_singletons => nil)
+        .or(:n_subfive => nil)
+
+    each_random_row(ds, :decomposition) do |row|
+      compute_decomposition_metrics(row)
+    end
+  end
+
+  def insert_stub_decompositions
+    ds = @db[<<-EOT
+      SELECT net.pk_network AS fk_network, 
+          cconf.pk_clusterer_config AS fk_clusterer_config
+      FROM network AS net
+      CROSS JOIN clusterer_config AS cconf
+     EXCEPT
+      SELECT fk_network, fk_clusterer_config
+      FROM decomposition
     EOT
     ]
-
-    @db[:clustering].insert_multiple(dataset.all)
+    
+    @db[:decomposition].insert_multiple(ds.all)
   end
 
-  def prepare_clustering
-    HASH_ALGORITHM_TO_TABLE.keys.each do |algorithm|
-      prepare_clustering_for_algorithm(algorithm)
-    end
-  end
-
-  def do_all_clustering
-    HASH_ALGORITHM_TO_TABLE.keys.each do |algorithm|
-      do_clustering(algorithm)
-    end
-  end
-
-  def do_clustering(algorithm)
-    table_alg = HASH_ALGORITHM_TO_TABLE[algorithm]
-    puts "do_clustering(#{table_alg})"
-    prepare_clustering
-
-    while true
-      row = @db[:synthetic_network]
-              .inner_join(:clustering, :fksynthetic_network => :pksynthetic_network)
-              .inner_join(table_alg, :pkalgparams => :fkalgparams)
-              .filter(:fkalgorithm => algorithm, :clusteringmod => nil)
-              .and("pkclustering >= RANDOM() * #{pkclusteringmax}")
-              .limit(1)
-              .first
-      break if row.nil?
-
-      mod = case algorithm
-        when ALGORITHM_ACDC then Clusterer::acdc(row[:arc], row)
-        when ALGORITHM_HCAS then Clusterer::hcas(row[:arc], row)
+  def compute_decomposition(row)
+      p row
+      mod = case row[:fk_clusterer]
+        when CLUSTERER_ACDC then Clusterer::acdc(row[:arc], row)
+        when CLUSTERER_HCAS then Clusterer::hcas(row[:arc], row)
         else raise RuntimeError, "Unknown algorithm."
         end
-      @db[:clustering].filter(:pkclustering => row[:pkclustering])
-          .update(:clusteringmod => mod)
+      @db[:decomposition].filter(:pk_decomposition => row[:pk_decomposition])
+          .update(:mod => mod)
+  end
+  
+  def compute_missing_decompositions
+    insert_stub_decompositions
+
+    ds = @db[:decomposition]
+        .inner_join(:clusterer_config, :pk_clusterer_config => :fk_clusterer_config)
+        .inner_join(:network, :pk_network => :decomposition__fk_network)
+        .filter(:mod => nil)
+
+    each_random_row(ds, :decomposition) do |row|
+      compute_decomposition(row)
     end
   end
-
-  def pkclusteringmax
-    @db[:clustering].max(:pkclustering)
+  
+  def compute_mojo(row)
+    reference = StringIO.new(row[:reference_mod])
+    found = StringIO.new(row[:mod])
+    m = mojo(found, reference)
+    @db[:decomposition].filter(:pk_decomposition => row[:pk_decomposition])
+        .update(:mojo => m)
   end
 
-  def compute_mojos
-    while true
-      row = @db[:clustering]
-          .inner_join(:synthetic_network, :pksynthetic_network => :fksynthetic_network)
-          .filter(:mojo => nil).and("clusteringmod IS NOT NULL")
-          .and("pkclustering >= RANDOM() * #{pkclusteringmax}")
-          .limit(1)
-          .first
-      break if row.nil?
+  # TODO works only when executed multiple times (why?)
+  def compute_missing_mojos
+    ds = @db[:decomposition.as(:dec)]
+          .inner_join(:decomposition.as(:ref), :fk_network => :fk_network)
+          .inner_join(:network, :pk_network => :fk_network)
+          .filter(:dec__mojo => nil).and("dec.mod IS NOT NULL AND ref.mod IS NOT NULL")
+          .select(:dec__pk_decomposition, :dec__mod, :ref__mod.as(:reference_mod))
 
-      reference = StringIO.new(row[:mod])
-      found = StringIO.new(row[:clusteringmod])
-      m = mojo(found, reference)
-      @db[:clustering].filter(:pkclustering => row[:pkclustering])
-          .update(:mojo => m)
+    each_random_row(ds, :decomposition, 'dec.pk_decomposition') do |row|
+      puts 'mojo'
+      compute_mojo(row)
     end
   end
 end
+
+if __FILE__ == $0
+  exp = ClusteringExperiment.new
+  #exp.drop_all_tables
+  #exp.create_tables
+  exp.create_initial_values
+
+  [0.0, 0.2, 0.4, 0.6, 0.8, 1.0].each do |mixing|
+  exp.insert_model_config :fk_model => ClusteringExperiment::MODEL_LF,
+      :seed => 0, 
+      :n => 1000, 
+      :avgk => 10, 
+      :maxk => 100, 
+      :mixing => mixing,
+      :expdegree => 2.18,
+      :expsize => 1.0,
+      :minm => 5,
+      :maxm => nil
+  end
+
+  exp.generate_missing_networks
+  exp.insert_stub_decompositions
+  exp.compute_missing_decompositions
+  exp.compute_missing_decomposition_metrics
+  exp.compute_missing_mojos
+end
+
