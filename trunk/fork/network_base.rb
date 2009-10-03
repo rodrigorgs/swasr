@@ -5,6 +5,9 @@
 
 require 'set'
 require 'stringio'
+require 'logger'
+
+LOG = Logger.new(STDOUT)
 
 class Network
   attr_reader :edges, :data
