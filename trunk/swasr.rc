@@ -10,7 +10,7 @@ export CLASSPATH=$CLASSPATH:$QLDX/lib/jar/java_readline.jar
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$QLDX/lib/ld
 
 # RGL: Ruby Graph Library
-export RUBYLIB=$RUBYLIB:$SWASR_HOME/opt/rgl-0.4.0/lib:$DIR/opt/stream-0.5/lib
+export RUBYLIB=$RUBYLIB:$SWASR_HOME/opt/rgl-0.4.0/lib:$SWASR_HOME/opt/stream-0.5/lib
 
 # IGraph (Ruby) -- depends on libigraph
 export RUBYLIB=$RUBYLIB:$SWASR_HOME/opt/igraph-0.9.5/ext
@@ -31,11 +31,6 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$SWASR_HOME/opt/gd2
 # Benchmark (Lancichinetti et al, 2008)
 export PATH=$PATH:$SWASR_HOME/opt/models
 
-# RSRuby (R) -- depends on r-base
-export R_HOME=`R cmd BATCH RHOME 2> /dev/null`
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$R_HOME/lib
-export RUBYLIB=$RUBYLIB:$SWASR_HOME/opt/rsruby-0.5/lib
-
 # Choice (for command-line options parsing)
 export RUBYLIB=$RUBYLIB:$SWASR_HOME/opt/choice-0.1.3/lib
 
@@ -52,17 +47,17 @@ export PATH=$PATH:$SWASR_HOME/opt/fanmod
 export PATH=$PATH:$SWASR_HOME/opt/randesu
 
 # bunch
-export CLASSPATH=$CLASSPATH:$SWASR_HOME/opt/clustering/bunch/bunch.jar:$DIR/opt/clustering/bunch
+export CLASSPATH=$CLASSPATH:$SWASR_HOME/opt/clustering/bunch/bunch.jar:$SWASR_HOME/opt/clustering/bunch
 
 # swasr
+export PATH=$PATH:$SWASR_HOME/fork
+export RUBYLIB=$RUBYLIB:$SWASR_HOME/fork
 export PATH=$PATH:$SWASR_HOME/sandbox
 export RUBYLIB=$RUBYLIB:$SWASR_HOME/sandbox
 export PATH=$PATH:$SWASR_HOME/src
 export RUBYLIB=$RUBYLIB:$SWASR_HOME/src
-export PATH=$PATH:$SWASR_HOME/fork
-export RUBYLIB=$RUBYLIB:$SWASR_HOME/fork
 export PATH=$PATH:$SWASR_HOME/bin
 export PATH=$PATH:$SWASR_HOME/opt/bin
 export RUBYLIB=$RUBYLIB:$SWASR_HOME/bin
 export CLASSPATH=$CLASSPATH:$SWASR_HOME/java/SwasrConformance/bin
-export CLASSPATH=$CLASSPATH:$SWASR_HOME/opt/clustering:$DIR/opt/clustering/mojo
+export CLASSPATH=$CLASSPATH:$SWASR_HOME/opt/clustering:$SWASR_HOME/opt/clustering/mojo

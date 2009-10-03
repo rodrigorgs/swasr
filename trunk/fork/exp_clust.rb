@@ -281,7 +281,7 @@ class ClusteringExperiment
     g = generate_network(row[:fk_model], row)
     @db[:network].filter(:pk_network => row[:pk_network])
         .update(:arc => g[0])
-    @db[:decomposition].insert :reference => true,
+    insert_safe :decomposition, :reference => true,
         :fk_network => row[:pk_network],
         :mod => g[1]
   end
@@ -328,19 +328,21 @@ class ClusteringExperiment
   end
 
   def insert_stub_decompositions
-    ds = @db[<<-EOT
-      SELECT net.pk_network AS fk_network, 
-          cconf.pk_clusterer_config AS fk_clusterer_config,
-          FALSE as reference
-      FROM network AS net
-      CROSS JOIN clusterer_config AS cconf
-     EXCEPT
-      SELECT fk_network, fk_clusterer_config, FALSE as reference
-      FROM decomposition
-    EOT
-    ]
-    
-    @db[:decomposition].insert_multiple(ds.all)
+    @db.transaction do
+      ds = @db[<<-EOT
+        SELECT net.pk_network AS fk_network, 
+            cconf.pk_clusterer_config AS fk_clusterer_config,
+            FALSE as reference
+        FROM network AS net
+        CROSS JOIN clusterer_config AS cconf
+       EXCEPT
+        SELECT fk_network, fk_clusterer_config, FALSE as reference
+        FROM decomposition
+      EOT
+      ]
+      
+      @db[:decomposition].insert_multiple(ds.all)
+    end
   end
 
   def compute_decomposition(row)
@@ -394,9 +396,9 @@ if __FILE__ == $0
   exp = ClusteringExperiment.new
   #exp.drop_all_tables
   #exp.create_tables
-  exp.create_initial_values
+  #exp.create_initial_values
 
-  0.upto(99).each do |seed|
+  0.upto(5).each do |seed|
   [0.0, 0.2, 0.4, 0.6, 0.8, 1.0].each do |mixing|
   exp.insert_model_config :fk_model => ClusteringExperiment::MODEL_LF,
       :seed => seed, 

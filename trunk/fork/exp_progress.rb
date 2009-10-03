@@ -1,9 +1,14 @@
+#!/usr/bin/env ruby
 require 'exp_clust'
 
 DB = ClusteringExperiment.new.db
 
 def decompositions_to_compute
   DB['select count(*) from decomposition where mod is null'].first[:count]
+end
+
+def decompositions_without_metrics
+  DB['select count(*) from decomposition where n_modules is null'].first[:count]
 end
 
 def networks_to_synthesize
@@ -23,6 +28,7 @@ if __FILE__ == $0
     report 'networks_to_synthesize'
     report 'decompositions_to_compute'
     report 'mojos_to_compute'
+    report 'decompositions_without_metrics'
     puts
     sleep 5
   end
