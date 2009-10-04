@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 require 'tempfile'
 require 'fileutils'
+require 'network_base'
 
 # pairs : IO
 # rsf : String (filename)
@@ -22,9 +23,10 @@ def mojo(file1, file2)
 
   pairs_to_rsf file1, a
   pairs_to_rsf file2, b
-  value = `java mojo.MoJo #{a} #{b}`.to_i
-  FileUtils.rm [a, b]
-  return value
+  value = `java mojo.MoJo #{a} #{b}`
+  LOG.info(value)
+  #FileUtils.rm_f [a, b]
+  return Integer(value.strip)
 end
 
 def mojosim(file1, file2)
