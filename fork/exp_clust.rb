@@ -228,13 +228,15 @@ class ClusteringExperiment
 
   def insert_safe(table, values)
     ret = false
-    dataset = @db[table].filter(values)
-    count = dataset.count
-    if count == 0
-      @db[table].insert(values)
-      ret = true
-    elsif count > 1
-      raise RuntimeError, 'More than 1 row returned.'
+      @db.transaction do
+      dataset = @db[table].filter(values)
+      count = dataset.count
+      if count == 0
+        @db[table].insert(values)
+        ret = true
+      elsif count > 1
+        raise RuntimeError, 'More than 1 row returned.'
+      end
     end
 
     return ret
@@ -287,9 +289,9 @@ class ClusteringExperiment
     g = generate_network(row[:fk_model], row)
     @db[:network].filter(:pk_network => row[:pk_network])
         .update(:arc => g[0])
-    insert_safe :decomposition, :reference => true,
-        :fk_network => row[:pk_network],
-        :mod => g[1]
+    @db[:decomposition].filter(:fk_network => row[:pk_network],
+        :reference => true)
+        .update(:mod => g[1])
   end
 
   def generate_missing_networks
@@ -347,6 +349,8 @@ class ClusteringExperiment
   end
 
   def insert_stub_decompositions
+    insert_stub_reference_decompositions
+
     @db.transaction do
       ds = @db[<<-EOT
         SELECT net.pk_network AS fk_network, 
@@ -363,6 +367,27 @@ class ClusteringExperiment
       @db[:decomposition].insert_multiple(ds.all)
     end
   end
+
+  def insert_stub_reference_decompositions
+    @db.transaction do
+      ds = @db[<<-EOT
+        SELECT pk_network AS fk_network
+        FROM network
+       EXCEPT
+        SELECT fk_network
+        FROM decomposition
+        WHERE reference = true
+      EOT
+      ]
+
+      rows = ds.all.map { |x| x.merge({:reference => true}) }
+      @db[:decomposition].insert_multiple(rows)
+    end
+  end
+
+    #insert_safe :decomposition, :reference => true,
+    #    :fk_network => row[:pk_network],
+    #    :mod => g[1]
 
   def compute_decomposition(row)
     n = row[:arc] && row[:arc].size || 'nil'
@@ -481,8 +506,9 @@ if __FILE__ == $0
   end
   end    
 
-  exp.generate_missing_networks
   exp.insert_stub_decompositions
+  puts '## Now you can start this script in another network node ##'
+  exp.generate_missing_networks
   exp.compute_missing_decompositions
   exp.compute_missing_decomposition_metrics
   exp.compute_missing_mojos
