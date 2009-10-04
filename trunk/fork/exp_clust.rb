@@ -9,9 +9,15 @@ require 'clustering'
 class Object # Sequel::Postgres::Dataset
   def random_row(table, column=nil)
     column = "pk_#{table}" if column.nil?
-    return self.and("#{column} >= RANDOM() * (SELECT MAX(pk_#{table}) FROM #{table})")
+
+    val = self.and("#{column} >= RANDOM() * (SELECT MAX(pk_#{table}) FROM #{table})")
             .limit(1)
             .first
+    if (val.nil? && self.count() > 0)
+      val = self.first
+    end
+
+    return val
   end
 end
 
@@ -300,6 +306,8 @@ class ClusteringExperiment
   def compute_decomposition_metrics(row)
     raise RuntimeError, "Empty mod, pk_decomposition =  #{row[:pk_decomposition]}" if row[:mod].nil? || row[:mod].strip.size == 0
 
+    LOG.info("compute decomposition for pk #{row[:pk_decomposition]}")
+
     pairs = int_pairs_from_string(row[:mod])  
     gr = pairs.group_by { |x| x[1] }
     module_sizes = gr.values.map { |x| x.size }
@@ -331,6 +339,7 @@ class ClusteringExperiment
         #.or(:max_module_size => nil)
         #.or(:n_singletons => nil)
         #.or(:n_subfive => nil)
+    #puts ds.count
 
     each_random_row(ds, :decomposition) do |row|
       compute_decomposition_metrics(row)
@@ -381,6 +390,12 @@ class ClusteringExperiment
   end
   
   def compute_mojo(row)
+    if (row[:mod].nil? || row[:mod].strip.size == 0)
+      raise RuntimeError, "Found decomposition is empty for pk #{pk_decomposition}"
+    end
+    if (row[:reference_mod].nil? || row[:reference_mod].strip.size == 0)
+      raise RuntimeError, "Reference decomposition is empty for pk #{pk_decomposition}"
+    end
     reference = StringIO.new(row[:reference_mod])
     found = StringIO.new(row[:mod])
     m = mojo(found, reference)
@@ -393,11 +408,16 @@ class ClusteringExperiment
     ds = @db[:decomposition.as(:dec)]
           .inner_join(:decomposition.as(:ref), :fk_network => :fk_network)
           .inner_join(:network, :pk_network => :fk_network)
-          .filter(:dec__mojo => nil).and("dec.mod IS NOT NULL AND ref.mod IS NOT NULL")
-          .select(:dec__pk_decomposition, :dec__mod, :ref__mod.as(:reference_mod))
+          .filter(:dec__mojo => nil, :ref__reference => true)
+          .and("dec.mod IS NOT NULL")
+          .and("ref.mod IS NOT NULL")
+          .select(:dec__pk_decomposition.as(:pk_decomposition), 
+              :ref__pk_decomposition.as(:pk_ref), 
+              :dec__mod, 
+              :ref__mod.as(:reference_mod))
 
     each_random_row(ds, :decomposition, 'dec.pk_decomposition') do |row|
-      puts 'mojo'
+      puts "mojo #{row[:pk_decomposition]} #{row[:pk_ref]}"
       compute_mojo(row)
     end
   end
@@ -406,23 +426,60 @@ end
 if __FILE__ == $0
   exp = ClusteringExperiment.new
   #exp.drop_all_tables
-  #exp.create_tables
+  exp.create_tables
   exp.create_initial_values
 
-  0.upto(2).each do |seed|
-  [0.0, 0.2, 0.3, 0.4, 0.5, 0.6].each do |mixing|
+  puts 'bcr'
+  arch_id = exp.db[:architecture].filter(:nme_architecture => '16-findbugs').first[:pk_architecture]
+  0.upto(99) do |seed|
+  [0.00, 0.10, 0.20, 0.30, 0.40, 0.50, 0.60].each do |mu|
+  exp.insert_model_config :fk_model => ClusteringExperiment::MODEL_BCR,
+      :seed => seed,
+      :n => 1000,
+      :fk_architecture => arch_id,
+      :p1 => 0.7,
+      :p2 => 0.2,
+      :p3 => 0.1,
+      :din => 0,
+      :dout => 0,
+      :mu => mu
+  end
+  end
+
+  puts 'lf'
+  0.upto(99) do |seed|
+  [0.00, 0.10, 0.20, 0.30, 0.40, 0.50, 0.60].each do |mixing|
   exp.insert_model_config :fk_model => ClusteringExperiment::MODEL_LF,
       :seed => seed, 
-      :n => 300, 
-      :avgk => 5, 
-      :maxk => 33, 
+      :n => 1000, 
+      :avgk => 15, 
+      :maxk => 482, 
       :mixing => mixing,
       :expdegree => 2.18,
       :expsize => 1.0,
-      :minm => 1,
+      :minm => 5,
       :maxm => nil
   end
   end
+
+  puts 'cgw'
+  0.upto(99) do |seed|
+  [-1, 0, 1, 10, 100, 1000].each do |alpha|
+  exp.insert_model_config :fk_model => ClusteringExperiment::MODEL_CGW, 
+    :seed => seed,
+    :p1 => 0.6,
+    :p2 => 0.2,
+    :p3 => 0.0,
+    :p4 => 0.2,
+    :e1 => 4,
+    :e2 => 1,
+    :e3 => 0,
+    :e4 => 1,
+    :n => 1000,
+    :m => 16,
+    :alpha => alpha
+  end
+  end    
 
   exp.generate_missing_networks
   exp.insert_stub_decompositions

@@ -65,7 +65,7 @@ def generate_bcrplus(params)
   g = Network.new
 
   arch = Network.new.load_from_string(arch_arc, arch_mod)
-  LOG.info("bcrplus #{p1}, #{p2}, #{p3}, #{delta_in}, #{delta_out}, #{prob_out}, #{seed}, #{n}, arch.size = #{arch.size}")
+  LOG.info("bcrplus #{p1}, #{p2}, #{p3}, #{delta_in}, #{delta_out}, #{prob_out}, #{seed}, #{size_limit}, arch.size = #{arch.size}")
   next_eid = 0
   arch.each_vertex do |module_|
     # remove auto-loops
