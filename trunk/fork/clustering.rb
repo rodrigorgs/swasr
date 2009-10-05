@@ -25,6 +25,13 @@ public
     clusterer.post_process(inter, out, params)
     return out.string
   end
+  
+  def self.infomap(arcs_string, params)
+    out = StringIO.new
+    clusterer = InfomapClusterer.new
+    clusterer.cluster(arcs_string, out, params)
+    return out.string
+  end
 
   ###################################################################### 
 
@@ -157,10 +164,44 @@ class AcdcClusterer < Clusterer
       ostream.puts "#{pair[1]} #{mod}"
     end
   end
+end
 
+class InfomapClusterer < Clusterer
+  def arc_to_intermediate(pairs, ostream, params={})
+    seed = params[:seed] || 0
+    attempts = params[:attempts] || 10
+
+    t = Tempfile.new('infomap')
+    path = t.path
+    t.delete
+
+    pairs.map! { |a, b| [a+1, b+1] }
+
+    File.open(path + '.net', 'w') do |f|
+      vertices = entities(pairs)
+      f.puts("*Vertices #{vertices.size}")
+      vertices.each { |x| f.puts "#{x} \"#{x}\"" }
+      f.puts("*Arcs #{pairs.size}")
+      pairs.each { |a, b| f.puts "#{a} #{b} 1" }
+    end
+    
+    cmd = "infomap #{seed} #{path}.net #{attempts}"
+    puts cmd
+    system cmd#("infomap #{seed} #{path}.net #{attempts}")
+    raise RuntimeError, "Error running infomap." if ($? != 0)
+
+    IO.foreach(path + '.tree') do |line|
+      puts line
+      if line =~ /^(\d+):.*?"(\d+?)"/
+        ostream.puts "#{$2.to_i - 1} #{$1.to_i - 1}"
+      end
+    end
+
+  end
 end
 
 if __FILE__ == $0
+  #puts Clusterer::infomap(IO.read('/tmp/numbers.arc'), {})
   #clusterer = AcdcClusterer.new
   #clusterer.cluster("/tmp/numbers.arc", "/tmp/acdc.mod", "-l9999 -u")
   #
