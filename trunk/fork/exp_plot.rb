@@ -19,7 +19,7 @@ def plot_clusterers(pdf, model, y, x, plotargs)
   r.pdf(pdf)
   plot_params = {:col => "white"}.merge(plotargs)
   r.plot([0], [0], plot_params)
-  r.legend(0.8, 600, :pch => 1, 
+  r.legend(0.8, 1000, :pch => configurations.map { |x| x[:pk_clusterer_config] }, 
     :col => configurations.map { |x| x[:pk_clusterer_config] },
     :legend => configurations.map { |x| x[:nme_clusterer_config] })
 
@@ -45,8 +45,8 @@ def plot_clusterers(pdf, model, y, x, plotargs)
 
     mojos = all.map { |x| 1000 - x[:y].to_f}
     mixings = all.map { |x| x[:x].to_f }
-    r.points(:x => mixings, :y => mojos, :col => config[:pk_clusterer_config])
-    r.lines(:x => mixings, :y => mojos, :col => config[:pk_clusterer_config])
+    r.points(:x => mixings, :y => mojos, :col => config[:pk_clusterer_config], :pch => config[:pk_clusterer_config])
+    r.lines(:x => mixings, :y => mojos, :col => config[:pk_clusterer_config] , :pch => config[:pk_clusterer_config])
   end
 
   r.dev_off.call
@@ -54,6 +54,11 @@ def plot_clusterers(pdf, model, y, x, plotargs)
   system("scp -P 2299 #{pdf} app:./public_html")
 end
 
-plot_clusterers('x.pdf', ClusteringExperiment::MODEL_LF, 'mojo', 'mixing', :xlim => [0,1], :ylim => [0, 1000])
+plot_clusterers('lf.pdf', ClusteringExperiment::MODEL_LF, 'mojo', 'mixing', 
+    :xlim => [0,1], :ylim => [0, 1000], :main => 'LF',
+    :xlab => 'mixing parameter', :ylab => 'MoJo')
+plot_clusterers('bcr.pdf', ClusteringExperiment::MODEL_BCR, 'mojo', 'mu', 
+    :xlim => [0,1], :ylim => [0, 1000], :main => 'BCR+',
+    :xlab => 'mu', :ylab => 'MoJo')
 
 
