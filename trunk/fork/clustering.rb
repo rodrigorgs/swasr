@@ -4,6 +4,7 @@ require 'open3'
 require 'tempfile'
 require 'tmpdir'
 require 'stringio'
+require 'fileutils'
 include Open3
 
 class Clusterer
@@ -179,8 +180,9 @@ class InfomapClusterer < Clusterer
 
     File.open(path + '.net', 'w') do |f|
       vertices = entities(pairs)
-      f.puts("*Vertices #{vertices.size}")
-      vertices.each { |x| f.puts "#{x} \"#{x}\"" }
+      n = vertices.max
+      f.puts("*Vertices #{n}")
+      1.upto(n) { |x| f.puts "#{x} \"#{x}\"" }
       f.puts("*Arcs #{pairs.size}")
       pairs.each { |a, b| f.puts "#{a} #{b} 1" }
     end
@@ -191,11 +193,12 @@ class InfomapClusterer < Clusterer
     raise RuntimeError, "Error running infomap." if ($? != 0)
 
     IO.foreach(path + '.tree') do |line|
-      puts line
       if line =~ /^(\d+):.*?"(\d+?)"/
         ostream.puts "#{$2.to_i - 1} #{$1.to_i - 1}"
       end
     end
+
+    FileUtils.rm_f path + '.*'
 
   end
 end

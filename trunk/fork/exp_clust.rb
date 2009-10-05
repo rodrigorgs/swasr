@@ -30,12 +30,14 @@ class ClusteringExperiment
 
   CLUSTERER_ACDC = 1
   CLUSTERER_HCAS = 2
+  CLUSTERER_INFOMAP = 3
 
   CONFIG_SL75 = 1
   CONFIG_SL90 = 2
   CONFIG_CL75 = 3
   CONFIG_CL90 = 4
   CONFIG_ACDC = 5
+  CONFIG_INFOMAP = 6
 
   CLASS_SOFTWARE = 1
   CLASS_WORD = 2
@@ -199,6 +201,7 @@ class ClusteringExperiment
     ds.delete
     ds.insert(:pk_clusterer => CLUSTERER_ACDC, :nme_clusterer => 'ACDC')
     ds.insert(:pk_clusterer => CLUSTERER_HCAS, :nme_clusterer => 'HCAS')
+    ds.insert(:pk_clusterer => CLUSTERER_INFOMAP, :nme_clusterer => 'Infomap')
 
     ds = @db[:clusterer_config]
     ds.delete
@@ -218,6 +221,8 @@ class ClusteringExperiment
         :fk_clusterer => CLUSTERER_ACDC, :nme_clusterer_config => 'ACDC',
         :top_level_clusters => true, :max_cluster_size => 99999, 
         :patterns => '+SO')
+    ds.insert(:pk_clusterer_config => CONFIG_INFOMAP, 
+        :fk_clusterer => CLUSTERER_INFOMAP, :nme_clusterer_config => 'Infomap')
 
     ds = @db[:model]
     ds.delete
@@ -395,6 +400,7 @@ class ClusteringExperiment
     mod = case row[:fk_clusterer]
       when CLUSTERER_ACDC then Clusterer::acdc(row[:arc], row)
       when CLUSTERER_HCAS then Clusterer::hcas(row[:arc], row)
+      when CLUSTERER_INFOMAP then Clusterer::infomap(row[:arc], row)
       else raise RuntimeError, "Unknown algorithm."
       end
     @db[:decomposition].filter(:pk_decomposition => row[:pk_decomposition])
@@ -408,6 +414,7 @@ class ClusteringExperiment
         .inner_join(:clusterer_config, :pk_clusterer_config => :fk_clusterer_config)
         .inner_join(:network, :pk_network => :decomposition__fk_network)
         .filter(:mod => nil).and('arc IS NOT NULL')
+        .and(:synthetic => true)
 
     each_random_row(ds, :decomposition) do |row|
       compute_decomposition(row)
@@ -436,6 +443,7 @@ class ClusteringExperiment
           .filter(:dec__mojo => nil, :ref__reference => true)
           .and("dec.mod IS NOT NULL")
           .and("ref.mod IS NOT NULL")
+          .and(:synthetic => true)
           .select(:dec__pk_decomposition.as(:pk_decomposition), 
               :ref__pk_decomposition.as(:pk_ref), 
               :dec__mod, 
@@ -448,12 +456,9 @@ class ClusteringExperiment
   end
 end
 
-if __FILE__ == $0
-  exp = ClusteringExperiment.new
-  #exp.drop_all_tables
-  exp.create_tables
-  exp.create_initial_values
+CE = ClusteringExperiment
 
+def insert_model_params(exp)
   puts 'bcr'
   arch_id = exp.db[:architecture].filter(:nme_architecture => '16-findbugs').first[:pk_architecture]
   0.upto(99) do |seed|
@@ -473,7 +478,7 @@ if __FILE__ == $0
 
   puts 'lf'
   0.upto(99) do |seed|
-  [0.00, 0.10, 0.20, 0.30, 0.40, 0.50, 0.60].each do |mixing|
+  [0.00, 0.10, 0.20, 0.30, 0.40, 0.50, 0.60, 0.70, 0.80].each do |mixing|
   exp.insert_model_config :fk_model => ClusteringExperiment::MODEL_LF,
       :seed => seed, 
       :n => 1000, 
@@ -505,7 +510,15 @@ if __FILE__ == $0
     :alpha => alpha
   end
   end    
+end
 
+if __FILE__ == $0
+  exp = ClusteringExperiment.new
+  #exp.drop_all_tables
+  exp.create_tables
+  exp.create_initial_values
+
+  #insert_model_params(exp)
   exp.insert_stub_decompositions
   puts '## Now you can start this script in another network node ##'
   exp.generate_missing_networks
