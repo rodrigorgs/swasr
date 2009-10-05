@@ -33,6 +33,13 @@ public
     clusterer.cluster(arcs_string, out, params)
     return out.string
   end
+  
+  def self.bunch(arcs_string, params)
+    out = StringIO.new
+    clusterer = BunchClusterer.new
+    clusterer.cluster(arcs_string, out, params)
+    return out.string
+  end
 
   ###################################################################### 
 
@@ -203,8 +210,26 @@ class InfomapClusterer < Clusterer
   end
 end
 
+class BunchClusterer < Clusterer
+  def arc_to_intermediate(pairs, ostream, params={})
+    t = Tempfile.new('infomap')
+    path = t.path
+    t.delete
+    put_pairs(pairs, path)
+
+    cmd = "java BunchCmd #{path}"
+    puts cmd
+    popen3 cmd do |stdin, stdout, stderr|
+      ostream.write(stdout.read)
+    end
+
+    FileUtils.rm_f(path)
+  end  
+end
+
 if __FILE__ == $0
   #puts Clusterer::infomap(IO.read('/tmp/numbers.arc'), {})
+  puts Clusterer::bunch(IO.read('/tmp/numbers.arc'), {})
   #clusterer = AcdcClusterer.new
   #clusterer.cluster("/tmp/numbers.arc", "/tmp/acdc.mod", "-l9999 -u")
   #
