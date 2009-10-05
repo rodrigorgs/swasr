@@ -31,6 +31,7 @@ class ClusteringExperiment
   CLUSTERER_ACDC = 1
   CLUSTERER_HCAS = 2
   CLUSTERER_INFOMAP = 3
+  CLUSTERER_BUNCH = 4
 
   CONFIG_SL75 = 1
   CONFIG_SL90 = 2
@@ -38,6 +39,7 @@ class ClusteringExperiment
   CONFIG_CL90 = 4
   CONFIG_ACDC = 5
   CONFIG_INFOMAP = 6
+  CONFIG_BUNCH = 7
 
   CLASS_SOFTWARE = 1
   CLASS_WORD = 2
@@ -202,6 +204,7 @@ class ClusteringExperiment
     ds.insert(:pk_clusterer => CLUSTERER_ACDC, :nme_clusterer => 'ACDC')
     ds.insert(:pk_clusterer => CLUSTERER_HCAS, :nme_clusterer => 'HCAS')
     ds.insert(:pk_clusterer => CLUSTERER_INFOMAP, :nme_clusterer => 'Infomap')
+    ds.insert(:pk_clusterer => CLUSTERER_BUNCH, :nme_clusterer => 'Bunch')
 
     ds = @db[:clusterer_config]
     ds.delete
@@ -223,6 +226,8 @@ class ClusteringExperiment
         :patterns => '+SO')
     ds.insert(:pk_clusterer_config => CONFIG_INFOMAP, 
         :fk_clusterer => CLUSTERER_INFOMAP, :nme_clusterer_config => 'Infomap')
+    ds.insert(:pk_clusterer_config => CONFIG_BUNCH, 
+        :fk_clusterer => CLUSTERER_BUNCH, :nme_clusterer_config => 'Bunch')
 
     ds = @db[:model]
     ds.delete
