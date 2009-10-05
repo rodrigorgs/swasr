@@ -406,6 +406,7 @@ class ClusteringExperiment
       when CLUSTERER_ACDC then Clusterer::acdc(row[:arc], row)
       when CLUSTERER_HCAS then Clusterer::hcas(row[:arc], row)
       when CLUSTERER_INFOMAP then Clusterer::infomap(row[:arc], row)
+      when CLUSTERER_BUNCH then Clusterer::bunch(row[:arc], row)
       else raise RuntimeError, "Unknown algorithm."
       end
     @db[:decomposition].filter(:pk_decomposition => row[:pk_decomposition])
