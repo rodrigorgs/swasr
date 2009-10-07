@@ -21,6 +21,7 @@ def big_view
       avg(dec.n_subfive) as n_subfive, 
       avg(dec.min_module_size) as min_module_size, 
       avg(dec.max_module_size) as max_module_size,
+      avg(dec.purity) AS purity,
       count(*) as count
     FROM decomposition AS dec
     INNER JOIN network AS net ON net.pk_network = dec.fk_network
@@ -109,6 +110,15 @@ all_data = big_view
   :log => minfo.log ? 'x' : '',
   :xlab => minfo.nme_mixing, :ylab => 'MoJoSim') { |row| 
   row[:nme_model] == minfo.nme && row[:nme_clusterer_config] != nil }
+  
+  plot_multiple_xy("plots/#{minfo.nme}-purity.pdf", all_data,
+  minfo.mixing, 
+  :purity, 
+  :nme_clusterer_config, 
+  :main => minfo.nme, :xlim => minfo.range_mixing, :ylim => [0,1],
+  :log => minfo.log ? 'x' : '',
+  :xlab => minfo.nme_mixing, :ylab => 'purity') { |row| 
+  row[:nme_model] == minfo.nme && row[:nme_clusterer_config] != nil && row[:purity] != nil}
 
   plot_multiple_xy("plots/#{minfo.nme}-n_modules.pdf", all_data,
   minfo.mixing,

@@ -36,6 +36,27 @@ def mojosim(file1, file2)
   return 1 - (m.to_f / n)
 end
 
-#if __FILE__ == $0
-#  puts mojosim ARGV[0], ARGV[1]
-#end
+def load_clusters(stringio)
+  pairs = int_pairs_from_string(stringio.read)
+  group = pairs.group_by { |node, mod| mod }.values
+  group.each do |list|
+    list.map! { |node, mod| node }
+  end
+  return group
+end
+
+# parameters are IOs
+def purity(proposed, reference)
+  purity = 0
+  node_to_class = Hash[int_pairs_from_string(reference.read)]
+  clustering = load_clusters(proposed)
+  clustering.each { |cluster| cluster.map! { |n| node_to_class[n] } }
+  clustering.each do |cluster|
+    n = cluster.size
+    correct = cluster.group_by { |clas| clas }.values.map { |x| x.size }.max
+    purity += correct
+  end
+
+  return purity.to_f / clustering.flatten.size
+end
+
