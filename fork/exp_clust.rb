@@ -3,7 +3,7 @@ require 'sequel'
   # http://sequel.rubyforge.org/static/mwrc2009_presentation.html
 
 require 'network_models'
-require 'mojosim'
+require 'compare_partitions'
 require 'clustering'
 
 class Object # Sequel::Postgres::Dataset
@@ -62,6 +62,15 @@ class ClusteringExperiment
       EOT
       ].all.map { |h| h.values[0] }
     tables.each { |t| @db.drop_table t }
+  end
+
+  def create_additional_columns
+    begin
+      @db.alter_table :decomposition do
+        add_column :purity, :float
+      end
+    rescue RuntimeError
+    end
   end
 
   def create_tables
@@ -401,7 +410,7 @@ class ClusteringExperiment
 
   def compute_decomposition(row)
     n = row[:arc] && row[:arc].size || 'nil'
-    LOG.info "compute_decomposition: #{n} arcs"
+    LOG.info "compute_decomposition: #{n} arcs, pk = #{row[:pk_decomposition]}"
     mod = case row[:fk_clusterer]
       when CLUSTERER_ACDC then Clusterer::acdc(row[:arc], row)
       when CLUSTERER_HCAS then Clusterer::hcas(row[:arc], row)
@@ -428,12 +437,6 @@ class ClusteringExperiment
   end
   
   def compute_mojo(row)
-    if (row[:mod].nil? || row[:mod].strip.size == 0)
-      raise RuntimeError, "Found decomposition is empty for pk #{pk_decomposition}"
-    end
-    if (row[:reference_mod].nil? || row[:reference_mod].strip.size == 0)
-      raise RuntimeError, "Reference decomposition is empty for pk #{pk_decomposition}"
-    end
     reference = StringIO.new(row[:reference_mod])
     found = StringIO.new(row[:mod])
     m = mojo(found, reference)
@@ -441,12 +444,12 @@ class ClusteringExperiment
         .update(:mojo => m)
   end
 
-  # TODO works only when executed multiple times (why?)
-  def compute_missing_mojos
+  def base_decomposition_comparison(column, &block)
     ds = @db[:decomposition.as(:dec)]
           .inner_join(:decomposition.as(:ref), :fk_network => :fk_network)
           .inner_join(:network, :pk_network => :fk_network)
-          .filter(:dec__mojo => nil, :ref__reference => true)
+          .filter(:ref__reference => true)
+          .and("dec.#{column} IS NULL")
           .and("dec.mod IS NOT NULL")
           .and("ref.mod IS NOT NULL")
           .and(:synthetic => true)
@@ -456,8 +459,30 @@ class ClusteringExperiment
               :ref__mod.as(:reference_mod))
 
     each_random_row(ds, :decomposition, 'dec.pk_decomposition') do |row|
+      block.call(row)
+    end
+
+  end
+
+  def compute_missing_mojos
+    base_decomposition_comparison :mojo do |row|
       puts "mojo #{row[:pk_decomposition]} #{row[:pk_ref]}"
       compute_mojo(row)
+    end
+  end
+
+  def compute_purity(row)
+    puts "purity #{row[:pk_decomposition]} #{row[:pk_ref]}"
+    reference = StringIO.new(row[:reference_mod])
+    found = StringIO.new(row[:mod])
+    m = purity(found, reference)
+    @db[:decomposition].filter(:pk_decomposition => row[:pk_decomposition])
+        .update(:purity => m)
+  end
+
+  def compute_missing_purities
+    base_decomposition_comparison :purity do |row|
+      compute_purity(row)
     end
   end
 end
@@ -521,15 +546,18 @@ end
 if __FILE__ == $0
   exp = ClusteringExperiment.new
   #exp.drop_all_tables
-  exp.create_tables
-  exp.create_initial_values
+
+  #exp.create_tables
+  exp.create_additional_columns
+  #exp.create_initial_values
 
   #insert_model_params(exp)
-  exp.insert_stub_decompositions
-  puts '## Now you can start this script in another network node ##'
-  exp.generate_missing_networks
-  exp.compute_missing_decompositions
-  exp.compute_missing_decomposition_metrics
-  exp.compute_missing_mojos
+  #exp.insert_stub_decompositions
+  #puts '## Now you can start this script in another network node ##'
+  #exp.generate_missing_networks
+  #exp.compute_missing_decompositions
+  #exp.compute_missing_decomposition_metrics
+  #exp.compute_missing_mojos
+  exp.compute_missing_purities
 end
 
