@@ -23,6 +23,10 @@ def purities_to_compute
   DB['select count(*) from decomposition where purity is null and reference = false'].first[:count]
 end
 
+def nmis_to_compute
+  DB['select count(*) from decomposition where nmi is null and reference = false'].first[:count]
+end
+
 def report(func)
   puts "#{eval(func)} #{func}"
 end
@@ -33,6 +37,7 @@ if __FILE__ == $0
     report 'decompositions_to_compute'
     report 'mojos_to_compute'
     report 'purities_to_compute'
+    report 'nmis_to_compute'
     report 'decompositions_without_metrics'
     puts
     sleep 5

@@ -71,6 +71,13 @@ class ClusteringExperiment
       end
     rescue RuntimeError
     end
+
+    begin
+      @db.alter_table :decomposition do
+        add_column :nmi, :float
+      end
+    rescue RuntimeError
+    end
   end
 
   def create_tables
@@ -435,14 +442,6 @@ class ClusteringExperiment
       compute_decomposition(row)
     end
   end
-  
-  def compute_mojo(row)
-    reference = StringIO.new(row[:reference_mod])
-    found = StringIO.new(row[:mod])
-    m = mojo(found, reference)
-    @db[:decomposition].filter(:pk_decomposition => row[:pk_decomposition])
-        .update(:mojo => m)
-  end
 
   def base_decomposition_comparison(column, &block)
     ds = @db[:decomposition.as(:dec)]
@@ -459,30 +458,29 @@ class ClusteringExperiment
               :ref__mod.as(:reference_mod))
 
     each_random_row(ds, :decomposition, 'dec.pk_decomposition') do |row|
-      block.call(row)
+      puts "#{column} #{row[:pk_decomposition]} #{row[:pk_ref]}"
+      value = block.call(StringIO.new(row[:mod]), StringIO.new(row[:reference_mod]))
+      @db[:decomposition].filter(:pk_decomposition => row[:pk_decomposition])
+          .update(column => value)
     end
 
   end
 
   def compute_missing_mojos
-    base_decomposition_comparison :mojo do |row|
-      puts "mojo #{row[:pk_decomposition]} #{row[:pk_ref]}"
-      compute_mojo(row)
+    base_decomposition_comparison :mojo do |a, b|
+      compute_mojo(a, b)
     end
   end
 
-  def compute_purity(row)
-    puts "purity #{row[:pk_decomposition]} #{row[:pk_ref]}"
-    reference = StringIO.new(row[:reference_mod])
-    found = StringIO.new(row[:mod])
-    m = purity(found, reference)
-    @db[:decomposition].filter(:pk_decomposition => row[:pk_decomposition])
-        .update(:purity => m)
+  def compute_missing_purities
+    base_decomposition_comparison :purity do |a, b|
+      compute_purity(a, b)
+    end
   end
 
-  def compute_missing_purities
-    base_decomposition_comparison :purity do |row|
-      compute_purity(row)
+  def compute_missing_nmis
+    base_decomposition_comparison :nmi do |a, b|
+      nmi(a, b)
     end
   end
 end
@@ -558,6 +556,7 @@ if __FILE__ == $0
   #exp.compute_missing_decompositions
   #exp.compute_missing_decomposition_metrics
   #exp.compute_missing_mojos
-  exp.compute_missing_purities
+  #exp.compute_missing_purities
+  exp.compute_missing_nmis
 end
 
