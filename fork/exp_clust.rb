@@ -14,6 +14,7 @@ class Object # Sequel::Postgres::Dataset
             .limit(1)
             .first
     if (val.nil? && self.count() > 0)
+      puts 'self.first'
       val = self.first
     end
 
@@ -80,7 +81,22 @@ class ClusteringExperiment
     end
   end
 
+  def create_views
+    @db << <<-EOT
+    CREATE OR REPLACE VIEW view_decomposition AS
+      SELECT *
+      FROM decomposition AS dec
+      INNER JOIN network AS net ON net.pk_network = dec.fk_network
+      INNER JOIN model_config mconf ON mconf.pk_model_config = net.fk_model_config
+      INNER JOIN model ON model.pk_model = mconf.fk_model
+      LEFT JOIN architecture arch ON arch.pk_architecture = mconf.fk_architecture
+      LEFT JOIN clusterer_config cconf ON cconf.pk_clusterer_config = dec.fk_clusterer_config
+      LEFT JOIN clusterer clust ON clust.pk_clusterer = cconf.fk_clusterer;
+    EOT
+  end
+
   def create_tables
+
     # read-only table
     @db.create_table? :clusterer_config do
       primary_key :pk_clusterer_config
@@ -429,14 +445,17 @@ class ClusteringExperiment
         .update(:mod => mod)
   end
   
-  def compute_missing_decompositions
-    insert_stub_decompositions
-
+  def compute_missing_decompositions(&block)
     ds = @db[:decomposition]
         .inner_join(:clusterer_config, :pk_clusterer_config => :fk_clusterer_config)
         .inner_join(:network, :pk_network => :decomposition__fk_network)
         .filter(:mod => nil).and('arc IS NOT NULL')
         .and(:synthetic => true)
+
+    ds = block.call(ds) if block
+
+    puts ds.sql
+    p ds.count
 
     each_random_row(ds, :decomposition) do |row|
       compute_decomposition(row)
@@ -520,6 +539,22 @@ def insert_model_params(exp)
       :maxm => nil
   end
   end
+  
+  # configuration from Lancichinetti's paper
+  0.upto(10) do |seed|
+  [0.00, 0.10, 0.20, 0.30, 0.40, 0.50, 0.60, 0.70, 0.80].each do |mixing|
+  exp.insert_model_config :fk_model => ClusteringExperiment::MODEL_LF,
+      :seed => seed, 
+      :n => 1000, 
+      :avgk => 20, 
+      :maxk => 50, 
+      :mixing => mixing,
+      :expdegree => 2.0,
+      :expsize => 1.0,
+      :minm => 10,
+      :maxm => 50
+  end
+  end
 
   puts 'cgw'
   0.upto(99) do |seed|
@@ -538,23 +573,25 @@ def insert_model_params(exp)
     :m => 16,
     :alpha => alpha
   end
-  end    
+  end
 end
 
 if __FILE__ == $0
   exp = ClusteringExperiment.new
-  #exp.drop_all_tables
-
-  #exp.create_tables
+  ###########################exp.drop_all_tables
+  exp.create_tables
+  exp.create_views
   exp.create_additional_columns
-  #exp.create_initial_values
+  exp.create_initial_values
 
   #insert_model_params(exp)
   #exp.insert_stub_decompositions
+  
   #puts '## Now you can start this script in another network node ##'
+  #
   #exp.generate_missing_networks
-  #exp.compute_missing_decompositions
-  #exp.compute_missing_decomposition_metrics
+  exp.compute_missing_decompositions { |ds| ds.and('fk_clusterer_config <> ?', CE::CONFIG_BUNCH) }
+  exp.compute_missing_decomposition_metrics
   #exp.compute_missing_mojos
   #exp.compute_missing_purities
   exp.compute_missing_nmis
