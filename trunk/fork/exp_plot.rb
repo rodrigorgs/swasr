@@ -6,31 +6,26 @@ require 'ostruct'
 
 EXP = ClusteringExperiment.new
 
-def big_view
+def big_view(where='1=1')
     ds = EXP.db[<<-EOT
     SELECT 
       nme_model, 
       CASE 
-        WHEN cconf.nme_clusterer_config IS NULL THEN '_NULL'
-        ELSE cconf.nme_clusterer_config
+        WHEN nme_clusterer_config IS NULL THEN '_NULL'
+        ELSE nme_clusterer_config
       END AS nme_clusterer_config, 
-      mconf.mixing, mconf.mu, mconf.alpha, 
-      avg(dec.mojo) as mojo, 
-      avg((mconf.n - dec.mojo) / mconf.n::float) as mojosim,
-      avg(dec.n_modules) as n_modules, 
-      avg(dec.n_subfive) as n_subfive, 
-      avg(dec.min_module_size) as min_module_size, 
-      avg(dec.max_module_size) as max_module_size,
-      avg(dec.purity) AS purity,
-      avg(dec.nmi) AS nmi,
+      mixing, mu, alpha, 
+      avg(mojo) as mojo, 
+      avg((n - mojo) / n::float) as mojosim,
+      avg(n_modules) as n_modules, 
+      avg(n_subfive) as n_subfive, 
+      avg(min_module_size) as min_module_size, 
+      avg(max_module_size) as max_module_size,
+      avg(purity) AS purity,
+      avg(nmi) AS nmi,
       count(*) as count
-    FROM decomposition AS dec
-    INNER JOIN network AS net ON net.pk_network = dec.fk_network
-    INNER JOIN model_config mconf ON mconf.pk_model_config = net.fk_model_config
-    INNER JOIN model ON model.pk_model = mconf.fk_model
-    LEFT JOIN clusterer_config cconf ON cconf.pk_clusterer_config = dec.fk_clusterer_config
-    WHERE dec.mojo IS NOT NULL
-      AND dec.n_modules IS NOT NULL
+    FROM view_decomposition
+    WHERE (#{where})
     GROUP BY 1, 2, 3, 4, 5
     ORDER BY 1, 3, 4, 2;
     EOT
@@ -46,7 +41,7 @@ def _convert_to_r(array)
 end
 
 def plot_multiple_xy(filename, data, colx, coly, colseries, plotargs, &filter)
-  data = data.select { |row| filter.call(row) }
+  data = data.select { |row| filter.call(row) } if filter
   valseries = data.map { |row| row[colseries] }.sort.uniq
 
   r = RSRuby.instance
@@ -62,6 +57,11 @@ def plot_multiple_xy(filename, data, colx, coly, colseries, plotargs, &filter)
       series = data.select { |row| row[colseries] == val }.sort_by { |row| row[colx] }
       x = _convert_to_r(series.map { |row| row[colx] })
       y = _convert_to_r(series.map { |row| row[coly] })
+      #x.map! { |a| a || 0 }
+      #y.map! { |a| a || 0 }
+      next if x.include?(nil) || y.include?(nil)
+      #p x 
+      #p y
       r.points(:x => x, :y => y, :col => i+1, :pch => i+1)
       r.lines(:x => x, :y => y, :col => i+1)
 
@@ -74,6 +74,10 @@ def plot_multiple_xy(filename, data, colx, coly, colseries, plotargs, &filter)
 
   r.dev_off.call
   system("scp -P 2299 #{filename} #{filename}.htm app:./public_html/plots")
+end
+
+class Measure
+  attr_accessor :name, :column, :description, :range, :log
 end
 
 mhash = {
@@ -97,7 +101,17 @@ mhash = {
     :log => true)
 }
 
-# mojo vs mixing, LF
+data = big_view("maxm = 50 AND pk_clusterer_config IS NOT NULL") # AND cconf.pk_clusterer_config = #{CE::CONFIG_INFOMAP}")
+#p data
+p data.map { |x| x[:nmi] }
+plot_multiple_xy "plots/infomap-lf-nmi.pdf", data,
+  :mixing, :nmi,
+  :nme_clusterer_config,
+  :main => 'LF', :xlim => [0,1], :ylim => [0,1],
+  :xlab => 'mixing parameter', :ylab => 'normalized mutual information'
+
+exit 1
+
 all_data = big_view
 
 [:bcr, :lf, :cgw].each do |model|
