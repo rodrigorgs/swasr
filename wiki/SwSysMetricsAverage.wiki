@@ -1,0 +1,22 @@
+#summary One-sentence summary of this page.
+
+= Introduction =
+
+Some metrics about software systems
+  * Edge density (e / (n*(n-1))): 0.004 += 0.018 (min: 0.0002 for iReport, max: 0.036 for juel). 
+  * max(indegree) / n: 0.146 += 0.102
+  * avg(indegree) / n: 0.00443 += 0.00600 (min: 0.00015, max: 0.035)
+  * in-degree power-law exponent: 2.25 (min: 1.75, max: 3.5)
+
+So a system with 1000 vertices should have, in average:
+  * edges: 3996 edges
+  * max indegree = 146
+  * avg indegree = 4 or 5
+  * in-degree power-law exponent: 2.25 (min: 1.75, max: 3.5)
+
+= Details =
+
+Add your content here.  Format your content with:
+  * Text in *bold* or _italic_
+  * Headings, paragraphs, and lists
+  * Automatic links to other wiki pages
