@@ -78,26 +78,40 @@ If two development teams are responsible for maintaining components that are
 highly interdependent, they need to coordinate their work often in order avoid
 code duplication and breaking each other's component funcionality.
 
-%One of the most obvious ways to reduce the time needed to develop or maintain a
-%software system is to assign more developers to it. When combined with poor
-%management, though, adding developers may in fact raise the development time,
-%due to the increasing communication costs between developers \cite{Brooks1995}.
-%
-%The communication costs are affected by the assignment of developers to
-%implementation components of a system.
-%%The assignment of developers to implementation components of a system affects
-%%the amount of communication needed between developers. 
-%If two development teams are responsible for maintaining components that are
-%highly interdependent, they need to coordinate their work often in order avoid
-%code duplication and breaking each other's component funcionality.
-
 Therefore, to optimize the development of a system, a manager can decompose the
 system into modules, or groups of components, so that there are as few
-inter-module dependencies as possible. % (i.e., the modules are weakly couple.).
+inter-module dependencies as possible. % (i.e., the modules are weakly coupled).
 %Each module is, then, threated as an unit of work assignment \cite{Parnas1972}:
 Then, each module is assigned to one team and, because of the little inter-module
 dependency, the communication between teams is reduced, therefore speeding up
 the development.
+
+%********** 
+%
+%Large software systems need to be decomposed in smaller parts in order to be
+%effectively maintained by groups of developers working concurrently. If a system
+%is poorly documented, 
+%
+%**********
+%
+%Even if a
+%system is poorly documented, a software manager should be able to decompose it into 
+%modules with few dependencies between them, so 
+%
+%find relatively
+%independent modules in it, so each development team 
+%
+% A software
+%manager should be
+%**********
+%
+% The task of
+%finding cohesive modules in the source code
+%
+%Although
+%dependency analysis tools can aid in the task of 
+%Dependency
+%analysis 
 
 To decompose a system into modules, a manager needs to have global knowledge of
 the dependencies between its components. Although dependency analysis tools can
@@ -125,16 +139,17 @@ clustering algorithms. Also, because it is costly to obtain reference
 decompositions for large systems, most studies test the algorithms with a couple
 of small and medium systems \cite{Anquetil1999,Maqbool2007,Bittencourt2009}.
 
-In our research we propose to evaluate software clustering algorithms by
-applying them to synthetic, i.e., computer generated, component dependency
-networks with built-in reference decompositions. This approach enables one to
-test algorithms with arbitrarily large samples in a controlled manner.
+An alternative approach is to run the algorithms on synthetic, i.e., computer-
+generated, component dependency networks with built-in reference decompositions.
+This approach enables one to test algorithms with arbitrarily large samples in a
+controlled manner. Nevertheless, this approach is often overlooked, mainly
+because naïve random network models synthesize networks that are very dissimilar
+from component dependency networks.
 
-A desirable property of synthetic networks is that they resemble their natural
-counterparts. In this paper, we present three network models and show
-empirically that all three models are capable of synthesizing networks that
-resemble software networks. We consider object-oriented systems with classes as
-components.
+In this paper, we present three recently proposed network models and show
+empirically that they are capable of synthesizing networks that resemble
+software component dependency networks. We limit our analysis to networks of
+static dependencies between classes in object-oriented systems written in Java.
 
 The paper is organized as follows: Section \ref{sec:models} presents three
 network models.
@@ -160,24 +175,24 @@ work.
 Network theory studies general properties of many types of networks by using
 statistical analysis. In the last decade, remarkable similarities have been
 found in networks arising from domains as diverse as sociology, biology,
-technology, and linguistics. It has been shown that, in these networks, the
+technology, and linguistics. It has been shown that, in many networks, the
 distribution of vertex degrees is a power law, i.e., the number of vertices
 connected to $k$ edges is proportional to $k^{-\gamma}$, where $\gamma$ is a
-positive constant. These networks are called scale-free networks
-\cite{Barabasi1999}.
+positive constant. Networks that share this property are called scale-free
+networks \cite{Barabasi1999}.
 
 Network theory has been applied to class dependency networks, represented as
 directed unweighted graphs, and it was shown that they are also scale-free
-networks \cite{Myers2003,Valverde2002}. Thus, the study of the structure of
+\cite{Myers2003,Valverde2002}. Thus, the study of the structure of
 object-oriented software systems can benefit from the vast literature available
 about scale-free networks.
 
-In particular, many scale-free network models were proposed. These models are
-algorithms that were proven, either formally or empirically, to synthesize
-networks that are scale-free. In this section we present three models that
-synthesize scale-free networks with built-in modular decompositions: BCR+, CGW,
-and LF. The networks are represented as directed unweighted graphs with modules,
-which makes them suitable for testing software clustering algorithms.
+Scale-free network models are algorithms that were proven, either formally or
+empirically, to synthesize networks that are scale-free. In this section we
+present three models that synthesize scale-free networks with built-in modular
+decompositions: BCR+, CGW, and LF. The networks are represented as directed
+unweighted graphs with modules, which makes them suitable for testing software
+clustering algorithms.
 
 % directed unweighted graphs
 
@@ -215,8 +230,8 @@ The parameter $\mu$ controls the proportion of external edges in the network.
 Lower values of $\mu$ lead to networks with fewer external edges. 
 %and, therefore, to weakly coupled modules.
 
-First the model creates an initial network in which each module contains exactly
-one vertex. Then all allowed external edges are added. Finally, the networks is
+First the model creates a network in which each module contains exactly one
+vertex. Then all allowed external edges are added. Finally, the networks is
 modified by sucessive choices between three operations that add vertices or
 edges to the network, until it reaches $n$ vertices. Each time, the probability
 of choosing the $i$-th operation is $p_i$.
@@ -318,12 +333,12 @@ is no bias, the two kinds of edges are equaly likely.
 \subsection{LF}
 
 The LF model \cite{Lancichinetti2009} is a very flexible model that can
-generated weighted directed networks with overlapping modules, that is, in which
+generate weighted directed networks with overlapping modules, that is, in which
 a vertex can belong to more than one module. Unlike the previous models, this is
 not a growth model: all vertices are generated at once and then the edges are
 added.
 
-There is also a special version of the model in which the edges weights are
+There is also a special version of the model in which the edge weights are
 discarded and the modules do not overlap. We used the original implementation of
 this version, available at
 \url{http://santo.fortunato.googlepages.com/inthepress2}. It accepts the
@@ -358,13 +373,13 @@ synthesize networks that are similar to software networks. A central issue,
 thus, is how to measure similarity between networks.
 
 We already know that the models synthesize networks that, just like software
-networks, are scale-free. This single property, though, isn't enough to prove
+networks, are scale-free. This single property, though, is insufficient to prove
 the hypothesis, since many known scale-free networks are not software networks
 (e.g., biologic networks). Therefore, the similarity metric should be able to
 distinguish between software and non-software networks.
 
-In this section we present a similarity metric and validate the metric by
-appplying it to a data set containing both software and non-software networks. 
+In this section we present a similarity metric and validate it by appplying it
+to a data set containing both software and non-software networks. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Similarity Between Networks}
@@ -413,14 +428,14 @@ network $x$, and cor($x$, $y$) is Pearson's correlation coefficient.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Data Set}
 
-To support the evaluation of the metric, we have collected 131 networks. The
-networks are described in detail in the Appendix.
+To support the evaluation of the metric, we have collected 131 networks from
+many different domains. The networks are described in detail in the Appendix.
 
-\subsubsection{Software networks} We have collected 65 software systems written in
-Java, with size ranging from 111 to 35,363 classes. Java was chosen for being a
-popular programming language in which many open source systems have been
-written. The software networks, representing dependencies between classes, were
-extracted with the tool Dependency Finder\footnote{Available at
+\subsubsection{Software networks} We have collected 65 software systems written
+in Java, with size ranging from 111 to 35,363 classes. Java was chosen for being
+a popular programming language in which many open source systems have been
+written. The software networks, representing static dependencies between
+classes, were extracted with the tool Dependency Finder\footnote{Available at
 \url{http://depfind.sf.net}.}.
 
 \subsubsection{Non-software networks} We have collected 66 networks from
@@ -572,9 +587,9 @@ $p + q > 0$;
 \item $\mu \in \{0.0, 0.2, 0.4, 0.6\}$.
 \end{itemize}
 
-We chose $p + q > 0$ because otherwise no node would be added after the
-creation of the initial network. We also avoided large values for $\mu$ in
-order to ignore networks with strongly coupled modules. 
+We chose $p + q > 0$ because otherwise no node would be added to the initial
+network. We also avoided large values for $\mu$ in order to ignore networks with
+strongly coupled modules. 
 
 In total, 9,500 BCR+ networks were synthesized.
 
@@ -590,8 +605,8 @@ $p1 + p2 + p3 + p4 = 1$;
 \item number of modules: $m \in \{2, 4, 8, 16, 32\}$.
 \end{itemize}
 
-Notice that $e_i$ has no effect when $p_i = 0$; in this case $e_i$ was just set
-to zero.
+Note that $e_i$ has no effect when $p_i = 0$; in this case $e_i$ was just set to
+zero.
 
 In total, 38,790 CGW networks were synthesized.
 
@@ -778,7 +793,7 @@ different parameter values.
 
 In a future work, we intend to use synthetic networks in the evaluation of
 software clustering algorithms that were previously tested with real networks.
-After that we will be able to compare the results obtained by different
+After that we will be able to compare the results obtained by the two
 approaches.
 
 \appendix %{Network Data Set}

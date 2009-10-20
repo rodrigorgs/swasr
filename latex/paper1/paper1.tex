@@ -321,20 +321,17 @@ rodrigorgs@gmail.com%line 4: Email: name@xyz.com}
 
 
 \begin{abstract} 
-
 Software clustering algorithms can automatically decompose a software system
-into modules by analyzing the network of dependencies between system components.
-Empirical evaluation of these algorithms depends on the availability of software
-systems with known reference decompositions. Unfortunately few reference
-decompositions are known and, as a result, there is little empirical knowledge
-about the algorithms, impairing both their adoption in the industry and the
-development of better alternatives. To overcome this problem, we propose to test
-the algorithms by applying them to synthetic networks with built-in reference
-decompositions. In this paper we present three models for this kind of network
-and show that, with a proper choice of parameters, they can synthesize networks
-that are indistinguishable from networks of dependencies in real software
-systems.
-
+into modules by analyzing the network of dependencies between its components
+(e.g., classes in object-oriented systems). Empirical evaluation of these
+algorithms is difficult because few software systems have reference
+decompositions to be compared with the decompositions found by the algorithms.
+Alternatively, the algorithms can be evaluated by applying them on
+computer-generated networks with built-in decompositions, but the validity of
+this approach depends on the similarity between real and computer-generated
+networks. In this paper we present three network models and show that, with a
+proper choice of parameters, they can generate networks that are
+indistinguishable from class dependency networks.
 \end{abstract}
 
 \begin{IEEEkeywords} 
