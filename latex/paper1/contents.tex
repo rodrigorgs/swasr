@@ -70,64 +70,19 @@
 %
 % (needn't be large)
 
-% TODO: this paragraph can mostly disappear.
-%
-The time spent on the maintenance of a software system can be affected by the
-assignment of developers to implementation components of the system.
-If two development teams are responsible for maintaining components that are
-highly interdependent, they need to coordinate their work often in order avoid
-code duplication and breaking each other's component funcionality.
+Large software systems need to be decomposed in modules in order to be
+effectively maintained by groups of developers working concurrently. Software
+clustering algorithms
+\cite{Mancoridis1998,Anquetil1999,Tzerpos2000,Andritsos2005}, also known as
+architecture recovery algorithms, can automatically find a suitable
+decomposition by analyzing the dependencies between components in a software
+system (e.g., classes in object-oriented systems) and then grouping together
+highly interdependent components. 
 
-Therefore, to optimize the development of a system, a manager can decompose the
-system into modules, or groups of components, so that there are as few
-inter-module dependencies as possible. % (i.e., the modules are weakly coupled).
-%Each module is, then, threated as an unit of work assignment \cite{Parnas1972}:
-Then, each module is assigned to one team and, because of the little inter-module
-dependency, the communication between teams is reduced, therefore speeding up
-the development.
-
-%********** 
-%
-%Large software systems need to be decomposed in smaller parts in order to be
-%effectively maintained by groups of developers working concurrently. If a system
-%is poorly documented, 
-%
-%**********
-%
-%Even if a
-%system is poorly documented, a software manager should be able to decompose it into 
-%modules with few dependencies between them, so 
-%
-%find relatively
-%independent modules in it, so each development team 
-%
-% A software
-%manager should be
-%**********
-%
-% The task of
-%finding cohesive modules in the source code
-%
-%Although
-%dependency analysis tools can aid in the task of 
-%Dependency
-%analysis 
-
-To decompose a system into modules, a manager needs to have global knowledge of
-the dependencies between its components. Although dependency analysis tools can
-extract such information from the source code of the system, the task of finding
-a good decomposition can be overwhelming because of the large number of
-components and dependencies that need to be considered.
-
-Software clustering algorithms, also known as architecture recovery algorithms
-\cite{Mancoridis1998,Anquetil1999,Tzerpos2000,Andritsos2005},
-%\cite{Pollet2007}, 
-automatically decompose a software system by analyzing the network of
-dependencies between its components. %Although many algorithms have been
-%proposed, few comparative studies exist.  empirical studies regarding the
-%quality of the decompositions they find.  EVALUATION CRITERION
-One important test for a software clustering algorithm is to apply it to a
-collection of software systems with known reference decompositions made by
+Although many software clustering algorithms have been proposed, there is little
+empirical evaluation regarding the external quality of the decompositions they
+found. One important test for a software clustering algorithm is to apply it to
+a collection of software systems with known reference decompositions made by
 experienced developers \cite{Anquetil1999}. It is expected that a good algorithm
 finds decompositions that are similar to reference decompositions, which can be
 measured by a similarity metric such as MoJo \cite{Tzerpos1999} or EdgeSim
@@ -143,8 +98,8 @@ An alternative approach is to run the algorithms on synthetic, i.e., computer-
 generated, component dependency networks with built-in reference decompositions.
 This approach enables one to test algorithms with arbitrarily large samples in a
 controlled manner. Nevertheless, this approach is often overlooked, mainly
-because naïve random network models synthesize networks that are very dissimilar
-from component dependency networks.
+because networks synthesized by naïve random network models are very dissimilar
+from real component dependency networks.
 
 In this paper, we present three recently proposed network models and show
 empirically that they are capable of synthesizing networks that resemble
@@ -155,10 +110,10 @@ The paper is organized as follows: Section \ref{sec:models} presents three
 network models.
 %
 Section \ref{sec:characterization} demonstrates a method to tell if a network
-resembles a software network.
+resembles a software component dependency network.
 %
 Section \ref{sec:evaluation} shows empirically that the three models synthesize
-networks that resemble software networks.
+networks that resemble software component dependency networks.
 %
 Section \ref{sec:conclusion} discusses the impact of this research and future
 work.
@@ -185,7 +140,10 @@ Network theory has been applied to class dependency networks, represented as
 directed unweighted graphs, and it was shown that they are also scale-free
 \cite{Myers2003,Valverde2002}. Thus, the study of the structure of
 object-oriented software systems can benefit from the vast literature available
-about scale-free networks.
+about scale-free networks. In the remaining of this paper, we will use the
+expression ``software network'' to refer to a network of static dependencies
+between classes of a software system, in contrast to networks studied in other
+domains.
 
 Scale-free network models are algorithms that were proven, either formally or
 empirically, to synthesize networks that are scale-free. In this section we
