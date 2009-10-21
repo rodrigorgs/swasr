@@ -5,16 +5,19 @@ require 'sequel'
 require 'network_models'
 require 'compare_partitions'
 require 'clustering'
+require 'realism'
 
 class Object # Sequel::Postgres::Dataset
   def random_row(table, column=nil)
     column = "pk_#{table}" if column.nil?
 
-    val = self.and("#{column} >= RANDOM() * (SELECT MAX(pk_#{table}) FROM #{table})")
+    #val = self.order(:random).limit(1)
+
+    val = self.and("#{column} >= RANDOM() * (SELECT MAX(#{column}) FROM #{table})")
             .limit(1)
             .first
     if (val.nil? && self.count() > 0)
-      puts 'self.first'
+      puts '*************************************** self.first'
       val = self.first
     end
 
@@ -66,32 +69,56 @@ class ClusteringExperiment
   end
 
   def create_additional_columns
-    begin
-      @db.alter_table :decomposition do
+    begin @db.alter_table :decomposition do
         add_column :purity, :float
       end
-    rescue RuntimeError
-    end
+    rescue RuntimeError; end
 
-    begin
-      @db.alter_table :decomposition do
+    begin @db.alter_table :decomposition do
         add_column :nmi, :float
       end
-    rescue RuntimeError
-    end
+    rescue RuntimeError; end
+
+    begin @db.alter_table :network do
+        add_column :n_vertices, :int
+        add_column :n_edges, :int
+        add_column :min_indegree, :int
+        add_column :max_indegree, :int
+        add_column :min_outdegree, :int
+        add_column :max_outdegree, :int
+      end
+    rescue RuntimeError; end
+    
+    begin @db.alter_table :network do
+        add_column :sum_indegree, :int
+        add_column :sum_outdegree, :int
+      end
+    rescue RuntimeError; end
   end
 
   def create_views
+    begin @db << 'DROP VIEW view_decomposition' rescue RuntimeError; end
+
     @db << <<-EOT
     CREATE OR REPLACE VIEW view_decomposition AS
       SELECT *
       FROM decomposition AS dec
       INNER JOIN network AS net ON net.pk_network = dec.fk_network
-      INNER JOIN model_config mconf ON mconf.pk_model_config = net.fk_model_config
-      INNER JOIN model ON model.pk_model = mconf.fk_model
+      LEFT JOIN model_config mconf ON mconf.pk_model_config = net.fk_model_config
+      LEFT JOIN model ON model.pk_model = mconf.fk_model
       LEFT JOIN architecture arch ON arch.pk_architecture = mconf.fk_architecture
       LEFT JOIN clusterer_config cconf ON cconf.pk_clusterer_config = dec.fk_clusterer_config
       LEFT JOIN clusterer clust ON clust.pk_clusterer = cconf.fk_clusterer;
+    EOT
+
+    begin @db << 'DROP VIEW view_realism' rescue RuntimeError; end
+    @db << <<-EOT
+      CREATE VIEW view_realism AS
+        SELECT *
+        FROM network
+        INNER JOIN model_config ON fk_model_config = pk_model_config
+        INNER JOIN model ON fk_model = pk_model
+        INNER JOIN triads ON fk_network = pk_network;
     EOT
   end
 
@@ -222,6 +249,7 @@ class ClusteringExperiment
       Float :triad11
       Float :triad12
       Float :triad13
+      index [:fk_network], :unique => true
     end
   end
 
@@ -347,6 +375,51 @@ class ClusteringExperiment
     end
   end
 
+  def compute_network_metrics(row)
+    pairs = int_pairs_from_string(row[:arc])
+
+    if (row[:max_outdegree].nil? || row[:min_outdegree].nil?)
+      outdegrees = pairs.group_by { |a, b| a }.values.map(&:size)
+      row[:max_outdegree] = outdegrees.max
+      row[:min_outdegree] = outdegrees.min
+      row[:sum_outdegree] = outdegrees.inject(0) { |sum, x| x + sum }
+    end
+    if (row[:max_indegree].nil? || row[:min_indegree].nil?)
+      indegrees = pairs.group_by { |a, b| b }.values.map(&:size)
+      row[:max_indegree] = indegrees.max
+      row[:min_indegree] = indegrees.min
+      row[:sum_indegree] = indegrees.inject(0) { |sum, x| x + sum }
+    end
+
+    row[:n_edges] = pairs.size unless row[:n_edges]
+    row[:n_vertices] = entities(pairs).size unless row[:n_vertices]
+
+    @db[:network].filter(:pk_network => row[:pk_network])
+        .update(row)
+  end
+
+  def compute_missing_network_metrics
+    ds = @db[:network]
+        .filter(<<-EOT
+        arc IS NOT NULL AND (
+            n_vertices IS NULL OR
+            n_edges IS NULL OR
+            min_indegree IS NULL OR
+            max_indegree IS NULL OR
+            sum_indegree IS NULL OR
+            min_outdegree IS NULL OR
+            max_outdegree IS NULL OR
+            sum_outdegree IS NULL
+            )
+        EOT
+        ).select(:arc, :pk_network)
+
+    each_random_row(ds, :network) do |row|
+      puts "compute_network_metrics #{row[:pk_network]}"
+      compute_network_metrics(row)
+    end
+  end
+
   def compute_decomposition_metrics(row)
     raise RuntimeError, "Empty mod, pk_decomposition =  #{row[:pk_decomposition]}" if row[:mod].nil? || row[:mod].strip.size == 0
 
@@ -446,11 +519,12 @@ class ClusteringExperiment
   end
   
   def compute_missing_decompositions(&block)
-    ds = @db[:decomposition]
-        .inner_join(:clusterer_config, :pk_clusterer_config => :fk_clusterer_config)
-        .inner_join(:network, :pk_network => :decomposition__fk_network)
+    #ds = @db[:decomposition]
+    #    .inner_join(:clusterer_config, :pk_clusterer_config => :fk_clusterer_config)
+    #    .inner_join(:network, :pk_network => :decomposition__fk_network)
+    ds = @db[:view_decomposition]
         .filter(:mod => nil).and('arc IS NOT NULL')
-        .and(:synthetic => true)
+        #.and(:synthetic => true)
 
     ds = block.call(ds) if block
 
@@ -487,13 +561,13 @@ class ClusteringExperiment
 
   def compute_missing_mojos
     base_decomposition_comparison :mojo do |a, b|
-      compute_mojo(a, b)
+      mojo(a, b)
     end
   end
 
   def compute_missing_purities
     base_decomposition_comparison :purity do |a, b|
-      compute_purity(a, b)
+      purity(a, b)
     end
   end
 
@@ -501,6 +575,86 @@ class ClusteringExperiment
     base_decomposition_comparison :nmi do |a, b|
       nmi(a, b)
     end
+  end
+
+  def insert_stub_triads
+    ds = @db[:network].full_outer_join(:triads, :fk_network => :pk_network)
+        .filter(:fk_network => nil)
+    ds.each do |row|
+      @db[:triads].insert(:fk_network => row[:pk_network])
+    end
+  end
+
+  def compute_missing_triads(&block)
+    ds = @db[:triads].filter(:triad1 => nil)
+        .inner_join(:network, :pk_network => :fk_network)
+   
+    if (!block.nil?)
+      ds = block.call(ds)
+    end
+
+    each_random_row(ds, :triads, :fk_network) do |row|
+      puts "triads for network #{row[:fk_network]}"
+      t = triads(row[:arc])
+      @db[:triads].filter(:fk_network => row[:fk_network])
+          .update(
+            :triad1 => t[0],
+            :triad2 => t[1],
+            :triad3 => t[2],
+            :triad4 => t[3],
+            :triad5 => t[4],
+            :triad6 => t[5],
+            :triad7 => t[6],
+            :triad8 => t[7],
+            :triad9 => t[8],
+            :triad10 => t[9],
+            :triad11 => t[10],
+            :triad12 => t[11],
+            :triad13 => t[12])
+    end
+  end
+
+  def hash_to_triads(row)
+      [row[:triad1],
+      row[:triad2],
+      row[:triad3],
+      row[:triad4],
+      row[:triad5],
+      row[:triad6],
+      row[:triad7],
+      row[:triad8],
+      row[:triad9],
+      row[:triad10],
+      row[:triad11],
+      row[:triad12],
+      row[:triad13]]
+  end
+
+  def compute_missing_s_scores
+    ref_triads = @db[:network].inner_join(:triads, :fk_network => :pk_network)
+        .filter(:fk_classification => CLASS_SOFTWARE)
+        .all.map { |row| hash_to_triads(row) }
+
+    ds = @db[:network].inner_join(:triads, :fk_network => :pk_network)
+        .filter(:s_score => nil)
+
+    each_random_row(ds, :network) do |row|
+      puts "s_score for #{row[:pk_network]}"
+      net_triads = hash_to_triads(row)
+      
+      sum = 0.0
+      ref_triads.each do |ref|
+        sum += correlation(net_triads, ref)
+      end
+      s_score = sum / ref_triads.size
+
+      @db[:network].filter(:pk_network => row[:pk_network])
+          .update(:s_score => s_score)
+    end
+  end
+
+  def compute_s_score(pknetwork)
+
   end
 end
 
@@ -556,6 +710,39 @@ def insert_model_params(exp)
   end
   end
 
+  # configuration from average metrics for software systems in our sample
+  0.upto(30) do |seed|
+  [0.00, 0.10, 0.20, 0.30, 0.40, 0.50, 0.60, 0.70, 0.80].each do |mixing|
+  exp.insert_model_config :fk_model => ClusteringExperiment::MODEL_LF,
+      :seed => seed, 
+      :n => 1000, 
+      :avgk => 4.4, 
+      :maxk => 146, 
+      :mixing => mixing,
+      :expdegree => 2.25,
+      :expsize => 1.0,
+      :minm => 5,
+      :maxm => 100
+  end
+  end
+  
+  # configuration from average metrics for software systems in our sample
+  # with average sized modules (20 to 50)
+  0.upto(30) do |seed|
+  [0.00, 0.10, 0.20, 0.30, 0.40, 0.50, 0.60, 0.70, 0.80].each do |mixing|
+  exp.insert_model_config :fk_model => ClusteringExperiment::MODEL_LF,
+      :seed => seed, 
+      :n => 1000, 
+      :avgk => 4.4, 
+      :maxk => 146, 
+      :mixing => mixing,
+      :expdegree => 2.25,
+      :expsize => 1.0,
+      :minm => 20,
+      :maxm => 50
+  end
+  end
+
   puts 'cgw'
   0.upto(99) do |seed|
   [-1, 0, 1, 10, 100, 1000].each do |alpha|
@@ -579,21 +766,29 @@ end
 if __FILE__ == $0
   exp = ClusteringExperiment.new
   ###########################exp.drop_all_tables
-  exp.create_tables
-  exp.create_views
-  exp.create_additional_columns
-  exp.create_initial_values
+  #exp.create_tables
+  #exp.create_views
+  #exp.create_additional_columns
+  #exp.create_initial_values
 
   #insert_model_params(exp)
   #exp.insert_stub_decompositions
+  #exp.insert_stub_triads
   
   #puts '## Now you can start this script in another network node ##'
   #
   #exp.generate_missing_networks
-  exp.compute_missing_decompositions { |ds| ds.and('fk_clusterer_config <> ?', CE::CONFIG_BUNCH) }
-  exp.compute_missing_decomposition_metrics
+  #exp.compute_missing_network_metrics
+  #exp.compute_missing_decompositions { |ds| ds.and('minm=20 and maxm=50').and('fk_clusterer_config <> ?', CE::CONFIG_BUNCH).and('fk_clusterer_config <> ?', CE::CONFIG_ACDC) }
+  #exp.compute_missing_decompositions
+  #exp.compute_missing_decompositions { |ds| ds.and('synthetic = false').and('fk_clusterer_config = ?', CE::CONFIG_INFOMAP) }
+  #exp.compute_missing_decomposition_metrics
   #exp.compute_missing_mojos
   #exp.compute_missing_purities
-  exp.compute_missing_nmis
+  #exp.compute_missing_nmis
+ 
+  
+  #exp.compute_missing_triads #{ |ds| ds.and(:fk_classification => ClusteringExperiment::CLASS_SOFTWARE) }
+  exp.compute_missing_s_scores
 end
 

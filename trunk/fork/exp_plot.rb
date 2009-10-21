@@ -57,9 +57,23 @@ def plot_multiple_xy(filename, data, colx, coly, colseries, plotargs, &filter)
       series = data.select { |row| row[colseries] == val }.sort_by { |row| row[colx] }
       x = _convert_to_r(series.map { |row| row[colx] })
       y = _convert_to_r(series.map { |row| row[coly] })
+      p x
+      p y
+      xnils = x.size.times.to_a.select { |i| x[i] == nil }
+      ynils = y.size.times.to_a.select { |i| y[i] == nil }
+      nils = (xnils + ynils)
+      nils = (nils & nils).sort.reverse
+      nils.each do |i|
+        x[i] = nil
+        y[i] = nil
+      end
+      x.compact!
+      y.compact!
+
+      next if x.size == 0
       #x.map! { |a| a || 0 }
       #y.map! { |a| a || 0 }
-      next if x.include?(nil) || y.include?(nil)
+      #next if x.include?(nil) || y.include?(nil)
       #p x 
       #p y
       r.points(:x => x, :y => y, :col => i+1, :pch => i+1)
@@ -76,9 +90,82 @@ def plot_multiple_xy(filename, data, colx, coly, colseries, plotargs, &filter)
   system("scp -P 2299 #{filename} #{filename}.htm app:./public_html/plots")
 end
 
+def view_realism
+  EXP.db[<<-EOT
+    SELECT nme_model, 
+      CASE
+        WHEN mixing IS NOT NULL THEN mixing
+        WHEN mu IS NOT NULL THEN mu
+      END AS mixing ,
+      avg(s_score) AS s_score
+    FROM view_realism
+    WHERE (mixing IS NOT NULL OR mu IS NOT NULL)
+    AND s_score IS NOT NULL
+    GROUP BY 1, 2
+    ORDER BY 1, 2
+  EOT
+  .all
+end
+
 class Measure
   attr_accessor :name, :column, :description, :range, :log
 end
+
+mojosim = Measure.new
+mojosim.name = 'mojosim'
+mojosim.column = :mojosim
+mojosim.description = 'MoJoSim'
+mojosim.range = [0, 1]
+mojosim.log = false
+
+nmi = Measure.new
+nmi.name = 'nmi'
+nmi.column = :nmi
+nmi.description = 'normalized mutual information'
+nmi.range = [0, 1]
+nmi.log = false
+
+def plotdm(data, measure, args={})
+  model = data[0][:nme_model]
+  plot_multiple_xy("plots/dm_#{model}-#{measure}.pdf", data,
+    :mixing, measure,
+    :nme_clusterer_config,
+    :main => model, 
+    :xlim => [0, 1],
+    :ylim => args[:ylim] || [0, 1],
+    :xlab => 'mixing',
+    :ylab => measure.to_s)
+end
+
+
+#data = big_view("expdegree = 2.25 AND minm = 20 AND maxm = 50") # AND pk_clusterer_config IS NOT NULL") # AND cconf.pk_clusterer_config = #{CE::CONFIG_INFOMAP}")
+#
+#plotdm data, :nmi
+#plotdm data, :mojosim
+#plotdm data, :n_modules, :ylim => [1, 1000]
+
+data = big_view("synthetic = false") # AND pk_clusterer_config IS NOT NULL") # AND cconf.pk_clusterer_config = #{CE::CONFIG_INFOMAP}")
+
+plot_multiple_xy "plots/real.pdf", data,
+  :pk_network, :nmi,
+  :nme_clusterer_config,
+  :main => 'Real',
+  :xlim => [0, 100],
+  :ylim => [0, 1],
+  :xlab => '', :ylab => ''
+
+#p data
+#p data.map { |x| x[:nmi] }
+#plot_multiple_xy "plots/_lf-nmi.pdf", data,
+#  :mixing, :nmi,
+#  :nme_clusterer_config,
+#  :main => 'LF', :xlim => [0,1], :ylim => [0,1],
+#  :xlab => 'mixing parameter', :ylab => 'normalized mutual information'
+
+exit 1
+
+##############################################################################
+all_data = big_view
 
 mhash = {
   :bcr => OpenStruct.new(
@@ -100,19 +187,6 @@ mhash = {
     :range_mixing => [1, 1000],
     :log => true)
 }
-
-data = big_view("maxm = 50 AND pk_clusterer_config IS NOT NULL") # AND cconf.pk_clusterer_config = #{CE::CONFIG_INFOMAP}")
-#p data
-p data.map { |x| x[:nmi] }
-plot_multiple_xy "plots/infomap-lf-nmi.pdf", data,
-  :mixing, :nmi,
-  :nme_clusterer_config,
-  :main => 'LF', :xlim => [0,1], :ylim => [0,1],
-  :xlab => 'mixing parameter', :ylab => 'normalized mutual information'
-
-exit 1
-
-all_data = big_view
 
 [:bcr, :lf, :cgw].each do |model|
   minfo = mhash[model]
