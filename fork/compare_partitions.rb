@@ -25,7 +25,7 @@ def mojo(file1, file2)
   pairs_to_rsf file2, b
   value = `java mojo.MoJo #{a} #{b} 2> /dev/null`
   #LOG.info(value)
-  #FileUtils.rm_f [a, b]
+  FileUtils.rm_f [a, b]
   return Integer(value.strip)
 end
 

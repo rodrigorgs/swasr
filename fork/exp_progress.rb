@@ -27,8 +27,12 @@ def nmis_to_compute
   DB['select count(*) from decomposition where nmi is null and reference = false'].first[:count]
 end
 
-def report(func)
-  puts "#{eval(func)} #{func}"
+def base(table, column, where='1=1')
+  DB["SELECT COUNT(*) FROM #{table} WHERE #{column} IS NULL AND (#{where})"].first[:count]
+end
+
+def report(func, *args)
+  puts "#{send(func, *args)} #{func}(#{args.inspect})}"
 end
 
 if __FILE__ == $0
@@ -39,6 +43,8 @@ if __FILE__ == $0
     report 'purities_to_compute'
     report 'nmis_to_compute'
     report 'decompositions_without_metrics'
+    report 'base', :network, :n_vertices
+    report 'base', :network, :sum_indegree
     puts
     sleep 5
   end
