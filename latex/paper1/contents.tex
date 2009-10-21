@@ -74,15 +74,15 @@ Large software systems need to be decomposed in modules in order to be
 effectively maintained by groups of developers working concurrently. Software
 clustering algorithms
 \cite{Mancoridis1998,Anquetil1999,Tzerpos2000,Andritsos2005}, also known as
-architecture recovery algorithms, can automatically find a suitable
-decomposition by analyzing the dependencies between components in a software
-system (e.g., classes in object-oriented systems) and then grouping together
-highly interdependent components. 
+architecture recovery algorithms, find suitable decompositions by analyzing the
+dependencies between components in a software system (e.g., classes in
+object-oriented systems) and then grouping together highly interdependent
+components. 
 
 Although many software clustering algorithms have been proposed, there is little
 empirical evaluation regarding the external quality of the decompositions they
-found. One important test for a software clustering algorithm is to apply it to
-a collection of software systems with known reference decompositions made by
+find. One important test for a software clustering algorithm is to apply it to a
+collection of software systems with known reference decompositions made by
 experienced developers \cite{Anquetil1999}. It is expected that a good algorithm
 finds decompositions that are similar to reference decompositions, which can be
 measured by a similarity metric such as MoJo \cite{Tzerpos1999} or EdgeSim
@@ -98,7 +98,7 @@ An alternative approach is to run the algorithms on synthetic, i.e., computer-
 generated, component dependency networks with built-in reference decompositions.
 This approach enables one to test algorithms with arbitrarily large samples in a
 controlled manner. Nevertheless, this approach is often overlooked, mainly
-because networks synthesized by naïve random network models are very dissimilar
+because networks synthesized by naive random network models are very dissimilar
 from real component dependency networks.
 
 In this paper, we present three recently proposed network models and show
@@ -140,12 +140,9 @@ Network theory has been applied to class dependency networks, represented as
 directed unweighted graphs, and it was shown that they are also scale-free
 \cite{Myers2003,Valverde2002}. Thus, the study of the structure of
 object-oriented software systems can benefit from the vast literature available
-about scale-free networks. In the remaining of this paper, we will use the
-expression ``software network'' to refer to a network of static dependencies
-between classes of a software system, in contrast to networks studied in other
-domains.
+about scale-free networks. 
 
-Scale-free network models are algorithms that were proven, either formally or
+Scale-free network models are algorithms that can be proven, either formally or
 empirically, to synthesize networks that are scale-free. In this section we
 present three models that synthesize scale-free networks with built-in modular
 decompositions: BCR+, CGW, and LF. The networks are represented as directed
@@ -245,7 +242,7 @@ edge. The same reasoning applies to $\dout$.
 
 The BCR+ model is a growth model, meaning that the network is created vertex by
 vertex, growing from an initial network. It can, therefore, simulate the
-evolution of a software network. Moreover, it can simulate the evolution of a
+evolution of a software system. Moreover, it can simulate the evolution of a
 software system subject to constraints in module interaction, as is the case
 with top-down system design methodologies.
 
@@ -326,6 +323,10 @@ module size).
 
 \section{Characterization of Software Networks} \label{sec:characterization}
 
+In the remaining of this paper, we will use the expression ``software network''
+to refer to a network of static dependencies between classes of a software
+system, in contrast to networks studied in other domains.
+
 Our research hypothesis is that at least one of the presented models can
 synthesize networks that are similar to software networks. A central issue,
 thus, is how to measure similarity between networks.
@@ -348,12 +349,13 @@ in which all vertices are connected. There are only 13 distinct triads, one for
 each possible configuration of directed edges, as shown in Figure
 \ref{fig:triads}.
 
-\begin{figure*}[!t]
+\begin{figure}[t]
 \centering
-\includegraphics[width=1.0\textwidth]{triads}
+\includegraphics{triads}
+%[width=1.0\textwidth]{triads}
 \caption{The 13 network triads.}
 \label{fig:triads}
-\end{figure*}
+\end{figure}
 
 By counting how many times each triad appears in a network, one can build a
 triad concentration profile (TCP), which is a vector with 13 numbers that
@@ -361,7 +363,7 @@ summarize the local structure of the network. Figure \ref{fig:profiles} shows
 the TCP for networks from two distinct domains.
 
 % Word adjacency network: word Y follows word X => X->Y
-\begin{figure}[!t]
+\begin{figure}[t]
 \center
 \includegraphics{tcp}
 \caption{Triad concentration profiles (TCP) for two networks. On the left,
@@ -723,9 +725,9 @@ they have high accuracy, approximately 80\% for all models.
 % revised 2009-09-03
 
 We have shown empirically that network models found in the literature can
-synthesize networks that resemble the network of dependencies between classes in
-object-oriented systems. This result supports the use of synthetic networks in
-the evaluation of software clustering algorithms.
+synthesize networks that resemble the network of static dependencies between
+classes in object-oriented systems. This result supports the use of synthetic
+networks in the evaluation of software clustering algorithms.
 %that operate on class dependency networks. 
 
 The use of synthetic data is common in distributed computing research, but still
