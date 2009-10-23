@@ -1,3 +1,4 @@
+#!/usr/bin/env ruby
 require 'rubygems'
 require 'sequel' 
   # http://sequel.rubyforge.org/static/mwrc2009_presentation.html
@@ -251,6 +252,17 @@ class ClusteringExperiment
       Float :triad13
       index [:fk_network], :unique => true
     end
+
+    @db.create_table? :experiment do
+      primary_key :pk_experiment
+      String :nme_experiment
+    end
+
+    @db.create_table? :experiment_model_config do
+      Integer :fk_experiment
+      Integer :fk_model_config
+      index [:fk_experiment, :fk_model_config], :unique => true
+    end
   end
 
   def create_initial_values
@@ -335,6 +347,7 @@ class ClusteringExperiment
     insert_safe_get_pk :network, 
         :fk_model_config => pk_model_config,
         :synthetic => true
+    return pk_model_config
   end
 
   def generate_network(model, params)
@@ -349,10 +362,28 @@ class ClusteringExperiment
 
   def each_random_row(ds, table, column=nil, &block)
     while true
-      row = ds.random_row(table, column)
-      break if row.nil?
-      block.call(row)
+      puts 'fetching rows...'
+      rows = ds.all
+      n = rows.size
+      break if rows.empty?
+      puts "fetched #{n} rows. Shuffling..."
+      rows.shuffle!
+      puts 'done'
+
+      iters = n / 10.0;
+      c = 0
+      rows.each do |row|
+        block.call(row)
+        c += 1
+        break if c >= iters
+      end
     end
+
+    #while true
+    #  row = ds.random_row(table, column)
+    #  break if row.nil?
+    #  block.call(row)
+    #end
   end
 
   def synthesize_network_from_db(row)
@@ -786,9 +817,8 @@ if __FILE__ == $0
   #exp.compute_missing_mojos
   #exp.compute_missing_purities
   #exp.compute_missing_nmis
- 
   
-  #exp.compute_missing_triads #{ |ds| ds.and(:fk_classification => ClusteringExperiment::CLASS_SOFTWARE) }
+  exp.compute_missing_triads #{ |ds| ds.and(:fk_classification => ClusteringExperiment::CLASS_SOFTWARE) }
   exp.compute_missing_s_scores
 end
 

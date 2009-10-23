@@ -1,17 +1,143 @@
-Experiment.
+== 2009-10-23 ==
 
-Measure authoritativeness and NED.
+Anotações após conversa com Roberto e Katyusco
+  - Analisar distribuição de diversos atributos dos 65 softwares (n vertices,
+n modulos, densidade de arestas, tam menor modulo, proporcao de arestas 
+externas...)
+  - Talvez fazer analises bivariadas
+  - Ajustar parametros dos modelos de acordo com as distribuições encontradas nos
+65 softwares
+  --
+  - Determinar o mojo médio de cada algoritmo de clustering, quantas vezes em média
+ele é melhor do que os outros...
+  - Usar algoritmo de classificação supervisionada pra tentar achar padrões entre
+atributos de uma rede e desempenho de um algoritmo de clustering
+  --
+  - Estabelecer relacao algébrica entre parâmetros e atributos?
 
-Use MoJoSim.
-Define NED based on min module size and max module size for each model.
+--
+-- mojosim médio por algoritmo de clustering para redes realistas
+--
+rodrigo=> SELECT nme_clusterer_config, 1.0 - AVG(mojo / n_vertices::float) AS mojosim
+rodrigo-> FROM view_decomposition
+rodrigo-> WHERE s_score >= 0.88
+rodrigo-> GROUP by 1
+rodrigo-> ORDER by 2;
+ nme_clusterer_config |      mojosim
+----------------------+-------------------
+ CL75                 | 0.260369954941326
+ SL75                 | 0.283744748484687
+ SL90                 | 0.334667243109811
+ ACDC                 | 0.456499819679419
+ CL90                 | 0.487591551884503
+ Infomap              | 0.508317384657187
+ Bunch                | 0.640774390243903
+                      |                 1
+
+O Bunch é visivelmente superior aos demais, em média.
+TODO: Fazer análise separando por modelo
+
+--
+-- Em quantas redes cada algoritmo foi o melhor
+--
+SELECT nme_clusterer_config AS best, COUNT(*) AS times
+FROM (
+SELECT dec.nme_clusterer_config
+FROM view_decomposition dec
+INNER JOIN (SELECT v.fk_network, MIN(v.mojo) AS mojo
+ FROM view_decomposition v
+ WHERE v.fk_clusterer_config IS NOT NULL
+ GROUP BY v.fk_network) AS mins ON dec.fk_network = mins.fk_network AND mins.mojo = dec.mojo
+) AS x GROUP BY 1 ORDER BY 2;
+  best   | times
+---------+-------
+ SL75    |    19
+ Bunch   |    64
+ SL90    |   223
+         |   244
+ CL90    |   681
+ ACDC    |   846
+ Infomap |  1453
+(7 registros)
+
+--
+-- Em quantas redes cada algoritmo foi o pior
+--
+SELECT nme_clusterer_config AS worst, COUNT(*) AS times
+FROM (
+SELECT dec.nme_clusterer_config
+FROM view_decomposition dec
+INNER JOIN (SELECT v.fk_network, MAX(v.mojo) AS mojo
+ FROM view_decomposition v
+ WHERE v.fk_clusterer_config IS NOT NULL
+ GROUP BY v.fk_network) AS mins ON dec.fk_network = mins.fk_network AND mins.mojo = dec.mojo
+) AS x GROUP BY 1 ORDER BY 2;
+  worst  | times
+---------+-------
+ Infomap |    46
+ ACDC    |   104
+ SL75    |   667
+ SL90    |   712
+ CL75    |  1725
+(5 registros)
+
+
+
+== 2009-10-21 ==
+
+implemented s_score computation. almost all networks are realistic.
+
+it is difficult to compare results from distinct models because the parameters
+are distinct. we must collect metrics on the networks (e.g., edge density,
+proportion of external edges, number of modules etc.) and then group data by
+metric value. for example:
+model | edge density | mojosim
+------+--------------+---------
+lf    | 0.5          | 0.8
+bcr+  | 0.5          | 0.5
+lf    | 0.7          | 0.3
+bcr+  | 0.7          | 0.4
+-
+lf would be a data series and bcr+, another.
+
+-- nmi vs. n_edges
+select trunc(n_edges / 1000), avg(nmi), count(*)
+from view_decomposition
+where n_vertices = 1000
+and synthetic = true
+group by 1
+order by 1;
+
+ trunc |        avg        | count
+-------+-------------------+-------
+     4 | 0.634527621926318 |   864
+     5 | 0.614459920324599 |  3600
+    11 | 0.361310819978571 |   304
+    12 | 0.354199885132471 |  1712
+    13 | 0.350848016541615 |  2704
+    14 | 0.336048726340844 |  1976
+    15 | 0.349672880516257 |   504
+    19 | 0.739031774785182 |   792
+
+result: nmi deteriorates when n_edges increase, except when there are 19000
+edges (why?)
 
 ------------------------------------------------------------------------------
-PostgreSQL schemas are namespaces. Useful to isolate data from distinct
+
+experiment.
+
+measure authoritativeness and ned.
+
+use mojosim.
+define ned based on min module size and max module size for each model.
+
+------------------------------------------------------------------------------
+postgresql schemas are namespaces. useful to isolate data from distinct
 experiments.
 
-Consider using table inheritance (model_params <|-- bcr_params, cgw_params, 
+consider using table inheritance (model_params <|-- bcr_params, cgw_params, 
 lf_params ; network <|-- synthetic_net, natural_net)
-- Not feasible. Primary key index is not shared among parent/child tables
-- P of EAA suggests merging all columns into one big table
+- not feasible. primary key index is not shared among parent/child tables
+- p of eaa suggests merging all columns into one big table
 
 
