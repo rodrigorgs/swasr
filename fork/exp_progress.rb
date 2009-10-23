@@ -37,14 +37,15 @@ end
 
 if __FILE__ == $0
   while true
-    report 'networks_to_synthesize'
-    report 'decompositions_to_compute'
-    report 'mojos_to_compute'
-    report 'purities_to_compute'
-    report 'nmis_to_compute'
-    report 'decompositions_without_metrics'
-    report 'base', :network, :n_vertices
-    report 'base', :network, :sum_indegree
+    #report 'networks_to_synthesize'
+    #report 'decompositions_to_compute'
+    #report 'mojos_to_compute'
+    #report 'purities_to_compute'
+    #report 'nmis_to_compute'
+    #report 'decompositions_without_metrics'
+    #report 'base', :network, :n_vertices
+    #report 'base', :network, :sum_indegree
+    report 'base', :triads, :triad1
     puts
     sleep 5
   end
