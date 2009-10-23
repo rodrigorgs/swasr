@@ -82,6 +82,22 @@ INNER JOIN (SELECT v.fk_network, MAX(v.mojo) AS mojo
 (5 registros)
 
 
+As tríades estavam retornando 0, 0, 0, 0... Consulta para anular essas tríades:
+UPDATE triads
+SET triad1 = NULL,
+triad2 = NULL,
+triad3 = NULL,
+triad4 = NULL,
+triad5 = NULL,
+triad6 = NULL,
+triad7 = NULL,
+triad8 = NULL,
+triad9 = NULL,
+triad10 = NULL,
+triad11 = NULL,
+triad12 = NULL,
+triad13 = NULL
+WHERE triad1 + triad2 + triad3 + triad4 = 0;
 
 == 2009-10-21 ==
 
