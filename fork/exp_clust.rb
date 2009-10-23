@@ -361,6 +361,8 @@ class ClusteringExperiment
   
 
   def each_random_row(ds, table, column=nil, &block)
+    column = "pk_#{table}".to_sym if column.nil?
+
     while true
       puts 'fetching rows...'
       rows = ds.all
@@ -373,7 +375,11 @@ class ClusteringExperiment
       iters = n / 10.0;
       c = 0
       rows.each do |row|
-        block.call(row)
+        if (ds.and(column => row[column])).count > 0
+          block.call(row)
+        else
+          puts 'already taken'
+        end
         c += 1
         break if c >= iters
       end
@@ -617,16 +623,19 @@ class ClusteringExperiment
   end
 
   def compute_missing_triads(&block)
-    ds = @db[:triads].filter(:triad1 => nil)
+    ds = @db[:triads]
         .inner_join(:network, :pk_network => :fk_network)
+        .filter(:triad1 => nil).and('arc IS NOT NULL')
    
     if (!block.nil?)
       ds = block.call(ds)
     end
 
     each_random_row(ds, :triads, :fk_network) do |row|
-      puts "triads for network #{row[:fk_network]}"
+      #puts "triads for network #{row[:fk_network]}"
+      #puts "row[:arc].size: #{row[:arc].size}"
       t = triads(row[:arc])
+      #p t
       @db[:triads].filter(:fk_network => row[:fk_network])
           .update(
             :triad1 => t[0],
@@ -670,14 +679,18 @@ class ClusteringExperiment
         .filter(:s_score => nil)
 
     each_random_row(ds, :network) do |row|
+      puts ref_triads.size
       puts "s_score for #{row[:pk_network]}"
       net_triads = hash_to_triads(row)
       
       sum = 0.0
       ref_triads.each do |ref|
+        p net_triads
         sum += correlation(net_triads, ref)
       end
       s_score = sum / ref_triads.size
+      puts "sum: #{sum}"
+      puts "s_score: #{s_score}"
 
       @db[:network].filter(:pk_network => row[:pk_network])
           .update(:s_score => s_score)
@@ -808,8 +821,8 @@ if __FILE__ == $0
   
   #puts '## Now you can start this script in another network node ##'
   #
-  #exp.generate_missing_networks
-  #exp.compute_missing_network_metrics
+  exp.generate_missing_networks
+  exp.compute_missing_network_metrics
   #exp.compute_missing_decompositions { |ds| ds.and('minm=20 and maxm=50').and('fk_clusterer_config <> ?', CE::CONFIG_BUNCH).and('fk_clusterer_config <> ?', CE::CONFIG_ACDC) }
   #exp.compute_missing_decompositions
   #exp.compute_missing_decompositions { |ds| ds.and('synthetic = false').and('fk_clusterer_config = ?', CE::CONFIG_INFOMAP) }
