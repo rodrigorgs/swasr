@@ -43,7 +43,10 @@ def base(table, column, where='1=1')
     time_remaining = count / vel
   end
 
-  puts "#{count} #{table}.#{column}, vel = %.2f, remaining: %d s." % [vel, time_remaining.to_i]
+  puts "#{count} #{table}.#{column}, vel = %.2f, remaining: #{Time.at(time_remaining).gmtime.strftime('%R:%S')}" % [vel]
+
+Time.at(7683).gmtime.strftime('%R:%S')
+
 
   return count
 end
