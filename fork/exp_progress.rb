@@ -67,7 +67,8 @@ if __FILE__ == $0
     #report 'base', :network, :sum_indegree
     #report 'base', :triads, :triad1
     #report 'base', :network, :arc
-    base(:network, :arc)
+    #base(:network, :arc)
+    base(:decomposition, :mod)
     puts
     sleep 5
   end
