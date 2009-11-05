@@ -104,7 +104,7 @@ def view_realism
     GROUP BY 1, 2
     ORDER BY 1, 2
   EOT
-  .all
+  ].all
 end
 
 class Measure

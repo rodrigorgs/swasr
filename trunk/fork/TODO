@@ -1,3 +1,13 @@
+== 2009-11-04 ==
+
+Criei uma instalação independente do postgresql no meu home, escutando na 
+porta 5555. Migrei os dados pra lá.
+Referências:
+http://www.thegeekstuff.com/2009/04/linux-postgresql-install-and-configure-from-source/
+http://www.postgresql.org/docs/8.2/static/migration.html
+
+Para rodar o banco: ~/shared/opt/postgresql/bin/postgres
+
 == 2009-10-23 ==
 
 Anotações após conversa com Roberto e Katyusco

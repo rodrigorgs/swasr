@@ -9,21 +9,21 @@ require 'clustering'
 require 'realism'
 
 class Object # Sequel::Postgres::Dataset
-  def random_row(table, column=nil)
-    column = "pk_#{table}" if column.nil?
-
-    #val = self.order(:random).limit(1)
-
-    val = self.and("#{column} >= RANDOM() * (SELECT MAX(#{column}) FROM #{table})")
-            .limit(1)
-            .first
-    if (val.nil? && self.count() > 0)
-      puts '*************************************** self.first'
-      val = self.first
-    end
-
-    return val
-  end
+#  def random_row(table, column=nil)
+#    column = "pk_#{table}" if column.nil?
+#
+#    #val = self.order(:random).limit(1)
+#
+#    val = self.and("#{column} >= RANDOM() * (SELECT MAX(#{column}) FROM #{table})")
+#            .limit(1)
+#            .first
+#    if (val.nil? && self.count() > 0)
+#      puts '*************************************** self.first'
+#      val = self.first
+#    end
+#
+#    return val
+#  end
 end
 
 class ClusteringExperiment
@@ -54,7 +54,8 @@ class ClusteringExperiment
     @db = Sequel.postgres('rodrigo', 
         :user => 'rodrigo', 
         :password => 'rodrigodb', 
-        :host => 'mainha')
+        :host => 'mainha',
+        :port => 5555)
   end
 
   def drop_all_tables
@@ -363,20 +364,32 @@ class ClusteringExperiment
   def each_random_row(ds, table, column=nil, &block)
     column = "pk_#{table}".to_sym if column.nil?
 
+    ## Muito lento!
+    #rands = ds.order_by('RANDOM()'.lit) #{ |o| o.random() }
+    #puts 'Doing full table scan (because of RANDOM())'
+    #rands.each do |row|
+    #  if (ds.and(column => row[column])).count > 0
+    #    block.call(row)
+    #  else
+    #    puts 'already taken'
+    #  end
+    #end
+
     while true
       puts 'fetching rows...'
-      rows = ds.all
+      rows = ds.select(column).limit(4000).all
       n = rows.size
       break if rows.empty?
       puts "fetched #{n} rows. Shuffling..."
       rows.shuffle!
       puts 'done'
 
-      iters = n / 10.0;
+      iters = [n / 10.0].min;
       c = 0
       rows.each do |row|
-        if (ds.and(column => row[column])).count > 0
-          block.call(row)
+        ds2 = ds.and(column => row[column])
+        if ds2.count > 0
+          block.call(ds2.first)
         else
           puts 'already taken'
         end
@@ -818,20 +831,20 @@ if __FILE__ == $0
   #insert_model_params(exp)
   #exp.insert_stub_decompositions
   #exp.insert_stub_triads
-  
+ 
   #puts '## Now you can start this script in another network node ##'
   #
-  exp.generate_missing_networks
-  exp.compute_missing_network_metrics
-  #exp.compute_missing_decompositions { |ds| ds.and('minm=20 and maxm=50').and('fk_clusterer_config <> ?', CE::CONFIG_BUNCH).and('fk_clusterer_config <> ?', CE::CONFIG_ACDC) }
+  ##exp.generate_missing_networks
+  ##exp.compute_missing_network_metrics
+  exp.compute_missing_decompositions { |ds| ds.and('fk_clusterer_config <> ?', CE::CONFIG_BUNCH).and('fk_clusterer_config <> ?', CE::CONFIG_ACDC) }
   #exp.compute_missing_decompositions
   #exp.compute_missing_decompositions { |ds| ds.and('synthetic = false').and('fk_clusterer_config = ?', CE::CONFIG_INFOMAP) }
-  #exp.compute_missing_decomposition_metrics
-  #exp.compute_missing_mojos
+  exp.compute_missing_decomposition_metrics
+  exp.compute_missing_mojos
   #exp.compute_missing_purities
-  #exp.compute_missing_nmis
+  exp.compute_missing_nmis
   
-  exp.compute_missing_triads #{ |ds| ds.and(:fk_classification => ClusteringExperiment::CLASS_SOFTWARE) }
-  exp.compute_missing_s_scores
+  ##exp.compute_missing_triads #{ |ds| ds.and(:fk_classification => ClusteringExperiment::CLASS_SOFTWARE) }
+  ##exp.compute_missing_s_scores
 end
 
