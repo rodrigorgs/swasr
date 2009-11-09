@@ -205,7 +205,7 @@ class InfomapClusterer < Clusterer
       end
     end
 
-    FileUtils.rm_f path + '*'
+    FileUtils.rm_f(Dir.glob(path + '*').to_a)
 
   end
 end
