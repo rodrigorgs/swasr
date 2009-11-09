@@ -70,6 +70,6 @@ if __FILE__ == $0
     #base(:network, :arc)
     base(:decomposition, :mod)
     puts
-    sleep 5
+    sleep 15
   end
 end

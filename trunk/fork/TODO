@@ -1,3 +1,47 @@
+== 2009-11-09 ==
+
+TODO: CODE: acrescentar filtro de ds em todos os métodos
+
+Me bati com Italo e ele me disse como acessar o banco de dados a partir de uma
+máquina de fora: usando tunel ssh!
+$ ssh -p 1998 mainha -L 3128:localhost:5555
+Depois disso é só acessar o banco via localhost:3128
+
+--
+
+Questões que eu posso querer responder com a minha pesquisa:
+
+*** Quais algoritmos de clustering são ruins em todos os casos?
+
+Problema: o que é um algoritmo ruim?
+Variação: algoritmo X é ruim em n% dos casos, algoritmo Y é ruim em m%...
+
+*** Quais algoritmos de clustering são bons em todos os casos?
+
+O que é um algoritmo bom?
+Existem algoritmos bons em todos os casos?
+
+*** Descontando métricas de rede (densidade etc.), o modelo particular usado
+influencia os resultados do clustering?
+
+Usar técnicas de classificação pra descobrir isso?
+
+
+== 2009-11-06 ==
+
+O clusterer de Anquetil empacou nas quatro maquinas do cluster.
+Mainha: I, [2009-11-05T15:43:54.645800 #31899]  INFO -- : prune -s0.9 | pprint
+Huguinho: I, [2009-11-05T15:14:05.152599 #30344]  INFO -- : prune -s0.9 | pprint
+Zezinho: I, [2009-11-05T15:35:13.356031 #4387]  INFO -- : prune -s0.75 | pprint
+Luisinho: I, [2009-11-05T15:14:36.402707 #8915]  INFO -- : prune -s0.75 | pprint
+O problema parece ser no prune. Veja top em mainha:
+ 4301 rodrigo   20   0  6288  532  420 R   98  0.0   1369:24 prune              
+ 1973 rodrigo   20   0  6292  448  420 R   98  0.0   1392:28 prune             
+Pra dar um jeito eu coloquei um timeout de 10 segundos para o clusterer.
+
+O timeout do Ruby nao funciona. Dar uma olhada no timeout em bash:
+http://www.bashcookbook.com/bashinfo/source/bash-4.0/examples/scripts/timeout3
+
 == 2009-11-04 ==
 
 Criei uma instalação independente do postgresql no meu home, escutando na 

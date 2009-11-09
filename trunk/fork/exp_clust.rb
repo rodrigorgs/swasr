@@ -2,7 +2,7 @@
 require 'rubygems'
 require 'sequel' 
   # http://sequel.rubyforge.org/static/mwrc2009_presentation.html
-
+require 'timeout'
 require 'network_models'
 require 'compare_partitions'
 require 'clustering'
@@ -582,7 +582,11 @@ class ClusteringExperiment
     p ds.count
 
     each_random_row(ds, :decomposition) do |row|
-      compute_decomposition(row)
+      begin
+      Timeout::timeout(10) { compute_decomposition(row) } 
+      rescue Timeout::Error
+        puts 'TIMEOUT'
+      end
     end
   end
 
@@ -834,11 +838,14 @@ if __FILE__ == $0
  
   #puts '## Now you can start this script in another network node ##'
   #
-  ##exp.generate_missing_networks
-  ##exp.compute_missing_network_metrics
-  exp.compute_missing_decompositions { |ds| ds.and('fk_clusterer_config <> ?', CE::CONFIG_BUNCH).and('fk_clusterer_config <> ?', CE::CONFIG_ACDC) }
+  #exp.generate_missing_networks
+  #exp.compute_missing_network_metrics
+  #exp.compute_missing_decompositions { |ds| 
+  #  ds.and('fk_clusterer = ?', CE::CLUSTERER_ACDC)
+  #  .or('fk_clusterer <> ?', CE::CLUSTERER_HCAS)
+  #  }
   #exp.compute_missing_decompositions
-  #exp.compute_missing_decompositions { |ds| ds.and('synthetic = false').and('fk_clusterer_config = ?', CE::CONFIG_INFOMAP) }
+  exp.compute_missing_decompositions { |ds| ds.and('synthetic = false').and('n_vertices <= 5000') } #.and('fk_clusterer_config = ?', CE::CONFIG_INFOMAP) }
   exp.compute_missing_decomposition_metrics
   exp.compute_missing_mojos
   #exp.compute_missing_purities
