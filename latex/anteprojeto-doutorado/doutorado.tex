@@ -1,14 +1,207 @@
-objetivo
-- modelo de evolução de software
+\documentclass{article}
 
-motivação
-- necessidade de validação de técnicas de engenharia reversa
-- modelagem e simulação são técnicas subutilizadas na engenharia de software
+\newcommand{\newrow}{\\\hline}
+\newcommand{\x}{$\bullet$}
 
-metodologia (métodos)
-- teoria dos grafos
-- redes complexas, física estatística
-- estatística
+\usepackage[utf8]{inputenc}
+\usepackage[brazil]{babel}
 
-proposta de cronograma 
-- perguntar a christina
+\newcommand{\review}[2]{\textcolor{red}{#1}\textcolor{blue}{#2}}
+
+\title{
+{\small Anteprojeto de Tese de Doutorado}
+\\
+Processos de Desenvolvimento em \\
+Software: Discurso e Prática
+%
+%Processos de Desenvolvimento em \\
+%Projetos de Software Livre
+}
+\author{Rodrigo Rocha Gomes e Souza\\
+\texttt{rodrigo@dcc.ufba.br}
+}
+
+\date{Dezembro de 2009}
+
+\begin{document}
+
+\sloppy
+\maketitle
+%\newpage
+%\tableofcontents
+%\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% TODO: onion-like structure, hierarchical structure, core developers 
+
+%   Processo afeta qualidade do software
+%   Employee turnover is known to be high in the traditional software industry
+% since many years ago. (rotatividade)
+%   Turnover afeta processo?
+
+
+\section{Objetivo}
+
+O principal objetivo deste trabalho é traçar a evolução dos processos de
+desenvolvimento e da estrutura social de projetos de software livre. Serão
+investigadas as causas de mudanças nos processos ao longo do ciclo de vida do
+software. Além disso, serão evidenciadas diferenças e semelhanças entre os
+processos praticados em projetos de diversos portes, propósitos e níveis de
+maturidade.
+
+A análise será focada nas atividades de implementação, documentação e controle
+de qualidade. Serão respondidas, para cada projeto, questões como as que se
+seguem:
+
+\begin{itemize}
+  \item São usados testes automáticos?
+  \item Os testes são planejados e escritos antes da implementação das funcionalidades correspondentes?
+  \item Os defeitos são corrigidos antes da implementação de novas funcionalidades?
+  \item A pessoa que escreve os testes para uma funcionalidade é a mesma que implementa a funcionalidade?
+  \item Modificações no código-fonte são integradas frequentemente ao repositório do projeto?
+  \item Há um registro sistemático da descoberta e da resolução de defeitos no software?
+  \item São seguidas convenções de codificação?
+  \item Em que momento a documentação do sistema é escrita?
+  \item Os papéis de programador, testador e documentador são exercidos por pessoas diferentes ou os papéis se misturam?
+  \item Existe posse de código ou o código-fonte é revisado por diversos programadores?
+  \item De que forma se dá a transferência de trabalho entre desenvolvedores?
+\end{itemize}
+
+Ao investigar a resposta dessas questões em diversos projetos ao longo do
+tempo, se pretende chegar a respostas para as seguintes questões de pesquisa:
+
+\begin{itemize}
+  \item Em que condições a entrada e a saída de desenvolvedores de um projeto afeta o seu processo de desenvolvimento?
+  \item Existem diferenças nos processos aplicados por desenvovedores com diversos níveis de envolvimento com o projeto?
+  \item Qual é o papel dos desenvolvedores mais envolvidos com um projeto na manutenção de seu processo de desenvolvimento?
+  \item Os subprojetos de um projeto compartilham um mesmo processo?
+  \item Quais práticas são mais difundidas em projetos de software livre? Quais são menos difundidas?
+  \item Como se diferenciam os processos de projetos bem sucedidos e os processos de projetos que foram descontinuados?
+  \item Dentre os projetos mais bem sucedidos, de que forma os processos se diferenciam?
+  \item Como os processos se alteram nos diversos estágios do desenvolvimento de uma versão do software (alfa, beta, candidata a lançamento, em manutenção)?
+  \item Existem práticas que são comumente aplicadas em conjunto?
+  \item Os projetos que dizem seguir um modelo de processo estão de fato aplicando as práticas associadas a ele?
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Motivação}
+
+Há muito se discutem formas de tornar o processo de desenvolvimento de software
+mais previsível, aumentando a produtividade da equipe e a qualidade do
+software. Dessa discussão surgiram modelos de processos e cartilhas de boas
+práticas de desenvolvimento.
+
+Existe, no entanto, uma lacuna entre a teoria e a prática do
+desenvolvimento de software \cite{glass1996}. A aplicação de processos e práticas é
+dificultada por uma série de questões na vida real, desde a escassez de
+programas que os suportem até os altos custos de implantação.
+
+Projetos de software livre tornam disponíveis publicamente alguns artefatos
+produzidos durante o processo de desenvolvimento, como código-fonte e relatórios
+de \emph{bugs}, o que os torna bons candidatos para o estudo empírico da
+aplicação de processos e práticas de desenvolvimento.
+
+Pesquisa sobre software livre tem se concentrado em estudos de caso
+\cite{mockus2002,capiluppi2007}, com algumas exceções. Crowston e Howison
+\cite{crowston2005} estudaram padrões de comunicação em sistemas de relatório de
+bugs de 120 projetos de software livre e encontraram grande variedade entre os
+projetos. Krishnamurty \cite{krishnamurthy2002} estudou 100 projetos populares e
+percebeu que boa parte só possuía um desenvolvedor.
+
+%Embora pesquisas recentes revelem os processos praticados por alguns projetos
+%de software livre em determinado período , não se tem uma descrição do
+%cenário mais abrangente, que considera uma amostra significativa de projetos ao
+%longo do tempo. 
+
+% TODO: desenvolver a ideia
+Tal descrição permitiria a identificação de dificuldades e limitações na
+aplicação de processos e práticas, contribuindo para a proposta de processos e
+práticas mais realistas.
+% Lições práticas a serem estudadas na teoria
+
+Muitos projetos de software livre tornam disponíveis publicamente alguns
+artefatos produzidos durante o processo de desenvolvimento de software. Esses
+artefatos incluem código-fonte e documentação mantidos em sistemas de controle
+de versão, bem como relatórios de bugs e mensagens de e-mail trocadas entre
+desenvolvedores. Técnicas de mineração de processos e estatística descritiva
+viabilizam a realização desta pesquisa com grandes amostras de projetos de
+software.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Metodologia}
+
+Esta pesquisa consistirá de um estudo abrangente, envolvendo um grande número
+de projetos de software livre, e de um estudo mais aprofundado sobre um número
+reduzido de projetos. Os dois estudos cumprem papéis complementares no
+entendimento da aplicação de processos em projetos reais.
+
+Para o estudo abrangente será selecionada uma amostra significativa de projetos
+de software livre hospedados em um repositório de código-fonte a ser escolhido,
+como o SourceForge. A amostra será estratificada de acordo com aspectos como
+idade do projeto, número de desenvolvedores e número de linhas de código-fonte.
+
+Serão analisados relatórios de bugs registrados em um sistema de gerenciamento
+de bugs, mensagens de e-mail arquivadas em listas de discussão e arquivos
+mantidos sob controle de versão, como documentação e código-fonte. Ferramentas
+para a extração desses dados já foram usadas em pesquisas anteriores [], com
+bons resultados.
+
+A análise dos dados no estudo mais abrangente será feita de forma automática
+através de técnicas de mineração de processos. Essa abordagem foi escolhida por
+tornar viável a análise de grandes volumes de dados. A mineração de processos
+tem como finalidade de extrair modelos de processos a partir de registros de
+eventos. Eventos que poderão ser extraídos dos dados coletados incluem a
+modificação de um arquivo fonte, o registro da resolução de um bug e o envio de
+uma mensagem à lista de discussão do projeto.
+
+%O algoritmo alfa da mineração de processos é capaz de extrair de uma lista de
+%eventos um modelo de processo representado como uma rede de Petri. Perguntas
+%sobre o modelo extraído podem ser respondidas com o auxílio de checadores de
+%fórmulas da lógica temporal linear (LTL).
+
+Inicialmente será feita uma análise exploratória sobre uma amostra reduzida de
+projetos de software com os métodos e ferramentas escolhidos. Essa análise terá
+por objetivo investigar como os dados devem ser pré-processados e identificar
+limitações da abordagem.
+
+A amostra reduzida de projetos de software também será alvo de um estudo mais
+detalhado. Informações adicionais sobre o processo desses projetos serão
+coletadas através de questionários e entrevistas com desenvolvedores. Quando
+for possível, as informações fornecidas pelos desenvolvedores serão
+confrontadas com as informações extraídas automaticamente. 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Proposta de Cronograma}
+
+\begin{table}[h]
+  \centering
+  \begin{tabular}{|c|c|c|c|c|c|c|c|c|} \hline
+    Atividade                   & 2010.1 & 2010.2 & 2011.1 & 2011.2  & 2012.1 & 2012.2  & 2013.1 & 2013.2 \newrow
+    \ref{prevista:projeto}      &        &        &        &         &        &         &        &        \newrow
+    \ref{prevista:estudos}      &        &        &        &         &        &         &        &        \newrow
+    \ref{prevista:artigos}      &        &        &        &         &        &         &        &        \newrow
+    \ref{prevista:qualificacao} &        &        &        &         &        &         &        &        \newrow
+    \ref{prevista:proposta}     &        &        &        &         &        &         &        &        \newrow
+    \ref{prevista:redacao}      &        &        &        &         &        & \x      & \x     & \x     \newrow
+    \ref{prevista:defesa}       &        &        &        &         &        &         &        & \x     \newrow
+  \end{tabular}
+ \caption{Proposta de Cronograma de Atividades}
+ \label{tab:cronograma}
+\end{table}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\bibliographystyle{plain}
+\bibliography{doutorado}
+
+\end{document}
