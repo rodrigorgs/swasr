@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+<manage_target braces="true" utf8="true">doutorado.bib</manage_target>
+<taglist>
+  <tag>
+    <uid>0</uid>
+    <name>process mining</name>
+  </tag>
+  <tag>
+    <uid>1</uid>
+    <name>software engineering</name>
+  </tag>
+  <tag>
+    <uid>2</uid>
+    <name>open source</name>
+  </tag>
+  <tag>
+    <uid>3</uid>
+    <name>practice</name>
+  </tag>
+</taglist>
+<doclist>
+  <doc>
+    <filename></filename>
+    <relative_filename></relative_filename>
+    <key>rubin2007</key>
+    <tagged>0</tagged>
+    <tagged>1</tagged>
+    <bib_type>incollection</bib_type>
+    <bib_doi></bib_doi>
+    <bib_title>Process Mining Framework for Software Processes</bib_title>
+    <bib_authors>Rubin, Vladimir and Günther, Christian and van der Aalst, Wil and Kindler, Ekkart and van Dongen, Boudewijn and Schäfer, Wilhelm</bib_authors>
+    <bib_journal></bib_journal>
+    <bib_volume></bib_volume>
+    <bib_number></bib_number>
+    <bib_pages>169-181</bib_pages>
+    <bib_year>2007</bib_year>
+    <bib_extra key="Abstract">Software development processes are often not explicitly modelled and sometimes even chaotic. In order to keep track of the involved documents and files, engineers use Software Configuration Management (SCM) systems. Along the way, those systems collect and store information on the software process itself. Thus, SCM information can be used for constructing explicit process models, which is called software process mining. In this paper we show that (1) a Process Mining Framework can be used for obtaining software process models as well as for analysing and optimising them; (2) an algorithmic approach, which arose from our research on software processes, is integrated in the framework.</bib_extra>
+    <bib_extra key="Citeulike-article-id">1885717</bib_extra>
+    <bib_extra key="Citeulike-linkout-0">http://dx.doi.org/10.1007/978-3-540-72426-1_15</bib_extra>
+    <bib_extra key="Citeulike-linkout-1">http://www.springerlink.com/content/e863ut5t2765110r</bib_extra>
+    <bib_extra key="Doi">10.1007/978-3-540-72426-1_15</bib_extra>
+    <bib_extra key="Journal">Software Process Dynamics and Agility</bib_extra>
+    <bib_extra key="key">rubin07</bib_extra>
+    <bib_extra key="Posted-at">2008-06-17 18:18:32</bib_extra>
+    <bib_extra key="Priority">2</bib_extra>
+    <bib_extra key="Url">http://dx.doi.org/10.1007/978-3-540-72426-1_15</bib_extra>
+  </doc>
+  <doc>
+    <filename></filename>
+    <relative_filename></relative_filename>
+    <key>aalst2004</key>
+    <tagged>0</tagged>
+    <bib_type>article</bib_type>
+    <bib_doi></bib_doi>
+    <bib_title>Workflow Mining: Discovering Process Models from Event Logs</bib_title>
+    <bib_authors>van der Aalst, Wil and Weijters, Ton and Maruster, Laura</bib_authors>
+    <bib_journal>IEEE Trans. on Knowl. and Data Eng.</bib_journal>
+    <bib_volume>16</bib_volume>
+    <bib_number>9</bib_number>
+    <bib_pages>1128-1142</bib_pages>
+    <bib_year>2004</bib_year>
+    <bib_extra key="Address">Piscataway, NJ, USA</bib_extra>
+    <bib_extra key="Doi">http://dx.doi.org/10.1109/TKDE.2004.47</bib_extra>
+    <bib_extra key="Issn">1041-4347</bib_extra>
+    <bib_extra key="key">aalst04</bib_extra>
+    <bib_extra key="Publisher">IEEE Educational Activities Department</bib_extra>
+  </doc>
+  <doc>
+    <filename></filename>
+    <relative_filename></relative_filename>
+    <key>mockus2002</key>
+    <tagged>2</tagged>
+    <tagged>1</tagged>
+    <bib_type>article</bib_type>
+    <bib_doi></bib_doi>
+    <bib_title>Two case studies of open source software development: Apache and Mozilla</bib_title>
+    <bib_authors>Mockus, Audris and Fielding, Roy T. and Herbsleb, James D.</bib_authors>
+    <bib_journal>ACM Trans. Softw. Eng. Methodol.</bib_journal>
+    <bib_volume>11</bib_volume>
+    <bib_number>3</bib_number>
+    <bib_pages>309-346</bib_pages>
+    <bib_year>2002</bib_year>
+    <bib_extra key="Address">New York, NY, USA</bib_extra>
+    <bib_extra key="Doi">http://doi.acm.org/10.1145/567793.567795</bib_extra>
+    <bib_extra key="Issn">1049-331X</bib_extra>
+    <bib_extra key="key">mockus02</bib_extra>
+    <bib_extra key="Publisher">ACM</bib_extra>
+  </doc>
+  <doc>
+    <filename></filename>
+    <relative_filename></relative_filename>
+    <key>crowston2005</key>
+    <tagged>2</tagged>
+    <tagged>1</tagged>
+    <bib_type>Article</bib_type>
+    <bib_doi></bib_doi>
+    <bib_title>The social structure of free and open source software development</bib_title>
+    <bib_authors>Crowston, Kevin and Howison, James</bib_authors>
+    <bib_journal>First Monday</bib_journal>
+    <bib_volume>10</bib_volume>
+    <bib_number>2</bib_number>
+    <bib_pages></bib_pages>
+    <bib_year>2005</bib_year>
+    <bib_extra key="Keywords">core/periphery, design patterns</bib_extra>
+    <bib_extra key="Url">http://firstmonday.org/htbin/cgiwrap/bin/ojs/index.php/fm/article/view/1207/1127</bib_extra>
+  </doc>
+  <doc>
+    <filename></filename>
+    <relative_filename></relative_filename>
+    <key>robles2006</key>
+    <tagged>2</tagged>
+    <tagged>1</tagged>
+    <bib_type>Article</bib_type>
+    <bib_doi></bib_doi>
+    <bib_title>Contributor Turnover in Libre Software Projects</bib_title>
+    <bib_authors>Robles, Gregorio and Gonzalez-Barahona, Jesus</bib_authors>
+    <bib_journal>Open Source Systems</bib_journal>
+    <bib_volume></bib_volume>
+    <bib_number></bib_number>
+    <bib_pages>273-286</bib_pages>
+    <bib_year>2006</bib_year>
+    <bib_extra key="Abstract">A common problem that management faces in software companies is the high instability of their staff. In libre (free, open source) software projects, the permanence of developers is also an open issue, with the potential of causing problems amplified by the self-organizing nature that most of them exhibit. Hence, human resources in libre software projects are even more difficult to manage: developers are in most cases not bound by a contract and, in addition, there is not a real management structure concerned about this problem. This raises some interesting questions with respect to the composition of development teams in libre software projects, and how they evolve over time. There are projects lead by their original founders (some sort of â&#x80;&#x9d; code godsâ&#x80;&#x9d;), while others are driven by several different developer groups over time (i.e. the project â&#x80;&#x9d; regeneratesâ&#x80;&#x9d; itself). In this paper, we propose a quantitative methodology, based on the analysis of the activity in the source code management repositories, to study how these processes (developers leaving, developers joining) affect libre software projects. The basis of it is the analysis of the composition of the core group, the group of developers most active in a project, for several time lapses. We will apply this methodology to several large, well-known libre software projects, and show how it can be used to characterize them. In addition, we will discuss the lessons that can be learned, and the validity of our proposal.</bib_extra>
+    <bib_extra key="Booktitle">Open Source Systems</bib_extra>
+    <bib_extra key="Citeulike-article-id">3181294</bib_extra>
+    <bib_extra key="Citeulike-linkout-0">http://dx.doi.org/10.1007/0-387-34226-5_28</bib_extra>
+    <bib_extra key="Doi">10.1007/0-387-34226-5_28</bib_extra>
+    <bib_extra key="Keywords">conf:oss, core/periphery</bib_extra>
+    <bib_extra key="Posted-at">2008-12-08 15:43:05</bib_extra>
+    <bib_extra key="Priority">2</bib_extra>
+    <bib_extra key="Url">http://dx.doi.org/10.1007/0-387-34226-5_28</bib_extra>
+  </doc>
+  <doc>
+    <filename></filename>
+    <relative_filename></relative_filename>
+    <key>capiluppi2007</key>
+    <tagged>2</tagged>
+    <tagged>1</tagged>
+    <bib_type>InProceedings</bib_type>
+    <bib_doi></bib_doi>
+    <bib_title>From the Cathedral to the Bazaar: An Empirical Study of the Lifecycle of Volunteer Community Projects</bib_title>
+    <bib_authors>Capiluppi, Andrea and Michlmayr, Martin</bib_authors>
+    <bib_journal></bib_journal>
+    <bib_volume></bib_volume>
+    <bib_number></bib_number>
+    <bib_pages>31-44</bib_pages>
+    <bib_year>2007</bib_year>
+    <bib_extra key="Author:corp">International Federation for Information Processing</bib_extra>
+    <bib_extra key="BookTitle">Open Source Development, Adoption and Innovation</bib_extra>
+    <bib_extra key="Editor">Feller, Joseph and Fitzgerald, Brian and Scacchi, Walt and Silitti, Alberto</bib_extra>
+    <bib_extra key="Keywords">core/periphery</bib_extra>
+    <bib_extra key="Publisher">Springer</bib_extra>
+  </doc>
+  <doc>
+    <filename></filename>
+    <relative_filename></relative_filename>
+    <key>robles2009</key>
+    <tagged>2</tagged>
+    <tagged>1</tagged>
+    <bib_type>InProceedings</bib_type>
+    <bib_doi></bib_doi>
+    <bib_title>Evolution of the core team of developers in libre software projects</bib_title>
+    <bib_authors>Robles, G. and Gonzalez-Barahona, J. M. and Herraiz, I.</bib_authors>
+    <bib_journal></bib_journal>
+    <bib_volume></bib_volume>
+    <bib_number></bib_number>
+    <bib_pages>167-170</bib_pages>
+    <bib_year>2009</bib_year>
+    <bib_extra key="BookTitle">Mining Software Repositories, 2009. MSR â&#x80;&#x99;09. 6th IEEE International Working Conference on</bib_extra>
+    <bib_extra key="Doi">10.1109/MSR.2009.5069497</bib_extra>
+    <bib_extra key="Keywords">public domain software, software development managementcore team, free software, libre software projects, open source software, source code management repositories; conf:msr, core/periphery</bib_extra>
+    <bib_extra key="Month">May</bib_extra>
+  </doc>
+  <doc>
+    <filename></filename>
+    <relative_filename></relative_filename>
+    <key>glass1996</key>
+    <tagged>1</tagged>
+    <tagged>3</tagged>
+    <bib_type>article</bib_type>
+    <bib_doi></bib_doi>
+    <bib_title>The relationship between theory and practice in software engineering</bib_title>
+    <bib_authors>Glass, Robert L.</bib_authors>
+    <bib_journal>Commun. ACM</bib_journal>
+    <bib_volume>39</bib_volume>
+    <bib_number>11</bib_number>
+    <bib_pages>11-13</bib_pages>
+    <bib_year>1996</bib_year>
+    <bib_extra key="Address">New York, NY, USA</bib_extra>
+    <bib_extra key="Doi">http://doi.acm.org/10.1145/240455.240458</bib_extra>
+    <bib_extra key="Issn">0001-0782</bib_extra>
+    <bib_extra key="Publisher">ACM</bib_extra>
+  </doc>
+  <doc>
+    <filename></filename>
+    <relative_filename></relative_filename>
+    <key>scacchi2001</key>
+    <tagged>1</tagged>
+    <tagged>2</tagged>
+    <tagged>3</tagged>
+    <bib_type>inproceedings</bib_type>
+    <bib_doi></bib_doi>
+    <bib_title>Software Development Practices in Open Software Development Communities: A Comparative Case Study</bib_title>
+    <bib_authors>Scacchi, Walt</bib_authors>
+    <bib_journal></bib_journal>
+    <bib_volume></bib_volume>
+    <bib_number></bib_number>
+    <bib_pages></bib_pages>
+    <bib_year>2001</bib_year>
+    <bib_extra key="booktitle">In Proceedings of the First Workshop on Open Source Software Engineering</bib_extra>
+  </doc>
+  <doc>
+    <filename></filename>
+    <relative_filename></relative_filename>
+    <key>krishnamurthy2002</key>
+    <bib_type>article</bib_type>
+    <bib_doi></bib_doi>
+    <bib_title>Cave or Community?: An Empirical Examination of 100 Mature Open Source Projects</bib_title>
+    <bib_authors>Krishnamurthy, Sandeep</bib_authors>
+    <bib_journal>First Monday</bib_journal>
+    <bib_volume>7</bib_volume>
+    <bib_number>6</bib_number>
+    <bib_pages></bib_pages>
+    <bib_year>2002</bib_year>
+    <bib_extra key="Citeulike-article-id">732811</bib_extra>
+    <bib_extra key="Keywords">community, open, oss, projects, source</bib_extra>
+    <bib_extra key="Posted-at">2006-07-03 12:31:27</bib_extra>
+    <bib_extra key="Priority">0</bib_extra>
+    <bib_extra key="Url">http://www.firstmonday.org/issues/issue7_6/krishnamurthy/index.html</bib_extra>
+  </doc>
+</doclist>
+</library>
