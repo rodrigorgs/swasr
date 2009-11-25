@@ -54,7 +54,7 @@ class ClusteringExperiment
     @db = Sequel.postgres('rodrigo', 
         :user => 'rodrigo', 
         :password => 'rodrigodb', 
-        :host => 'mainha',
+        :host => 'cluster.dcc.ufba.br',
         :port => 5555)
   end
 
@@ -96,6 +96,10 @@ class ClusteringExperiment
         add_column :sum_outdegree, :int
       end
     rescue RuntimeError; end
+
+    begin @db.alter_table :decomposition do
+      add_column :n_external_edges, :float
+    end rescue RuntimeError; end
   end
 
   def create_additional_constraints
@@ -512,12 +516,19 @@ class ClusteringExperiment
     row[:n_singletons] = module_sizes.count { |x| x == 1 } if row[:n_singletons].nil?
     row[:n_subfive] = module_sizes.count { |x| x <= 1 } if row[:n_subfive].nil?
 
+    if (row[:n_external_edges].nil?)
+      node_to_module = Hash[pairs.flatten]
+      edges = int_pairs_from_string(row[:arc])
+      edges.map! { |a, b| [node_to_module[a], node_to_module[b]] }
+      row[:n_external_edges] = edges.select { |a, b| a != b }
+    end
+
     @db[:decomposition].filter(:pk_decomposition => row[:pk_decomposition])
         .update(row)
   end
 
-  def compute_missing_decomposition_metrics
-    ds = @db[:decomposition]
+  def compute_missing_decomposition_metrics(&block)
+    ds = @db[:decomposition].inner_join(:network, :pk_network => :fk_network)
         .filter(<<-EOT
         mod IS NOT NULL AND (
           n_modules is null
@@ -525,17 +536,15 @@ class ClusteringExperiment
           or max_module_size is null
           or n_singletons is null
           or n_subfive is null
+          or n_external_edges is null
         )
         EOT
         )
-        #.filter(:n_modules => nil)
-        #.or(:min_module_size => nil)
-        #.or(:max_module_size => nil)
-        #.or(:n_singletons => nil)
-        #.or(:n_subfive => nil)
-    #puts ds.count
+
+    ds = block.call(ds) unless block.nil?
 
     each_random_row(ds, :decomposition) do |row|
+      puts row[:nme_network]
       compute_decomposition_metrics(row)
     end
   end
@@ -860,8 +869,8 @@ if __FILE__ == $0
   exp = ClusteringExperiment.new
   ###########################exp.drop_all_tables
   #exp.create_tables
-  exp.create_views
-  #exp.create_additional_columns
+  #exp.create_views
+  exp.create_additional_columns
   #exp.create_initial_values
 
   #insert_model_params(exp)
@@ -878,8 +887,8 @@ if __FILE__ == $0
   #  }
   #exp.compute_missing_decompositions
   #exp.compute_missing_decompositions { |ds| ds.and('synthetic = false').and('n_vertices <= 5000') } #.and('fk_clusterer_config = ?', CE::CONFIG_INFOMAP) }
-  #exp.compute_missing_decomposition_metrics
-  exp.compute_missing_mojos
+  exp.compute_missing_decomposition_metrics { |ds| ds.and(:fk_classification => CE::CLASS_SOFTWARE) }
+  #exp.compute_missing_mojos
   #exp.compute_missing_purities
   #exp.compute_missing_nmis
   
