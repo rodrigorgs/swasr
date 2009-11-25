@@ -1,3 +1,28 @@
+== 2009-11-18 ==
+
+GNU R: Plotando matriz de correlação:
+ plot.cor(data.matrix(d), T, labels=names(d))
+ ## onde d é um data frame
+
+== 2009-11-16 ==
+
+-- ranking dos algoritmos nas redes de software
+SELECT nme_clusterer_config, AVG(mojosim) AS avg_mojosim, AVG(nmi) AS avg_nmi, AVG(n_modules) AS avg_mods, AVG(n_vertices / n_modules) AS verts_per_mod
+FROM view_decomposition
+WHERE fk_network IN (43,6,23,5,2,62,35,9,42,61,28,44,16,21,32,10,55,25,7,58,46,56,15,1,53,12,47,17,24,64,52,50,29,26)
+GROUP by 1
+ORDER by 2;
+
+== 2009-11-13 ==
+
+SELECT pk_network, nme_network, nme_clusterer_config, mojo, length(mod)
+FROM view_decomposition
+WHERE synthetic = false
+AND mod IS NOT NULL
+AND fk_clusterer_config IS NOT NULL
+AND fk_classification = 1
+ORDER BY nme_network, mojo
+
 == 2009-11-09 ==
 
 TODO: CODE: acrescentar filtro de ds em todos os métodos
