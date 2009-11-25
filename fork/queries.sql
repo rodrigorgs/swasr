@@ -1,3 +1,19 @@
+-- Reunião 24/nov/2009
+-- Que áreas nenhum algoritmo se dá bem?
+-- Que áreas todos se saem bem?
+-- Roberto: como os parâmetros se distribuem em sistemas reais? fator de mistura (mínimo e máximo)
+  -- TODO: plotar distribuições de métricas nas redes
+-- TODO: disponibilizar dados para Dalton, Jorge e Roberto
+-- Se entregar final de janeiro, em 10 dias jorge/dalton entregam revisão
+
+-- tese completa
+
+-- 15/20 dias para experimentos com algoritmos
+
+-- minhas dúvidas (como encaminhar os experimentos <- escrever e-mail)
+---- como samplear se a distribuição não é normal?
+---- e se meus dados têm algum bias?
+
 --
 -- Quantidade de redes sintéticas realistas clusterizados por todos os algoritmos, por modelo
 --
