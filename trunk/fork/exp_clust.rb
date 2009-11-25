@@ -133,7 +133,16 @@ class ClusteringExperiment
 
     @db << <<-EOT
     CREATE OR REPLACE VIEW view_decomposition AS
-      SELECT *, (1.0 - mojo / n_vertices::float) AS mojosim,
+      SELECT dec.*,
+      net.*,
+      mconf.*,
+      model.*,
+      arch.*,
+      cconf.*,
+      clust.*,
+      exp.fk_experiment,
+      ex.nme_experiment, 
+      (1.0 - mojo / n_vertices::float) AS mojosim,
       n_edges::float / (n_vertices * (n_vertices - 1)) AS edge_density,
       (sum_indegree::float / n_vertices) / (n_vertices - 1) AS rel_avg_indegree,
       max_indegree::float / (n_vertices - 1) AS rel_max_indegree,
@@ -884,8 +893,8 @@ if __FILE__ == $0
   exp = ClusteringExperiment.new
   ###########################exp.drop_all_tables
   #exp.create_tables
-  #exp.create_views
-  exp.create_additional_columns
+  exp.create_views
+  #exp.create_additional_columns
   #exp.create_initial_values
 
   #insert_model_params(exp)
@@ -902,7 +911,7 @@ if __FILE__ == $0
   #  }
   #exp.compute_missing_decompositions
   #exp.compute_missing_decompositions { |ds| ds.and('synthetic = false').and('n_vertices <= 5000') } #.and('fk_clusterer_config = ?', CE::CONFIG_INFOMAP) }
-  exp.compute_missing_decomposition_metrics { |ds| ds.and(:fk_classification => CE::CLASS_SOFTWARE).and(:reference => true) }
+  #exp.compute_missing_decomposition_metrics { |ds| ds.and(:fk_classification => CE::CLASS_SOFTWARE).and(:reference => true) }
   #exp.compute_missing_mojos
   #exp.compute_missing_purities
   #exp.compute_missing_nmis
