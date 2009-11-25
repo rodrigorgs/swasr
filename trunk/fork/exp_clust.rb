@@ -98,12 +98,38 @@ class ClusteringExperiment
     rescue RuntimeError; end
   end
 
+  def create_additional_constraints
+    @db << <<-EOT
+    ALTER TABLE clusterer_config
+    ADD CONSTRAINT clusterer_config_clusterer_fkey FOREIGN KEY (fk_clusterer) REFERENCES clusterer;
+
+    ALTER TABLE decomposition
+    ADD CONSTRAINT decomposition_network_fkey FOREIGN KEY (fk_network) REFERENCES network,
+    ADD CONSTRAINT decomposition_clusterer_config_fkey FOREIGN KEY (fk_clusterer_config) REFERENCES clusterer_config;
+
+    ALTER TABLE network
+    ADD CONSTRAINT network_model_config_fkey FOREIGN KEY (fk_model_config) REFERENCES model_config;
+  
+    ALTER TABLE model_config
+    ADD CONSTRAINT model_config_model_fkey FOREIGN KEY (fk_model) REFERENCES model,
+    ADD CONSTRAINT model_config_architecture_fkey FOREIGN KEY (fk_architecture) REFERENCES architecture;
+  
+    ALTER TABLE triads
+    ADD CONSTRAINT triads_network_fkey FOREIGN KEY (fk_network) REFERENCES network;
+  
+    ALTER TABLE experiment_model_config
+    ADD CONSTRAINT experiment_model_config1_fkey FOREIGN KEY (fk_experiment) REFERENCES experiment,
+    ADD CONSTRAINT experiment_model_config2_fkey FOREIGN KEY (fk_model_config) REFERENCES model_config;
+  
+    EOT
+  end
+
   def create_views
     begin @db << 'DROP VIEW view_decomposition' rescue RuntimeError; end
 
     @db << <<-EOT
     CREATE OR REPLACE VIEW view_decomposition AS
-      SELECT *
+      SELECT *, (1.0 - mojo / n_vertices::float) AS mojosim
       FROM decomposition AS dec
       INNER JOIN network AS net ON net.pk_network = dec.fk_network
       LEFT JOIN model_config mconf ON mconf.pk_model_config = net.fk_model_config
@@ -374,6 +400,7 @@ class ClusteringExperiment
     #    puts 'already taken'
     #  end
     #end
+    column = column.lit if column.kind_of?(String)
 
     while true
       puts 'fetching rows...'
@@ -387,7 +414,7 @@ class ClusteringExperiment
       iters = [n / 10.0].min;
       c = 0
       rows.each do |row|
-        ds2 = ds.and(column => row[column])
+        ds2 = ds.and(column => row.values[0])
         if ds2.count > 0
           block.call(ds2.first)
         else
@@ -574,6 +601,7 @@ class ClusteringExperiment
     #    .inner_join(:network, :pk_network => :decomposition__fk_network)
     ds = @db[:view_decomposition]
         .filter(:mod => nil).and('arc IS NOT NULL')
+        .select(:arc, :fk_clusterer, :pk_decomposition, :mod, :nme_network)
         #.and(:synthetic => true)
 
     ds = block.call(ds) if block
@@ -582,15 +610,17 @@ class ClusteringExperiment
     p ds.count
 
     each_random_row(ds, :decomposition) do |row|
-      begin
-      Timeout::timeout(10) { compute_decomposition(row) } 
-      rescue Timeout::Error
-        puts 'TIMEOUT'
-      end
+      puts row[:nme_network]
+      compute_decomposition(row)
+      #begin
+      #Timeout::timeout(10) { compute_decomposition(row) } 
+      #rescue Timeout::Error
+      #  puts 'TIMEOUT'
+      #end
     end
   end
 
-  def base_decomposition_comparison(column, &block)
+  def base_decomposition_comparison(column, ds_proc=nil, &block)
     ds = @db[:decomposition.as(:dec)]
           .inner_join(:decomposition.as(:ref), :fk_network => :fk_network)
           .inner_join(:network, :pk_network => :fk_network)
@@ -603,6 +633,8 @@ class ClusteringExperiment
               :ref__pk_decomposition.as(:pk_ref), 
               :dec__mod, 
               :ref__mod.as(:reference_mod))
+    
+    ds = ds_proc.call(ds) unless ds_proc.nil?
 
     each_random_row(ds, :decomposition, 'dec.pk_decomposition') do |row|
       puts "#{column} #{row[:pk_decomposition]} #{row[:pk_ref]}"
@@ -828,7 +860,7 @@ if __FILE__ == $0
   exp = ClusteringExperiment.new
   ###########################exp.drop_all_tables
   #exp.create_tables
-  #exp.create_views
+  exp.create_views
   #exp.create_additional_columns
   #exp.create_initial_values
 
@@ -845,11 +877,11 @@ if __FILE__ == $0
   #  .or('fk_clusterer <> ?', CE::CLUSTERER_HCAS)
   #  }
   #exp.compute_missing_decompositions
-  exp.compute_missing_decompositions { |ds| ds.and('synthetic = false').and('n_vertices <= 5000') } #.and('fk_clusterer_config = ?', CE::CONFIG_INFOMAP) }
-  exp.compute_missing_decomposition_metrics
+  #exp.compute_missing_decompositions { |ds| ds.and('synthetic = false').and('n_vertices <= 5000') } #.and('fk_clusterer_config = ?', CE::CONFIG_INFOMAP) }
+  #exp.compute_missing_decomposition_metrics
   exp.compute_missing_mojos
   #exp.compute_missing_purities
-  exp.compute_missing_nmis
+  #exp.compute_missing_nmis
   
   ##exp.compute_missing_triads #{ |ds| ds.and(:fk_classification => ClusteringExperiment::CLASS_SOFTWARE) }
   ##exp.compute_missing_s_scores

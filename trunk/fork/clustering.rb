@@ -14,6 +14,7 @@ public
     out = StringIO.new
     clusterer = AcdcClusterer.new
     clusterer.cluster(arcs_string, out, params)
+    raise 'Empty decomposition' if out.string.strip.empty?
     return out.string
   end
   
@@ -24,6 +25,7 @@ public
     clusterer.cluster(arcs_string, inter, params)
     inter.rewind
     clusterer.post_process(inter, out, params)
+    raise 'Empty decomposition' if out.string.strip.empty?
     return out.string
   end
   
@@ -31,6 +33,7 @@ public
     out = StringIO.new
     clusterer = InfomapClusterer.new
     clusterer.cluster(arcs_string, out, params)
+    raise 'Empty decomposition' if out.string.strip.empty?
     return out.string
   end
   
@@ -38,6 +41,7 @@ public
     out = StringIO.new
     clusterer = BunchClusterer.new
     clusterer.cluster(arcs_string, out, params)
+    raise 'Empty decomposition' if out.string.strip.empty?
     return out.string
   end
 
@@ -212,7 +216,7 @@ end
 
 class BunchClusterer < Clusterer
   def arc_to_intermediate(pairs, ostream, params={})
-    t = Tempfile.new('infomap')
+    t = Tempfile.new('bunch')
     path = t.path
     t.delete
     put_pairs(pairs, path)
@@ -223,7 +227,7 @@ class BunchClusterer < Clusterer
       ostream.write(stdout.read)
     end
 
-    FileUtils.rm_f(path)
+    #FileUtils.rm_f(path)
   end  
 end
 
