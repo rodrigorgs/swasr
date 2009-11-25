@@ -517,14 +517,20 @@ class ClusteringExperiment
     row[:n_subfive] = module_sizes.count { |x| x <= 1 } if row[:n_subfive].nil?
 
     if (row[:n_external_edges].nil?)
-      node_to_module = Hash[pairs.flatten]
+      node_to_module = Hash[*pairs.flatten]
       edges = int_pairs_from_string(row[:arc])
       edges.map! { |a, b| [node_to_module[a], node_to_module[b]] }
-      row[:n_external_edges] = edges.select { |a, b| a != b }
+      row[:n_external_edges] = edges.select { |a, b| a != b }.size
+      #puts "*********************** #{row[:n_external_edges]}"
     end
 
     @db[:decomposition].filter(:pk_decomposition => row[:pk_decomposition])
-        .update(row)
+        .update(:n_modules => row[:n_modules],
+        :min_module_size   => row[:min_module_size],
+        :max_module_size   => row[:max_module_size],
+        :n_singletons      => row[:n_singletons],
+        :n_subfive         => row[:n_subfive],
+        :n_external_edges  => row[:n_external_edges])
   end
 
   def compute_missing_decomposition_metrics(&block)
@@ -887,7 +893,7 @@ if __FILE__ == $0
   #  }
   #exp.compute_missing_decompositions
   #exp.compute_missing_decompositions { |ds| ds.and('synthetic = false').and('n_vertices <= 5000') } #.and('fk_clusterer_config = ?', CE::CONFIG_INFOMAP) }
-  exp.compute_missing_decomposition_metrics { |ds| ds.and(:fk_classification => CE::CLASS_SOFTWARE) }
+  exp.compute_missing_decomposition_metrics { |ds| ds.and(:fk_classification => CE::CLASS_SOFTWARE).and(:reference => true) }
   #exp.compute_missing_mojos
   #exp.compute_missing_purities
   #exp.compute_missing_nmis
