@@ -157,7 +157,7 @@ class ClusteringExperiment
       LEFT JOIN architecture arch ON arch.pk_architecture = mconf.fk_architecture
       LEFT JOIN clusterer_config cconf ON cconf.pk_clusterer_config = dec.fk_clusterer_config
       LEFT JOIN clusterer clust ON clust.pk_clusterer = cconf.fk_clusterer
-      LEFT JOIN experiment_model_config exp ON exp.fk_model_config = cconf.pk_clusterer_config
+      LEFT JOIN experiment_model_config exp ON exp.fk_model_config = mconf.pk_model_config
       LEFT JOIN experiment ex ON ex.pk_experiment = exp.fk_experiment
     EOT
 
@@ -552,7 +552,7 @@ class ClusteringExperiment
   end
 
   def compute_missing_decomposition_metrics(&block)
-    ds = @db[:decomposition].inner_join(:network, :pk_network => :fk_network)
+    ds = @db[:view_decomposition] #.inner_join(:network, :pk_network => :fk_network)
         .filter(<<-EOT
         mod IS NOT NULL AND (
           n_modules is null
@@ -566,6 +566,8 @@ class ClusteringExperiment
         )
 
     ds = block.call(ds) unless block.nil?
+
+    puts ds.sql
 
     each_random_row(ds, :decomposition) do |row|
       puts row[:nme_network]
@@ -911,7 +913,7 @@ if __FILE__ == $0
   #  }
   #exp.compute_missing_decompositions
   #exp.compute_missing_decompositions { |ds| ds.and('synthetic = false').and('n_vertices <= 5000') } #.and('fk_clusterer_config = ?', CE::CONFIG_INFOMAP) }
-  #exp.compute_missing_decomposition_metrics { |ds| ds.and(:fk_classification => CE::CLASS_SOFTWARE).and(:reference => true) }
+  exp.compute_missing_decomposition_metrics { |ds| ds.and(:fk_experiment => 1) }
   #exp.compute_missing_mojos
   #exp.compute_missing_purities
   #exp.compute_missing_nmis
