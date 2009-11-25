@@ -133,14 +133,23 @@ class ClusteringExperiment
 
     @db << <<-EOT
     CREATE OR REPLACE VIEW view_decomposition AS
-      SELECT *, (1.0 - mojo / n_vertices::float) AS mojosim
+      SELECT *, (1.0 - mojo / n_vertices::float) AS mojosim,
+      n_edges::float / (n_vertices * (n_vertices - 1)) AS edge_density,
+      (sum_indegree::float / n_vertices) / (n_vertices - 1) AS rel_avg_indegree,
+      max_indegree::float / (n_vertices - 1) AS rel_max_indegree,
+      n_modules::float / n_vertices AS rel_n_modules,
+      min_module_size::float / n_vertices AS rel_min_module_size,
+      max_module_size::float / n_vertices AS rel_max_module_size,
+      n_external_edges::float / n_edges AS rel_n_external_edges
       FROM decomposition AS dec
       INNER JOIN network AS net ON net.pk_network = dec.fk_network
       LEFT JOIN model_config mconf ON mconf.pk_model_config = net.fk_model_config
       LEFT JOIN model ON model.pk_model = mconf.fk_model
       LEFT JOIN architecture arch ON arch.pk_architecture = mconf.fk_architecture
       LEFT JOIN clusterer_config cconf ON cconf.pk_clusterer_config = dec.fk_clusterer_config
-      LEFT JOIN clusterer clust ON clust.pk_clusterer = cconf.fk_clusterer;
+      LEFT JOIN clusterer clust ON clust.pk_clusterer = cconf.fk_clusterer
+      LEFT JOIN experiment_model_config exp ON exp.fk_model_config = cconf.pk_clusterer_config
+      LEFT JOIN experiment ex ON ex.pk_experiment = exp.fk_experiment
     EOT
 
     begin @db << 'DROP VIEW view_realism' rescue RuntimeError; end
