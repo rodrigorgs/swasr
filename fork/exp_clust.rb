@@ -535,10 +535,17 @@ class ClusteringExperiment
     row[:n_subfive] = module_sizes.count { |x| x <= 1 } if row[:n_subfive].nil?
 
     if (row[:n_external_edges].nil?)
-      node_to_module = Hash[*pairs.flatten]
-      edges = int_pairs_from_string(row[:arc])
-      edges.map! { |a, b| [node_to_module[a], node_to_module[b]] }
-      row[:n_external_edges] = edges.select { |a, b| a != b }.size
+      if pairs.size == 0
+        row[:n_external_edges] = 0
+      else
+      	pairs = pairs[0..-2] if pairs.size % 2 == 1
+      	#p pairs[-10..-1] if (pairs.size % 2 != 0)
+	#p row[:pk_decomposition]
+        node_to_module = Hash[*pairs.flatten]
+        edges = int_pairs_from_string(row[:arc])
+        edges.map! { |a, b| [node_to_module[a], node_to_module[b]] }
+        row[:n_external_edges] = edges.select { |a, b| a != b }.size
+      end
       #puts "*********************** #{row[:n_external_edges]}"
     end
 
@@ -716,7 +723,7 @@ class ClusteringExperiment
     end
 
     each_random_row(ds, :triads, :fk_network) do |row|
-      #puts "triads for network #{row[:fk_network]}"
+      puts "triads for network #{row[:fk_network]}"
       #puts "row[:arc].size: #{row[:arc].size}"
       t = triads(row[:arc])
       #p t
@@ -902,7 +909,9 @@ if __FILE__ == $0
   #insert_model_params(exp)
   #exp.insert_stub_decompositions
   #exp.insert_stub_triads
- 
+
+  block = lambda { |ds| ds.and(:fk_experiment => 1) }
+
   #puts '## Now you can start this script in another network node ##'
   #
   #exp.generate_missing_networks
@@ -913,12 +922,12 @@ if __FILE__ == $0
   #  }
   #exp.compute_missing_decompositions
   #exp.compute_missing_decompositions { |ds| ds.and('synthetic = false').and('n_vertices <= 5000') } #.and('fk_clusterer_config = ?', CE::CONFIG_INFOMAP) }
-  exp.compute_missing_decomposition_metrics { |ds| ds.and(:fk_experiment => 1) }
+  #exp.compute_missing_decomposition_metrics { |ds| ds.and(:fk_experiment => 1).and(:fk_model => CE::MODEL_LF) }
   #exp.compute_missing_mojos
   #exp.compute_missing_purities
   #exp.compute_missing_nmis
   
-  ##exp.compute_missing_triads #{ |ds| ds.and(:fk_classification => ClusteringExperiment::CLASS_SOFTWARE) }
-  ##exp.compute_missing_s_scores
+  exp.compute_missing_triads { |ds| ds.and(:fk_dataset => 1) } #{ |ds| ds.and( #{ |ds| ds.and(:fk_classification => ClusteringExperiment::CLASS_SOFTWARE) }
+  exp.compute_missing_s_scores { |ds| ds.and(:fk_dataset => 1) }
 end
 
