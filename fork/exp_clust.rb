@@ -8,6 +8,8 @@ require 'compare_partitions'
 require 'clustering'
 require 'realism'
 
+# TODO: Criar view_network, trazendo ref_n_modules, ref_min_module_size etc.
+
 class Object # Sequel::Postgres::Dataset
 #  def random_row(table, column=nil)
 #    column = "pk_#{table}" if column.nil?
@@ -51,11 +53,12 @@ class ClusteringExperiment
 
   def initialize
     #@db = Sequel.sqlite('teste.db')
+    desktop = `hostname`.chomp == 'amd64'
     @db = Sequel.postgres('rodrigo', 
         :user => 'rodrigo', 
         :password => 'rodrigodb', 
-        :host => 'cluster.dcc.ufba.br',
-        :port => 5555)
+        :host => desktop ? 'localhost' : 'cluster.dcc.ufba.br',
+        :port => desktop ? 3128 : 5555)
   end
 
   def drop_all_tables
@@ -129,8 +132,23 @@ class ClusteringExperiment
   end
 
   def create_views
-    begin @db << 'DROP VIEW view_decomposition' rescue RuntimeError; end
+    begin @db << 'DROP VIEW view_network CASCADE' rescue RuntimeError; end
+    @db << <<-EOT
+      CREATE VIEW view_network AS
+        SELECT net.*,
+        dec.pk_decomposition AS ref_pk_decomposition,
+        dec.mod AS ref_mod,
+        dec.n_modules AS ref_n_modules,
+        dec.min_module_size AS ref_min_module_size,
+        dec.max_module_size AS ref_max_module_size,
+        dec.n_external_edges AS ref_n_external_edges,
+        dec.n_singletons AS ref_n_singletons,
+        dec.n_subfive AS ref_n_subfive
+        FROM network net
+        INNER JOIN decomposition dec ON (dec.fk_network = net.pk_network AND dec.reference)
+    EOT
 
+    begin @db << 'DROP VIEW view_decomposition' rescue RuntimeError; end
     @db << <<-EOT
     CREATE OR REPLACE VIEW view_decomposition AS
       SELECT dec.*,
@@ -151,7 +169,7 @@ class ClusteringExperiment
       max_module_size::float / n_vertices AS rel_max_module_size,
       n_external_edges::float / n_edges AS rel_n_external_edges
       FROM decomposition AS dec
-      INNER JOIN network AS net ON net.pk_network = dec.fk_network
+      INNER JOIN view_network AS net ON net.pk_network = dec.fk_network
       LEFT JOIN model_config mconf ON mconf.pk_model_config = net.fk_model_config
       LEFT JOIN model ON model.pk_model = mconf.fk_model
       LEFT JOIN architecture arch ON arch.pk_architecture = mconf.fk_architecture
@@ -170,6 +188,7 @@ class ClusteringExperiment
         INNER JOIN model ON fk_model = pk_model
         INNER JOIN triads ON fk_network = pk_network;
     EOT
+
   end
 
   def create_tables
@@ -910,7 +929,7 @@ if __FILE__ == $0
   #exp.insert_stub_decompositions
   #exp.insert_stub_triads
 
-  block = lambda { |ds| ds.and(:fk_experiment => 1) }
+  #block = lambda { |ds| ds.and(:fk_experiment => 1) }
 
   #puts '## Now you can start this script in another network node ##'
   #
@@ -927,7 +946,7 @@ if __FILE__ == $0
   #exp.compute_missing_purities
   #exp.compute_missing_nmis
   
-  exp.compute_missing_triads { |ds| ds.and(:fk_dataset => 1) } #{ |ds| ds.and( #{ |ds| ds.and(:fk_classification => ClusteringExperiment::CLASS_SOFTWARE) }
-  exp.compute_missing_s_scores { |ds| ds.and(:fk_dataset => 1) }
+  #exp.compute_missing_triads { |ds| ds.and(:fk_dataset => 1) } #{ |ds| ds.and( #{ |ds| ds.and(:fk_classification => ClusteringExperiment::CLASS_SOFTWARE) }
+  #exp.compute_missing_s_scores { |ds| ds.and(:fk_dataset => 1) }
 end
 
