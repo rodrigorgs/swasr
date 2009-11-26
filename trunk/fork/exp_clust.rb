@@ -921,7 +921,7 @@ if __FILE__ == $0
   exp = ClusteringExperiment.new
   ###########################exp.drop_all_tables
   #exp.create_tables
-  #exp.create_views
+  exp.create_views
   #exp.create_additional_columns
   #exp.create_initial_values
 
