@@ -541,7 +541,7 @@ class ClusteringExperiment
   def compute_decomposition_metrics(row)
     raise RuntimeError, "Empty mod, pk_decomposition =  #{row[:pk_decomposition]}" if row[:mod].nil? || row[:mod].strip.size == 0
 
-    LOG.info("compute decomposition for pk #{row[:pk_decomposition]}")
+    LOG.info("compute decomposition metrics for pk #{row[:pk_decomposition]}")
 
     pairs = int_pairs_from_string(row[:mod])  
     gr = pairs.group_by { |x| x[1] }
@@ -921,7 +921,7 @@ if __FILE__ == $0
   exp = ClusteringExperiment.new
   ###########################exp.drop_all_tables
   #exp.create_tables
-  exp.create_views
+  #exp.create_views
   #exp.create_additional_columns
   #exp.create_initial_values
 
@@ -929,24 +929,18 @@ if __FILE__ == $0
   #exp.insert_stub_decompositions
   #exp.insert_stub_triads
 
-  #block = lambda { |ds| ds.and(:fk_experiment => 1) }
+  puts '## Now you can start this script in another network node ##'
+  
+  filter = Proc.new { |ds| ds.and(:fk_dataset => 1) }
 
-  #puts '## Now you can start this script in another network node ##'
-  #
   #exp.generate_missing_networks
-  #exp.compute_missing_network_metrics
-  #exp.compute_missing_decompositions { |ds| 
-  #  ds.and('fk_clusterer = ?', CE::CLUSTERER_ACDC)
-  #  .or('fk_clusterer <> ?', CE::CLUSTERER_HCAS)
-  #  }
-  #exp.compute_missing_decompositions
-  #exp.compute_missing_decompositions { |ds| ds.and('synthetic = false').and('n_vertices <= 5000') } #.and('fk_clusterer_config = ?', CE::CONFIG_INFOMAP) }
-  #exp.compute_missing_decomposition_metrics { |ds| ds.and(:fk_experiment => 1).and(:fk_model => CE::MODEL_LF) }
-  #exp.compute_missing_mojos
+  exp.compute_missing_network_metrics(&filter)
+  exp.compute_missing_decompositions(&filter)
+  exp.compute_missing_decomposition_metrics(&filter)
+  exp.compute_missing_mojos(&filter)
   #exp.compute_missing_purities
   #exp.compute_missing_nmis
   
-  #exp.compute_missing_triads { |ds| ds.and(:fk_dataset => 1) } #{ |ds| ds.and( #{ |ds| ds.and(:fk_classification => ClusteringExperiment::CLASS_SOFTWARE) }
-  #exp.compute_missing_s_scores { |ds| ds.and(:fk_dataset => 1) }
+  exp.compute_missing_triads(&filter)
+  exp.compute_missing_s_scores(&filter)
 end
-
