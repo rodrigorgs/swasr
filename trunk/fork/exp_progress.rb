@@ -68,8 +68,10 @@ if __FILE__ == $0
     #report 'base', :triads, :triad1
     #report 'base', :network, :arc
     #base(:network, :arc)
-    base(:decomposition, :mod)
+    #base(:decomposition, :mod)
+    #base(:triads, :triad1)
+    base(:network, :s_score)
     puts
-    sleep 15
+    sleep 5
   end
 end

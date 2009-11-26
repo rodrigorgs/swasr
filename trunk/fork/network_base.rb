@@ -613,7 +613,7 @@ def pairs_from_string(string)
 end
 
 def int_pairs_from_string(string)
-  return string.chomp.split("\n").map { |line| line.split(" ").map { |x| x.to_i } }
+  return string.chomp.split("\n").map { |line| line.split(" ").map { |x| x.chomp.to_i } }
 end
 
 # adjacency list:
