@@ -116,3 +116,25 @@ AND fk_clusterer_config IS NOT NULL
 AND n_modules IS NOT NULL
 AND s_score IS NOT NULL
 AND min_indegree IS NOT NULL
+
+--
+-- O melhor algoritmo em cada caso
+--
+-- http://stackoverflow.com/questions/612231/sql-select-rows-with-maxcolumn-value-distinct-by-another-column
+SELECT DISTINCT dec.fk_network, dec.n_edges, ref.n_modules, dec.nme_clusterer_config, dec.mojo
+FROM view_decomposition dec
+INNER JOIN (
+  SELECT x.fk_network, MIN(x.mojo) AS min_mojo
+  FROM view_decomposition x
+  WHERE NOT reference
+  GROUP BY 1) grdec ON dec.fk_network = grdec.fk_network AND dec.mojo = grdec.min_mojo
+INNER JOIN decomposition ref ON ref.fk_network = dec.fk_network
+WHERE dec.fk_network IN (
+    /* redes sintéticas realistas totalmente clusterizadas */
+    SELECT pk_network
+    FROM view_decomposition
+    WHERE synthetic
+    AND s_score >= 0.88
+    GROUP BY 1
+    HAVING COUNT(*) >= 8
+    )
