@@ -61,9 +61,8 @@ em Projetos de Software Livre
 
 No contexto de desenvolvimento de software, boas práticas são estratégias ou
 atividades que, segundo mostra a experiência, contribuem para o sucesso de um
-projeto de software.  Naturalmente, a adoção de uma boa prática pode ser
-dificultada pela falta de experiência dos desenvolvedores na aplicação da
-prática em condições específicas.
+projeto de software. Apesar das vantagens, nem sempre é fácil aplicar boas
+práticas em um projeto de software.
 %A adoção de boas práticas em um projeto, naturalmente, depende de TUDO A
 %decisão de adotar uma boa prática em um projeto
 
@@ -84,10 +83,11 @@ de qualidade. Serão investigadas, entre outras, as seguintes práticas:
   \item implementação de testes por pessoas diferentes daquelas que
   implementam funcionalidades;
   \item integração contínua com o repositório de código-fonte;
-  \item correção de bugs antes da implementação de novas funcionalidades;
+  \item correção de \emph{bugs} antes da implementação de novas funcionalidades;
   \item revisão de código.
 \end{itemize}
 
+% TODO: Mover rotatividade e variabilidade de experiência para motivação?
 % TODO: Falar de centralidades (core developers etc.) antes de falar em
 % rotatividade. Campo de influência de um desenvolvedor hub (concentrador)
 Crowston e Howison \cite{crowston2005} recentemente mostraram que os padrões de
@@ -105,21 +105,21 @@ grupos de um projeto?
 % concentrar em novas funcionalidades)
 
 Sabe-se há muito tempo que é alta a rotatividade de desenvolvedores em empresas
-de software, e pesquisas recentes mostram que o cenário também é comum em
-projetos de software livre []. Enquanto os processos praticados por uma empresa
-são mantidos graças à organização hierárquica de seus funcionários, vale a pena
-investigar como se dá essa manutenção em projetos de software livre,
-especialmente os mais descentralizados, face à saída e à entrada de
-desenvolvedores. Será que, na eventualidade da saída dos desenvolvedores mais
+de software, e pesquisas recentes mostram que o cenário também ocorre em
+projetos de software livre \cite{robles2006}. Enquanto os processos praticados
+por uma empresa são mantidos graças à organização hierárquica de seus
+funcionários, vale a pena investigar como se dá essa manutenção em projetos de
+software livre, especialmente os mais descentralizados, face à saída e à entrada
+de desenvolvedores. Será que, na eventualidade da saída dos desenvolvedores mais
 produtivos de um projeto, os demais desenvolvedores perpetuam as práticas
 aplicadas por seus antecessores? Em que casos a saída de desenvolvedores pode
 causar o abandono de práticas em um projeto?
 
 Pretende-se também estudar diferenças entre as práticas adotadas por projetos
 com características distintas. Características de projetos a serem estudadas
-incluem grau de sucesso, grau de centralização, número de desenvolvedores e
-tamanho do software. Esse estudo poderá levar a conclusões do tipo ``a prática X
-não é escalável: ela raramente é usada em projetos de grande porte''. 
+incluem grau de centralização, número de desenvolvedores e tamanho do software.
+Esse estudo poderá levar a conclusões do tipo ``a prática \emph{X} não é
+escalável: ela raramente é usada em projetos de grande porte''. 
 
 
 %Em especial, as seguintes questões merecem FURTHER investigação:
@@ -151,33 +151,36 @@ não é escalável: ela raramente é usada em projetos de grande porte''.
 % ambiente com desenvolvedores com diversos níveis de experiência e alta
 % rotatividade, a difusão de boas práticas pode uniformizar a qualidade do
 % produto (software).
-A aplicação de boas práticas de desenvolvimento está associado à melhoria na
-qualidade do software produzido []. A difusão de boas práticas dentro de um
-projeto é, ainda, uma forma de diminuir a discrepância entre desenvolvedores
-menos experientes e desenvolvedores mais experientes, o que contribui para
-tornar o processo de desenvolvimento de software mais previsível.
+A aplicação de boas práticas de desenvolvimento está associada à melhoria na
+qualidade do software produzido \cite{grady1993}. A difusão de boas práticas
+dentro de um projeto é, ainda, uma forma de diminuir a diferença de
+produtividade entre desenvolvedores menos experientes e desenvolvedores mais
+experientes, o que contribui para tornar o processo de desenvolvimento de
+software mais previsível.
 %Há muito se discutem formas de tornar o processo de desenvolvimento de software
 %mais previsível, aumentando a produtividade da equipe e a qualidade do
 %software. Dessa discussão surgiram modelos de processos e cartilhas de boas
 %práticas de desenvolvimento.
 
 % PROBLEMA QUE EXISTE NO MUNDO Existe uma lacuna entre a teoria e a prática
+% TODO: Melhorar, jogar pra cá alta rotatividade e distribuição heterogênea de
+% experiência de desenvolvedores
 Existe, no entanto, uma lacuna entre a teoria e a prática do desenvolvimento de
 software \cite{glass1996}. Em particular, a difusão de uma boa prática depende
 não apenas dos benefícios preconizados por seus entusiastas, mas também de
 questões ligadas ao seu uso efetivo, como o custo de implantação e a escassez de
 boas ferramentas de apoio. 
 
-% PROBLEMA QUE EXISTE NO ESTADO DA ARTE: contribui pouco para diminuir o gap entre
-% teoria e prática porque contribui pouco para entender esse gap.
+% PROBLEMA QUE EXISTE NO ESTADO DA ARTE: contribui pouco para diminuir o gap
+% entre teoria e prática porque contribui pouco para entender esse gap.
 Por melhor que seja a argumentação, uma prática só é útil quando é efetivamente
 adotada no desenvolvimento de um software. Por isso, a compreensão dos fatores
 que influenciam essa adoção é uma parte importante do estudo de uma prática de
 desenvolvimento. Infelizmente, a maior parte do conhecimento disponível sobre
-tais fatores é proveniente de observações isoladas e estudos de caso []. Essas
-observações, embora de grande valia, são essencialmente tendenciosas. Uma
-compreensão mais completa dos fatores contribuiria para a proposta de práticas
-de desenvolvimento mais realistas. 
+tais fatores é proveniente de observações isoladas e estudos de caso
+\cite{crowston2005}. Essas observações, embora de grande valia, são
+essencialmente tendenciosas. Uma compreensão mais abrangente dos fatores
+contribuiria para a proposta de práticas de desenvolvimento mais realistas.
 % ou para tomar medidas mais efetivas para que as práticas sejam adotadas
 
 %
@@ -191,6 +194,14 @@ de desenvolvimento mais realistas.
 %individuais e estudos de caso []. Essas observações, embora de grande valia, são
 %essencialmente tendenciosas. 
 
+A escolha feita nesta pesquisa de estudar projetos de software livre certamente
+limita a generalidade dos resultados, uma vez que a organização desses projetos
+em geral é diferente da organização de projetos comerciais \cite{raymond2001}.
+Essa opção se justifica, no entanto, pela importância que tais softwares
+adquiriram em diversos segmentos.  Um estudo mostrou que, em 2004, mais de 1
+milhão de desenvolvedores no Estados Unidos estavam trabalhando em projetos de
+software livre. Além disso, projetos de software livre dominam o mercado mundial
+de servidores web, servidores de e-mail e servidores de DNS \cite{wheeler2007}.
 
 %% TODO Ser software livre certamente limita a generalidade dos resultados,
 %	% principalmente sabendo que se considera que os processos de
@@ -231,8 +242,8 @@ de desenvolvimento mais realistas.
 Muitos projetos de software livre tornam disponíveis publicamente alguns
 artefatos produzidos durante o processo de desenvolvimento de software. Esses
 artefatos incluem código-fonte e documentação mantidos em sistemas de controle
-de versão, bem como relatórios de bugs e mensagens de e-mail trocadas entre
-desenvolvedores. 
+de versão, bem como relatórios de \emph{bugs} e mensagens de e-mail trocadas
+entre desenvolvedores. 
 
 A grande disponibilidade de dados relacionados ao desenvolvimento favorece a
 realização de estudos em larga escala. Nesta pesquisa serão utilizados
@@ -241,18 +252,18 @@ estudo de uma amostra significativa de projetos de software livre.
 
 A seleção da amostra de projetos será feita com base em informações como número
 de desenvolvedores e tamanho do software. Serão extraídos dados de repositórios
-de controle de versão, sistemas de relatório de bugs e listas de discussão.
-Ferramentas de análise estática de código serão usadas para extrair relações
-entre os diversos componentes de um sistema de software.
+de controle de versão, sistemas de acompanhamento de \emph{bugs} e listas de
+discussão.  Ferramentas de análise estática de código serão usadas para extrair
+relações entre os diversos componentes de um sistema de software.
 
 %Os projetos de software e seus desenvolvedores serão caracterizados com base em
 %métricas de redes sociais, como centralidade \cite{crowston2005}, e de outras
 %métricas aplicadas em estudos sobre software livre \cite{
 
 A identificação das práticas adotadas por um projeto será feita a partir do uso
-de técnicas de mineração de processos sobre o histórico dos dados extraídos do
-projeto. Tais técnicas têm como finalidade extrair modelos de processos a partir
-de dados temporais.
+de técnicas de mineração de processos \cite{rubin2007} sobre o histórico dos
+dados extraídos do projeto. Tais técnicas têm como finalidade extrair modelos de
+processos a partir de dados temporais.
 
 Para responder às questões de pesquisa, serão usados métodos de análise
 exploratória de dados e inferência estatística, relacionando características de
@@ -312,15 +323,42 @@ resultados obtidos em estudos de caso.
 
 \section{Proposta de Cronograma}
 
+As seguintes atividades serão realizados durante este projeto, de acordo com os
+prazos indicados na Tabela \ref{tab:cronograma}:
+
+\begin{enumerate}
+  \item \label{prevista:estudos}
+    \textbf{Revisão bibliográfica}. Serão lidos textos sobre engenharia de software
+    experimental, processos e práticas de desenvolvimento de software,
+    desenvolvimento de software livre, mineração de processos e estatística,
+    entre outros. Ao final será produzido um resumo dos tópicos mais relevantes.
+%  \item \label{prevista:artigos}
+%    Produção de artigos. Os artigos serão submetidos para veículos de publicação
+%    a serem definidos.
+  \item \label{prevista:qualificacao}
+    \textbf{Realização do exame de qualificação}.
+  \item \label{prevista:proposta}
+    \textbf{Defesa da proposta de tese}.
+  \item \label{prevista:experimentos}
+    \textbf{Planejamento e execução de experimentos}. Espera-se produzir pelo menos dois
+    artigos: um com resultados preliminares e outro com os resultados finais dos
+    experimentos.
+  \item \label{prevista:redacao}
+    \textbf{Redação da tese}.
+  \item \label{prevista:defesa}
+    \textbf{Defesa da tese}.
+\end{enumerate}
+
 \begin{table}[h]
   \centering
   \begin{tabular}{|c|c|c|c|c|c|c|c|c|} \hline
     Atividade                   & 2010.1 & 2010.2 & 2011.1 & 2011.2  & 2012.1 & 2012.2  & 2013.1 & 2013.2 \newrow
-    \ref{prevista:projeto}      &        &        &        &         &        &         &        &        \newrow
-    \ref{prevista:estudos}      &        &        &        &         &        &         &        &        \newrow
-    \ref{prevista:artigos}      &        &        &        & \x      &        & \x      &        &        \newrow
-    \ref{prevista:qualificacao} &        &        &        &         &        &         &        &        \newrow
-    \ref{prevista:proposta}     &        &        &        &         &        &         &        &        \newrow
+    \ref{prevista:estudos}      & \x     & \x     & \x     &         &        &         &        &        \newrow
+%    \ref{prevista:projeto}      &        &        &        &         &        &         &        &        \newrow
+%    \ref{prevista:artigos}      &        &        &        & \x      &        & \x      &        &        \newrow
+    \ref{prevista:qualificacao} &        &        & \x     &         &        &         &        &        \newrow
+    \ref{prevista:proposta}     &        &        &        & \x      &        &         &        &        \newrow
+    \ref{prevista:experimentos} &        &        &        & \x      & \x     & \x      &        &        \newrow
     \ref{prevista:redacao}      &        &        &        &         &        & \x      & \x     & \x     \newrow
     \ref{prevista:defesa}       &        &        &        &         &        &         &        & \x     \newrow
   \end{tabular}
