@@ -235,65 +235,76 @@ de versão, bem como relatórios de bugs e mensagens de e-mail trocadas entre
 desenvolvedores. 
 
 A grande disponibilidade de dados relacionados ao desenvolvimento favorece a
-realização de estudos em larga escala. Nesta pesquisa, práticas de
-desenvolvimento serão extraídas automaticamente a partir do histórico de
-desenvolvimento de cada projeto através de técnicas de mineração de processos.
+realização de estudos em larga escala. Nesta pesquisa serão utilizados
+predominantemente métodos quantitativos de análise de dados para viabilizar o
+estudo de uma amostra significativa de projetos de software livre.
 
-ao longo do histórico de
-desenvolvimento de cada projeto sob estudo at
+A seleção da amostra de projetos será feita com base em informações como número
+de desenvolvedores e tamanho do software. Serão extraídos dados de repositórios
+de controle de versão, sistemas de relatório de bugs e listas de discussão.
+Ferramentas de análise estática de código serão usadas para extrair relações
+entre os diversos componentes de um sistema de software.
 
+%Os projetos de software e seus desenvolvedores serão caracterizados com base em
+%métricas de redes sociais, como centralidade \cite{crowston2005}, e de outras
+%métricas aplicadas em estudos sobre software livre \cite{
 
-usadas no desenvolvimento de software
+A identificação das práticas adotadas por um projeto será feita a partir do uso
+de técnicas de mineração de processos sobre o histórico dos dados extraídos do
+projeto. Tais técnicas têm como finalidade extrair modelos de processos a partir
+de dados temporais.
 
-Através de
-técnicas de mineração de processos é possível 
+Para responder às questões de pesquisa, serão usados métodos de análise
+exploratória de dados e inferência estatística, relacionando características de
+projetos e de desenvolvedores, o histórico de desenvolvimento e a aplicação de
+boas práticas. A partir dos resultados da análise poderão ser realizadas
+investigações mais aprofundadas sobre projetos selecionados e comparações com
+resultados obtidos em estudos de caso.
 
-
-
-Técnicas de mineração de processos e estatística descritiva
-viabilizam a realização desta pesquisa com grandes amostras de projetos de
-software.
-% TALVEZ SEJA BOM FICAR SÓ COM O ESTUDO QUANTITATIVO
-% O ESTUDO QUALITATIVO PODE SER A PARTE EXPLORATÓRIA DO ESTUDO QUANTITATIVO
-%Esta pesquisa consistirá de um estudo abrangente, envolvendo um grande número
-%de projetos de software livre, e de um estudo mais aprofundado sobre um número
-%reduzido de projetos. Os dois estudos cumprem papéis complementares no
-%entendimento da aplicação de processos em projetos reais.
-
-Para o estudo abrangente será selecionada uma amostra significativa de projetos
-de software livre hospedados em um repositório de código-fonte a ser escolhido,
-como o SourceForge. A amostra será estratificada de acordo com aspectos como
-idade do projeto, número de desenvolvedores e número de linhas de código-fonte.
-
-Serão analisados relatórios de bugs registrados em um sistema de gerenciamento
-de bugs, mensagens de e-mail arquivadas em listas de discussão e arquivos
-mantidos sob controle de versão, como documentação e código-fonte. Ferramentas
-para a extração desses dados já foram usadas em pesquisas anteriores [], com
-bons resultados.
-
-A análise dos dados no estudo mais abrangente será feita de forma automática
-através de técnicas de mineração de processos. Essa abordagem foi escolhida por
-tornar viável a análise de grandes volumes de dados. A mineração de processos
-tem como finalidade de extrair modelos de processos a partir de registros de
-eventos. Eventos que poderão ser extraídos dos dados coletados incluem a
-modificação de um arquivo fonte, o registro da resolução de um bug e o envio de
-uma mensagem à lista de discussão do projeto.
-
-%O algoritmo alfa da mineração de processos é capaz de extrair de uma lista de
-%eventos um modelo de processo representado como uma rede de Petri. Perguntas
-%sobre o modelo extraído podem ser respondidas com o auxílio de checadores de
-%fórmulas da lógica temporal linear (LTL).
-
-Inicialmente será feita uma análise exploratória sobre uma amostra reduzida de
-projetos de software com os métodos e ferramentas escolhidos. Essa análise terá
-por objetivo investigar como os dados devem ser pré-processados e identificar
-limitações da abordagem.
-
-A amostra reduzida de projetos de software também será alvo de um estudo mais
-detalhado. Informações adicionais sobre o processo desses projetos serão
-coletadas através de questionários e entrevistas com desenvolvedores. Quando
-for possível, as informações fornecidas pelos desenvolvedores serão
-confrontadas com as informações extraídas automaticamente. 
+%Técnicas de mineração de processos e estatística descritiva
+%viabilizam a realização desta pesquisa com grandes amostras de projetos de
+%software.
+%% TALVEZ SEJA BOM FICAR SÓ COM O ESTUDO QUANTITATIVO
+%% O ESTUDO QUALITATIVO PODE SER A PARTE EXPLORATÓRIA DO ESTUDO QUANTITATIVO
+%%Esta pesquisa consistirá de um estudo abrangente, envolvendo um grande número
+%%de projetos de software livre, e de um estudo mais aprofundado sobre um número
+%%reduzido de projetos. Os dois estudos cumprem papéis complementares no
+%%entendimento da aplicação de processos em projetos reais.
+%
+%Para o estudo abrangente será selecionada uma amostra significativa de projetos
+%de software livre hospedados em um repositório de código-fonte a ser escolhido,
+%como o SourceForge. A amostra será estratificada de acordo com aspectos como
+%idade do projeto, número de desenvolvedores e número de linhas de código-fonte.
+%
+%Serão analisados relatórios de bugs registrados em um sistema de gerenciamento
+%de bugs, mensagens de e-mail arquivadas em listas de discussão e arquivos
+%mantidos sob controle de versão, como documentação e código-fonte. Ferramentas
+%para a extração desses dados já foram usadas em pesquisas anteriores [], com
+%bons resultados.
+%
+%A análise dos dados no estudo mais abrangente será feita de forma automática
+%através de técnicas de mineração de processos. Essa abordagem foi escolhida por
+%tornar viável a análise de grandes volumes de dados. A mineração de processos
+%tem como finalidade de extrair modelos de processos a partir de registros de
+%eventos. Eventos que poderão ser extraídos dos dados coletados incluem a
+%modificação de um arquivo fonte, o registro da resolução de um bug e o envio de
+%uma mensagem à lista de discussão do projeto.
+%
+%%O algoritmo alfa da mineração de processos é capaz de extrair de uma lista de
+%%eventos um modelo de processo representado como uma rede de Petri. Perguntas
+%%sobre o modelo extraído podem ser respondidas com o auxílio de checadores de
+%%fórmulas da lógica temporal linear (LTL).
+%
+%Inicialmente será feita uma análise exploratória sobre uma amostra reduzida de
+%projetos de software com os métodos e ferramentas escolhidos. Essa análise terá
+%por objetivo investigar como os dados devem ser pré-processados e identificar
+%limitações da abordagem.
+%
+%A amostra reduzida de projetos de software também será alvo de um estudo mais
+%detalhado. Informações adicionais sobre o processo desses projetos serão
+%coletadas através de questionários e entrevistas com desenvolvedores. Quando
+%for possível, as informações fornecidas pelos desenvolvedores serão
+%confrontadas com as informações extraídas automaticamente. 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
