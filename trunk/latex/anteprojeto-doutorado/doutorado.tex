@@ -35,122 +35,17 @@ em Projetos de Software Livre
 %\tableofcontents
 %\newpage
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% TODO: Agile Practices: http://books.google.com.br/books?hl=pt-BR&lr=&id=9J_0ly01QicC&oi=fnd&pg=PR13&dq=agile+development+assessment&ots=wUzpQHk_03&sig=kM7FGLX3vmn7Z5MxM4RjSn_a99U#v=onepage&q=practices&f=false 
 
-% TODO: onion-like structure, hierarchical structure, core developers 
-
-%   Processo afeta qualidade do software
-%   Employee turnover is known to be high in the traditional software industry
-% since many years ago. (rotatividade)
-%   Turnover afeta processo?
-
-% Apresentação de Terceiro
-%   Problema
-%   Objetivo
-%   Usar abandono de desenvolvedores como critério de insucesso
-%   Variáveis independentes, dependentes e de contexto
-
-\section{Objetivo}
-
-% TODO Trocar "prática" por "princípio" pra deixar "prática" apenas como
-% contraponto de teoria?
-%
-% http://searchsoftwarequality.techtarget.com/sDefinition/0,,sid92_gci498678,00.html
-% http://tlt-swg.blogspot.com/2006/08/best-practices-defined-usefully-tlt.html
-
-No contexto de desenvolvimento de software, boas práticas são estratégias ou
-atividades que, segundo mostra a experiência, contribuem para o sucesso de um
-projeto de software. Apesar das vantagens, nem sempre é fácil aplicar boas
-práticas em um projeto de software.
-%A adoção de boas práticas em um projeto, naturalmente, depende de TUDO A
-%decisão de adotar uma boa prática em um projeto
-
-O principal objetivo desta pesquisa é entender como a adoção de boas práticas de
-desenvolvimento de software é afetada por variações na forma de organização da
-equipe de desenvolvedores e por características do projeto. Pretende-se assim
-identificar em quais contextos determinadas práticas são efetivamente aplicadas
-e entender os mecanismos que reforçam a adoção de práticas de desenvolvimento de
-software.
-
-A análise será focada nas atividades de implementação, documentação e controle
-de qualidade. Serão investigadas, entre outras, as seguintes práticas:
-
-\begin{itemize}
-%  \item uso de testes de unidade;
-  \item planejamento e implementação de testes antes da implementação das
-  funcionalidades correspondentes;
-  \item implementação de testes por pessoas diferentes daquelas que
-  implementam funcionalidades;
-  \item integração contínua com o repositório de código-fonte;
-  \item correção de \emph{bugs} antes da implementação de novas funcionalidades;
-  \item revisão de código.
-\end{itemize}
-
-% TODO: Mover rotatividade e variabilidade de experiência para motivação?
-% TODO: Falar de centralidades (core developers etc.) antes de falar em
-% rotatividade. Campo de influência de um desenvolvedor hub (concentrador)
-Crowston e Howison \cite{crowston2005} recentemente mostraram que os padrões de
-interação entre desenvolvedores variam bastante de projeto para projeto. Alguns
-projetos são bastante centralizados em um conjunto pequeno de desenvolvedores
-que interagem com boa parte dos demais; outros possuem uma organização mais
-descentralizada, nas quais os desenvolvedores se organizam em grupos bem
-definidos. Não é claro, no entanto, como práticas de desenvolvimento se
-distribuem nessa rede social. O quanto variam as práticas entre diferentes
-grupos de um projeto? 
-
-% Há diferença de processos praticados por diferentes centros/subprojetos?
-% Desenvolvedores centrais e nao centrais desempenham papeis tipicamente
-% diferentes? (Capiluppi observou que desenvolvedores novos tendem a se
-% concentrar em novas funcionalidades)
-
-Sabe-se há muito tempo que é alta a rotatividade de desenvolvedores em empresas
-de software, e pesquisas recentes mostram que o cenário também ocorre em
-projetos de software livre \cite{robles2006}. Enquanto os processos praticados
-por uma empresa são mantidos graças à organização hierárquica de seus
-funcionários, vale a pena investigar como se dá essa manutenção em projetos de
-software livre, especialmente os mais descentralizados, face à saída e à entrada
-de desenvolvedores. Será que, na eventualidade da saída dos desenvolvedores mais
-produtivos de um projeto, os demais desenvolvedores perpetuam as práticas
-aplicadas por seus antecessores? Em que casos a saída de desenvolvedores pode
-causar o abandono de práticas em um projeto?
-
-Pretende-se também estudar diferenças entre as práticas adotadas por projetos
-com características distintas. Características de projetos a serem estudadas
-incluem grau de centralização, número de desenvolvedores e tamanho do software.
-Esse estudo poderá levar a conclusões do tipo ``a prática \emph{X} não é
-escalável: ela raramente é usada em projetos de grande porte''. 
-
-
-%Em especial, as seguintes questões merecem FURTHER investigação:
-%
-%Ao investigar a resposta dessas questões em diversos projetos ao longo do
-%tempo, se pretende chegar a respostas para as seguintes questões de pesquisa:
-%
-%\begin{itemize}
-%  \item Em que condições a entrada e a saída de desenvolvedores de um projeto afeta o seu processo de desenvolvimento?
-%  \item Existem diferenças nos processos aplicados por desenvolvedores com diversos níveis de envolvimento com o projeto?
-%  \item Qual é o papel dos desenvolvedores mais envolvidos com um projeto na manutenção de seu processo de desenvolvimento?
-%  \item Os subprojetos de um projeto compartilham um mesmo processo?
-%***  \item Quais práticas são mais difundidas em projetos de software livre? Quais são menos difundidas?
-%  \item Como se diferenciam os processos de projetos bem sucedidos e os processos de projetos que foram descontinuados?
-%  \item Dentre os projetos mais bem sucedidos, de que forma os processos se diferenciam?
-%  \item Como os processos se alteram nos diversos estágios do desenvolvimento de uma versão do software (alfa, beta, candidata a lançamento, em manutenção)?
-%***  \item Existem práticas que são comumente aplicadas em conjunto?
-%  \item Os projetos que dizem seguir um modelo de processo estão de fato aplicando as práticas associadas a ele?
-%\end{itemize}
+% TODO: transferencia de boas práticas dentro de um projeto de software livre. Ver Szulanski
+% TODO: Ler michlmayr-process_maturity_success 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Motivação}
+\section{Motivação} % QUAL É O PROBLEMA?
 
-% QUAL É O PROBLEMA?
-
-% CONTEXTO O uso de boas práticas está associadas a melhores softwares. Em um
-% ambiente com desenvolvedores com diversos níveis de experiência e alta
-% rotatividade, a difusão de boas práticas pode uniformizar a qualidade do
-% produto (software).
+% CONTEXTO
 A aplicação de boas práticas de desenvolvimento está associada à melhoria na
 qualidade do software produzido \cite{grady1993}. A difusão de boas práticas
 dentro de um projeto é, ainda, uma forma de diminuir a diferença de
@@ -183,17 +78,6 @@ essencialmente tendenciosas. Uma compreensão mais abrangente dos fatores
 contribuiria para a proposta de práticas de desenvolvimento mais realistas.
 % ou para tomar medidas mais efetivas para que as práticas sejam adotadas
 
-%
-% ambiente propício advocate
-
-%Infelizmente 
-%Embora os benefícios das mais diversas práticas de desenvolvimento de software
-%sejam bastante propagandeados, pouco se sabe sobre os fatores que tipicamente
-%favorecem a adoção ou o abandono dessas práticas em um projeto de software. A
-%maior parte do conhecimento sobre o assunto é proveniente de experiências
-%individuais e estudos de caso []. Essas observações, embora de grande valia, são
-%essencialmente tendenciosas. 
-
 A escolha feita nesta pesquisa de estudar projetos de software livre certamente
 limita a generalidade dos resultados, uma vez que a organização desses projetos
 em geral é diferente da organização de projetos comerciais \cite{raymond2001}.
@@ -202,25 +86,6 @@ adquiriram em diversos segmentos.  Um estudo mostrou que, em 2004, mais de 1
 milhão de desenvolvedores no Estados Unidos estavam trabalhando em projetos de
 software livre. Além disso, projetos de software livre dominam o mercado mundial
 de servidores web, servidores de e-mail e servidores de DNS \cite{wheeler2007}.
-
-%% TODO Ser software livre certamente limita a generalidade dos resultados,
-%	% principalmente sabendo que se considera que os processos de
-%	% desenvolvimento de software são diferentes daqueles empregados em
-%	% softwares comerciais. Nonetheless, acreditamos que o software livre é
-%	% tão importante que justifica a importância de um estudo dedicado a ele.
-%
-
-%Pesquisa sobre software livre tem se concentrado em estudos de caso
-%\cite{mockus2002,capiluppi2007}, com algumas exceções. Crowston e Howison
-%\cite{crowston2005} estudaram padrões de comunicação em sistemas de relatório de
-%bugs de 120 projetos de software livre e encontraram grande variedade entre os
-%projetos. Krishnamurty \cite{krishnamurthy2002} estudou 100 projetos populares e
-%percebeu que boa parte só possuía um desenvolvedor.
-
-%Embora pesquisas recentes revelem os processos praticados por alguns projetos
-%de software livre em determinado período , não se tem uma descrição do
-%cenário mais abrangente, que considera uma amostra significativa de projetos ao
-%longo do tempo. 
 
 % TODO: desenvolver a ideia
 %Tal descrição permitiria a identificação de dificuldades e limitações na
@@ -231,7 +96,105 @@ de servidores web, servidores de e-mail e servidores de DNS \cite{wheeler2007}.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+% TODO: onion-like structure, hierarchical structure, core developers 
+
+%   Processo afeta qualidade do software
+%   Employee turnover is known to be high in the traditional software industry
+% since many years ago. (rotatividade)
+%   Turnover afeta processo?
+
+% Apresentação de Terceiro
+%   Problema
+%   Objetivo
+%   Usar abandono de desenvolvedores como critério de insucesso
+%   Variáveis independentes, dependentes e de contexto
+
+\section{Objetivo}
+
+% http://searchsoftwarequality.techtarget.com/sDefinition/0,,sid92_gci498678,00.html
+% http://tlt-swg.blogspot.com/2006/08/best-practices-defined-usefully-tlt.html
+% TODO: segundo mostra a experiência? que experiência? (christina)
+No contexto de desenvolvimento de software, boas práticas são estratégias ou
+atividades que, segundo mostra a experiência, contribuem para o sucesso de um
+projeto de software. Apesar das vantagens, nem sempre é fácil aplicar boas
+práticas em um projeto de software. % benefícios relatados
+
+O principal objetivo desta pesquisa é entender como a adoção de boas práticas de
+desenvolvimento de software é afetada por variações na forma de organização da
+equipe de desenvolvedores e por características do projeto. Pretende-se assim
+identificar em quais contextos determinadas práticas são efetivamente aplicadas
+e entender os mecanismos que reforçam a adoção de práticas de desenvolvimento de
+software.
+
+A análise será focada nas atividades de implementação, documentação e controle
+de qualidade. Serão investigadas, entre outras, as seguintes práticas:
+
+\begin{itemize}
+%  \item uso de testes de unidade automatizados;
+  \item implementação de testes de unidade automatizados antes da implementação
+  das funcionalidades correspondentes;
+  \item implementação dos testes por pessoas diferentes daquelas que
+  implementam funcionalidades;
+  \item integração contínua das mudanças com o repositório de código-fonte;
+  \item correção de \emph{bugs} antes da implementação de novas funcionalidades;
+  \item posse coletiva de código.
+  % coding standards
+%  \item revisão de código.
+\end{itemize}
+
+% TODO: Mover rotatividade e variabilidade de experiência para motivação?
+% TODO: Falar de centralidades (core developers etc.) antes de falar em
+% rotatividade. Campo de influência de um desenvolvedor hub (concentrador)
+Crowston e Howison \cite{crowston2005} recentemente mostraram que os padrões de
+interação entre desenvolvedores variam bastante de projeto para projeto. Alguns
+projetos são bastante centralizados em um conjunto pequeno de desenvolvedores
+que interagem com boa parte dos demais; outros possuem uma organização mais
+descentralizada, nas quais os desenvolvedores se organizam em grupos bem
+definidos. Não é claro, no entanto, como práticas de desenvolvimento se
+distribuem nessa rede social. O quanto variam as práticas entre diferentes
+grupos de um projeto? 
+
+Sabe-se há muito tempo que é alta a rotatividade de desenvolvedores em empresas
+de software, e pesquisas recentes mostram que o cenário também ocorre em
+projetos de software livre \cite{robles2006}. Enquanto os processos praticados
+por uma empresa são mantidos graças à organização hierárquica de seus
+funcionários, vale a pena investigar como se dá essa manutenção em projetos de
+software livre, especialmente os mais descentralizados, face à saída e à entrada
+de desenvolvedores. Será que, na eventualidade da saída dos desenvolvedores mais
+produtivos de um projeto, os demais desenvolvedores perpetuam as práticas
+aplicadas por seus antecessores? Em que casos a saída de desenvolvedores pode
+causar o abandono de práticas em um projeto?
+
+Pretende-se também estudar diferenças entre as práticas adotadas por projetos
+com características distintas. Características de projetos a serem estudadas
+incluem grau de centralização, número de desenvolvedores e tamanho do software.
+Esse estudo poderá levar a conclusões do tipo ``a prática \emph{X} não é
+escalável: ela raramente é usada em projetos de grande porte''. 
+
+%Em especial, as seguintes questões merecem FURTHER investigação:
+%Ao investigar a resposta dessas questões em diversos projetos ao longo do
+%tempo, se pretende chegar a respostas para as seguintes questões de pesquisa:
+%\begin{itemize}
+%  \item Em que condições a entrada e a saída de desenvolvedores de um projeto afeta o seu processo de desenvolvimento?
+%  \item Existem diferenças nos processos aplicados por desenvolvedores com diversos níveis de envolvimento com o projeto?
+%  \item Qual é o papel dos desenvolvedores mais envolvidos com um projeto na manutenção de seu processo de desenvolvimento?
+%  \item Os subprojetos de um projeto compartilham um mesmo processo?
+%***  \item Quais práticas são mais difundidas em projetos de software livre? Quais são menos difundidas?
+%  \item Como se diferenciam os processos de projetos bem sucedidos e os processos de projetos que foram descontinuados?
+%  \item Dentre os projetos mais bem sucedidos, de que forma os processos se diferenciam?
+%  \item Como os processos se alteram nos diversos estágios do desenvolvimento de uma versão do software (alfa, beta, candidata a lançamento, em manutenção)?
+%***  \item Existem práticas que são comumente aplicadas em conjunto?
+%  \item Os projetos que dizem seguir um modelo de processo estão de fato aplicando as práticas associadas a ele?
+%\end{itemize}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \section{Metodologia}
+
+% TODO: projeto piloto, estudo exploratório preliminar
 
 % VIABILIDADE DO ESTUDO
 %   Por que software livre? Porque há dados!
@@ -272,52 +235,6 @@ boas práticas. A partir dos resultados da análise poderão ser realizadas
 investigações mais aprofundadas sobre projetos selecionados e comparações com
 resultados obtidos em estudos de caso.
 
-%Técnicas de mineração de processos e estatística descritiva
-%viabilizam a realização desta pesquisa com grandes amostras de projetos de
-%software.
-%% TALVEZ SEJA BOM FICAR SÓ COM O ESTUDO QUANTITATIVO
-%% O ESTUDO QUALITATIVO PODE SER A PARTE EXPLORATÓRIA DO ESTUDO QUANTITATIVO
-%%Esta pesquisa consistirá de um estudo abrangente, envolvendo um grande número
-%%de projetos de software livre, e de um estudo mais aprofundado sobre um número
-%%reduzido de projetos. Os dois estudos cumprem papéis complementares no
-%%entendimento da aplicação de processos em projetos reais.
-%
-%Para o estudo abrangente será selecionada uma amostra significativa de projetos
-%de software livre hospedados em um repositório de código-fonte a ser escolhido,
-%como o SourceForge. A amostra será estratificada de acordo com aspectos como
-%idade do projeto, número de desenvolvedores e número de linhas de código-fonte.
-%
-%Serão analisados relatórios de bugs registrados em um sistema de gerenciamento
-%de bugs, mensagens de e-mail arquivadas em listas de discussão e arquivos
-%mantidos sob controle de versão, como documentação e código-fonte. Ferramentas
-%para a extração desses dados já foram usadas em pesquisas anteriores [], com
-%bons resultados.
-%
-%A análise dos dados no estudo mais abrangente será feita de forma automática
-%através de técnicas de mineração de processos. Essa abordagem foi escolhida por
-%tornar viável a análise de grandes volumes de dados. A mineração de processos
-%tem como finalidade de extrair modelos de processos a partir de registros de
-%eventos. Eventos que poderão ser extraídos dos dados coletados incluem a
-%modificação de um arquivo fonte, o registro da resolução de um bug e o envio de
-%uma mensagem à lista de discussão do projeto.
-%
-%%O algoritmo alfa da mineração de processos é capaz de extrair de uma lista de
-%%eventos um modelo de processo representado como uma rede de Petri. Perguntas
-%%sobre o modelo extraído podem ser respondidas com o auxílio de checadores de
-%%fórmulas da lógica temporal linear (LTL).
-%
-%Inicialmente será feita uma análise exploratória sobre uma amostra reduzida de
-%projetos de software com os métodos e ferramentas escolhidos. Essa análise terá
-%por objetivo investigar como os dados devem ser pré-processados e identificar
-%limitações da abordagem.
-%
-%A amostra reduzida de projetos de software também será alvo de um estudo mais
-%detalhado. Informações adicionais sobre o processo desses projetos serão
-%coletadas através de questionários e entrevistas com desenvolvedores. Quando
-%for possível, as informações fornecidas pelos desenvolvedores serão
-%confrontadas com as informações extraídas automaticamente. 
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -332,13 +249,14 @@ prazos indicados na Tabela \ref{tab:cronograma}:
     experimental, processos e práticas de desenvolvimento de software,
     desenvolvimento de software livre, mineração de processos e estatística,
     entre outros. Ao final será produzido um resumo dos tópicos mais relevantes.
-%  \item \label{prevista:artigos}
+  \item \label{prevista:artigos}
+    \textbf{Divulgação científica}.
 %    Produção de artigos. Os artigos serão submetidos para veículos de publicação
 %    a serem definidos.
-  \item \label{prevista:qualificacao}
-    \textbf{Realização do exame de qualificação}.
-  \item \label{prevista:proposta}
-    \textbf{Defesa da proposta de tese}.
+%  \item \label{prevista:qualificacao}
+%    \textbf{Realização do exame de qualificação}.
+%  \item \label{prevista:proposta}
+%    \textbf{Defesa da proposta de tese}.
   \item \label{prevista:experimentos}
     \textbf{Planejamento e execução de experimentos}. Espera-se produzir pelo menos dois
     artigos: um com resultados preliminares e outro com os resultados finais dos
@@ -356,8 +274,8 @@ prazos indicados na Tabela \ref{tab:cronograma}:
     \ref{prevista:estudos}      & \x     & \x     & \x     &         &        &         &        &        \newrow
 %    \ref{prevista:projeto}      &        &        &        &         &        &         &        &        \newrow
 %    \ref{prevista:artigos}      &        &        &        & \x      &        & \x      &        &        \newrow
-    \ref{prevista:qualificacao} &        &        & \x     &         &        &         &        &        \newrow
-    \ref{prevista:proposta}     &        &        &        & \x      &        &         &        &        \newrow
+%    \ref{prevista:qualificacao} &        &        & \x     &         &        &         &        &        \newrow
+%    \ref{prevista:proposta}     &        &        &        & \x      &        &         &        &        \newrow
     \ref{prevista:experimentos} &        &        &        & \x      & \x     & \x      &        &        \newrow
     \ref{prevista:redacao}      &        &        &        &         &        & \x      & \x     & \x     \newrow
     \ref{prevista:defesa}       &        &        &        &         &        &         &        & \x     \newrow

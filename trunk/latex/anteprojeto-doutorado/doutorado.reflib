@@ -18,6 +18,14 @@
     <uid>3</uid>
     <name>practice</name>
   </tag>
+  <tag>
+    <uid>4</uid>
+    <name>agile</name>
+  </tag>
+  <tag>
+    <uid>5</uid>
+    <name>experience report</name>
+  </tag>
 </taglist>
 <doclist>
   <doc>
@@ -286,6 +294,43 @@
     <bib_extra key="Isbn">0596001088</bib_extra>
     <bib_extra key="Note">Foreword By-Young, Bob</bib_extra>
     <bib_extra key="publisher">O’Reilly and Associates, Inc.</bib_extra>
+  </doc>
+  <doc>
+    <filename></filename>
+    <relative_filename></relative_filename>
+    <key>mckinney2005</key>
+    <tagged>4</tagged>
+    <bib_type>inproceedings</bib_type>
+    <bib_doi></bib_doi>
+    <bib_title>Affective assessment of team skills in agile CS1 labs: the good, the bad, and the ugly</bib_title>
+    <bib_authors>McKinney, Dawn and Denton, Leo F.</bib_authors>
+    <bib_journal></bib_journal>
+    <bib_volume></bib_volume>
+    <bib_number></bib_number>
+    <bib_pages>465-469</bib_pages>
+    <bib_year>2005</bib_year>
+    <bib_extra key="address">New York, NY, USA</bib_extra>
+    <bib_extra key="booktitle">SIGCSE ’05: Proceedings of the 36th SIGCSE technical symposium on Computer science education</bib_extra>
+    <bib_extra key="Doi">http://doi.acm.org/10.1145/1047344.1047494</bib_extra>
+    <bib_extra key="Isbn">1-58113-997-7</bib_extra>
+    <bib_extra key="Location">St. Louis, Missouri, USA</bib_extra>
+    <bib_extra key="publisher">ACM</bib_extra>
+  </doc>
+  <doc>
+    <filename></filename>
+    <relative_filename></relative_filename>
+    <key>Rising00thescrum</key>
+    <tagged>4</tagged>
+    <tagged>5</tagged>
+    <bib_type>Misc</bib_type>
+    <bib_doi></bib_doi>
+    <bib_title>The Scrum Software Development Process for Small Teams</bib_title>
+    <bib_authors>Rising, Linda and Janoff, Norman S. and Teams, For Small</bib_authors>
+    <bib_journal></bib_journal>
+    <bib_volume></bib_volume>
+    <bib_number></bib_number>
+    <bib_pages></bib_pages>
+    <bib_year>2000</bib_year>
   </doc>
 </doclist>
 </library>
