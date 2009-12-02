@@ -1,4 +1,38 @@
 -----------------------------------------------------------------------------
+25/11/2009
+
+TODO:
+- Estudar distribuição de parâmetros de grafo em redes de software. Plotar box plots.
+- Plotar alguns resultados de clustering. Talvez plotar também distribuição de parâmetros de grafos nas redes sintéticas.
+- Escrever dúvida: como obter uma amostra de redes sintéticas estratificada de acordo com a população de sistema reais? Isto é, que ferramenta faz isso?
+- KNIME:Grouped histogram?
+- Futuro: algoritmos de classificação para tentar prever o melhor algoritmo.
+- Futuro: usar regressão para prever parâmetros de grafo a partir de
+  parâmetros de modelo
+
+= Distribuição de métricas em redes de software =
+Matriz de correlação:
+- Existe uma correlação linear fortíssima entre o número de vértices, o número
+  de arestas e o número de módulos dos sistemas. A primeira correlação
+  confirma as observações de Valverde (2003), mas a correlação do número de
+  módulos foi uma surpresa.
+  Com regressão linear, é possível chegar à seguinte fórmula:
+  n_modules = -0.4842 + 0.0052 * n_vertices
+  Para 1000 vértices, n_modules = 5.15
+- Existe uma correlação negativa forte entre número de
+  vértices/arestas/módulos e o tamanho relativo do maior módulo. Olhando o
+  grafo de dispersão, a conclusão é que apenas em sistemas pequenos ocorre de
+  um módulo dominar.
+Boxplots:
+- Os plots falam por si mesmos
+
+= Distribuição de métricas em redes sintéticas =
+- Nos modelos BCR+ e CGW, apenas redes com 16 módulos foram clusterizadas por
+  todos os algoritmos
+- Falta calcular external_edges das redes do experimento de realismo
+
+
+-----------------------------------------------------------------------------
 09/09/2009
 
 

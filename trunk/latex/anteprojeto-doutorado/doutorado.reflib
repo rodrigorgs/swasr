@@ -319,10 +319,10 @@
   <doc>
     <filename></filename>
     <relative_filename></relative_filename>
-    <key>Rising00thescrum</key>
+    <key>rising2000</key>
     <tagged>4</tagged>
     <tagged>5</tagged>
-    <bib_type>Misc</bib_type>
+    <bib_type>misc</bib_type>
     <bib_doi></bib_doi>
     <bib_title>The Scrum Software Development Process for Small Teams</bib_title>
     <bib_authors>Rising, Linda and Janoff, Norman S. and Teams, For Small</bib_authors>
@@ -331,6 +331,70 @@
     <bib_number></bib_number>
     <bib_pages></bib_pages>
     <bib_year>2000</bib_year>
+  </doc>
+  <doc>
+    <filename></filename>
+    <relative_filename></relative_filename>
+    <key>szulanski1996</key>
+    <tagged>3</tagged>
+    <bib_type>article</bib_type>
+    <bib_doi></bib_doi>
+    <bib_title>Exploring Internal Stickiness: Impediments to the Transfer of Best Practice Within the Firm</bib_title>
+    <bib_authors>Szulanski, Gabriel</bib_authors>
+    <bib_journal>Strategic Management Journal</bib_journal>
+    <bib_volume>17</bib_volume>
+    <bib_number></bib_number>
+    <bib_pages>27-43</bib_pages>
+    <bib_year>1996</bib_year>
+    <bib_extra key="Abstract">The ability to transfer best practices internally is critical to a firm’s ability to build competitive advantage through the appropriation of rents from scarce internal knowledge Just as a firm’s distinctive competencies might be difficult for other firms to imitate, its best practices could be difficult to imitate internally. Yet, little systematic attention has been paid to such internal stickiness. The author analyzes internal stickiness of knowledge transfer and tests the resulting model using canonical correlation analysis of a data set consisting of 271 observations of 122 best-practice transfers in eight companies Contrary to conventional wisdom that blames primarily motivational factors, the study findings show the major barriers to internal knowledge transfer to be knowledge-related factors such as the recipient’s lack of absorptive capacity, causal ambiguity, and an arduous relationship between the source and the recipient.</bib_extra>
+    <bib_extra key="Citeulike-article-id">3078624</bib_extra>
+    <bib_extra key="Citeulike-linkout-0">http://dx.doi.org/10.2307/2486989</bib_extra>
+    <bib_extra key="Citeulike-linkout-1">http://www.jstor.org/stable/2486989</bib_extra>
+    <bib_extra key="Doi">10.2307/2486989</bib_extra>
+    <bib_extra key="Keywords">gss, knowledgetransfer</bib_extra>
+    <bib_extra key="Posted-at">2008-11-04 23:19:54</bib_extra>
+    <bib_extra key="Priority">0</bib_extra>
+    <bib_extra key="Publisher">John Wiley &amp; Sons</bib_extra>
+    <bib_extra key="Url">http://dx.doi.org/10.2307/2486989</bib_extra>
+  </doc>
+  <doc>
+    <filename></filename>
+    <relative_filename></relative_filename>
+    <key>jacobson2007</key>
+    <tagged>3</tagged>
+    <bib_type>article</bib_type>
+    <bib_doi></bib_doi>
+    <bib_title>Enough of Processes- Let&apos;s Do Practices</bib_title>
+    <bib_authors>Jacobson, Ivar</bib_authors>
+    <bib_journal>Requirements Engineering, IEEE International Conference on</bib_journal>
+    <bib_volume>0</bib_volume>
+    <bib_number></bib_number>
+    <bib_pages></bib_pages>
+    <bib_year>2007</bib_year>
+    <bib_extra key="Address">Los Alamitos, CA, USA</bib_extra>
+    <bib_extra key="Doi">http://doi.ieeecomputersociety.org/10.1109/RE.2007.6</bib_extra>
+    <bib_extra key="Issn">1090-705X</bib_extra>
+    <bib_extra key="Publisher">IEEE Computer Society</bib_extra>
+  </doc>
+  <doc>
+    <filename></filename>
+    <relative_filename></relative_filename>
+    <key>michlmayr2005</key>
+    <tagged>2</tagged>
+    <tagged>3</tagged>
+    <bib_type>inproceedings</bib_type>
+    <bib_doi></bib_doi>
+    <bib_title>Software Process Maturity and the Success of Free Software Projects</bib_title>
+    <bib_authors>Michlmayr, Martin</bib_authors>
+    <bib_journal></bib_journal>
+    <bib_volume></bib_volume>
+    <bib_number></bib_number>
+    <bib_pages>3-14</bib_pages>
+    <bib_year>2005</bib_year>
+    <bib_extra key="address">Amsterdam, The Netherlands, The Netherlands</bib_extra>
+    <bib_extra key="booktitle">Proceeding of the 2005 conference on Software Engineering: Evolution and Emerging Technologies</bib_extra>
+    <bib_extra key="Isbn">1-58603-559-2</bib_extra>
+    <bib_extra key="publisher">IOS Press</bib_extra>
   </doc>
 </doclist>
 </library>
