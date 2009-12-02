@@ -227,7 +227,7 @@ class BunchClusterer < Clusterer
       ostream.write(stdout.read)
     end
 
-    #FileUtils.rm_f(path)
+    FileUtils.rm_f(path)
   end  
 end
 
