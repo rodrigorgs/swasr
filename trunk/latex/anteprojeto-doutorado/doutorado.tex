@@ -1,29 +1,17 @@
-% vim: tw=78 encoding=utf8
+% vim: tw=78 encoding=utf8 ts=2 sw=2 expandtab softtabstop=2
 \documentclass{article}
-
-\newcommand{\newrow}{\\\hline}
-\newcommand{\x}{$\bullet$}
 
 \usepackage[utf8]{inputenc}
 \usepackage[brazil]{babel}
-
-\newcommand{\review}[2]{\textcolor{red}{#1}\textcolor{blue}{#2}}
+\usepackage{url}
 
 \title{
-{\small Anteprojeto de Tese de Doutorado}
-\\
+{\small Anteprojeto de Tese de Doutorado} \\
 Sobre a Adoção de Boas Práticas 
 de Desenvolvimento de Software 
-em Projetos de Software Livre
-%Processos de Desenvolvimento em \\
-%Software: Discurso e Prática
-%
-%Processos de Desenvolvimento em \\
-%Projetos de Software Livre
-}
+em Projetos de Software Livre}
 \author{Rodrigo Rocha Gomes e Souza\\
-\texttt{rodrigo@dcc.ufba.br}
-}
+\texttt{rodrigo@dcc.ufba.br}}
 
 \date{Dezembro de 2009}
 
@@ -31,29 +19,18 @@ em Projetos de Software Livre
 
 \sloppy
 \maketitle
-%\newpage
-%\tableofcontents
-%\newpage
 
 % TODO: Agile Practices: http://books.google.com.br/books?hl=pt-BR&lr=&id=9J_0ly01QicC&oi=fnd&pg=PR13&dq=agile+development+assessment&ots=wUzpQHk_03&sig=kM7FGLX3vmn7Z5MxM4RjSn_a99U#v=onepage&q=practices&f=false 
 
-% TODO: transferencia de boas práticas dentro de um projeto de software livre. Ver Szulanski
-% TODO: Ler michlmayr-process_maturity_success 
-
-% TODO: características de projetos: número de downloads, idade
+% transferencia de boas práticas dentro de um projeto de software livre. Ver Szulanski
+% Ler michlmayr-process_maturity_success 
 
 % Anotações da reunião com Christina
 % Semat
-% Procurar trabalhaos de assessment de boas práticas
-% Atividade: divulgação de resultados
+% Procurar trabalhos de assessment de boas práticas
 % Levantar a bolsa pra ser um estudo de larga escala
-% Motivação -> objetivo -> metodologia
 
 % TODO Enough of processes:
-% Imagine we can:
-%  Discover, collect and describe the knowledge of thousands of experienced
-%   practitioners
-%
 % In short, a practice is a proven way of approaching or addressing a problem.
 % It is something that has been done before, can be successfully communicated to
 % others, and can be applied repeatedly producing consistent results.
@@ -67,18 +44,21 @@ em Projetos de Software Livre
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Motivação} % QUAL É O PROBLEMA?
+% contexto, problema, relevância
 
 % CONTEXTO
-A aplicação de boas práticas de desenvolvimento está associada à melhoria na
-qualidade do software produzido \cite{grady1993}. A difusão de boas práticas
-dentro de um projeto é, ainda, uma forma de diminuir a diferença de
-produtividade entre desenvolvedores menos experientes e desenvolvedores mais
-experientes, o que contribui para tornar o processo de desenvolvimento de
-software mais previsível.
-%Há muito se discutem formas de tornar o processo de desenvolvimento de software
-%mais previsível, aumentando a produtividade da equipe e a qualidade do
-%software. Dessa discussão surgiram modelos de processos e cartilhas de boas
-%práticas de desenvolvimento.
+No contexto de desenvolvimento de software, boas práticas são estratégias ou
+atividades que comprovadamente contribuem para o sucesso de um projeto de
+software. A adoção de boas práticas dentro de uma equipe torna-a mais
+competitiva ao equilibrar as diferenças de desempenho entre seus membros. Não
+obstante, a transferência de práticas entre desenvolvedores pode ser
+prejudicada por fatores como falta de motivação ou falta de experiência
+\cite{szulanski1996}.
+
+%A transferência de boas práticas entre
+%desenvolvedores de um projeto é importante para equilibrar diferenças de
+%desempenho entre eles \cite{szulanski1996}. Apesar disso, a transferência pode
+%ser prejudicada por fatores como falta de motivação ou a falta de experiência.
 
 % PROBLEMA QUE EXISTE NO MUNDO Existe uma lacuna entre a teoria e a prática
 % TODO: Melhorar, jogar pra cá alta rotatividade e distribuição heterogênea de
@@ -108,74 +88,18 @@ Essa opção se justifica, no entanto, pela importância que tais softwares
 adquiriram em diversos segmentos.  Um estudo mostrou que, em 2004, mais de 1
 milhão de desenvolvedores no Estados Unidos estavam trabalhando em projetos de
 software livre. Além disso, projetos de software livre dominam o mercado mundial
-de servidores web, servidores de e-mail e servidores de DNS \cite{wheeler2007}.
+de servidores web, servidores de e-mail e servidores DNS \cite{wheeler2007}.
 
-% TODO: desenvolver a ideia
-%Tal descrição permitiria a identificação de dificuldades e limitações na
-%aplicação de processos e práticas, contribuindo para a proposta de processos e
-%práticas mais realistas.
-% Lições práticas a serem estudadas na teoria
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-% TODO: onion-like structure, hierarchical structure, core developers 
-
-%   Processo afeta qualidade do software
-%   Employee turnover is known to be high in the traditional software industry
-% since many years ago. (rotatividade)
-%   Turnover afeta processo?
-
-% Apresentação de Terceiro
-%   Problema
-%   Objetivo
-%   Usar abandono de desenvolvedores como critério de insucesso
-%   Variáveis independentes, dependentes e de contexto
-
-\section{Objetivo}
-
-% http://searchsoftwarequality.techtarget.com/sDefinition/0,,sid92_gci498678,00.html
-% http://tlt-swg.blogspot.com/2006/08/best-practices-defined-usefully-tlt.html
-% TODO: segundo mostra a experiência? que experiência? (christina)
-No contexto de desenvolvimento de software, boas práticas são estratégias ou
-atividades que, segundo mostra a experiência, contribuem para o sucesso de um
-projeto de software. Apesar das vantagens, nem sempre é fácil aplicar boas
-práticas em um projeto de software. % benefícios relatados
-
-O principal objetivo desta pesquisa é entender como a adoção de boas práticas de
-desenvolvimento de software é afetada por variações na forma de organização da
-equipe de desenvolvedores e por características do projeto. Pretende-se assim
-identificar em quais contextos determinadas práticas são efetivamente aplicadas
-e entender os mecanismos que reforçam a adoção de práticas de desenvolvimento de
-software.
-
-A análise será focada nas atividades de implementação, documentação e controle
-de qualidade. Serão investigadas, entre outras, as seguintes práticas:
-
-\begin{itemize}
-%  \item uso de testes de unidade automatizados;
-  \item implementação de testes de unidade automatizados antes da implementação
-  das funcionalidades correspondentes;
-  \item implementação dos testes por pessoas diferentes daquelas que
-  implementam funcionalidades;
-  \item integração contínua das mudanças com o repositório de código-fonte;
-  \item correção de \emph{bugs} antes da implementação de novas funcionalidades;
-  \item posse coletiva de código.
-  % coding standards
-%  \item revisão de código.
-\end{itemize}
-
-% TODO: Mover rotatividade e variabilidade de experiência para motivação?
-% TODO: Falar de centralidades (core developers etc.) antes de falar em
-% rotatividade. Campo de influência de um desenvolvedor hub (concentrador)
 Crowston e Howison \cite{crowston2005} recentemente mostraram que os padrões de
 interação entre desenvolvedores variam bastante de projeto para projeto. Alguns
 projetos são bastante centralizados em um conjunto pequeno de desenvolvedores
 que interagem com boa parte dos demais; outros possuem uma organização mais
 descentralizada, nas quais os desenvolvedores se organizam em grupos bem
 definidos. Não é claro, no entanto, como práticas de desenvolvimento se
-distribuem nessa rede social. O quanto variam as práticas entre diferentes
-grupos de um projeto? 
+distribuem nessa rede social. 
+
+%O quanto variam as práticas entre diferentes
+%grupos de um projeto? 
 
 Sabe-se há muito tempo que é alta a rotatividade de desenvolvedores em empresas
 de software, e pesquisas recentes mostram que o cenário também ocorre em
@@ -183,16 +107,64 @@ projetos de software livre \cite{robles2006}. Enquanto os processos praticados
 por uma empresa são mantidos graças à organização hierárquica de seus
 funcionários, vale a pena investigar como se dá essa manutenção em projetos de
 software livre, especialmente os mais descentralizados, face à saída e à entrada
-de desenvolvedores. Será que, na eventualidade da saída dos desenvolvedores mais
-produtivos de um projeto, os demais desenvolvedores perpetuam as práticas
-aplicadas por seus antecessores? Em que casos a saída de desenvolvedores pode
-causar o abandono de práticas em um projeto?
+de desenvolvedores. 
 
-Pretende-se também estudar diferenças entre as práticas adotadas por projetos
-com características distintas. Características de projetos a serem estudadas
-incluem grau de centralização, número de desenvolvedores e tamanho do software.
-Esse estudo poderá levar a conclusões do tipo ``a prática \emph{X} não é
-escalável: ela raramente é usada em projetos de grande porte''. 
+\section{Objetivo}
+
+O principal objetivo desta pesquisa é entender como a adoção de boas práticas
+em um projeto de software é afetada pela evolução de aspectos ligados ao
+processo, ao produto e à organização de desenvolvedores do projeto.
+Pretende-se assim identificar em quais contextos determinadas práticas são
+efetivamente aplicadas e entender os mecanismos que reforçam a adoção de
+práticas de desenvolvimento de software.
+
+Os seguintes aspectos do processo, do produto e da organização social de cada
+projeto serão investigados:
+\begin{itemize}
+  \item idade do projeto;
+  \item tamanho do software;
+  \item número de desenvolvedores;
+  \item número de downloads do software;
+  \item atividade em listas de discussão;
+  \item concentração do esforço de codificação em um grupo pequeno de
+desenvolvedores.
+\end{itemize}
+
+% tirei documentação
+A análise será focada nas atividades de implementação e controle de qualidade.
+Serão investigadas, entre outras, as seguintes práticas:
+\begin{itemize}
+%  \item uso de testes de unidade automatizados;
+  \item implementação de testes de unidade automatizados antes da implementação
+  de funcionalidades;
+  \item implementação dos testes por pessoas diferentes daquelas que
+  implementam funcionalidades;
+  \item correção de \emph{bugs} antes da implementação de novas funcionalidades;
+  \item integração contínua das mudanças com o repositório de código-fonte;
+  \item posse coletiva de código.
+  % coding standards
+%  \item revisão de código.
+\end{itemize}
+
+Espera-se, com este trabalho, chegar a respostas para questões de pesquisa
+como as que se seguem:
+
+\begin{itemize}
+  \item A adoção de boas práticas é afetada pelo tamanho da equipe? Quais
+práticas são mais afetadas?
+  \item A adoção de práticas é mais uniforme em projetos mais centralizados?
+  \item Existe relação entre a adoção de práticas e o perfil de um
+desenvolvedor? Por exemplo, será que desenvolvedores que participam ativamente
+de listas de discussão do projeto tendem a seguir mais boas práticas?
+  \item A saída de desenvolvedores de um projeto prejudica a adoção de boas
+práticas?
+\end{itemize}
+
+%Pretende-se também estudar diferenças entre as práticas adotadas por projetos
+%com características distintas. Características de projetos a serem estudadas
+%incluem grau de centralização, número de desenvolvedores e tamanho do software.
+%Esse estudo poderá levar a conclusões do tipo ``a prática \emph{X} não é
+%escalável: ela raramente é usada em projetos de grande porte''. 
 
 %Em especial, as seguintes questões merecem FURTHER investigação:
 %Ao investigar a resposta dessas questões em diversos projetos ao longo do
@@ -239,17 +211,30 @@ estudo de uma amostra significativa de projetos de software livre.
 A seleção da amostra de projetos será feita com base em informações como número
 de desenvolvedores e tamanho do software. Serão extraídos dados de repositórios
 de controle de versão, sistemas de acompanhamento de \emph{bugs} e listas de
-discussão.  Ferramentas de análise estática de código serão usadas para extrair
-relações entre os diversos componentes de um sistema de software.
+discussão.
+%Ferramentas de análise estática de código serão usadas para extrair
+%relações entre os diversos componentes de um sistema de software.
 
 %Os projetos de software e seus desenvolvedores serão caracterizados com base em
 %métricas de redes sociais, como centralidade \cite{crowston2005}, e de outras
 %métricas aplicadas em estudos sobre software livre \cite{
 
+Características como idade do projeto e número de downloads poderão ser
+obtidas de repositórios de projetos de software livre, tais como o
+SourceForge.net. Segundo dados
+oficiais\footnote{\url{http://sourceforge.net/about}}, em fevereiro deste ano
+o repositório contava com cerca de 230 mil projetos registrados.
+
 A identificação das práticas adotadas por um projeto será feita a partir do uso
 de técnicas de mineração de processos \cite{rubin2007} sobre o histórico dos
 dados extraídos do projeto. Tais técnicas têm como finalidade extrair modelos de
 processos a partir de dados temporais.
+
+% TODO: Newman2003: The Structure and Function of Complex Networks
+A organização social dos desenvolvedores será estudada através de técnicas de
+análise de redes sociais \cite{newman2003}. Essas técnicas permitirão
+investigar aspectos como a transferência e a concentração de trabalho entre
+desenvolvedores.
 
 Para responder às questões de pesquisa, serão usados métodos de análise
 exploratória de dados e inferência estatística, relacionando características de
@@ -262,32 +247,36 @@ resultados obtidos em estudos de caso.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Proposta de Cronograma}
+\newcommand{\newrow}{\\\hline}
+\newcommand{\x}{$\bullet$}
 
 As seguintes atividades serão realizados durante este projeto, de acordo com os
 prazos indicados na Tabela \ref{tab:cronograma}:
 
 \begin{enumerate}
   \item \label{prevista:estudos}
-    \textbf{Revisão bibliográfica}. Serão lidos textos sobre engenharia de software
-    experimental, processos e práticas de desenvolvimento de software,
-    desenvolvimento de software livre, mineração de processos e estatística,
-    entre outros. Ao final será produzido um resumo dos tópicos mais relevantes.
-  \item \label{prevista:artigos}
-    \textbf{Divulgação científica}.
+    \textbf{revisão bibliográfica};
+    %Serão lidos textos sobre engenharia de software
+    %experimental, processos e práticas de desenvolvimento de software,
+    %desenvolvimento de software livre, mineração de processos e estatística,
+    %entre outros. Ao final será produzido um resumo dos tópicos mais relevantes.
 %    Produção de artigos. Os artigos serão submetidos para veículos de publicação
 %    a serem definidos.
 %  \item \label{prevista:qualificacao}
 %    \textbf{Realização do exame de qualificação}.
 %  \item \label{prevista:proposta}
 %    \textbf{Defesa da proposta de tese}.
+  \item \label{prevista:preliminares}
+    \textbf{planejamento e execução de estudos empíricos preliminares};
   \item \label{prevista:experimentos}
-    \textbf{Planejamento e execução de experimentos}. Espera-se produzir pelo menos dois
-    artigos: um com resultados preliminares e outro com os resultados finais dos
-    experimentos.
+    \textbf{execução de estudos empíricos completos e análise dos resultados};
+    %Espera-se produzir pelo menos dois
+    %artigos: um com resultados preliminares e outro com os resultados finais dos
+    %experimentos.
+  \item \label{prevista:artigos}
+    \textbf{divulgação científica};
   \item \label{prevista:redacao}
-    \textbf{Redação da tese}.
-  \item \label{prevista:defesa}
-    \textbf{Defesa da tese}.
+    \textbf{redação e defesa da tese}.
 \end{enumerate}
 
 \begin{table}[h]
@@ -295,13 +284,10 @@ prazos indicados na Tabela \ref{tab:cronograma}:
   \begin{tabular}{|c|c|c|c|c|c|c|c|c|} \hline
     Atividade                   & 2010.1 & 2010.2 & 2011.1 & 2011.2  & 2012.1 & 2012.2  & 2013.1 & 2013.2 \newrow
     \ref{prevista:estudos}      & \x     & \x     & \x     &         &        &         &        &        \newrow
-%    \ref{prevista:projeto}      &        &        &        &         &        &         &        &        \newrow
-%    \ref{prevista:artigos}      &        &        &        & \x      &        & \x      &        &        \newrow
-%    \ref{prevista:qualificacao} &        &        & \x     &         &        &         &        &        \newrow
-%    \ref{prevista:proposta}     &        &        &        & \x      &        &         &        &        \newrow
-    \ref{prevista:experimentos} &        &        &        & \x      & \x     & \x      &        &        \newrow
+    \ref{prevista:preliminares} &        &        & \x     & \x      &        &         &        &        \newrow
+    \ref{prevista:experimentos} &        &        &        &         & \x     & \x      &        &        \newrow
+    \ref{prevista:artigos}      &        &        &        & \x      &        & \x      &        &        \newrow
     \ref{prevista:redacao}      &        &        &        &         &        & \x      & \x     & \x     \newrow
-    \ref{prevista:defesa}       &        &        &        &         &        &         &        & \x     \newrow
   \end{tabular}
  \caption{Proposta de Cronograma de Atividades}
  \label{tab:cronograma}
