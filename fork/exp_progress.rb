@@ -40,10 +40,10 @@ def base(table, column, where='1=1')
     t0 = t[-interval]
     t1 = t[-1]
     vel = ((t1[1] - t0[1]).to_f / (t1[0] - t0[0]).to_f).abs
-    time_remaining = count / vel
+    time_remaining = count / vel if (vel > 0)
   end
 
-  puts "#{count} #{table}.#{column}, vel = %.2f, remaining: #{Time.at(time_remaining).gmtime.strftime('%R:%S')}" % [vel]
+  puts "#{count} #{table}.#{column}, vel = %.2f, remaining: #{Time.at(time_remaining).gmtime.strftime('%U dias %R:%S')}" % [vel]
 
 Time.at(7683).gmtime.strftime('%R:%S')
 
@@ -56,21 +56,14 @@ end
 #end
 
 if __FILE__ == $0
+  where = 'fk_dataset = 1 AND s_score >= 0.88 AND ref_n_external_edges <= 0.5 * n_edges AND n_vertices = 1000'
   while true
-    #report 'networks_to_synthesize'
-    #report 'decompositions_to_compute'
-    #report 'mojos_to_compute'
-    #report 'purities_to_compute'
-    #report 'nmis_to_compute'
-    #report 'decompositions_without_metrics'
-    #report 'base', :network, :n_vertices
-    #report 'base', :network, :sum_indegree
-    #report 'base', :triads, :triad1
-    #report 'base', :network, :arc
     #base(:network, :arc)
     #base(:decomposition, :mod)
     #base(:triads, :triad1)
-    base(:network, :s_score)
+    #base(:network, :s_score)
+    #base(:view_decomposition, :mod, where)
+    base(:view_decomposition, :mojo, where)
     puts
     sleep 5
   end

@@ -921,7 +921,7 @@ if __FILE__ == $0
   exp = ClusteringExperiment.new
   ###########################exp.drop_all_tables
   #exp.create_tables
-  exp.create_views
+  #exp.create_views
   #exp.create_additional_columns
   #exp.create_initial_values
 
@@ -931,16 +931,21 @@ if __FILE__ == $0
 
   puts '## Now you can start this script in another network node ##'
   
-  filter = Proc.new { |ds| ds.and(:fk_dataset => 1) }
+  filter = Proc.new do |ds| 
+    ds.and(:fk_dataset => 1)
+    .and('s_score >= 0.88')
+    .and('ref_n_external_edges <= 0.5 * n_edges')
+    .and(:n_vertices => 1000)
+  end
 
-  #exp.generate_missing_networks
-  exp.compute_missing_network_metrics(&filter)
-  exp.compute_missing_decompositions(&filter)
-  exp.compute_missing_decomposition_metrics(&filter)
+  ##exp.generate_missing_networks
+  #exp.compute_missing_network_metrics(&filter)
   exp.compute_missing_mojos(&filter)
-  #exp.compute_missing_purities
-  #exp.compute_missing_nmis
+  exp.compute_missing_decomposition_metrics(&filter)
+  exp.compute_missing_decompositions(&filter)
+  ##exp.compute_missing_purities
+  ##exp.compute_missing_nmis
   
-  exp.compute_missing_triads(&filter)
-  exp.compute_missing_s_scores(&filter)
+  #exp.compute_missing_triads(&filter)
+  #exp.compute_missing_s_scores(&filter)
 end
