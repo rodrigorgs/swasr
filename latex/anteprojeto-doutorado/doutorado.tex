@@ -52,54 +52,47 @@ em Projetos de Software Livre}
 % CONTEXTO
 No contexto de desenvolvimento de software, boas práticas são estratégias ou
 atividades que comprovadamente contribuem para o sucesso de um projeto de
-software. A aplicação de boas práticas dentro de uma equipe torna-a mais
-competitiva ao equilibrar as diferenças de desempenho entre seus membros. 
-
-A adoção bem sucedida de uma prática deve envolver toda ou boa parte da equipe.
-Não obstante, a transferência de práticas entre desenvolvedores pode ser
-prejudicada por diversos fatores \cite{szulanski1996}.
-%, tais como falta de motivação ou falta de
-%experiência 
+software \cite{jacobson2007}. A aplicação de boas práticas dentro de uma equipe
+torna-a mais competitiva ao equilibrar as diferenças de desempenho entre seus
+membros.  Não obstante, a transferência de práticas entre desenvolvedores pode
+ser prejudicada por diversos fatores, como falta de motivação ou de experiência
+\cite{szulanski1996}.
+%, tais como falta de motivação ou falta de experiência 
 
 Projetos de software livre são tipicamente caracterizados pela participação de
-voluntários com diferentes níveis de envolvimento, o que é um fator dificulta a
-transferência de práticas na equipe. Outro fator é a alta rotatividade de
-desenvolvedores \cite{robles2006}. Além disso, comparado a projetos
-desenvolvidos por empresas, projetos de software livre geralmente possuem uma
-estrutura de controle menos centralizada \cite{raymond2001}, o que reforça a
-importância da coordenação e da comunicação entre desenvolvedores na propagação
-de boas práticas.
+voluntários com diferentes níveis de envolvimento, o que é um fator que
+potencialmente dificulta a transferência de práticas na equipe. Outro fator é a
+alta rotatividade de desenvolvedores \cite{robles2006}. Além disso, comparado a
+projetos desenvolvidos por empresas, projetos de software livre geralmente
+possuem uma estrutura de controle menos centralizada \cite{raymond2001}, o que
+reforça a importância da coordenação e da comunicação entre desenvolvedores na
+propagação de boas práticas.
 
-Crowston e Howison \cite{crowston2005} recentemente mostraram que os padrões de
-interação entre desenvolvedores variam bastante de projeto para projeto. Alguns
-projetos são bastante centralizados em um conjunto pequeno de desenvolvedores
-que interagem com boa parte dos demais; outros possuem uma organização mais
-descentralizada, nas quais os desenvolvedores se organizam em grupos bem
-definidos. Não é claro, no entanto, como práticas de desenvolvimento se
-distribuem nessa rede social. 
+Projetos de software livre têm adquirido importância em diversos segmentos. Um
+estudo mostrou que, em 2004, mais de 1 milhão de desenvolvedores no Estados
+Unidos estavam trabalhando em projetos de software livre. Além disso, projetos
+de software livre dominam o mercado mundial de servidores web, servidores de
+e-mail e servidores DNS \cite{wheeler2007}.
 
-%A compreensão dos fatores que influenciam a adoção e a transferência de boas
-%práticas é, portanto, estudo de uma prática de desenvolvimento. 
+%Crowston e Howison \cite{crowston2005} recentemente mostraram que os padrões de
+%interação entre desenvolvedores variam bastante de projeto para projeto. Alguns
+%projetos são bastante centralizados em um conjunto pequeno de desenvolvedores
+%que interagem com boa parte dos demais; outros possuem uma organização mais
+%descentralizada, nas quais os desenvolvedores se organizam em grupos bem
+%definidos. 
+
+%Dada a importância de projetos de software livre e o papel da disseminação de
+%boas práticas para o sucesso de um projeto, é 
+
 Infelizmente, a maior parte do conhecimento disponível sobre os fatores que
-influenciam a adoção de práticas é proveniente de observações isoladas e estudos
-de caso \cite{crowston2005}. Essas observações, embora de grande valia, são
-essencialmente tendenciosas. Uma compreensão mais abrangente dos fatores é
-necessária para que se tomem medidas mais efetivas para a adoção de boas
-práticas.
-
-%A escolha feita nesta pesquisa de estudar projetos de software livre certamente
-%limita a generalidade dos resultados, uma vez que a organização desses projetos
-%em geral é diferente da organização de projetos comerciais \cite{raymond2001}.
-A opção por estudar projetos de software livre se justifica pela importância que
-tais softwares adquiriram em diversos segmentos. Um estudo mostrou que, em 2004,
-mais de 1 milhão de desenvolvedores no Estados Unidos estavam trabalhando em
-projetos de software livre. Além disso, projetos de software livre dominam o
-mercado mundial de servidores web, servidores de e-mail e servidores DNS
-\cite{wheeler2007}.
+influenciam a adoção de práticas em projetos de software livre é proveniente de
+observações isoladas e estudos de caso \cite{crowston2005}. Essas observações,
+embora de grande valia, são essencialmente tendenciosas. Uma compreensão mais
+abrangente dos fatores é necessária para que se tomem medidas mais efetivas para
+a adoção de boas práticas. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 
 \section{Objetivo}
 
@@ -149,32 +142,12 @@ práticas são mais afetadas?
 desenvolvedor? Por exemplo, será que desenvolvedores que participam ativamente
 de listas de discussão do projeto tendem a seguir mais boas práticas?
   \item A saída de desenvolvedores de um projeto prejudica a adoção de boas
-práticas?
+práticas? De que forma?
 \end{itemize}
 
-%Pretende-se também estudar diferenças entre as práticas adotadas por projetos
-%com características distintas. Características de projetos a serem estudadas
-%incluem grau de centralização, número de desenvolvedores e tamanho do software.
-%Esse estudo poderá levar a conclusões do tipo ``a prática \emph{X} não é
-%escalável: ela raramente é usada em projetos de grande porte''. 
-
-%Em especial, as seguintes questões merecem FURTHER investigação:
-%Ao investigar a resposta dessas questões em diversos projetos ao longo do
-%tempo, se pretende chegar a respostas para as seguintes questões de pesquisa:
-%\begin{itemize}
-%  \item Em que condições a entrada e a saída de desenvolvedores de um projeto afeta o seu processo de desenvolvimento?
-%  \item Existem diferenças nos processos aplicados por desenvolvedores com diversos níveis de envolvimento com o projeto?
-%  \item Qual é o papel dos desenvolvedores mais envolvidos com um projeto na manutenção de seu processo de desenvolvimento?
-%  \item Os subprojetos de um projeto compartilham um mesmo processo?
-%***  \item Quais práticas são mais difundidas em projetos de software livre? Quais são menos difundidas?
-%  \item Como se diferenciam os processos de projetos bem sucedidos e os processos de projetos que foram descontinuados?
-%  \item Dentre os projetos mais bem sucedidos, de que forma os processos se diferenciam?
-%  \item Como os processos se alteram nos diversos estágios do desenvolvimento de uma versão do software (alfa, beta, candidata a lançamento, em manutenção)?
-%***  \item Existem práticas que são comumente aplicadas em conjunto?
-%  \item Os projetos que dizem seguir um modelo de processo estão de fato aplicando as práticas associadas a ele?
-%\end{itemize}
-
-
+O conhecimento produzido por esta pesquisa poderá ser usado para se adquirir
+maior controle sobre as práticas adotadas em um projeto, tornando o seu
+desenvolvimento mais previsível.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -182,6 +155,7 @@ práticas?
 \section{Metodologia}
 
 % TODO: projeto piloto, estudo exploratório preliminar
+% TODO: SourceForge.
 
 % VIABILIDADE DO ESTUDO
 %   Por que software livre? Porque há dados!
@@ -189,40 +163,36 @@ práticas?
 % em média os processos de sw livre são diferentes de processos de empresas. Mas
 % não diminui a importância do estudo, pois sw livre é muito importante!
 
-Muitos projetos de software livre tornam disponíveis publicamente alguns
-artefatos produzidos durante o processo de desenvolvimento de software. Esses
-artefatos incluem código-fonte e documentação mantidos em sistemas de controle
-de versão, bem como relatórios de \emph{bugs} e mensagens de e-mail trocadas
-entre desenvolvedores. 
+Pretende-se estudar projetos de software livre hospedados no repositório
+SourceForge.net, que abriga cerca de 230 mil
+projetos\footnote{\url{http://sourceforge.net/about}}. O SourceForge.net
+disponibiliza publicamente, para cada projeto, informações sobre o número de
+\emph{downloads} e idade do projeto, além de sistema de controle de versão,
+sistema de rastreamento de \emph{bugs} e listas de discussão. 
 
 A grande disponibilidade de dados relacionados ao desenvolvimento favorece a
 realização de estudos em larga escala. Nesta pesquisa serão utilizados
 predominantemente métodos quantitativos de análise de dados para viabilizar o
-estudo de uma amostra significativa de projetos de software livre.
+estudo de uma amostra significativa de projetos de software livre. Espera-se
+assim obter conclusões generalizáveis sobre o uso de boas práticas em projetos
+de software livre.
 
-A seleção da amostra de projetos será feita com base em informações como número
-de desenvolvedores e tamanho do software. Serão extraídos dados de repositórios
-de controle de versão, sistemas de acompanhamento de \emph{bugs} e listas de
-discussão.
-%Ferramentas de análise estática de código serão usadas para extrair
-%relações entre os diversos componentes de um sistema de software.
+A princípio serão realizados estudos de caso com um pequeno conjunto de
+sistemas, em caráter exploratório, a fim de se adquirir familiaridade com as
+informações disponíveis e com ferramentas de extração e análise de dados. As
+questões de pesquisa serão refinadas de acordo com observações realizadas nessa
+etapa.
 
-%Os projetos de software e seus desenvolvedores serão caracterizados com base em
-%métricas de redes sociais, como centralidade \cite{crowston2005}, e de outras
-%métricas aplicadas em estudos sobre software livre \cite{
-
-Características como idade do projeto e número de downloads poderão ser
-obtidas de repositórios de projetos de software livre, tais como o
-SourceForge.net. Segundo dados
-oficiais\footnote{\url{http://sourceforge.net/about}}, em fevereiro deste ano
-o repositório contava com cerca de 230 mil projetos registrados.
+A seguir será realizado um estudo em larga escala, considerando uma amostra de
+projetos estratificada de acordo com dados como número de desenvolvedores e
+tamanho do software. Serão extraídos dados de repositórios de controle de
+versão, sistemas de acompanhamento de \emph{bugs} e listas de discussão.
 
 A identificação das práticas adotadas por um projeto será feita a partir do uso
 de técnicas de mineração de processos \cite{rubin2007} sobre o histórico dos
 dados extraídos do projeto. Tais técnicas têm como finalidade extrair modelos de
 processos a partir de dados temporais.
 
-% TODO: Newman2003: The Structure and Function of Complex Networks
 A organização social dos desenvolvedores será estudada através de técnicas de
 análise de redes sociais \cite{newman2003}. Essas técnicas permitirão
 investigar aspectos como a transferência e a concentração de trabalho entre
@@ -248,23 +218,10 @@ prazos indicados na Tabela \ref{tab:cronograma}:
 \begin{enumerate}
   \item \label{prevista:estudos}
     \textbf{revisão bibliográfica};
-    %Serão lidos textos sobre engenharia de software
-    %experimental, processos e práticas de desenvolvimento de software,
-    %desenvolvimento de software livre, mineração de processos e estatística,
-    %entre outros. Ao final será produzido um resumo dos tópicos mais relevantes.
-%    Produção de artigos. Os artigos serão submetidos para veículos de publicação
-%    a serem definidos.
-%  \item \label{prevista:qualificacao}
-%    \textbf{Realização do exame de qualificação}.
-%  \item \label{prevista:proposta}
-%    \textbf{Defesa da proposta de tese}.
   \item \label{prevista:preliminares}
-    \textbf{planejamento e execução de estudos empíricos preliminares};
+    \textbf{realização de estudos de caso};
   \item \label{prevista:experimentos}
-    \textbf{execução de estudos empíricos completos e análise dos resultados};
-    %Espera-se produzir pelo menos dois
-    %artigos: um com resultados preliminares e outro com os resultados finais dos
-    %experimentos.
+    \textbf{realização de um estudos em larga escala};
   \item \label{prevista:artigos}
     \textbf{divulgação científica};
   \item \label{prevista:redacao}
