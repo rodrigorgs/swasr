@@ -412,5 +412,24 @@
     <bib_pages>167-256</bib_pages>
     <bib_year>2003</bib_year>
   </doc>
+  <doc>
+    <filename></filename>
+    <relative_filename></relative_filename>
+    <key>nerur2005</key>
+    <tagged>4</tagged>
+    <bib_type>article</bib_type>
+    <bib_doi></bib_doi>
+    <bib_title>Challenges of migrating to agile methodologies</bib_title>
+    <bib_authors>Nerur, Sridhar and Mahapatra, RadhaKanta and Mangalaraj, George</bib_authors>
+    <bib_journal>Commun. ACM</bib_journal>
+    <bib_volume>48</bib_volume>
+    <bib_number>5</bib_number>
+    <bib_pages>72-78</bib_pages>
+    <bib_year>2005</bib_year>
+    <bib_extra key="Address">New York, NY, USA</bib_extra>
+    <bib_extra key="Doi">http://doi.acm.org/10.1145/1060710.1060712</bib_extra>
+    <bib_extra key="Issn">0001-0782</bib_extra>
+    <bib_extra key="Publisher">ACM</bib_extra>
+  </doc>
 </doclist>
 </library>
