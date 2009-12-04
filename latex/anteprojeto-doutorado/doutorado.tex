@@ -22,24 +22,6 @@ em Projetos de Software Livre}
 
 % TODO: Agile Practices: http://books.google.com.br/books?hl=pt-BR&lr=&id=9J_0ly01QicC&oi=fnd&pg=PR13&dq=agile+development+assessment&ots=wUzpQHk_03&sig=kM7FGLX3vmn7Z5MxM4RjSn_a99U#v=onepage&q=practices&f=false 
 
-% transferencia de boas práticas dentro de um projeto de software livre. Ver Szulanski
-% Ler michlmayr-process_maturity_success 
-
-% Anotações da reunião com Christina
-% Semat
-% Procurar trabalhos de assessment de boas práticas
-% Levantar a bola pra ser um estudo de larga escala
-
-% TODO Enough of processes:
-% In short, a practice is a proven way of approaching or addressing a problem.
-% It is something that has been done before, can be successfully communicated to
-% others, and can be applied repeatedly producing consistent results.
-
-% TODO: Citações a incluir:
-% \cite{szulanski1996}
-% \cite{jacobson2007}
-% \cite{michlmayr2005}
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -52,12 +34,16 @@ em Projetos de Software Livre}
 % CONTEXTO
 No contexto de desenvolvimento de software, boas práticas são estratégias ou
 atividades que comprovadamente contribuem para o sucesso de um projeto de
-software \cite{jacobson2007}. A aplicação de boas práticas dentro de uma equipe
-torna-a mais competitiva ao equilibrar as diferenças de desempenho entre seus
-membros.  Não obstante, a transferência de práticas entre desenvolvedores pode
-ser prejudicada por diversos fatores, como falta de motivação ou de experiência
+software. Existem centenas de boas práticas documentadas, muitas delas
+associadas a processos de desenvolvimento, tais como RUP e XP
+\cite{jacobson2007}. Exemplos de práticas incluem integração contínua de
+mudanças e o uso de testes de unidade automatizados.
+
+A aplicação de boas práticas dentro de uma equipe torna-a mais competitiva ao
+equilibrar as diferenças de desempenho entre seus membros.  Não obstante, a
+transferência de práticas entre desenvolvedores pode ser prejudicada por
+diversos fatores, como falta de motivação ou de experiência
 \cite{szulanski1996}.
-%, tais como falta de motivação ou falta de experiência 
 
 Projetos de software livre são tipicamente caracterizados pela participação de
 voluntários com diferentes níveis de envolvimento, o que é um fator que
@@ -65,57 +51,56 @@ potencialmente dificulta a transferência de práticas na equipe. Outro fator é
 alta rotatividade de desenvolvedores \cite{robles2006}. Além disso, comparado a
 projetos desenvolvidos por empresas, projetos de software livre geralmente
 possuem uma estrutura de controle menos centralizada \cite{raymond2001}, o que
-reforça a importância da coordenação e da comunicação entre desenvolvedores na
-propagação de boas práticas.
+reforça a importância de interações entre desenvolvedores na propagação de boas
+práticas.
 
-Projetos de software livre têm adquirido importância em diversos segmentos. Um
-estudo mostrou que, em 2004, mais de 1 milhão de desenvolvedores no Estados
-Unidos estavam trabalhando em projetos de software livre. Além disso, projetos
-de software livre dominam o mercado mundial de servidores web, servidores de
-e-mail e servidores DNS \cite{wheeler2007}.
+A estrutura social de uma equipe é composta de indivíduos, suas ações e suas
+interações \cite{crowston2005}. Para entender a disseminação de práticas, é
+preciso entender aspectos como o tamanho e a tendência de crescimento dos número
+de desenvolvedores; a distribuição de trabalho e o grau de especialização dos
+membros do projeto; a comunicação e a transferência de trabalho entre
+desenvolvedores.
 
-%Crowston e Howison \cite{crowston2005} recentemente mostraram que os padrões de
-%interação entre desenvolvedores variam bastante de projeto para projeto. Alguns
-%projetos são bastante centralizados em um conjunto pequeno de desenvolvedores
-%que interagem com boa parte dos demais; outros possuem uma organização mais
-%descentralizada, nas quais os desenvolvedores se organizam em grupos bem
-%definidos. 
+A maioria dos estudos sobre o desenvolvimento de software livre foca a produção
+de código-fonte, e apenas alguns investigam a interação entre desenvolvedores
+\cite{crowston2005}. Dentre estes últimos, a maior parte consiste de estudos de
+caso. Mockus et al. \cite{mockus2002}, por exemplo, estudaram os projetos Apache
+e Mozilla e caracterizaram a distribuição do esforço de codificação e de relato
+de \emph{bugs} entre participantes dos projetos. Uma das conclusões do estudo é
+que o número de pessoas que reportam \emph{bugs} é uma ordem de magnitude maior
+do que o número de pessoas que reparam \emph{bugs}. Mas o quão generalizável é
+essa observação?
 
-%Dada a importância de projetos de software livre e o papel da disseminação de
-%boas práticas para o sucesso de um projeto, é 
+Segundo Crowston e Howison \cite{crowston2005}, a falta de estudos em larga
+escala, envolvendo múltiplos projetos, reflete ``o estágio inicial desse tipo de
+pesquisa, a complexidade do fenômeno e a dificuldade de se obter dados
+comparáveis de projetos diferentes''.
 
-Infelizmente, a maior parte do conhecimento disponível sobre os fatores que
-influenciam a adoção de práticas em projetos de software livre é proveniente de
-observações isoladas e estudos de caso \cite{crowston2005}. Essas observações,
-embora de grande valia, são essencialmente tendenciosas. Uma compreensão mais
-abrangente dos fatores é necessária para que se tomem medidas mais efetivas para
-a adoção de boas práticas. 
+% TODO: mineração de processos
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Objetivo}
 
-O principal objetivo desta pesquisa é entender como a adoção de boas práticas
-em um projeto de software é afetada pela evolução de aspectos ligados ao
-processo, ao produto e à organização de desenvolvedores do projeto.
-Pretende-se assim identificar em quais contextos determinadas práticas são
-efetivamente aplicadas e entender os mecanismos que reforçam a adoção de
-práticas de desenvolvimento de software.
+O principal objetivo desta pesquisa é entender como a adoção de boas práticas em
+um projeto de software é afetada pela evolução da estrutura social e de outras
+características do projeto. Pretende-se assim identificar em quais contextos
+determinadas práticas são efetivamente aplicadas e entender os mecanismos que
+reforçam a adoção de práticas de desenvolvimento de software.
 
-Os seguintes aspectos do processo, do produto e da organização social de cada
-projeto serão investigados:
+Serão investigadas, entre outras, os seguintes aspectos de projetos de software
+livre:
 \begin{itemize}
   \item idade do projeto;
   \item tamanho do software;
   \item número de desenvolvedores;
   \item número de downloads do software;
   \item atividade em listas de discussão;
-  \item concentração do esforço de codificação em um grupo pequeno de
-desenvolvedores.
+  \item atividade em sistemas de acompanhamento de \emph{bugs};
+  \item distribuição do esforço de codificação entre desenvolvedores.
 \end{itemize}
 
-% tirei documentação
 A análise será focada nas atividades de implementação e controle de qualidade.
 Serão investigadas, entre outras, as seguintes práticas:
 \begin{itemize}
@@ -136,18 +121,23 @@ como as que se seguem:
 
 \begin{itemize}
   \item A adoção de boas práticas é afetada pelo tamanho da equipe? Quais
-práticas são mais afetadas?
-  \item A adoção de práticas é mais uniforme em projetos mais centralizados?
+práticas são mais afetadas? Existem evidências de que certas práticas
+preconizadas por métodos ágeis são difíceis de se aplicar em equipes grandes
+\cite{nerur2005}.
+  \item A adoção de práticas é mais uniforme em projetos mais centralizados? Uma
+resposta positiva a esta questão pode sugerir que é importante buscar formas de
+centralizar o desenvolvimento de projetos de software.
   \item Existe relação entre a adoção de práticas e o perfil de um
 desenvolvedor? Por exemplo, será que desenvolvedores que participam ativamente
 de listas de discussão do projeto tendem a seguir mais boas práticas?
   \item A saída de desenvolvedores de um projeto prejudica a adoção de boas
-práticas? De que forma?
+práticas? De que forma? Que estratégias para perpetuar boas práticas face à
+saída de desenvovledores têm se mostrado bem sucedidas?
 \end{itemize}
 
-O conhecimento produzido por esta pesquisa poderá ser usado para se adquirir
-maior controle sobre as práticas adotadas em um projeto, tornando o seu
-desenvolvimento mais previsível.
+%O conhecimento produzido por esta pesquisa poderá ser usado para se adquirir
+%maior controle sobre as práticas adotadas em um projeto, tornando o seu
+%desenvolvimento mais previsível.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -163,12 +153,20 @@ desenvolvimento mais previsível.
 % em média os processos de sw livre são diferentes de processos de empresas. Mas
 % não diminui a importância do estudo, pois sw livre é muito importante!
 
+% Atividade 1
+Em primeiro lugar será feita uma revisão sistemática de tópicos como engenharia
+de software experimental, processos e práticas de desenvolvimento de software,
+desenvolvimento de software livre, mineração de processos e estatística, entre
+outros. Os objetivos são a identificação de trabalhos correlatos e abordagens
+complementares, bem como a familiarização com técnicas que poderão ser usadas na
+pesquisa.
+
 Pretende-se estudar projetos de software livre hospedados no repositório
 SourceForge.net, que abriga cerca de 230 mil
 projetos\footnote{\url{http://sourceforge.net/about}}. O SourceForge.net
 disponibiliza publicamente, para cada projeto, informações sobre o número de
 \emph{downloads} e idade do projeto, além de sistema de controle de versão,
-sistema de rastreamento de \emph{bugs} e listas de discussão. 
+sistema de acompanhamento de \emph{bugs} e listas de discussão. 
 
 A grande disponibilidade de dados relacionados ao desenvolvimento favorece a
 realização de estudos em larga escala. Nesta pesquisa serão utilizados
@@ -177,26 +175,31 @@ estudo de uma amostra significativa de projetos de software livre. Espera-se
 assim obter conclusões generalizáveis sobre o uso de boas práticas em projetos
 de software livre.
 
+% Atividade 2
 A princípio serão realizados estudos de caso com um pequeno conjunto de
 sistemas, em caráter exploratório, a fim de se adquirir familiaridade com as
 informações disponíveis e com ferramentas de extração e análise de dados. As
 questões de pesquisa serão refinadas de acordo com observações realizadas nessa
 etapa.
 
+% Atividade 3
 A seguir será realizado um estudo em larga escala, considerando uma amostra de
 projetos estratificada de acordo com dados como número de desenvolvedores e
 tamanho do software. Serão extraídos dados de repositórios de controle de
 versão, sistemas de acompanhamento de \emph{bugs} e listas de discussão.
 
 A identificação das práticas adotadas por um projeto será feita a partir do uso
-de técnicas de mineração de processos \cite{rubin2007} sobre o histórico dos
+de técnicas de mineração de processos \cite{aalst2004} sobre o histórico dos
 dados extraídos do projeto. Tais técnicas têm como finalidade extrair modelos de
-processos a partir de dados temporais.
+processos a partir de dados temporais e já foram aplicadas em estudos sobre as
+atividades realizadas durante o desenvolvimento de sistemas de software
+\cite{rubin2007}.
 
 A organização social dos desenvolvedores será estudada através de técnicas de
-análise de redes sociais \cite{newman2003}. Essas técnicas permitirão
-investigar aspectos como a transferência e a concentração de trabalho entre
-desenvolvedores.
+análise de redes sociais \cite{newman2003}. Essas técnicas já foram aplicadas
+com sucesso em estudos anteriores \cite{crowston2005} e permitem investigar
+aspectos como a transferência e a concentração de trabalho entre
+desenvolvedores. 
 
 Para responder às questões de pesquisa, serão usados métodos de análise
 exploratória de dados e inferência estatística, relacionando características de
@@ -204,6 +207,12 @@ projetos e de desenvolvedores, o histórico de desenvolvimento e a aplicação d
 boas práticas. A partir dos resultados da análise poderão ser realizadas
 investigações mais aprofundadas sobre projetos selecionados e comparações com
 resultados obtidos em estudos de caso.
+
+% Atividade 4
+Pretende-se divulgar a pesquisa através da publicação de artigos em congressos
+ou periódicos. Estão previstos pelo menos dois artigos: o primeiro com
+resultados do estudo de caso e o segundo com resultados do estudo em larga
+escala.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
