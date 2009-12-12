@@ -121,14 +121,16 @@ AND min_indegree IS NOT NULL
 -- O melhor algoritmo em cada caso
 --
 -- http://stackoverflow.com/questions/612231/sql-select-rows-with-maxcolumn-value-distinct-by-another-column
-SELECT DISTINCT dec.fk_network, dec.n_edges, ref.n_modules, dec.nme_clusterer_config, dec.mojo
+--
+SELECT dec.pk_network, dec.n_vertices, dec.n_edges, dec.max_indegree, 
+  dec.ref_n_modules, dec.ref_max_module_size, dec.ref_n_external_edges, 
+  dec.nme_model, dec.nme_clusterer_config, dec.mojosim
 FROM view_decomposition dec
 INNER JOIN (
   SELECT x.fk_network, MIN(x.mojo) AS min_mojo
   FROM view_decomposition x
   WHERE NOT reference
   GROUP BY 1) grdec ON dec.fk_network = grdec.fk_network AND dec.mojo = grdec.min_mojo
-INNER JOIN decomposition ref ON ref.fk_network = dec.fk_network
 WHERE dec.fk_network IN (
     /* redes sintéticas realistas totalmente clusterizadas */
     SELECT pk_network
@@ -138,3 +140,19 @@ WHERE dec.fk_network IN (
     GROUP BY 1
     HAVING COUNT(*) >= 8
     )
+
+--
+-- Em que casos todos os algoritmos se dão mal?
+-- Ou seja, em quais redes o maior mojosim ainda é pequeno?
+-- E em quais redes todos os algoritmos se dão bem?
+--
+SELECT pk_network, n_vertices, n_edges, max_indegree, 
+  ref_n_modules, ref_max_module_size, ref_n_external_edges, 
+  MAX(mojosim) AS max_mojosim, MIN(mojosim) AS min_mojosim
+FROM view_decomposition dec
+WHERE NOT reference
+AND fk_dataset = 1
+GROUP BY 1, 2, 3, 4, 5, 6, 7
+HAVING MAX(mojosim) IS NOT NULL
+  AND MIN(mojosim) IS NOT NULL
+
