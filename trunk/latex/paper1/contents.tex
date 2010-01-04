@@ -1,113 +1,48 @@
 \newcommand{\din}[0]{\ensuremath{\delta_{in}}}
 \newcommand{\dout}[0]{\ensuremath{\delta_{out}}}
 
-%   ok: abstract
-%   ok: say that we use DIRECTED GRAPHS
-% TODO: review
-
-% DEPENDENCY ANALYSIS
-%
-% component dependency isn't a good description...
-% reference?
-% usage?
-
-% Martin Fowler
-%
-%   Coupling also occurs when code in one
-%module uses code from another, perhaps by
-%calling a function or accessing some data. 
-%   When I use the term dependency, I use it as
-%defined in the Unified Modeling Language
-%(UML). So, the UI module depends on the do-
-%main module if any code in the UI module ref-
-%erences any code in the domain model - by
-%calling a function, using some data, 
-%or using types defined in the domain module
-%
-% A dependency is unidirectional
-
-%A dependency is a semantic relationship where a change to the influent or
-%independent modeling element may affect the semantics of the dependent
-%modeling element. http://en.wikipedia.org/wiki/Dependency_(UML)
-
-% Neeraj Sangal
-% Dependencies are extracted from the code by a conventional static analysis
-%
-% Ao falar de dependências, cita
-%   Designing Software for Ease of Extension and Contraction
-%
-%The LDM tool uses a standard notion of dependency, in which a
-%module A depends on a module B if there are explicit references
-%in A to syntactic elements of B. Currently, a module is a Java
-%class, but a more fine-grained analysis is possible. This simple but
-%effective notion of dependency works well for understanding
-%design dependencies, in which modifications to one module might
-%affect another. It is less well suited to determining runtime
-%properties (such as how failures can propagate between modules),
-%which require a deeper static analysis.
-%
-%---------
-%
-% Parnas
-%
-% A uses B if correct execution of B may be necessary for A to complete the
-% task described in its specification.
-%
-% A uses B if there exist situations in which the correct functioning of A
-% depends upon the availability of a correct implementation of B.
-%
-% "Uses" can also be formulated as "requires the presence of a correct version
-% of".
-%
-% Uses vs. invokes
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Introduction} \label{sec:introduction}
 
-%   I want less time, so I hire more programmers
-%   Thee project can consume more time, due to comunication costs between
-% programmers.
-%   Unless there is a good division of tasks
-%
-% (needn't be large)
-
 Large software systems need to be decomposed in modules in order to be
 effectively maintained by groups of developers working concurrently. Software
-clustering algorithms
-\cite{Mancoridis1998,Anquetil1999,Tzerpos2000,Andritsos2005}, also known as
-architecture recovery algorithms, find suitable decompositions by analyzing the
-dependencies between components in a software system (e.g., classes in
-object-oriented systems) and then grouping together highly interdependent
-components. 
+clustering algorithms \cite{Anquetil1999}, also known as architecture recovery
+algorithms, find suitable decompositions by analyzing the dependencies between
+components in a software system (e.g., classes in object-oriented systems) and
+then grouping together highly interdependent components.
 
-Although many software clustering algorithms have been proposed, there is little
-empirical evaluation regarding the external quality of the decompositions they
-find. One important test for a software clustering algorithm is to apply it to a
-collection of software systems with known reference decompositions made by
-experienced developers \cite{Anquetil1999}. It is expected that a good algorithm
-finds decompositions that are similar to reference decompositions, which can be
-measured by a similarity metric such as MoJo \cite{Tzerpos1999} or EdgeSim
-\cite{Mitchell2001}.
+Although many software clustering algorithms have been proposed, there is
+little empirical evaluation regarding the external quality of the
+decompositions they find. One important test for a software clustering
+algorithm is to apply it to a collection of software systems with known
+reference decompositions made by experienced developers \cite{Anquetil1999}. It
+is expected that a good algorithm finds decompositions that are similar to
+reference decompositions, which can be measured by a similarity metric such as
+MoJo or EdgeSim \cite{Mitchell2001}.
 
 Unfortunately, there are few publicly available reference decompositions
-\cite{Koschke2000} and, as a result, there are few studies that compare software
-clustering algorithms. Also, because it is costly to obtain reference
-decompositions for large systems, most studies test the algorithms with a couple
-of small and medium systems \cite{Anquetil1999,Maqbool2007,Bittencourt2009}.
+\cite{Anquetil1999} and, as a result, there are few studies that compare
+software clustering algorithms. Also, because it is costly to obtain reference
+decompositions for large systems, most studies test the algorithms with a
+couple of small and medium systems \cite{Anquetil1999,Bittencourt2009}.
 
 An alternative approach is to run the algorithms on synthetic, i.e., computer-
-generated, component dependency networks with built-in reference decompositions.
-This approach enables one to test algorithms with arbitrarily large samples in a
-controlled manner. Nevertheless, this approach is often overlooked, mainly
-because networks synthesized by naive random network models are very dissimilar
-from real component dependency networks.
+generated, component dependency networks with built-in reference
+decompositions. This approach enables one to test algorithms with arbitrarily
+large samples in a controlled manner. Nevertheless, this approach is often
+overlooked, mainly because networks synthesized by naive random network models
+are very dissimilar from real component dependency networks.
 
-In this paper, we present three recently proposed network models and show
-empirically that they are capable of synthesizing networks that resemble
-software component dependency networks. We limit our analysis to networks of
-static dependencies between classes in object-oriented systems written in Java.
+In this paper, we show that three recently proposed network models are capable
+of synthesizing networks that resemble software component dependency networks.
+For the sake of simplicity, we limit our analysis to networks of static
+dependencies between classes in object-oriented systems written in Java.
 
-The paper is organized as follows: Section \ref{sec:models} presents three
-network models.
+The paper is organized as follows: Section \ref{sec:models} summarizes main
+characteristics of the three network models.
 %
 Section \ref{sec:characterization} demonstrates a method to tell if a network
 resembles a software component dependency network.
@@ -118,204 +53,35 @@ networks that resemble software component dependency networks.
 Section \ref{sec:conclusion} discusses the impact of this research and future
 work.
 
-%  \begin{figure*}[!t]
-%  \centering
-%  \includegraphics[width=1.0\textwidth]{diagram}
-%  \caption{Evaluation of a software clustering recovery algorithm}
-%  \label{fig:diagram}
-%  \end{figure*}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Network Models} \label{sec:models} 
 
 Network theory studies general properties of many types of networks by using
-statistical analysis. In the last decade, remarkable similarities have been
-found in networks arising from domains as diverse as sociology, biology,
-technology, and linguistics. It has been shown that, in many networks, the
-distribution of vertex degrees is a power law, i.e., the number of vertices
-connected to $k$ edges is proportional to $k^{-\gamma}$, where $\gamma$ is a
-positive constant. Networks that share this property are called scale-free
-networks \cite{Barabasi1999}.
-
-Network theory has been applied to class dependency networks, represented as
-directed unweighted graphs, and it was shown that they are also scale-free
-\cite{Myers2003,Valverde2002}. Thus, the study of the structure of
+statistical analysis. Of special interest are the so called scale-free
+networks, i.e., networks with a highly heterogeneous distribution of the number
+of edges per vertex. Scale-free networks have been found in many domains,
+including sociology, biology, technology, linguistics, and software. It has
+been found that class dependency networks, represented as directed unweighted
+graphs, are scale-free \cite{Myers2003}. Thus, the study of the structure of
 object-oriented software systems can benefit from the vast literature available
-about scale-free networks. 
+about scale-free networks.
 
 Scale-free network models are algorithms that can be proven, either formally or
-empirically, to synthesize networks that are scale-free. In this section we
-present three models that synthesize scale-free networks with built-in modular
-decompositions: BCR+, CGW, and LF. The networks are represented as directed
+empirically, to synthesize networks that are scale-free. Although many
+scale-free network models have been proposed, we were able to find in the
+literature only two network models with built-in modules: CGW \cite{Chen2008}
+and LFR \cite{Lancichinetti2009}. Also, we adapted a simple and flexible model,
+BCR \cite{Bollobas2003}, to produce modules. We called the new model BCR+.
+
+The networks generated by the three models are represented as directed
 unweighted graphs with modules, which makes them suitable for testing software
-clustering algorithms.
-
-% directed unweighted graphs
-
-%\subsection{ER (Erdos-Renyi)}
-%\subsection{Configuration model} %XXX consider using with the most typical sw
-
-\subsection{BCR+}
-
-The BCR model \cite{Bollobas2003} synthesizes directed scale-free networks
-without modules. We have developed an extension to this model, called BCR+, that
-adds modules to the construction of the network. The BCR+ model accepts the
-following parameters:
-
-\begin{itemize}
-\item number of vertices, $n$;
-\item a directed graph of modules, $G$;
-\item three probabilities, $p_1$, $p_2$, and $p_3$, summing to 1;
-\item constant $\mu$, with $0 \le \mu \le 1$;
-\item base in-degree, $\din$;
-\item base out-degree, $\dout$.
-\end{itemize}
-
-The graph $G$ contains one vertex for each module that will be created and
-determines a ``supply'' relationship between modules. We say that module $M_2$
-is a supplier of module $M_1$ if, and only if, $G$ contains an edge from $M_1$
-to $M_2$.  
-
-Networks generated by the model can contain both internal edges and external
-edges. An internal edge connects two vertices in the same module. An external
-edge connects vertices in distinct modules. In this model, an external edge from
-a vertex $v_1 \in M_1$ to a vertex $v_2 \in M_2$ is only allowed if $M_2$ is a
-supplier of $M_1$.
-
-The parameter $\mu$ controls the proportion of external edges in the network.
-Lower values of $\mu$ lead to networks with fewer external edges. 
-%and, therefore, to weakly coupled modules.
-
-First the model creates a network in which each module contains exactly one
-vertex. Then all allowed external edges are added. Finally, the networks is
-modified by sucessive choices between three operations that add vertices or
-edges to the network, until it reaches $n$ vertices. Each time, the probability
-of choosing the $i$-th operation is $p_i$.
-
-Before describing the operations, some definitions are needed. The expression
-in-degree($x$) means the number of edges that enter the vertex $x$;
-out-degree($x$), likewise, is the number of edges that leave vertex $x$. The
-expression ``to choose a vertex according to f(x)'' means that the probability
-of choosing a vertex $x$ is given by the following probability function:
-
-$$
-  \mathrm{P}(x) ~=~ \frac{ \mathrm{f}(x) }
-  { \displaystyle\sum_{i} \mathrm{f}(i) }
-$$
-
-(the denominator is a normalizing factor, so the sum of probabilities is 1).
-
-The three operations are described next:
-
-\begin{enumerate}
-
-\item \emph{Adding a vertex with an outgoing edge}. An existing vertex, $w$, is
-chosen according to $\mathrm{f}(x) = \din + \mathrm{in\mbox{-}degree}(x)$. A new
-vertex, $v$, is added to the module of $w$, together with an edge from $v$ to
-$w$.
-
-\item \emph{Adding a vertex with an ingoing edge}. An existing vertex, $w$, is
-chosen according to $\mathrm{f}(x) = \dout + \mathrm{out\mbox{-}degree}(x)$. A
-new vertex, $v$, is added to the module of $w$, together with an edge from $w$
-to $v$.
-
-\item \emph{Adding an edge between existing vertices}. A vertex, $v$, is choosen
-from the network according to $\mathrm{f}(x) = \dout +
-\mathrm{out\mbox{-}degree}(x)$.  Then an edge is added from vertex $v$ to an
-existing vertex $w$, which is chosen according to one of the following cases:
-
-\begin{enumerate}
-  \item with probability $\mu$, $w$ is chosen among vertices in modules that are
-  suppliers of the module of $v$;
-  \item with probability $1 - \mu$, $w$ is chosen among vertices in that same
-  module as $v$.
-\end{enumerate}
-
-\end{enumerate}
-
-It is easy to see that nodes with high in-degree are more likely to receive new
-ingoing edges. The parameter $\din$ can reduce this bias by providing a base
-in-degree that is applied to all vertices when computing the probabilities.
-Consider two vertices, $v_1$ with in-degree 4, and $v_2$ with in-degree 8. If
-$\din = 0$, $v_2$ is twice more likely to receive a new incoming edge; if,
-otherwise, $\din = 4$, $v_2$ is only $\frac{3}{2}$ more likely to receive the
-edge. The same reasoning applies to $\dout$.
-
-The BCR+ model is a growth model, meaning that the network is created vertex by
-vertex, growing from an initial network. It can, therefore, simulate the
-evolution of a software system. Moreover, it can simulate the evolution of a
-software system subject to constraints in module interaction, as is the case
-with top-down system design methodologies.
-
-%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*
-
-\subsection{CGW}
-
-The CGW model \cite{Chen2008} was proposed to model the evolution of software
-systems organized in modules. It accepts the following parameters:
-
-\begin{itemize}
-\item number of vertices, $n$;
-\item number of modules, $m$;
-\item probabilities $p_1, p_2, p_3, p_4$, summing to 1;
-\item natural numbers $e_1, e_2, e_3, e_4$;
-\item constant $\alpha$, with $\alpha \ge -1$.
-\end{itemize}
-
-Because the model is described in detail in the original paper, only an
-intuitive notion of the meaning of the parameters is provided here. This model
-is similar to BCR+ in which it grows an initial network by sucessive
-applications of operations. In this case, there are four operations, which are
-chosen according to probabilities $p_1$, $p_2$, $p_3$, and $p_4$: 
-
-\begin{enumerate}
-\item adding a vertex with $e_1$ outgoing edges; 
-\item adding $e_2$ edges;
-\item rewiring $e_3$ edges;
-\item removing $e_4$ randomly chosen edges.
-\end{enumerate}
-
-The constant $\alpha$ controls the proportion of edges that connect vertices
-from distinct modules. For $\alpha = -1$, most edges will connect distinct
-modules. For $\alpha > 0$, most edges will connect vertices in the same module,
-and the greater the $\alpha$, the stronger the tendency. For $\alpha = 0$ there
-is no bias, the two kinds of edges are equaly likely.
-
-%Unlike BCR+, this model does not allow constraints on the connection between
-%modules, however it accounts for the rewiring and the removal of edges. 
-
-%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*%*
-
-\subsection{LF}
-
-The LF model \cite{Lancichinetti2009} is a very flexible model that can
-generate weighted directed networks with overlapping modules, that is, in which
-a vertex can belong to more than one module. Unlike the previous models, this is
-not a growth model: all vertices are generated at once and then the edges are
-added.
-
-There is also a special version of the model in which the edge weights are
-discarded and the modules do not overlap. We used the original implementation of
-this version, available at
-\url{http://santo.fortunato.googlepages.com/inthepress2}. It accepts the
-following parameters:
-
-\begin{itemize}
-\item number of nodes, $n$;
-\item average in-degree, $k$, with $k < n$;
-\item maximum in-degree, $max_k$, with $k \le max_k < n$;
-\item mixing parameter, $\mu$, with $0 \le \mu \le 1$;
-\item minus exponent for the degree distribution, $\gamma$;
-\item minus exponent for the module size distribution, $\beta$;
-\item minimum module size, $min_m$;
-\item maximum module size, $max_m$, with $max_m \ge min_m$;
-\end{itemize}
-
-The sizes of the modules are selected from a power law distribution with
-exponent $-\beta$. The mixing parameter, $\mu$, is the proportion of edges in the
-network that connect vertices from distinct modules. In this model, some
-combinations of parameter values are unfeasible. For example, if $n = 100$ then
-$min_m$ cannot be 60 (otherwise there would be modules smaller than the minimum
-module size).
+clustering algorithms. All models are controllable by a set of parameters,
+including number of vertices and number of modules. Parameters specific to each
+model influence network characteristics such as number of edges and proportion
+of external edges (edges connecting vertices from distinct modules).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -332,22 +98,22 @@ synthesize networks that are similar to software networks. A central issue,
 thus, is how to measure similarity between networks.
 
 We already know that the models synthesize networks that, just like software
-networks, are scale-free. This single property, though, is insufficient to prove
-the hypothesis, since many known scale-free networks are not software networks
-(e.g., biologic networks). Therefore, the similarity metric should be able to
-distinguish between software and non-software networks.
+networks, are scale-free. This single property, though, is insufficient to
+prove the hypothesis, since many known scale-free networks are not software
+networks (e.g., biologic networks). Therefore, the similarity metric should be
+able to distinguish between software and non-software networks.
 
-In this section we present a similarity metric and validate it by appplying it
+In this section we present a similarity metric and validate it by applying it
 to a data set containing both software and non-software networks. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Similarity Between Networks}
 
-In a recent work, Milo et al. \cite{Milo2002} proposed to characterize networks
-by analyzing their triad concentration. A triad is a network with three vertices
-in which all vertices are connected. There are only 13 distinct triads, one for
-each possible configuration of directed edges, as shown in Figure
-\ref{fig:triads}.
+In a recent work, Milo et al. \cite{Milo2004} proposed to characterize networks
+by analyzing their triad concentration. A triad is a network with three
+vertices in which all vertices are connected. There are only 13 distinct
+triads, one for each possible configuration of directed edges, as shown in
+Figure \ref{fig:triads}.
 
 \begin{figure}[t]
 \centering
@@ -367,14 +133,14 @@ the TCP for networks from two distinct domains.
 \center
 \includegraphics{tcp}
 \caption{Triad concentration profiles (TCP) for two networks. On the left,
-network extracted from the software system JabRef (see the Appendix). On the
+network extracted from the software system JabRef, version 2.5b2. On the
 right, word adjacency network for the Japanese language \cite{Milo2004}.}
 \label{fig:profiles}
 \end{figure}
 
-Following another work by Milo et al. \cite{Milo2004}, similarity between two
-networks can be measured by computing Pearson's correlation coefficient between
-the corresponding TCPs, which yields a value between -1 (most dissimilar) and 1
+Following the work by Milo et al. \cite{Milo2004}, similarity between two
+networks is measured by computing Pearson's correlation coefficient between the
+corresponding TCPs, which yields a value between -1 (most dissimilar) and 1
 (most similar):
 
 $$
@@ -389,18 +155,19 @@ network $x$, and cor($x$, $y$) is Pearson's correlation coefficient.
 \subsection{Data Set}
 
 To support the evaluation of the metric, we have collected 131 networks from
-many different domains. The networks are described in detail in the Appendix.
+many different domains. The networks are described in detail at
+\url{http://bit.ly/7DPW5X}.
 
 \subsubsection{Software networks} We have collected 65 software systems written
-in Java, with size ranging from 111 to 35,363 classes. Java was chosen for being
-a popular programming language in which many open source systems have been
-written. The software networks, representing static dependencies between
-classes, were extracted with the tool Dependency Finder\footnote{Available at
-\url{http://depfind.sf.net}.}.
+in Java, with size ranging from 111 to 35,363 classes. Java was chosen for
+being a popular programming language in which many open source systems have
+been written. The software networks, representing static dependencies between
+classes, were extracted with the tool Dependency Finder
+(\url{http://depfind.sf.net}).
 
 \subsubsection{Non-software networks} We have collected 66 networks from
 distinct domains, such as biology, sociology, technology, and linguistics, with
-size ranging from 32 to 18163 vertices. These networks are freely available on
+size ranging from 32 to 18,163 vertices. These networks are freely available on
 the Internet and have been previously studied in the literature.
 % S-score
 
@@ -410,7 +177,7 @@ the Internet and have been previously studied in the literature.
 %In order to evaluate the similarity metric, we measured the similarity between
 %the networks in the data set. 
 
-For the purposes of this research, a similarity metric must fullfil two
+For the purposes of this research, a similarity metric must fulfill two
 conditions: (i) it must yield high similarity between software networks, and
 (ii) it must yield lower similarity between software networks and networks from
 other domains.
@@ -426,32 +193,30 @@ $$
 $$
 
 where $S$ is the set of sample software networks, and $|S|$ is the number of
-networks in $S$. In this work we use the full software data set consisting of 65
-software networks as our sample.
+networks in $S$. In this work we use the full software data set consisting of
+65 software networks as our sample.
 
-We used the tool igraph \cite{igraph} to extract the TCP for each network in the
-data set. Then, we measured the S-score for each software network, which ranged
-from 0.83 to 0.98. The average S-score was 0.97 and the standard deviation,
-0.03. The high average S-score and the low standard deviation show that the
-metric successfully characterizes software networks by capturing their common
-structural patterns.
-
-%TODO: Boxplot by network class (software, metabolic, neural, social etc.)
+We used the tool igraph (\url{http://igraph.sf.net/}) to extract the TCP for
+each network in the data set. Then, we measured the S-score for each software
+network, which ranged from 0.83 to 0.98. The average S-score was 0.97 and the
+standard deviation, 0.03. The high average S-score and the low standard
+deviation show that the metric successfully characterizes software networks by
+capturing their common structural patterns.
 
 Then we measured the S-score for each non-software network. The majority of the
-networks (97.0\%) had a S-score lower than 0.83, which is the lowest S-score for
-software networks in the sample. Some networks, e.g., the friendship networks
-between students, showed negative S-score, meaning that they are very different
-from software networks.
+networks (97.0\%) had a S-score lower than 0.83, which is the lowest S-score
+for software networks in the sample. Some networks, e.g., the friendship
+networks between students, showed negative S-score, meaning that they are very
+different from software networks.
 
-Two networks, though, showed high S-score: the network of links between blogs on
-politics, with S-score 0.97, and the neural network of the worm C. Elegans, with
-S-score 0.88. Further investigation is needed in order to discover the reasons
-behind the high values and whether auxiliary metrics can differentiate these
-networks from software networks.
+Two networks, though, showed high S-score: the network of links between blogs
+on politics, with S-score 0.97, and the neural network of the worm C. Elegans,
+with S-score 0.88. Further investigation is needed in order to discover the
+reasons behind the high values and whether auxiliary metrics can differentiate
+these networks from software networks.
 
 \subsection{A Network Classification Model} \label{sec:classmodel}
-
+% TODO: shorten this subsection
 Although the S-score of a network tells how close it is from software networks,
 it does not tell whether a network is close enough that it can be considered
 software-like. What is needed is a binary classification model that
@@ -485,26 +250,22 @@ classified as software-like.
 
 The choice of a proper threshold, thus, depends on whether it is more important
 to have high precision or high recall. Because our research hypothesis is that
-networks synthesized by the presented models are software-like, higher precision
-means a stronger test, as fewer networks are classified as software-like.
+networks synthesized by the presented models are software-like, higher
+precision means a stronger test, as fewer networks are classified as
+software-like.
 
 To get 100\% precision, the threshold needs to be 0.98, so the non-software
 network with highest S-score is below the threshold. The recall in this case,
-though, would be too low, because most software networks would be misclassified.
-So we chose the value 0.88, that is immediatly above the second greater S-score
-for a non-software network. With this value, we have both high recall (95.4\%)
-and high precision (96.9\%).
-
-%threshold 0.88: 2/66 non-sw misclassified, 3/65 sw misclassified
-%precision: 62 / 64
-%recall: 62 / 65
+though, would be too low, because most software networks would be
+misclassified. So we chose the value 0.88, that is immediately above the second
+greater S-score for a non-software network. With this value, we have both high
+recall (95.4\%) and high precision (96.9\%).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Evaluation of Network Models} \label{sec:evaluation}
-% v.  differentiate, differ; distinguish; contrast; discern 
 
 In the previous section it was shown that many networks, although scale-free,
 can be distinguished from software networks by a simple classification model
@@ -512,91 +273,19 @@ based on triad concentration profiles. In this section we show empirically that
 the three network models previously presented can synthesize networks that are
 indistinguishable from software networks. The experiment consists of
 synthesizing networks using many combinations of parameters from the three
-models, and then classifying each network as software-like or non software-like.
-%After that, we present rules for the choice of parameter values that lead to
-%software-like networks.  \subsection{Synthetic Data Set}
-%
-%We want to investigate if, with a proper choice of parameters, a model is
-%capable of synthesizing a network that resembles software networks. 
+models, and then classifying each network as software-like or non
+software-like. 
+
 Because the possible combinations of parameter values are infinite, we have set
 the number of vertices to 1000 and then varied the remaining parameters in
-discrete steps.
-%In this section we describe the combinations of parameters values used for each
-%model.
-
-\subsection{BCR+ networks}
-
-We have chosen five different module graphs, which where extracted from actual
-dependencies between Java archives distributed with five different software
-systems of our sample: GEF (2 archives), iBATIS (4 archives), MegaMek (8
-archives), findbugs (16 archives), and zk (32 archives). Because many of these
-archives are intended to be reused in distinct projects, they provide a good
-coarse-grained approximation to the concept of module.
-
-%The module dependency networks are shown on Figure \ref{fig:architectures}.
-%\begin{figure*}[!t] \centering
-%\includegraphics[width=1.0\textwidth]{architectures} \caption{Module dependency
-%graphs} \label{fig:architectures} \end{figure*}
-
-For the remaining parameters, the following values were chosen:
-
-\begin{itemize}
-\item $p_1, p_2, p_3 \in \{0.0, 0.2, 0.4, 0.6, 0.8, 1.0\}$, with $p + q + r = 1$ and
-$p + q > 0$;
-\item $\din, \dout \in \{0, 1, 2, 3, 4\}$;
-\item $\mu \in \{0.0, 0.2, 0.4, 0.6\}$.
-\end{itemize}
-
-We chose $p + q > 0$ because otherwise no node would be added to the initial
-network. We also avoided large values for $\mu$ in order to ignore networks with
-strongly coupled modules. 
-
-In total, 9,500 BCR+ networks were synthesized.
-
-\subsection{CGW networks}
-
-The parameters values were chosen as such:
-
-\begin{itemize}
-\item $p1, p2, p3, p4 \in \{0.0, 0.2, 0.4, 0.6, 0.8, 1.0\}$, with $p1 > 0$ and
-$p1 + p2 + p3 + p4 = 1$;
-\item $e1, e2, e3, e4 \in \{1, 2, 4, 8\}$;
-\item $\alpha \in \{-1, 0, 1, 10, 100, 1000\}$;
-\item number of modules: $m \in \{2, 4, 8, 16, 32\}$.
-\end{itemize}
-
-Note that $e_i$ has no effect when $p_i = 0$; in this case $e_i$ was just set to
-zero.
-
-In total, 38,790 CGW networks were synthesized.
-
-\subsection{LF networks}
-
-The following values were chosen:
-
-\begin{itemize}
-  \item mixing parameter: $\mu \in \{0.0, 0.2, 0.4, 0.6\}$;
-  \item degree exponent distribution: $\gamma \in \{2.18, 2.70, 3.35\}$;
-  \item module size distribution: $\beta \in \{0.76, 0.99, 1.58\}$;
-  \item average degree: $k \in \{5, 10, 15, 25\}$;
-  \item maximum degree: $max_k \in \{58, 157, 482\}$;
-  \item minimum module size: $min_m \in \{1, 10, 273\}$.
-\end{itemize}
-
-In order to choose these values, we analyzed software networks from our sample
-with approximately 500 to 2,000 nodes, so no network was much bigger or much
-smaller than the synthetic networks. We computed the exponents for the degree
-and module size distributions using the maximum likelihood estimation method
-\cite{Clauset2007}, and then chose the minimum, median and maximum values. For
-$k$, $maxk$, and $min_m$, the values extracted from the software networks were
-divided by the number of nodes in the network and then multiplied by 1000. We
-then selected the minimum, median and maximum values. The parameter $max_m$ was
-left unbound to avoid impossible combinations of parameters.
-
-In total, 1,296 LF networks where synthesized.
+discrete steps. The number of modules varied between 2, 4, 8, 16, and 32. For
+each of the remaining model-specific parameters, at least 3 values were chosen.
+These values were chosen either to cover the domain for the parameter or, when
+the domain was infinite, were tuned to approximate characteristics networks in
+the software network data set. In total, 9,500 networks were generated by the
+BCR+ model, 38,790 by the CGW model, and 1,296 by the LFR model.
 
 \subsection{Results}
-% This subsection needn't to be big. It's just numbers.
 
 Each synthesized network was classified as software-like or non software-like,
 using the classification model presented in section \ref{sec:classmodel}. The
@@ -614,7 +303,7 @@ BCR+ & 21.18\% \\ % 2012 / 9500
 \hline
 CGW  & 19.40\% \\  % 7524 / 38790
 \hline
-LF   & 31.25\% \\ %  405 / 1296
+LFR  & 31.25\% \\ %  405 / 1296
 \hline
 \end{tabular}
 \label{tab:results}
@@ -622,22 +311,10 @@ LF   & 31.25\% \\ %  405 / 1296
 
 All models synthesized both software-like and non software-like networks. The
 proportion of software-like networks was greater than 19\% for all models,
-discarding the possibility that this result was obtained by pure chance.
-
-%Show some graphs: histogram of average correlations for each model.
-%\ref{fig:histograms}
-%\begin{figure*}[!t]
-%\center
-%
-%\subfigure[CGW]{\includegraphics[width=1.0in]{hist-cgw}}
-%
-%\subfigure[BCR+]{\includegraphics[width=1.0in]{hist-bcr}}
-%
-%\subfigure[LF]{\includegraphics[width=1.0in]{hist-lf}}
-%
-%\caption{Triad profiles}
-%\label{fig:histograms}
-%\end{figure*}
+discarding the possibility that this result was obtained by pure chance. (The
+specific proportion of software-like networks for each network should not be
+interpreted as a measure of quality: with these results we cannot tell whether
+one model is better than the others.)
 
 Of course, this result is of little practical value unless there is a
 relationship between parameter values and S-score. For the purpose of this
@@ -646,14 +323,14 @@ software-like networks.
 
 The algorithm 1R \cite{OneR} from machine learning was used to help discover
 such relationship. It analyzes the parameters and the classification of each
-network and finds a rule that relates the value of one single parameter with the
-classification. Such rules can be evaluated according to their accuracy, i.e.,
-the proportion of networks that are correctly classified. The rules found by 1R
-are shown in Table \ref{tab:rules}.
+network and finds a rule that relates the value of a single parameter with the
+classification (software/non-software). Such rules can be evaluated according
+to their accuracy, i.e., the proportion of networks that are correctly
+classified. The rules found by 1R are shown in Table \ref{tab:rules}.
 
 \begin{table}
 \caption{Rules for predicting the classification of a synthetic network. S
-stands for software-like and N stands for non software like.}
+stands for software-like and N stands for non software like; $\alpha$, $p_1$, and $\gamma$ are parameters.}
 \centering
 \begin{tabular}{|l|l|l|}
 \hline
@@ -661,14 +338,14 @@ Model & Rule & Accuracy \\
 \hline 
 \hline
 \multirow{2}{*}{BCR+}
-     & $p_1 \ge 0.7 \Rightarrow S$ & \multirow{2}{*}{82.4\%}  \\ 
-     & $p_1 < 0.7 \Rightarrow N$ & \\ 
+     & $\alpha \ge 0.7 \Rightarrow S$ & \multirow{2}{*}{82.4\%}  \\ 
+     & $\alpha < 0.7 \Rightarrow N$ & \\ 
 \hline
 \multirow{2}{*}{CGW}
      & $p_1 \ge 0.5 \Rightarrow S$ & \multirow{2}{*}{82.3\%} \\  
      & $p_1 < 0.5 \Rightarrow N$ & \\  
 \hline
-\multirow{2}{*}{LF}   
+\multirow{2}{*}{LFR}   
      & $\gamma < 2.44 \Rightarrow S$ & \multirow{2}{*}{78.9\%} \\ 
      & $\gamma \ge 2.44 \Rightarrow N$ & \\ 
 \hline
@@ -678,48 +355,10 @@ Model & Rule & Accuracy \\
 
 The rules are very simple and, thus, easy to follow. Despite their simplicity,
 they have high accuracy, approximately 80\% for all models.  
-%These rules allow one to know if a particular combination of parameter values
-%is likely to lead to software-like networks.
 
-%\subsection{Parameter-Based Classification Models}
-%
-%1R
-
-%Naive Bayes
-
-%\subsection{Homogeinity}
-%
-%Pick realistic networks from a model. Are they similar to each other? (see
-%standard deviation) In other words: do the parameters make a difference?
-%
-%Are they similar to networks generated by the other models? In other words: are
-%the models equivalent?
-
-%\section{Threats to validity}
-%
-%% External validity (EV): can it be generalized?
-%
-%%Structural information isn't enough for a expert do produce a
-%%decomposition (s/he may use data such as names and external documentation). 
-%%
-%%Even when considering only structural information, is it true
-%%that experts would find a decomposition similar to the reference decomposition
-%%imposed by the model?
-%
-%We generated only one network for each set of parameters. (as we've shown, some
-%parameters are redundant as they do not change significantly the realism)
-%
-%Some clustering algorithms use weights and they weren't studied here.
-%
-%EV: We've only studied 65 systems, which is not that much.
-%
-%We only studied object-oriented systems implemented in Java. Maybe the results
-%would be different if we studied systems implement in other languagens or using
-%other paradigms. The choice of a particular technique for extracting
-%dependencies (static analysis) may also have impact on the structure of the
-%networks.
-%
-%% Koschke says that experts decompositions vary by no more than 80? percent.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Conclusion and Future Work} \label{sec:conclusion}
 % revised 2009-09-03
@@ -730,126 +369,24 @@ classes in object-oriented systems. This result supports the use of synthetic
 networks in the evaluation of software clustering algorithms.
 %that operate on class dependency networks. 
 
-The use of synthetic data is common in distributed computing research, but still
-underexplored in software engineering research. Because many reverse engineering
-tasks rely on dependency data \cite{Tonella2007}, we expect this work to have
-impact beyond the software clustering community.
-
-%Although the use of models and synthetic data is somewhat common in distributed
-%computing research, it is underexplored in software engineering research. We
-%expect this work to contribute to explore t
-%common in distributed computing research, simulation is underexplored
-%in software engineering. This work opens a door to the usage of simulation in
-%the field of reverse engineering of software in order to evaluate RE 
-%algorithms.
+The use of synthetic data is common in distributed computing research, but
+still under-explored in software engineering research. Because many reverse
+engineering tasks rely on dependency data, we expect this
+work to have impact beyond the software clustering community.
 
 We accept that it is important to evaluate the algorithms with real software
 networks, but we argue that the use of synthetic networks in a complementary
-manner can give researchers new insights about the algorithms. First, the use of
-models allows the creation of large test sets, thus diminishing the small sample
-effects. Moreover, the networks are created in a controlled way, according to
-model parameters, so it is possible to study the behavior of the algorithms with
-different parameter values.
+manner can give researchers new insights about the algorithms. First, the use
+of models allows the creation of large test sets, thus diminishing the small
+sample effects. Moreover, the networks are created in a controlled way,
+according to model parameters, so it is possible to study the behavior of the
+algorithms with different parameter values.
 
 In a future work, we intend to use synthetic networks in the evaluation of
 software clustering algorithms that were previously tested with real networks.
 After that we will be able to compare the results obtained by the two
 approaches.
 
-\appendix %{Network Data Set}
-
-This appendix lists the networks used in this work.
-
-\subsection{Software Networks}
-
-Systems hosted by SourceForge (\url{http://sourceforge.net/}):
-\begin{itemize}
-\item AbaGuiBuilder-1.8
-\item alfresco-labs-deployment-3Stable
-\item aoi272
-\item stendhal-0.74
-\item battlefieldjava-0.1
-\item checkstyle-5.0
-\item dom4j-1.6.1
-\item findbugs-1.3.8
-\item freetts-1.2.2-bin
-\item ganttproject-2.0.9
-\item geoserver-2.0-beta1-bin
-\item geotools-2.5.5-bin
-\item gfp\_0.8.1
-\item hibernate-distribution-3.3.1.GA-dist
-\item hsqldb\_1\_8\_0\_10
-\item iBATIS\_DBL-2.1.5.582
-\item iReport-nb-3.5.1
-\item JabRef-2.5b2-src
-\item jailer\_2.9.9
-\item jalopy-1.5rc3
-\item jasperreports-3.5.2-project
-\item jfreechart-1.0.13
-\item pentaho-reporting-engine-classic-0.8.9.11
-\item jGnash-2.2.0
-\item jgraphpad-5.10.0.2
-\item jmsn-0.9.9b2
-\item juel-2.1.2
-\item JXv3.2rc2deploy
-\item makagiga-3.4
-\item MegaMek-v0.34.3
-\item iFreeBudget-2.0.9
-\item mondrian-3.1.1.12687
-\item oddjob-0.26.0
-\item openxava-3.1.2
-\item pdfsam-1.1.3-out
-\item pjirc\_2\_2\_1\_bin
-\item pmd-bin-4.2.5
-\item proguard4.3
-\item smc\_6\_0\_0
-\item squirrel-sql-3.0.1-base
-\item squirrel-sql-3.0.1-standard
-\item tvbrowser-2.7.3-bin
-\item villonanny-2.3.0.b02.bin
-\item rapidminer-4.4-community
-\item zk-bin-3.6.1
-\end{itemize}
-
-Systems hosted in other sites:
-
-\begin{itemize}
-\item ArgoUML-0.28
-\item GEF-0.13-bin
-\item Hl7Comm.1.0.1
-\item IRPF2009v1.1
-\item broker-4.1.5 (OurGrid)
-\item dbwrench
-\item ec2-api-tools
-\item ermodeller-1.9.2-binary
-\item flyingsaucer-R8
-\item gdata-src.java-1.31.1
-\item guice-2.0
-\item gwt-windows-1.6.4
-\item jai-1\_1\_4-pre-dr-b03-lib-linux-i586-08\_Jun\_2009
-\item jakarta-tomcat-5.0.28-embed
-\item juxy-0.8
-\item myjgui\_0.6.6
-\item peer-4.1.5 (OurGrid)
-\item subethasmtp-3.1
-\item thinkui\_sqlclient-1.1.2
-\item worker-4.1.5 (OurGrid)
-\end{itemize}
-
-\subsection{Networks from Other Domains}
-
-\begin{itemize}
-\item 5 friendship networks from Facebook \cite{Traud2008}
-\item 3 electronic circuit networks \cite{Milo2004}
-\item 4 word adjacency networks \cite{Milo2004}
-\item 3 protein structure networks \cite{Milo2004}
-\item 2 social networks of positive sentiment \cite{Milo2004}
-\item 43 metabolic networks \cite{Jeong2000}
-\item Protein interaction network for yeast \cite{Jeong2001}
-\item Links between political blogs \cite{Adamic2005}
-\item Neural network of C Elegans \cite{Watts1998}
-\item Network ``beta3sreduced'' (unknown source)
-\item Network ``czech'' (unknown source)
-\item Network ``ecoli-metabolic'' (unknown source).
-\end{itemize}
+% Also, it is worth investigating models that account for more than one type
+% of dependency.
 
