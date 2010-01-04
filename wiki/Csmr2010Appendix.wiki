@@ -1,1 +1,101 @@
-#summary Appendix for the paper published at CSMR 2010.
+This appendix lists the networks used in the paper [http://swasr.googlecode.com/svn/trunk/latex/paper1/paper1.pdf Modular Network Models for Class Dependencies in Software].
+
+== Software Networks ==
+
+Systems hosted by [http://sourceforge.net/ SourceForge]:
+  * AbaGuiBuilder-1.8
+  * alfresco-labs-deployment-3Stable
+  * aoi272
+  * stendhal-0.74
+  * battlefieldjava-0.1
+  * checkstyle-5.0
+  * dom4j-1.6.1
+  * findbugs-1.3.8
+  * freetts-1.2.2-bin
+  * ganttproject-2.0.9
+  * geoserver-2.0-beta1-bin
+  * geotools-2.5.5-bin
+  * gfp_0.8.1
+  * hibernate-distribution-3.3.1.GA-dist
+  * hsqldb_1_8_0_10
+  * iBATIS_DBL-2.1.5.582
+  * iReport-nb-3.5.1
+  * JabRef-2.5b2-src
+  * jailer_2.9.9
+  * jalopy-1.5rc3
+  * jasperreports-3.5.2-project
+  * jfreechart-1.0.13
+  * pentaho-reporting-engine-classic-0.8.9.11
+  * jGnash-2.2.0
+  * jgraphpad-5.10.0.2
+  * jmsn-0.9.9b2
+  * juel-2.1.2
+  * JXv3.2rc2deploy
+  * makagiga-3.4
+  * MegaMek-v0.34.3
+  * iFreeBudget-2.0.9
+  * mondrian-3.1.1.12687
+  * oddjob-0.26.0
+  * openxava-3.1.2
+  * pdfsam-1.1.3-out
+  * pjirc_2_2_1_bin
+  * pmd-bin-4.2.5
+  * proguard4.3
+  * smc_6_0_0
+  * squirrel-sql-3.0.1-base
+  * squirrel-sql-3.0.1-standard
+  * tvbrowser-2.7.3-bin
+  * villonanny-2.3.0.b02.bin
+  * rapidminer-4.4-community
+  * zk-bin-3.6.1
+
+Systems hosted in other sites:
+  * ArgoUML-0.28
+  * GEF-0.13-bin
+  * Hl7Comm.1.0.1
+  * IRPF2009v1.1
+  * broker-4.1.5 (OurGrid)
+  * dbwrench
+  * ec2-api-tools
+  * ermodeller-1.9.2-binary
+  * flyingsaucer-R8
+  * gdata-src.java-1.31.1
+  * guice-2.0
+  * gwt-windows-1.6.4
+  * jai-1_1_4-pre-dr-b03-lib-linux-i586-08_Jun_2009
+  * jakarta-tomcat-5.0.28-embed
+  * juxy-0.8
+  * myjgui_0.6.6
+  * peer-4.1.5 (OurGrid)
+  * subethasmtp-3.1
+  * thinkui_sqlclient-1.1.2
+  * worker-4.1.5 (OurGrid)
+
+== Networks from Other Domains ==
+
+  * 5 friendship networks from Facebook (1)
+  * 3 electronic circuit networks (2)
+  * 4 word adjacency networks (2)
+  * 3 protein structure networks (2)
+  * 2 social networks of positive sentiment (2)
+  * 43 metabolic networks (3)
+  * Protein interaction network for yeast (4)
+  * Links between political blogs (5)
+  * Neural network of C Elegans (6)
+  * Network ``beta3sreduced'' (unknown source)
+  * Network ``czech'' (unknown source)
+  * Network ``ecoli-metabolic'' (unknown source).
+
+References:
+
+(1) A. L. Traud, E. D. Kelsic, P. J. Mucha, and M. A. Porter, “Community structure in online collegiate social networks,” 2008. Available: http://www.citebase.org/abstract?id=oai:arXiv.org:0809.0690
+
+(2) R. Milo, S. Itzkovitz, N. Kashtan, R. Levitt, S. Shen-Orr, I. Ayzenshtat, M. Sheffer, and U. Alon, “Superfamilies of evolved and designed networks.” Science, vol. 303, no. 5663, pp. 1538–1542, March 2004. Available: http://dx.doi.org/10.1126/science.1089167
+
+(3) H. Jeong, B. Tombor, R. Albert, Z. N. Oltvai, and A. L. Barabasi, “The large-scale organization of metabolic networks,” Nature, vol. 407, no. 6804, pp. 651–654, October 2000. Available: http://dx.doi.org/10.1038/35036627
+
+(4) H. Jeong, S. P. Mason, A.-L. Barabasi, and Z. N. Oltvai, “Lethality and centrality in protein networks,” NATURE v, vol. 411, p. 41, 2001. Available: http://www.citebase.org/abstract?id=oai:arXiv.org:cond-mat/0105306
+
+(5) L. A. Adamic and N. Glance, “The political blogosphere and the 2004 u.s. election: divided they blog,” in LinkKDD ’05: Proceedings of the 3rd international workshop on Link discovery.	New York, NY, USA: ACM Press, 2005, pp. 36–43. [Online]. Available: http://dx.doi.org/10.1145/1134271.1134277
+
+(6) D. J. Watts and S. H. Strogatz, “Collective dynamics of ’small-world’ networks.” Nature, vol. 393, no. 6684, pp. 440–442, June 1998. Available: http://dx.doi.org/10.1038/30918
