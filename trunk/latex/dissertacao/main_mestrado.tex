@@ -1,0 +1,141 @@
+\documentclass[a4paper,titlepage]{copin}
+\usepackage[portuges,english]{babel}
+\usepackage{copin,mestre,epsfig}
+\usepackage{times}
+
+\usepackage{ucs}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+%-----------------------------------------------------------------------------------------------------
+
+
+\usepackage{fancyheadings}
+\usepackage{graphicx}
+\usepackage{longtable} %tabelas longas, que ultrapassam uma pagina
+
+\usepackage{listings}
+\lstset{numbers=left,
+stepnumber=1,
+firstnumber=1,
+%numberstyle=\tiny,
+extendedchars=true,
+breaklines=true,
+frame=tb,
+basicstyle=\footnotesize,
+stringstyle=\ttfamily,
+showstringspaces=false
+}
+\renewcommand{\lstlistingname}{C\'odigo Fonte}
+\renewcommand{\lstlistlistingname}{Lista de C\'odigos Fonte}
+
+\selectlanguage{portuges}
+\sloppy
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\Titulo{Sistemas de Software Artificiais Modulares Realistas}
+\Autor{Rodrigo Rocha Gomes e Souza}
+\Data{15/03/2010}
+\Area{Ciência da Computação}
+\Pesquisa{Engenharia de Software}
+\Orientadores{Dalton Dario Serey Guerrero  
+	 (Orientador) \\
+	Jorge César Abrantes de Figueiredo 
+	(Orientador)
+	}
+
+\newpage
+\cleardoublepage
+
+\PaginadeRosto
+
+\newpage
+\cleardoublepage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{resumo} 
+\input{resumo.tex}
+\end{resumo}
+
+\newpage
+\cleardoublepage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{summary}
+\input{abstract.tex}
+\end{summary}
+
+\newpage
+\cleardoublepage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{agradecimentos}
+\input{agradecimentos.tex}
+\end{agradecimentos}
+
+\clearpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% Definicao do cabecalho: secao do lado esquerdo e numero da pagina do lado direito
+\pagestyle{fancy}
+\addtolength{\headwidth}{\marginparsep}\addtolength{\headwidth}{\marginparwidth}\headwidth = \textwidth
+\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
+\renewcommand{\sectionmark}[1]{\markright{\thesection\ #1}}\lhead[\fancyplain{}{\bfseries\thepage}]%
+	     {\fancyplain{}{\emph{\rightmark}}}\rhead[\fancyplain{}{\bfseries\leftmark}]%
+             {\fancyplain{}{\bfseries\thepage}}\cfoot{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\selectlanguage{portuges}
+
+\Sumario
+\ListadeSimbolos
+\listoffigures
+\listoftables
+\lstlistoflistings %lista de codigos fonte - Para inserir a listagem de codigos fonte
+\newpage
+\cleardoublepage
+
+\Introducao
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Hifenizacao - Colocar lista de palavras que nao devem ser separadas e que 
+% nao estao no dicionario portugues.
+% As palavras do dicionario portugues ja sao separadas corretamente pelo lateX
+%
+\hyphenation{hardware software}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% A partir daqui coloque seus capitulos. Sugere-se que eles sejam inseridos com o comando \input
+%% Da seguinte maneira:
+%%
+%% \input{cap1} 
+%% \input{cap2}
+\input{cap1} 
+\input{introducao}
+\input{fundamentacao}
+\input{modelos}
+\input{avaliacao}
+\input{estudodecaso}
+\input{conclusao}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% BIbliografia
+%% Coloque suas referencias no arquivo ref.bib e descomente as proximas duas linhas
+
+\bibliographystyle{plain} % estilo de bibliografia   plain,unsrt,alpha,abbrv.
+\bibliography{ref} % arquivos com as entradas bib.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Apendice
+% Caso seja necessario algum apendice, descomente a proxima linha.
+
+\appendix
+\input{apendices}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}
