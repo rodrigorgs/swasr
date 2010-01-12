@@ -16,15 +16,80 @@ Redes complexas em software:
  Louridas. Módulos de tamanhos lei de escala.
 
 \end{section}
-\begin{section}{Modelos de Síntese de Designs}
 
-Modelo de Erdos-Renyi
-Modelo de configuração
-Modelo de Albert-Barabasi
-Modelo CGW
-Modelo LFR
-Modelo BCR+ -vender o peixe: pode ser aplicado duas vezes pra gerar métodos
+\begin{section}{Modelos de Síntese de Redes Divididas em Módulos}
 
 Requisitos para a avaliação de algoritmos de agrupamento: grafos particionados.
+
+Como eu achei esses modelos: revisão não sistemática :P
+
+% Modelo de Erdos-Renyi?
+% Modelo de configuração?
+% Modelo de Albert-Barabasi?
+
+Todos os modelos produzem redes orientadas organizadas em módulos.
+
+\begin{subsection}{O modelo LFR}
+
+
+\end{subsection}
+
+\begin{subsection}{O modelo CGW}
+
+O modelo CGW \cite{Chen2008} foi proposto como um modelo da evolução de sistemas de software. Nesse modelo, a rede começa com poucos vértices e então vai crescendo de acordo com determinadas regras de formação, até chegar a $n$ vértices, onde $n$ é um parâmetro do modelo. O número de módulos, $m$, também é um parâmetro. 
+
+Como o artigo original sobre o modelo não deixa claro a forma exata da rede inicial, neste trabalho consideramos que a rede inicial é formada por dois vértices ligados por uma aresta bidirecional. A partir daí, a rede é alterada pela aplicação sucessiva de quatro regras em ordem aleatória:
+
+\begin{itemize}
+	
+	\item Regra 1: com probabilidade $p_1$, um novo vértice à um módulo escolhido aleatoriamente, juntamente com $e_1$ arestas com origem no novo vértice. Os vértices de destino das $e_1$ arestas são escolhidos de acordo com a probabilidade preferencial baseada em módulos (PPBM), explicado mais à frente.
+	
+	\item Regra 2: com probabilidade $p_2$, são adicionadas $e_2$ arestas. Para cada aresta, o vértice de origem é escolhido aleatoriamente, enquanto o vértice de destino é escolhido de acordo com a PPBM.
+	
+	\item Regra 3: com probabilidade $p_3$, $e_3$ arestas são religadas. O procedimento de religamento de arestas é descrito a seguir:
+	
+	\begin{enumerate}
+		\item um vértice, $v_1$ é escolhido aleatoriamente;
+		\item uma aresta, $a_1$, escolhida aleatoriamente dentre as arestas com origem em $v_1$, é removida da rede;
+		\item é adicionada uma nova aresta cuja origem é $v_1$ e o vértice de destino é escolhido de acordo com a PPBM;
+	\end{enumerate}
+	
+	\item Regra 4: com probabilidade $p_4$, $e_4$ arestas escolhidas aleatoriamente são removidas da rede.
+	
+\end{itemize}
+
+Naturalmente, as probabilidades $p_1, p_2, p_3$ e $p_4$ devem somar 1. Além disso, $p_1$ deve ser maior que zero --- do contrário o número de vértices na rede permanece constante. As quantidades $e_1, e_2, e_3, e_4$ são inteiros maiores ou iguais a zero.
+
+A probabilidade preferencial baseada em módulos, $\Pi(v_2|v_1)$, é uma função que indica a probabilidade de se escolher um vértice, $v_2$, como destino de uma aresta cujo vértice de origem, $v_1$, já foi determinado. O propósito da PPBM é diminuir a proporção de arestas externas na rede, privilegiando a escolha de um vértice de destino pertencente ao mesmo módulo do vértice de origem. Eis a definição da probabilidade preferencial baseada em módulos:
+
+$$
+\Pi(v_2|v_1) = (1 + \mathrm{g}(v_2) \cdot (1 + \alpha)) / Q(v_1) \mathrm{se $v_2$ está no mesmo módulo de $v_1$}}
+
+= (1 + \mathrm{g}(v_2)) / Q(v_2) \math{caso contrário}
+$$
+
+O parâmetro $\alpha$ controla a proporção de arestas externas na rede. Para $\alpha = -1$, a maioria das arestas serão externas. Para $\alpha > 0$, a maioria das arestas serão internas, e quanto maior o valor de $\alpha$, maior a tendência. Quando $\alpha = 0$, arestas internas e externas são igualmente prováveis.
+
+A expressão g($v$) designa o grau de saída do vértice $v$. O termo $Q$ é apenas uma constante de proporcionalidade cujo propósito é fazer a soma das probabilidades ser igual a 1, e é definido da seguinte forma:
+
+$$
+Q(v_1) = \sum_{v \in m(v_1)} (1 + \mathrm{g}(v) \cdot (1 + \alpha))
++ \sum_{v \notin m(v_1)} (1 + \mathrm{g}(v))
+$$
+
+A expressão m($v$), neste contexto, designa o conjunto dos vértices que pertencem ao mesmo módulo de $v$.
+
+\end{subsection}
+
+\begin{subsection}{O modelo BCR+}
+
+O modelo BCR \cite{Bollobas2003} gera redes orientadas sem módulos. 
+
+vender o peixe: pode ser aplicado duas vezes pra gerar métodos
+\end{subsection}
+
+Modelo CGW
+Modelo LFR
+Modelo BCR+ 
 
 \end{section}

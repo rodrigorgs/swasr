@@ -2,31 +2,157 @@
 % complexas (5-10)
 %	
 %		 * as redes geradas são verossímeis?
+%
+% deu 7 páginas.
 
 \chapter{Avaliação dos Modelos}
 % Adaptar do artigo do CSMR 2010
 
-Três modelos apresentados no capítulo anterior --- BCR+, LFR e CGW --- geram redes que podem ser usadas para testar algoritmos de agrupamento de software. Para aumentar a confiança de que os resultados dos testes com redes sintéticas podem ser extrapolados para redes de software, no entanto, é preciso avaliar se, com uma escolha adequada de parâmetros, os modelos são capazes de gerar redes sintéticas que se assemelham a redes de software. 
+\begin{section}{Introdução}
+Três modelos apresentados no capítulo anterior --- BCR+, LFR e CGW --- geram redes que podem ser usadas para testar algoritmos de agrupamento de software. Para aumentar a confiança de que os resultados dos testes com redes sintéticas podem ser extrapolados para redes de software, no entanto, é preciso avaliar se, com uma escolha adequada de parâmetros, os modelos são capazes de gerar redes sintéticas que se assemelham a redes de software. Daqui para frente, redes que se assemelham a redes de software serão chamadas de \emph{redes software-realistas}.
 
-Para 
+Já se sabe que os três modelos geram redes que, a exemplo de redes de software, são livres de escala. Isoladamente, no entanto, esta propriedade é para avaliar os modelos, uma vez que muitas redes livres de escala conhecidas não são redes do software (por exemplo, redes biológicas). Partindo da hipótese de que redes de outros domínios são estruturalmente diferentes de redes de software, o critério usado para avaliar se as redes sintéticas são software-realistas deve ser robusto o suficiente para determinar que redes de outros domínios não são software-realistas.
 
-Já se sabe que os três modelos geram redes que, a exemplo de redes de software, são livres de escala. Isoladamente, no entanto, esta propriedade é insuficiente para provar a hipótese, uma vez que muitas redes livres de escala conhecidas não são redes do software (por exemplo, redes biológicas). Assim, 
+Neste capítulo é descrito um experimento realizado com o propósito de verificar quais dos três modelos de redes divididas em módulos produzem redes software-realistas. Verificou-se que os três modulos geram redes software-realistas; a partir daí, foi encontrado um subconjunto de valores para os parâmetros dos modelos que garantem, com alta taxa de acerto, que as redes geradas serão software-realistas.
 
+A ideia basica do experimento é gerar redes usando diversos valores para os parâmetros dos modelos, e então medir a similaridade entre as redes sintéticas e um conjunto de redes reais de software e de outros domínios. Para apoiar a realização do experimento, foram coletadas 131 redes:
 
+\begin{itemize}
+	\item redes de software: foram coletados 65 sistemas de software escritos em Java, contendo entre 111 e 35.563 classes cada um. A linguagem Java foi escolhida por ser uma linguagem de programação popular na qual muitos sistemas de software de código aberto já foram escritos. A maior parte dos sistemas foram selecionados a partir da lista dos sistemas mais populares do repositório SourceForge.net; além desses, foram selecionados sistemas com os quais o autor tem familiaridade, como o OurGrid. Para extrair a rede de dependências dos sistemas foi usada a ferramenta Dependency Finder, mencionada no capítulo XXX.
+	\item redes de outros domínios: foram coletadas 66 redes de domínios tão diversos quanto a biologia, a sociologia, a tecnologia e a linguística, com tamanho variando entre 32 e 18163 vértices.
+\end{itemize}
 
-Este capítulo descreve um experimento realizado no contexto desta pesquisa, com o propósito de identificar quais modelos apresentados no capítulo anterior são capazes de gerar redes que se assemelham a redes de software.
+\end{section}
 
-Se as redes geradas não se assemelharem a redes de software, no entanto, a validade 
+\begin{section}{Software-realismo}
 
+Para apoiar o experimento, foi desenvolvido um modelo de classificação que classifica redes em dois grupos: software-realistas e não software-realistas. O modelo de classificação é baseado em uma métrica de similaridade entre duas redes. Para determinar a classificação de uma rede, é medida a similaridade da rede em relação a todas as 65 redes de software da amostra. A rede é considerada software-lista quando a média das similaridades é superior a um limiar.
+	
+Seguindo o trabalho de Milo et al. \cite{Milo2002}, cada rede é caracterizada pelo seu perfil de concentração de tríades (PCT), isto é, a frequência relativa de cada uma das treze tríades na rede. Seguindo outro trabalho de Milo et al. \cite{Milo2004}, a similaridade entre duas redes é medida a partir do cálculo do coeficiente de correlação de Pearson entre os PCTs das redes, que é um valor entre -1 (menor similaridade) e 1 (maior similaridade):
 
-de redes estruturadas em módulos que foram apresentados no capítulo anterior --- BCR+, LFR e CGW --- geram redes
+$$
+\mathrm{sim}(a, b) ~=~ 
+  \mathrm{cor}(\mathrm{PCT}(a), \mathrm{PCT}(b))\mathrm{,}
+$$
 
-A hipótese de pesquisa deste trabalho é a de que pelo menos um dos modelos apresentados é capaz de produzir redes que se assemelham a redes de software.
-...
+onde $a$ e $b$ são redes, PCT($x$) é um vetor com as concentrações das tríades na rede $x$ e cor($x, y$) é o coeficiente de correlação de Pearson entre dois vetores.
 
-A maior parte dos modelos apresentados no capítulo anterior geram redes que, a exemplo de redes de software, são livres de escala. Isoladamente, no entanto, esta propriedade é insuficiente para provar a hipótese, uma vez que muitas redes livres de escala conhecidas não são redes do software (por exemplo, redes biológicas). A métrica de similaridade deve, portanto, ser capaz de distinguir entre redes software e redes de outros domínios.
+Vale notar que o coeficiente de correlação neste caso não possui significado estatístico, mas ele têm sido usado de forma bem sucedida na pesquisa de Milo e, como será mostrado a seguir, rendeu bons resultados na pesquisa aqui apresentada.
 
-Seguindo o trabalho de Milo et al. \cite{Milo2004}, neste trabalho 
+A partir da métrica de similaridade entre redes, foi desenvolvida a métrica S, que representa o quanto uma rede se assemelha a redes de software. O valor de S para uma rede $x$, S($x$), é definido como a similaridade média entre a rede $x$ e uma amostra de redes de software, $R$:
+
+$$
+\mathrm{S}(x) ~=~ \frac{
+\displaystyle\sum_{s \in R} \mathrm{sim}(x, s)
+}{|R|} \mathrm{,}
+$$
+
+Neste estudo, consideramos que $R$ é a amostra de 65 redes de software.
+
+Para os propósitos desta pesquisa, a métrica S deve satisfazer duas condições: (i) ela deve ter valores altos quando aplicada a redes de software; (ii) ela deve ter valores mais baixos quando aplicadas a redes de outros domínios. Com a finalidade de avaliar se a métrica satisfaz as condições, foi computada métrica S de cada uma das 131 redes selecionadas para este estudo. Para a extração dos PCT, foi usada a ferramenta igraph \cite{igraph}.
+
+O valor de S para as redes de software oscilou entre 0,83 e 0,98, com média igual a 0,97 e desvio-padrão igual a 0,03. O alto valor médio de S e o baixo desvio-padrão mostra que a métrica caracteriza adequadamente as redes de software, capturando seus padrões estruturais.
+
+Um total de 97,0\% das redes de outros domínios recebeu um valor de S inferior a 0,83. Algumas redes receberam valores negativos de S, revelando uma alta dissimilaridade com redes de software. Apenas duas redes receberam valores altos de S: a rede de links entre blogs sobre política (S = 0,97) e a rede neural do verme C. Elegans (S = 0,88). Investigações futuras serão necessárias para descobrir as razões por trás dos valores altos e métricas auxiliares que possam diferenciá-las as duas redes de redes de software.
+
+A partir da métrica S é definido um modelo de classificação de redes: redes com valor S superiores a um determinado limiar são classificadas como redes software-realistas; as demais redes são classificadas como não software-realistas.
+
+Como existem redes de outros domínios com valor de S alto, é impossível construir um modelo de classificação perfeito, independentemente da escolha do limiar. Um modelo de classificação pode, no entanto, ser avaliado em termos de sua precisão e de sua cobertura. Seja $R$ o conjunto de 65 redes de software e $L$ o subconjunto das 131 redes que são classificadas como software-realistas. A precisão do modelo é
+
+$$
+\mathrm{precisão}: ~\frac{R \cap L}{L},
+$$ % XXX: precisão está aparecendo como preciso na fórmula.
+
+e a cobertura é
+
+$$
+\mathrm{cobertura}: ~\frac{R \cap L}{R}.
+$$
+
+Aumentar o limiar tem o efeito de reduzir a cobertura, pelo fato de menos redes de software serem classificadas como software-realistas. Reduzir o limiar tem o efeito de reduzir a precisão, pelo fato de mais redes de outros domínios serem classificadas como software-realistas.
+
+A escolha de um limiar adequado, portanto, depende da importância dada à precisão e à cobertura. Como o objetivo do experimento é avaliar se redes sintéticas são software-realistas, é mais importante ter alta precisão, pois isso representa um teste mais forte.
+
+Para obter 100\% de precisão, o limiar deve ser 0,98, um valor que está acima do maior valor de S para redes de outros domínios. A cobertura, neste caso, seria de apenas XXX\%, de modo que muitas redes de software seriam incorretamente classificadas. Foi escolhido o valor 0,88 para o limiar, que é suficiente para classificar a rede do verme C. Elegans como não software-realista e render valores altos para a cobertura (95,4\%) e para a precisão (96,9\%).
+
+\end{section}
+
+\begin{section}{Software-realismo de Modelos de Redes}
+
+Na seção anterior foi mostrado que muitas redes livres de escala de diversos domínios podem ser diferenciadas de redes de software através de um modelo de classificação simples baseado em perfis de concentração de tríades (PCTs). Nessa seção é descrito o experimento que mostra que os três modelos de redes divididas em módulos geram redes software-realistas. O experimento consiste em gerar redes usando diversas combinações de parâmetros dos três modelos, e então classificar cada rede como software-realista ou não software-realista. O número de vértices foi fixado em 1.000 e os valores dos demais parâmetros foram variados em passos discretos. No total, foram geradas 9.500 redes com o modelo BCR+, 38.790 redes com o modelo CGW e 1.296 redes com o modelo LFR.
+
+\begin{subsection}{Seleção de Parâmetros}
+
+Para o modelo BCR+, foram escolhidos grafos de módulos extraídos a partir de dependências entre arquivos JAR de 5 sistemas de software: GEF (2 módulos), iBATIS (4 módulos), MegaMek (8 módulos), findbugs (16 módulos) e zk (32 módulos). Como muitos dos arquivos JAR foram concebidos para serem reusados em projetos distintos, eles são uma boa aproximação do conceito de módulo. Para os demais parâmetros, os seguintes valores foram escolhidos:
+
+\begin{itemize}
+	\item $p, q, r \in \{0,0; 0,2; 0,4; 0,6; 0,8; 1,0\}$, com $p + q + r = 1$ e $p + q > 0$ (do contrário a rede jamais alcançaria 1000 vértices);
+	\item $\delta_{in}, \delta_{out} \in \{0, 1, 2, 3, 4\}$;
+	\item $\mu \in \{0,0; 0,2; 0,4; 0,6\}$ (valores altos foram evitados a fim de ignorar redes com módulos fortemente acoplados).
+\end{itemize}
+
+Para o modelo CGW, os seguintes valores de parâmetros foram escolhidos:
+
+\begin{itemize}
+	\item $p_1, p_2, p_3, p_4 \in \{0,0; 0,2; 0,4; 0,6; 0,8; 1,0\}$, com $p_1 + p_2 + p_3 + p_4 = 1$ e $p_1 > 0$ (do contrário a rede jamais alcançaria 1000 vértices);
+	\item $e_1, e_2, e_3, e_4 \in \{1, 2, 4, 8\}$ (com a restrição de que $e_i$ não varia quando $p_i = 0$, o que não faria sentido);
+	\item $\alpha \in \{-1, 0, 1, 10, 100, 1000\}$
+	\item $m \in \{2, 4, 8, 16, 32\}$.
+\end{itemize}
+
+No caso do modelo LFR, os seguintes valores foram escolhidos para os parâmetros:
+
+\begin{itemize}
+	\item parâmetro de mistura: $\mu \in \{0,0; 0,2; 0,4; 0,6\}$;
+	\item expoente da distribuição de graus: $\gamma \in \{2,18; 2,70; 3,35\}$;
+	\item expoente da distribuição de tamanhos de módulos: $\beta \in \{0,76; 0,99; 1,58\}$;
+	\item grau médio: $k \in \{5, 10, 15, 25\}$;
+	\item grau máximo: $max_k \in \{58, 157, 482\}$;
+	\item tamanho do menor módulo: $min_m \in \{1, 10, 273\}$.
+\end{itemize}
+
+Para chegar aos valores para os parâmetros do modelo LFR, foram analisadas métricas de redes de software com cerca de 500 a 2.000 classes. Para cada métrica foram identificados os valores mínimo, mediano e máximo; esses foram os valores usados nos parâmetros correspondentes.
+\end{subsection}
+
+\begin{subsection}{Resultados}
+Usando o modelo de classificação descrito na Seção XXX, cada rede sintética foi classificada como software-realista ou não software-realista. Os resultados estão condensados na Tabela XXX.
+
+Todos os modelos geraram redes software-realista e redes não software-realistas. A proporção de redes software-realistas foi maior que 19\% em todos os casos, descartando a possibilidade de que esse resultado tenha sido obtido por acaso.
+% XXX Para afirmar isso seria necessário repetir o experimento com redes de Erdos-Renyi
+
+Naturalmente, esse resultado tem pouco valor prático se não for estabelecido uma relação entre os valores dos parâmetros usados na geração de uma rede e a classificação da rede. Na prática é importante saber quais valores de parâmetros tendem a gerar redes software-realistas.
+
+Para ajudar a descobrir essa relação, foi utilizado o algoritmo 1R \cite{OneR} da mineração de dados. O algoritmo analisa, para cada rede, os parâmetros usados na sua geração e a sua classificação, e então encontra uma regra que relaciona o valor de um único parâmetro com a classificação da rede. Regras encontradas pelo 1R podem ser avaliadas de acordo com a sua acurácia, isto é, a proporção de redes corretamente classificadas.
+
+As regras encontradas pelo algoritmo 1R são exibidas na Tabela \ref{tab:rules}. As regras são bastante simples e, portanto, fáceis de seguir. Apesar da simplicidade, as regras encontradas possuem uma acurácia de cerca de 80\% para todos os modelos.
+
+\begin{table}
+\caption{Regras para prever a classificação de uma rede sintética. Na regra, S representa redes software-realistas e N representa redes não software-realistas.}
+\centering
+\begin{tabular}{|l|l|l|}
+\hline
+Modelo & Regra & Acurácia \\
+\hline 
+\hline
+\multirow{2}{*}{BCR+}
+     & $\alpha \ge 0.7 \Rightarrow S$ & \multirow{2}{*}{82.4\%}  \\ 
+     & $\alpha < 0.7 \Rightarrow N$ & \\ 
+\hline
+\multirow{2}{*}{CGW}
+     & $p_1 \ge 0.5 \Rightarrow S$ & \multirow{2}{*}{82.3\%} \\  
+     & $p_1 < 0.5 \Rightarrow N$ & \\  
+\hline
+\multirow{2}{*}{LFR}   
+     & $\gamma < 2.44 \Rightarrow S$ & \multirow{2}{*}{78.9\%} \\ 
+     & $\gamma \ge 2.44 \Rightarrow N$ & \\ 
+\hline
+\end{tabular}
+\label{tab:rules}
+\end{table}
+
+\end{subsection}
+
+\end{section}
 
 
  

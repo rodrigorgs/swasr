@@ -17,18 +17,20 @@
 		<dict>
 			<key>filename</key>
 			<string>apendices.tex</string>
+			<key>lastUsed</key>
+			<date>2010-01-11T18:25:56Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
 			<string>cap1.tex</string>
 			<key>lastUsed</key>
-			<date>2010-01-05T23:40:12Z</date>
+			<date>2010-01-11T18:21:00Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
 			<string>dissertacao.tex</string>
 			<key>lastUsed</key>
-			<date>2010-01-05T23:36:07Z</date>
+			<date>2010-01-11T20:32:15Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
@@ -49,25 +51,25 @@
 					<key>filename</key>
 					<string>dissertacao.tex</string>
 					<key>lastUsed</key>
-					<date>2010-01-08T18:55:41Z</date>
+					<date>2010-01-11T19:10:34Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
 					<string>introducao.tex</string>
 					<key>lastUsed</key>
-					<date>2010-01-08T18:49:07Z</date>
+					<date>2010-01-11T18:58:46Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
 					<string>fundamentacao.tex</string>
 					<key>lastUsed</key>
-					<date>2010-01-08T19:36:29Z</date>
+					<date>2010-01-11T18:58:47Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
 					<string>modelos.tex</string>
 					<key>lastUsed</key>
-					<date>2010-01-09T10:00:04Z</date>
+					<date>2010-01-12T00:56:53Z</date>
 					<key>selected</key>
 					<true/>
 				</dict>
@@ -75,19 +77,19 @@
 					<key>filename</key>
 					<string>avaliacao.tex</string>
 					<key>lastUsed</key>
-					<date>2010-01-09T10:00:04Z</date>
+					<date>2010-01-12T00:56:53Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
 					<string>estudodecaso.tex</string>
 					<key>lastUsed</key>
-					<date>2010-01-09T10:00:02Z</date>
+					<date>2010-01-11T19:08:00Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
 					<string>conclusao.tex</string>
 					<key>lastUsed</key>
-					<date>2010-01-09T10:00:01Z</date>
+					<date>2010-01-11T18:38:28Z</date>
 				</dict>
 			</array>
 			<key>expanded</key>
@@ -100,14 +102,14 @@
 	<integer>200</integer>
 	<key>metaData</key>
 	<dict>
-		<key>cap1.tex</key>
+		<key>conclusao.tex</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>2</integer>
+				<integer>13</integer>
 				<key>line</key>
-				<integer>10</integer>
+				<integer>13</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
@@ -119,9 +121,23 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>1</integer>
+				<integer>20</integer>
 				<key>line</key>
-				<integer>5</integer>
+				<integer>8</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
+		<key>estudodecaso.tex</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>61</integer>
+				<key>line</key>
+				<integer>2</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
@@ -133,9 +149,9 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>0</integer>
+				<integer>40</integer>
 				<key>line</key>
-				<integer>57</integer>
+				<integer>19</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
@@ -147,23 +163,23 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>104</integer>
+				<integer>20</integer>
 				<key>line</key>
-				<integer>56</integer>
+				<integer>60</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
-			<integer>75</integer>
+			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>37</integer>
+			<integer>0</integer>
 		</dict>
 		<key>modelos.tex</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>41</integer>
+				<integer>75</integer>
 				<key>line</key>
-				<integer>2</integer>
+				<integer>25</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
@@ -175,9 +191,10 @@
 	<array>
 		<string>dissertacao.tex</string>
 		<string>introducao.tex</string>
-		<string>modelos.tex</string>
-		<string>cap1.tex</string>
 		<string>fundamentacao.tex</string>
+		<string>modelos.tex</string>
+		<string>estudodecaso.tex</string>
+		<string>conclusao.tex</string>
 	</array>
 	<key>shellVariables</key>
 	<array>
@@ -191,8 +208,8 @@
 		</dict>
 	</array>
 	<key>showFileHierarchyDrawer</key>
-	<true/>
+	<false/>
 	<key>windowFrame</key>
-	<string>{{0, 62}, {1070, 716}}</string>
+	<string>{{0, 62}, {641, 716}}</string>
 </dict>
 </plist>
