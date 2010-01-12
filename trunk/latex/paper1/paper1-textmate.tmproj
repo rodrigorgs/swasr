@@ -2,15 +2,13 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>currentDocument</key>
-	<string>contents.tex</string>
 	<key>documents</key>
 	<array>
 		<dict>
 			<key>filename</key>
 			<string>contents.tex</string>
 			<key>lastUsed</key>
-			<date>2010-01-04T21:48:32Z</date>
+			<date>2010-01-05T21:15:40Z</date>
 			<key>selected</key>
 			<true/>
 		</dict>
@@ -18,68 +16,19 @@
 			<key>filename</key>
 			<string>paper1.tex</string>
 			<key>lastUsed</key>
-			<date>2010-01-04T21:46:06Z</date>
+			<date>2010-01-05T20:34:33Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
 			<string>paper1.bib</string>
 			<key>lastUsed</key>
-			<date>2010-01-04T21:48:32Z</date>
+			<date>2010-01-05T20:34:34Z</date>
 		</dict>
 	</array>
 	<key>fileHierarchyDrawerWidth</key>
 	<integer>130</integer>
 	<key>metaData</key>
-	<dict>
-		<key>contents.tex</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>41</integer>
-				<key>line</key>
-				<integer>373</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>346</integer>
-		</dict>
-		<key>paper1.bib</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>28</integer>
-				<key>line</key>
-				<integer>391</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>361</integer>
-		</dict>
-		<key>paper1.tex</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>0</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
-	</dict>
-	<key>openDocuments</key>
-	<array>
-		<string>paper1.tex</string>
-		<string>contents.tex</string>
-		<string>paper1.bib</string>
-	</array>
+	<dict/>
 	<key>shellVariables</key>
 	<array>
 		<dict>
@@ -94,6 +43,6 @@
 	<key>showFileHierarchyDrawer</key>
 	<true/>
 	<key>windowFrame</key>
-	<string>{{142, 68}, {627, 710}}</string>
+	<string>{{118, 63}, {627, 710}}</string>
 </dict>
 </plist>

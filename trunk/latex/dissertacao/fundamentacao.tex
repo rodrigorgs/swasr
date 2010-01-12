@@ -6,5 +6,58 @@
 %     * clustering
 %     * avaliação de algoritmos de clustering
 
-\chapter{Fundamentação Teórica} 
+\chapter{Agrupamento de Software}
+
+\begin{section}{Algoritmos de agrupamento}
+
+Mineração de dados.
+
+Na física, detecção de comunidades.
+
+Critérios: validade interna, validade externa etc.
+
+\end{section}
+\begin{section}{Agrupamento de software}
+
+De um ponto de vista amplo, agrupa artefatos de software de um sistema computacional. Código-fonte, UML, documentação...
+
+Uma vertente, estudada neste trabalho, é o agrupamento de entidades do código-fonte. O próprio conceito de entidade não é bem definido. Podem ser funções e variáveis em sistema procedimentais CITE, tipos abstratos de dados CITE, arquivos-fonte CITE, classes em um sistema orientado a objetos CITE etc.
+
+Há vários critérios: nomes de identificadores CITE, co-mudança em sistemas de controle de versão CITE, co-uso em tempo de execução CITE, relações estáticas no código-fonte etc.
+
+Neste trabalho estudaremos relações estáticas em programas orientados a objetos. Ainda assim, um software pode ser representado de diversas formas.
+
+\end{section}
+\begin{section}{Grafo de dependências entre entidades}
+
+Grafo orientado não-ponderado.
+Entidades: classes e interfaces Java.
+
+Significado de ``dependência''.
+
+Limitações da análise estática.
+
+Ferramenta DependencyFinder.
+
+Dependências:
+  classe é subclasse de classe
+  classe implementa interface
+  classe chama método de classe
+  classe acessa atributo de classe
+  ...
+
+\end{section}
+\begin{section}{Algoritmos de agrupamento usados em software e selecionados para este trabalho}
+
+Hierárquico (mineração de dados), usado por Anquetil, Wu etc.
+
+ACDC (ES)
+
+Bunch (ES)
+
+Infomap (física estatística, detecção de comunidades), estudado por Lancichinetti.
+
+\end{section}
+
+% Avaliação de agrupamento de software deve ser uma seção separada ou parte da introdução e da seção de agrupamento em mineração de dados?
 
