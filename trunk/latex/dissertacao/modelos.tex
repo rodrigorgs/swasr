@@ -29,16 +29,21 @@ Como eu achei esses modelos: revisão não sistemática :P
 
 Todos os modelos produzem redes orientadas organizadas em módulos.
 
-\begin{subsection}{O modelo LFR}
-
-
-\end{subsection}
-
 \begin{subsection}{O modelo CGW}
 
-O modelo CGW \cite{Chen2008} foi proposto como um modelo da evolução de sistemas de software. Nesse modelo, a rede começa com poucos vértices e então vai crescendo de acordo com determinadas regras de formação, até chegar a $n$ vértices, onde $n$ é um parâmetro do modelo. O número de módulos, $m$, também é um parâmetro. 
+O modelo CGW \cite{Chen2008} foi proposto como um modelo da evolução de sistemas de software. O modelo aceita X parâmetros:
 
-Como o artigo original sobre o modelo não deixa claro a forma exata da rede inicial, neste trabalho consideramos que a rede inicial é formada por dois vértices ligados por uma aresta bidirecional. A partir daí, a rede é alterada pela aplicação sucessiva de quatro regras em ordem aleatória:
+\begin{itemize}
+\item número de vértices, $n$;
+\item número de módulos, $m$;
+\item quatro probabilidades, $p_1, p_2, p_3, p_4$, com $p_1 + p_2 + p_3 + p_4$ e $p_1 > 0$;
+\item quatro números naturais, $e_1, e_2, e_3, e_4$;
+\item uma constante, $\alpha$, com $\alpha \ge -1$.
+\end{itemize}
+
+Nesse modelo, a rede começa com poucos vértices e então vai crescendo de acordo com determinadas regras de formação, até alcançar $n$ vértices. Cada vértice pertence a um dos $m$ módulos.
+
+Os autores do modelo CGW não deixam claro a forma exata da rede inicial, e nem disponibilizam uma implementação do modelo. A implementação realizada nesta pesquisa considera que a rede inicial é formada por dois vértices contidos em um mesmo módulo, e uma aresta bidirecional que liga os vértices. A partir daí, a rede é alterada pela aplicação sucessiva de quatro regras em ordem aleatória:
 
 \begin{itemize}
 	
@@ -62,11 +67,12 @@ Naturalmente, as probabilidades $p_1, p_2, p_3$ e $p_4$ devem somar 1. Além dis
 
 A probabilidade preferencial baseada em módulos, $\Pi(v_2|v_1)$, é uma função que indica a probabilidade de se escolher um vértice, $v_2$, como destino de uma aresta cujo vértice de origem, $v_1$, já foi determinado. O propósito da PPBM é diminuir a proporção de arestas externas na rede, privilegiando a escolha de um vértice de destino pertencente ao mesmo módulo do vértice de origem. Eis a definição da probabilidade preferencial baseada em módulos:
 
-$$
-\Pi(v_2|v_1) = (1 + \mathrm{g}(v_2) \cdot (1 + \alpha)) / Q(v_1) \mathrm{se $v_2$ está no mesmo módulo de $v_1$}}
-
-= (1 + \mathrm{g}(v_2)) / Q(v_2) \math{caso contrário}
-$$
+% XXX Tá dando erro na compilação.
+% $$
+% \Pi (v_2|v_1) = (1 + \mathrm{g}(v_2) \cdot (1 + \alpha)) / Q(v_1) \mathrm{se v_2 está no mesmo módulo de v_1}
+% 
+% = (1 + \mathrm{g}(v_2)) / Q(v_2) \mathrm{caso contrário}
+% $$
 
 O parâmetro $\alpha$ controla a proporção de arestas externas na rede. Para $\alpha = -1$, a maioria das arestas serão externas. Para $\alpha > 0$, a maioria das arestas serão internas, e quanto maior o valor de $\alpha$, maior a tendência. Quando $\alpha = 0$, arestas internas e externas são igualmente prováveis.
 
@@ -83,13 +89,79 @@ A expressão m($v$), neste contexto, designa o conjunto dos vértices que perten
 
 \begin{subsection}{O modelo BCR+}
 
-O modelo BCR \cite{Bollobas2003} gera redes orientadas sem módulos. 
+\newcommand{\din}[0]{\ensuremath{\delta_{in}}}
+\newcommand{\dout}[0]{\ensuremath{\delta_{out}}}
 
-vender o peixe: pode ser aplicado duas vezes pra gerar métodos
+O modelo BCR \cite{Bollobas2003} gera redes livres de escala orientadas, porém sem módulos. No contexto desta pesquisa foi desenvolvida uma extensão a esse modelo, chamada BCR+, que adiciona módulos à construção da rede. O modelo BCR+ aceita os seguintes parâmetros:
+
+\begin{itemize}
+\item número de vértices, $n$;
+\item um grafo orientado de dependências entre módulos, $G$;
+\item três probabilidades, $p_1$, $p_2$ e $p_3$, com $p_1 + p_2 + p_3 = 1$;
+\item uma constante $\mu$, with $0 \le \mu \le 1$;
+\item grau de entrada base, $\din$;
+\item grau de saída base, $\dout$.
+\end{itemize}
+
+O grafo $G$ contém um vértice para cada módulo que será criado e define uma relação de dependência entre os módulos. Um módulo $M_1$ depende de um módulo $M_2$ se $G$ contém contém uma aresta do vértice que representa $M_1$ para o vértice que representa $M_2$. Na rede gerada, uma aresta externa de um vértice $v_1 \in M_1$ para um vértice $v_2 \in M_2$ pode ocorrer apenas se $M_1$ depende de $M_2$ no grafo $G$.
+
+O parâmetro $\mu$ controla a proporção de arestas externas na rede. Valores mais baixos levam a redes com menos arestas externas.
+
+Na rede inicial, cada módulo contém exatamente um vértice e todas as arestas externas permitidas são adicionadas. Essa rede é então modificada de acordo com 3 regras que são aplicadas sucessivamente, em ordem aleatória, até a rede alcançar o número de $n$ vértices. A cada passo do algoritmo, a probabilidade de se aplicar a regra $i$ é $p_i$.
+
+Antes de descrever o algoritmo em detalhes, algumas definições são necessárias. A expressão $\mathrm{g}_e(x)$ designa o número de arestas com origem no vértice $x$, e $\mathrm{g}_s(x)$, analogamente, designa o número de arestas com destino no vértice $x$. A expressão ``escolher um vértice de acordo com f($x$)'' significa que a probabilidade de escolher um vértice $x$ é dada pela seguinte função de probabilidade:
+
+$$
+  \mathrm{P}(x) ~=~ \frac{ \mathrm{f}(x) }
+  { \displaystyle\sum_{i} \mathrm{f}(i) }
+$$
+
+(o denominador é um fator de normalização, de modo que a soma das probabilidades é 1).
+
+As três regras são descritas a seguir:
+
+\begin{enumerate}
+
+\item \emph{Adicionar um vértice com uma aresta de saída}. Um vértice existente, $w$ é escolhido de acordo com $\mathrm{f}(x) = \din + \mathrm{g}_e(x)$. Um novo vértice, $v$, é adicionado ao módulo que contém $w$, juntamente com uma aresta de $v$ a $w$.
+
+\item \emph{Adicionar um vértice com uma aresta de entrada}. Um vértice existente, $w$ é escolhido de acordo com $\mathrm{f}(x) = \dout + \mathrm{g}_s(x)$. Um novo vértice, $v$, é adicionado ao módulo que contém $w$, juntamente com uma aresta de $w$ a $v$.
+
+\item \emph{Adicionar uma aresta entre vértices pré-existentes}. Um vértice, $v$, é escolhido de acordo com $\mathrm{f}(x) = \dout + \mathrm{g}_s(x)$. Então é adicionada uma aresta do vértice $v$ a um vértice $w$, escolhido de acordo com $\mathrm{f}(x) = \din + \mathrm{g}_e(x)$, respeitando um dos seguintes casos:
+
+\begin{enumerate}
+  \item com probabilidade $\mu$, $w$ é escolhido dentre os vértices que estão em módulos dos quais o módulo de $v$ depende;
+  \item com probabilidade $1 - \mu$, $w$ é escolhido dentre os vértices que estão no mesmo módulo que $v$.
+\end{enumerate}
+
+\end{enumerate}
+
+Pode-se facilmente notar que vértices com grau de entrada alto têm mais chance de ser o destino de novas arestas. O parâmetro $\din$ reduz essa tendência fornecendo um grau de entrada base que é aplicado a todos os vértices no cálculo das probabilidades. Considere dois vértices, $v_1$, com grau de entrada 4, e $v_2$, com grau de entrada 8. Se $\din = 0$, $v_2$ tem o dobro de chance de ser o destino de nova aresta; se, por outro lado, $\din = 4$, $v_2$ tem apenas $\frac{3}{2}$ de chance de receber a aresta. O mesmo raciocínio se aplica a $\dout$ com relação ao grau de saída.
+
+O modelo BCR+, assim como o modelo CGW, é um modelo de crescimento, no qual a rede é criada vértice por vértice a partir de uma rede inicial. Ele pode, portanto, simular a evolução de sistemas de software. Mais do que isso, ele pode simular a evolução de um sistema de software sujeito a restrições na interação entre módulos, como sistemas que seguem um \emph{design} definido antes da implementação.
+
+Outra possibilidade interessante do modelo, que não foi explorada nesta pesquisa, é o uso de uma rede gerada pelo modelo como parâmetro $G$ do próprio modelo. O modelo pode ser executado uma vez para gerar uma rede no qual os módulos representam módulos de software e os vértices representam classes, e então ser executado na segunda vez considerando a rede gerada na primeira etapa como o parâmetro $G$. Na rede resultante, os módulos seriam interpretados como classes e os vértices poderiam ser interpretados como membros das classes. As duas redes, combinadas, formariam uma rede hierárquica com três níveis: módulos, classes e membros.
+
 \end{subsection}
 
-Modelo CGW
-Modelo LFR
-Modelo BCR+ 
+\begin{subsection}{O modelo LFR}
+
+O modelo LFR \cite{Lancichinetti2009} é um modelo flexível que pode gerar redes ponderadas com módulos sobrepostos, isto é, nas quais um vértice pode pertencer a mais de um módulo. Diferentemente dos modelos anteriores, o LFR não é um modelo de crescimento: todos os vértices são gerados de uma vez e então são adicionadas as arestas.
+
+Nesta pesquisa foi estudado um caso particular do modelo no qual todas as arestas têm o mesmo peso e os módulos não se sobrepõem. Foi usada a implementação original dos autores, disponível em  \url{http://santo.fortunato.googlepages.com/inthepress2}. O modelo aceita os seguintes parâmetros:
+
+\begin{itemize}
+\item número de vértices, $n$;
+\item grau de entrada médio, $k$, com $k < n$;
+\item grau de entrada máximo, $max_k$, com $k \le max_k < n$;
+\item parâmetro de mistura, $\mu$, com $0 \le \mu \le 1$;
+\item expoente da distribuição de graus, $-\gamma$;
+\item expoente da distribuição de tamanho de módulos, $-\beta$;
+\item tamanho do menor módulo, $min_m$;
+\end{itemize}
+
+Os tamanhos dos módulos são selecionados de uma lei de potência com expoente $-\beta$. O parâmetro de mistura, $\mu$, é a proporção de arestas externas na rede gerada. No modelo LFR, nem todas as combinações de parâmetros são factíveis. Por exemplo, se $n = 100$, então $min_m$ não pode ser 60, caso contrário existiriam módulos menores do que $min_m$.
+
+\end{subsection}
+
 
 \end{section}
