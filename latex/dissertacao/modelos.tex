@@ -1,33 +1,41 @@
 % 10-30 páginas
 
-\chapter{Redes complexas}
-% Ver a revisão bibliográfica que já foi feita
+\chapter{Redes livres de escala}
 
-\begin{section}{Introdução}
+\begin{section}{Introdução} 
+	\label{sec:redes-complexas}
 
-Histórico.
+A teoria das redes complexas estuda propriedades gerais de diversos tipos de redes com o uso de ferramentas estatísticas. Estudos realizados na última década revelaram similaridades entre redes estudadas em diversos domínios. Exemplos incluem redes tecnológicas, como a Web e a rede de distribuição de energia elétrica dos Estados Unidos, redes biológicas, como cadeias alimentares e redes de ligações entre proteínas, e redes sociais, como as relações de amizade entre alunos de uma escola.
 
-Redes livres de escala.
+Barabási e Albert \cite{Barabasi1999} analisaram uma amostra da \emph{World Wide Web}, modelada como um grafo não-orientado no qual os vértices representam páginas e as arestas representam \emph{links} entre duas páginas. Eles perceberam que a probabilidade, P($k$) de um vértice escolhido ter grau $k$ (ou seja, estar ligado a $k$ arestas) era proporcional a $k^{\-\gamma}$, função conhecida como lei de potência (veja a Figura XXX). Desde então, esse padrão de conectividade tem sido encontrado em redes de diversos domínios, inclusive em redes de software. Redes com esse padrão são chamadas de redes livres de escala.
+% Explicar que não há valor característico para o grau de um vértice, e daí vem o nome.
 
-Motivos. Tríades.
+No caso de redes orientadas, há duas distribuições a serem consideradas: a distribuição dos graus de entrada e a distribuição dos graus de saída. Nas redes livres de escala, ambas as distribuições seguem leis de potência.
 
-Redes complexas em software:
- Myers, Valverde.
- Louridas. Módulos de tamanhos lei de escala.
+% e alto coeficiente de agrupamento
+Estudos recentes têm aplicado a teoria das redes complexas a redes de software. Valverde e Solé \cite{Valverde2003} detectaram distribuições de graus livres de escala em redes não-orientadas formadas por relações de agregação de tipos em diagramas UML, programas em C e programas em C++. Myers \cite{Myers2003} analisou redes de chamadas de função em programas em C e redes de agregação e herança em programas em C++, modeladas como grafos orientados. Em ambos os casos as redes foram identificadas como livres de escala. 
+
+Redes livres de escala também foram encontradas em programas escritos em Smalltalk \cite{Marchesi2004,Concas2007} e em Java \cite{Hyland-Wood2006,Baxter2006,Ichii2008}, em dependências entre pacotes de \textit{software} \cite{Labelle2004}, em chamadas de sistema XXX(citação), em dependências entre bibliotecas dinâmicas \cite{Louridas2008} e até mesmo em referências entre objetos em tempo de execução \cite{Potanin2005}.
+
+Milo et al. \cite{Milo2002} tríades.... %XXX
 
 \end{section}
 
-\begin{section}{Modelos de Síntese de Redes Divididas em Módulos}
+\begin{section}{Modelos de Síntese de Redes Organizadas em Módulos}
+% deu 7 páginas
 
-Requisitos para a avaliação de algoritmos de agrupamento: grafos particionados.
+Para tentar explicar os mecanismos responsáveis pela formação de redes livres de escala em diversos domínios, diversos modelos de redes livres de escala foram propostos. Os modelos são algoritmos que geram vértices e arestas de forma probabilística porém de acordo com certas regras que garantem que, quando o número de vértices tende a infinito, a distribuição dos graus dos vértices tende a uma lei de potência. Tais modelos, portanto, geram redes similares a redes de software, ao menos quanto à distribuição dos graus.
 
-Como eu achei esses modelos: revisão não sistemática :P
+Para avaliar o desempenho de algoritmos de agrupamento de software são necessárias redes organizadas em módulos. A maioria dos modelos de redes livres de escala, no entanto, gera redes sem módulos. No contexto desta pesquisa foi elaborado um modelo, o BCR+, que gera redes orientadas organizadas em módulos. O modelo BCR+ é descrito na Seção XXX.
 
+Após uma pesquisa extensa, embora não-sistemática, realizada durante o primeiro semestre de 2009, foram encontrados dois modelos de redes livres de escala organizadas em módulos: o modelo CGW \cite{Chen2008} e o modelo LFR \cite{Lancichinetti2009}. O modelo CGW é descrito na Seção XXX e o modelo LFR, na Seção XXX.
+
+Os três modelos apresentados a seguir geram redes orientadas organizadas em módulos. 
 % Modelo de Erdos-Renyi?
 % Modelo de configuração?
 % Modelo de Albert-Barabasi?
 
-Todos os modelos produzem redes orientadas organizadas em módulos.
+% XXX: falar PRIMEIRO sobre BCR+ e DEPOIS sobre CGW, seguindo a ordem histórica de descobrimento.
 
 \begin{subsection}{O modelo CGW}
 
