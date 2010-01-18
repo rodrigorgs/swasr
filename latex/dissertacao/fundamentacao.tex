@@ -1,4 +1,9 @@
 % (15-25)
+%
+% DESIGN DE SOFTWARE
+% DEFINIR REDE DE SOFTWARE
+% CLUSTERING
+% AVALIAÇÃO DE CLUSTERING
 % 
 %     * redes complexas
 %     * designs de software como redes complexas
@@ -8,9 +13,110 @@
 
 \chapter{Agrupamento de Software}
 
+A atividade de agrupamento consiste de agrupar um conjunto de entidades em subconjuntos, denominados módulos, de forma que, sob algum critério, as entidades agrupadas em um mesmo módulo possuem grande similaridade entre si e pequena similaridade com entidades que estão em outros módulos. Em muitas aplicações, a noção de módulo não é bem definida. Ainda assim, o agrupamento dos dados pode evidenciar relacionamentos existentes entre entidades e servir como ponto de partida de atividades como, por exemplo, a atribuição de arquivos de código-fonte a programadores.
+
+O termo agrupamento designa tanto a atividade de agrupamento como o resultado dessa atividade, que é a organização das entidades analisadas em módulos. Existem diversos tipos de agrupamento:
+
+\begin{itemize}
+
+%%%%%%%% SIMILARIDADE
+
+Para realizar o agrupamento de um conjunto de entidades de maneira sistemática, as seguintes questões devem ser consideradas:
+
+\begin{itemize}
+	\item a descrição das entidades;
+	\item o algoritmo de agrupamento;
+\end{itemize}
+
+A descrição das entidades determina as características a se considerar para determinar se duas entidades são mais ou menos similares. Por exemplo, se o objetivo é agrupar funções em um programa procedimental, as seguintes descrições, entre outras, podem ser adotadas:
+
+\begin{itemize}
+	\item conjunto das palavras usadas nos comentários que descrevem a função;
+	\item conjunto dos programadores que trabalharam na função;
+	\item conjunto das funções chamadas pela função;
+	\item conjunto das variáveis manipuladas na função.
+\end{itemize}
+
+As duas últimas descrições são chamadas de descrições formais, pois elas têm impacto sobre o comportamento do programa \cite{Anquetil1999}. As duas primeiras são descrições não-formais. As descrições mais usadas em pesquisa são as descrições formais.
+
+As descrições das entidades são usadas como base de métricas de similaridade. Considerando o exemplo em que as entidades são funções e a descrição de uma função é o conjunto de funções por ela chamadas, consideremos X e Y duas descrições de funções. A similaridade de Jaccard entre as duas entidades, sim($X, Y$), é dada por:
+
+$$
+\mathrm{sim}(X, Y) ~=~ \frac{X \cap Y}{X \cup Y}
+$$
+
+A métrica de similaridade de Jaccard é comumente usada em estudos de agrupamento no domínio de sistemas de software \cite{Anquetil1999,Wu2005}, e por isso será usada também neste estudo.
+
+Neste trabalho, optamos por estudar sistemas orientados a objetos escritos em Java, uma escolha que se justifica pela popularidade da linguagem de programação Java e do paradigma de programação orientada a objetos. Os sistemas são representados como conjuntos de classes, e cada classe é descrita através do conjunto de classes às quais ela faz referência em seu código-fonte. Desta forma, os sistemas de software podem ser representados como grafos orientados. Essa representação de um sistema de software será chamada, daqui em diante, de \emph{rede de software}.
+
+%%%%%%%%%%%% ALGORITMO
+
+Para este estudo, foram selecionados 4 algoritmos de agrupamento: 
+
+\begin{itemize}
+	\item algoritmo hierárquico aglomerativo (AHA): é um algoritmo de propósito geral que produz agrupamentos hierárquicos.
+	\item Bunch: é um algoritmo que opera sobre grafos orientados e foi proposto especificamente para o domínio de software.
+	\item ACDC: da mesma forma que o Bunch, opera sobre grafos orientados e foi proposto para o domínio de software.
+	\item Infomap: opera sobre grafos orientados e foi proposto para o problema de detectar comunidades em redes sociais.
+\end{itemize}
+
+% XXX Falar brevemente sobre o funcionamento de cada algoritmo.
+
+
+
+% Agrupamento é um problema antigo. Taxonomia etc.
+% Representação de dados
+
+% Que representação usar para software? Grafo: sólidas fundações teóricas, existem algoritmos de agrupamento especificamente projetados para grafos.
+% em particular, grafos orientados
+% extração usando análise estática, por ser de aplicação mais geral. Tipos de dependências.
+
+\begin{section}{Introdução}
+	
+\end{section}
+
+% INTRODUÇÃO COM UM APANHADO DO QUE VIRÁ
+% --
+% TEORIA DOS GRAFOS. orientado/ponderado
+% GRAFOS ORGANIZADOS EM MÓDULOS - mencionar que existem algoritmos de agrupamento
+% VALIDAÇÃO DE ORGANIZAÇÃO EM MÓDULOS - interna, externa...
+% EXTRAÇÃO DE GRAFOS A PARTIR DE SOFTWARE - análise estática/dinâmica...
+% AGRUPAMENTO DE SOFTWARE - identificadores, co-mudanças...
+
+Grafo é uma representação matemática de um conjunto de entidades na qual duas entidades podem ou não estar relacionadas. Em um grafo, as entidades são chamadas vértices e as relações entre vértices são chamadas arestas. Grafos são definidos de acordo com as seguintes dimensões:
+
+- orientado vs. não-orientado. Nos grafos não-orientados, as arestas representam uma relação simétrica entre dois vértices. No caso dos grafos orientados, cada aresta possui um vértice de origem e um vértice de destino. Diz-se que $a$ é uma aresta de $v_1$ para $v_2$ quando $v_1$ é a origem e $v_2$ é o destino de $a$. Nos grafos orientados existem também arestas bidirecionais, que equivalem a duas arestas com orientações opostas.
+
+- ponderado vs. não-ponderado. Em alguns casos, é atribuído um valor a cada aresta, denominado peso. Os pesos podem representar, por exemplo, a força da ligação entre dois vértices. Nos grafos não-ponderados não há pesos ou, equivalentemente, todas as arestas possuem o mesmo peso.
+
+- grafos simples vs. multigrafos. Nos grafos simples, não podem existir duas arestas ligando o mesmo par de vértices, e nem autolaços --- arestas que ligam um vértice a ele próprio. Nos multigrafos cada par de vértices pode ser ligado por diversas arestas e os autolaços são permitidos.
+
+No decorrer deste trabalho serão estudados grafos simples, orientados e não-ponderados. % XXX falar agora ou deixar pra mais tarde?
+
+\begin{section}{Organização em módulos}
+
+Um conceito importante no estudo de algoritmos de agrupamento é o conceito de organização em módulos. 
+para simplificar, vamos chamar de particionamento...
+
+\end{section}
+
 \begin{section}{Algoritmos de agrupamento}
 
-Mineração de dados.
+Algoritmos de agrupamento têm por objetivo agrupar entidades em subconjuntos, denominados módulos, de forma, sob algum critério, as entidades agrupadas em um módulo possuem grande similaridade entre si e pequena similaridade com vértices de outros módulos. Após a aplicação de um algoritmo de agrupamento sobre um conjunto de entidades, diz-se que as entidades estão organizadas em módulos.
+
+% Exemplo: entidades = pontos no plano. dois pontos são colocados no mesmo grupo se a distância euclideana entre eles é menor do que ``d''.
+
+Uma organização em módulos pode ser classificada de diversas maneiras:
+
+hierárquico vs. partitivo: na organização hierárquica, os módulos são sucessivamente agrupados em módulos de módulos. Na plana, apenas as entidades estão agrupadas em módulos. Uma organização hierárquica pode ser transformada em plana se a árvore da hierarquia for cortada em algum nível.
+
+completo vs. parcial: na organização completa, todas as entidades pertencem a algum módulo; na organização parcial podem existir entidades sem módulos.
+
+módulos sobrepostos vs. mutuamente exclusivos: na organização com módulos sobrepostos, podem existir entidades que pertencem a mais de um módulo; na organização de módulos mutuamente exclusivos, cada entidade pertence a no máximo um módulo.
+
+%% NESTE trabalho estudamos apenas algoritmos que produzem organizações completas e com módulos mutuamente exclusivos. (a fim de facilitar a comparação das organizações em módulos).
+
+No estudo de redes sociais, algoritmos de agrupamento que operam sobre redes, agrupando seus vértices, são chamados de algoritmos de detecção de comunidades.
 
 Na física, detecção de comunidades.
 
