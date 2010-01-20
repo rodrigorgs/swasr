@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>fundamentacao.tex</string>
+	<string>introducao.tex</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -30,7 +30,7 @@
 			<key>filename</key>
 			<string>dissertacao.tex</string>
 			<key>lastUsed</key>
-			<date>2010-01-14T18:33:41Z</date>
+			<date>2010-01-20T20:44:48Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
@@ -59,21 +59,21 @@
 					<key>filename</key>
 					<string>introducao.tex</string>
 					<key>lastUsed</key>
-					<date>2010-01-17T12:31:22Z</date>
-				</dict>
-				<dict>
-					<key>filename</key>
-					<string>fundamentacao.tex</string>
-					<key>lastUsed</key>
-					<date>2010-01-18T20:21:13Z</date>
+					<date>2010-01-20T20:44:48Z</date>
 					<key>selected</key>
 					<true/>
 				</dict>
 				<dict>
 					<key>filename</key>
+					<string>fundamentacao.tex</string>
+					<key>lastUsed</key>
+					<date>2010-01-20T18:25:58Z</date>
+				</dict>
+				<dict>
+					<key>filename</key>
 					<string>modelos.tex</string>
 					<key>lastUsed</key>
-					<date>2010-01-18T20:21:13Z</date>
+					<date>2010-01-20T18:39:53Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -172,21 +172,21 @@
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>21</integer>
+			<integer>0</integer>
 		</dict>
 		<key>introducao.tex</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>29</integer>
+				<integer>256</integer>
 				<key>line</key>
-				<integer>12</integer>
+				<integer>45</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
-			<integer>0</integer>
+			<integer>150</integer>
 			<key>firstVisibleLine</key>
-			<integer>0</integer>
+			<integer>35</integer>
 		</dict>
 		<key>main_mestrado.tex</key>
 		<dict>
@@ -207,9 +207,9 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>67</integer>
+				<integer>28</integer>
 				<key>line</key>
-				<integer>31</integer>
+				<integer>4</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
