@@ -9,61 +9,97 @@
 
 \chapter{Introdução}
 
+A importância de estudos empíricos na ciência da computação tem sido reconhecida por diversos pesquisador nos últimos anos (Basili, 1996; Tichy, 1998; Feitelson, 2005). Na engenharia de software, em particular, estudos empíricos frequentemente mobilizam equipes de programadores e outros especialistas, o que torna os experimentos caros, difíceis de reproduzir e pouco gerais.
+
+Uma área da engenharia de software que demanda estudos empíricos é a engenharia reversa. Engenharia reversa é qualquer atividade cujo objetivo é recuperar conhecimento sobre um sistema de software existente para apoiar a execução de uma tarefa de engenharia de software, por exemplo, a modificação de um sistema \cite{Tonella2007}. Atividades de engenharia reversa incluem localizar partes de um programa que implementam determinada funcionalidade (Zhao et al., 2004), prever os impactos de uma mudança (Arnold e Bohner, 1996) e recuperar aspectos não documentados da arquitetura de um sistema \cite{Pollet2007}.
+
+Ferramentas de engenharia reversa em geral fornecem resultados imprecisos. O grau de acerto pode ser medido através de experimentos em que as ferramentas são aplicadas a diversos sistemas de software e, a seguir, especialistas nos sistemas validam os resultados encontrados. A necessidade de mobilizar um especialista para cada sistema inviabiliza o estudo de uma amostra significativa de sistemas.
+
+Nas situações em que experimentos são inviáveis, cientistas recorrem a modelos do fenômeno estudado. Modelos são formalizações simplificadas da realidade e, como tais, são usados para prever resultados que seriam obtidos com dados reais. Por um lado, modelos embutem suposições possivelmente incorretas sobre a realidade; por outro lado, a simulação através de modelos pré-existentes é um processo barato, controlado e repetível.
+
+Nesta dissertação, o problema da carência de estudos experimentais sobre técnicas de agrupamento de software --- uma forma de engenharia reversa --- é abordado através da simulação de modelos de sistemas de software.
+
+-----------------------------
+
+Agrupamento de software
+
+A divisão conceitual de um sistema de software em módulos é uma informação valiosa durante o seu desenvolvimento. Uma boa organização modular revela subconjuntos de um sistema que podem ser desenvolvidos por equipes trabalhando de forma mais ou menos independente, o que contribui para reduzir o tempo de implementação. Apesar disso, o conhecimento sobre a organização de um sistema muitas vezes é mal documentado e acaba se perdendo à medida que os desenvolvedores são substituídos \cite{Clements2002}.
+
+O tempo gasto na manutenção de um sistema de software pode ser afetado pela atribuição de desenvolvedores a entidades da implementação de um sistema (arquivos fonte, classes, funções etc.). Se duas equipes de desenvolvimento são responsáveis por manter entidades altamente interdependentes (com alto acoplamento), elas precisam coordenar seu trabalho frequentemente para evitar duplicação de código e introdução de defeitos.
+
+Portanto, para otimizar o tempo de desenvolvimento de um sistema, um gerente de desenvolvimento pode agrupar entidades que compõem o sistema em módulos, ou grupos de entidades, de forma que o acoplamento entre módulos seja minimizado. Então cada módulo é atribuído a uma equipe e, por causa do baixo acoplamento entre módulos, a necessidade de comunicação entre equipes é reduzido, o que acelera o desenvolvimento.
+
+Para organizar um sistema em módulos, um gerente precisa ter conhecimento global das dependências entre as entidades que formam o sistema. Embora ferramentas de análise de dependêncis possam extrair tal informação a partir do código-fonte do sistema, a tarefa de encontrar um bom mapeamento entre entidades e módulos pode ser excessivamente difícil devido ao grande número de entidades e dependências que precisam ser consideradas.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+A arquitetura de um sistema de software é formada pelas decisões mais significativas sobre o desenvolvimento do sistema (Booch, 2006). Essas decisões devem ser tomadas preferencialmente nos estágios iniciais do processo de desenvolvimento, pois elas afetam um grande número de decisões ao longo do ciclo de vida do software.
+
+É comum apresentar uma arquitetura dividida em visões, onde cada visão descreve decisões que dizem respeito a um subconjunto dos requisitos do sistema \cite{Clements2002}. A visão modular é a mais importante no gerenciamento da evolução de software \cite{Parnas1972}. Ela representa a organização de um sistema em módulos com responsabilidades bem definidas e descreve interações entre os módulos. A visão modular facilita a análise de atributos como facilidade de modificação e possibilidade de reuso de partes do sistema.
+
+Recuperação de arquitetura é o processo pelo qual aspectos da arquitetura de um sistema são extraídos a partir de artefatos criados durante seu desenvolvimento. Muitos trabalhos na área propõem o uso de algoritmos de agrupamento (\emph{clustering}) a fim de recuperar automaticamente um agrupamento das entidades de código-fonte em módulos \cite{Mancoridis1998,Andritsos2005,Maqbool2007}.
+
+Uma forma de avaliar algoritmos de agrupamento de software é aplicá-los a uma coleção de sistemas de software com agrupamentos de referência feitos por desenvolvedores experientes \cite{Anquetil1999}. Se espera que bons algoritmos achem agrupamentos similares aos agrupamentos de referência.
+
+Infelizmente, existem poucos agrupamentos de referência disponíveis publicamente \cite{Koschke2000} e, consequentemente, poucos estudos empíricos sobre algoritmos de agrupamento de software. Além disso, como o custo de se obter agrupamentos de referência para grandes é alto, muitos estudos testam os algoritmos com sistemas pequenos e médios \cite{Anquetil1999,Maqbool2007,Bittencourt2009}.
+
+Propomos, neste trabalho, avaliar algoritmos de agrupamento de software com sistemas de software sintéticos, gerados a partir da simulação de modelos de software.
+
 %%%%%%%%%%%%%%%%%%%%%%%%%
 % definir Engenharia Reversa.
 
-% O PROBLEMA FUNDAMENTAL: ATRIBUIÇÃO DE TRABALHO (fold)
-
-Sistemas de software grandes precisam ser divididos em pedaços para que possam ser mantidos por equipes de programadores.
-
-De nada adianta ter muitos desenvolvedores se a separação entre os módulos nos quais eles trabalham não é clara. Fred Brooks: adding more developers to a late project renders it later. Custo de comunicação. % ver versões antigas do artigo do csmr2010
-
-Em alguns projetos, a estrutura do sistema e a estrutura de desenvolvedores é bem documentada (arquitetura de software).
-
-Em outros casos, o software cresce de forma que o conhecimento da estrutura global se perde. Ou, ainda, pode se estar fazendo a manutenção de um sistema de software legado, no qual os desenvolvedores originais não estão disponíveis.
-
-A aquisição do conhecimento sobre a estrutura global do software é custosa.
-
-Ferramentas de clustering ajudam a achar uma boa separação de módulos, facilitando a atribuição de trabalho.
-
-Recuperação de arquitetura de software é uma área bastante ampla, como será mostrado na Seção XX. Um significado específico será apresentada na seção YY.
-% explicar por que evito o termo arquitetura e me concentro em clustering de software, conceito que deve ser definido em um capítulo posterior.
-
-%%%%%%%%%%%%%%%%%%%%%%%%% (end)
-
-% O PROBLEMA DERIVADO: FALTA DE VALIDAÇÃO EMPÍRICA NA ENG DE SOFTWARE (fold)
-% (e em particular na área de recuperação de arquitetura)
-
-Especialistas têm sentido falta de validação empírica na área de engenharia de software. Feitelson, Basili, Tichy. Não é à toa. Experimentos controlados em ES são caros, difíceis de reproduzir e pouco gerais. Mobilizam equipes de programadores. % ver proposta de mestrado
-
-Esse cenário se repete na área de recuperação de arquitetura. No máximo há estudos de caso.
-
-Nesses estudos de caso, são estudados sistemas que possuem uma estrutura modular de referência ou então são mobilizados especialistas para chegar a uma modularização (Koschke). NÃO HÁ BENCHMARKS! % ver WDCOPIN
-
-Em outras áreas da ciência da computação, como redes sistemas distribuídos, é comum recorrer a modelos e simulações. Modelos são simplificações, mas a simulação é uma abordagem barata (tendo um modelo), controlada e repetível. % ver proposta de mestrado
-
-%%%%%%%%%%%%%%%%%%%%%%%%% (end)
-
-% O OBJETIVO DESTE TRABALHO: ESTUDAR REC. DE ARQ. COM MODEL. E SIMULAÇÃO! (fold)
-
-Descobrir modelos de software que apoiem a avaliação de algoritmos de clustering.
-
-Objetivos específicos:
- ...
-
-%%%%%%%%%%%%%%%%%%%%%%%%% (end)
-
-% LIMITAÇÕES % (fold)
-
-Algoritmos de clustering aplicados a programas OO representados como um grafo de dependências estáticas.
-
-%%%%%%%%%%%%%%%%%%%%%%%%% (end)
-
-% METODOLOGIA (fold)
-Métodos estatísticos, física estatística.
-
-%%%%%%%%%%%%%%%%%%%%%%%% (end)
-% ÍNDICE
+% % O PROBLEMA FUNDAMENTAL: ATRIBUIÇÃO DE TRABALHO (fold)
+% 
+% Sistemas de software grandes precisam ser divididos em pedaços para que possam ser mantidos por equipes de programadores.
+% 
+% De nada adianta ter muitos desenvolvedores se a separação entre os módulos nos quais eles trabalham não é clara. Fred Brooks: adding more developers to a late project renders it later. Custo de comunicação. % ver versões antigas do artigo do csmr2010
+% 
+% Em alguns projetos, a estrutura do sistema e a estrutura de desenvolvedores é bem documentada (arquitetura de software).
+% 
+% Em outros casos, o software cresce de forma que o conhecimento da estrutura global se perde. Ou, ainda, pode se estar fazendo a manutenção de um sistema de software legado, no qual os desenvolvedores originais não estão disponíveis.
+% 
+% A aquisição do conhecimento sobre a estrutura global do software é custosa.
+% 
+% Ferramentas de clustering ajudam a achar uma boa separação de módulos, facilitando a atribuição de trabalho.
+% 
+% Recuperação de arquitetura de software é uma área bastante ampla, como será mostrado na Seção XX. Um significado específico será apresentada na seção YY.
+% % explicar por que evito o termo arquitetura e me concentro em clustering de software, conceito que deve ser definido em um capítulo posterior.
+% 
+% %%%%%%%%%%%%%%%%%%%%%%%%% (end)
+% 
+% % O PROBLEMA DERIVADO: FALTA DE VALIDAÇÃO EMPÍRICA NA ENG DE SOFTWARE (fold)
+% % (e em particular na área de recuperação de arquitetura)
+% 
+% Especialistas têm sentido falta de validação empírica na área de engenharia de software. Feitelson, Basili, Tichy. Não é à toa. Experimentos controlados em ES são caros, difíceis de reproduzir e pouco gerais. Mobilizam equipes de programadores. % ver proposta de mestrado
+% 
+% Esse cenário se repete na área de recuperação de arquitetura. No máximo há estudos de caso.
+% 
+% Nesses estudos de caso, são estudados sistemas que possuem uma estrutura modular de referência ou então são mobilizados especialistas para chegar a uma modularização (Koschke). NÃO HÁ BENCHMARKS! % ver WDCOPIN
+% 
+% Em outras áreas da ciência da computação, como redes sistemas distribuídos, é comum recorrer a modelos e simulações. Modelos são simplificações, mas a simulação é uma abordagem barata (tendo um modelo), controlada e repetível. % ver proposta de mestrado
+% 
+% %%%%%%%%%%%%%%%%%%%%%%%%% (end)
+% 
+% % O OBJETIVO DESTE TRABALHO: ESTUDAR REC. DE ARQ. COM MODEL. E SIMULAÇÃO! (fold)
+% 
+% Descobrir modelos de software que apoiem a avaliação de algoritmos de clustering.
+% 
+% Objetivos específicos:
+%  ...
+% 
+% %%%%%%%%%%%%%%%%%%%%%%%%% (end)
+% 
+% % LIMITAÇÕES % (fold)
+% 
+% Algoritmos de clustering aplicados a programas OO representados como um grafo de dependências estáticas.
+% 
+% %%%%%%%%%%%%%%%%%%%%%%%%% (end)
+% 
+% % METODOLOGIA (fold)
+% Métodos estatísticos, física estatística.
+% 
+% %%%%%%%%%%%%%%%%%%%%%%%% (end)
+% % ÍNDICE
 
 A estrutura do restante desta dissertação é descrita a seguir.
 

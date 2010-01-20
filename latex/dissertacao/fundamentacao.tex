@@ -18,17 +18,24 @@ A atividade de agrupamento consiste de agrupar um conjunto de entidades em subco
 O termo agrupamento designa tanto a atividade de agrupamento como o resultado dessa atividade, que é a organização das entidades analisadas em módulos. Existem diversos tipos de agrupamento:
 
 \begin{itemize}
+	\item hierárquico vs. partitivo: na organização hierárquica, os módulos são sucessivamente agrupados em módulos de módulos. Na plana, apenas as entidades estão agrupadas em módulos. Uma organização hierárquica pode ser transformada em plana se a árvore da hierarquia for cortada em algum nível.
+
+	\item completo vs. parcial: na organização completa, todas as entidades pertencem a algum módulo; na organização parcial podem existir entidades sem módulos.
+
+	\item módulos sobrepostos vs. mutuamente exclusivos: na organização com módulos sobrepostos, podem existir entidades que pertencem a mais de um módulo; na organização de módulos mutuamente exclusivos, cada entidade pertence a no máximo um módulo.
+\end{itemize}
 
 %%%%%%%% SIMILARIDADE
 
 Para realizar o agrupamento de um conjunto de entidades de maneira sistemática, as seguintes questões devem ser consideradas:
 
 \begin{itemize}
+	\item identificação das entidades;
 	\item a descrição das entidades;
 	\item o algoritmo de agrupamento;
 \end{itemize}
 
-A descrição das entidades determina as características a se considerar para determinar se duas entidades são mais ou menos similares. Por exemplo, se o objetivo é agrupar funções em um programa procedimental, as seguintes descrições, entre outras, podem ser adotadas:
+A descrição das entidades determina as características a se considerar para determinar se duas entidades são mais ou menos similares. Por exemplo, se o objetivo é agrupar funções em um programa procedimental, as entidades são funções e as seguintes descrições, entre outras, podem ser adotadas para cada entidade:
 
 \begin{itemize}
 	\item conjunto das palavras usadas nos comentários que descrevem a função;
