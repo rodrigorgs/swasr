@@ -59,7 +59,7 @@
 					<key>filename</key>
 					<string>introducao.tex</string>
 					<key>lastUsed</key>
-					<date>2010-01-20T20:44:48Z</date>
+					<date>2010-01-21T20:15:01Z</date>
 					<key>selected</key>
 					<true/>
 				</dict>
@@ -67,13 +67,13 @@
 					<key>filename</key>
 					<string>fundamentacao.tex</string>
 					<key>lastUsed</key>
-					<date>2010-01-20T18:25:58Z</date>
+					<date>2010-01-21T20:14:58Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
 					<string>modelos.tex</string>
 					<key>lastUsed</key>
-					<date>2010-01-20T18:39:53Z</date>
+					<date>2010-01-21T20:15:01Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -179,14 +179,14 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>256</integer>
+				<integer>0</integer>
 				<key>line</key>
-				<integer>45</integer>
+				<integer>50</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
-			<integer>150</integer>
+			<integer>303</integer>
 			<key>firstVisibleLine</key>
-			<integer>35</integer>
+			<integer>47</integer>
 		</dict>
 		<key>main_mestrado.tex</key>
 		<dict>
@@ -242,6 +242,6 @@
 	<key>showFileHierarchyDrawer</key>
 	<true/>
 	<key>windowFrame</key>
-	<string>{{10, 67}, {1067, 711}}</string>
+	<string>{{0, 4}, {1070, 774}}</string>
 </dict>
 </plist>

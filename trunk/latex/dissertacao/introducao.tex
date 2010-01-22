@@ -19,9 +19,9 @@ Nas situações em que experimentos são inviáveis, cientistas recorrem a model
 
 Nesta dissertação, o problema da carência de estudos experimentais sobre técnicas de agrupamento de software --- uma forma de engenharia reversa --- é abordado através da simulação de modelos de sistemas de software.
 
------------------------------
-
-Agrupamento de software
+% -----------------------------
+% 
+% Agrupamento de software
 
 A divisão conceitual de um sistema de software em módulos é uma informação valiosa durante o seu desenvolvimento. Uma boa organização modular revela subconjuntos de um sistema que podem ser desenvolvidos por equipes trabalhando de forma mais ou menos independente, o que contribui para reduzir o tempo de implementação. Apesar disso, o conhecimento sobre a organização de um sistema muitas vezes é mal documentado e acaba se perdendo à medida que os desenvolvedores são substituídos \cite{Clements2002}.
 
@@ -29,7 +29,7 @@ O tempo gasto na manutenção de um sistema de software pode ser afetado pela at
 
 Portanto, para otimizar o tempo de desenvolvimento de um sistema, um gerente de desenvolvimento pode agrupar entidades que compõem o sistema em módulos, ou grupos de entidades, de forma que o acoplamento entre módulos seja minimizado. Então cada módulo é atribuído a uma equipe e, por causa do baixo acoplamento entre módulos, a necessidade de comunicação entre equipes é reduzido, o que acelera o desenvolvimento.
 
-Para organizar um sistema em módulos, um gerente precisa ter conhecimento global das dependências entre as entidades que formam o sistema. Embora ferramentas de análise de dependêncis possam extrair tal informação a partir do código-fonte do sistema, a tarefa de encontrar um bom mapeamento entre entidades e módulos pode ser excessivamente difícil devido ao grande número de entidades e dependências que precisam ser consideradas.
+Para organizar um sistema em módulos, um gerente precisa ter conhecimento global das dependências entre as entidades que formam o sistema. Embora ferramentas de análise de dependências possam extrair tal informação a partir do código-fonte do sistema, a tarefa de encontrar um bom mapeamento entre entidades e módulos pode ser excessivamente difícil devido ao grande número de entidades e dependências que precisam ser consideradas.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -37,15 +37,24 @@ A arquitetura de um sistema de software é formada pelas decisões mais signific
 
 É comum apresentar uma arquitetura dividida em visões, onde cada visão descreve decisões que dizem respeito a um subconjunto dos requisitos do sistema \cite{Clements2002}. A visão modular é a mais importante no gerenciamento da evolução de software \cite{Parnas1972}. Ela representa a organização de um sistema em módulos com responsabilidades bem definidas e descreve interações entre os módulos. A visão modular facilita a análise de atributos como facilidade de modificação e possibilidade de reuso de partes do sistema.
 
-Recuperação de arquitetura é o processo pelo qual aspectos da arquitetura de um sistema são extraídos a partir de artefatos criados durante seu desenvolvimento. Muitos trabalhos na área propõem o uso de algoritmos de agrupamento (\emph{clustering}) a fim de recuperar automaticamente um agrupamento das entidades de código-fonte em módulos \cite{Mancoridis1998,Andritsos2005,Maqbool2007}.
+Recuperação de arquitetura (ou reconstrução de arquitetura) é o processo pelo qual aspectos da arquitetura de um sistema são extraídos a partir de artefatos criados durante seu desenvolvimento. Muitos trabalhos na área propõem o uso de algoritmos de agrupamento (\emph{clustering}) a fim de recuperar automaticamente um agrupamento das entidades de código-fonte em módulos \cite{Mancoridis1998,Andritsos2005,Maqbool2007}. Neste contexto, os algoritmos são chamados de algoritmos de agrupamento de software.
 
-Uma forma de avaliar algoritmos de agrupamento de software é aplicá-los a uma coleção de sistemas de software com agrupamentos de referência feitos por desenvolvedores experientes \cite{Anquetil1999}. Se espera que bons algoritmos achem agrupamentos similares aos agrupamentos de referência.
+Uma forma de avaliar algoritmos de agrupamento de software é aplicá-los a uma coleção de sistemas de software com agrupamentos de referência feitos por desenvolvedores experientes \cite{Anquetil1999}. Sob esse critério, bons algoritmos são aqueles que acham agrupamentos similares aos agrupamentos de referência.
 
 Infelizmente, existem poucos agrupamentos de referência disponíveis publicamente \cite{Koschke2000} e, consequentemente, poucos estudos empíricos sobre algoritmos de agrupamento de software. Além disso, como o custo de se obter agrupamentos de referência para grandes é alto, muitos estudos testam os algoritmos com sistemas pequenos e médios \cite{Anquetil1999,Maqbool2007,Bittencourt2009}.
 
-Propomos, neste trabalho, avaliar algoritmos de agrupamento de software com sistemas de software sintéticos, gerados a partir da simulação de modelos de software. Para tanto, os modelos devem gerar sistemas de software a partir de uma descrição dos módulos
+Propomos, neste trabalho, avaliar algoritmos de agrupamento de software com sistemas de software sintéticos, gerados a partir da simulação de modelos de software. Para tanto, os modelos devem gerar sistemas de software tendo como base uma descrição dos módulos do sistema. O sistema gerado, portanto, já apresenta um agrupamento de referência.
 
-Os modelos devem produzir sistemas de software que obedecem a restrições
+De posse desse modelo, a avaliação de algoritmos de agrupamento de software consiste nos seguintes passos: (i) gerar, através de um modelo, diversos sistemas de software sintéticos a partir de módulos previamente estabelecidos; (ii) aplicar algoritmos de agrupamento sobre os sistemas sintéticos; (iii) comparar os agrupamentos recuperados pelos algoritmos com os agrupamentos de referência.
+
+Os sistemas gerados pelos modelos não precisam ser detalhados no nível de implementação, uma vez que muitos algoritmos de agrupamento de software operam sobre grafos que representam as dependências entre entidades de implementação. Desta forma, é suficiente considerar modelos que produzem grafos e tratar os grafos como uma representação das dependências encontradas na implementação um sistema.
+
+Uma possível objeção para o uso de modelos é o argumento de que os grafos gerados pelos modelos seriam muito diferentes de grafos extraídos de sistemas de software reais e, portanto, conclusões obtidas com estes primeiros não poderiam ser generalizadas para estes últimos.
+
+Com o propósito de suprir a carência de sistemas de software com agrupamentos de referência para testar algoritmos de agrupamento, o objetivo deste trabalho é encontrar modelos que geram grafos organizados em módulos que se assemelham a grafos de dependências extraídos de sistemas de software reais.
+
+A estrutura do restante desta dissertação é descrita a seguir. O Capítulo X discute a teoria relevante sobre algoritmos de agrupamento de software.
+O Capítulo X discute observações recentes sobre a estrutura de grafos extraídos de sistemas de software e grafos estudados em outros domínios e apresenta modelos de grafos organizados em módulos. O Capítulo X descreve um experimento que mostra que os modelos apresentados geram redes similares a redes de software. O Capítulo X descreve um experimento no qual algoritmos de agrupamento são aplicados a redes geradas pelos modelos e expõe algumas conclusões. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%
 % definir Engenharia Reversa.
@@ -101,10 +110,4 @@ Os modelos devem produzir sistemas de software que obedecem a restrições
 % Métodos estatísticos, física estatística.
 % 
 % %%%%%%%%%%%%%%%%%%%%%%%% (end)
-% % ÍNDICE
 
-A estrutura do restante desta dissertação é descrita a seguir.
-
-O \textbf{Capítulo 1} trata disso, bla, bla
-...
-O \textbf{Capítulo N} trata daquilo, bla, bla, bla, bla...
