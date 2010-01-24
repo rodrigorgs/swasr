@@ -13,6 +13,85 @@
 
 \chapter{Agrupamento de Software}
 
+\begin{section}{Recuperação de Arquitetura de Software}
+
+A arquitetura de um sistema de software é formada pelas decisões mais significativas sobre o desenvolvimento do sistema (Booch, 2006). Essas decisões devem ser tomadas preferencialmente nos estágios iniciais do processo de desenvolvimento, pois elas afetam um grande número de decisões ao longo do ciclo de vida do software.
+
+É comum apresentar uma arquitetura dividida em visões, onde cada visão descreve decisões que dizem respeito a um subconjunto dos requisitos do sistema \cite{Clements2002}. A visão modular é a mais importante no gerenciamento da evolução de software \cite{Parnas1972}. Ela representa a organização de um sistema em módulos com responsabilidades bem definidas e descreve interações entre os módulos. A visão modular facilita a análise de atributos como facilidade de modificação e possibilidade de reuso de partes do sistema.
+
+Muitos sistemas, no entanto, não possuem uma arquitetura bem documentada. Durante o desenvolvimento de um sistema, a documentação de sua arquitetura pode tornar-se desatualizada, resultando em uma deterioração da estrutura do sistema (Eick, Parnas). O problema se agrava quando os desenvolvedores originais abandonam o projeto, levando com eles conhecimento tácito sobre a arquitetura do sistema.
+
+O termo recuperação de arquitetura (ou reconstrução de arquitetura) se refere a métodos que extraem aspectos da arquitetura de um sistema a partir de artefatos criados durante seu desenvolvimento, como código-fonte \cite{Pollet2007}. Tais métodos têm sido usados como auxílio em tarefas como a documentação da arquitetura e a compreensão de sistemas legados [ver citações de Wu].
+
+Uma abordagem bastante pesquisada para auxiliar a compreensão e a documentação da arquitetura modular de sistemas é chamada agrupamento de software \cite{Mancoridis1998,Andritsos2005,Maqbool2007}. Algoritmos de agrupamento de software agrupam o conjunto de entidades do código-fonte de um sistema (por exemplo, classes em um sistema orientado a objetos) em subconjuntos denominados módulos. O agrupamento é feito de forma que, sob algum critério, as entidades agrupadas em um mesmo módulo possuem grande similaridade entre si e pequena similaridade com entidades que estão em outros módulos. Vale ressaltar que o termo agrupamento designa tanto a atividade de agrupamento como o resultado dessa atividade, que é a organização das entidades analisadas em módulos.
+
+Naturalmente, o problema de agrupar entidades segundo algum critério de similaridade não é exclusivo do domínio de software. O problema tem sido objeto da mineração de dados, da inteligência artificial, do estudo de redes sociais etc. % taxonomia, 
+
+No domínio de recuperação de arquitetura, como em muitos outros domínios, o problema de agrupamento não é bem definido. A definição de qual é o melhor agrupamento é subjetiva. Ainda assim, o agrupamento dos dados pode evidenciar relacionamentos existentes entre entidades e servir como ponto de partida de atividades como, por exemplo, a atribuição de arquivos de código-fonte a programadores.
+
+% Falar sobre escolha das entidades e da descrição das entidades (citar Anquetil antigo, que usa nome de arquivo, e Anquetil novo, que compara resultados de diversas descrições, e Kuhn2005). AQUI? Onde?
+
+
+\end{section}
+
+\begin{section}{Algoritmos de Agrupamento de Software}
+
+Para realizar o agrupamento de um conjunto de entidades de maneira sistemática, as seguintes questões devem ser consideradas:
+
+\begin{itemize}
+	\item identificação das entidades;
+	\item a descrição das entidades;
+	\item o algoritmo de agrupamento;
+\end{itemize}
+
+No domínio do agrupamento de software, exemplos de entidades incluem funções e variáveis em sistema procedimentais [CITE], tipos abstratos de dados [CITE], arquivos fonte [CITE], classes em um sistema orientado a objetos [CITE] etc.
+
+A descrição das entidades determina as características a se considerar para determinar se duas entidades são mais ou menos similares. Por exemplo, se o objetivo é agrupar funções em um programa procedimental, as seguintes descrições, entre outras, podem ser adotadas para cada entidade:
+
+\begin{itemize}
+	\item conjunto das palavras usadas nos comentários que descrevem a função;
+	\item conjunto dos programadores que trabalharam na função;
+	\item conjunto das funções chamadas pela função;
+	\item conjunto das variáveis manipuladas na função.
+\end{itemize}
+
+As duas últimas descrições são chamadas de descrições formais, pois elas têm impacto sobre o comportamento do programa \cite{Anquetil1999}. Descrições formais são as mais estudadas [CITE]. Em muitos casos, a descrição formal de um sistema é representada como grafo. As duas primeiras são descrições não-formais. 
+
+A seguir são descritos brevemente alguns algoritmos que têm sido pesquisados no contexto de agrupamento de software, com foco em descrições formais de software.
+
+Algoritmos hierárquicos aglomerativos têm sido aplicados a diversos problemas, incluindo o agrupamento de software \cite{Anquetil1999,Maqbool2007}. O algoritmo funciona com qualquer descrição de entidade, desde que seja fornecida uma métrica de similaridade ou então uma matriz com os valores de similaridade entre pares de entidades. A similaridade entre duas entidades é medida em uma escala contínua de 0 a 1. O algoritmo é simples: inicia-se com um módulo para cada entidade e então mesclam-se sucessivamente os dois módulos mais similares até restar apenas um módulo com todas as entidades. 
+
+Um ponto chave é o critério usado para medir a similaridade entre dois módulos a partir das similaridades entre entidades. Os dois critérios mais estudados no contexto de agrupamento são chamados de ligação simples (SL, do inglês \emph{single linkage}) e ligação completa (CL, do inglês \emph{complete linkage}). Na ligação simples, a similaridade entre dois módulos é computada como a maior similaridade entre pares de entidades tiradas uma de cada módulo. Na ligação completa é considerada a menor similaridade.
+
+Naturalmente, um agrupamento que consiste de apenas um módulo com todas as entidades analisadas é de pouco valor. Por essa razão deve existir um critério para parar o algoritmo antes de restar apenas um módulo. No contexto de agrupamento de software, o critério mais comumente usado é a altura de corte, $h$, que varia entre 0 e 1.
+
+
+Escolhemos algoritmos bastante estudados na área de recuperação de arquitetura e que tivessem implementações disponíveis.
+
+Anquetil e XXX [CITE] algoritmos aglomerativos. Já existiam, mas tem sido bem estudados em software.
+
+Mancoridis: Bunch
+
+Tzerpos: ACDC
+	
+\end{section}
+
+\begin{section}{Avaliação de Algoritmos de Agrupamento}
+
+Anquetil definiu três critérios: estabilidade, XXX e ``autoritatividade''.
+% autoritariedade
+
+Koschke fez um framework...
+
+Bittencourt avaliou alguns algoritmos.
+
+Wu avaliou aglomerativos, ACDC e Bunch.
+
+
+
+\end{section}
+
+
 \begin{section}{Agrupamento}
 
 A atividade de agrupamento consiste de agrupar um conjunto de entidades em subconjuntos, denominados módulos, de forma que, sob algum critério, as entidades agrupadas em um mesmo módulo possuem grande similaridade entre si e pequena similaridade com entidades que estão em outros módulos. Em muitas aplicações, a noção de módulo não é bem definida. Ainda assim, o agrupamento dos dados pode evidenciar relacionamentos existentes entre entidades e servir como ponto de partida de atividades como, por exemplo, a atribuição de arquivos de código-fonte a programadores.
