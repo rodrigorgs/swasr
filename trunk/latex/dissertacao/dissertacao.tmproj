@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>fundamentacao.tex</string>
+	<string>main_mestrado.tex</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -24,19 +24,21 @@
 			<key>filename</key>
 			<string>cap1.tex</string>
 			<key>lastUsed</key>
-			<date>2010-01-11T18:21:00Z</date>
+			<date>2010-01-26T23:01:54Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
 			<string>dissertacao.tex</string>
 			<key>lastUsed</key>
-			<date>2010-01-20T20:44:48Z</date>
+			<date>2010-01-26T23:32:24Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
 			<string>main_mestrado.tex</string>
 			<key>lastUsed</key>
-			<date>2010-01-23T21:41:45Z</date>
+			<date>2010-01-26T23:32:39Z</date>
+			<key>selected</key>
+			<true/>
 		</dict>
 		<dict>
 			<key>filename</key>
@@ -47,51 +49,55 @@
 			<string>simbolos.tex</string>
 		</dict>
 		<dict>
+			<key>filename</key>
+			<string>dissertacao.bib</string>
+			<key>lastUsed</key>
+			<date>2010-01-26T23:09:50Z</date>
+		</dict>
+		<dict>
 			<key>children</key>
 			<array>
 				<dict>
 					<key>filename</key>
 					<string>dissertacao.tex</string>
 					<key>lastUsed</key>
-					<date>2010-01-12T20:23:33Z</date>
+					<date>2010-01-26T23:12:47Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
 					<string>introducao.tex</string>
 					<key>lastUsed</key>
-					<date>2010-01-23T22:33:14Z</date>
+					<date>2010-01-26T23:21:22Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
 					<string>fundamentacao.tex</string>
 					<key>lastUsed</key>
-					<date>2010-01-24T10:23:44Z</date>
-					<key>selected</key>
-					<true/>
+					<date>2010-01-26T23:22:40Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
 					<string>modelos.tex</string>
 					<key>lastUsed</key>
-					<date>2010-01-21T20:15:01Z</date>
+					<date>2010-01-26T22:44:49Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
 					<string>avaliacao.tex</string>
 					<key>lastUsed</key>
-					<date>2010-01-12T20:33:19Z</date>
+					<date>2010-01-26T22:44:54Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
 					<string>estudodecaso.tex</string>
 					<key>lastUsed</key>
-					<date>2010-01-12T16:41:43Z</date>
+					<date>2010-01-26T22:44:58Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
 					<string>conclusao.tex</string>
 					<key>lastUsed</key>
-					<date>2010-01-12T16:41:45Z</date>
+					<date>2010-01-26T23:01:44Z</date>
 				</dict>
 			</array>
 			<key>expanded</key>
@@ -116,16 +122,16 @@
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>64</integer>
+			<integer>0</integer>
 		</dict>
 		<key>conclusao.tex</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>13</integer>
+				<integer>17</integer>
 				<key>line</key>
-				<integer>13</integer>
+				<integer>17</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
@@ -137,9 +143,9 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>29</integer>
+				<integer>23</integer>
 				<key>line</key>
-				<integer>5</integer>
+				<integer>0</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
@@ -165,65 +171,7 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>331</integer>
-				<key>line</key>
-				<integer>65</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>57</integer>
-		</dict>
-		<key>introducao.tex</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>40</integer>
-			</dict>
-			<key>columnSelection</key>
-			<false/>
-			<key>firstVisibleColumn</key>
-			<integer>240</integer>
-			<key>firstVisibleLine</key>
-			<integer>31</integer>
-			<key>selectFrom</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>35</integer>
-			</dict>
-			<key>selectTo</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>40</integer>
-			</dict>
-		</dict>
-		<key>main_mestrado.tex</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>15</integer>
-				<key>line</key>
-				<integer>128</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
-		<key>modelos.tex</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>28</integer>
+				<integer>12</integer>
 				<key>line</key>
 				<integer>4</integer>
 			</dict>
@@ -232,11 +180,53 @@
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
 		</dict>
+		<key>introducao.tex</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>443</integer>
+				<key>line</key>
+				<integer>13</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>8</integer>
+		</dict>
+		<key>main_mestrado.tex</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>144</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>115</integer>
+		</dict>
+		<key>modelos.tex</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>67</integer>
+				<key>line</key>
+				<integer>31</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>538</integer>
+			<key>firstVisibleLine</key>
+			<integer>9</integer>
+		</dict>
 	</dict>
 	<key>openDocuments</key>
 	<array>
-		<string>dissertacao.tex</string>
 		<string>main_mestrado.tex</string>
+		<string>dissertacao.tex</string>
 		<string>introducao.tex</string>
 		<string>fundamentacao.tex</string>
 		<string>modelos.tex</string>
@@ -250,7 +240,7 @@
 			<key>enabled</key>
 			<true/>
 			<key>value</key>
-			<string>dissertacao.tex</string>
+			<string>/Users/rodrigorgs/svn/swasr/latex/dissertacao/dissertacao.tex</string>
 			<key>variable</key>
 			<string>TM_LATEX_MASTER</string>
 		</dict>
