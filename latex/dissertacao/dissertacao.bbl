@@ -12,6 +12,23 @@ N.~Anquetil and T.~C. Lethbridge.
 \newblock In {\em Proc. Sixth Working Conference on Reverse Engineering}, pages
   235--255, 1999.
 
+\bibitem{Barabasi2007}
+Albert-Laszlo Barabasi.
+\newblock The architecture of complexity: From network structure to human
+  dynamics.
+\newblock {\em Control Systems Magazine, IEEE}, 27:33--42, August 2007.
+
+\bibitem{Barabasi1999}
+Albert-Laszlo Barabasi and Reka Albert.
+\newblock Emergence of scaling in random networks.
+\newblock {\em Science}, 286:509, 1999.
+
+\bibitem{Baxter2006}
+Gareth Baxter, Marcus Frean, James Noble, Mark Rickerby, Hayden Smith, Matt
+  Visser, Hayden Melton, and Ewan Tempero.
+\newblock Understanding the shape of java software.
+\newblock {\em SIGPLAN Not.}, 41(10):397--412, 2006.
+
 \bibitem{Bittencourt2009}
 Roberto~Almeida Bittencourt and Dalton Dario~Serey Guerrero.
 \newblock Comparison of graph clustering algorithms for recovering software
@@ -20,11 +37,30 @@ Roberto~Almeida Bittencourt and Dalton Dario~Serey Guerrero.
   Software Maintenance and Reengineering}, pages 251--254, Washington, DC, USA,
   2009. IEEE Computer Society.
 
+\bibitem{Bollobas2003}
+B\'{e}la Bollob\'{a}s, Christian Borgs, Jennifer Chayes, and Oliver Riordan.
+\newblock Directed scale-free graphs.
+\newblock In {\em SODA '03: Proceedings of the fourteenth annual ACM-SIAM
+  symposium on Discrete algorithms}, pages 132--139, Philadelphia, PA, USA,
+  2003. Society for Industrial and Applied Mathematics.
+
+\bibitem{Chen2008}
+Tao Chen, Qing Gu, Shusen Wang, Xiaoan Chen, and Daoxu Chen.
+\newblock Module-based large-scale software evolution based on complex
+  networks.
+\newblock {\em 8th IEEE International Conference on Computer and Information
+  Technology}, pages 798---803, 2008.
+
 \bibitem{Clements2002}
 Paul Clements, David Garlan, Len Bass, Judith Stafford, Robert Nord, James
   Ivers, and Reed Little.
 \newblock {\em Documenting Software Architectures: Views and Beyond}.
 \newblock Pearson Education, 2002.
+
+\bibitem{Concas2007}
+Giulio Concas, Michele Marchesi, Sandro Pinna, and Nicola Serra.
+\newblock Power-laws in a large object-oriented software system.
+\newblock 33(10):687--708, 2007.
 
 \bibitem{igraph}
 Gabor Csardi and Tamas Nepusz.
@@ -37,11 +73,39 @@ Robert~C. Holte.
   datasets.
 \newblock {\em Mach. Learn.}, 11(1):63--90, April 1993.
 
+\bibitem{Hyland-Wood2006}
+David Hyland-Wood, David Carrington, and Simon Kaplan.
+\newblock Scale-free nature of java software package, class and method
+  collaboration graphs.
+\newblock In {\em Proceedings of the 5th International Symposium on Empirical
+  Software Engineering, Rio de Janeiro, Brasil}, 2006.
+
+\bibitem{Ichii2008}
+M.~Ichii, M.~Matsushita, and K.~Inoue.
+\newblock An exploration of power-law in use-relation of java software systems.
+\newblock In {\em Proc. 19th Australian Conference on Software Engineering
+  ASWEC 2008}, pages 422--431, 2008.
+
 \bibitem{Koschke2000}
 R.~Koschke and T.~Eisenbarth.
 \newblock A framework for experimental evaluation of clustering techniques.
 \newblock In {\em Proc. 8th International Workshop on Program Comprehension
   IWPC 2000}, pages 201--210, 2000.
+
+\bibitem{Labelle2004}
+Nathan LaBelle and Eugene Wallingford.
+\newblock Inter-package dependency networks in open-source software, 2004.
+
+\bibitem{Lancichinetti2009}
+Andrea Lancichinetti and Santo Fortunato.
+\newblock Benchmarks for testing community detection algorithms on directed and
+  weighted graphs with overlapping communities.
+\newblock 2009.
+
+\bibitem{Louridas2008}
+Panagiotis Louridas, Diomidis Spinellis, and Vasileios Vlachos.
+\newblock Power laws in software.
+\newblock {\em ACM Trans. Softw. Eng. Methodol.}, 18(1):1--26, 2008.
 
 \bibitem{Mancoridis1998}
 S.~Mancoridis, B.~S. Mitchell, C.~Rorres, Y.~Chen, and E.~R. Gansner.
@@ -55,6 +119,11 @@ O.~Maqbool and H.~A. Babri.
 \newblock Hierarchical clustering for software architecture recovery.
 \newblock 33(11):759--780, 2007.
 
+\bibitem{Marchesi2004}
+Michele Marchesi, Sandro Pinna, Nicola Serra, and Stefano Tuveri.
+\newblock Power laws in smalltalk.
+\newblock In {\em ESUG Conference}, Kothen, Germany, September 2004.
+
 \bibitem{Milo2004}
 R.~Milo, S.~Itzkovitz, N.~Kashtan, R.~Levitt, S.~Shen-Orr, I.~Ayzenshtat,
   M.~Sheffer, and U.~Alon.
@@ -65,6 +134,13 @@ R.~Milo, S.~Itzkovitz, N.~Kashtan, R.~Levitt, S.~Shen-Orr, I.~Ayzenshtat,
 R.~Milo, S.~Shen-Orr, S.~Itzkovitz, N.~Kashtan, D.~Chklovskii, and U.~Alon.
 \newblock Network motifs: simple building blocks of complex networks.
 \newblock {\em Science}, 298(5594):824--827, October 2002.
+
+\bibitem{Myers2003}
+Christopher~R Myers.
+\newblock Software systems as complex networks: structure, function, and
+  evolvability of software collaboration graphs.
+\newblock {\em Phys Rev E Stat Nonlin Soft Matter Phys}, 68(4 Pt 2):046116, Oct
+  2003.
 
 \bibitem{Parnas1972}
 D.~L. Parnas.
@@ -78,6 +154,11 @@ Damien Pollet, Stephane Ducasse, Loic Poyet, Ilham Alloui, Sorana Cimpan, and
   taxonomy.
 \newblock In {\em Proc. 11th European Conference on Software Maintenance and
   Reengineering CSMR '07}, pages 137--148, 2007.
+
+\bibitem{Potanin2005}
+Alex Potanin, James Noble, Marcus Frean, and Robert Biddle.
+\newblock Scale-free geometry in oo programs.
+\newblock {\em Commun. ACM}, 48(5):99--103, 2005.
 
 \bibitem{Tonella2007}
 Paolo Tonella, Marco Torchiano, Bart Du~Bois, and Tarja Syst\"{a}.
@@ -96,6 +177,11 @@ V.~Tzerpos and R.~C. Holt.
 \newblock Acdc: an algorithm for comprehension-driven clustering.
 \newblock In {\em Proc. Seventh Working Conference on Reverse Engineering},
   pages 258--267, 2000.
+
+\bibitem{Valverde2003}
+Sergi Valverde and Ricard~V. Sol√©.
+\newblock Hierarchical small worlds in software architecture.
+\newblock (Directed Scale-Free Graphs), 2003.
 
 \bibitem{Wu2005}
 J.~Wu, A.~E. Hassan, and R.~C. Holt.
