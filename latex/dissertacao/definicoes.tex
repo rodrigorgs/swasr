@@ -1,16 +1,14 @@
-\documentclass[a4paper,titlepage]{copin}
 \usepackage[brazilian,portuges,english]{babel}
+% \usepackage{ae} 
+\usepackage[utf8x]{inputenc}
 \usepackage[T1]{fontenc} 
-\usepackage{ae} 
-\usepackage[utf8]{inputenc}
 
 %\usepackage[portuges,english]{babel}
-\usepackage{copin,mestre,epsfig}
+\usepackage{copin,mestre} % ,epsfig
 \usepackage{times}
 \usepackage{multirow}
 \usepackage{ucs}
-%\usepackage[utf8]{inputenc}
-%\usepackage[T1]{fontenc}
+
 %-----------------------------------------------------------------------------------------------------
 
 \usepackage{url}
@@ -113,37 +111,3 @@ showstringspaces=false
 % As palavras do dicionario portugues ja sao separadas corretamente pelo lateX
 %
 \hyphenation{hardware software}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% A partir daqui coloque seus capitulos. Sugere-se que eles sejam inseridos com o comando \input
-%% Da seguinte maneira:
-%%
-%% \input{cap1} 
-%% \input{cap2}
-\selectlanguage{brazilian}
-
-\input{cap1} 
-\input{introducao}
-\input{fundamentacao}
-\input{modelos}
-\input{avaliacao}
-\input{estudodecaso}
-\input{conclusao}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% BIbliografia
-%% Coloque suas referencias no arquivo ref.bib e descomente as proximas duas linhas
-
-\bibliographystyle{plain} % estilo de bibliografia   plain,unsrt,alpha,abbrv.
-\bibliography{dissertacao} % arquivos com as entradas bib.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% Apendice
-% Caso seja necessario algum apendice, descomente a proxima linha.
-
-\appendix
-\input{apendices}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\end{document}
