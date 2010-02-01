@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>main_mestrado.tex</string>
+	<string>fundamentacao.tex</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -28,17 +28,9 @@
 		</dict>
 		<dict>
 			<key>filename</key>
-			<string>dissertacao.tex</string>
+			<string>definicoes.tex</string>
 			<key>lastUsed</key>
-			<date>2010-01-26T23:32:24Z</date>
-		</dict>
-		<dict>
-			<key>filename</key>
-			<string>main_mestrado.tex</string>
-			<key>lastUsed</key>
-			<date>2010-01-26T23:32:39Z</date>
-			<key>selected</key>
-			<true/>
+			<date>2010-01-27T00:03:30Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
@@ -52,7 +44,7 @@
 			<key>filename</key>
 			<string>dissertacao.bib</string>
 			<key>lastUsed</key>
-			<date>2010-01-26T23:09:50Z</date>
+			<date>2010-01-27T00:16:58Z</date>
 		</dict>
 		<dict>
 			<key>children</key>
@@ -61,25 +53,27 @@
 					<key>filename</key>
 					<string>dissertacao.tex</string>
 					<key>lastUsed</key>
-					<date>2010-01-26T23:12:47Z</date>
+					<date>2010-01-27T00:16:59Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
 					<string>introducao.tex</string>
 					<key>lastUsed</key>
-					<date>2010-01-26T23:21:22Z</date>
+					<date>2010-01-27T17:08:49Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
 					<string>fundamentacao.tex</string>
 					<key>lastUsed</key>
-					<date>2010-01-26T23:22:40Z</date>
+					<date>2010-01-27T17:08:49Z</date>
+					<key>selected</key>
+					<true/>
 				</dict>
 				<dict>
 					<key>filename</key>
 					<string>modelos.tex</string>
 					<key>lastUsed</key>
-					<date>2010-01-26T22:44:49Z</date>
+					<date>2010-01-27T16:58:21Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -138,14 +132,28 @@
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
 		</dict>
+		<key>dissertacao.bib</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>76</integer>
+				<key>line</key>
+				<integer>282</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>256</integer>
+		</dict>
 		<key>dissertacao.tex</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>23</integer>
+				<integer>2</integer>
 				<key>line</key>
-				<integer>0</integer>
+				<integer>3</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
@@ -171,65 +179,51 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>12</integer>
+				<integer>660</integer>
 				<key>line</key>
-				<integer>4</integer>
+				<integer>94</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
-			<integer>0</integer>
+			<integer>77</integer>
 			<key>firstVisibleLine</key>
-			<integer>0</integer>
+			<integer>92</integer>
 		</dict>
 		<key>introducao.tex</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>443</integer>
+				<integer>83</integer>
 				<key>line</key>
-				<integer>13</integer>
+				<integer>31</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>8</integer>
-		</dict>
-		<key>main_mestrado.tex</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>144</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>115</integer>
+			<integer>23</integer>
 		</dict>
 		<key>modelos.tex</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>67</integer>
+				<integer>491</integer>
 				<key>line</key>
-				<integer>31</integer>
+				<integer>8</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
-			<integer>538</integer>
+			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>9</integer>
+			<integer>0</integer>
 		</dict>
 	</dict>
 	<key>openDocuments</key>
 	<array>
-		<string>main_mestrado.tex</string>
 		<string>dissertacao.tex</string>
 		<string>introducao.tex</string>
 		<string>fundamentacao.tex</string>
 		<string>modelos.tex</string>
+		<string>dissertacao.bib</string>
 		<string>avaliacao.tex</string>
 		<string>estudodecaso.tex</string>
 		<string>conclusao.tex</string>
