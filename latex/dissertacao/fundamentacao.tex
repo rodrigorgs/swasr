@@ -17,13 +17,13 @@
 
 \begin{section}{Recuperação de Arquitetura de Software}
 
-A arquitetura de um sistema de software é formada pelas decisões mais significativas sobre o desenvolvimento do sistema (Booch, 2006). Essas decisões devem ser tomadas preferencialmente nos estágios iniciais do processo de desenvolvimento, pois elas afetam um grande número de decisões ao longo do ciclo de vida do software.
+A arquitetura de um sistema de software é formada pelas decisões mais significativas sobre o desenvolvimento do sistema [Booch, 2006]. Essas decisões devem ser tomadas preferencialmente nos estágios iniciais do processo de desenvolvimento, pois elas afetam um grande número de decisões ao longo do ciclo de vida do software.
 
-É comum apresentar uma arquitetura dividida em visões, onde cada visão descreve decisões que dizem respeito a um subconjunto dos requisitos do sistema \cite{Clements2002}. A visão modular é a mais importante no gerenciamento da evolução de software \cite{Parnas1972}. Ela representa a organização de um sistema em módulos com responsabilidades bem definidas e descreve interações entre os módulos. A visão modular facilita a análise de atributos como facilidade de modificação e possibilidade de reuso de partes do sistema.
+É comum documentar uma arquitetura dividida em visões, onde cada visão descreve decisões que dizem respeito a um subconjunto dos requisitos do sistema \cite{Clements2002}. A visão modular é a mais importante no gerenciamento da evolução de software \cite{Parnas1972}. Ela representa a organização de um sistema em módulos com responsabilidades bem definidas e descreve interações entre os módulos. A visão modular facilita a análise de atributos como facilidade de modificação e possibilidade de reuso de partes do sistema.
 
-Muitos sistemas, no entanto, não possuem uma arquitetura bem documentada. Durante o desenvolvimento de um sistema, a documentação de sua arquitetura pode tornar-se desatualizada, resultando em uma deterioração da estrutura do sistema (Eick, Parnas). O problema se agrava quando os desenvolvedores originais abandonam o projeto, levando com eles conhecimento tácito sobre a arquitetura do sistema.
+Muitos sistemas, no entanto, não possuem uma arquitetura bem documentada. Durante o desenvolvimento de um sistema, a documentação de sua arquitetura pode tornar-se desatualizada, resultando em uma deterioração da estrutura do sistema [Eick, Parnas]. O problema se agrava quando os desenvolvedores originais abandonam o projeto, levando com eles conhecimento tácito sobre a arquitetura do sistema.
 
-O termo recuperação de arquitetura (ou reconstrução de arquitetura) se refere a métodos que extraem aspectos da arquitetura de um sistema a partir de artefatos criados durante seu desenvolvimento, como código-fonte \cite{Pollet2007}. Tais métodos têm sido usados como auxílio em tarefas como a documentação da arquitetura e a compreensão de sistemas legados [ver citações de Wu].
+O termo recuperação de arquitetura (ou reconstrução de arquitetura) se refere a métodos que extraem aspectos da arquitetura de um sistema a partir de artefatos criados durante seu desenvolvimento, como código-fonte \cite{Pollet2007}. Tais métodos têm sido usados como auxílio em tarefas como a documentação da arquitetura e a compreensão de sistemas legados \cite{Wu2005}.
 
 Uma abordagem bastante pesquisada para auxiliar a compreensão e a documentação da arquitetura modular de sistemas é chamada agrupamento de software \cite{Mancoridis1998,Andritsos2005,Maqbool2007}. Algoritmos de agrupamento de software agrupam o conjunto de entidades do código-fonte de um sistema (por exemplo, classes em um sistema orientado a objetos) em subconjuntos denominados módulos. O agrupamento é feito de forma que, sob algum critério, as entidades agrupadas em um mesmo módulo possuem grande similaridade entre si e pequena similaridade com entidades que estão em outros módulos. Vale ressaltar que o termo agrupamento designa tanto a atividade de agrupamento como o resultado dessa atividade, que é a organização das entidades analisadas em módulos.
 
@@ -33,7 +33,6 @@ No domínio de recuperação de arquitetura, como em muitos outros domínios, o 
 
 % Falar sobre escolha das entidades e da descrição das entidades (citar Anquetil antigo, que usa nome de arquivo, e Anquetil novo, que compara resultados de diversas descrições, e Kuhn2005). AQUI? Onde?
 
-
 \end{section}
 
 \begin{section}{Algoritmos de Agrupamento de Software}
@@ -41,12 +40,12 @@ No domínio de recuperação de arquitetura, como em muitos outros domínios, o 
 Para realizar o agrupamento automático de um conjunto de entidades, as seguintes questões devem ser consideradas:
 
 \begin{itemize}
-	\item identificação das entidades;
+	\item a identificação das entidades;
 	\item a descrição das entidades;
 	\item o algoritmo de agrupamento;
 \end{itemize}
 
-No domínio do agrupamento de software, exemplos de entidades incluem funções e variáveis em sistema procedimentais [CITE], tipos abstratos de dados [CITE], arquivos fonte [CITE], classes em um sistema orientado a objetos [CITE] etc.
+No domínio do agrupamento de software, exemplos de entidades incluem, entre outros, arquivos fonte \cite{Mancoridis1998}, funções e variáveis em sistema procedimentais \cite{Anquetil1999} e classes em um sistema orientado a objetos \cite{Trifu2001} etc.
 
 A descrição das entidades determina as características a se considerar para determinar se duas entidades são mais ou menos similares. Por exemplo, se o objetivo é agrupar funções em um programa procedimental, as seguintes descrições, entre outras, podem ser adotadas para cada entidade:
 
@@ -57,32 +56,48 @@ A descrição das entidades determina as características a se considerar para d
 	\item conjunto das variáveis manipuladas na função.
 \end{itemize}
 
-As duas últimas descrições são chamadas de descrições formais, pois elas têm impacto sobre o comportamento do programa \cite{Anquetil1999}. Descrições formais são as mais estudadas [CITE]. Em muitos casos, a descrição formal de um sistema é representada como grafo. As duas primeiras são descrições não-formais. 
+As duas últimas descrições são chamadas de descrições formais, pois elas têm impacto sobre o comportamento do programa, e são as descrições mais estudadas \cite{Anquetil1999}. Em muitos casos, a descrição formal de um sistema é representada como grafo. As duas primeiras descrições são ditas não-formais. 
 
 A seguir são descritos brevemente alguns algoritmos que têm sido pesquisados no contexto de agrupamento de software, com foco em descrições formais de software.
 
 %Escolhemos algoritmos bastante estudados na área de recuperação de arquitetura e que tivessem implementações disponíveis.
 
+\begin{subsection}{Algoritmos hierárquicos aglomerativos}
+
 Algoritmos hierárquicos aglomerativos têm sido aplicados a diversos problemas, incluindo o agrupamento de software \cite{Anquetil1999,Maqbool2007}. O algoritmo funciona com qualquer descrição de entidade, desde que seja fornecida uma métrica de similaridade ou então uma matriz com os valores de similaridade entre pares de entidades. A similaridade entre duas entidades é medida em uma escala contínua de 0 a 1. O algoritmo é simples: inicia-se com um módulo para cada entidade e então mesclam-se sucessivamente os dois módulos mais similares até restar apenas um módulo com todas as entidades.
 
-% TODO: Jaccard 
+No contexto de recuperação de arquitetura de software, é comum descrever as entidades de código-fonte como um grafo de dependências entre entidades e usar a métrica de Jaccard para medir a similaridade entre duas entidades \cite{Anquetil1999}. Sejam X e Y duas entidades, e seja d(A) o conjunto de entidades ligadas à entidade A no grafo de dependências. A similaridade entre X e Y é dada pela expressão a seguir:
+
+$$
+\mathrm{sim}(X, Y) ~=~ \frac{|\mathrm{d}(X) \cap \mathrm{d}(Y)|}{|\mathrm{d}(X) \cup \mathrm{d}(Y)|}
+$$
 
 Um ponto chave é o critério usado para medir a similaridade entre dois módulos a partir das similaridades entre entidades. Os dois critérios mais estudados no contexto de agrupamento são chamados de ligação simples (SL, do inglês \emph{single linkage}) e ligação completa (CL, do inglês \emph{complete linkage}). Na ligação simples, a similaridade entre dois módulos é computada como a maior similaridade entre pares de entidades tiradas uma de cada módulo. Na ligação completa é considerada a menor similaridade.
 
-Naturalmente, um agrupamento que consiste de apenas um módulo com todas as entidades analisadas é de pouco valor. Por essa razão deve existir um critério para parar o algoritmo antes de restar apenas um módulo. No contexto de agrupamento de software, o critério mais comumente usado é a altura de corte, $h$, que varia entre 0 e 1. Sob esse critério, o algoritmo interrompe sua execução quando a maior similaridade entre dois módulos é igual a $1 - h$. Assim, quanto maior a altura de corte $h$, menor o número de módulos do agrupamento resultante.
+Naturalmente, um agrupamento que consiste de apenas um módulo com todas as entidades analisadas é de pouco valor. Por essa razão deve existir um critério de parada que interrompa o algoritmo de todos os módulos serem mesclados em um grande módulo. No contexto de agrupamento de software, o critério mais comumente usado é a altura de corte, $h$, que varia entre 0 e 1. Sob esse critério, o algoritmo interrompe sua execução quando a maior similaridade entre dois módulos é igual a $1 - h$. Assim, quanto maior a altura de corte $h$, menor o número de módulos do agrupamento resultante.
+	
+\end{subsection}
 
 %%%%%%%%%
+
+\begin{subsection}{Bunch}
 
 Com a finalidade de auxiliar a compreensão de programas, o algoritmo Bunch \cite{Mancoridis1998} agrupa em módulos o conjunto de entidades de um programa de acordo com os relacionamentos existentes entre eles, representados como um grafo orientado. O agrupamento é tratado como um problema de otimização no qual o objetivo é maximizar uma função denominada qualidade de modularização (QM), que recompensa agrupamentos com muitas arestas internas (que ligam entidades de um mesmo módulo) e poucas arestas externas (que ligam entidades de módulos distintos).
 
 Encontrar um agrupamento que possui QM ótima é um problema intratável; por isso a ferramenta usa heurísticas como algoritmos genéticos e \emph{hill-climbing} para obter resultados quase ótimos.
 
+\end{subsection}
+
 %%%%%%%%%%
+
+\begin{subsection}{ACDC}
 
 O algoritmo ACDC \cite{Tzerpos2000} foi projetado com o intuito de encontrar agrupamentos que facilitam a compreensão de programas. Assim como o Bunch, ele opera sobre grafos orientados. Sua principal característica é a identificação de conjuntos dominantes de vértices no grafo. Um conjunto dominante é um conjunto de vértices, $v_0, v_1, \ldots{}, v_n$, onde $v_0$ é o vértice dominante, que satisfaz a duas condições: (i) existe um caminho entre $v_0$ e qualquer $v_i$; (ii) qualquer caminho de um vértice que não pertence ao conjunto até um vértice do conjunto, $v_i$, passa por $v_0$. O algoritmo ACDC identifica os conjuntos dominantes, em ordem crescente de número de vértices, e considera-os módulos do agrupamento. 
 
 % subgraph dominator
 % evita módulos muito grandes.
+	
+\end{subsection}
 
 \end{section}
 
@@ -94,9 +109,15 @@ Como já foi mencionado, não existe um critério objetivo para determinar qual 
 
 No domínio de agrupamento de software, a métrica MoJo \cite{Tzerpos1999} tem sido bastante utilizada. A ideia por trás da métrica é que um agrupamento dado é muito similar a um agrupamento de referência se é possível transformar o primeiro agrupamento no segundo usando poucas operações do tipo mover e mesclar. A operação mover consiste de mover uma entidade de um módulo para outro módulo distinto. A operação mesclar consiste de mesclar dois módulos. O MoJo entre  dois agrupamentos é igual ao número de operações de mover e mesclar que são necessárias para transformar o primeiro agrupamento no segundo. Quanto menor o MoJo, maior a similaridade entre dois agrupamentos; agrupamentos idênticos têm MoJo igual a zero.
 
+Observando que o valor MoJo entre dois agrupamentos com o mesmo número de entidades varia entre 0 e o número de entidades em cada agrupamento, $n$, é possível definir uma métrica, chama MoJoSim, que mapeia o valor MoJo em uma escala de 0 a 1 \cite{Bittencourt2009}. O valor 0 representa a menor similaridade e o valor 1, a maior similaridade. O valor de MoJoSim entre duas entidades é definido de acordo com a seguinte equação:
+
+$$
+\mathrm{MoJoSim}(X, Y) ~=~ 1 - \frac{\mathrm{MoJo}(X, Y)}{n}
+$$
+
 % Anquetil avaliou 
 
-Wu, Hassan e Holt \cite{Wu2005} avaliaram os algoritmos Bunch, ACDC e algoritmos aglomerativos comparando, através da métrica MoJo, os agrupamentos encontrados pelos algoritmos com agrupamentos de referência de 5 sistemas de software em C e C++, representados como um grafo dos arquivos fonte e dependências estáticas entre os arquivos. Os agrupamentos de referência foram obtidos automaticamente a partir de uma análise da estrutura de diretórios dos sistemas. Cada diretório contendo pelo menos 5 arquivos fonte foi considerado um módulo do sistema. Bittencourt e Guerrero \cite{Bittencourt2009} realizaram um experimento semelhante, porém avaliando algoritmos de agrupamento estudados em outros domínios sobre um conjunto de X sistemas em Java.
+Wu, Hassan e Holt \cite{Wu2005} avaliaram os algoritmos Bunch, ACDC e algoritmos aglomerativos comparando, através da métrica MoJo, os agrupamentos encontrados pelos algoritmos com agrupamentos de referência de 5 sistemas de software em C e C++, representados como um grafo dos arquivos fonte e dependências estáticas entre os arquivos. Os agrupamentos de referência foram obtidos automaticamente a partir de uma análise da estrutura de diretórios dos sistemas. Cada diretório contendo pelo menos 5 arquivos fonte foi considerado um módulo do sistema. Bittencourt e Guerrero \cite{Bittencourt2009} realizaram um experimento semelhante, porém avaliando algoritmos de agrupamento estudados em outros domínios aplicados sobre um conjunto de 4 sistemas em Java.
 
 \end{section}
 

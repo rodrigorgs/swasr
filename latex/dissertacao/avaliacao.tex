@@ -37,7 +37,7 @@ $$
 
 onde $a$ e $b$ são redes, PCT($x$) é um vetor com as concentrações das tríades na rede $x$ e cor($x, y$) é o coeficiente de correlação de Pearson entre dois vetores.
 
-Vale notar que o coeficiente de correlação neste caso não possui significado estatístico, mas ele têm sido usado de forma bem sucedida na pesquisa de Milo e, como será mostrado a seguir, rendeu bons resultados na pesquisa aqui apresentada.
+Vale notar que o coeficiente de correlação neste caso não possui significado estatístico. Ainda assim, ele têm sido usado de forma bem sucedida na pesquisa de Milo e, como será mostrado a seguir, rendeu bons resultados nesta pesquisa.
 
 A partir da métrica de similaridade entre redes, foi desenvolvida a métrica S, que representa o quanto uma rede se assemelha a redes de software. O valor de S para uma rede $x$, S($x$), é definido como a similaridade média entre a rede $x$ e uma amostra de redes de software, $R$:
 
@@ -60,7 +60,7 @@ A partir da métrica S é definido um modelo de classificação de redes: redes 
 Como existem redes de outros domínios com valor de S alto, é impossível construir um modelo de classificação perfeito, independentemente da escolha do limiar. Um modelo de classificação pode, no entanto, ser avaliado em termos de sua precisão e de sua cobertura. Seja $R$ o conjunto de 65 redes de software e $L$ o subconjunto das 131 redes que são classificadas como software-realistas. A precisão do modelo é
 
 $$
-\mathrm{precisão}: ~\frac{R \cap L}{L},
+\mathrm{precisao}: ~\frac{R \cap L}{L},
 $$ % XXX: precisão está aparecendo como preciso na fórmula.
 
 e a cobertura é
