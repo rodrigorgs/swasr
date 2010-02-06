@@ -12,12 +12,6 @@ N.~Anquetil and T.~C. Lethbridge.
 \newblock In {\em Proc. Sixth Working Conference on Reverse Engineering}, pages
   235--255, 1999.
 
-\bibitem{Barabasi2007}
-Albert-Laszlo Barabasi.
-\newblock The architecture of complexity: From network structure to human
-  dynamics.
-\newblock {\em Control Systems Magazine, IEEE}, 27:33--42, August 2007.
-
 \bibitem{Barabasi1999}
 Albert-Laszlo Barabasi and Reka Albert.
 \newblock Emergence of scaling in random networks.
@@ -165,6 +159,12 @@ Paolo Tonella, Marco Torchiano, Bart Du~Bois, and Tarja Syst\"{a}.
 \newblock Empirical studies in reverse engineering: state of the art and future
   trends.
 \newblock {\em Empirical Softw. Engg.}, 12(5):551--571, 2007.
+
+\bibitem{Trifu2001}
+Trifu.
+\newblock Using cluster analysis in the architecture recovery of
+  object-oriented systems.
+\newblock Master's thesis, Univ. Karlsruhe, 2001.
 
 \bibitem{Tzerpos1999}
 V.~Tzerpos and R.~C. Holt.
