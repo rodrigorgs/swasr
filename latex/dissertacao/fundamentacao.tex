@@ -11,7 +11,7 @@
 %     * clustering
 %     * avaliação de algoritmos de clustering
 
-\chapter{Agrupamento de Software}
+\chapter{Agrupamento de Software} \label{cap:agrupamento}
 
 % TODO: Onde falar sobre extração do design?
 
@@ -21,7 +21,7 @@ A arquitetura de um sistema de software é formada pelas decisões mais signific
 
 É comum documentar uma arquitetura dividida em visões, onde cada visão descreve decisões que dizem respeito a um subconjunto dos requisitos do sistema \cite{Clements2002}. A visão modular é a mais importante no gerenciamento da evolução de software \cite{Parnas1972}. Ela representa a organização de um sistema em módulos com responsabilidades bem definidas e descreve interações entre os módulos. A visão modular facilita a análise de atributos como facilidade de modificação e possibilidade de reuso de partes do sistema.
 
-Muitos sistemas, no entanto, não possuem uma arquitetura bem documentada. Durante o desenvolvimento de um sistema, a documentação de sua arquitetura pode tornar-se desatualizada, resultando em uma deterioração da estrutura do sistema [Eick, Parnas]. O problema se agrava quando os desenvolvedores originais abandonam o projeto, levando com eles conhecimento tácito sobre a arquitetura do sistema.
+Muitos sistemas, no entanto, não possuem uma arquitetura bem documentada. Durante o desenvolvimento de um sistema, a documentação de sua arquitetura pode tornar-se desatualizada, resultando em uma deterioração da estrutura do sistema \cite{Eick2001,Parnas1994}. O problema se agrava quando os desenvolvedores originais abandonam o projeto, levando com eles conhecimento tácito sobre a arquitetura do sistema.
 
 O termo recuperação de arquitetura (ou reconstrução de arquitetura) se refere a métodos que extraem aspectos da arquitetura de um sistema a partir de artefatos criados durante seu desenvolvimento, como código-fonte \cite{Pollet2007}. Tais métodos têm sido usados como auxílio em tarefas como a documentação da arquitetura e a compreensão de sistemas legados \cite{Wu2005}.
 
@@ -62,7 +62,7 @@ A seguir são descritos brevemente alguns algoritmos que têm sido pesquisados n
 
 %Escolhemos algoritmos bastante estudados na área de recuperação de arquitetura e que tivessem implementações disponíveis.
 
-\begin{subsection}{Algoritmos hierárquicos aglomerativos}
+\begin{subsection}{Algoritmos Hierárquicos Aglomerativos}
 
 Algoritmos hierárquicos aglomerativos têm sido aplicados a diversos problemas, incluindo o agrupamento de software \cite{Anquetil1999,Maqbool2007}. O algoritmo funciona com qualquer descrição de entidade, desde que seja fornecida uma métrica de similaridade ou então uma matriz com os valores de similaridade entre pares de entidades. A similaridade entre duas entidades é medida em uma escala contínua de 0 a 1. O algoritmo é simples: inicia-se com um módulo para cada entidade e então mesclam-se sucessivamente os dois módulos mais similares até restar apenas um módulo com todas as entidades.
 

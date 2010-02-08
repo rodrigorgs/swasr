@@ -5,7 +5,7 @@
 %
 % deu 7 páginas.
 
-\chapter{Avaliação dos Modelos}
+\chapter{Avaliação de Modelos de Redes} \label{cap:avaliacao}
 % Adaptar do artigo do CSMR 2010
 
 \begin{section}{Introdução}
@@ -24,7 +24,7 @@ A ideia basica do experimento é gerar redes usando diversos valores para os par
 
 \end{section}
 
-\begin{section}{Software-realismo}
+\begin{section}{Software-realismo de uma Rede}
 
 Para apoiar o experimento, foi desenvolvido um modelo de classificação que classifica redes em dois grupos: software-realistas e não software-realistas. O modelo de classificação é baseado em uma métrica de similaridade entre duas redes. Para determinar a classificação de uma rede, é medida a similaridade da rede em relação a todas as 65 redes de software da amostra. A rede é considerada software-lista quando a média das similaridades é superior a um limiar.
 	
@@ -77,7 +77,7 @@ Para obter 100\% de precisão, o limiar deve ser 0,98, um valor que está acima 
 
 \end{section}
 
-\begin{section}{Software-realismo de Modelos de Redes}
+\begin{section}{Avaliação Empírica do Software-realismo de Modelos de Redes}
 
 Na seção anterior foi mostrado que muitas redes livres de escala de diversos domínios podem ser diferenciadas de redes de software através de um modelo de classificação simples baseado em perfis de concentração de tríades (PCTs). Nessa seção é descrito o experimento que mostra que os três modelos de redes divididas em módulos geram redes software-realistas. O experimento consiste em gerar redes usando diversas combinações de parâmetros dos três modelos, e então classificar cada rede como software-realista ou não software-realista. O número de vértices foi fixado em 1.000 e os valores dos demais parâmetros foram variados em passos discretos. No total, foram geradas 9.500 redes com o modelo BCR+, 38.790 redes com o modelo CGW e 1.296 redes com o modelo LFR.
 
