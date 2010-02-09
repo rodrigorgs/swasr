@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>introducao.tex</string>
+	<string>modelos.tex</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -30,7 +30,7 @@
 			<key>filename</key>
 			<string>definicoes.tex</string>
 			<key>lastUsed</key>
-			<date>2010-02-08T12:59:35Z</date>
+			<date>2010-02-09T00:32:38Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
@@ -53,15 +53,13 @@
 					<key>filename</key>
 					<string>dissertacao.tex</string>
 					<key>lastUsed</key>
-					<date>2010-02-08T12:59:38Z</date>
+					<date>2010-02-09T00:32:39Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
 					<string>introducao.tex</string>
 					<key>lastUsed</key>
-					<date>2010-02-08T15:32:31Z</date>
-					<key>selected</key>
-					<true/>
+					<date>2010-02-08T23:39:16Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -73,13 +71,15 @@
 					<key>filename</key>
 					<string>modelos.tex</string>
 					<key>lastUsed</key>
-					<date>2010-02-08T15:30:59Z</date>
+					<date>2010-02-09T00:32:39Z</date>
+					<key>selected</key>
+					<true/>
 				</dict>
 				<dict>
 					<key>filename</key>
 					<string>avaliacao.tex</string>
 					<key>lastUsed</key>
-					<date>2010-02-08T15:32:30Z</date>
+					<date>2010-02-09T00:28:15Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -109,14 +109,14 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>30</integer>
+				<integer>6</integer>
 				<key>line</key>
-				<integer>116</integer>
+				<integer>68</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
-			<integer>0</integer>
+			<integer>235</integer>
 			<key>firstVisibleLine</key>
-			<integer>132</integer>
+			<integer>55</integer>
 		</dict>
 		<key>conclusao.tex</key>
 		<dict>
@@ -193,28 +193,28 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>65</integer>
+				<integer>132</integer>
 				<key>line</key>
-				<integer>56</integer>
+				<integer>17</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
-			<integer>153</integer>
+			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>43</integer>
+			<integer>3</integer>
 		</dict>
 		<key>modelos.tex</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>42</integer>
+				<integer>0</integer>
 				<key>line</key>
-				<integer>2</integer>
+				<integer>15</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
-			<integer>0</integer>
+			<integer>77</integer>
 			<key>firstVisibleLine</key>
-			<integer>0</integer>
+			<integer>8</integer>
 		</dict>
 	</dict>
 	<key>openDocuments</key>

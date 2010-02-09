@@ -13,11 +13,11 @@ O termo ``rede'' em geral está associado a entidades reais, como pessoas e rela
 Barabási e Albert \cite{Barabasi1999} analisaram uma amostra da \emph{World Wide Web}, modelada como um grafo não-orientado no qual os vértices representam páginas e as arestas representam \emph{links} entre duas páginas. Eles perceberam que o número de vértices com grau $k$, isto é, vértices ligados a outros $k$ vértices, era aproximadamente proporcional a $k^{-\gamma}$, função conhecida como lei de potência (veja a Figura \ref{fig:leidepotencia}). Desde então, esse padrão de conectividade tem sido encontrado em redes estudadas em diversos domínios, inclusive no domínio de software. Redes com esse padrão são chamadas de redes \emph{livres de escala}.
 
 % Explicar que não há valor característico para o grau de um vértice, e daí vem o nome.
-
+γ
 \begin{figure}[htbp]
 	\centering
-	\includegraphics[width=0.8\textwidth]{leidepotencia}
-	\caption{Distribuição do número de arestas por vértice do tipo lei de potência.}% Adaptado de \cite{Barabasi2007}.}
+	\includegraphics[width=0.6\textwidth]{figuras/leidepotencia}
+	\caption{Distribuição do número de arestas por vértice do tipo lei de potência. Adaptado de \cite{Barabasi2007}.}
 	\label{fig:leidepotencia}
 \end{figure}
 
@@ -28,9 +28,23 @@ Estudos recentes têm aplicado a teoria das redes complexas a redes de dependên
 
 Redes livres de escala também foram encontradas em programas escritos em Smalltalk \cite{Marchesi2004,Concas2007} e em Java \cite{Hyland-Wood2006,Baxter2006,Ichii2008}, em dependências entre pacotes de \textit{software} \cite{Labelle2004}, em dependências entre bibliotecas dinâmicas \cite{Louridas2008} e até mesmo em referências entre objetos em tempo de execução \cite{Potanin2005}.
 
-Se a distribuição dos graus sob a forma de lei de potência é comum a redes estudadas em diversos domínios, como diferenciar redes de domínios distintos? Milo et al. \cite{Milo2002} estudaram a estrutura de redes orientadas de diversos domínios em busca da resposta. Para isso, eles listaram 13 possíveis configurações de arestas em redes com 3 vértices --- as chamadas tríades ---, mostradas na Figura XXX. Eles perceberam que, contando o número de vezes em que cada tríade aparece em uma rede, era possível formar um vetor, denominado \emph{perfil de concentração de tríades}, que é característico de cada domínio. A Figura XXX mostra os perfis de redes XXX, redes XXX e redes XXX.
+Se a distribuição dos graus sob a forma de lei de potência é comum a redes estudadas em diversos domínios, como diferenciar redes de domínios distintos? Milo et al. \cite{Milo2002} estudaram a estrutura de redes orientadas de diversos domínios em busca da resposta. Para isso, eles listaram 13 possíveis configurações de arestas em redes com 3 vértices --- as chamadas tríades ---, mostradas na Figura \ref{fig:triades}.
 
-% XXX: Figuras!
+\begin{figure}[htbp]
+	\centering
+		\includegraphics[scale=1]{figuras/triads}
+	\caption{Tríades, ou grafos com três vértices, numeradas de 1 a 13.}
+	\label{fig:triades}
+\end{figure}
+
+Contando o número de vezes em que cada tríade aparece em uma rede, é possível formar um vetor, denominado \emph{perfil de concentração de tríades} (PCT), que é característico de cada domínio. A Figura \ref{fig:tcp} mostra, lado a lado, PCTs de redes de dois domínios distintos. É notável a diferença nas concentrações das duas primeiras tríades (de cima para baixo).
+
+\begin{figure}[htbp]
+	\centering
+		\includegraphics[scale=1]{figuras/tcp}
+	\caption{Perfis de concentração de tríades de duas redes distintas. À esquerda, rede de dependências entre as classes do programa JabRef, versão 2.5b2. À direita, rede de adjacências entre palavras da língua japonesa \cite{Milo2004}.}
+	\label{fig:tcp}
+\end{figure}
 
 \end{section}
 
@@ -39,9 +53,9 @@ Se a distribuição dos graus sob a forma de lei de potência é comum a redes e
 
 Para tentar explicar os mecanismos responsáveis pela formação de redes livres de escala em diversos domínios, diversos modelos de redes livres de escala foram propostos. Os modelos são algoritmos que geram vértices e arestas de forma probabilística porém de acordo com certas regras que garantem que, quando o número de vértices tende a infinito, a distribuição dos graus dos vértices tende a uma lei de potência. Tais modelos, portanto, geram redes similares a redes de software, ao menos quanto à distribuição dos graus.
 
-Para avaliar o desempenho de algoritmos de agrupamento de software são necessárias redes organizadas em módulos. A maioria dos modelos de redes livres de escala, no entanto, gera redes sem módulos. No contexto desta pesquisa foi elaborado um modelo, o BCR+, que gera redes orientadas organizadas em módulos. O modelo BCR+ é descrito na Seção XXX.
+Para avaliar o desempenho de algoritmos de agrupamento de software são necessárias redes organizadas em módulos. A maioria dos modelos de redes livres de escala, no entanto, gera redes sem módulos. No contexto desta pesquisa foi elaborado um modelo, o BCR+, que gera redes orientadas organizadas em módulos. 
 
-Após uma pesquisa extensa, embora não-sistemática, realizada durante o primeiro semestre de 2009, foram encontrados dois modelos de redes livres de escala organizadas em módulos: o modelo CGW \cite{Chen2008} e o modelo LFR \cite{Lancichinetti2009}. O modelo CGW é descrito na Seção XXX e o modelo LFR, na Seção XXX.
+Após uma pesquisa extensa, embora não-sistemática, realizada durante o primeiro semestre de 2009, foram encontrados dois modelos de redes livres de escala organizadas em módulos: o modelo CGW \cite{Chen2008} e o modelo LFR \cite{Lancichinetti2009}.
 
 Os três modelos apresentados a seguir geram redes orientadas organizadas em módulos. 
 % Modelo de Erdos-Renyi?
@@ -52,7 +66,7 @@ Os três modelos apresentados a seguir geram redes orientadas organizadas em mó
 
 \begin{subsection}{O modelo CGW}
 
-O modelo CGW \cite{Chen2008} foi proposto como um modelo da evolução de sistemas de software. O modelo aceita X parâmetros:
+O modelo CGW \cite{Chen2008} foi proposto como um modelo da evolução de sistemas de software. O modelo aceita 11 parâmetros:
 
 \begin{itemize}
 \item número de vértices, $n$;
@@ -88,12 +102,17 @@ Naturalmente, as probabilidades $p_1, p_2, p_3$ e $p_4$ devem somar 1. Além dis
 
 A probabilidade preferencial baseada em módulos, $\Pi(v_2|v_1)$, é uma função que indica a probabilidade de se escolher um vértice, $v_2$, como destino de uma aresta cujo vértice de origem, $v_1$, já foi determinado. O propósito da PPBM é diminuir a proporção de arestas externas na rede, privilegiando a escolha de um vértice de destino pertencente ao mesmo módulo do vértice de origem. Eis a definição da probabilidade preferencial baseada em módulos:
 
-% XXX Tá dando erro na compilação.
-% $$
-% \Pi (v_2|v_1) = (1 + \mathrm{g}(v_2) \cdot (1 + \alpha)) / Q(v_1) \mathrm{se v_2 está no mesmo módulo de v_1}
-% 
-% = (1 + \mathrm{g}(v_2)) / Q(v_2) \mathrm{caso contrário}
-% $$
+$$
+\Pi (v_2|v_1) ~=~
+\left\{
+\begin{array}{cl}
+\dfrac{1 + \mathrm{g}(v_2) \cdot (1 + \alpha)}{Q(v_1)} 
+  & \mbox{se $v_2$ está no mesmo módulo de $v_1$} \vspace{0.5em} \\ 
+\dfrac{1 + \mathrm{g}(v_2)}{Q(v_1)} 
+  & \mbox{caso contrário}
+\end{array}
+\right.
+$$
 
 O parâmetro $\alpha$ controla a proporção de arestas externas na rede. Para $\alpha = -1$, a maioria das arestas serão externas. Para $\alpha > 0$, a maioria das arestas serão internas, e quanto maior o valor de $\alpha$, maior a tendência. Quando $\alpha = 0$, arestas internas e externas são igualmente prováveis.
 
@@ -101,7 +120,7 @@ A expressão g($v$) designa o grau de saída do vértice $v$. O termo $Q$ é ape
 
 $$
 Q(v_1) = \sum_{v \in m(v_1)} (1 + \mathrm{g}(v) \cdot (1 + \alpha))
-+ \sum_{v \notin m(v_1)} (1 + \mathrm{g}(v))
+~+ \sum_{v \notin m(v_1)} (1 + \mathrm{g}(v))
 $$
 
 A expressão m($v$), neste contexto, designa o conjunto dos vértices que pertencem ao mesmo módulo de $v$.
