@@ -1,5 +1,12 @@
 \begin{thebibliography}{10}
 
+\bibitem{Adamic2005}
+Lada~A. Adamic and Natalie Glance.
+\newblock The political blogosphere and the 2004 u.s. election: divided they
+  blog.
+\newblock In {\em LinkKDD '05: Proceedings of the 3rd international workshop on
+  Link discovery}, pages 36--43, New York, NY, USA, 2005. ACM Press.
+
 \bibitem{Andritsos2005}
 P.~Andritsos and V.~Tzerpos.
 \newblock Information-theoretic software clustering.
@@ -111,6 +118,16 @@ M.~Ichii, M.~Matsushita, and K.~Inoue.
 \newblock In {\em Proc. 19th Australian Conference on Software Engineering
   ASWEC 2008}, pages 422--431, 2008.
 
+\bibitem{Jeong2000}
+H.~Jeong, B.~Tombor, R.~Albert, Z.~N. Oltvai, and A.~L. Barabasi.
+\newblock The large-scale organization of metabolic networks.
+\newblock {\em Nature}, 407(6804):651--654, October 2000.
+
+\bibitem{Jeong2001}
+Hawoong Jeong, Sean~P. Mason, Albert-Laszlo Barabasi, and Zoltan~N. Oltvai.
+\newblock Lethality and centrality in protein networks.
+\newblock {\em NATURE v}, 411:41, 2001.
+
 \bibitem{Koschke2000}
 R.~Koschke and T.~Eisenbarth.
 \newblock A framework for experimental evaluation of clustering techniques.
@@ -203,6 +220,10 @@ Paolo Tonella, Marco Torchiano, Bart Du~Bois, and Tarja Syst\"{a}.
   trends.
 \newblock {\em Empirical Softw. Engg.}, 12(5):551--571, 2007.
 
+\bibitem{Traud2008}
+Amanda~L. Traud, Eric~D. Kelsic, Peter~J. Mucha, and Mason~A. Porter.
+\newblock Community structure in online collegiate social networks, 2008.
+
 \bibitem{Trifu2001}
 Trifu.
 \newblock Using cluster analysis in the architecture recovery of
@@ -222,9 +243,14 @@ V.~Tzerpos and R.~C. Holt.
   pages 258--267, 2000.
 
 \bibitem{Valverde2003}
-Sergi Valverde and Ricard~V. Sol√©.
+Sergi Valverde and Ricard~V. Solé.
 \newblock Hierarchical small worlds in software architecture.
 \newblock (Directed Scale-Free Graphs), 2003.
+
+\bibitem{Watts1998}
+D.~J. Watts and S.~H. Strogatz.
+\newblock Collective dynamics of 'small-world' networks.
+\newblock {\em Nature}, 393(6684):440--442, June 1998.
 
 \bibitem{Wu2005}
 J.~Wu, A.~E. Hassan, and R.~C. Holt.
