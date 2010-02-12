@@ -37,26 +37,26 @@ Infelizmente, existem poucos agrupamentos de referência disponíveis publicamen
 
 \section{Metodologia}
 
-Propomos, neste trabalho, avaliar algoritmos de agrupamento de software com sistemas de software sintéticos, gerados a partir da simulação de modelos de software. Para tanto, os modelos devem gerar sistemas de software tendo como base uma descrição dos módulos do sistema. O sistema gerado, portanto, já apresenta um agrupamento de referência.
+Propomos, neste trabalho, avaliar algoritmos de agrupamento de software com sistemas de software sintéticos, gerados a partir da simulação de modelos de software. Para tanto, os modelos devem gerar sistemas de software tendo como base uma descrição dos módulos do sistema. O sistema, portanto, já é gerado com um agrupamento de referência.
 
-De posse desse modelo, a avaliação de algoritmos de agrupamento de software consiste nos seguintes passos: (i) gerar, através de um modelo, diversos sistemas de software sintéticos a partir de módulos previamente estabelecidos; (ii) aplicar algoritmos de agrupamento sobre os sistemas sintéticos; (iii) comparar os agrupamentos recuperados pelos algoritmos com os agrupamentos de referência.
+De posse desse modelo, a avaliação de algoritmos de agrupamento de software consiste nos seguintes passos: (i) gerar, através de um modelo, diversos sistemas de software sintéticos a partir de módulos previamente estabelecidos; (ii) aplicar algoritmos de agrupamento sobre os sistemas sintéticos; (iii) comparar os agrupamentos encontrados pelos algoritmos com os agrupamentos de referência.
 
-Os sistemas gerados pelos modelos não precisam ser detalhados no nível de implementação, uma vez que muitos algoritmos de agrupamento de software operam sobre grafos que representam as dependências entre entidades de implementação. Desta forma, é suficiente considerar modelos que produzem grafos e tratar os grafos como uma representação das dependências encontradas na implementação um sistema.
+Os sistemas gerados pelos modelos não precisam ser detalhados no nível de implementação, uma vez que muitos algoritmos de agrupamento de software operam sobre grafos que representam as dependências entre entidades de implementação. Desta forma, é suficiente considerar modelos que produzem grafos e tratar os grafos como uma representação das dependências encontradas na implementação de um sistema.
 
 Uma possível objeção para o uso de modelos é o argumento de que os grafos gerados pelos modelos seriam muito diferentes de grafos extraídos de sistemas de software reais e, portanto, conclusões obtidas com estes primeiros não poderiam ser generalizadas para estes últimos.
 
 \section{Objetivo}
 
-Com o propósito de suprir a carência de sistemas de software com agrupamentos de referência para testar algoritmos de agrupamento, o objetivo deste trabalho é encontrar modelos que geram grafos organizados em módulos que se assemelham a grafos de dependências extraídos de sistemas de software reais.
+Com o propósito de suprir a carência de sistemas de software com agrupamentos de referência para testar algoritmos de agrupamento, o objetivo deste trabalho é encontrar modelos que geram grafos organizados em módulos similares a grafos de dependências extraídos de sistemas de software reais.
 
-\subsection{Objetivos Específicos}
-
-Para alcançar o objetivo desta pesquisa, é necessário alcançar os seguintes objetivos específicos:
-
-\begin{itemize}
-	\item encontrar modelos que geram grafos organizados em módulos;
-	\item avaliar os modelos quanto à similaridade entre os grafos gerados e grafos extraídos de sistemas de software;
-\end{itemize}
+% \subsection{Objetivos Específicos}
+% 
+% Para alcançar o objetivo desta pesquisa, é necessário alcançar os seguintes objetivos específicos:
+% 
+% \begin{itemize}
+% 	\item encontrar modelos que geram grafos organizados em módulos;
+% 	\item avaliar os modelos quanto à similaridade entre os grafos gerados e grafos extraídos de sistemas de software;
+% \end{itemize}
 
 \section{Estrutura da Dissertação}
 
