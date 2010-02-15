@@ -43,18 +43,34 @@ Para realizar o agrupamento automático de um conjunto de entidades, as seguinte
 	\item o algoritmo de agrupamento;
 \end{itemize}
 
-No domínio do agrupamento de software, exemplos de entidades incluem, entre outros, arquivos fonte \cite{Mancoridis1998}, funções e variáveis em sistema procedimentais \cite{Anquetil1999} e classes em um sistema orientado a objetos \cite{Trifu2001} etc.
+No domínio do agrupamento de software, exemplos de entidades incluem, entre outros, arquivos fonte \cite{Mancoridis1998}, funções e variáveis em sistema procedimentais \cite{Anquetil1999} e classes em um sistema orientado a objetos \cite{Trifu2001}.
 
-A descrição das entidades determina as características a se considerar para determinar se duas entidades são mais ou menos similares. Por exemplo, se o objetivo é agrupar funções em um programa procedimental, as seguintes descrições, entre outras, podem ser adotadas para cada entidade:
+A descrição das entidades determina as características a se considerar para determinar se duas entidades são mais ou menos similares. Por exemplo, se o objetivo é agrupar classes em um programa orientado a objetos, as seguintes descrições, entre outras, podem ser adotadas para cada entidade:
+%funções em um programa procedimental, as seguintes descrições, entre outras, podem ser adotadas para cada entidade:
 
 \begin{itemize}
-	\item conjunto das palavras usadas nos comentários que descrevem a função;
-	\item conjunto dos programadores que trabalharam na função;
-	\item conjunto das funções chamadas pela função;
-	\item conjunto das variáveis manipuladas na função.
+	% \item conjunto das palavras usadas nos comentários que descrevem a função;
+	% \item conjunto dos programadores que trabalharam na função;
+	\item conjunto das classes que especializam a classe descrita através do mecanismo de herança;
+	\item conjunto das classes que possuem métodos chamados pela classe descrita.
+	% \item conjunto das funções chamadas pela função;
+	% \item conjunto das variáveis manipuladas na função.
 \end{itemize}
 
-As duas últimas descrições são chamadas de descrições formais, pois elas têm impacto sobre o comportamento do programa, e são as descrições mais estudadas \cite{Anquetil1999}. Em muitos casos, a descrição formal de um sistema é representada como grafo. As duas primeiras descrições são ditas não-formais. 
+As descrições exemplificadas são chamadas de descrições formais, pois elas têm impacto sobre o comportamento do programa. Em muitos casos, as descrições formais de um sistema são representadas como um grafo, que é extraído a partir do código-fonte através da análise estática de seu código-fonte, uma abordagem que prescinde da execução do sistema.
+% , e são as descrições mais estudadas no contexto de agrupamento de software \cite{Anquetil1999}
+
+Algumas interações entre entidades de um sistema só se manifestam durante a execução do sistema e, por isso, não são identificadas em uma análise estática. Exemplos incluem a instanciação de objetos através de introspecção e a interação entre objetos que se comunicam através de um protocolo de troca de mensagens entre processos. Tais interações só podem ser identificadas através de uma análise dinâmica, que envolve a execução do sistema.
+
+As relações entre entidades que podem ser identificadas através de análise estática são chamadas de dependências estáticas. Em um programa orientado a objetos, dependências estáticas entre classes incluem interações como a chamada de um método, a leitura ou escrita de um atributo, a instanciação de um objeto e a herança.
+
+Neste trabalho, optou-se por estudar o agrupamento de software no caso em que o software é representado como um grafo de dependências estáticas entre entidades do código-fonte. Tal escolha se justifica pelo grande número de trabalhos que seguem essa abordagem. Em particular, neste trabalho serão estudados sistemas escritos em Java, uma linguagem orientada a objetos popular, para a qual existem diversas ferramentas disponíveis para análise estática.
+
+% As duas primeiras descrições são ditas não-formais. 
+% 
+% Em muitos estudos, as descrições formais das entidades de um sistema são extraídas através de análise estática do código-fonte, isto é, uma análise que prescinde da execução do sistema.
+
+% A descrição usada neste trabalho é o grafo de dependências estáticas entre classes de sistemas orientados a objetos. % XXX
 
 % XXX
 % Após a identificação das entidades a serem agrupadas, portanto, o processo de agrupamento é realizado em duas etapas: a extração das descrições das entidades e o agrupamento propriamente dito. A Figura XXX ilustra o processo, considerando uma descrição sob a forma de grafo.
@@ -66,7 +82,7 @@ As duas últimas descrições são chamadas de descrições formais, pois elas t
 % 	\label{fig:label}
 % \end{figure}
 
-A seguir são descritos brevemente alguns algoritmos que têm sido pesquisados no contexto de agrupamento de software, com foco em descrições formais de software. Para esta pesquisa foram escolhidos algoritmos estudados por diferentes grupos de pesquisa e com implementação disponível publicamente.
+A seguir são descritos brevemente alguns algoritmos de agrupamento de software que operam sobre grafos de dependências entre entidades. Para esta pesquisa foram escolhidos algoritmos estudados por diferentes grupos de pesquisa e com implementações disponíveis publicamente.
 
 \begin{subsection}{Algoritmos Hierárquicos Aglomerativos}
 
@@ -80,7 +96,7 @@ $$
 
 O que diferencia os algoritmos hierárquicos aglomerativos entre si é o critério usado para medir a similaridade entre dois módulos. Os dois critérios mais estudados no contexto de agrupamento são chamados de ligação simples (SL, do inglês \emph{single linkage}) e ligação completa (CL, do inglês \emph{complete linkage}). Na ligação simples, a similaridade entre dois módulos é computada como a maior similaridade entre pares de entidades tiradas uma de cada módulo. Na ligação completa é considerada a menor similaridade.
 
-Naturalmente, um agrupamento que consiste de apenas um módulo com todas as entidades analisadas é de pouco valor. Por essa razão deve existir um critério de parada que interrompa o algoritmo de todos os módulos serem mesclados em um grande módulo. No contexto de agrupamento de software, o critério mais comumente usado é a altura de corte, $h$, que varia entre 0 e 1. Sob esse critério, o algoritmo interrompe sua execução quando a maior similaridade entre dois módulos é igual a $1 - h$. Assim, quanto maior a altura de corte $h$, menor o número de módulos do agrupamento resultante.
+Naturalmente, um agrupamento que consiste de apenas um módulo com todas as entidades analisadas é de pouco valor. Por essa razão deve existir um critério de parada que interrompa o algoritmo antes de todos os módulos terem sido mesclados em um grande módulo. No contexto de agrupamento de software, o critério mais comumente usado é a altura de corte, $h$, que varia entre 0 e 1. Sob esse critério, o algoritmo interrompe sua execução quando a maior similaridade entre dois módulos é igual a $1 - h$. Assim, quanto maior a altura de corte $h$, menor o número de módulos do agrupamento resultante.
 	
 \end{subsection}
 
@@ -92,7 +108,7 @@ Com a finalidade de auxiliar a compreensão de programas, o algoritmo Bunch \cit
 
 % TODO: fórmula da QM
 
-Encontrar um agrupamento que possui QM ótima é um problema intratável; por isso a ferramenta usa heurísticas como algoritmos genéticos e \emph{hill-climbing} para obter resultados quase ótimos.
+Encontrar um agrupamento que possui QM ótima é um problema intratável; por isso o algoritmo Bunch usa heurísticas como algoritmos genéticos e \emph{hill-climbing} para obter resultados quase ótimos.
 
 \end{subsection}
 
