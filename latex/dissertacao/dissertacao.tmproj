@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>avaliacao.tex</string>
+	<string>fundamentacao.tex</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -67,7 +67,9 @@
 					<key>filename</key>
 					<string>fundamentacao.tex</string>
 					<key>lastUsed</key>
-					<date>2010-02-11T19:33:58Z</date>
+					<date>2010-02-13T01:40:01Z</date>
+					<key>selected</key>
+					<true/>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -79,9 +81,7 @@
 					<key>filename</key>
 					<string>avaliacao.tex</string>
 					<key>lastUsed</key>
-					<date>2010-02-11T19:50:51Z</date>
-					<key>selected</key>
-					<true/>
+					<date>2010-02-13T01:40:01Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -125,9 +125,9 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>8</integer>
+				<integer>0</integer>
 				<key>line</key>
-				<integer>136</integer>
+				<integer>82</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
@@ -195,14 +195,14 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>743</integer>
+				<integer>122</integer>
 				<key>line</key>
-				<integer>140</integer>
+				<integer>58</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
-			<integer>73</integer>
+			<integer>152</integer>
 			<key>firstVisibleLine</key>
-			<integer>115</integer>
+			<integer>47</integer>
 		</dict>
 		<key>introducao.tex</key>
 		<dict>
@@ -257,8 +257,8 @@
 		</dict>
 	</array>
 	<key>showFileHierarchyDrawer</key>
-	<true/>
+	<false/>
 	<key>windowFrame</key>
-	<string>{{227, 70}, {823, 708}}</string>
+	<string>{{311, 69}, {823, 708}}</string>
 </dict>
 </plist>
