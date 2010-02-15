@@ -33,9 +33,9 @@ Para organizar um sistema em módulos, um gerente precisa ter conhecimento globa
 
 Algoritmos de agrupamento de software podem facilitar a tarefa, ao agrupar entidades em módulos de maneira a reduzir o número de dependências entre módulos. Uma forma de avaliar algoritmos de agrupamento de software é aplicá-los a uma coleção de sistemas de software com agrupamentos de referência feitos por desenvolvedores experientes \cite{Anquetil1999}. Sob esse critério, bons algoritmos são aqueles que acham agrupamentos similares aos agrupamentos de referência.
 
-Infelizmente, existem poucos agrupamentos de referência disponíveis publicamente \cite{Koschke2000} e, consequentemente, poucos estudos empíricos sobre algoritmos de agrupamento de software. Além disso, como o custo de se obter agrupamentos de referência para grandes é alto, muitos estudos testam os algoritmos com sistemas pequenos e médios \cite{Anquetil1999,Maqbool2007,Bittencourt2009}.
+Infelizmente, existem poucos agrupamentos de referência disponíveis publicamente \cite{Koschke2000} e, consequentemente, poucos estudos empíricos sobre algoritmos de agrupamento de software. Além disso, como o custo de se obter agrupamentos de referência para grandes sistemas é alto, muitos estudos testam os algoritmos com sistemas pequenos e médios \cite{Anquetil1999,Maqbool2007,Bittencourt2009}.
 
-\section{Metodologia}
+\section{Modelagem e Simulação para Avaliar Algoritmos de Agrupamento}
 
 Propomos, neste trabalho, avaliar algoritmos de agrupamento de software com sistemas de software sintéticos, gerados a partir da simulação de modelos de software. Para tanto, os modelos devem gerar sistemas de software tendo como base uma descrição dos módulos do sistema. O sistema, portanto, já é gerado com um agrupamento de referência.
 
@@ -43,11 +43,11 @@ De posse desse modelo, a avaliação de algoritmos de agrupamento de software co
 
 Os sistemas gerados pelos modelos não precisam ser detalhados no nível de implementação, uma vez que muitos algoritmos de agrupamento de software operam sobre grafos que representam as dependências entre entidades de implementação. Desta forma, é suficiente considerar modelos que produzem grafos e tratar os grafos como uma representação das dependências encontradas na implementação de um sistema.
 
-Uma possível objeção para o uso de modelos é o argumento de que os grafos gerados pelos modelos seriam muito diferentes de grafos extraídos de sistemas de software reais e, portanto, conclusões obtidas com estes primeiros não poderiam ser generalizadas para estes últimos.
-
 \section{Objetivo}
 
-Com o propósito de suprir a carência de sistemas de software com agrupamentos de referência para testar algoritmos de agrupamento, o objetivo deste trabalho é encontrar modelos que geram grafos organizados em módulos similares a grafos de dependências extraídos de sistemas de software reais.
+Uma possível objeção para o uso de modelos é o argumento de que os grafos gerados pelos modelos seriam muito diferentes de grafos extraídos de sistemas de software reais e, portanto, conclusões obtidas com estes primeiros não poderiam ser generalizadas para estes últimos.
+
+Com o propósito de suprir a carência de sistemas de software com agrupamentos de referência para testar algoritmos de agrupamento, o objetivo deste trabalho é encontrar modelos que geram grafos organizados em módulos similares a grafos de dependências extraídos de sistemas de software reais. O principal desafio nesta tarefa é mostrar que os grafos sintéticos se assemelham a grafos extraídos de sistemas de software reais, quando for o caso.
 
 % \subsection{Objetivos Específicos}
 % 
@@ -62,13 +62,13 @@ Com o propósito de suprir a carência de sistemas de software com agrupamentos 
 
 A estrutura do restante desta dissertação é descrita a seguir. 
 %
-No Capítulo \ref{cap:agrupamento} são descritos alguns algoritmos de agrupamento de software, bem como uma técnica usada para avaliar os algoritmos.
+No Capítulo \ref{cap:agrupamento} são descritos alguns algoritmos de agrupamento de software, bem como uma abordagem de avaliação dos algoritmos.
 %
 No Capítulo \ref{cap:redes} são apresentados estudos recentes sobre a estrutura de grafos extraídos de sistemas de software e grafos estudados em outros domínios, bem como modelos que procuram explicar a formação de grafos organizados em módulos.
 %
-No Capítulo \ref{cap:avaliacao} é relatado um experimento que mostra que os modelos apresentados geram redes similares a redes de software.
+No Capítulo \ref{cap:avaliacao} é relatado um experimento que mostra que os modelos apresentados geram grafos similares a grafos extraídos de software.
 %
-No Capítulo \ref{cap:estudo} é relatado um experimento no qual algoritmos de agrupamento são aplicados a redes geradas pelos modelos.
+No Capítulo \ref{cap:estudo} é relatado um experimento no qual algoritmos de agrupamento são aplicados a grafos sintéticos.
 %
 No Capítulo \ref{cap:conclusao} são apresentadas as conclusões deste trabalho. 
 

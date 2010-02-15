@@ -43,7 +43,7 @@ Para realizar o agrupamento automático de um conjunto de entidades, as seguinte
 	\item o algoritmo de agrupamento;
 \end{itemize}
 
-No domínio do agrupamento de software, exemplos de entidades incluem, entre outros, arquivos fonte \cite{Mancoridis1998}, funções e variáveis em sistema procedimentais \cite{Anquetil1999} e classes em um sistema orientado a objetos \cite{Trifu2001}.
+No domínio do agrupamento de software, exemplos de entidades incluem, entre outros, arquivos fonte \cite{Mancoridis1998}, funções e variáveis em um sistema procedimental \cite{Anquetil1999} e classes em um sistema orientado a objetos \cite{Trifu2001}.
 
 A descrição das entidades determina as características a se considerar para determinar se duas entidades são mais ou menos similares. Por exemplo, se o objetivo é agrupar classes em um programa orientado a objetos, as seguintes descrições, entre outras, podem ser adotadas para cada entidade:
 %funções em um programa procedimental, as seguintes descrições, entre outras, podem ser adotadas para cada entidade:
@@ -52,7 +52,7 @@ A descrição das entidades determina as características a se considerar para d
 	% \item conjunto das palavras usadas nos comentários que descrevem a função;
 	% \item conjunto dos programadores que trabalharam na função;
 	\item conjunto das classes que especializam a classe descrita através do mecanismo de herança;
-	\item conjunto das classes que possuem métodos chamados pela classe descrita.
+	\item conjunto das classes que definem métodos chamados pela classe descrita.
 	% \item conjunto das funções chamadas pela função;
 	% \item conjunto das variáveis manipuladas na função.
 \end{itemize}
@@ -142,11 +142,11 @@ A Figura \ref{fig:mojo} ilustra dois agrupamentos de um mesmo sistema de softwar
 
 No domínio de agrupamento de software, a métrica MoJo \cite{Tzerpos1999} tem sido bastante utilizada para medir a similaridade entre dois agrupamentos. A ideia por trás da métrica é que um agrupamento dado é muito similar a um agrupamento de referência se é possível transformar o primeiro agrupamento no segundo usando poucas operações do tipo mover e mesclar. A operação mover consiste de mover uma entidade de um módulo para outro módulo distinto. A operação mesclar consiste de mesclar dois módulos. O MoJo entre  dois agrupamentos é igual ao número de operações de mover e mesclar que são necessárias para transformar o primeiro agrupamento no segundo. Quanto menor o MoJo, maior a similaridade entre dois agrupamentos; agrupamentos idênticos têm MoJo igual a zero.
 
-A métrica MoJo não é simétrica. Para chegar a essa conclusão, basta observar que há uma operação de mesclar módulos, mas não uma operação de dividir um módulo em dois. No contexto de avaliação de algoritmos de agrupamento de software, é considerado o número de operações necessárias para transformar o agrupamento encontrado por um algoritmo no agrupamento de referência.
+% A métrica MoJo não é simétrica. Para chegar a essa conclusão, basta observar que há uma operação de mesclar módulos, mas não uma operação de dividir um módulo em dois. No contexto de avaliação de algoritmos de agrupamento de software, é considerado o número de operações necessárias para transformar o agrupamento encontrado por um algoritmo no agrupamento de referência, e não o contrário.
 
 Na Figura \ref{fig:mojo}, considerando que o agrupamento de referência é o segundo (o da direita), o MoJo entre os dois agrupamentos vale 2. Para transformar o primeiro agrupamento no segundo são necessárias, portanto, duas operações: mesclar os módulos $M_1$ e $M_2$, e mover o vértice $v_5$ para o módulo $M_3$. Após a realização dessas operações, os agrupamentos se tornam idênticos, considerando as correspondências $(M_1 \cup M_2) = M_A$, $M_3 = M_B$ e $M_4 = M_C$.
 
-Observando que o valor MoJo entre dois agrupamentos com o mesmo número de entidades varia entre 0 e o número de entidades em cada agrupamento, $n$, é possível definir uma métrica, chama MoJoSim, que mapeia o valor MoJo em uma escala de 0 a 1 \cite{Bittencourt2009}. O valor 0 representa a menor similaridade e o valor 1, a maior similaridade. O valor de MoJoSim entre dois agrupamentos é definido de acordo com a seguinte equação:
+Observando que o valor MoJo entre dois agrupamentos com o mesmo número de entidades varia entre 0 e o número de entidades em cada agrupamento, $n$, é possível definir uma métrica, chamada MoJoSim, que mapeia o valor MoJo em uma escala de 0 a 1 \cite{Bittencourt2009}. O valor 0 representa a menor similaridade e o valor 1, a maior similaridade. O valor de MoJoSim entre dois agrupamentos é definido de acordo com a seguinte equação:
 
 $$
 \mathrm{MoJoSim}(X, Y) ~=~ 1 - \frac{\mathrm{MoJo}(X, Y)}{n}
