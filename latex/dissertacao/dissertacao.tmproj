@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>modelos.tex</string>
+	<string>apendices.tex</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -18,7 +18,9 @@
 			<key>filename</key>
 			<string>apendices.tex</string>
 			<key>lastUsed</key>
-			<date>2010-02-15T13:24:01Z</date>
+			<date>2010-02-19T23:17:35Z</date>
+			<key>selected</key>
+			<true/>
 		</dict>
 		<dict>
 			<key>filename</key>
@@ -73,9 +75,7 @@
 					<key>filename</key>
 					<string>modelos.tex</string>
 					<key>lastUsed</key>
-					<date>2010-02-16T16:09:31Z</date>
-					<key>selected</key>
-					<true/>
+					<date>2010-02-19T13:08:27Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -111,14 +111,14 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>46</integer>
+				<integer>23</integer>
 				<key>line</key>
-				<integer>95</integer>
+				<integer>78</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>68</integer>
+			<integer>55</integer>
 		</dict>
 		<key>avaliacao.tex</key>
 		<dict>
@@ -274,6 +274,6 @@
 	<key>showFileHierarchyDrawer</key>
 	<false/>
 	<key>windowFrame</key>
-	<string>{{457, 200}, {823, 578}}</string>
+	<string>{{641, 188}, {639, 590}}</string>
 </dict>
 </plist>

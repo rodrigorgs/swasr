@@ -2,11 +2,40 @@
 
 \chapter{Estudo sobre Algoritmos de Agrupamento} \label{cap:estudo}
 
-Caracterização do experimento segundo framework de Basili.
+\begin{section}[Introdução]
 
-Objetivos (perguntas a responder):
-1. ...
-2. ...
+No capítulo anterior foi mostrado que pelo menos três modelos geram redes organizadas em módulos que se assemelham a redes de software. Tal resultado favorece o uso dos modelos para avaliar algoritmos de agrupamento de software. Neste capítulo, um dos modelos é usado em um estudo experimental realizado com o propósito de entender melhor três algoritmos de agrupamento estudados no contexto de recuperação de arquitetura.
+
+O estudo experimental foi dividido em duas partes, com dois objetivos distintos:
+\begin{enumerate}
+	\item comparar o desempenho dos algoritmos de agrupamento sob o critério da semelhança dos agrupamentos encontrados pelos algoritmos com agrupamentos de referência;
+	\item entender como o desempenho dos algoritmos é afetado por parâmetros que descrevem cada rede.
+\end{enumerate}
+
+Para este estudo foram escolhidos os algoritmos apresentados no Capítulo \ref{cap:agrupamento}: ACDC, Bunch e algoritmos hierárquicos aglomerativos (ligação simples, SL, e ligação completa, CL). Para cada um dos algoritmos aglomerativos, foram estudadas duas alturas de corte, $0,75$ e $0,90$. No total são 4 configurações de algoritmos aglomerativos, que serão referenciadas como SL75, SL90, CL75 e CL90. Para os algoritmos Bunch e ACDC foram escolhidas as configurações padrão das implementações dos autores dos algoritmos. As 6 configurações escolhidas para este estudo são idênticas àquelas estudadas por Wu, Hassan e Holt \cite{Wu2005}.
+
+A fim de simplificar as análises, o estudo experimental foi realizado com redes geradas por apenas um dos modelos apresentados anteriormente, o BCR+. A escolha se deve à familiaridade do autor com as propriedades do modelo. Foram usadas as 9500 redes geradas no experimento de avaliação de software-realismo, descritas na Seção \ref{sec:parametros}.
+	
+\end{section}
+
+\begin{section}[Comparação de Algoritmos]
+
+O primeiro experimento teve como objetivo comparar o desempenho dos algoritmos de agrupamento, medido como o valor de MoJoSim (ver Seção \ref{sec:fundamentos-avaliacao}) entre os agrupamentos encontrad
+	
+\end{section}
+
+
+---
+Objetivos
+Planejamento (método)
+Resultados
+
+
+
+
+
+
+Caracterização do experimento segundo framework de Basili.
 
 Método:
 Design fatorial
@@ -19,3 +48,24 @@ Resultados:
 
 ..
  
+--------------
+
+Teste de Mann-Whitney (independente)
+Teste de Wilcoxon [signed rank] (pareado)
+
+Algoritmos:
+SL75, CL75, SL90, CL90, ACDC, Bunch
+Justificativa: Os mesmos usados por Wu e por Andritsos.
+
+Modelo: BCR+
+Justificativa: Só havia tempo para um modelo.
+Optamos pelo BCR+ porque, por construção, é mais similar a sistemas de software, sob o ponto de vista de que o grafo de dependências entre módulos não é um grafo completo.
+LFR foi descartado por ter combinações infactíveis.
+CGW foi descartado por ter muitos parâmetros, o que aumenta o custo do experimento.
+
+
+Wu:
+Algoritmos (do melhor para o pior em authoritativeness):
+CL90, CL75, Bunch, ACDC, SL75, SL90
+
+Andritsos: (resultados inconclusivos. Ignorar.)

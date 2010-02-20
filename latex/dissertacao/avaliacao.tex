@@ -81,7 +81,7 @@ Para obter 100\% de precisão, o limiar deve ser 0,98, um valor que está acima 
 
 Na seção anterior foi mostrado que muitas redes livres de escala de diversos domínios podem ser diferenciadas de redes de software através de um modelo de classificação simples baseado em perfis de concentração de tríades (PCTs). Nessa seção é descrito um experimento que mostra que os três modelos de redes organizadas em módulos geram redes software-realistas. O experimento consiste em gerar redes usando diversas combinações de parâmetros dos três modelos, e então classificar cada rede como software-realista ou não software-realista. O número de vértices foi fixado em 1.000 e os valores dos demais parâmetros foram variados em passos discretos. No total, foram geradas 9.500 redes com o modelo BCR+, 38.790 redes com o modelo CGW e 1.296 redes com o modelo LFR.
 
-\begin{subsection}{Seleção de Parâmetros}
+\begin{subsection}{Seleção de Parâmetros} \label{sec:parametros}
 
 Para o modelo BCR+, foram escolhidos grafos de módulos extraídos a partir de dependências entre arquivos JAR de 5 sistemas de software: GEF (2 módulos), iBATIS (4 módulos), MegaMek (8 módulos), findbugs (16 módulos) e zk (32 módulos). Como muitos dos arquivos JAR foram concebidos para serem reusados em projetos distintos, eles são uma boa aproximação do conceito de módulo. Para os demais parâmetros, os seguintes valores foram escolhidos:
 
