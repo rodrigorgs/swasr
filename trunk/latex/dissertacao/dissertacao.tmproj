@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>apendices.tex</string>
+	<string>estudodecaso.tex</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -18,9 +18,7 @@
 			<key>filename</key>
 			<string>apendices.tex</string>
 			<key>lastUsed</key>
-			<date>2010-02-19T23:17:35Z</date>
-			<key>selected</key>
-			<true/>
+			<date>2010-02-20T19:00:31Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
@@ -38,7 +36,7 @@
 			<key>filename</key>
 			<string>resumo.tex</string>
 			<key>lastUsed</key>
-			<date>2010-02-15T13:28:52Z</date>
+			<date>2010-02-20T19:00:25Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
@@ -69,25 +67,27 @@
 					<key>filename</key>
 					<string>fundamentacao.tex</string>
 					<key>lastUsed</key>
-					<date>2010-02-15T22:30:14Z</date>
+					<date>2010-02-21T17:51:02Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
 					<string>modelos.tex</string>
 					<key>lastUsed</key>
-					<date>2010-02-19T13:08:27Z</date>
+					<date>2010-02-20T19:00:27Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
 					<string>avaliacao.tex</string>
 					<key>lastUsed</key>
-					<date>2010-02-15T13:24:02Z</date>
+					<date>2010-02-21T13:35:48Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
 					<string>estudodecaso.tex</string>
 					<key>lastUsed</key>
-					<date>2010-02-15T13:24:00Z</date>
+					<date>2010-02-21T17:51:02Z</date>
+					<key>selected</key>
+					<true/>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -125,14 +125,30 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>0</integer>
+				<integer>63</integer>
 				<key>line</key>
-				<integer>0</integer>
+				<integer>83</integer>
 			</dict>
+			<key>columnSelection</key>
+			<false/>
 			<key>firstVisibleColumn</key>
-			<integer>0</integer>
+			<integer>469</integer>
 			<key>firstVisibleLine</key>
-			<integer>0</integer>
+			<integer>81</integer>
+			<key>selectFrom</key>
+			<dict>
+				<key>column</key>
+				<integer>49</integer>
+				<key>line</key>
+				<integer>83</integer>
+			</dict>
+			<key>selectTo</key>
+			<dict>
+				<key>column</key>
+				<integer>63</integer>
+				<key>line</key>
+				<integer>83</integer>
+			</dict>
 		</dict>
 		<key>conclusao.tex</key>
 		<dict>
@@ -181,28 +197,28 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>8</integer>
+				<integer>553</integer>
 				<key>line</key>
-				<integer>0</integer>
+				<integer>31</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
-			<integer>0</integer>
+			<integer>229</integer>
 			<key>firstVisibleLine</key>
-			<integer>0</integer>
+			<integer>26</integer>
 		</dict>
 		<key>fundamentacao.tex</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>187</integer>
+				<integer>76</integer>
 				<key>line</key>
-				<integer>148</integer>
+				<integer>35</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>144</integer>
+			<integer>31</integer>
 		</dict>
 		<key>introducao.tex</key>
 		<dict>
@@ -232,20 +248,6 @@
 			<key>firstVisibleLine</key>
 			<integer>10</integer>
 		</dict>
-		<key>resumo.tex</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>986</integer>
-				<key>line</key>
-				<integer>0</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
 	</dict>
 	<key>openDocuments</key>
 	<array>
@@ -253,10 +255,9 @@
 		<string>introducao.tex</string>
 		<string>fundamentacao.tex</string>
 		<string>modelos.tex</string>
-		<string>resumo.tex</string>
 		<string>avaliacao.tex</string>
-		<string>apendices.tex</string>
 		<string>estudodecaso.tex</string>
+		<string>apendices.tex</string>
 		<string>definicoes.tex</string>
 		<string>conclusao.tex</string>
 	</array>
@@ -274,6 +275,6 @@
 	<key>showFileHierarchyDrawer</key>
 	<false/>
 	<key>windowFrame</key>
-	<string>{{641, 188}, {639, 590}}</string>
+	<string>{{269, 179}, {773, 599}}</string>
 </dict>
 </plist>
