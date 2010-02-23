@@ -14,7 +14,7 @@ O estudo experimental foi dividido em duas partes, com dois objetivos distintos:
 
 Para este estudo foram escolhidos os algoritmos apresentados no Capítulo \ref{cap:agrupamento}: ACDC, Bunch e algoritmos hierárquicos aglomerativos (ligação simples, SL, e ligação completa, CL). Para cada um dos algoritmos aglomerativos, foram estudadas duas alturas de corte, $0,75$ e $0,90$. No total são 4 configurações de algoritmos aglomerativos, que serão referenciadas como SL75, SL90, CL75 e CL90. Para os algoritmos Bunch e ACDC foram escolhidas as configurações padrão das implementações dos autores dos algoritmos. As 6 configurações escolhidas para este estudo são idênticas àquelas estudadas por Wu, Hassan e Holt \cite{Wu2005}.
 
-A fim de simplificar as análises, o estudo experimental foi realizado com redes geradas por apenas um dos modelos apresentados anteriormente, o BCR+. A escolha se deve à familiaridade do autor com as propriedades do modelo. Foram usadas as 9500 configurações de parâmetros descritas no experimento de avaliação de software-realismo, na Seção \ref{sec:parametros}. Para cada configuração foram geradas duas redes a fim de considerar efeitos aleatórios na avaliação dos algoritmos, totalizando 19 mil redes.
+A fim de simplificar as análises, o estudo experimental foi realizado com redes geradas por apenas um dos modelos apresentados anteriormente, o BCR+. A escolha se deve à familiaridade do autor com as propriedades do modelo. Foram usadas as 9500 configurações de parâmetros descritas no experimento de avaliação de software-realismo, na Seção \ref{sec:parametros}. Com a finalidade de mitigar os efeitos aleatórios na geração de redes, para cada configuração foram geradas três redes, totalizando 28,5 mil redes.
 
 % A base dos experimentos são testes de hipótese, nos quais se verificam hipóteses do tipo ``o algoritmo ACDC possui maior desempenho do que o algoritmo CL90''. Verificou-se, no entanto, que a distribuição dos valores de MoJoSim não é normal, o que descarta o teste de t-Student para a comparação de duas amostras. Por essa razão foram utilizados testes não-paramétricos, como o teste de Mann-Whitney, cuja validade não depende da suposição de que a distribuição é normal.
 
@@ -24,9 +24,9 @@ A fim de simplificar as análises, o estudo experimental foi realizado com redes
 
 O primeiro experimento teve como objetivo comparar o desempenho dos algoritmos de agrupamento com relação à similaridade entre agrupamentos encontrados pelos algoritmos e os agrupamentos de referência correspondentes.
 
-Cada algoritmo foi aplicado a cada uma das redes sintéticas, resultando em agrupamentos cujo desempenho foi medido pela métrica MoJoSim (ver Seção \ref{sec:fundamentos-avaliacao}). Apenas redes software-realistas (valor $S \ge 0,88$), totalizando XXX redes, foram usadas neste estudo, uma vez que o objetivo é comparar o desempenho de algoritmos quando aplicadas a redes de software.
+Cada algoritmo foi aplicado a cada uma das redes sintéticas, resultando em agrupamentos cujo desempenho foi medido pela métrica MoJoSim (ver Seção \ref{sec:fundamentos-avaliacao}). Apenas redes software-realistas (valor $S \ge 0,88$), totalizando quase 6 mil redes, foram usadas neste estudo, uma vez que o objetivo é comparar o desempenho de algoritmos quando aplicadas a redes de software.
 
-% XXX falar que quartis são métricas robustas...
+% falar que quartis são métricas robustas?
 A Figura \ref{fig:box-mojo-por-alg} mostra um \emph{boxplot} dos valores de MoJoSim alcançados por cada algoritmo. No \emph{boxplot}, o retângulo vai do quartil inferior (Q1) até o quartil superior (Q3), com a mediana desenhada como uma linha horizontal dentro do retângulo. Q1 representa o valor que é maior do que 25\% dos valores e Q3 representa o valor que é maior do que 75\% dos valores. Acima e abaixo do retângulo estão linhas horizontais que indicam o valor mínimo e o valor máximo do conjunto de dados. % As linhas são limitadas por Q1 - (1.5 * IQR) e Q3 + (1.5 * IQR)...
 
 \begin{figure}[htbp]
@@ -47,11 +47,7 @@ Outro aspecto a se observar é a dispersão dos valores. O algoritmo Bunch é o 
 
 O resultado encontrado diverge das conclusões de Wu, Hassan e Holt \cite{Wu2005}. Eles concluíram que os algoritmos, ordenados do melhor para o pior, são CL90, CL75, Bunch, ACDC, SL75, SL90. As divergências provavelmente se explicam pelos critérios empregados para definir o agrupamento de referência. No estudo deles, o agrupamento de referência foi extraído da estrutura de diretórios do código-fonte dos sistemas estudados; neste estudo, o agrupamento de referência é definido \emph{a priori}, e as redes são geradas de forma a reduzir as dependências entre módulos.
 
-% XXX nível de significância? É assim que se fala?
-
 Vale ressaltar que, apesar de uma amostra grande ter sido usada no estudo, as conclusões não são definitivas. O teste do valor S garante que todas as redes da amostra são software-realistas, mas não é possível afirmar que as redes software realistas estejam bem representadas na amostra. Possivelmente o modelo BCR+ não é capaz de gerar certos tipos de redes software-realistas, o que potencialmente introduz um viés no experimento que pode beneficiar um algoritmo ou outro. Ainda assim, esta análise complementa estudos de caso realizados por outros autores \cite{Wu2005,Andritsos2005}, que são viesados pelo fato de analisarem poucos sistemas de software.
-
-% XXX Defender: ainda assim, esse estudo é ao menos comparável aos estudos de caso que se vê por aí...
 
 \end{section}
 
