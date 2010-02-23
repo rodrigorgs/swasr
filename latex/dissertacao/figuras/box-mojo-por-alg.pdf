@@ -2,8 +2,8 @@
 %Å‚Å„ÅœÅ”\r
 1 0 obj
 <<
-/CreationDate (D:20100222150529)
-/ModDate (D:20100222150529)
+/CreationDate (D:20100222212225)
+/ModDate (D:20100222212225)
 /Title (R Graphics Output)
 /Producer (R 2.10.1)
 /Creator (R)
@@ -201,6 +201,21 @@ ET
 BT
 /F2 1 Tf 0.00 12.00 -12.00 0.00 41.76 422.86 Tm (1.0) Tj
 ET
+Q q
+BT
+0.000 0.000 0.000 rg
+/F3 1 Tf 14.00 0.00 -0.00 14.00 94.96 469.45 Tm [(V) 60 (alores de MoJoSim por algoritmo de a) 10 (grupamento)] TJ
+ET
+BT
+/F2 1 Tf 0.00 12.00 -12.00 0.00 12.96 234.20 Tm (MoJoSim) Tj
+ET
+Q q
+0.000 0.000 0.000 RG
+0.75 w
+[] 0 d
+1 J
+1 j
+10.00 M
 59.04 73.44 m
 473.76 73.44 l
 473.76 444.96 l
@@ -211,7 +226,7 @@ Q
 endstream
 endobj
 7 0 obj
-3200
+3468
 endobj
 3 0 obj
 <<
@@ -226,7 +241,7 @@ endobj
 4 0 obj
 <<
 /ProcSet [/PDF /Text]
-/Font <</F2 9 0 R >>
+/Font <</F2 9 0 R /F3 10 0 R >>
 /ExtGState << >>
 >>
 endobj
@@ -246,24 +261,32 @@ endobj
 /BaseFont /Helvetica
 /Encoding 8 0 R
 >> endobj
+10 0 obj <<
+/Type /Font
+/Subtype /Type1
+/Name /F3
+/BaseFont /Helvetica-Bold
+/Encoding 8 0 R
+>> endobj
 xref
-0 10
+0 11
 0000000000 65535 f 
 0000000021 00000 n 
 0000000164 00000 n 
-0000003566 00000 n 
-0000003649 00000 n 
+0000003834 00000 n 
+0000003917 00000 n 
 0000000213 00000 n 
 0000000293 00000 n 
-0000003546 00000 n 
-0000003730 00000 n 
-0000003987 00000 n 
+0000003814 00000 n 
+0000004009 00000 n 
+0000004266 00000 n 
+0000004362 00000 n 
 trailer
 <<
-/Size 10
+/Size 11
 /Info 1 0 R
 /Root 2 0 R
 >>
 startxref
-4083
+4464
 %%EOF
