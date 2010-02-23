@@ -19,7 +19,7 @@ A ideia básica do experimento é gerar redes usando diversos valores para os pa
 
 \begin{itemize}
 	\item redes de software: foram coletados 65 sistemas de software escritos em Java, contendo entre 111 e 35.563 classes cada um. A linguagem Java foi escolhida por ser uma linguagem de programação popular na qual muitos sistemas de software de código aberto já foram escritos. A maior parte dos sistemas foram selecionados a partir da lista dos sistemas mais populares do repositório SourceForge.net; além desses, foram selecionados sistemas com os quais o autor tem familiaridade, como o OurGrid. Para extrair a rede de dependências dos sistemas foi usada a ferramenta Dependency Finder, disponível em \url{http://depfind.sf.net/}, que foi escolhida pela facilidade de uso.
-	\item redes de outros domínios: foram coletadas 66 redes de domínios tão diversos quanto a biologia, a sociologia, a tecnologia e a linguística, com tamanho variando entre 32 e 18163 vértices.
+	\item redes de outros domínios: foram coletadas 66 redes de domínios tão diversos quanto a biologia, a sociologia, a tecnologia e a linguística, com tamanho variando entre 32 e 18.163 vértices.
 \end{itemize}
 
 \end{section}
@@ -86,7 +86,7 @@ Na seção anterior foi mostrado que muitas redes livres de escala de diversos d
 Para o modelo BCR+, foram escolhidos grafos de módulos extraídos a partir de dependências entre arquivos JAR de 5 sistemas de software: GEF (2 módulos), iBATIS (4 módulos), MegaMek (8 módulos), findbugs (16 módulos) e zk (32 módulos). Como muitos dos arquivos JAR foram concebidos para serem reusados em projetos distintos, eles são uma boa aproximação do conceito de módulo. Para os demais parâmetros, os seguintes valores foram escolhidos:
 
 \begin{itemize}
-	\item $p, q, r \in \{0,0; 0,2; 0,4; 0,6; 0,8; 1,0\}$, com $p + q + r = 1$ e $p + q > 0$ (do contrário a rede jamais alcançaria 1000 vértices);
+	\item $p_1, p_2, p_3 \in \{0,0; 0,2; 0,4; 0,6; 0,8; 1,0\}$, com $p_1 + p_2 + p_3 = 1$ e $p_1 + p_2 > 0$ (do contrário a rede jamais alcançaria 1.000 vértices);
 	\item $\delta_{in}, \delta_{out} \in \{0, 1, 2, 3, 4\}$;
 	\item $\mu \in \{0,0; 0,2; 0,4; 0,6\}$ (valores altos foram evitados a fim de ignorar redes com módulos fortemente acoplados).
 \end{itemize}
@@ -154,8 +154,8 @@ Modelo & Regra & Acurácia \\
 \hline 
 \hline
 \multirow{2}{*}{BCR+}
-     & $\alpha \ge 0.7 \Rightarrow S$ & \multirow{2}{*}{82.4\%}  \\ 
-     & $\alpha < 0.7 \Rightarrow N$ & \\ 
+     & $p_1 \ge 0.7 \Rightarrow S$ & \multirow{2}{*}{82.4\%}  \\ 
+     & $p_1 < 0.7 \Rightarrow N$ & \\ 
 \hline
 \multirow{2}{*}{CGW}
      & $p_1 \ge 0.5 \Rightarrow S$ & \multirow{2}{*}{82.3\%} \\  
