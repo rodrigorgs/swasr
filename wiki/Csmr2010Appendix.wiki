@@ -1,5 +1,11 @@
 This appendix lists the networks used in the paper [http://swasr.googlecode.com/svn/trunk/latex/paper1/paper1.pdf Modular Network Models for Class Dependencies in Software].
 
+== Synthetic Networks ==
+
+[http://swasr.googlecode.com/files/synthetic_design.zip Download Networks (14 MB)]
+
+This package contains 2145 synthetic graphs representing dependencies between classes in an object-oriented software system. The graphs are modular, i.e., the vertices are grouped into modules. The graphs were generated using the BCR+ model. Graphs with S-score < 0.88 were filtered out, so only software-like graphs are included.
+
 == Software Networks ==
 
 Systems hosted by [http://sourceforge.net/ SourceForge]:
