@@ -73,12 +73,6 @@ Tao Chen, Qing Gu, Shusen Wang, Xiaoan Chen, and Daoxu Chen.
 \newblock {\em 8th IEEE International Conference on Computer and Information
   Technology}, pages 798---803, 2008.
 
-\bibitem{Clements2002}
-Paul Clements, David Garlan, Len Bass, Judith Stafford, Robert Nord, James
-  Ivers, and Reed Little.
-\newblock {\em Documenting Software Architectures: Views and Beyond}.
-\newblock Pearson Education, 2002.
-
 \bibitem{Concas2007}
 Giulio Concas, Michele Marchesi, Sandro Pinna, and Nicola Serra.
 \newblock Power-laws in a large object-oriented software system.
@@ -88,11 +82,6 @@ Giulio Concas, Michele Marchesi, Sandro Pinna, and Nicola Serra.
 Gabor Csardi and Tamas Nepusz.
 \newblock The igraph software package for complex network research.
 \newblock {\em InterJournal}, Complex Systems:1695, 2006.
-
-\bibitem{Eick2001}
-Stephen~G. Eick, Todd~L. Graves, Alan~F. Karr, J.~S. Marron, and Audris Mockus.
-\newblock Does code decay? assessing the evidence from change management data.
-\newblock {\em IEEE Trans. Softw. Eng.}, 27(1):1--12, 2001.
 
 \bibitem{Feitelson2005}
 Dror~G. Feitelson.
@@ -138,23 +127,27 @@ R.~Koschke and T.~Eisenbarth.
 Nathan LaBelle and Eugene Wallingford.
 \newblock Inter-package dependency networks in open-source software, 2004.
 
+\bibitem{Lancichinetti2009b}
+A.~{Lancichinetti} and S.~{Fortunato}.
+\newblock {Community detection algorithms: A comparative analysis}.
+\newblock {\em \pre}, 80(5):056117--+, November 2009.
+
 \bibitem{Lancichinetti2009}
 Andrea Lancichinetti and Santo Fortunato.
 \newblock Benchmarks for testing community detection algorithms on directed and
   weighted graphs with overlapping communities.
 \newblock 2009.
 
+\bibitem{Lancichinetti2008}
+Andrea Lancichinetti, Santo Fortunato, and Filippo Radicchi.
+\newblock Benchmark graphs for testing community detection algorithms.
+\newblock {\em Physical Review E (Statistical, Nonlinear, and Soft Matter
+  Physics)}, 78(4), 2008.
+
 \bibitem{Louridas2008}
 Panagiotis Louridas, Diomidis Spinellis, and Vasileios Vlachos.
 \newblock Power laws in software.
 \newblock {\em ACM Trans. Softw. Eng. Methodol.}, 18(1):1--26, 2008.
-
-\bibitem{Mancoridis1998}
-S.~Mancoridis, B.~S. Mitchell, C.~Rorres, Y.~Chen, and E.~R. Gansner.
-\newblock Using automatic clustering to produce high-level system organizations
-  of source code.
-\newblock In {\em Proc. th International Workshop on Program Comprehension IWPC
-  '98}, pages 45--52, 1998.
 
 \bibitem{Maqbool2007}
 O.~Maqbool and H.~A. Babri.
@@ -177,24 +170,18 @@ R.~Milo, S.~Shen-Orr, S.~Itzkovitz, N.~Kashtan, D.~Chklovskii, and U.~Alon.
 \newblock Network motifs: simple building blocks of complex networks.
 \newblock {\em Science}, 298(5594):824--827, October 2002.
 
+\bibitem{Mitchell2007}
+Brian~S. Mitchell and Spiros Mancoridis.
+\newblock On the evaluation of the bunch search-based software modularization
+  algorithm.
+\newblock {\em Soft Comput.}, 12(1):77--93, 2007.
+
 \bibitem{Myers2003}
 Christopher~R Myers.
 \newblock Software systems as complex networks: structure, function, and
   evolvability of software collaboration graphs.
 \newblock {\em Phys Rev E Stat Nonlin Soft Matter Phys}, 68(4 Pt 2):046116, Oct
   2003.
-
-\bibitem{Parnas1972}
-D.~L. Parnas.
-\newblock On the criteria to be used in decomposing systems into modules.
-\newblock {\em Commun. ACM}, 15(12):1053--1058, 1972.
-
-\bibitem{Parnas1994}
-David~Lorge Parnas.
-\newblock Software aging.
-\newblock In {\em ICSE '94: Proceedings of the 16th international conference on
-  Software engineering}, pages 279--287, Los Alamitos, CA, USA, 1994. IEEE
-  Computer Society Press.
 
 \bibitem{Pollet2007}
 Damien Pollet, Stephane Ducasse, Loic Poyet, Ilham Alloui, Sorana Cimpan, and
@@ -208,6 +195,11 @@ Damien Pollet, Stephane Ducasse, Loic Poyet, Ilham Alloui, Sorana Cimpan, and
 Alex Potanin, James Noble, Marcus Frean, and Robert Biddle.
 \newblock Scale-free geometry in oo programs.
 \newblock {\em Commun. ACM}, 48(5):99--103, 2005.
+
+\bibitem{Stopford2008}
+Benjamin Stopford and Steve Counsell.
+\newblock A framework for the simulation of structural software evolution.
+\newblock {\em ACM Trans. Model. Comput. Simul.}, 18(4):1--36, 2008.
 
 \bibitem{Tichy1998}
 Walter~F. Tichy.
@@ -223,24 +215,6 @@ Paolo Tonella, Marco Torchiano, Bart Du~Bois, and Tarja Syst\"{a}.
 \bibitem{Traud2008}
 Amanda~L. Traud, Eric~D. Kelsic, Peter~J. Mucha, and Mason~A. Porter.
 \newblock Community structure in online collegiate social networks, 2008.
-
-\bibitem{Trifu2001}
-Trifu.
-\newblock Using cluster analysis in the architecture recovery of
-  object-oriented systems.
-\newblock Master's thesis, Univ. Karlsruhe, 2001.
-
-\bibitem{Tzerpos1999}
-V.~Tzerpos and R.~C. Holt.
-\newblock Mojo: a distance metric for software clusterings.
-\newblock In {\em Proc. Sixth Working Conference on Reverse Engineering}, pages
-  187--193, 1999.
-
-\bibitem{Tzerpos2000}
-V.~Tzerpos and R.~C. Holt.
-\newblock Acdc: an algorithm for comprehension-driven clustering.
-\newblock In {\em Proc. Seventh Working Conference on Reverse Engineering},
-  pages 258--267, 2000.
 
 \bibitem{Valverde2003}
 Sergi Valverde and Ricard~V. Solé.

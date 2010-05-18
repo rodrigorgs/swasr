@@ -143,11 +143,11 @@
     % Modificado por Isaac Maia Pessoa, 01/06/2007
     {\LARGE Universidade Federal de Campina Grande \par}
     {\LARGE Centro de Engenharia El\'{e}trica e Inform\'{a}tica \par}
-    {\LARGE Coordena\c{c}\~{a}o de P\'{o}s-Gradua\c{c}\~{a}o em Inform\'{a}tica \par}
+    {\LARGE Coordena\c{c}\~{a}o de P\'{o}s-Gradua\c{c}\~{a}o em Ci\^{e}ncia da Computa\c{c}\~{a}o \par}
     \vskip 4em%
     {\LARGE \@Titulo \par}%
     {\LARGE
-    \vskip 3em%
+    \vskip 2em%
       \begin{tabular}[t]{c}%
         \@Autor
       \end{tabular}\par}%
@@ -157,12 +157,12 @@
    \else
 \selectlanguage{portuges}
    \parbox[t]{122mm}{ \manuscrito\hspace{1pt} submetida \`{a} Coordena\c{c}\~{a}o do Curso de P\'{o}s-Gradua\c{c}\~{a}o em Ci\^{e}ncia da Computa\c{c}\~{a}o da Universidade Federal de Campina Grande - Campus I como parte dos requisitos necess\'{a}rios para obten\c{c}\~{a}o do grau de \Grau.
-\ \vskip 4em \begin{center} \'Area de
+\ \vskip 3em \begin{center} \'Area de
    Concentra\c{c}\~{a}o: \@Area \\
    Linha de Pesquisa: \@Pesquisa
    \end{center}}
    \fi
-   \vskip 3em%
+   \vskip 1em%
    \@Orientadores \par
   \@thanks
   \vfil\null
@@ -183,7 +183,7 @@
     {\sl \manuscrito\ de \grau\ apresentada em \@Data}
     \vskip 3em%
     \@Orientadores \par
-    \vskip 3em%
+    \vskip 2em%
     \@Membros \par
     \vfil\null
    Campina Grande, Para\'{\i}ba, Brasil, \@Data \par
