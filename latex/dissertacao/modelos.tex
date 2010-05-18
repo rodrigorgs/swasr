@@ -56,14 +56,12 @@ Para tentar explicar os mecanismos responsáveis pela formação de redes livres
 
 Para avaliar algoritmos de agrupamento de software são necessárias redes organizadas em módulos, nas quais os módulos representam o agrupamento de referência. A maioria dos modelos de redes livres de escala, no entanto, gera redes sem módulos. No contexto desta pesquisa foi elaborado um modelo, o BCR+, que gera redes orientadas organizadas em módulos. 
 
-Após uma pesquisa extensa, embora não-sistemática, realizada durante o primeiro semestre de 2009, foram encontrados dois modelos de redes livres de escala organizadas em módulos: o modelo CGW \cite{Chen2008} e o modelo LFR \cite{Lancichinetti2009}.
+Após uma pesquisa extensa, embora não-sistemática, realizada durante o primeiro semestre de 2009, foram encontrados dois modelos de redes livres de escala organizadas em módulos: o modelo CGW \cite{Chen2008} e o modelo LFR \cite{Lancichinetti2008,Lancichinetti2009}.
 
 Os três modelos de redes orientadas organizadas em módulos são apresentados a seguir.
 % Modelo de Erdos-Renyi?
 % Modelo de configuração?
 % Modelo de Albert-Barabasi?
-
-% XXX: falar PRIMEIRO sobre BCR+ e DEPOIS sobre CGW, seguindo a ordem histórica de descobrimento.
 
 \begin{subsection}{O modelo CGW}
 
@@ -178,15 +176,15 @@ As três regras são descritas a seguir:
 
 Pode-se facilmente notar que vértices com grau de entrada alto têm mais chance de ser o destino de novas arestas. O parâmetro $\din$ reduz essa tendência fornecendo um grau de entrada base que é aplicado a todos os vértices no cálculo das probabilidades. Considere dois vértices, $v_1$, com grau de entrada 4, e $v_2$, com grau de entrada 8. Se $\din = 0$, $v_2$ tem o dobro de chance de ser o destino de uma nova aresta; se, por outro lado, $\din = 4$, $v_2$ tem apenas $\frac{3}{2}$ de chance de receber a aresta. O mesmo raciocínio se aplica a $\dout$ com relação ao grau de saída.
 
-O modelo BCR+, assim como o modelo CGW, é um modelo de crescimento, no qual a rede é criada vértice por vértice a partir de uma rede inicial. Ele pode, portanto, simular a evolução de sistemas de software. Mais do que isso, ele pode simular a evolução de um sistema de software sujeito a restrições na interação entre módulos, como sistemas que seguem um \emph{design} definido antes da implementação.
+%% Parágrafo movido para trabalhos relacionados
 
-Outra possibilidade interessante do modelo, que não foi explorada nesta pesquisa, é o uso de uma rede gerada pelo modelo como parâmetro $G$ do próprio modelo. O modelo pode ser executado uma vez para gerar uma rede no qual os módulos representam módulos de software e os vértices representam classes, e então ser executado na segunda vez considerando a rede gerada na primeira etapa como o parâmetro $G$. Na rede resultante, os módulos seriam interpretados como classes e os vértices poderiam ser interpretados como membros das classes. As duas redes, combinadas, formariam uma rede hierárquica com três níveis: módulos, classes e membros.
+Uma possibilidade interessante do modelo, que não foi explorada nesta pesquisa, é o uso de uma rede gerada pelo modelo como parâmetro $G$ do próprio modelo. O modelo pode ser executado uma vez para gerar uma rede no qual os módulos representam módulos de software e os vértices representam classes, e então ser executado na segunda vez considerando a rede gerada na primeira etapa como o parâmetro $G$. Na rede resultante, os módulos seriam interpretados como classes e os vértices poderiam ser interpretados como membros das classes. As duas redes, combinadas, formariam uma rede hierárquica com três níveis: módulos, classes e membros.
 
 \end{subsection}
 
 \begin{subsection}{O modelo LFR}
 
-O modelo LFR \cite{Lancichinetti2009} é um modelo flexível que pode gerar redes com arestas ponderadas e módulos sobrepostos, isto é, nas quais um vértice pode pertencer a mais de um módulo. Diferentemente dos modelos anteriores, o LFR não é um modelo de crescimento: todos os vértices são gerados de uma vez e então são adicionadas as arestas.
+O modelo LFR \cite{Lancichinetti2008,Lancichinetti2009} é um modelo flexível que pode gerar redes com arestas ponderadas e módulos sobrepostos, isto é, nas quais um vértice pode pertencer a mais de um módulo. Diferentemente do CGW, o LFR não é um modelo de crescimento: todos os vértices são gerados de uma vez e então são adicionadas as arestas.
 
 Nesta pesquisa foi estudado um caso particular do modelo no qual todas as arestas têm o mesmo peso e os módulos não se sobrepõem. Foi usada a implementação original dos autores, disponível em  \url{http://santo.fortunato.googlepages.com/inthepress2}. O modelo aceita os seguintes parâmetros:
 
@@ -203,6 +201,5 @@ Nesta pesquisa foi estudado um caso particular do modelo no qual todas as aresta
 Os tamanhos dos módulos são selecionados de uma lei de potência com expoente $-\beta$. O parâmetro de mistura, $\mu$, é a proporção de arestas externas na rede gerada. No modelo LFR, nem todas as combinações de parâmetros são factíveis. Por exemplo, se $n = 100$, então $min_m$ não pode ser 60, caso contrário existiriam módulos menores do que $min_m$.
 
 \end{subsection}
-
 
 \end{section}
