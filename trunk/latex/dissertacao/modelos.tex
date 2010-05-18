@@ -126,62 +126,6 @@ A expressão m($v$), neste contexto, designa o conjunto dos vértices que perten
 
 \end{subsection}
 
-\begin{subsection}{O modelo BCR+}
-
-\newcommand{\din}[0]{\ensuremath{\delta_{in}}}
-\newcommand{\dout}[0]{\ensuremath{\delta_{out}}}
-
-O modelo BCR \cite{Bollobas2003} gera redes orientadas livres de escala, porém sem módulos. No contexto desta pesquisa foi desenvolvida uma extensão a esse modelo, chamada BCR+, que adiciona módulos à construção da rede. O modelo BCR+ aceita os seguintes parâmetros:
-
-\begin{itemize}
-\item número de vértices, $n$;
-\item um grafo orientado de dependências entre módulos, $G$;
-\item três probabilidades, $p_1$, $p_2$ e $p_3$, com $p_1 + p_2 + p_3 = 1$;
-\item uma constante $\mu$, with $0 \le \mu \le 1$;
-\item grau de entrada base, $\din$;
-\item grau de saída base, $\dout$.
-\end{itemize}
-
-O grafo $G$ contém um vértice para cada módulo que será criado e define uma relação de dependência entre os módulos. Um módulo $M_1$ depende de um módulo $M_2$ se $G$ contém contém uma aresta do vértice que representa $M_1$ para o vértice que representa $M_2$. Na rede gerada, uma aresta externa de um vértice $v_1 \in M_1$ para um vértice $v_2 \in M_2$ pode ocorrer apenas se $M_1$ depende de $M_2$ no grafo $G$.
-
-O parâmetro $\mu$ controla a proporção de arestas externas na rede. Valores mais baixos levam a redes com menos arestas externas.
-
-Na rede inicial, cada módulo contém exatamente um vértice e todas as arestas externas permitidas são adicionadas. Essa rede é então modificada de acordo com 3 regras que são aplicadas sucessivamente, em ordem aleatória, até a rede alcançar o número de $n$ vértices. A cada passo do algoritmo, a probabilidade de se aplicar a regra $i$ é $p_i$.
-
-Antes de descrever o algoritmo em detalhes, algumas definições são necessárias. A expressão $\mathrm{g}_{out}(x)$ designa o número de arestas com origem no vértice $x$, e $\mathrm{g}_{in}(x)$, analogamente, designa o número de arestas com destino no vértice $x$. A expressão ``escolher um vértice de acordo com f($x$)'' significa que a probabilidade de escolher um vértice $x$ é dada pela seguinte função de probabilidade:
-
-$$
-  \mathrm{P}(x) ~=~ \frac{ \mathrm{f}(x) }
-  { \displaystyle\sum_{i} \mathrm{f}(i) }
-$$
-
-(o denominador é um fator de normalização, de modo que a soma das probabilidades é 1).
-
-As três regras são descritas a seguir:
-
-\begin{enumerate}
-
-\item \emph{Adicionar um vértice com uma aresta de saída}. Um vértice existente, $w$ é escolhido de acordo com $\mathrm{f}(x) = \din + \mathrm{g}_{in}(x)$. Um novo vértice, $v$, é adicionado ao módulo que contém $w$, juntamente com uma aresta de $v$ a $w$.
-
-\item \emph{Adicionar um vértice com uma aresta de entrada}. Um vértice existente, $w$ é escolhido de acordo com $\mathrm{f}(x) = \dout + \mathrm{g}_{out}(x)$. Um novo vértice, $v$, é adicionado ao módulo que contém $w$, juntamente com uma aresta de $w$ a $v$.
-
-\item \emph{Adicionar uma aresta entre vértices pré-existentes}. Um vértice, $v$, é escolhido de acordo com $\mathrm{f}(x) = \dout + \mathrm{g}_{out}(x)$. Então é adicionada uma aresta do vértice $v$ a um vértice $w$, escolhido de acordo com $\mathrm{f}(x) = \din + \mathrm{g}_{in}(x)$, respeitando um dos seguintes casos:
-
-\begin{enumerate}
-  \item com probabilidade $\mu$, $w$ é escolhido dentre os vértices que estão em módulos dos quais o módulo de $v$ depende;
-  \item com probabilidade $1 - \mu$, $w$ é escolhido dentre os vértices que estão no mesmo módulo que $v$.
-\end{enumerate}
-
-\end{enumerate}
-
-Pode-se facilmente notar que vértices com grau de entrada alto têm mais chance de ser o destino de novas arestas. O parâmetro $\din$ reduz essa tendência fornecendo um grau de entrada base que é aplicado a todos os vértices no cálculo das probabilidades. Considere dois vértices, $v_1$, com grau de entrada 4, e $v_2$, com grau de entrada 8. Se $\din = 0$, $v_2$ tem o dobro de chance de ser o destino de uma nova aresta; se, por outro lado, $\din = 4$, $v_2$ tem apenas $\frac{3}{2}$ de chance de receber a aresta. O mesmo raciocínio se aplica a $\dout$ com relação ao grau de saída.
-
-%% Parágrafo movido para trabalhos relacionados
-
-Uma possibilidade interessante do modelo, que não foi explorada nesta pesquisa, é o uso de uma rede gerada pelo modelo como parâmetro $G$ do próprio modelo. O modelo pode ser executado uma vez para gerar uma rede no qual os módulos representam módulos de software e os vértices representam classes, e então ser executado na segunda vez considerando a rede gerada na primeira etapa como o parâmetro $G$. Na rede resultante, os módulos seriam interpretados como classes e os vértices poderiam ser interpretados como membros das classes. As duas redes, combinadas, formariam uma rede hierárquica com três níveis: módulos, classes e membros.
-
-\end{subsection}
-
 \begin{subsection}{O modelo LFR}
 
 O modelo LFR \cite{Lancichinetti2008,Lancichinetti2009} é um modelo flexível que pode gerar redes com arestas ponderadas e módulos sobrepostos, isto é, nas quais um vértice pode pertencer a mais de um módulo. Diferentemente do CGW, o LFR não é um modelo de crescimento: todos os vértices são gerados de uma vez e então são adicionadas as arestas.
