@@ -105,7 +105,7 @@
      showgrid="false"
      showguides="true"
      inkscape:guide-bbox="true"
-     inkscape:window-width="1282"
+     inkscape:window-width="1280"
      inkscape:window-height="756"
      inkscape:window-x="0"
      inkscape:window-y="0"
@@ -142,7 +142,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -490,7 +490,7 @@
     </g>
     <g
        id="g10405"
-       transform="translate(0,-120)">
+       transform="translate(200,-120)">
       <path
          style="font-size:10px;fill:none;stroke:#000000;stroke-width:1.0629921;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1"
          d="m 102.65466,642.28344 -3.44206,0 0,-105.35432 3.44206,0"
@@ -618,7 +618,8 @@
          style="fill:none;stroke:#000000;stroke-width:1.0629921;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:1.06299213, 1.06299213;stroke-dashoffset:0;marker-start:url(#Arrow1Mstart)" />
     </g>
     <g
-       id="g11132">
+       id="g11132"
+       transform="translate(-200,0)">
       <path
          sodipodi:nodetypes="cccc"
          id="path9604"
