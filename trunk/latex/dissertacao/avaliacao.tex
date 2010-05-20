@@ -7,14 +7,16 @@
 
 \chapter{Avaliação de Modelos de Redes} \label{cap:avaliacao}
 
+% TODO: explicar por que as redes de outros domínios são necessárias neste estudo.
+
 \begin{section}{Introdução}
-Os três modelos apresentados no capítulo anterior --- BCR+, LFR e CGW --- geram redes que podem ser usadas para testar algoritmos de agrupamento de software. Para aumentar a confiança de que os resultados dos testes com redes sintéticas podem ser extrapolados para redes de software, no entanto, é preciso avaliar se, com uma escolha adequada de parâmetros, os modelos são capazes de gerar redes que se assemelham a redes de software. Daqui para frente, redes que se assemelham a redes de software serão chamadas de \emph{redes software-realistas}.
+Os três modelos apresentados no capítulo anterior --- BCR+, LFR e CGW --- geram redes que podem ser interpretadas como redes de software, contendo entidades de implementação organizadas em módulos e dependências entre as entidades. Para aumentar a confiança de que os resultados de estudos com redes sintéticas podem ser extrapolados para redes de software, no entanto, é preciso avaliar se, com uma escolha adequada de parâmetros, os modelos são capazes de gerar redes que se assemelham a redes de software. Daqui para frente, redes que se assemelham a redes de software serão chamadas de \emph{redes software-realistas}.
 
 Já se sabe que os três modelos geram redes que, a exemplo de redes de software, são livres de escala. Isoladamente, no entanto, esta propriedade não é suficiente para avaliar os modelos, uma vez que muitas redes livres de escala conhecidas não são redes do software (por exemplo, redes biológicas). Partindo da hipótese de que redes de outros domínios são estruturalmente diferentes de redes de software, o critério usado para avaliar se as redes sintéticas são software-realistas deve ser robusto o suficiente para determinar que redes de outros domínios não são software-realistas.
 
 Neste capítulo é descrito um experimento no qual se verificou que os três modelos geram redes software-realistas. A partir dessa conclusão, foi encontrado um subconjunto de valores para os parâmetros dos modelos que garantem, com alta taxa de acerto, que as redes geradas serão software-realistas.
 
-A ideia básica do experimento é gerar redes usando diversos valores para os parâmetros dos modelos e então medir a similaridade entre as redes sintéticas e um conjunto de redes reais de software e de outros domínios. Para apoiar a realização do experimento, foram coletadas 131 redes:
+A ideia básica do experimento é gerar redes usando diversos valores para os parâmetros dos modelos e então medir a similaridade entre as redes sintéticas e um conjunto de redes de software extraídas de sistemas reais e de redes de outros domínios. Para apoiar a realização do experimento, foram coletadas 131 redes:
 
 \begin{itemize}
 	\item redes de software: foram coletados 65 sistemas de software escritos em Java, contendo entre 111 e 35.563 classes cada um. A linguagem Java foi escolhida por ser uma linguagem de programação popular na qual muitos sistemas de software de código aberto já foram escritos. A maior parte dos sistemas foram selecionados a partir da lista dos sistemas mais populares do repositório SourceForge.net; além desses, foram selecionados sistemas com os quais o autor tem familiaridade, como o OurGrid. Para extrair a rede de dependências dos sistemas foi usada a ferramenta Dependency Finder, disponível em \url{http://depfind.sf.net/}, que foi escolhida pela facilidade de uso.

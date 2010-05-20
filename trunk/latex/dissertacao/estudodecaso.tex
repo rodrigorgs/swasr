@@ -1,6 +1,6 @@
 % (5-20)
 
-\chapter{Estudo sobre Algoritmos de Agrupamento} \label{cap:estudo}
+\chapter{Prova de Conceito: Estudo sobre Algoritmos de Agrupamento} \label{cap:estudo}
 
 % Neste artigo será feita uma avaliação de quatro 
 
@@ -15,15 +15,23 @@ Primeiramente, é feita uma breve introdução ao tema de algoritmos de agrupame
 
 \begin{section}{Agrupamento de Software}
 	
-Agrupamento é o processo de organizar entidades em grupos (módulos) de maneira que as entidades de um mesmo grupo sejam similares entre si segundo algum critério. O termo agrupamento designa também o resultado do processo, que é a atribuição de entidades a módulos. Um exemplo clássico é o agrupamento de pontos (entidades) em um plano de acordo com o critério da distância, como mostra a Figura XXX. O processo de agrupamento pode ser automatizado por meio de algoritmos, os quais têm sido objeto de estudo de áreas diversas como inteligência artificial, mineração de dados, análise de redes sociais, entre outras.
+Agrupamento é o processo de organizar entidades em grupos (módulos) de maneira que as entidades de um mesmo grupo sejam similares entre si segundo algum critério. (O termo agrupamento designa também o resultado do processo, que é a atribuição de entidades a módulos.) Um exemplo clássico é o agrupamento de pontos (entidades) em um plano de acordo com o critério da distância, como mostra a Figura XXX. O processo de agrupamento pode ser automatizado por meio de algoritmos, os quais têm sido objeto de estudo de áreas diversas como inteligência artificial, mineração de dados, análise de redes sociais, entre outras.
 
 % TODO: Figura
 
-Algoritmos de agrupamento têm sido usados no contexto da engenharia de software para apoiar a atividade de recuperação de arquitetura, e nesse caso são chamados de \emph{algoritmos de agrupamento de software}. Nessa abordagem, um algoritmo de agrupamento é aplicado a uma representação da implementação de um sistema existente (por exemplo, rede de dependências entre classes) e o agrupamento encontrado serve como ponto de partida para a identificação dos módulos da arquitetura do sistema e das entidades que compõem cada módulo. 
+Algoritmos de agrupamento têm sido usados no contexto da engenharia de software para apoiar a atividade de recuperação de arquitetura, e nesse caso são chamados de \emph{algoritmos de agrupamento de software}. No início da atividade de recuperação de arquitetura, um algoritmo de agrupamento é aplicado a um sistema existente --- descrito, por exemplo, como uma rede de dependências entre classes. O agrupamento encontrado serve como ponto de partida para a identificação manual dos módulos da arquitetura do sistema e das entidades que compõem cada módulo. 
 % Uma das representações de sistemas empregadas nesse contexto é a rede de dependências entre entidades de código-fonte, já descrita em seções anteriores.
 
 O conjunto de módulos de uma arquitetura e entidades associadas constituem um agrupamento, denominado agrupamento de referência. O objetivo de algoritmos de agrupamento de software, neste contexto, é encontrar agrupamentos similares aos agrupamentos de referência dos sistemas analisados \cite{Koschke2000}. 
 
+O custo de um experimento para avaliar algoritmos de agrupamento de software é elevado, uma vez que é necessário obter um agrupamento de referência para cada sistema analisado. Em uma avaliação feita por Girard e Koschke \cite{Girard...}, quatro engenheiros de software levaram de 20 a 35 horas para obter agrupamentos de referência de programas na linguagem C com aproximadamente 30 mil linhas de código e cerca de 40 entidades (tipos abstratos de dados).
+
+% A Comparison of Abstract Data Types and Objects Recovery Techniques
+
+
+O alto custo de experimentos com algoritmos de agrupamento faz desse tipo de estudo um bom candidato à técnica de avaliação através de redes sintéticas.
+
+% TODO: mover para uma das próximas seções?
 A similaridade entre agrupamentos pode ser aferida por uma métrica, tal como a MoJoSim \cite{Tzerpos1999,Bittencourt2009}, explicada no Apêndice \ref{cap:mojosim}. Em poucas palavras, a métrica MoJoSim mede, em uma escala contínua de 0 a 1, o esforço necessário para se transformar um agrupamento no agrupamento de referência. O valor 1 indica que os dois agrupamentos comparados são idênticos (e o esforço é, portanto, nulo).
 
 %%%%%%%% TODO: Por que é interessante, nesta pesquisa, estudar rec. de arq? pq é difícil encontrar arqs. disponíveis, e é custoso gerá-las. Agrupamento de referência é difícil encontrar para vários sistemas e sistemas diversos.
