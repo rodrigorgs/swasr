@@ -73,12 +73,6 @@ Tao Chen, Qing Gu, Shusen Wang, Xiaoan Chen, and Daoxu Chen.
 \newblock {\em 8th IEEE International Conference on Computer and Information
   Technology}, pages 798---803, 2008.
 
-\bibitem{Clements2002}
-Paul Clements, David Garlan, Len Bass, Judith Stafford, Robert Nord, James
-  Ivers, and Reed Little.
-\newblock {\em Documenting Software Architectures: Views and Beyond}.
-\newblock Pearson Education, 2002.
-
 \bibitem{Concas2007}
 Giulio Concas, Michele Marchesi, Sandro Pinna, and Nicola Serra.
 \newblock Power-laws in a large object-oriented software system.
@@ -88,11 +82,6 @@ Giulio Concas, Michele Marchesi, Sandro Pinna, and Nicola Serra.
 Gabor Csardi and Tamas Nepusz.
 \newblock The igraph software package for complex network research.
 \newblock {\em InterJournal}, Complex Systems:1695, 2006.
-
-\bibitem{Eick2001}
-Stephen~G. Eick, Todd~L. Graves, Alan~F. Karr, J.~S. Marron, and Audris Mockus.
-\newblock Does code decay? assessing the evidence from change management data.
-\newblock {\em IEEE Trans. Softw. Eng.}, 27(1):1--12, 2001.
 
 \bibitem{Feitelson2005}
 Dror~G. Feitelson.
@@ -201,18 +190,6 @@ Christopher~R Myers.
 \newblock {\em Phys Rev E Stat Nonlin Soft Matter Phys}, 68(4 Pt 2):046116, Oct
   2003.
 
-\bibitem{Parnas1972}
-D.~L. Parnas.
-\newblock On the criteria to be used in decomposing systems into modules.
-\newblock {\em Commun. ACM}, 15(12):1053--1058, 1972.
-
-\bibitem{Parnas1994}
-David~Lorge Parnas.
-\newblock Software aging.
-\newblock In {\em ICSE '94: Proceedings of the 16th international conference on
-  Software engineering}, pages 279--287, Los Alamitos, CA, USA, 1994. IEEE
-  Computer Society Press.
-
 \bibitem{Pollet2007}
 Damien Pollet, Stephane Ducasse, Loic Poyet, Ilham Alloui, Sorana Cimpan, and
   Herve Verjus.
@@ -245,12 +222,6 @@ Paolo Tonella, Marco Torchiano, Bart Du~Bois, and Tarja Syst\"{a}.
 \bibitem{Traud2008}
 Amanda~L. Traud, Eric~D. Kelsic, Peter~J. Mucha, and Mason~A. Porter.
 \newblock Community structure in online collegiate social networks, 2008.
-
-\bibitem{Trifu2001}
-Trifu.
-\newblock Using cluster analysis in the architecture recovery of
-  object-oriented systems.
-\newblock Master's thesis, Univ. Karlsruhe, 2001.
 
 \bibitem{Tzerpos1999}
 V.~Tzerpos and R.~C. Holt.
