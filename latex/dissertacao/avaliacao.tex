@@ -6,7 +6,6 @@
 % deu 7 páginas.
 
 \chapter{Avaliação de Modelos de Redes} \label{cap:avaliacao}
-% Adaptar do artigo do CSMR 2010
 
 \begin{section}{Introdução}
 Os três modelos apresentados no capítulo anterior --- BCR+, LFR e CGW --- geram redes que podem ser usadas para testar algoritmos de agrupamento de software. Para aumentar a confiança de que os resultados dos testes com redes sintéticas podem ser extrapolados para redes de software, no entanto, é preciso avaliar se, com uma escolha adequada de parâmetros, os modelos são capazes de gerar redes que se assemelham a redes de software. Daqui para frente, redes que se assemelham a redes de software serão chamadas de \emph{redes software-realistas}.
@@ -143,7 +142,7 @@ Naturalmente, esse resultado tem pouco valor prático se não for estabelecido u
 
 Para ajudar a descobrir essa relação, foi utilizado o algoritmo 1R \cite{OneR} da mineração de dados. O algoritmo analisa, para cada rede, os parâmetros usados na sua geração e a sua classificação, e então encontra uma regra que relaciona o valor de um único parâmetro com a classificação da rede. Regras encontradas pelo 1R podem ser avaliadas de acordo com a sua acurácia, isto é, a proporção de redes corretamente classificadas.
 
-As regras encontradas pelo algoritmo 1R são exibidas na Tabela \ref{tab:rules}. As regras são bastante simples e, portanto, fáceis de seguir. Apesar da simplicidade, as regras encontradas possuem uma acurácia de cerca de 80\% para todos os modelos.
+As regras encontradas pelo algoritmo 1R são exibidas na Tabela \ref{tab:rules}. As regras são bastante simples e, portanto, fáceis de seguir. (Essa característica do 1R foi o que motivou a sua escolha em detrimento de outros algoritmos de mineração de dados.) Apesar da simplicidade, as regras encontradas possuem uma acurácia de cerca de 80\% para todos os modelos.
 
 \begin{table}
 \caption{Regras para prever a classificação de uma rede sintética. Na regra, S representa redes software-realistas e N representa redes não software-realistas.}
