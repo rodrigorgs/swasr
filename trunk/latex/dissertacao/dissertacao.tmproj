@@ -54,7 +54,7 @@
 			<key>filename</key>
 			<string>dissertacao.bib</string>
 			<key>lastUsed</key>
-			<date>2010-05-18T00:34:49Z</date>
+			<date>2010-05-20T16:11:09Z</date>
 		</dict>
 		<dict>
 			<key>children</key>
@@ -75,13 +75,13 @@
 					<key>filename</key>
 					<string>fundamentacao.tex</string>
 					<key>lastUsed</key>
-					<date>2010-05-20T01:27:50Z</date>
+					<date>2010-05-20T13:12:14Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
 					<string>bcr.tex</string>
 					<key>lastUsed</key>
-					<date>2010-05-19T13:12:31Z</date>
+					<date>2010-05-20T12:49:55Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -93,13 +93,13 @@
 					<key>filename</key>
 					<string>avaliacao.tex</string>
 					<key>lastUsed</key>
-					<date>2010-05-19T22:45:08Z</date>
+					<date>2010-05-20T13:01:51Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
 					<string>estudodecaso.tex</string>
 					<key>lastUsed</key>
-					<date>2010-05-20T01:27:50Z</date>
+					<date>2010-05-20T16:11:09Z</date>
 					<key>selected</key>
 					<true/>
 				</dict>
@@ -145,9 +145,9 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>0</integer>
+				<integer>9</integer>
 				<key>line</key>
-				<integer>13</integer>
+				<integer>7</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
@@ -159,14 +159,30 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>206</integer>
+				<integer>12</integer>
 				<key>line</key>
-				<integer>7</integer>
+				<integer>79</integer>
 			</dict>
+			<key>columnSelection</key>
+			<false/>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>0</integer>
+			<integer>72</integer>
+			<key>selectFrom</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>88</integer>
+			</dict>
+			<key>selectTo</key>
+			<dict>
+				<key>column</key>
+				<integer>12</integer>
+				<key>line</key>
+				<integer>79</integer>
+			</dict>
 		</dict>
 		<key>conclusao.tex</key>
 		<dict>
@@ -215,28 +231,28 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>44</integer>
+				<integer>459</integer>
 				<key>line</key>
-				<integer>57</integer>
+				<integer>26</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
-			<integer>0</integer>
+			<integer>232</integer>
 			<key>firstVisibleLine</key>
-			<integer>50</integer>
+			<integer>17</integer>
 		</dict>
 		<key>fundamentacao.tex</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>35</integer>
+				<integer>41</integer>
 				<key>line</key>
-				<integer>13</integer>
+				<integer>29</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
-			<integer>0</integer>
+			<integer>157</integer>
 			<key>firstVisibleLine</key>
-			<integer>0</integer>
+			<integer>31</integer>
 		</dict>
 		<key>introducao.tex</key>
 		<dict>
@@ -340,6 +356,6 @@
 	<key>showFileHierarchyDrawer</key>
 	<true/>
 	<key>windowFrame</key>
-	<string>{{353, 93}, {765, 716}}</string>
+	<string>{{304, 62}, {765, 716}}</string>
 </dict>
 </plist>
