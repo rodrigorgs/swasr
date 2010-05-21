@@ -88,6 +88,11 @@ Dror~G. Feitelson.
 \newblock Experimental computer science: The need for a cultural change, 2005.
 \newblock Disponível em \url{http://www.cs.huji.ac.il/~feit/papers/exp05.pdf}.
 
+\bibitem{Girard2000}
+Jean-Fran\&ccdedil;ois Girard and Rainer Koschke.
+\newblock A comparison of abstract data types and objects recovery techniques.
+\newblock {\em Sci. Comput. Program.}, 36(2-3):149--181, 2000.
+
 \bibitem{OneR}
 Robert~C. Holte.
 \newblock Very simple classification rules perform well on most commonly used
