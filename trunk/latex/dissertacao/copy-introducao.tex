@@ -1,0 +1,131 @@
+% (5-10) páginas
+%
+%   Objetivos geral e específicos
+%   Resultados esperados
+%   Limitações do trabalho
+%   Métodos
+%   Justificativa
+%   Descrição dos demais capítulos
+
+\chapter{Introdução}
+
+\section{Estudos Empíricos na Engenharia de Software}
+
+A importância de estudos empíricos na ciência da computação tem sido reconhecida por diversos pesquisadores nos últimos anos \cite{Basili1996,Tichy1998,Feitelson2005}. No caso específico da engenharia de software, estudos empíricos frequentemente precisam mobilizar equipes de programadores e outros especialistas, o que torna os experimentos caros, difíceis de reproduzir e pouco generalizáveis.
+
+Uma área da engenharia de software que demanda estudos empíricos é a \emph{engenharia reversa}. Engenharia reversa é qualquer atividade cujo objetivo é recuperar conhecimento sobre um sistema de software existente para apoiar a execução de uma tarefa de engenharia de software, por exemplo, a modificação de um sistema \cite{Tonella2007}. Atividades de engenharia reversa incluem localizar partes de um programa que implementam determinada funcionalidade \cite{Zhao2004}, prever os impactos de uma mudança \cite{Arnold1993} e recuperar aspectos não documentados da arquitetura de um sistema \cite{Pollet2007}.
+
+Ferramentas de engenharia reversa em geral fornecem resultados imprecisos. O grau de acerto pode ser medido através de experimentos em que as ferramentas são aplicadas a diversos sistemas de software e, a seguir, especialistas nos sistemas validam os resultados encontrados. Muitas vezes é inviável, no entanto, aplicar esse tipo de experimento a uma amostra significativa de sistemas, dada a necessidade de se mobilizar um especialista para cada sistema.
+
+Nas situações em que experimentos são inviáveis, cientistas recorrem a modelos. Modelos são formalizações simplificadas da realidade e, como tais, são usados para prever resultados que seriam obtidos com dados reais. Por um lado, modelos embutem suposições possivelmente incorretas sobre a realidade; por outro lado, a simulação através de modelos pré-existentes é um processo barato, controlado e repetível.
+
+Nesta dissertação, o problema da carência de estudos experimentais sobre técnicas de \emph{agrupamento de software} --- uma forma de engenharia reversa --- é abordado através da simulação de modelos de sistemas de software. A seguir o problema é descrito em detalhes para então ser enunciado o objetivo deste trabalho.
+
+% \begin{section}{Agrupamento de Software}
+% 	% A divisão conceitual de um sistema de software em módulos é uma informação valiosa durante o seu desenvolvimento. Uma boa organização modular revela subconjuntos de um sistema que podem ser desenvolvidos por equipes trabalhando de forma mais ou menos independente, o que contribui para reduzir o tempo de implementação. Apesar disso, o conhecimento sobre a organização de um sistema muitas vezes é mal documentado e acaba se perdendo à medida que os desenvolvedores são substituídos \cite{Clements2002}.
+% 
+% 	O tempo gasto na manutenção de um sistema de software pode ser afetado pela atribuição de desenvolvedores a entidades da implementação de um sistema (arquivos fonte, classes, funções etc.). Se duas equipes de desenvolvimento são responsáveis por manter entidades altamente interdependentes (com alto acoplamento), elas precisam coordenar seu trabalho frequentemente para evitar duplicação de código e introdução de defeitos.
+% 
+% 	Portanto, para otimizar o tempo de desenvolvimento de um sistema, um gerente de desenvolvimento pode agrupar entidades que compõem o sistema em módulos, ou grupos de entidades, de forma que o acoplamento entre módulos seja minimizado. Então, cada módulo é atribuído a uma equipe e, por causa do baixo acoplamento entre módulos, a necessidade de comunicação entre equipes é reduzida, o que acelera o desenvolvimento.
+% 
+% 	Para organizar um sistema em módulos, um gerente precisa ter conhecimento global das dependências entre as entidades que formam o sistema. Embora ferramentas de análise de dependências possam extrair tal informação a partir do código-fonte do sistema, a tarefa de encontrar um bom mapeamento entre entidades e módulos pode ser excessivamente difícil devido ao grande número de entidades e dependências que precisam ser consideradas.
+% 
+% 	Algoritmos de agrupamento de software podem facilitar a tarefa, ao agrupar entidades em módulos de maneira a reduzir o número de dependências entre módulos. Uma forma de avaliar algoritmos de agrupamento de software é aplicá-los a uma coleção de sistemas de software com agrupamentos de referência feitos por desenvolvedores experientes \cite{Anquetil1999}. Sob esse critério, bons algoritmos são aqueles que acham agrupamentos similares aos agrupamentos de referência.
+% 
+% 	Infelizmente, existem poucos agrupamentos de referência disponíveis publicamente \cite{Koschke2000} e, consequentemente, poucos estudos empíricos sobre algoritmos de agrupamento de software. Além disso, como o custo de se obter agrupamentos de referência para grandes sistemas é alto, muitos estudos testam os algoritmos com sistemas pequenos e médios \cite{Anquetil1999,Maqbool2007,Bittencourt2009}.
+% 	
+% \end{section}
+% 
+
+\section{Modelagem e Simulação para Avaliar Algoritmos de Agrupamento}
+
+Propomos, neste trabalho, avaliar algoritmos de agrupamento de software com sistemas de software sintéticos, gerados a partir da simulação de modelos de software. Para tanto, os modelos devem gerar sistemas de software tendo como base uma descrição dos módulos do sistema. O sistema, portanto, já é gerado com um agrupamento de referência.
+
+De posse desse modelo, a avaliação de algoritmos de agrupamento de software consiste nos seguintes passos: (i) gerar, através de um modelo, diversos sistemas de software sintéticos a partir de módulos previamente estabelecidos; (ii) aplicar algoritmos de agrupamento sobre os sistemas sintéticos; (iii) comparar os agrupamentos encontrados pelos algoritmos com os agrupamentos de referência.
+
+Os sistemas gerados pelos modelos não precisam ser detalhados no nível de implementação, uma vez que muitos algoritmos de agrupamento de software operam sobre grafos que representam as dependências entre entidades de implementação. Desta forma, é suficiente considerar modelos que produzem grafos e tratar os grafos como uma representação das dependências encontradas na implementação de um sistema.
+
+\section{Objetivo}
+
+Uma possível objeção para o uso de modelos é o argumento de que os grafos gerados pelos modelos seriam muito diferentes de grafos extraídos de sistemas de software reais e, portanto, conclusões obtidas com estes primeiros não poderiam ser generalizadas para estes últimos.
+
+Com o propósito de suprir a carência de sistemas de software com agrupamentos de referência para testar algoritmos de agrupamento, o objetivo deste trabalho é encontrar modelos que geram grafos organizados em módulos similares a grafos de dependências extraídos de sistemas de software reais. O principal desafio nesta tarefa é mostrar que os grafos sintéticos se assemelham a grafos extraídos de sistemas de software reais, quando for o caso.
+
+% \subsection{Objetivos Específicos}
+% 
+% Para alcançar o objetivo desta pesquisa, é necessário alcançar os seguintes objetivos específicos:
+% 
+% \begin{itemize}
+% 	\item encontrar modelos que geram grafos organizados em módulos;
+% 	\item avaliar os modelos quanto à similaridade entre os grafos gerados e grafos extraídos de sistemas de software;
+% \end{itemize}
+
+\section{Estrutura da Dissertação}
+
+A estrutura do restante desta dissertação é descrita a seguir. 
+%
+No Capítulo \ref{cap:agrupamento} são descritos alguns algoritmos de agrupamento de software, bem como uma abordagem de avaliação dos algoritmos.
+%
+No Capítulo \ref{cap:redes} são apresentados estudos recentes sobre a estrutura de grafos extraídos de sistemas de software e grafos estudados em outros domínios, bem como modelos que procuram explicar a formação de grafos organizados em módulos.
+%
+No Capítulo \ref{cap:avaliacao} é relatado um experimento que mostra que os modelos apresentados geram grafos similares a grafos extraídos de software.
+%
+No Capítulo \ref{cap:estudo} é relatado um experimento no qual algoritmos de agrupamento são aplicados a grafos sintéticos.
+%
+No Capítulo \ref{cap:conclusao} são apresentadas as conclusões deste trabalho. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%
+% definir Engenharia Reversa.
+
+% % O PROBLEMA FUNDAMENTAL: ATRIBUIÇÃO DE TRABALHO (fold)
+% 
+% Sistemas de software grandes precisam ser divididos em pedaços para que possam ser mantidos por equipes de programadores.
+% 
+% De nada adianta ter muitos desenvolvedores se a separação entre os módulos nos quais eles trabalham não é clara. Fred Brooks: adding more developers to a late project renders it later. Custo de comunicação. % ver versões antigas do artigo do csmr2010
+% 
+% Em alguns projetos, a estrutura do sistema e a estrutura de desenvolvedores é bem documentada (arquitetura de software).
+% 
+% Em outros casos, o software cresce de forma que o conhecimento da estrutura global se perde. Ou, ainda, pode se estar fazendo a manutenção de um sistema de software legado, no qual os desenvolvedores originais não estão disponíveis.
+% 
+% A aquisição do conhecimento sobre a estrutura global do software é custosa.
+% 
+% Ferramentas de clustering ajudam a achar uma boa separação de módulos, facilitando a atribuição de trabalho.
+% 
+% Recuperação de arquitetura de software é uma área bastante ampla, como será mostrado na Seção XX. Um significado específico será apresentada na seção YY.
+% % explicar por que evito o termo arquitetura e me concentro em clustering de software, conceito que deve ser definido em um capítulo posterior.
+% 
+% %%%%%%%%%%%%%%%%%%%%%%%%% (end)
+% 
+% % O PROBLEMA DERIVADO: FALTA DE VALIDAÇÃO EMPÍRICA NA ENG DE SOFTWARE (fold)
+% % (e em particular na área de recuperação de arquitetura)
+% 
+% Especialistas têm sentido falta de validação empírica na área de engenharia de software. Feitelson, Basili, Tichy. Não é à toa. Experimentos controlados em ES são caros, difíceis de reproduzir e pouco gerais. Mobilizam equipes de programadores. % ver proposta de mestrado
+% 
+% Esse cenário se repete na área de recuperação de arquitetura. No máximo há estudos de caso.
+% 
+% Nesses estudos de caso, são estudados sistemas que possuem uma estrutura modular de referência ou então são mobilizados especialistas para chegar a uma modularização (Koschke). NÃO HÁ BENCHMARKS! % ver WDCOPIN
+% 
+% Em outras áreas da ciência da computação, como redes sistemas distribuídos, é comum recorrer a modelos e simulações. Modelos são simplificações, mas a simulação é uma abordagem barata (tendo um modelo), controlada e repetível. % ver proposta de mestrado
+% 
+% %%%%%%%%%%%%%%%%%%%%%%%%% (end)
+% 
+% % O OBJETIVO DESTE TRABALHO: ESTUDAR REC. DE ARQ. COM MODEL. E SIMULAÇÃO! (fold)
+% 
+% Descobrir modelos de software que apoiem a avaliação de algoritmos de clustering.
+% 
+% Objetivos específicos:
+%  ...
+% 
+% %%%%%%%%%%%%%%%%%%%%%%%%% (end)
+% 
+% % LIMITAÇÕES % (fold)
+% 
+% Algoritmos de clustering aplicados a programas OO representados como um grafo de dependências estáticas.
+% 
+% %%%%%%%%%%%%%%%%%%%%%%%%% (end)
+% 
+% % METODOLOGIA (fold)
+% Métodos estatísticos, física estatística.
+% 
+% %%%%%%%%%%%%%%%%%%%%%%%% (end)
+

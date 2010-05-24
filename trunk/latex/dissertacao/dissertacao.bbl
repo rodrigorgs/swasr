@@ -19,13 +19,6 @@ N.~Anquetil and T.~C. Lethbridge.
 \newblock In {\em Proc. Sixth Working Conference on Reverse Engineering}, pages
   235--255, 1999.
 
-\bibitem{Arnold1993}
-Robert~S. Arnold and Shawn~A. Bohner.
-\newblock Impact analysis - towards a framework for comparison.
-\newblock In {\em ICSM '93: Proceedings of the Conference on Software
-  Maintenance}, pages 292--301, Washington, DC, USA, 1993. IEEE Computer
-  Society.
-
 \bibitem{Barabasi2007}
 Albert-Laszlo Barabasi.
 \newblock The architecture of complexity: From network structure to human
@@ -36,14 +29,6 @@ Albert-Laszlo Barabasi.
 Albert-Laszlo Barabasi and Reka Albert.
 \newblock Emergence of scaling in random networks.
 \newblock {\em Science}, 286:509, 1999.
-
-\bibitem{Basili1996}
-Victor~R. Basili.
-\newblock The role of experimentation in software engineering: past, current,
-  and future.
-\newblock In {\em Proceedings of the 18th international conference on Software
-  engineering}, pages 442--449, Washington, DC, USA, 1996. IEEE Computer
-  Society.
 
 \bibitem{Baxter2006}
 Gareth Baxter, Marcus Frean, James Noble, Mark Rickerby, Hayden Smith, Matt
@@ -82,11 +67,6 @@ Giulio Concas, Michele Marchesi, Sandro Pinna, and Nicola Serra.
 Gabor Csardi and Tamas Nepusz.
 \newblock The igraph software package for complex network research.
 \newblock {\em InterJournal}, Complex Systems:1695, 2006.
-
-\bibitem{Feitelson2005}
-Dror~G. Feitelson.
-\newblock Experimental computer science: The need for a cultural change, 2005.
-\newblock Disponível em \url{http://www.cs.huji.ac.il/~feit/papers/exp05.pdf}.
 
 \bibitem{Girard2000}
 Jean-Fran\&ccdedil;ois Girard and Rainer Koschke.
@@ -195,14 +175,6 @@ Christopher~R Myers.
 \newblock {\em Phys Rev E Stat Nonlin Soft Matter Phys}, 68(4 Pt 2):046116, Oct
   2003.
 
-\bibitem{Pollet2007}
-Damien Pollet, Stephane Ducasse, Loic Poyet, Ilham Alloui, Sorana Cimpan, and
-  Herve Verjus.
-\newblock Towards a process-oriented software architecture reconstruction
-  taxonomy.
-\newblock In {\em Proc. 11th European Conference on Software Maintenance and
-  Reengineering CSMR '07}, pages 137--148, 2007.
-
 \bibitem{Potanin2005}
 Alex Potanin, James Noble, Marcus Frean, and Robert Biddle.
 \newblock Scale-free geometry in oo programs.
@@ -212,17 +184,6 @@ Alex Potanin, James Noble, Marcus Frean, and Robert Biddle.
 Benjamin Stopford and Steve Counsell.
 \newblock A framework for the simulation of structural software evolution.
 \newblock {\em ACM Trans. Model. Comput. Simul.}, 18(4):1--36, 2008.
-
-\bibitem{Tichy1998}
-Walter~F. Tichy.
-\newblock Should computer scientists experiment more?
-\newblock {\em Computer}, 31:32--40, May 1998.
-
-\bibitem{Tonella2007}
-Paolo Tonella, Marco Torchiano, Bart Du~Bois, and Tarja Syst\"{a}.
-\newblock Empirical studies in reverse engineering: state of the art and future
-  trends.
-\newblock {\em Empirical Softw. Engg.}, 12(5):551--571, 2007.
 
 \bibitem{Traud2008}
 Amanda~L. Traud, Eric~D. Kelsic, Peter~J. Mucha, and Mason~A. Porter.
@@ -256,13 +217,5 @@ J.~Wu, A.~E. Hassan, and R.~C. Holt.
   evolution.
 \newblock In {\em Proc. 21st IEEE International Conference on ICSM'05 Software
   Maintenance}, pages 525--535, 2005.
-
-\bibitem{Zhao2004}
-Wei Zhao, Lu~Zhang, Yin Liu, Jiasu Sun, and Fuqing Yang.
-\newblock Sniafl: Towards a static non-interactive approach to feature
-  location.
-\newblock In {\em ICSE '04: Proceedings of the 26th International Conference on
-  Software Engineering}, pages 293--303, Washington, DC, USA, 2004. IEEE
-  Computer Society.
 
 \end{thebibliography}

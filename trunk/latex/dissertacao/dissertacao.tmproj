@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>estudodecaso.tex</string>
+	<string>introducao.tex</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -48,7 +48,7 @@
 			<key>filename</key>
 			<string>definicoes.tex</string>
 			<key>lastUsed</key>
-			<date>2010-05-19T13:13:00Z</date>
+			<date>2010-05-21T12:21:18Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
@@ -69,7 +69,9 @@
 					<key>filename</key>
 					<string>introducao.tex</string>
 					<key>lastUsed</key>
-					<date>2010-05-19T13:39:19Z</date>
+					<date>2010-05-23T11:52:31Z</date>
+					<key>selected</key>
+					<true/>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -93,15 +95,13 @@
 					<key>filename</key>
 					<string>avaliacao.tex</string>
 					<key>lastUsed</key>
-					<date>2010-05-20T13:01:51Z</date>
+					<date>2010-05-21T11:29:28Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
 					<string>estudodecaso.tex</string>
 					<key>lastUsed</key>
-					<date>2010-05-20T16:11:09Z</date>
-					<key>selected</key>
-					<true/>
+					<date>2010-05-21T12:14:41Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -145,14 +145,30 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>9</integer>
+				<integer>768</integer>
 				<key>line</key>
-				<integer>7</integer>
+				<integer>82</integer>
 			</dict>
+			<key>columnSelection</key>
+			<false/>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>0</integer>
+			<integer>110</integer>
+			<key>selectFrom</key>
+			<dict>
+				<key>column</key>
+				<integer>363</integer>
+				<key>line</key>
+				<integer>82</integer>
+			</dict>
+			<key>selectTo</key>
+			<dict>
+				<key>column</key>
+				<integer>768</integer>
+				<key>line</key>
+				<integer>82</integer>
+			</dict>
 		</dict>
 		<key>bcr.tex</key>
 		<dict>
@@ -203,14 +219,14 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>0</integer>
+				<integer>47</integer>
 				<key>line</key>
-				<integer>122</integer>
+				<integer>43</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>91</integer>
+			<integer>33</integer>
 		</dict>
 		<key>dissertacao.tex</key>
 		<dict>
@@ -231,14 +247,14 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>459</integer>
+				<integer>31</integer>
 				<key>line</key>
-				<integer>26</integer>
+				<integer>92</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
-			<integer>232</integer>
+			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>17</integer>
+			<integer>57</integer>
 		</dict>
 		<key>fundamentacao.tex</key>
 		<dict>
@@ -261,12 +277,12 @@
 				<key>column</key>
 				<integer>0</integer>
 				<key>line</key>
-				<integer>64</integer>
+				<integer>8</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
-			<integer>319</integer>
+			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>49</integer>
+			<integer>0</integer>
 		</dict>
 		<key>modelos.tex</key>
 		<dict>
