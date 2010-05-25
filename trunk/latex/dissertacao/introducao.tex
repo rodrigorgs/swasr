@@ -7,6 +7,10 @@
 %   Justificativa
 %   Descrição dos demais capítulos
 
+% In practice, there are two kinds of software dependencies:	Static, or "compile-time," dependencies and dynamic, or "run-time," dependencies.
+% Static dependencies capture the notion that one software module is necessary in order to compile another. In other words, A depends on B just in case the source code of A makes an explicit reference to B. In such a case, in order to compile A to an executable form, it is necessary to have access to B.
+% Run-time dependencies, in contrast, are based on actual calling patterns of the software during operation, and vary according its use and deployment. They cannot, in general, be inferred from any a priori examination of the software code. For this reason, this investigation focuses on analyzing static software dependencies.
+
 \chapter{Introdução}
 
 \begin{section}{Motivação}
@@ -26,7 +30,7 @@
 
 	% Clarificar: modelos estatísticos? modelos computacionais? modelos estocásticos? modelos para simulação? modelagem científica?
 	% NÃO: modelos formais, modelos descritivos, modelos determinísticos
-	Uma abordagem empregada quando os experimentos controlados são caros é a simulação de modelos. Na área de redes e sistemas distribuídos, é frequente o uso de ambientes de simulação de redes, que podem incorporar desde modelos de falhas de hardware até modelos de comportamento de usuários. % \cite{XXX}.
+	Uma abordagem empregada quando os experimentos controlados são caros é a simulação de modelos. Na área de redes e sistemas distribuídos, é frequente o uso de ambientes de simulação de redes, que podem incorporar desde modelos de falhas de hardware até modelos de comportamento de usuários \cite{White2002}.
 	% An Integrated Experimental Environment for Distributed Systems and Networks. 
 	% comportamento: http://www.foibg.com/ijita/vol15/ijita15-1-p11.pdf
 	%modelos de interação, modelos de distribuição de carga, 
@@ -35,7 +39,7 @@
 \end{section}
 
 \begin{section}{Objetivos}
-	O objetivo desta pesquisa é descobrir e avaliar modelos de dependências entre entidades do código-fonte de sistemas de software com a finalidade de apoiar simulações em engenharia de software (em particular, engenharia reversa).
+	O objetivo desta pesquisa é descobrir e avaliar modelos de dependências entre entidades do código-fonte de sistemas de software com a finalidade de apoiar o uso de simulações na avaliação de técnicas de engenharia reversa que se baseiam na análise de dependências.
 	
 	Para atingir o objetivo de pesquisa é necessário cumprir os seguintes objetivos específicos:
 	
@@ -51,7 +55,7 @@
 
 \begin{section}{Métodos e Resultados}
 	
-	A teoria das redes complexas estuda métodos para analisar redes (ou grafos) encontradas nos mais diversos domínios, como redes sociais, redes de computadores e redes metabólicas. A aplicação de tais métodos levou à descoberta de propriedades comuns a redes estudadas em diversos domínios, bem como modelos de redes que incorporam essas propriedades.
+	A teoria das redes complexas estuda métodos para analisar redes (ou grafos) encontradas nos mais diversos domínios, como redes sociais, redes de computadores e redes metabólicas. A aplicação de tais métodos levou à descoberta de propriedades comuns a um grande número de redes, bem como modelos de redes que incorporam essas propriedades.
 	
 	Dado que as dependências em um sistema de software formam uma rede, é possível aplicar nesta pesquisa alguns dos métodos, modelos e descobertas da teoria das redes complexas, os quais são apresentados no Capítulo \ref{cap:redes}.
 	
@@ -61,7 +65,7 @@
 	
 	Para a prova de conceito foi escolhido o problema de recuperação de arquitetura de software. Algoritmos de agrupamento usados na atividade de recuperação de arquitetura foram aplicados a redes de dependências geradas pelo modelo BCR+ e os resultados foram analisados. No Capítulo \ref{cap:estudo} é feita uma introdução ao problema de recuperação de arquitetura e, a seguir, são apresentados os métodos e resultados da prova de conceito.
 	
-	No Capítulo \ref{cap:conclusao} são apresentadas as conclusões, contribuições e limitações deste estudo.
+	No Capítulo \ref{cap:trabrel} este trabalho é comparado a trabalhos relacionados. No Capítulo \ref{cap:conclusao} são apresentadas as conclusões, contribuições e limitações deste trabalho.
 	
 	% Como resultado, foram encontrados dois modelos de redes apropriados para representar dependências entre entidades, e um modelo que foi criado a partir da adaptação de um modelo existente. O novo modelo é apresentado em detalhes no Capítulo ....
 	% 

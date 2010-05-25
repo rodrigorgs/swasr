@@ -1,12 +1,12 @@
 % 10-30 páginas
 
-\chapter{Redes Complexas} \label{cap:redes}
+\chapter{Redes Complexas} \label{cap:redes} 
 
-\begin{section}{Introdução} \label{sec:redes-complexas}
+\begin{section}{Introdução} \label{sec:redes-complexas} % Rodrigo: tá muito seco!
 
-No domínio de agrupamento de software, é comum representar um sistema de software através de um grafo que modela as dependências entre entidades do software. Essa representação é conveniente porque a teoria dos grafos possui muitos teoremas e algoritmos que se aplicam a grafos. Mais recentemente, grafos têm sido objeto de estudo de um ramo da física estatística denominado teoria das redes complexas. Este capítulo descreve alguns avanços dessa teoria que são relevantes para o problema de agrupamento de software abordado neste trabalho.
+% Mais recentemente, grafos têm sido objeto de estudo de um ramo da física estatística denominado teoria das redes complexas. Este capítulo descreve alguns avanços dessa teoria que são relevantes para este trabalho.
 
-A teoria das redes complexas estuda propriedades gerais de diversos tipos de redes, representadas como grafos, com o uso de ferramentas estatísticas. Estudos realizados na última década revelaram similaridades entre redes estudadas em diversos domínios. Exemplos incluem redes tecnológicas, como a Web e a rede de distribuição de energia elétrica dos Estados Unidos, redes biológicas, como cadeias alimentares e redes de ligações entre proteínas, e redes sociais, como as relações de amizade entre alunos de uma escola.
+A teoria das redes complexas estuda propriedades gerais de diversos tipos de redes, representadas como grafos, com o uso de ferramentas estatísticas. Estudos realizados na última década revelaram similaridades entre redes estudadas em diversos domínios. Exemplos incluem redes tecnológicas, como a Web e a rede de distribuição de energia elétrica dos Estados Unidos, redes biológicas, como cadeias alimentares e redes de ligações entre proteínas, e redes sociais, como as relações de amizade entre alunos de uma escola \cite{Newman2003}.
 
 O termo ``rede'' em geral está associado a entidades reais, como pessoas e relacionamentos de amizade, enquanto o termo ``grafo'' designa uma abstração matemática conveniente para representar relacionamentos entre objetos. Na teoria das redes complexas, no entanto, os termos são frequentemente usados como sinônimos, e é desta forma que eles são usados neste trabalho.
 
@@ -25,10 +25,7 @@ Barabási e Albert \cite{Barabasi1999} analisaram uma amostra da \emph{World Wid
 
 % No caso de redes orientadas, há duas distribuições a serem consideradas: a distribuição dos graus de entrada e a distribuição dos graus de saída. Nas redes orientadas que são livres de escala, ambas as distribuições seguem leis de potência.
 
-% e alto coeficiente de agrupamento
-Estudos recentes têm aplicado a teoria das redes complexas a redes de dependências estáticas entre entidades do código-fonte (funções, classes etc.) de sistemas de software. (Daqui pra frente, tais redes serão denominadas \emph{redes de software}, em contraste com redes biológicas, redes sociais etc.) Valverde e Solé \cite{Valverde2003} estudaram redes não-orientadas formadas por relações de agregação de tipos em diagramas UML, programas em C e programas em C++. Myers \cite{Myers2003} analisou redes de chamadas de função em programas em C e redes de agregação e herança em programas em C++, modeladas como grafos orientados. Em ambos os casos as redes foram identificadas como livres de escala. 
-
-Redes livres de escala também foram encontradas em programas escritos em Smalltalk \cite{Marchesi2004,Concas2007} e em Java \cite{Hyland-Wood2006,Baxter2006,Ichii2008}, em dependências entre pacotes de software \cite{Labelle2004}, em dependências entre bibliotecas dinâmicas \cite{Louridas2008} e até mesmo em referências entre objetos em tempo de execução \cite{Potanin2005}.
+% e alto coeficiente de clustering
 
 Se diversas redes possuem um mesmo padrão de distribuição de graus, o que as diferencia? Milo e outros pesquisadores \cite{Milo2002} estudaram a estrutura de redes orientadas de diversos domínios em busca da resposta. Para isso, eles listaram 13 possíveis configurações de arestas em redes com 3 vértices --- as chamadas tríades ---, mostradas na Figura \ref{fig:triades}. Contando o número de vezes que cada tríade aparece em uma rede, é possível formar um vetor, denominado \emph{perfil de concentração de tríades} (PCT), que é característico de redes de um domínio. A Figura \ref{fig:tcp} mostra, lado a lado, PCTs de redes de dois domínios distintos. É notável a diferença nas concentrações das duas primeiras tríades (de cima para baixo).
 
@@ -39,7 +36,6 @@ Se diversas redes possuem um mesmo padrão de distribuição de graus, o que as 
 	\label{fig:triades}
 \end{figure}
 
-
 \begin{figure}[htbp]
 	\centering
 		\includegraphics[scale=1]{figuras/tcp}
@@ -49,16 +45,29 @@ Se diversas redes possuem um mesmo padrão de distribuição de graus, o que as 
 
 \end{section}
 
+\begin{section}{Redes de Dependências no Domínio de Software}
+
+	Redes são muito usadas no domínio de engenharia de software para representar as dependências entre entidades do código-fonte, tais como classes em linguagens orientadas a objetos. 
+	%
+	Estudos recentes têm aplicado a teoria das redes complexas a redes de dependências entre entidades do código-fonte de sistemas de software. 
+	%
+	(Daqui pra frente, tais redes serão denominadas \emph{redes de software}, em contraste com redes biológicas, redes sociais etc.) Um dos principais resultados é a constatação de que redes de software são livres de escala.
+	%
+	
+	Valverde e Solé \cite{Valverde2003} estudaram redes não-orientadas formadas por relações de agregação de tipos em diagramas UML, programas em C e programas em C++. Myers \cite{Myers2003} analisou redes de chamadas de função em programas em C e redes de agregação e herança em programas em C++. Em ambos os casos as redes foram identificadas como livres de escala. 
+
+	Redes livres de escala também foram encontradas em programas escritos em Smalltalk \cite{Marchesi2004,Concas2007} e em Java \cite{Hyland-Wood2006,Baxter2006,Ichii2008}, em dependências entre pacotes de software \cite{Labelle2004}, em dependências entre bibliotecas dinâmicas \cite{Louridas2008} e até mesmo em referências entre objetos em tempo de execução \cite{Potanin2005}.
+\end{section}
+
 \begin{section}{Modelos de Síntese de Redes Organizadas em Módulos}
 % deu 7 páginas
 
 Para tentar explicar os mecanismos responsáveis pela formação de redes livres de escala em diversos domínios, vários modelos de redes livres de escala foram propostos. Os modelos são algoritmos que geram vértices e arestas de forma probabilística porém de acordo com certas regras que garantem que, quando o número de vértices tende a infinito, a distribuição dos graus dos vértices tende a uma lei de potência. Tais modelos, portanto, geram redes similares a redes de software, ao menos quanto à distribuição dos graus.
 
-Para avaliar algoritmos de agrupamento de software são necessárias redes organizadas em módulos, nas quais os módulos representam o agrupamento de referência. A maioria dos modelos de redes livres de escala, no entanto, gera redes sem módulos. No contexto desta pesquisa foi elaborado um modelo, o BCR+, que gera redes orientadas organizadas em módulos. 
+Assim como um sistema de software é organizado conceitualmente em módulos, uma rede de software deve representar suas entidades organizadas em módulos. A maioria dos modelos de redes livres de escala, no entanto, gera redes sem qualquer tipo de organização hierárquica.
 
-Após uma pesquisa extensa, embora não-sistemática, realizada durante o primeiro semestre de 2009, foram encontrados dois modelos de redes livres de escala organizadas em módulos: o modelo CGW \cite{Chen2008} e o modelo LFR \cite{Lancichinetti2008,Lancichinetti2009}.
+Após uma pesquisa extensa, embora não-sistemática, realizada durante o primeiro semestre de 2009, foram encontrados dois modelos de redes livres de escala organizadas em módulos: o modelo CGW \cite{Chen2008} e o modelo LFR \cite{Lancichinetti2008,Lancichinetti2009}. Um terceiro modelo, o BCR+, elaborado no contexto deste trabalho, é descrito no próximo capítulo.
 
-Os três modelos de redes orientadas organizadas em módulos são apresentados a seguir.
 % Modelo de Erdos-Renyi?
 % Modelo de configuração?
 % Modelo de Albert-Barabasi?
