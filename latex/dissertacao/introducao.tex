@@ -14,29 +14,19 @@
 \chapter{Introdução}
 
 \begin{section}{Motivação}
-	% MOTIVAÇÃO / JUSTIFICATIVA
+		Para um sistema de software ser bem sucedido não basta ele ser rápido, funcional e isento de defeitos. Esses atributos dizem respeito à qualidade, da forma como é enxergada pelos seus usuários, de uma versão do sistema. Para atender a demandas emergentes de seus usuários e incorporar novidades tecnológicas, no entanto, um sistema de software deve apresentar certos atributos de qualidade interna, visíveis apenas para os seus desenvolvedores. Ele precisa ser fácil de compreender, fácil de modificar e fácil de testar. [SOFT.AGING]
 
-	% Estou puxando a brasa para engenharia reversa. Será que é necessário? Não é possível generalizar isso para engenharia de software?
+		Um bom indicador da qualidade interna de um sistema de software é a estrutura de dependências entre as entidades que compõem o seu código-fonte. É natural que existam interações entre diversas entidades em um sistema, mas dependências indesejadas adicionam complexidade ao sistema, tornando mais difíceis as tarefas de compreender ou testar isoladamente as diversas partes do sistema.
 
-	As dependências entre entidades presentes no código-fonte de sistemas de software (classes, métodos, procedimentos, variáveis etc.) fornecem pistas sobre propriedades de sistemas de software, tais como facilidade de compreensão, facilidade de manutenção, facilidade de teste e facilidade de reuso. 
-	% Não surpreende que
-	A análise de tais dependências é essencial para o cálculo de diversas métricas de código-fonte, bem como para a realização de diversas atividades de engenharia reversa.
+		Analisar uma a uma as dependências de um sistema de software com a finalidade de extrair informações que apoiem a sua modificação é, no entanto, é uma tarefa árdua [Tonela2007]. Para automatizar essa tarefa, diversas ferramentas de engenharia reversa têm sido propostas. As ferramentas buscam identificar, entre outros, partes do sistema afetadas por uma mudança X, porções de código com funcionalidades semelhantes X e módulos arquiteturais X.
 
-	Engenharia reversa inclui ``qualquer método voltado para recuperar conhecimento sobre um sistema de software existente para apoiar a execução de uma tarefa de engenharia de software'' \cite{Tonella2007}. Nos métodos de engenharia reversa, as dependências podem ser usadas para auxiliar, por exemplo, a recuperação da arquitetura, a detecção de clones ou a localização de conceitos dentro de um sistema de software. 
+	As tarefas que as ferramentas de engenharia buscam automatizar, entretanto, envolvem alguma subjetividade, e por isso as ferramentas precisam ser avaliadas empiricamente. A frequência com que as avaliações empíricas são realizadas, contudo, está aquém do que se espera de uma área de pesquisa madura [Tonella2007]. Um estudo realizado sobre artigos sobre engenharia reversa publicados de 2002 a 2005 revelou que 25\% dos artigos não apresentam qualquer forma de avaliação empírica e, dentre os demais artigos, apenas 30% recorrem a experimentos e estudos observacionais -- os outros 70\% se limitam a estudos de caso e relatos de experiência.
 
-	Como em muitas outras disciplinas, a maturidade da disciplina de engenharia reversa requer que os métodos propostos sejam avaliados empiricamente. Um estudo realizado sobre artigos sobre engenharia reversa publicados de 2002 a 2005 revelou que 25\% dos artigos não apresentam qualquer forma de avaliação empírica e, dentre os demais artigos, 70\% apresentam apenas estudos de caso e relatos de experiência.
+		A escassez de experimentos controlados em engenharia reversa pode ser explicada, em parte, pelo alto custo envolvido na realização de experimentos de qualidade. Em muitos casos, os experimentos envolvem um planejamento cuidadoso e dependem da disponibilidade de desenvolvedores experientes.
 
-	A escassez de experimentos controlados em engenharia reversa pode ser explicada, em parte, pelo alto custo envolvido na realização de experimentos de qualidade. Em muitos casos, os experimentos precisam envolver grupos de desenvolvedores balanceados segundo o grau de experiência e replicação. O custo de experimentação elevado, no entanto, não é exclusividade da engenharia reversa: ele ocorre também em áreas da computação como redes e sistemas distribuídos.
+		Uma abordagem empregada quando os experimentos controlados são caros é a simulação baseada em modelos computacionais e estatísticos. Na área de redes e sistemas distribuídos, por exemplo, é frequente o uso de ambientes de simulação de redes, que modelam o funcionamento de uma rede de computadores, incluindo, às vezes, modelos de falhas de hardware e até modelos de comportamento de usuários \cite{White2002}. A simulação oferece um meio para se realizar experimentos controlados a um custo baixo. (Naturalmente, há o risco de os modelos usados na simulação não corresponderem à realidade nos aspectos relevantes para o experimento).
 
-	% Clarificar: modelos estatísticos? modelos computacionais? modelos estocásticos? modelos para simulação? modelagem científica?
-	% NÃO: modelos formais, modelos descritivos, modelos determinísticos
-	Uma abordagem empregada quando os experimentos controlados são caros é a simulação de modelos. Na área de redes e sistemas distribuídos, é frequente o uso de ambientes de simulação de redes, que podem incorporar desde modelos de falhas de hardware até modelos de comportamento de usuários \cite{White2002}.
-	% An Integrated Experimental Environment for Distributed Systems and Networks. 
-	% comportamento: http://www.foibg.com/ijita/vol15/ijita15-1-p11.pdf
-	%modelos de interação, modelos de distribuição de carga, 
-
-	Na engenharia de software, no entanto, a abordagem de simulação é pouco usada. As aplicações se concentram na simulação de processos de software. Surpreendentemente, não há modelos para dependências entre entidades de sistemas de software.	
-\end{section}
+		Na engenharia de software, a abordagem de modelagem e simulação já foi usada no estudo de processos de desenvolvimento XXX, mas em geral é uma abordagem pouco explorada. Se protocolos de rede podem ser avaliados em experimentos simulados com modelos de redes de computadores, por que não avaliar ferramentas de engenharia reversa com base em dependências que foram construídas a partir da simulação controlada de um modelo de dependências?\end{section}
 
 \begin{section}{Objetivos}
 	O objetivo desta pesquisa é descobrir e avaliar modelos de dependências entre entidades do código-fonte de sistemas de software com a finalidade de apoiar o uso de simulações na avaliação de técnicas de engenharia reversa que se baseiam na análise de dependências.
