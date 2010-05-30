@@ -19,6 +19,13 @@ N.~Anquetil and T.~C. Lethbridge.
 \newblock In {\em Proc. Sixth Working Conference on Reverse Engineering}, pages
   235--255, 1999.
 
+\bibitem{Arnold1993}
+Robert~S. Arnold and Shawn~A. Bohner.
+\newblock Impact analysis - towards a framework for comparison.
+\newblock In {\em ICSM '93: Proceedings of the Conference on Software
+  Maintenance}, pages 292--301, Washington, DC, USA, 1993. IEEE Computer
+  Society.
+
 \bibitem{Barabasi2007}
 Albert-Laszlo Barabasi.
 \newblock The architecture of complexity: From network structure to human
@@ -180,15 +187,34 @@ M.~E.~J. Newman.
 \newblock The structure and function of complex networks.
 \newblock {\em SIAM Review}, 45:167--256, 2003.
 
+\bibitem{Parnas1994}
+David~Lorge Parnas.
+\newblock Software aging.
+\newblock In {\em ICSE '94: Proceedings of the 16th international conference on
+  Software engineering}, pages 279--287, Los Alamitos, CA, USA, 1994. IEEE
+  Computer Society Press.
+
 \bibitem{Potanin2005}
 Alex Potanin, James Noble, Marcus Frean, and Robert Biddle.
 \newblock Scale-free geometry in oo programs.
 \newblock {\em Commun. ACM}, 48(5):99--103, 2005.
 
+\bibitem{Roy2007}
+Chanchal~Kumar Roy and James~R. Cordy.
+\newblock A survey on software clone detection research.
+\newblock {\em SCHOOL OF COMPUTING TR 2007-541, QUEEN’S UNIVERSITY}, 115,
+  2007.
+
 \bibitem{Stopford2008}
 Benjamin Stopford and Steve Counsell.
 \newblock A framework for the simulation of structural software evolution.
 \newblock {\em ACM Trans. Model. Comput. Simul.}, 18(4):1--36, 2008.
+
+\bibitem{Tonella2007}
+Paolo Tonella, Marco Torchiano, Bart Du~Bois, and Tarja Syst\"{a}.
+\newblock Empirical studies in reverse engineering: state of the art and future
+  trends.
+\newblock {\em Empirical Softw. Engg.}, 12(5):551--571, 2007.
 
 \bibitem{Traud2008}
 Amanda~L. Traud, Eric~D. Kelsic, Peter~J. Mucha, and Mason~A. Porter.
