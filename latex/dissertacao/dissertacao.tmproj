@@ -48,7 +48,7 @@
 			<key>filename</key>
 			<string>definicoes.tex</string>
 			<key>lastUsed</key>
-			<date>2010-05-25T14:35:34Z</date>
+			<date>2010-05-26T21:05:29Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
@@ -63,13 +63,13 @@
 					<key>filename</key>
 					<string>dissertacao.tex</string>
 					<key>lastUsed</key>
-					<date>2010-05-25T23:11:16Z</date>
+					<date>2010-05-26T20:37:02Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
 					<string>introducao.tex</string>
 					<key>lastUsed</key>
-					<date>2010-05-25T23:11:16Z</date>
+					<date>2010-05-29T22:27:44Z</date>
 					<key>selected</key>
 					<true/>
 				</dict>
@@ -224,7 +224,7 @@
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>60</integer>
+			<integer>32</integer>
 		</dict>
 		<key>dissertacao.bib</key>
 		<dict>
@@ -287,14 +287,14 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>2</integer>
+				<integer>0</integer>
 				<key>line</key>
-				<integer>21</integer>
+				<integer>8</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
-			<integer>235</integer>
+			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>11</integer>
+			<integer>0</integer>
 		</dict>
 		<key>modelos.tex</key>
 		<dict>
