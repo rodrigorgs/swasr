@@ -1,4 +1,4 @@
-\begin{chapter}{Redes Empregadas na Avaliação dos Modelos}
+\begin{chapter}{Redes Empregadas na Avaliação dos Modelos} \label{cap:lista-redes}
 % select nme_network, to_char(s_score, '0.99'), n_vertices, n_edges 
 % from view_network
 % where fk_classification = 1
@@ -112,7 +112,7 @@ A seguir são descritos brevemente três tipos de algoritmos de agrupamento de s
 
 Algoritmos hierárquicos aglomerativos têm sido aplicados a diversos problemas, incluindo o agrupamento de software \cite{Anquetil1999,Maqbool2007}. Essa família de algoritmos funciona com qualquer descrição de entidade, desde que seja fornecida uma métrica de similaridade entre pares de entidades. A similaridade entre duas entidades é medida em uma escala contínua de 0 a 1. O algoritmo é simples: inicia-se com um módulo para cada entidade e então mesclam-se sucessivamente os dois módulos mais similares até restar apenas um módulo com todas as entidades.
 
-No contexto de recuperação de arquitetura de software, é comum descrever as entidades de código-fonte como um grafo de dependências entre entidades e usar a métrica de Jaccard para medir a similaridade entre duas entidades \cite{Anquetil1999}. Sejam X e Y duas entidades, e seja d(A) o conjunto de entidades ligadas à entidade A no grafo de dependências. A similaridade entre X e Y é dada pela expressão a seguir:
+No contexto de recuperação de arquitetura de software, é comum descrever as entidades de código-fonte como um grafo de dependências entre entidades e usar a métrica de Jaccard para medir a similaridade entre duas entidades \cite{Anquetil1999}. Sejam X e Y duas entidades, e seja d(A) o conjunto de entidades ligadas à entidade A no grafo de dependências. A similaridade entre duas entidades, X e Y, é dada pela expressão a seguir:
 
 $$
 \mathrm{sim}(X, Y) ~=~ \frac{|\mathrm{d}(X) \cap \mathrm{d}(Y)|}{|\mathrm{d}(X) \cup \mathrm{d}(Y)|}

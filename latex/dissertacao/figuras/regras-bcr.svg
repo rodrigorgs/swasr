@@ -99,7 +99,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1"
-     inkscape:cx="120.46696"
+     inkscape:cx="64.96696"
      inkscape:cy="176.88317"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -607,15 +607,15 @@
       <path
          id="path9712"
          d="M 133.9531,578.38301 113.48066,564.20978"
-         style="fill:none;stroke:#000000;stroke-width:1.0629921;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:1.06299213, 1.06299213;stroke-dashoffset:0;marker-start:url(#Arrow1Mstart);marker-end:none" />
+         style="fill:none;stroke:#000000;stroke-width:1.06299210000000000;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:1.06299213000000004, 1.06299213000000004;stroke-dashoffset:0;marker-start:none;marker-end:url(#Arrow1Mend)" />
       <path
-         style="fill:none;stroke:#000000;stroke-width:1.0629921;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:1.06299213, 1.06299213;stroke-dashoffset:0;marker-start:none;marker-end:url(#Arrow1Mend)"
+         style="fill:none;stroke:#000000;stroke-width:1.06299210000000000;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:1.06299213000000004, 1.06299213000000004;stroke-dashoffset:0;marker-start:url(#Arrow1Mstart);marker-end:none"
          d="m 114.03743,620.33174 20.47244,-14.17323"
          id="path9714" />
       <path
          id="path9716"
          d="m 127.63867,592.04722 -22.83465,0"
-         style="fill:none;stroke:#000000;stroke-width:1.0629921;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:1.06299213, 1.06299213;stroke-dashoffset:0;marker-start:url(#Arrow1Mstart)" />
+         style="fill:none;stroke:#000000;stroke-width:1.06299210000000000;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:1.06299213000000004, 1.06299213000000004;stroke-dashoffset:0;marker-start:none;marker-end:url(#Arrow1Mend)" />
     </g>
     <g
        id="g11132"
@@ -751,15 +751,15 @@
    style="font-size:10px;font-style:italic"
    id="tspan9660">j</tspan></tspan></text>
       <path
-         style="fill:none;stroke:#000000;stroke-width:1.0629921;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:1.06299213, 1.06299213;stroke-dashoffset:0;marker-start:url(#Arrow1Mstart);marker-end:none"
+         style="fill:none;stroke:#000000;stroke-width:1.06299213;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:1.06299213,1.06299213;stroke-dashoffset:0;marker-start:none;marker-end:url(#Arrow1Mend)"
          d="M 333.9531,458.38301 313.48066,444.20978"
          id="path9662" />
       <path
          id="path9664"
          d="m 314.03743,500.33174 20.47244,-14.17323"
-         style="fill:none;stroke:#000000;stroke-width:1.0629921;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:1.06299213, 1.06299213;stroke-dashoffset:0;marker-start:none;marker-end:url(#Arrow1Mend)" />
+         style="fill:none;stroke:#000000;stroke-width:1.06299210000000000;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:1.06299213000000004, 1.06299213000000004;stroke-dashoffset:0;marker-start:url(#Arrow1Mstart);marker-end:none" />
       <path
-         style="fill:none;stroke:#000000;stroke-width:1.0629921;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:1.06299213, 1.06299213;stroke-dashoffset:0;marker-start:url(#Arrow1Mstart)"
+         style="fill:none;stroke:#000000;stroke-width:1.06299210000000000;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:1.06299213000000004, 1.06299213000000004;stroke-dashoffset:0;marker-start:none;marker-end:url(#Arrow1Mend)"
          d="m 327.63867,472.04722 -22.83465,0"
          id="path9666" />
       <path

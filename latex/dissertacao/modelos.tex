@@ -86,7 +86,7 @@ O modelo CGW \cite{Chen2008} foi proposto como um modelo da evolução de sistem
 
 Nesse modelo, a rede começa com poucos vértices e então vai crescendo de acordo com determinadas regras de formação, até alcançar $n$ vértices. Cada vértice pertence a um dos $m$ módulos.
 
-Os autores do modelo CGW não deixam claro a forma exata da rede inicial, e nem disponibilizam uma implementação do modelo. A implementação realizada nesta pesquisa considera que a rede inicial é formada por dois vértices contidos em um mesmo módulo, e uma aresta bidirecional que liga os vértices. A partir daí, a rede é alterada pela aplicação sucessiva de quatro regras em ordem aleatória:
+Os autores do modelo CGW não deixam claro qual é a forma exata da rede inicial, e nem disponibilizam uma implementação do modelo. A implementação realizada nesta pesquisa considera que a rede inicial é formada por dois vértices contidos em um mesmo módulo, e uma aresta bidirecional que liga os vértices. A partir daí, a rede é alterada pela aplicação sucessiva de quatro regras em ordem aleatória:
 
 \begin{itemize}
 	
@@ -108,7 +108,7 @@ Os autores do modelo CGW não deixam claro a forma exata da rede inicial, e nem 
 
 Naturalmente, as probabilidades $p_1, p_2, p_3$ e $p_4$ devem somar 1. Além disso, $p_1$ deve ser maior que zero --- do contrário o número de vértices na rede permanece constante. As quantidades $e_1, e_2, e_3, $ e $e_4$ são inteiros maiores ou iguais a zero.
 
-A probabilidade preferencial baseada em módulos, $\Pi(v_2|v_1)$, é uma função que indica a probabilidade de se escolher um vértice, $v_2$, como destino de uma aresta cujo vértice de origem, $v_1$, já foi determinado. O propósito da PPBM é diminuir a proporção de arestas externas na rede, privilegiando a escolha de um vértice de destino pertencente ao mesmo módulo do vértice de origem. Eis a definição da probabilidade preferencial baseada em módulos:
+A probabilidade preferencial baseada em módulos, $\Pi(v_2|v_1)$, é uma função que indica a probabilidade de se escolher um vértice, $v_2$, como destino de uma aresta cujo vértice de origem, $v_1$, já foi determinado. O propósito da PPBM é controlar a proporção de arestas externas na rede, privilegiando a escolha de um vértice de destino pertencente ao mesmo módulo do vértice de origem (ou pertence a outro módulo, a depender do valor de $\alpha$). Eis a definição da probabilidade preferencial baseada em módulos:
 
 $$
 \Pi (v_2|v_1) ~=~
