@@ -6,16 +6,16 @@
 
 \begin{section}{Introdução}
 
-No capítulo anterior foi mostrado que pelo menos três modelos geram redes organizadas em módulos que se assemelham a redes de software. Neste capítulo, o modelo BCR+ é usado em dois estudos experimentais realizados com o propósito de entender e comparar algoritmos de agrupamento que são estudados no contexto de recuperação de arquitetura de software. 
+No capítulo anterior foi mostrado que pelo menos três modelos geram redes organizadas em módulos que se assemelham a redes de software. Neste capítulo, o modelo BCR+ é usado em dois estudos experimentais realizados com o propósito de entender e comparar algoritmos de agrupamento que são estudados no contexto de recuperação de arquitetura de software. Os estudos são uma prova de conceito: eles demonstram a viabilidade do uso do modelo na avaliação de ferramentas de engenharia reversa.
 %os algoritmos de agrupamento apresentados na Seção \ref{sec:algoritmos}.
 
-Primeiramente, é feita uma breve introdução ao tema de algoritmos de agrupamento no contexto de recuperação de arquitetura. A seguir, são delineados dois estudos sobre algoritmos de agrupamento. Por fim, são apresentados os resultados e as conclusões dos estudos.
+Primeiramente, é feita uma breve introdução ao tema de algoritmos de agrupamento no contexto de recuperação de arquitetura. A seguir, são delineados os dois estudos sobre algoritmos de agrupamento. Por fim, são apresentados os resultados e as conclusões dos estudos.
 
 \end{section}
 
 \begin{section}{Agrupamento de Software}
 	
-Agrupamento é o processo de organizar entidades em grupos (módulos) de maneira que as entidades de um mesmo grupo sejam similares entre si segundo algum critério. (O termo agrupamento designa também o resultado do processo, que é a atribuição de entidades a módulos.) Um exemplo clássico é o agrupamento de pontos em um plano (entidades) de acordo com o critério da distância, como mostra a Figura \ref{fig:agrupamento}. O processo de agrupamento pode ser automatizado por meio de algoritmos, os quais têm sido objeto de estudo de áreas diversas como inteligência artificial, mineração de dados, análise de redes sociais, entre outras.
+Agrupamento é o processo de organizar entidades em módulos (ou grupos) de maneira que as entidades de um mesmo módulo sejam similares entre si segundo algum critério. (O termo agrupamento designa também o resultado do processo, que é a atribuição de entidades a módulos.) Um exemplo clássico é o agrupamento de pontos em um plano (entidades) de acordo com o critério da distância, como mostra a Figura \ref{fig:agrupamento}. O processo de agrupamento pode ser automatizado por meio de algoritmos, os quais têm sido objeto de estudo de áreas diversas como inteligência artificial, mineração de dados, análise de redes sociais, entre outras.
 
 \begin{figure}[htbp]
 	\centering
@@ -29,7 +29,7 @@ Algoritmos de agrupamento têm sido usados no contexto da engenharia de software
 
 O conjunto de módulos de uma arquitetura e entidades associadas constituem um agrupamento, denominado agrupamento de referência. O objetivo de algoritmos de agrupamento de software, neste contexto, é encontrar agrupamentos similares aos agrupamentos de referência dos sistemas analisados \cite{Koschke2000}.
 
-O custo de um experimento para avaliar algoritmos de agrupamento de software é elevado, uma vez que é necessário obter um agrupamento de referência para cada sistema analisado. Em uma avaliação feita por Girard e Koschke, quatro engenheiros de software levaram de 20 a 35 horas para obter agrupamentos de referência para programas na linguagem C com aproximadamente 30 mil linhas de código e cerca de 40 entidades (tipos abstratos de dados) cada um \cite{Girard2000}. O alto custo de experimentos com algoritmos de agrupamento faz desse tipo de estudo um bom candidato à técnica de avaliação através de redes de software sintéticas.
+O custo de um experimento para avaliar algoritmos de agrupamento de software é elevado, uma vez que é necessário obter um agrupamento de referência para cada sistema analisado. Em uma avaliação feita por Girard e Koschke, quatro engenheiros de software levaram de 20 a 35 horas para obter agrupamentos de referência para programas na linguagem C com aproximadamente 30 mil linhas de código e apenas 40 entidades (tipos abstratos de dados) cada um \cite{Girard2000}. O alto custo de experimentos com algoritmos de agrupamento faz desse tipo de estudo um bom candidato à técnica de avaliação através de redes de software sintéticas.
 
 %%%%%%%% TODO: Por que é interessante, nesta pesquisa, estudar rec. de arq? pq é difícil encontrar arqs. disponíveis, e é custoso gerá-las. Agrupamento de referência é difícil encontrar para vários sistemas e sistemas diversos.
 
@@ -43,13 +43,13 @@ O custo de um experimento para avaliar algoritmos de agrupamento de software é 
 \begin{enumerate}
 	\item gerar redes usando diversas combinações do modelo BCR+;
 	\item aplicar algoritmos de agrupamento a cada uma das redes;
-	\item aferir o desempenho dos algoritmos de agrupamento em cada rede, isto é, medir a similaridade entre os agrupamentos encontrados pelos algoritmos e os agrupamentos de referência. O agrupamento de referência de uma rede, neste caso, é determinado pelos módulos nelas embutidos;
+	\item aferir o desempenho dos algoritmos de agrupamento em cada rede, isto é, medir a similaridade entre os agrupamentos encontrados pelos algoritmos e os agrupamentos de referência. O agrupamento de referência de uma rede, neste caso, é determinado pelos próprios módulos gerados pelo modelo BCR+;
 	\item interpretar os resultados.
 \end{enumerate}
 
 	A escolha do modelo BCR+ se deve à familiaridade do autor com as propriedades do modelo. Neste estudos foram usadas as 9.500 configurações de parâmetros descritas no experimento de avaliação de software-realismo, na Seção \ref{sec:parametros}. Com a finalidade de mitigar os efeitos aleatórios na geração de redes, para cada configuração foram geradas três redes, totalizando 28,5 mil redes.
 
-	Para este estudo foram escolhidos algoritmos de agrupamento que possuem implementação disponível na Web e que já foram estudados por mais de um autor em pesquisas sobre recuperação de arquitetura. De acordo com esse critério, foram escolhidos os algoritmos ACDC, Bunch e algoritmos hierárquicos aglomerativos (ligação simples, SL, e ligação completa, CL), descritos no Apêndice \ref{cap:agrupamento}. Para cada um dos algoritmos aglomerativos, foram estudadas duas alturas de corte, $0,75$ e $0,90$. No total são 4 configurações de algoritmos aglomerativos, que serão referenciadas como SL75, SL90, CL75 e CL90. Para os algoritmos Bunch e ACDC foram escolhidas as configurações padrão das implementações dos autores dos algoritmos. As 6 configurações escolhidas para este estudo são idênticas àquelas estudadas por Wu, Hassan e Holt \cite{Wu2005} (maiores informações no Capítulo ``Trabalhos Relacionados'').
+	Para este estudo foram escolhidos algoritmos de agrupamento que possuem implementação disponível na Web e que já foram estudados por mais de um autor em pesquisas sobre recuperação de arquitetura. De acordo com esse critério, foram escolhidos os algoritmos ACDC, Bunch e algoritmos hierárquicos aglomerativos (ligação simples, SL, e ligação completa, CL), descritos no Apêndice \ref{cap:agrupamento}. Para cada um dos algoritmos aglomerativos, foram estudadas duas alturas de corte, $0,75$ e $0,90$. No total são 4 configurações de algoritmos aglomerativos, que serão referenciadas como SL75, SL90, CL75 e CL90. Para os algoritmos Bunch e ACDC foram escolhidas as configurações padrão das implementações dos autores dos algoritmos. As 6 configurações escolhidas para este estudo são idênticas àquelas estudadas por Wu, Hassan e Holt \cite{Wu2005} (maiores informações no Capítulo \ref{cap:trabrel}).
 	
 	Para medir a similaridade entre agrupamentos, foi escolhida a métrica MoJoSim \cite{Tzerpos1999,Bittencourt2009}, explicada no Apêndice \ref{cap:mojosim}, que tem sido usada em estudos sobre agrupamento de software para recuperação de arquitetura. Em poucas palavras, a métrica MoJoSim mede, em uma escala contínua de 0 a 1, o esforço necessário para se transformar um agrupamento no agrupamento de referência. O valor 1 indica que os dois agrupamentos comparados são idênticos (e o esforço é, portanto, nulo).
 
@@ -77,7 +77,7 @@ A Figura \ref{fig:box-mojo-por-alg} mostra um \emph{boxplot} dos valores de MoJo
 	\label{fig:box-mojo-por-alg}
 \end{figure}
 
-Comparando os MoJoSims medianos de cada algoritmo, nota-se que o algoritmo ACDC apresenta o melhor desempenho, seguido do Bunch. A seguir vêm os algoritmos aglomerativos, com pequenas diferenças entre si. A fim de verificar se as diferenças observadas são estatisticamente significativas, foi aplicado o teste de Wilcoxon pareado para as medianas de cada par de algoritmos, com nível de significância igual a 5\%. (Para mitigar o efeito que a aplicação de múltiplos testes exerce sobre a significância estatística, foi usada a correção de Bonferroni, que consiste em dividir o nível de significância pelo número de testes realizados, reduzindo a probabilidade de se obter falsos positivos.) Os testes confirmaram as conclusões feitas a partir do gráfico, mas não foi encontrada nenhuma evidência de que algum algoritmo aglomerativo se destaque sobre os demais.
+Comparando pelo gráfico os MoJoSims medianos de cada algoritmo, nota-se que o algoritmo ACDC apresenta o melhor desempenho, seguido do Bunch. A seguir vêm os algoritmos aglomerativos, com pequenas diferenças entre si. A fim de verificar se as diferenças observadas são estatisticamente significativas, foi aplicado o teste de Wilcoxon pareado para as medianas de cada par de algoritmos, com nível de significância igual a 5\%. (Para mitigar o efeito que a aplicação de múltiplos testes exerce sobre a significância estatística, foi usada a correção de Bonferroni, que consiste em dividir o nível de significância pelo número de testes realizados, reduzindo a probabilidade de se obter falsos positivos.) Os testes confirmaram as conclusões feitas a partir do gráfico, mas não foi encontrada nenhuma evidência de que algum algoritmo aglomerativo se destaque sobre os demais.
 
 
 % Em uma análise complementar, foi selecionado de cada rede o algoritmo de maior desempenho e então contou-se a proporção de redes em que cada algoritmo foi o melhor, como mostra a Figura XXX. Essa análise confirma a superioridade dos algoritmos ACDC e Bunch no conjunto das redes estudadas. Mais do que isso, observa-se que os algoritmos aglomerativos dividem de forma quase igualitária o posto de melhor algoritmo nos casos que não são dominadas pelo ACDC ou pelo Bunch.

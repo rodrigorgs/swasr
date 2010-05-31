@@ -21,23 +21,23 @@
 
 		Analisar uma a uma as dependências de um sistema de software com a finalidade de extrair informações que apoiem a sua modificação é, no entanto, é uma tarefa árdua \cite{Tonella2007}. Para automatizar essa tarefa, diversas ferramentas de engenharia reversa têm sido propostas. As ferramentas buscam identificar, entre outros, partes do sistema afetadas por uma mudança \cite{Arnold1993}, código duplicado \cite{Roy2007} e módulos arquiteturais \cite{Maqbool2007}.
 
-	As tarefas que as ferramentas de engenharia buscam automatizar, entretanto, envolvem alguma subjetividade, e por isso as ferramentas precisam ser avaliadas empiricamente. A frequência com que as avaliações empíricas são realizadas, contudo, está aquém do que se espera de uma área de pesquisa madura \cite{Tonella2007}. Um estudo realizado sobre artigos sobre engenharia reversa publicados de 2002 a 2005 revelou que 25\% dos artigos não apresentam qualquer forma de avaliação empírica e, dentre os demais artigos, apenas 30\% recorrem a experimentos e estudos observacionais --- os outros 70\% se limitam a estudos de caso e relatos de experiência.
+	As tarefas que as ferramentas buscam automatizar, entretanto, envolvem alguma subjetividade, e por isso as ferramentas precisam ser avaliadas empiricamente. A frequência com que as avaliações empíricas são realizadas, contudo, está aquém do que se espera de uma área de pesquisa madura \cite{Tonella2007}. Um estudo realizado com artigos sobre engenharia reversa publicados de 2002 a 2005 revelou que 25\% dos artigos não apresentam qualquer forma de avaliação empírica e, dentre os demais artigos, apenas 30\% recorrem a experimentos e estudos observacionais --- os outros 70\% se limitam a estudos de caso e relatos de experiência.
 
 		A escassez de experimentos controlados em engenharia reversa pode ser explicada, em parte, pelo alto custo envolvido na realização de experimentos de qualidade. Em muitos casos, os experimentos envolvem um planejamento cuidadoso e dependem da disponibilidade de desenvolvedores experientes.
 
 		Uma abordagem empregada quando os experimentos controlados são caros é a simulação baseada em modelos computacionais e estatísticos. Na área de redes e sistemas distribuídos, por exemplo, é frequente o uso de ambientes de simulação de redes, que modelam o funcionamento de uma rede de computadores, incluindo, às vezes, modelos de falhas de hardware e até modelos de comportamento de usuários \cite{White2002}. A simulação oferece um meio para se realizar experimentos controlados a um custo baixo. (Naturalmente, há o risco de os modelos usados na simulação não corresponderem à realidade nos aspectos relevantes para o experimento).
 
-		Na engenharia de software, a abordagem de modelagem e simulação já foi usada no estudo de processos de desenvolvimento XXX, mas em geral é uma abordagem pouco explorada. Se protocolos de rede podem ser avaliados em experimentos simulados com modelos de redes de computadores, por que não avaliar ferramentas de engenharia reversa com base em dependências que foram construídas a partir da simulação controlada de um modelo de dependências?
+		Na engenharia de software, a abordagem de modelagem e simulação já foi usada no estudo de processos de desenvolvimento \cite{Stopford2008}, mas em geral é uma abordagem pouco explorada. Se protocolos de rede podem ser avaliados em experimentos simulados com modelos de redes de computadores, por que não avaliar ferramentas de engenharia reversa com base em dependências que foram construídas a partir da simulação controlada de um modelo de dependências?
 		
 \end{section}
 
 \begin{section}{Objetivos}
 	O objetivo desta pesquisa é descobrir e avaliar modelos de dependências entre entidades do código-fonte de sistemas de software com a finalidade de apoiar o uso de simulações na avaliação de técnicas de engenharia reversa que se baseiam na análise de dependências.
 	
-	Para atingir o objetivo de pesquisa é necessário cumprir os seguintes objetivos específicos:
+	O objetivo se desdobra nos seguintes objetivos específicos:
 	
 	\begin{enumerate}
-		\item descobrir modelos que podem ser interpretados como modelos de dependências entre entidades de código-fonte;
+		\item descobrir modelos computacionais que podem ser interpretados como modelos de dependências entre entidades de código-fonte;
 		\item avaliar os modelos de acordo com a similaridade entre a estrutura das dependências produzidas pelos modelos e a estrutura das dependências que são extraídas de sistemas de software reais;
 		\item realizar uma prova de conceito para demonstrar a viabilidade da abordagem de simulação para a avaliação de técnicas e ferramentas que se baseiam na análise de dependências.
 	\end{enumerate}
