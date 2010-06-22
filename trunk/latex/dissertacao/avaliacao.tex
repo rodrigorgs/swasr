@@ -30,19 +30,8 @@ Todas as redes usadas no estudo estão listadas no Apêndice \ref{cap:lista-rede
 \begin{section}{Software-realismo de uma Rede} \label{sec:realismo-rede}
 
 Para apoiar o experimento, foi desenvolvido um modelo de classificação que classifica redes em dois grupos: software-realistas e não software-realistas. O modelo de classificação é baseado em uma métrica de similaridade entre duas redes. Para determinar a classificação de uma rede, é medida a similaridade da rede em relação a todas as 65 redes de software da amostra. A rede é considerada software-realista quando a média das similaridades é superior a um limiar pré-determinado.
-	
-Seguindo o trabalho de Milo et al. \cite{Milo2002}, cada rede é caracterizada pelo seu perfil de concentração de tríades (PCT), isto é, a frequência relativa de cada uma das treze tríades na rede. Seguindo outro trabalho de Milo et al. \cite{Milo2004}, a similaridade entre duas redes é medida a partir do cálculo do coeficiente de correlação de Pearson entre os PCTs das redes, que é um valor entre -1 (menor similaridade) e 1 (maior similaridade):
 
-$$
-\mathrm{sim}(a, b) ~=~ 
-  \mathrm{cor}(\mathrm{PCT}(a), \mathrm{PCT}(b))\mathrm{,}
-$$
-
-onde $a$ e $b$ são redes, PCT($x$) é um vetor com as concentrações das tríades na rede $x$ e cor($x, y$) é o coeficiente de correlação de Pearson entre dois vetores.
-
-Vale notar que o coeficiente de correlação neste caso não possui significado estatístico. Ainda assim, ele têm sido usado de forma bem sucedida na pesquisa de Milo e, como será mostrado a seguir, rendeu bons resultados nesta pesquisa.
-
-A partir da métrica de similaridade entre redes, foi desenvolvida a métrica S, que representa o quanto uma rede se assemelha a redes de software. O valor de S para uma rede $x$, S($x$), é definido como a similaridade média entre a rede $x$ e uma amostra de redes de software, $R$:
+A partir da métrica de similaridade entre redes baseada em perfis de concentração de tríades (PCT), apresentada no Capítulo \ref{cap:redes}, foi desenvolvida a métrica S, que representa o quanto uma rede se assemelha a redes de software. O valor de S para uma rede $x$, S($x$), é definido como a similaridade média entre a rede $x$ e uma amostra de redes de software, $R$:
 
 $$
 \mathrm{S}(x) ~=~ \frac{

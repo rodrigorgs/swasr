@@ -1,259 +1,324 @@
-\begin{thebibliography}{10}
-
-\bibitem{Adamic2005}
-Lada~A. Adamic and Natalie Glance.
-\newblock The political blogosphere and the 2004 u.s. election: divided they
-  blog.
-\newblock In {\em LinkKDD '05: Proceedings of the 3rd international workshop on
-  Link discovery}, pages 36--43, New York, NY, USA, 2005. ACM Press.
-
-\bibitem{Andritsos2005}
-P.~Andritsos and V.~Tzerpos.
-\newblock Information-theoretic software clustering.
-\newblock {\em IEEE Transactions on Software Engineering}, 31(2):150--165,
-  2005.
-
-\bibitem{Anquetil1999}
-N.~Anquetil and T.~C. Lethbridge.
-\newblock Experiments with clustering as a software remodularization method.
-\newblock In {\em Proc. Sixth Working Conference on Reverse Engineering}, pages
-  235--255, 1999.
-
-\bibitem{Arnold1993}
-Robert~S. Arnold and Shawn~A. Bohner.
-\newblock Impact analysis - towards a framework for comparison.
-\newblock In {\em ICSM '93: Proceedings of the Conference on Software
-  Maintenance}, pages 292--301, Washington, DC, USA, 1993. IEEE Computer
-  Society.
+\providecommand{\abntreprintinfo}[1]{%
+ \citeonline{#1}}
+\begin{thebibliography}{}
+\providecommand{\abntrefinfo}[3]{}
+\providecommand{\abntbstabout}[1]{}
+\abntbstabout{1.49 }
 
 \bibitem{Barabasi2007}
-Albert-Laszlo Barabasi.
-\newblock The architecture of complexity: From network structure to human
-  dynamics.
-\newblock {\em Control Systems Magazine, IEEE}, 27:33--42, August 2007.
-
-\bibitem{Barabasi1999}
-Albert-Laszlo Barabasi and Reka Albert.
-\newblock Emergence of scaling in random networks.
-\newblock {\em Science}, 286:509, 1999.
-
-\bibitem{Baxter2006}
-Gareth Baxter, Marcus Frean, James Noble, Mark Rickerby, Hayden Smith, Matt
-  Visser, Hayden Melton, and Ewan Tempero.
-\newblock Understanding the shape of java software.
-\newblock {\em SIGPLAN Not.}, 41(10):397--412, 2006.
-
-\bibitem{Bittencourt2009}
-Roberto~Almeida Bittencourt and Dalton Dario~Serey Guerrero.
-\newblock Comparison of graph clustering algorithms for recovering software
-  architecture module views.
-\newblock In {\em CSMR '09: Proceedings of the 2009 European Conference on
-  Software Maintenance and Reengineering}, pages 251--254, Washington, DC, USA,
-  2009. IEEE Computer Society.
-
-\bibitem{Bollobas2003}
-B\'{e}la Bollob\'{a}s, Christian Borgs, Jennifer Chayes, and Oliver Riordan.
-\newblock Directed scale-free graphs.
-\newblock In {\em SODA '03: Proceedings of the fourteenth annual ACM-SIAM
-  symposium on Discrete algorithms}, pages 132--139, Philadelphia, PA, USA,
-  2003. Society for Industrial and Applied Mathematics.
-
-\bibitem{Chen2008}
-Tao Chen, Qing Gu, Shusen Wang, Xiaoan Chen, and Daoxu Chen.
-\newblock Module-based large-scale software evolution based on complex
-  networks.
-\newblock {\em 8th IEEE International Conference on Computer and Information
-  Technology}, pages 798---803, 2008.
-
-\bibitem{Concas2007}
-Giulio Concas, Michele Marchesi, Sandro Pinna, and Nicola Serra.
-\newblock Power-laws in a large object-oriented software system.
-\newblock 33(10):687--708, 2007.
-
-\bibitem{igraph}
-Gabor Csardi and Tamas Nepusz.
-\newblock The igraph software package for complex network research.
-\newblock {\em InterJournal}, Complex Systems:1695, 2006.
-
-\bibitem{Girard2000}
-Jean-Fran\&ccdedil;ois Girard and Rainer Koschke.
-\newblock A comparison of abstract data types and objects recovery techniques.
-\newblock {\em Sci. Comput. Program.}, 36(2-3):149--181, 2000.
-
-\bibitem{OneR}
-Robert~C. Holte.
-\newblock Very simple classification rules perform well on most commonly used
-  datasets.
-\newblock {\em Mach. Learn.}, 11(1):63--90, April 1993.
-
-\bibitem{Hyland-Wood2006}
-David Hyland-Wood, David Carrington, and Simon Kaplan.
-\newblock Scale-free nature of java software package, class and method
-  collaboration graphs.
-\newblock In {\em Proceedings of the 5th International Symposium on Empirical
-  Software Engineering, Rio de Janeiro, Brasil}, 2006.
-
-\bibitem{Ichii2008}
-M.~Ichii, M.~Matsushita, and K.~Inoue.
-\newblock An exploration of power-law in use-relation of java software systems.
-\newblock In {\em Proc. 19th Australian Conference on Software Engineering
-  ASWEC 2008}, pages 422--431, 2008.
-
-\bibitem{Jeong2000}
-H.~Jeong, B.~Tombor, R.~Albert, Z.~N. Oltvai, and A.~L. Barabasi.
-\newblock The large-scale organization of metabolic networks.
-\newblock {\em Nature}, 407(6804):651--654, October 2000.
-
-\bibitem{Jeong2001}
-Hawoong Jeong, Sean~P. Mason, Albert-Laszlo Barabasi, and Zoltan~N. Oltvai.
-\newblock Lethality and centrality in protein networks.
-\newblock {\em NATURE v}, 411:41, 2001.
-
-\bibitem{Koschke2000}
-R.~Koschke and T.~Eisenbarth.
-\newblock A framework for experimental evaluation of clustering techniques.
-\newblock In {\em Proc. 8th International Workshop on Program Comprehension
-  IWPC 2000}, pages 201--210, 2000.
-
-\bibitem{Labelle2004}
-Nathan LaBelle and Eugene Wallingford.
-\newblock Inter-package dependency networks in open-source software, 2004.
-
-\bibitem{Lancichinetti2009b}
-A.~{Lancichinetti} and S.~{Fortunato}.
-\newblock {Community detection algorithms: A comparative analysis}.
-\newblock {\em \pre}, 80(5):056117--+, November 2009.
-
-\bibitem{Lancichinetti2009}
-Andrea Lancichinetti and Santo Fortunato.
-\newblock Benchmarks for testing community detection algorithms on directed and
-  weighted graphs with overlapping communities.
-\newblock 2009.
-
-\bibitem{Lancichinetti2008}
-Andrea Lancichinetti, Santo Fortunato, and Filippo Radicchi.
-\newblock Benchmark graphs for testing community detection algorithms.
-\newblock {\em Physical Review E (Statistical, Nonlinear, and Soft Matter
-  Physics)}, 78(4), 2008.
-
-\bibitem{Louridas2008}
-Panagiotis Louridas, Diomidis Spinellis, and Vasileios Vlachos.
-\newblock Power laws in software.
-\newblock {\em ACM Trans. Softw. Eng. Methodol.}, 18(1):1--26, 2008.
-
-\bibitem{Mancoridis1998}
-S.~Mancoridis, B.~S. Mitchell, C.~Rorres, Y.~Chen, and E.~R. Gansner.
-\newblock Using automatic clustering to produce high-level system organizations
-  of source code.
-\newblock In {\em Proc. th International Workshop on Program Comprehension IWPC
-  '98}, pages 45--52, 1998.
-
-\bibitem{Maqbool2007}
-O.~Maqbool and H.~A. Babri.
-\newblock Hierarchical clustering for software architecture recovery.
-\newblock 33(11):759--780, 2007.
-
-\bibitem{Marchesi2004}
-Michele Marchesi, Sandro Pinna, Nicola Serra, and Stefano Tuveri.
-\newblock Power laws in smalltalk.
-\newblock In {\em ESUG Conference}, Kothen, Germany, September 2004.
+\abntrefinfo{Barabasi}{BARABASI}{2007}
+{BARABASI, A.-L. The architecture of complexity: From network structure to
+  human dynamics.
+\emph{Control Systems Magazine, IEEE}, v.~27, p. 33--42, ago. 2007.}
 
 \bibitem{Milo2004}
-R.~Milo, S.~Itzkovitz, N.~Kashtan, R.~Levitt, S.~Shen-Orr, I.~Ayzenshtat,
-  M.~Sheffer, and U.~Alon.
-\newblock Superfamilies of evolved and designed networks.
-\newblock {\em Science}, 303(5663):1538--1542, March 2004.
-
-\bibitem{Milo2002}
-R.~Milo, S.~Shen-Orr, S.~Itzkovitz, N.~Kashtan, D.~Chklovskii, and U.~Alon.
-\newblock Network motifs: simple building blocks of complex networks.
-\newblock {\em Science}, 298(5594):824--827, October 2002.
-
-\bibitem{Mitchell2007}
-Brian~S. Mitchell and Spiros Mancoridis.
-\newblock On the evaluation of the bunch search-based software modularization
-  algorithm.
-\newblock {\em Soft Comput.}, 12(1):77--93, 2007.
-
-\bibitem{Myers2003}
-Christopher~R Myers.
-\newblock Software systems as complex networks: structure, function, and
-  evolvability of software collaboration graphs.
-\newblock {\em Phys Rev E Stat Nonlin Soft Matter Phys}, 68(4 Pt 2):046116, Oct
-  2003.
-
-\bibitem{Newman2003}
-M.~E.~J. Newman.
-\newblock The structure and function of complex networks.
-\newblock {\em SIAM Review}, 45:167--256, 2003.
+\abntrefinfo{Milo et al.}{MILO et al.}{2004}
+{MILO, R. et al. Superfamilies of evolved and designed networks.
+\emph{Science}, Departments of Molecular Cell Biology, Physics of Complex
+  Systems, and Computer Science, Weizmann Institute of Science, Rehovot 76100,
+  Israel., v.~303, n.~5663, p. 1538--1542, mar. 2004.
+ISSN 1095-9203.
+Dispon{\'\i}vel em: $<$http://dx.doi.org/10.1126/science.1089167$>$.}
 
 \bibitem{Parnas1994}
-David~Lorge Parnas.
-\newblock Software aging.
-\newblock In {\em ICSE '94: Proceedings of the 16th international conference on
-  Software engineering}, pages 279--287, Los Alamitos, CA, USA, 1994. IEEE
-  Computer Society Press.
-
-\bibitem{Potanin2005}
-Alex Potanin, James Noble, Marcus Frean, and Robert Biddle.
-\newblock Scale-free geometry in oo programs.
-\newblock {\em Commun. ACM}, 48(5):99--103, 2005.
-
-\bibitem{Roy2007}
-Chanchal~Kumar Roy and James~R. Cordy.
-\newblock A survey on software clone detection research.
-\newblock {\em SCHOOL OF COMPUTING TR 2007-541, QUEEN’S UNIVERSITY}, 115,
-  2007.
-
-\bibitem{Stopford2008}
-Benjamin Stopford and Steve Counsell.
-\newblock A framework for the simulation of structural software evolution.
-\newblock {\em ACM Trans. Model. Comput. Simul.}, 18(4):1--36, 2008.
+\abntrefinfo{Parnas}{PARNAS}{1994}
+{PARNAS, D.~L. Software aging. In:  \emph{ICSE '94: Proceedings of the 16th
+  international conference on Software engineering}. Los Alamitos, CA, USA:
+  IEEE Computer Society Press, 1994. p. 279--287.
+ISBN 0-8186-5855-X.}
 
 \bibitem{Tonella2007}
-Paolo Tonella, Marco Torchiano, Bart Du~Bois, and Tarja Syst\"{a}.
-\newblock Empirical studies in reverse engineering: state of the art and future
-  trends.
-\newblock {\em Empirical Softw. Engg.}, 12(5):551--571, 2007.
+\abntrefinfo{Tonella et al.}{TONELLA et al.}{2007}
+{TONELLA, P. et al. Empirical studies in reverse engineering: state of the art
+  and future trends.
+\emph{Empirical Softw. Engg.}, Kluwer Academic Publishers, Hingham, MA, USA,
+  v.~12, n.~5, p. 551--571, 2007.
+ISSN 1382-3256.}
 
-\bibitem{Traud2008}
-Amanda~L. Traud, Eric~D. Kelsic, Peter~J. Mucha, and Mason~A. Porter.
-\newblock Community structure in online collegiate social networks, 2008.
+\bibitem{Arnold1993}
+\abntrefinfo{Arnold e Bohner}{ARNOLD; BOHNER}{1993}
+{ARNOLD, R.~S.; BOHNER, S.~A. Impact analysis - towards a framework for
+  comparison. In:  \emph{ICSM '93: Proceedings of the Conference on Software
+  Maintenance}. Washington, DC, USA: IEEE Computer Society, 1993. p. 292--301.
+ISBN 0-8186-4600-4.}
 
-\bibitem{Tzerpos1999}
-V.~Tzerpos and R.~C. Holt.
-\newblock Mojo: a distance metric for software clusterings.
-\newblock In {\em Proc. Sixth Working Conference on Reverse Engineering}, pages
-  187--193, 1999.
+\bibitem{Roy2007}
+\abntrefinfo{Roy e Cordy}{ROY; CORDY}{2007}
+{ROY, C.~K.; CORDY, J.~R. A survey on software clone detection research.
+\emph{School of Computing TR 2007-541, Queen’S University}, v.~115, 2007.}
 
-\bibitem{Tzerpos2000}
-V.~Tzerpos and R.~C. Holt.
-\newblock Acdc: an algorithm for comprehension-driven clustering.
-\newblock In {\em Proc. Seventh Working Conference on Reverse Engineering},
-  pages 258--267, 2000.
-
-\bibitem{Valverde2003}
-Sergi Valverde and Ricard~V. Solé.
-\newblock Hierarchical small worlds in software architecture.
-\newblock (Directed Scale-Free Graphs), 2003.
-
-\bibitem{Watts1998}
-D.~J. Watts and S.~H. Strogatz.
-\newblock Collective dynamics of 'small-world' networks.
-\newblock {\em Nature}, 393(6684):440--442, June 1998.
+\bibitem{Maqbool2007}
+\abntrefinfo{Maqbool e Babri}{MAQBOOL; BABRI}{2007}
+{MAQBOOL, O.; BABRI, H.~A. Hierarchical clustering for software architecture
+  recovery.
+v.~33, n.~11, p. 759--780, 2007.
+ISSN 0098-5589.}
 
 \bibitem{White2002}
-Brian White, Jay Lepreau, Leigh Stoller, Robert Ricci, Shashi Guruprasad, Mac
-  Newbold, Mike Hibler, Chad Barb, and Abhijeet Joglekar.
-\newblock An integrated experimental environment for distributed systems and
+\abntrefinfo{White et al.}{WHITE et al.}{2002}
+{WHITE, B. et al. An integrated experimental environment for distributed
+  systems and networks.
+\emph{SIGOPS Oper. Syst. Rev.}, ACM, New York, NY, USA, v.~36, n.~SI, p.
+  255--270, 2002.
+ISSN 0163-5980.}
+
+\bibitem{Stopford2008}
+\abntrefinfo{Stopford e Counsell}{STOPFORD; COUNSELL}{2008}
+{STOPFORD, B.; COUNSELL, S. A framework for the simulation of structural
+  software evolution.
+\emph{ACM Trans. Model. Comput. Simul.}, ACM, New York, NY, USA, v.~18, n.~4,
+  p. 1--36, 2008.
+ISSN 1049-3301.}
+
+\bibitem{Newman2003}
+\abntrefinfo{Newman}{NEWMAN}{2003}
+{NEWMAN, M. E.~J. The structure and function of complex networks.
+\emph{SIAM Review}, v.~45, p. 167--256, 2003.}
+
+\bibitem{Barabasi1999}
+\abntrefinfo{Barabasi e Albert}{BARABASI; ALBERT}{1999}
+{BARABASI, A.-L.; ALBERT, R. Emergence of scaling in random networks.
+\emph{Science}, v.~286, p.~509, 1999.
+Dispon{\'\i}vel em:
+  $<$http://www.citebase.org/abstract?id=oai:arXiv.org:cond-mat/9910332$>$.}
+
+\bibitem{Milo2002}
+\abntrefinfo{Milo et al.}{MILO et al.}{2002}
+{MILO, R. et al. Network motifs: simple building blocks of complex networks.
+\emph{Science}, Departments of Physics of Complex Systems and Molecular Cell
+  Biology, Weizmann Institute of Science, Rehovot, Israel 76100., v.~298,
+  n.~5594, p. 824--827, October 2002.
+ISSN 1095-9203.
+Dispon{\'\i}vel em: $<$http://dx.doi.org/10.1126/science.298.5594.824$>$.}
+
+\bibitem{Valverde2003}
+\abntrefinfo{Valverde e Sol{\'e}}{VALVERDE; SOL{\'E}}{2003}
+{VALVERDE, S.; SOL{\'E}, R.~V. Hierarchical small worlds in software
+  architecture.
+n. Directed Scale-Free Graphs, 2003.
+Dispon{\'\i}vel em:
+  $<$http://www.citebase.org/abstract?id=oai:arXiv.org:cond-mat/0307278$>$.}
+
+\bibitem{Myers2003}
+\abntrefinfo{Myers}{MYERS}{2003}
+{MYERS, C.~R. Software systems as complex networks: structure, function, and
+  evolvability of software collaboration graphs.
+\emph{Phys Rev E Stat Nonlin Soft Matter Phys}, v.~68, n. 4 Pt 2, p. 046116,
+  out. 2003.}
+
+\bibitem{Marchesi2004}
+\abntrefinfo{Marchesi et al.}{MARCHESI et al.}{2004}
+{MARCHESI, M. et al. Power laws in {Smalltalk}. In:  \emph{ESUG Conference}.
+  Kothen, Germany: [s.n.], 2004.}
+
+\bibitem{Concas2007}
+\abntrefinfo{Concas et al.}{CONCAS et al.}{2007}
+{CONCAS, G. et al. Power-laws in a large object-oriented software system.
+v.~33, n.~10, p. 687--708, 2007.
+ISSN 0098-5589.}
+
+\bibitem{Hyland-Wood2006}
+\abntrefinfo{Hyland-Wood, Carrington e Kaplan}{HYLAND-WOOD; CARRINGTON;
+  KAPLAN}{2006}
+{HYLAND-WOOD, D.; CARRINGTON, D.; KAPLAN, S. Scale-free nature of {Java}
+  software package, class and method collaboration graphs. In:
+  \emph{Proceedings of the 5th International Symposium on Empirical Software
+  Engineering, Rio de Janeiro, Brasil}. [S.l.: s.n.], 2006.}
+
+\bibitem{Baxter2006}
+\abntrefinfo{Baxter et al.}{BAXTER et al.}{2006}
+{BAXTER, G. et al. Understanding the shape of {Java} software.
+\emph{SIGPLAN Not.}, ACM, New York, NY, USA, v.~41, n.~10, p. 397--412, 2006.
+ISSN 0362-1340.}
+
+\bibitem{Ichii2008}
+\abntrefinfo{Ichii, Matsushita e Inoue}{ICHII; MATSUSHITA; INOUE}{2008}
+{ICHII, M.; MATSUSHITA, M.; INOUE, K. An exploration of power-law in
+  use-relation of {Java} software systems. In:  \emph{Proc. 19th Australian
+  Conference on Software Engineering ASWEC 2008}. [S.l.: s.n.], 2008. p.
+  422--431.
+ISSN 1530-0803.}
+
+\bibitem{Labelle2004}
+\abntrefinfo{LaBelle e Wallingford}{LABELLE; WALLINGFORD}{2004}
+{LABELLE, N.; WALLINGFORD, E. \emph{Inter-Package Dependency Networks in
+  Open-Source Software}. 2004.
+Dispon{\'\i}vel em:
+  $<$http://www.citebase.org/abstract?id=oai:arXiv.org:cs/0411096$>$.}
+
+\bibitem{Louridas2008}
+\abntrefinfo{Louridas, Spinellis e Vlachos}{LOURIDAS; SPINELLIS; VLACHOS}{2008}
+{LOURIDAS, P.; SPINELLIS, D.; VLACHOS, V. Power laws in software.
+\emph{ACM Trans. Softw. Eng. Methodol.}, ACM, New York, NY, USA, v.~18, n.~1,
+  p. 1--26, 2008.
+ISSN 1049-331X.}
+
+\bibitem{Potanin2005}
+\abntrefinfo{Potanin et al.}{POTANIN et al.}{2005}
+{POTANIN, A. et al. Scale-free geometry in {OO} programs.
+\emph{Commun. ACM}, ACM, New York, NY, USA, v.~48, n.~5, p. 99--103, 2005.
+ISSN 0001-0782.}
+
+\bibitem{Chen2008}
+\abntrefinfo{Chen et al.}{CHEN et al.}{2008}
+{CHEN, T. et al. Module-based large-scale software evolution based on complex
   networks.
-\newblock {\em SIGOPS Oper. Syst. Rev.}, 36(SI):255--270, 2002.
+\emph{8th IEEE International Conference on Computer and Information
+  Technology}, p. 798---803, 2008.}
+
+\bibitem{Lancichinetti2008}
+\abntrefinfo{Lancichinetti, Fortunato e Radicchi}{LANCICHINETTI; FORTUNATO;
+  RADICCHI}{2008}
+{LANCICHINETTI, A.; FORTUNATO, S.; RADICCHI, F. Benchmark graphs for testing
+  community detection algorithms.
+\emph{Physical Review E (Statistical, Nonlinear, and Soft Matter Physics)},
+  APS, v.~78, n.~4, 2008.}
+
+\bibitem{Lancichinetti2009}
+\abntrefinfo{Lancichinetti e Fortunato}{LANCICHINETTI; FORTUNATO}{2009}
+{LANCICHINETTI, A.; FORTUNATO, S. Benchmarks for testing community detection
+  algorithms on directed and weighted graphs with overlapping communities.
+2009.
+Dispon{\'\i}vel em: $<$http://arxiv.org/abs/0904.3940$>$.}
+
+\bibitem{Bollobas2003}
+\abntrefinfo{Bollob\'{A}s et al.}{BOLLOB\'{A}S et al.}{2003}
+{BOLLOB\'{A}S, B. et al. Directed scale-free graphs. In:  \emph{SODA '03:
+  Proceedings of the fourteenth annual ACM-SIAM symposium on Discrete
+  algorithms}. Philadelphia, PA, USA: Society for Industrial and Applied
+  Mathematics, 2003. p. 132--139.
+ISBN 0-89871-538-5.}
+
+\bibitem{igraph}
+\abntrefinfo{Csardi e Nepusz}{CSARDI; NEPUSZ}{2006}
+{CSARDI, G.; NEPUSZ, T. The igraph software package for complex network
+  research.
+\emph{InterJournal}, Complex Systems, p.~1695, 2006.
+Dispon{\'\i}vel em: $<$http://igraph.sf.net$>$.}
+
+\bibitem{OneR}
+\abntrefinfo{Holte}{HOLTE}{1993}
+{HOLTE, R.~C. Very simple classification rules perform well on most commonly
+  used datasets.
+\emph{Mach. Learn.}, Kluwer Academic Publishers, Hingham, MA, USA, v.~11, n.~1,
+  p. 63--90, abr. 1993.
+ISSN 0885-6125.
+Dispon{\'\i}vel em: $<$http://dx.doi.org/10.1023/A:1022631118932$>$.}
+
+\bibitem{Koschke2000}
+\abntrefinfo{Koschke e Eisenbarth}{KOSCHKE; EISENBARTH}{2000}
+{KOSCHKE, R.; EISENBARTH, T. A framework for experimental evaluation of
+  clustering techniques. In:  \emph{Proc. 8th International Workshop on Program
+  Comprehension IWPC 2000}. [S.l.: s.n.], 2000. p. 201--210.}
+
+\bibitem{Girard2000}
+\abntrefinfo{Girard e Koschke}{GIRARD; KOSCHKE}{2000}
+{GIRARD, J.-F.; KOSCHKE, R. A comparison of abstract data types and objects
+  recovery techniques.
+\emph{Sci. Comput. Program.}, Elsevier North-Holland, Inc., Amsterdam, The
+  Netherlands, The Netherlands, v.~36, n.~2-3, p. 149--181, 2000.
+ISSN 0167-6423.}
 
 \bibitem{Wu2005}
-J.~Wu, A.~E. Hassan, and R.~C. Holt.
-\newblock Comparison of clustering algorithms in the context of software
-  evolution.
-\newblock In {\em Proc. 21st IEEE International Conference on ICSM'05 Software
-  Maintenance}, pages 525--535, 2005.
+\abntrefinfo{Wu, Hassan e Holt}{WU; HASSAN; HOLT}{2005}
+{WU, J.; HASSAN, A.~E.; HOLT, R.~C. Comparison of clustering algorithms in the
+  context of software evolution. In:  \emph{Proc. 21st IEEE International
+  Conference on ICSM'05 Software Maintenance}. [S.l.: s.n.], 2005. p. 525--535.
+ISSN 1063-6773.}
+
+\bibitem{Tzerpos1999}
+\abntrefinfo{Tzerpos e Holt}{TZERPOS; HOLT}{1999}
+{TZERPOS, V.; HOLT, R.~C. {MoJo}: a distance metric for software clusterings.
+  In:  \emph{Proc. Sixth Working Conference on Reverse Engineering}. [S.l.:
+  s.n.], 1999. p. 187--193.}
+
+\bibitem{Bittencourt2009}
+\abntrefinfo{Bittencourt e Guerrero}{BITTENCOURT; GUERRERO}{2009}
+{BITTENCOURT, R.~A.; GUERRERO, D. D.~S. Comparison of graph clustering
+  algorithms for recovering software architecture module views. In:  \emph{CSMR
+  '09: Proceedings of the 2009 European Conference on Software Maintenance and
+  Reengineering}. Washington, DC, USA: IEEE Computer Society, 2009. p.
+  251--254.
+ISBN 978-0-7695-3589-0.}
+
+\bibitem{Andritsos2005}
+\abntrefinfo{Andritsos e Tzerpos}{ANDRITSOS; TZERPOS}{2005}
+{ANDRITSOS, P.; TZERPOS, V. Information-theoretic software clustering.
+\emph{IEEE Transactions on Software Engineering}, v.~31, n.~2, p. 150--165,
+  2005.
+ISSN 0098-5589.}
+
+\bibitem{Lancichinetti2009b}
+\abntrefinfo{Lancichinetti e Fortunato}{LANCICHINETTI; FORTUNATO}{2009}
+{LANCICHINETTI, A.; FORTUNATO, S. Community detection algorithms: A comparative
+  analysis.
+\emph{\pre}, v.~80, n.~5, p. 056117--+, nov. 2009.}
+
+\bibitem{Mitchell2007}
+\abntrefinfo{Mitchell e Mancoridis}{MITCHELL; MANCORIDIS}{2007}
+{MITCHELL, B.~S.; MANCORIDIS, S. On the evaluation of the {Bunch} search-based
+  software modularization algorithm.
+\emph{Soft Comput.}, Springer-Verlag, Berlin, Heidelberg, v.~12, n.~1, p.
+  77--93, 2007.
+ISSN 1432-7643.}
+
+\bibitem{Traud2008}
+\abntrefinfo{Traud et al.}{TRAUD et al.}{2008}
+{TRAUD, A.~L. et al. \emph{Community Structure in Online Collegiate Social
+  Networks}. 2008.
+Dispon{\'\i}vel em:
+  $<$http://www.citebase.org/abstract?id=oai:arXiv.org:0809.0690$>$.}
+
+\bibitem{Jeong2000}
+\abntrefinfo{Jeong et al.}{JEONG et al.}{2000}
+{JEONG, H. et al. The large-scale organization of metabolic networks.
+\emph{Nature}, Department of Physics, University of Notre Dame, Indiana 46556,
+  USA., v.~407, n.~6804, p. 651--654, out. 2000.
+ISSN 0028-0836.
+Dispon{\'\i}vel em: $<$http://dx.doi.org/10.1038/35036627$>$.}
+
+\bibitem{Jeong2001}
+\abntrefinfo{Jeong et al.}{JEONG et al.}{2001}
+{JEONG, H. et al. Lethality and centrality in protein networks.
+\emph{NATURE v}, v.~411, p.~41, 2001.
+Dispon{\'\i}vel em:
+  $<$http://www.citebase.org/abstract?id=oai:arXiv.org:cond-mat/0105306$>$.}
+
+\bibitem{Adamic2005}
+\abntrefinfo{Adamic e Glance}{ADAMIC; GLANCE}{2005}
+{ADAMIC, L.~A.; GLANCE, N. The political blogosphere and the 2004 {U.S.}
+  election: divided they blog. In:  \emph{LinkKDD '05: Proceedings of the 3rd
+  international workshop on Link discovery}. New York, NY, USA: ACM Press,
+  2005. p. 36--43.
+ISBN 1595932151. Dispon{\'\i}vel em:
+  $<$http://dx.doi.org/10.1145/1134271.1134277$>$.}
+
+\bibitem{Watts1998}
+\abntrefinfo{Watts e Strogatz}{WATTS; STROGATZ}{1998}
+{WATTS, D.~J.; STROGATZ, S.~H. Collective dynamics of `small-world' networks.
+\emph{Nature}, Department of Theoretical and Applied Mechanics, Cornell
+  University, Ithaca, New York 14853, USA. djw24@columbia.edu, v.~393, n.~6684,
+  p. 440--442, June 1998.
+ISSN 0028-0836.
+Dispon{\'\i}vel em: $<$http://dx.doi.org/10.1038/30918$>$.}
+
+\bibitem{Anquetil1999}
+\abntrefinfo{Anquetil e Lethbridge}{ANQUETIL; LETHBRIDGE}{1999}
+{ANQUETIL, N.; LETHBRIDGE, T.~C. Experiments with clustering as a software
+  remodularization method. In:  \emph{Proc. Sixth Working Conference on Reverse
+  Engineering}. [S.l.: s.n.], 1999. p. 235--255.}
+
+\bibitem{Mancoridis1998}
+\abntrefinfo{Mancoridis et al.}{MANCORIDIS et al.}{1998}
+{MANCORIDIS, S. et al. Using automatic clustering to produce high-level system
+  organizations of source code. In:  \emph{Proc. th International Workshop on
+  Program Comprehension IWPC '98}. [S.l.: s.n.], 1998. p. 45--52.
+ISSN 1092-8138.}
+
+\bibitem{Tzerpos2000}
+\abntrefinfo{Tzerpos e Holt}{TZERPOS; HOLT}{2000}
+{TZERPOS, V.; HOLT, R.~C. Acdc: an algorithm for comprehension-driven
+  clustering. In:  \emph{Proc. Seventh Working Conference on Reverse
+  Engineering}. [S.l.: s.n.], 2000. p. 258--267.}
 
 \end{thebibliography}
