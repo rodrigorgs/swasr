@@ -19,20 +19,23 @@
 
 		Um bom indicador da qualidade interna de um sistema de software é a estrutura de dependências entre as entidades que compõem o seu código-fonte. É natural que existam interações entre diversas entidades em um sistema, mas dependências indesejadas adicionam complexidade ao sistema, tornando mais difíceis as tarefas de compreender ou testar isoladamente as diversas partes do sistema \cite{Chidamber1994}. % CBO, página 11
 
-		Analisar uma a uma as dependências de um sistema de software com a finalidade de extrair informações que apoiem a sua modificação é, no entanto, é uma tarefa árdua \cite{Tonella2007}. Em um sistema com $n$ entidades, são $n^2$ potenciais dependências a se analisar. Em sistemas com mais que algumas dezenas de entidades, a quantidade de dependências potenciais é na casa das centenas. Ao tentar visualizar as dependências de um sistema grande através de diagramas de caixas e setas, as dependências acabam representadas como um emaranhado de setas.
-		
-		% Dunbar's number: 150
+		Analisar uma a uma as dependências de um sistema de software com a finalidade de extrair informações que apoiem a sua modificação é, no entanto, uma tarefa árdua \cite{Tonella2007}. Em um sistema com $n$ entidades, são $n^2$ potenciais dependências a se analisar. Em sistemas com mais que algumas dezenas de entidades, a quantidade de dependências potenciais é da ordem de centenas. %Ao tentar visualizar as dependências de um sistema grande através de diagramas de caixas e setas, as dependências acabam representadas como um emaranhado de setas. % Dunbar's number: 150
 		
 		% link com o parágrafo anterior?
+		% Frente à dificuldade de 
+		
 		Para automatizar a análise de dependências, diversas ferramentas de engenharia reversa têm sido propostas. As ferramentas buscam identificar, entre outros, partes do sistema afetadas por uma mudança \cite{Arnold1993}, código duplicado \cite{Roy2007} e módulos arquiteturais \cite{Maqbool2007}.
 
 	As tarefas que as ferramentas buscam automatizar, entretanto, envolvem alguma subjetividade, e por isso as ferramentas precisam ser avaliadas empiricamente. % TODO: dar mais detalhes.
 	
+  % When conducting empirical studies in reverse engineering, the variability of the skill and experience of the involved individuals may be high. Thus, subjects must be distributed carefully across the groups defined in the experimental design. Other sources of variability lie in the software development tasks given to the subjects, as well as the software systems themselves. These factors need to be taken into account and possibly controlled during the execution of the study.
+	
 	 A frequência com que as avaliações empíricas são realizadas, contudo, está aquém do que se espera de uma área de pesquisa madura \cite{Tonella2007}. Um estudo realizado com artigos sobre engenharia reversa publicados de 2002 a 2005 revelou que 25\% dos artigos não apresentam qualquer forma de avaliação empírica e, dentre os demais artigos, apenas 30\% recorrem a experimentos e estudos observacionais --- os outros 70\% se limitam a estudos de caso e relatos de experiência.
 
+	% juntar com o recado do final do parágrafo anterior?
 		A escassez de experimentos controlados em engenharia reversa pode ser explicada, em parte, pelo alto custo envolvido na realização de experimentos de qualidade. Em muitos casos, os experimentos envolvem um planejamento cuidadoso e dependem da disponibilidade de desenvolvedores experientes.
 
-		Uma abordagem empregada quando os experimentos controlados são caros é a simulação baseada em modelos computacionais e estatísticos. Na área de redes e sistemas distribuídos, por exemplo, é frequente o uso de ambientes de simulação de redes, que modelam o funcionamento de uma rede de computadores, incluindo, às vezes, modelos de falhas de hardware e até modelos de comportamento de usuários \cite{White2002}. A simulação oferece um meio para se realizar experimentos controlados a um custo baixo. (Naturalmente, há o risco de os modelos usados na simulação não corresponderem à realidade nos aspectos relevantes para o experimento).
+		Uma abordagem empregada quando os experimentos controlados são caros é a simulação baseada em modelos computacionais e estatísticos. Na área de redes e sistemas distribuídos, por exemplo, é frequente o uso de ambientes de simulação de redes, que modelam o funcionamento de uma rede de computadores, incluindo, às vezes, modelos de falhas de hardware e até modelos de comportamento de usuários \cite{White2002}. A simulação oferece um meio para se realizar experimentos controlados a um custo baixo. Naturalmente, há o risco de os modelos usados na simulação não corresponderem à realidade nos aspectos relevantes para o experimento. Todavia, TODO completar
 
 		Na engenharia de software, a abordagem de modelagem e simulação já foi usada no estudo de processos de desenvolvimento \cite{Stopford2008}, mas em geral é uma abordagem pouco explorada. Se protocolos de rede podem ser avaliados em experimentos simulados com modelos de redes de computadores, por que não avaliar ferramentas de engenharia reversa com base em dependências que foram construídas a partir da simulação controlada de um modelo de dependências?
 		
