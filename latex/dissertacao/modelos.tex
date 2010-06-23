@@ -29,9 +29,8 @@ Barabási e Albert \cite{Barabasi1999} analisaram uma amostra da \emph{World Wid
 
 Se diversas redes possuem um mesmo padrão de distribuição de graus, o que as diferencia? Milo e outros pesquisadores \cite{Milo2002} estudaram a estrutura de redes orientadas de diversos domínios em busca da resposta. Para isso, eles listaram 13 possíveis configurações de arestas em redes com 3 vértices --- as chamadas tríades ---, mostradas na Figura \ref{fig:triades}. Contando o número de vezes que cada tríade aparece em uma rede, é possível formar um vetor, denominado \emph{perfil de concentração de tríades} (PCT), que é característico de redes de um domínio. 
 
-O papel dos PCTs na caracterização de domínios de redes é ilustrado nas Figuras \ref{fig:tcp}(a) e \ref{fig:tcp}(b). Na primeira Figura, são apresentados PCTs de redes de dois domínios distintos: uma rede de software e uma rede linguística. Na segunda, são apresentados PCTs de duas redes do mesmo domínio, o domínio de software. Uma análise informal dos gráficos revela que a similaridade entre os PCTs é maior no segundo caso, no qual as redes são do mesmo domínio.
-
-% No primeiro caso, é notável a diferença nas concentrações das duas primeiras tríades (de cima para baixo). 
+O papel dos PCTs na caracterização de domínios de redes é ilustrado nas Figuras \ref{fig:tcp}(a) e \ref{fig:tcp}(b). Na primeira Figura, são apresentados PCTs de redes de dois domínios distintos: uma rede de software e uma rede linguística. Na segunda, são apresentados PCTs de duas redes do mesmo domínio, o domínio de software. Uma análise informal dos gráficos revela que a similaridade entre os PCTs é maior no segundo caso, no qual as redes são do mesmo domínio. No primeiro caso, é notável a diferença nas concentrações das duas primeiras tríades (de cima para baixo). 
+% 
 
 \begin{figure}[htbp]
 	\centering
@@ -47,7 +46,7 @@ O papel dos PCTs na caracterização de domínios de redes é ilustrado nas Figu
 	\label{fig:tcp}
 \end{figure}
 
-A similaridade entre PCTs pode ser quantificada através do coeficiente de correlação de Pearson, considerando cada PCT como um vetor de treze elementos \cite{Milo2004}. O resultado é um valor entre -1 (menor similaridade) e 1 (maior similaridade). Na Figura \ref{fig:tcp}(a), o coeficiente de correlação vale $0,68$; na Figura \ref{fig:tcp}(b), $0,98$. Os números confirmam a análise informal e mostram que a correlação é maior no caso em que as redes pertencem ao mesmo domínio.
+A similaridade entre PCTs pode ser quantificada através do coeficiente de correlação de Pearson entre os PCTs \cite{Milo2004}. O resultado é um valor entre -1 (menor similaridade) e 1 (maior similaridade). Na Figura \ref{fig:tcp}(a), o coeficiente de correlação vale $0,68$; na Figura \ref{fig:tcp}(b), $0,98$. Os números confirmam a análise informal e mostram que a correlação é maior no caso em que as redes pertencem ao mesmo domínio.
 
 Vale notar que o coeficiente de correlação neste caso não possui significado estatístico. Ainda assim, ele tem sido usado de forma bem sucedida na pesquisa de Milo.
 

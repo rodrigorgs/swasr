@@ -17,11 +17,18 @@
 
 		Para um sistema de software ser bem sucedido não basta ele ser rápido, funcional e isento de defeitos. Esses atributos dizem respeito à qualidade, da forma como é enxergada pelos seus usuários, de uma versão do sistema. Para atender a demandas emergentes de seus usuários e incorporar novidades tecnológicas, no entanto, um sistema de software deve apresentar certos atributos de qualidade interna, visíveis apenas para os seus desenvolvedores. Ele precisa ser fácil de compreender, fácil de modificar e fácil de testar \cite{Parnas1994}.
 
-		Um bom indicador da qualidade interna de um sistema de software é a estrutura de dependências entre as entidades que compõem o seu código-fonte. É natural que existam interações entre diversas entidades em um sistema, mas dependências indesejadas adicionam complexidade ao sistema, tornando mais difíceis as tarefas de compreender ou testar isoladamente as diversas partes do sistema.
+		Um bom indicador da qualidade interna de um sistema de software é a estrutura de dependências entre as entidades que compõem o seu código-fonte. É natural que existam interações entre diversas entidades em um sistema, mas dependências indesejadas adicionam complexidade ao sistema, tornando mais difíceis as tarefas de compreender ou testar isoladamente as diversas partes do sistema \cite{Chidamber1994}. % CBO, página 11
 
-		Analisar uma a uma as dependências de um sistema de software com a finalidade de extrair informações que apoiem a sua modificação é, no entanto, é uma tarefa árdua \cite{Tonella2007}. Para automatizar essa tarefa, diversas ferramentas de engenharia reversa têm sido propostas. As ferramentas buscam identificar, entre outros, partes do sistema afetadas por uma mudança \cite{Arnold1993}, código duplicado \cite{Roy2007} e módulos arquiteturais \cite{Maqbool2007}.
+		Analisar uma a uma as dependências de um sistema de software com a finalidade de extrair informações que apoiem a sua modificação é, no entanto, é uma tarefa árdua \cite{Tonella2007}. Em um sistema com $n$ entidades, são $n^2$ potenciais dependências a se analisar. Em sistemas com mais que algumas dezenas de entidades, a quantidade de dependências potenciais é na casa das centenas. Ao tentar visualizar as dependências de um sistema grande através de diagramas de caixas e setas, as dependências acabam representadas como um emaranhado de setas.
+		
+		% Dunbar's number: 150
+		
+		% link com o parágrafo anterior?
+		Para automatizar a análise de dependências, diversas ferramentas de engenharia reversa têm sido propostas. As ferramentas buscam identificar, entre outros, partes do sistema afetadas por uma mudança \cite{Arnold1993}, código duplicado \cite{Roy2007} e módulos arquiteturais \cite{Maqbool2007}.
 
-	As tarefas que as ferramentas buscam automatizar, entretanto, envolvem alguma subjetividade, e por isso as ferramentas precisam ser avaliadas empiricamente. A frequência com que as avaliações empíricas são realizadas, contudo, está aquém do que se espera de uma área de pesquisa madura \cite{Tonella2007}. Um estudo realizado com artigos sobre engenharia reversa publicados de 2002 a 2005 revelou que 25\% dos artigos não apresentam qualquer forma de avaliação empírica e, dentre os demais artigos, apenas 30\% recorrem a experimentos e estudos observacionais --- os outros 70\% se limitam a estudos de caso e relatos de experiência.
+	As tarefas que as ferramentas buscam automatizar, entretanto, envolvem alguma subjetividade, e por isso as ferramentas precisam ser avaliadas empiricamente. % TODO: dar mais detalhes.
+	
+	 A frequência com que as avaliações empíricas são realizadas, contudo, está aquém do que se espera de uma área de pesquisa madura \cite{Tonella2007}. Um estudo realizado com artigos sobre engenharia reversa publicados de 2002 a 2005 revelou que 25\% dos artigos não apresentam qualquer forma de avaliação empírica e, dentre os demais artigos, apenas 30\% recorrem a experimentos e estudos observacionais --- os outros 70\% se limitam a estudos de caso e relatos de experiência.
 
 		A escassez de experimentos controlados em engenharia reversa pode ser explicada, em parte, pelo alto custo envolvido na realização de experimentos de qualidade. Em muitos casos, os experimentos envolvem um planejamento cuidadoso e dependem da disponibilidade de desenvolvedores experientes.
 

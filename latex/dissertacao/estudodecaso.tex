@@ -1,4 +1,5 @@
 % (5-20)
+% 8 páginas
 
 \chapter{Prova de Conceito: Estudo sobre Algoritmos de Agrupamento} \label{cap:estudo}
 
@@ -41,17 +42,21 @@ O custo de um experimento para avaliar algoritmos de agrupamento de software é 
 	
 	Os métodos e materiais dos dois experimentos são semelhantes e, por isso, são discutidos conjuntamente nesta seção. Os experimentos consistem nas seguintes etapas: 
 \begin{enumerate}
-	\item gerar redes usando diversas combinações do modelo BCR+;
+	\item gerar redes usando diversas combinações de valores para os parâmetros do modelo BCR+;
 	\item aplicar algoritmos de agrupamento a cada uma das redes;
 	\item aferir o desempenho dos algoritmos de agrupamento em cada rede, isto é, medir a similaridade entre os agrupamentos encontrados pelos algoritmos e os agrupamentos de referência. O agrupamento de referência de uma rede, neste caso, é determinado pelos próprios módulos gerados pelo modelo BCR+;
 	\item interpretar os resultados.
 \end{enumerate}
 
-	A escolha do modelo BCR+ se deve à familiaridade do autor com as propriedades do modelo. Neste estudos foram usadas as 9.500 configurações de parâmetros descritas no experimento de avaliação de software-realismo, na Seção \ref{sec:parametros}. Com a finalidade de mitigar os efeitos aleatórios na geração de redes, para cada configuração foram geradas três redes, totalizando 28,5 mil redes.
+	A escolha do modelo BCR+ se deve à familiaridade do autor com as propriedades do modelo. Os estudos tiveram como ponto de partida as 9.500 configurações de parâmetros descritas no experimento de avaliação de software-realismo, na Seção \ref{sec:parametros}. Com a finalidade de mitigar os efeitos aleatórios na geração de redes, para cada configuração foram geradas três redes, totalizando 28,5 mil redes.
 
-	Para este estudo foram escolhidos algoritmos de agrupamento que possuem implementação disponível na Web e que já foram estudados por mais de um autor em pesquisas sobre recuperação de arquitetura. De acordo com esse critério, foram escolhidos os algoritmos ACDC, Bunch e algoritmos hierárquicos aglomerativos (ligação simples, SL, e ligação completa, CL), descritos no Apêndice \ref{cap:agrupamento}. Para cada um dos algoritmos aglomerativos, foram estudadas duas alturas de corte, $0,75$ e $0,90$. No total são 4 configurações de algoritmos aglomerativos, que serão referenciadas como SL75, SL90, CL75 e CL90. Para os algoritmos Bunch e ACDC foram escolhidas as configurações padrão das implementações dos autores dos algoritmos. As 6 configurações escolhidas para este estudo são idênticas àquelas estudadas por Wu, Hassan e Holt \cite{Wu2005} (maiores informações no Capítulo \ref{cap:trabrel}).
+	Para este estudo foram escolhidos algoritmos de agrupamento que possuem implementação disponível na Web e que já foram estudados por mais de um autor em pesquisas sobre recuperação de arquitetura. De acordo com esse critério, foram escolhidos os algoritmos ACDC, Bunch e algoritmos hierárquicos aglomerativos (ligação simples, SL, e ligação completa, CL), descritos no Apêndice \ref{cap:agrupamento}. Para cada um dos algoritmos aglomerativos, foram estudadas duas alturas de corte\footnote{Em um algoritmo aglomerativo, a altura de corte influencia o número de módulos identificados: quanto maior a altura de corte, menor o número de módulos (e, consequentemente, maior o tamanho médio dos módulos).}, $0,75$ e $0,90$. No total são 4 configurações de algoritmos aglomerativos, que serão referenciadas como SL75, SL90, CL75 e CL90. Para os algoritmos Bunch e ACDC foram escolhidas as configurações padrão das implementações dos autores dos algoritmos. As 6 configurações escolhidas para este estudo são idênticas àquelas estudadas por Wu, Hassan e Holt \cite{Wu2005} (maiores informações no Capítulo \ref{cap:trabrel}).
 	
-	Para medir a similaridade entre agrupamentos, foi escolhida a métrica MoJoSim \cite{Tzerpos1999,Bittencourt2009}, explicada no Apêndice \ref{cap:mojosim}, que tem sido usada em estudos sobre agrupamento de software para recuperação de arquitetura. Em poucas palavras, a métrica MoJoSim mede, em uma escala contínua de 0 a 1, o esforço necessário para se transformar um agrupamento no agrupamento de referência. O valor 1 indica que os dois agrupamentos comparados são idênticos (e o esforço é, portanto, nulo).
+	Para medir a similaridade entre agrupamentos, foi escolhida a métrica MoJoSim \cite{Tzerpos1999,Bittencourt2009}, que tem sido usada em estudos sobre agrupamento de software para recuperação de arquitetura. Em poucas palavras, a métrica MoJoSim mede, em uma escala contínua de 0 a 1, o esforço necessário para se transformar no agrupamento de referência um agrupamento dado. O valor 1 indica que os dois agrupamentos comparados são idênticos (e o esforço é, portanto, nulo). 
+	
+	Na métrica MoJoSim, considera-se que o esforço envolvido em unir dois módulos é pequeno se comparado ao esforço de dividir um módulo em dois. A justificativa é que, para dividir um módulo em dois, é preciso analisar cada entidade e determinar para qual módulo ela deve ser movida.
+
+% , explicada no Apêndice \ref{cap:mojosim}
 
 	A partir dos dados coletados foram realizadas análises gráficas e testes de hipóteses. Uma análise preliminar revelou que os dados, em geral, não obedecem a uma distribuição normal, e por isso foram usados testes de hipótese não-paramétricos --- testes que não assumem os dados seguem uma distribuição de probabilidade determinada. A variável dependente é, em ambos os experimentos, o desempenho de um determinado algoritmo em uma determinada rede, medido pela métrica MoJoSim. As variáveis independentes são os parâmetros do modelo BCR+ e a escolha do algoritmo de agrupamento.
 	
@@ -92,9 +97,23 @@ Vale ressaltar que, apesar de uma amostra grande ter sido usada no estudo, as co
 
 \begin{section}{Experimento 2: Estudo de Parâmetros}
 
-O segundo experimento teve como objetivo estudar como o desempenho dos algoritmos é afetado pela variação de parâmetros do modelo. Nesse experimento foram usadas todas as redes geradas pelo modelo BCR+, software-realistas ou não.
+O segundo experimento teve como objetivo estudar como o desempenho dos algoritmos é afetado pela variação de parâmetros do modelo. 
 
-O experimento seguiu uma configuração fatorial: foram considerados todos os parâmetros do modelo BCR+, cada um assumindo valores discretos, e foram geradas redes para todas as combinações possíveis de valores discretos em todos os parâmetros. Tal configuração permite estudar isoladamente o efeito de cada parâmetro sobre o desempenho de um algoritmo, algo que não é possível em estudos de caso.
+O experimento seguiu uma configuração fatorial completa: considerando que cada parâmetro do modelo BCR+ pode assumir os valores discretos determinados na Seção \ref{sec:parametros}, foram estudadas redes geradas a partir de todas as combinações de valores discretos para cada parâmetro do modelo. Tal configuração experimental permite estudar isoladamente o efeito de cada parâmetro sobre o desempenho de um algoritmo, algo que não é possível em estudos de caso.
+
+Vale destacar que, neste caso, foram estudadas tanto redes software-realistas quanto redes não software-realistas, pois apenas desta forma é possível isolar cada parâmetro. Considere duas amostras das redes do estudo: a primeira incluindo todas as redes com $\mu = 0,2$ e a segunda incluindo todas as redes com $\mu = 0,4$. Exceto pelo valor de $\mu$, cada combinação de valores de parâmetros na primeira amostra está presente também na segunda amostra e vice-versa. Assim, qualquer diferença entre os MoJoSim médios das amostras pode ser atribuído exclusivamente à variação no valor de $\mu$ e a efeitos aleatórios. Tal conclusão não seria válida se apenas redes software-realistas fossem analisadas. Nesse caso, não haveria uma correspondência completa entre as redes das duas amostras, e essa diferença entre as amostras também afetaria o valor de MoJoSim. Não seria possível, portanto, isolar a contribuição do parâmetro $\mu$ no resultado.
+
+% balanceado: cada tratamento tem o mesmo número de participantes (três)
+% replicado: cada tratamento tem mais de um participante (três)
+
+% O número de tratamentos aumenta muito com o aumento do número de
+% níveis e de fatores, tornando praticamente impossível distribuí-los em blocos
+% casualizados, devido à exigência de homogeneidade das parcelas dentro de
+% cada bloco.
+
+%casualização = sorteio
+
+% uniformidade da amostra
 
 % A primeira questão estudada foi a seguinte: os algoritmos apresentam melhor desempenho com redes software-realistas? Para responder a essa pergunta, as redes foram divididas em dois grupos (software-realistas e não software-realistas) e os valores de MoJoSim dos grupos foram comparados através do teste de Mann-Whitney (Wilcoxon não-pareado), com 5\% de significância. O teste forneceu evidências de que os algoritmos CL75, CL90, ACDC e Bunch apresentam melhor desempenho quando aplicados a redes software-realistas. O teste foi inconclusivo com relação aos algoritmos SL75 e SL90. As diferenças entre os dois grupos de redes são ilustradas no histograma da Figura XXX.
 
