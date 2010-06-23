@@ -145,43 +145,43 @@ O algoritmo ACDC \cite{Tzerpos2000} foi projetado com o intuito de encontrar agr
 
 \end{chapter}
 
-\begin{chapter}{Métrica MoJoSim} \label{cap:mojosim}
 
-A métrica MoJoSim \cite{Bittencourt2009}, baseada na métrica MoJo \cite{Tzerpos1999}, mede a similaridade entre dois agrupamentos, um dos quais é considerado agrupamento de referência. Neste capítulo a métrica MoJo é explicada através de um exemplo e, a seguir, a métrica MoJoSim é definida.
-
-% TODO: reescrever sem emoção, afinal isto virou um apêndice. Talvez mover o início para o capítulo do estudo.
-
-% Como já foi mencionado, não existe um critério objetivo para determinar qual é o melhor agrupamento das entidades de um sistema de software. Ainda assim, alguma forma de avaliação de algoritmos de agrupamento é necessária para comparar os diferentes algoritmos. Uma das formas de avaliar os agrupamentos produzidos por algoritmos comparando-os com agrupamentos de referência, produzidos por especialistas, do conjunto de sistemas nos quais os algoritmos foram executados \cite{Koschke2000}.
-
-A Figura \ref{fig:mojo} ilustra dois agrupamentos de um mesmo sistema de software hipotético, representado como um grafo orientado que descreve dependências estáticas entre classes do sistema. É fácil perceber que os agrupamentos não são idênticos: um deles possui quatro módulos, enquanto o outro possui três. Ainda assim, os agrupamentos são bastante semelhantes. O módulo $M_4$ corresponde exatamente ao módulo $M_C$; O módulo $M_3$ é quase igual ao módulo $M_B$; e os módulos $M_1$ e $M_2$, unidos, são parecidos com o módulo $M_A$.
-
-\begin{figure}[htbp]
-	\centering
-		\includegraphics[scale=1]{figuras/redes-dupla}
-	\caption{Dois agrupamentos de um mesmo sistema de software hipotético, descrito como um grafo que representa dependências entre classes.}
-	\label{fig:mojo}
-\end{figure}
-
-% É fácil verificar se dois agrupamentos de um mesmo conjunto de entidades são idênticos ou não. Para comparar diferentes agrupamentos produzidos por algoritmos, no entanto, é preciso definir uma métrica de similaridade entre agrupamentos que seja capaz de determinar qual agrupamento de uma coleção de agrupamentos é mais similar a um agrupamento de referência.
-
-A ideia por trás da métrica MoJo é que um agrupamento dado é muito similar a um agrupamento de referência se é possível transformar o primeiro agrupamento no segundo usando poucas operações do tipo mover e mesclar. A operação mover consiste de mover uma entidade de um módulo para outro módulo distinto. A operação mesclar consiste de mesclar dois módulos. O MoJo entre  dois agrupamentos é igual ao número de operações de mover e mesclar que são necessárias para transformar o primeiro agrupamento no segundo. Quanto menor o MoJo, maior a similaridade entre dois agrupamentos; agrupamentos idênticos têm MoJo igual a zero.
-
-% A métrica MoJo não é simétrica. Para chegar a essa conclusão, basta observar que há uma operação de mesclar módulos, mas não uma operação de dividir um módulo em dois. No contexto de avaliação de algoritmos de agrupamento de software, é considerado o número de operações necessárias para transformar o agrupamento encontrado por um algoritmo no agrupamento de referência, e não o contrário.
-
-Na Figura \ref{fig:mojo}, considerando que o agrupamento de referência é o segundo (o da direita), o MoJo entre os dois agrupamentos vale 2. Para transformar o primeiro agrupamento no segundo são necessárias, portanto, duas operações: mesclar os módulos $M_1$ e $M_2$, e mover o vértice $v_5$ para o módulo $M_3$. Após a realização dessas operações, os agrupamentos se tornam idênticos, considerando as correspondências $(M_1 \cup M_2) = M_A$, $M_3 = M_B$ e $M_4 = M_C$.
-
-Observando que o valor MoJo entre dois agrupamentos com o mesmo número de entidades varia entre 0 e o número de entidades em cada agrupamento, $n$, é possível definir uma métrica, chamada MoJoSim, que mapeia o valor MoJo em uma escala de 0 a 1 \cite{Bittencourt2009}. O valor 0 representa a menor similaridade e o valor 1, a maior similaridade. O valor de MoJoSim entre dois agrupamentos é definido de acordo com a seguinte equação:
-
-$$
-\mathrm{MoJoSim}(X, Y) ~=~ 1 - \frac{\mathrm{MoJo}(X, Y)}{n}
-$$
-
-O valor de MoJoSim na Figura \ref{fig:mojo} é, portanto, igual a $1 - \frac{2}{10} = 0,8$.
-
-% Anquetil avaliou 
-
-% Movido
-% Wu, Hassan e Holt \cite{Wu2005} avaliaram os algoritmos Bunch, ACDC e algoritmos aglomerativos comparando, através da métrica MoJo, os agrupamentos encontrados pelos algoritmos com agrupamentos de referência de 5 sistemas de software em C e C++, representados como um grafo dos arquivos fonte e dependências estáticas entre os arquivos. Os agrupamentos de referência foram obtidos automaticamente a partir de uma análise da estrutura de diretórios dos sistemas. Cada diretório contendo pelo menos 5 arquivos fonte foi considerado um módulo do sistema. Bittencourt e Guerrero \cite{Bittencourt2009} realizaram um experimento semelhante, porém avaliando algoritmos de agrupamento estudados em outros domínios aplicados sobre um conjunto de 4 sistemas em Java.
-
-\end{chapter}
-
+% \begin{chapter}{Métrica MoJoSim} \label{cap:mojosim}
+% 
+% A métrica MoJoSim \cite{Bittencourt2009}, baseada na métrica MoJo \cite{Tzerpos1999}, mede a similaridade entre dois agrupamentos, um dos quais é considerado agrupamento de referência. Neste capítulo a métrica MoJo é explicada através de um exemplo e, a seguir, a métrica MoJoSim é definida.
+% 
+% % TODO: reescrever sem emoção, afinal isto virou um apêndice. Talvez mover o início para o capítulo do estudo.
+% 
+% % Como já foi mencionado, não existe um critério objetivo para determinar qual é o melhor agrupamento das entidades de um sistema de software. Ainda assim, alguma forma de avaliação de algoritmos de agrupamento é necessária para comparar os diferentes algoritmos. Uma das formas de avaliar os agrupamentos produzidos por algoritmos comparando-os com agrupamentos de referência, produzidos por especialistas, do conjunto de sistemas nos quais os algoritmos foram executados \cite{Koschke2000}.
+% 
+% A Figura \ref{fig:mojo} ilustra dois agrupamentos de um mesmo sistema de software hipotético, representado como um grafo orientado que descreve dependências estáticas entre classes do sistema. É fácil perceber que os agrupamentos não são idênticos: um deles possui quatro módulos, enquanto o outro possui três. Ainda assim, os agrupamentos são bastante semelhantes. O módulo $M_4$ corresponde exatamente ao módulo $M_C$; O módulo $M_3$ é quase igual ao módulo $M_B$; e os módulos $M_1$ e $M_2$, unidos, são parecidos com o módulo $M_A$.
+% 
+% \begin{figure}[htbp]
+% 	\centering
+% 		\includegraphics[scale=1]{figuras/redes-dupla}
+% 	\caption{Dois agrupamentos de um mesmo sistema de software hipotético, descrito como um grafo que representa dependências entre classes.}
+% 	\label{fig:mojo}
+% \end{figure}
+% 
+% % É fácil verificar se dois agrupamentos de um mesmo conjunto de entidades são idênticos ou não. Para comparar diferentes agrupamentos produzidos por algoritmos, no entanto, é preciso definir uma métrica de similaridade entre agrupamentos que seja capaz de determinar qual agrupamento de uma coleção de agrupamentos é mais similar a um agrupamento de referência.
+% 
+% A ideia por trás da métrica MoJo é que um agrupamento dado é muito similar a um agrupamento de referência se é possível transformar o primeiro agrupamento no segundo usando poucas operações do tipo mover e mesclar. A operação mover consiste de mover uma entidade de um módulo para outro módulo distinto. A operação mesclar consiste de mesclar dois módulos. O MoJo entre  dois agrupamentos é igual ao número de operações de mover e mesclar que são necessárias para transformar o primeiro agrupamento no segundo. Quanto menor o MoJo, maior a similaridade entre dois agrupamentos; agrupamentos idênticos têm MoJo igual a zero.
+% 
+% % A métrica MoJo não é simétrica. Para chegar a essa conclusão, basta observar que há uma operação de mesclar módulos, mas não uma operação de dividir um módulo em dois. No contexto de avaliação de algoritmos de agrupamento de software, é considerado o número de operações necessárias para transformar o agrupamento encontrado por um algoritmo no agrupamento de referência, e não o contrário.
+% 
+% Na Figura \ref{fig:mojo}, considerando que o agrupamento de referência é o segundo (o da direita), o MoJo entre os dois agrupamentos vale 2. Para transformar o primeiro agrupamento no segundo são necessárias, portanto, duas operações: mesclar os módulos $M_1$ e $M_2$, e mover o vértice $v_5$ para o módulo $M_3$. Após a realização dessas operações, os agrupamentos se tornam idênticos, considerando as correspondências $(M_1 \cup M_2) = M_A$, $M_3 = M_B$ e $M_4 = M_C$.
+% 
+% Observando que o valor MoJo entre dois agrupamentos com o mesmo número de entidades varia entre 0 e o número de entidades em cada agrupamento, $n$, é possível definir uma métrica, chamada MoJoSim, que mapeia o valor MoJo em uma escala de 0 a 1 \cite{Bittencourt2009}. O valor 0 representa a menor similaridade e o valor 1, a maior similaridade. O valor de MoJoSim entre dois agrupamentos é definido de acordo com a seguinte equação:
+% 
+% $$
+% \mathrm{MoJoSim}(X, Y) ~=~ 1 - \frac{\mathrm{MoJo}(X, Y)}{n}
+% $$
+% 
+% O valor de MoJoSim na Figura \ref{fig:mojo} é, portanto, igual a $1 - \frac{2}{10} = 0,8$.
+% 
+% % Anquetil avaliou 
+% 
+% % Movido
+% % Wu, Hassan e Holt \cite{Wu2005} avaliaram os algoritmos Bunch, ACDC e algoritmos aglomerativos comparando, através da métrica MoJo, os agrupamentos encontrados pelos algoritmos com agrupamentos de referência de 5 sistemas de software em C e C++, representados como um grafo dos arquivos fonte e dependências estáticas entre os arquivos. Os agrupamentos de referência foram obtidos automaticamente a partir de uma análise da estrutura de diretórios dos sistemas. Cada diretório contendo pelo menos 5 arquivos fonte foi considerado um módulo do sistema. Bittencourt e Guerrero \cite{Bittencourt2009} realizaram um experimento semelhante, porém avaliando algoritmos de agrupamento estudados em outros domínios aplicados sobre um conjunto de 4 sistemas em Java.
+% 
+% \end{chapter}
