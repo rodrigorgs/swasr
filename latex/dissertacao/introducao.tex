@@ -51,6 +51,27 @@
 		
 \end{section}
 
+\begin{section}{Problema}
+	
+	A avaliação experimental de ferramentas de engenharia reversa é custosa e pouco frequente.
+	
+\end{section}
+
+\begin{section}{Questão de Pesquisa}
+	% tópico: análise de dependências? engenharia reversa? avaliação empírica?
+	% issue: avaliação empírica em engenharia reversa
+	% research question: 
+	
+	É viável usar a abordagem de modelagem de simulação para avaliar ferramentas de engenharia reversa que se baseiam na análise de dependências?
+	
+\end{section}
+
+\begin{section}{Hipótese de Pesquisa}
+	
+	Algum modelo de dependências produz dependências que se assemelham a dependências extraídas de sistemas de software.
+	
+\end{section}
+
 \begin{section}{Objetivos}
 	O objetivo desta pesquisa é descobrir e avaliar modelos de dependências entre entidades do código-fonte de sistemas de software com a finalidade de apoiar o uso de simulações na avaliação de técnicas de engenharia reversa que se baseiam na análise de dependências.
 	
@@ -64,26 +85,68 @@
 	
 \end{section}
 
-\begin{section}{Métodos e Resultados}
+\begin{section}{Delimitação de Escopo}
+	% ESCOPO DO TRABALHO
+	% - modelos de redes organizadas em módulos
+	% - paradigma orientado a objetos, linguagem Java
+	% será que não ficou confuso apresentar o escopo sem antes apresentar redes complexas?
+	Optamos por considerar apenas modelos em que as entidades são organizadas em módulos, uma vez que o conceito de módulo é recorrente na idealização e na construção de sistemas de software. Além disso, modelos com módulos são mais gerais do que modelos sem módulos e, portanto, têm maior aplicabilidade.
 	
+	A fim de simplificar a pesquisa, as dependências geradas pelos modelos foram comparadas com dependências extraídas de sistemas escritos em uma única linguagem de programação, a linguagem Java, que segue o paradigma de programação orientada a objetos. A simplificação se justifica pelo fato de que ferramentas de extração de dependências, em geral, funcionam apenas com uma ou com algumas poucas linguagens de programação. Aumentar o número de linguagens de programação, portanto, implicaria utilizar diversas ferramentas de extração.
+	
+	Além disso, foram consideradas apenas dependências estáticas, isto é, dependências que podem ser identificadas a partir da análise de uma representação estática (como o código-fonte) dos sistemas em Java. A extração de dependências dinâmicas, identificadas durante a execução dos sistemas, apresenta maior custo.
+
+\end{section}
+
+\begin{section}{Métodos}		
+	
+	% REDES COMPLEXAS
 	A teoria das redes complexas estuda métodos para analisar redes (ou grafos) encontradas nos mais diversos domínios, como redes sociais, redes de computadores e redes metabólicas. A aplicação de tais métodos levou à descoberta de propriedades comuns a um grande número de redes, bem como modelos de redes que incorporam essas propriedades.
 	
-	Dado que as dependências em um sistema de software formam uma rede, é possível aplicar nesta pesquisa alguns dos métodos, modelos e descobertas da teoria das redes complexas, os quais são apresentados no Capítulo \ref{cap:redes}.
+	Dado que as dependências em um sistema de software formam uma rede, é possível aplicar nesta pesquisa alguns dos métodos, modelos e descobertas da teoria das redes complexas. % TODO fortalecer este parágrafo.
+			
+	% AVALIAÇÃO
+	A avaliação dos modelos teve como base a simulação dos três modelos. As redes produzidas pelos modelos foram comparadas com redes de dependências extraídas de sistemas de software escritos em Java. 
 	
-	A fim de melhor representar a forma como sistemas de software são idealizados e construídos, optamos por considerar apenas modelos em que as entidades de código-fonte estão organizadas em módulos. % ficou muito seco? desculpa esfarrapada?
+	% APLICAÇÃO
+	Para a prova de conceito foi escolhido o problema de recuperação de arquitetura de software. Algoritmos de agrupamento usados na atividade de recuperação de arquitetura foram aplicados a redes de dependências geradas pelo modelo BCR+ e os resultados foram analisados. 
+
+\end{section}
+
+\begin{section}{Resultados}
 	
-	Foram encontrados na literatura dois modelos de redes organizadas em módulos, denominados CGW e LFR, os quais podem ser interpretados como modelos de dependências entre entidades de software. Esses modelos são apresentados no Capítulo \ref{cap:redes}. Um terceiro modelo, o BCR+, foi desenvolvido no contexto desta pesquisa. O modelo BCR+ é descrito em detalhes no Capítulo \ref{cap:bcr}.
-		
-	A avaliação dos modelos, descrita no Capítulo \ref{cap:avaliacao}, teve como base a simulação dos três modelos. As redes produzidas pelos modelos foram comparadas com redes de dependências extraídas de sistemas de software escritos em uma linguagem de programação orientada a objetos. Os resultados indicam que, com uma escolha adequada de parâmetros, os três modelos produzem redes que se assemelham a redes de dependências entre entidades de software (ao menos no caso de linguagens de programação orientadas a objetos).
+	% IDENTIFICAÇÃO DE 2 MODELOS; PROPOSTA DE UM NOVO MODELO.
+	Foram encontrados na literatura dois modelos de redes organizadas em módulos, denominados CGW e LFR, os quais podem ser interpretados como modelos de dependências entre entidades de software. Um terceiro modelo de redes organizadas em módulos, o BCR+, foi desenvolvido no contexto desta pesquisa, com base em um modelo sem módulos pré-existente, o BCR. 
 	
-	Para a prova de conceito foi escolhido o problema de recuperação de arquitetura de software. Algoritmos de agrupamento usados na atividade de recuperação de arquitetura foram aplicados a redes de dependências geradas pelo modelo BCR+ e os resultados foram analisados. No Capítulo \ref{cap:estudo} é feita uma introdução ao problema de recuperação de arquitetura e, a seguir, são apresentados os métodos e resultados da prova de conceito.
+	% REALISMO DOS MODELOS
+	A avaliação dos modelos revelou que, com uma escolha adequada de valores para os parâmetros, os três modelos produzem redes que se assemelham a redes de dependências entre entidades de software. Além disso, foram encontradas regras que preveem, com 80\% de acurácia, se uma determinada combinação de valores de parâmetros produzirá redes similares a redes extraídas de sistemas de software.
 	
-	No Capítulo \ref{cap:trabrel} este trabalho é comparado a trabalhos relacionados. No Capítulo \ref{cap:conclusao} são apresentadas as conclusões, contribuições e limitações deste trabalho.
+	% PROVA DE CONCEITO
+	Na prova de conceito foi realizada uma comparação quantitativa entre algoritmos usados no contexto da atividade de recuperação de arquitetura. Além disso, descobriu-se que o desempenho de um dos algoritmos é significantemente afetado pelo número de módulos da rede gerada pelo modelo BCR+.
 	
+	% ARTIGO PUBLICADO
+	Como resultado concreto de pesquisa, foi publicado um artigo no 14º Congresso Europeu sobre Manutenção de Software e Reengenharia (CSMR 2010). O artigo foi intitulado ``Modular Network Models for Class Dependencies in Software'' e apresentou a avaliação dos três modelos de dependências.
+
 	% Como resultado, foram encontrados dois modelos de redes apropriados para representar dependências entre entidades, e um modelo que foi criado a partir da adaptação de um modelo existente. O novo modelo é apresentado em detalhes no Capítulo ....
 	% 
 	% A avaliação dos modelos foi realizada através da simulação dos modelos e posterior uso de métodos asd.sd..asd.... Linguagens OO apenas. A avaliação e os resultados são apresentados no Capítulo ....
 	% 
 	% Para a prova de conceito foi escolhido o problema de recuperação de arquitetura. A prova de conceito .. no Capítulo ....
+	
+\end{section}
+
+\begin{section}{Estrutura do Documento}
+	
+	No Capítulo \ref{cap:redes} são apresentados métodos, modelos e descobertas da teoria das redes complexas. Em particular, é mostrada uma métrica de similaridade entre redes e são descritos os modelos CGW e LFR.
+	
+	No Capítulo \ref{cap:bcr} é detalhado o modelo BCR+, com descrição algorítmica e exemplos.
+	
+	No Capítulo \ref{cap:avaliacao} é relatada a avaliação dos modelos quanto à semelhança entre as redes produzidas por eles e redes extraídas de sistemas de software.
+	
+	No Capítulo \ref{cap:estudo} é feita uma introdução ao problema de recuperação de arquitetura e, a seguir, são apresentados os métodos e resultados da prova de conceito envolvendo o problema de recuperação de arquitetura e o modelo BCR+.
+	
+	No Capítulo \ref{cap:trabrel} este trabalho é comparado a trabalhos relacionados. 
+	
+	No Capítulo \ref{cap:conclusao} são apresentadas as conclusões, contribuições e limitações deste trabalho.
 	
 \end{section}
