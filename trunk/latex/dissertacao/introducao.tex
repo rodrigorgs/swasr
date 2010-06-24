@@ -19,24 +19,33 @@
 
 		Um bom indicador da qualidade interna de um sistema de software é a estrutura de dependências entre as entidades que compõem o seu código-fonte. É natural que existam interações entre diversas entidades em um sistema, mas dependências indesejadas adicionam complexidade ao sistema, tornando mais difíceis as tarefas de compreender ou testar isoladamente as diversas partes do sistema \cite{Chidamber1994}. % CBO, página 11
 
-		Analisar uma a uma as dependências de um sistema de software com a finalidade de extrair informações que apoiem a sua modificação é, no entanto, uma tarefa árdua \cite{Tonella2007}. Em um sistema com $n$ entidades, são $n^2$ potenciais dependências a se analisar. Em sistemas com mais que algumas dezenas de entidades, a quantidade de dependências potenciais é da ordem de centenas. %Ao tentar visualizar as dependências de um sistema grande através de diagramas de caixas e setas, as dependências acabam representadas como um emaranhado de setas. % Dunbar's number: 150
+		% Acho que aqui falta uma introdução a engenharia reversa.
+		Analisar uma a uma as dependências de um sistema de software com a finalidade de extrair informações que apoiem a sua modificação é, no entanto, uma tarefa árdua \cite{Tonella2007}. Em um sistema com $n$ entidades, são $n^2$ potenciais dependências a se analisar. Em sistemas com mais que algumas dezenas de entidades, a quantidade de dependências potenciais é da ordem de centenas ou milhares. %Ao tentar visualizar as dependências de um sistema grande através de diagramas de caixas e setas, as dependências acabam representadas como um emaranhado de setas. % Dunbar's number: 150
 		
-		% link com o parágrafo anterior?
-		% Frente à dificuldade de 
+		Face à dificuldade de se analisar manualmente as dependências de um sistema, surgiram ferramentas de engenharia reversa voltadas para a inferência automática --- sem interferência humana --- de informações que apoiam tarefas específicas de engenharia. Existem ferramentas que identificam partes do sistema afetadas por uma mudança \cite{Arnold1993}, ferramentas que identificam código duplicado \cite{Roy2007}, ferramentas que identificam módulos arquiteturais \cite{Maqbool2007}, entre outras. 
 
-		Engenharia reversa 
-		Para automatizar a análise de dependências, diversas ferramentas de engenharia reversa têm sido propostas. As ferramentas buscam identificar, entre outros, partes do sistema afetadas por uma mudança \cite{Arnold1993}, código duplicado \cite{Roy2007} e módulos arquiteturais \cite{Maqbool2007}.
+		% Falar aqui sobre necessidade de avaliação empírica? Ou lá embaixo?
+		% USO DE AVALIAÇÃO EMPÍRICA
+		As ferramentas de engenharia reversa assumem a hipótese de que as informações identificadas são próximas às informações que um especialista identificaria. Para se sustentar, no entanto, a hipótese precisa ser testada, é preciso acumular evidência para apoiar a hipótese. É condição sine qua non para o amadurecimento da pesquisa.
 
-	As tarefas que as ferramentas buscam automatizar, entretanto, envolvem alguma subjetividade, e por isso as ferramentas precisam ser avaliadas empiricamente. % TODO: dar mais detalhes.
+	As tarefas que as ferramentas buscam automatizar, entretanto, envolvem alguma subjetividade. O conceito de módulo arquitetural, por exemplo, não é bem definido. Mesmo dois especialistas, ao analisar independentemente um sistema de software, dificilmente chegam ao mesmo conjunto de módulos arquiteturais \cite{Koschke2000}. % e dependências não é suficiente. falta semântica!
+
+	% DIFICULDADE EM AVALIAR AS FERRAMENTAS
+	Dada a subjetividade das tarefas, a avaliação empírica de ferramentas de engenharia reversa frequentemente requer a presença de programadores que devem não apenas dominar as ferramentas, mas ter experiência na tarefa. Tais requisitos elevam o custo envolvido na realização de experimentos de qualidade.
+	 
+	% , e por isso as ferramentas precisam ser avaliadas empiricamente. % TODO: dar mais detalhes.
 	
   % When conducting empirical studies in reverse engineering, the variability of the skill and experience of the involved individuals may be high. Thus, subjects must be distributed carefully across the groups defined in the experimental design. Other sources of variability lie in the software development tasks given to the subjects, as well as the software systems themselves. These factors need to be taken into account and possibly controlled during the execution of the study.
 	
-	 A frequência com que as avaliações empíricas são realizadas, contudo, está aquém do que se espera de uma área de pesquisa madura \cite{Tonella2007}. Um estudo realizado com artigos sobre engenharia reversa publicados de 2002 a 2005 revelou que 25\% dos artigos não apresentam qualquer forma de avaliação empírica e, dentre os demais artigos, apenas 30\% recorrem a experimentos e estudos observacionais --- os outros 70\% se limitam a estudos de caso e relatos de experiência.
+	% LIMITAÇÕES NOS ESTUDOS DE AVALIAÇÃO EMPÍRICA
+	% Como resultado, 
+	A frequência com que as avaliações empíricas são realizadas está aquém do que se espera de uma área de pesquisa madura \cite{Tonella2007}. Um estudo realizado com artigos sobre engenharia reversa publicados de 2002 a 2005 revelou que 25\% dos artigos não apresentam qualquer forma de avaliação empírica e, dentre os demais artigos, apenas 30\% recorrem a experimentos e estudos observacionais --- os outros 70\% se limitam a estudos de caso e relatos de experiência.
 
 	% juntar com o recado do final do parágrafo anterior?
-		A escassez de experimentos controlados em engenharia reversa pode ser explicada, em parte, pelo alto custo envolvido na realização de experimentos de qualidade. Em muitos casos, os experimentos envolvem um planejamento cuidadoso e dependem da disponibilidade de desenvolvedores experientes.
+	% ESTE PARÁGRAFO FOI ANTECIPADO
+		% A escassez de experimentos controlados em engenharia reversa pode ser explicada, em parte, pelo alto custo envolvido na realização de experimentos de qualidade. Em muitos casos, os experimentos envolvem um planejamento cuidadoso e dependem da disponibilidade de desenvolvedores experientes.
 
-		Uma abordagem empregada quando os experimentos controlados são caros é a simulação baseada em modelos computacionais e estatísticos. Na área de redes e sistemas distribuídos, por exemplo, é frequente o uso de ambientes de simulação de redes, que modelam o funcionamento de uma rede de computadores, incluindo, às vezes, modelos de falhas de hardware e até modelos de comportamento de usuários \cite{White2002}. A simulação oferece um meio para se realizar experimentos controlados a um custo baixo. Naturalmente, há o risco de os modelos usados na simulação não corresponderem à realidade nos aspectos relevantes para o experimento. Todavia, TODO completar
+		Uma abordagem empregada quando os experimentos controlados são caros é a simulação baseada em modelos computacionais e estatísticos. Na área de redes e sistemas distribuídos, por exemplo, é frequente o uso de ambientes de simulação de redes, que modelam o funcionamento de uma rede de computadores, incluindo, às vezes, modelos de falhas de hardware e até modelos de comportamento de usuários \cite{White2002}. A simulação oferece um meio para se realizar experimentos controlados a um custo baixo. Naturalmente, há o risco de os modelos usados na simulação não corresponderem à realidade nos aspectos relevantes para o experimento. %Todavia, TODO completar
 
 		Na engenharia de software, a abordagem de modelagem e simulação já foi usada no estudo de processos de desenvolvimento \cite{Stopford2008}, mas em geral é uma abordagem pouco explorada. Se protocolos de rede podem ser avaliados em experimentos simulados com modelos de redes de computadores, por que não avaliar ferramentas de engenharia reversa com base em dependências que foram construídas a partir da simulação controlada de um modelo de dependências?
 		
@@ -53,8 +62,6 @@
 		\item realizar uma prova de conceito para demonstrar a viabilidade da abordagem de simulação para a avaliação de técnicas e ferramentas que se baseiam na análise de dependências.
 	\end{enumerate}
 	
-	A fim de melhor representar a forma como sistemas de software são idealizados e construídos, optamos por considerar modelos em que as entidades de código-fonte estão organizadas em módulos. % ficou muito seco? desculpa esfarrapada?
-	
 \end{section}
 
 \begin{section}{Métodos e Resultados}
@@ -63,8 +70,10 @@
 	
 	Dado que as dependências em um sistema de software formam uma rede, é possível aplicar nesta pesquisa alguns dos métodos, modelos e descobertas da teoria das redes complexas, os quais são apresentados no Capítulo \ref{cap:redes}.
 	
-	Foram encontrados na literatura dois modelos de redes organizadas em módulos, denominados CGW e LFR, os quais podem ser interpretados como modelos de dependências entre entidades de software. Esses modelos são apresentados no Capítulo \ref{cap:redes}. Um terceiro modelo, o BCR+, foi desenvolvido no contexto desta pesquisa. O modelo BCR+ é descrito em detalhes no Capítulo \ref{cap:bcr}.
+	A fim de melhor representar a forma como sistemas de software são idealizados e construídos, optamos por considerar apenas modelos em que as entidades de código-fonte estão organizadas em módulos. % ficou muito seco? desculpa esfarrapada?
 	
+	Foram encontrados na literatura dois modelos de redes organizadas em módulos, denominados CGW e LFR, os quais podem ser interpretados como modelos de dependências entre entidades de software. Esses modelos são apresentados no Capítulo \ref{cap:redes}. Um terceiro modelo, o BCR+, foi desenvolvido no contexto desta pesquisa. O modelo BCR+ é descrito em detalhes no Capítulo \ref{cap:bcr}.
+		
 	A avaliação dos modelos, descrita no Capítulo \ref{cap:avaliacao}, teve como base a simulação dos três modelos. As redes produzidas pelos modelos foram comparadas com redes de dependências extraídas de sistemas de software escritos em uma linguagem de programação orientada a objetos. Os resultados indicam que, com uma escolha adequada de parâmetros, os três modelos produzem redes que se assemelham a redes de dependências entre entidades de software (ao menos no caso de linguagens de programação orientadas a objetos).
 	
 	Para a prova de conceito foi escolhido o problema de recuperação de arquitetura de software. Algoritmos de agrupamento usados na atividade de recuperação de arquitetura foram aplicados a redes de dependências geradas pelo modelo BCR+ e os resultados foram analisados. No Capítulo \ref{cap:estudo} é feita uma introdução ao problema de recuperação de arquitetura e, a seguir, são apresentados os métodos e resultados da prova de conceito.
