@@ -27,6 +27,13 @@ Dispon{\'\i}vel em: $<$http://dx.doi.org/10.1126/science.1089167$>$.}
   IEEE Computer Society Press, 1994. p. 279--287.
 ISBN 0-8186-5855-X.}
 
+\bibitem{Chidamber1994}
+\abntrefinfo{Chidamber e Kemerer}{CHIDAMBER; KEMERER}{1994}
+{CHIDAMBER, S.~R.; KEMERER, C.~F. A metrics suite for object oriented design.
+\emph{IEEE Trans. Softw. Eng.}, IEEE Press, Piscataway, NJ, USA, v.~20, n.~6,
+  p. 476--493, 1994.
+ISSN 0098-5589.}
+
 \bibitem{Tonella2007}
 \abntrefinfo{Tonella et al.}{TONELLA et al.}{2007}
 {TONELLA, P. et al. Empirical studies in reverse engineering: state of the art
@@ -248,6 +255,14 @@ ISBN 978-0-7695-3589-0.}
   2005.
 ISSN 0098-5589.}
 
+\bibitem{Gunqun2008}
+\abntrefinfo{Gunqun, Lin e Li}{GUNQUN; LIN; LI}{2008}
+{GUNQUN, Q.; LIN, Z.; LI, Z. Applying complex network method to software
+  clustering. In:  \emph{CSSE '08: Proceedings of the 2008 International
+  Conference on Computer Science and Software Engineering}. Washington, DC,
+  USA: IEEE Computer Society, 2008. p. 310--316.
+ISBN 978-0-7695-3336-0.}
+
 \bibitem{Lancichinetti2009b}
 \abntrefinfo{Lancichinetti e Fortunato}{LANCICHINETTI; FORTUNATO}{2009}
 {LANCICHINETTI, A.; FORTUNATO, S. Community detection algorithms: A comparative
@@ -317,7 +332,7 @@ ISSN 1092-8138.}
 
 \bibitem{Tzerpos2000}
 \abntrefinfo{Tzerpos e Holt}{TZERPOS; HOLT}{2000}
-{TZERPOS, V.; HOLT, R.~C. Acdc: an algorithm for comprehension-driven
+{TZERPOS, V.; HOLT, R.~C. {ACDC}: an algorithm for comprehension-driven
   clustering. In:  \emph{Proc. Seventh Working Conference on Reverse
   Engineering}. [S.l.: s.n.], 2000. p. 258--267.}
 
