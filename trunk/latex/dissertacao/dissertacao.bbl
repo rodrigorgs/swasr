@@ -61,6 +61,12 @@ ISBN 0-8186-4600-4.}
 v.~33, n.~11, p. 759--780, 2007.
 ISSN 0098-5589.}
 
+\bibitem{Koschke2000}
+\abntrefinfo{Koschke e Eisenbarth}{KOSCHKE; EISENBARTH}{2000}
+{KOSCHKE, R.; EISENBARTH, T. A framework for experimental evaluation of
+  clustering techniques. In:  \emph{Proc. 8th International Workshop on Program
+  Comprehension IWPC 2000}. [S.l.: s.n.], 2000. p. 201--210.}
+
 \bibitem{White2002}
 \abntrefinfo{White et al.}{WHITE et al.}{2002}
 {WHITE, B. et al. An integrated experimental environment for distributed
@@ -211,12 +217,6 @@ Dispon{\'\i}vel em: $<$http://igraph.sf.net$>$.}
   p. 63--90, abr. 1993.
 ISSN 0885-6125.
 Dispon{\'\i}vel em: $<$http://dx.doi.org/10.1023/A:1022631118932$>$.}
-
-\bibitem{Koschke2000}
-\abntrefinfo{Koschke e Eisenbarth}{KOSCHKE; EISENBARTH}{2000}
-{KOSCHKE, R.; EISENBARTH, T. A framework for experimental evaluation of
-  clustering techniques. In:  \emph{Proc. 8th International Workshop on Program
-  Comprehension IWPC 2000}. [S.l.: s.n.], 2000. p. 201--210.}
 
 \bibitem{Girard2000}
 \abntrefinfo{Girard e Koschke}{GIRARD; KOSCHKE}{2000}

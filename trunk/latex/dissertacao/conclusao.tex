@@ -33,7 +33,12 @@ As quatro primeiras contribuições desta pesquisa foram documentadas no artigo 
 
 %%% LIMITAÇÕES
 
-Naturalmente, este trabalho possui algumas limitações que poderão ser endereçadas em trabalhos futuros. A representação usada para sistemas de software --- grafo orientado --- é bastante simples e abstrai aspectos de sistemas de software que podem ser importantes, como a diferenciação de tipos de entidades (classes, atributos, métodos, arquivos fonte etc.). Além disso, o grafo orientado não diferencia diversos tipos de relacionamento entre entidades, como chamada de método, leitura de atributo etc. Em vez disso, todos os relacionamentos são abstraídos sob a forma do relacionamento de dependência. % TODO: Fechar
+Naturalmente, este trabalho possui algumas limitações que poderão ser endereçadas em trabalhos futuros. A representação usada para sistemas de software --- grafo orientado --- é bastante simples e abstrai aspectos de sistemas de software que podem ser importantes, como a diferenciação de tipos de entidades (classes, atributos, métodos, arquivos fonte etc.). Além disso, o grafo orientado não diferencia diversos tipos de relacionamento entre entidades, como chamada de método, leitura de atributo etc. Em vez disso, todos os relacionamentos são abstraídos sob a forma do relacionamento de dependência.
+
+% TRABALHOS FUTUROS
+
+Uma possibilidade interessante do modelo BCR+, que não foi explorada nesta pesquisa, é a geração de redes organizadas hierarquicamente em vários níveis. Por exemplo, seria possível gerar uma rede para representar um sistema de software em três níveis hierárquicos: métodos, classes e módulos (métodos agrupados em classes, classes agrupadas em módulos). Para isso bastaria executar o modelo diversas vezes, de modo que cada execução usasse como parâmetro $G$ (grafo de dependências entre módulos) a rede produzida na execução anterior.
+
 
 % O foco deste trabalho foi o agrupamento de entidades de software em módulos de forma a minimizar dependências entre módulos. Existem, no entanto, outros critérios para agrupar entidades de software. Por exemplo, algumas pesquisas se preocupam em estudar o agrupamento de entidades que implementam funcionalidades relacionadas. Os modelos estudados neste trabalho não incorporam o conceito de funcionalidade e, portanto, não são adequados para se estudar agrupamentos de entidades de software sob o ponto de vista funcional.
 
