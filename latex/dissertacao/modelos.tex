@@ -50,7 +50,7 @@ A similaridade entre PCTs pode ser quantificada através do coeficiente de corre
 
 Vale notar que o coeficiente de correlação neste caso não possui significado estatístico. Ainda assim, ele tem sido usado de forma bem sucedida na pesquisa de Milo.
 
-A partir da similaridade entre PCTs pode-se construir uma métrica de similaridade entre redes. Sejam $a$ e $b$ duas redes, PCT($x$) o vetor com as concentrações das tríades na rede $x$ e cor($x, y$) o coeficiente de correlação de Pearson entre dois vetores. A similaridade entre as redes, sim($a$, $b$), é dada por:
+A partir da similaridade entre PCTs pode-se construir uma métrica de similaridade entre redes. Sejam $a$ e $b$ duas redes, PCT($x$) o vetor com as concentrações das tríades na rede $x$ e cor($x, y$) o coeficiente de correlação de Pearson entre dois vetores. A similaridade entre as redes, sim($a$, $b$), é dada por
 
 $$
 \mathrm{sim}(a, b) ~=~ 
@@ -98,9 +98,9 @@ O modelo CGW \cite{Chen2008} foi proposto como um modelo da evolução de sistem
 \item uma constante, $\alpha$, com $\alpha \ge -1$.
 \end{itemize}
 
-Nesse modelo, a rede começa com poucos vértices e então vai crescendo de acordo com determinadas regras de formação, até alcançar $n$ vértices. Cada vértice pertence a um dos $m$ módulos.
+Nesse modelo, a construção inicia-se com uma rede inicial arbitrária e então vai crescendo de acordo com determinadas regras de formação, até alcançar $n$ vértices. Cada vértice é atribuído a exatamente um dos $m$ módulos no momento em que é criado.
 
-Os autores do modelo CGW não deixam claro qual é a forma exata da rede inicial, e nem disponibilizam uma implementação do modelo. A implementação realizada nesta pesquisa considera que a rede inicial é formada por dois vértices contidos em um mesmo módulo, e uma aresta bidirecional que liga os vértices. A partir daí, a rede é alterada pela aplicação sucessiva de quatro regras em ordem aleatória:
+A rede inicial é alterada pela aplicação sucessiva de quatro regras em ordem aleatória:
 
 \begin{itemize}
 	

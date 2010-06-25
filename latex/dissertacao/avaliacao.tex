@@ -71,7 +71,9 @@ Para obter 100\% de precisão, o limiar deve ser 0,98, um valor que está acima 
 
 \begin{section}{Avaliação Empírica do Software-realismo de Modelos de Redes}
 
-Na seção anterior foi mostrado que muitas redes livres de escala de diversos domínios podem ser diferenciadas de redes de software através de um modelo de classificação simples baseado em perfis de concentração de tríades (PCTs). Nesta seção é descrito um experimento que mostra que os três modelos de redes organizadas em módulos geram redes software-realistas. O experimento consiste em gerar redes usando diversas combinações de parâmetros dos três modelos, e então classificar cada rede como software-realista ou não software-realista. O número de vértices foi fixado em 1.000 e os valores dos demais parâmetros foram variados em passos discretos. No total, foram geradas 9.500 redes com o modelo BCR+, 38.790 redes com o modelo CGW e 1.296 redes com o modelo LFR.
+Na seção anterior foi mostrado que muitas redes livres de escala de diversos domínios podem ser diferenciadas de redes de software através de um modelo de classificação simples baseado em perfis de concentração de tríades (PCTs). Nesta seção é descrito um experimento que mostra que os três modelos de redes organizadas em módulos geram redes software-realistas. O experimento consiste em gerar redes usando diversas combinações de parâmetros dos três modelos, e então classificar cada rede como software-realista ou não software-realista. O número de vértices foi fixado em 1.000 e os valores dos demais parâmetros foram variados em passos discretos. 
+
+%No total, foram geradas 9.500 redes com o modelo BCR+, 38.790 redes com o modelo CGW e 1.296 redes com o modelo LFR.
 
 \begin{subsection}{Seleção de Parâmetros} \label{sec:parametros}
 
@@ -83,6 +85,10 @@ Para o modelo BCR+, foram escolhidos grafos de módulos extraídos a partir de d
 	\item $\mu \in \{0,0; 0,2; 0,4; 0,6\}$ (valores altos foram evitados a fim de ignorar redes com módulos fortemente acoplados).
 \end{itemize}
 
+Combinando-se todas as possíveis atribuições de valores a parâmetros dentro dos domínios escolhidos chega-se a 9.500 configurações possíveis.
+%Com essa escolha, há um total de 9.500 combinações de valores de parâmetros.
+%Para cobrir todas as combinações de valores de parâmetros, foram geradas 9.500 redes com o modelo BCR+.
+
 Para o modelo CGW, os seguintes valores de parâmetros foram escolhidos:
 
 \begin{itemize}
@@ -91,6 +97,10 @@ Para o modelo CGW, os seguintes valores de parâmetros foram escolhidos:
 	\item $\alpha \in \{-1, 0, 1, 10, 100, 1000\}$
 	\item $m \in \{2, 4, 8, 16, 32\}$.
 \end{itemize}
+
+O total de combinações, neste caso, é 38.790. O número elevado se deve à grande quantidade de parâmetros a serem combinados.
+
+Além disso, considerou-se que a rede inicial é formada por dois vértices contidos em um mesmo módulo, juntamente com uma aresta bidirecional que liga os vértices.
 
 No caso do modelo LFR, os seguintes valores foram escolhidos para os parâmetros:
 
@@ -103,8 +113,17 @@ No caso do modelo LFR, os seguintes valores foram escolhidos para os parâmetros
 	\item tamanho do menor módulo: $min_m \in \{1, 10, 273\}$.
 \end{itemize}
 
+O total de combinações, neste caso, é 1.296.
+
 Para chegar aos valores para os parâmetros do modelo LFR, foram analisadas métricas de redes de software com cerca de 500 a 2.000 classes. Para cada métrica foram identificados os valores mínimo, mediano e máximo; esses foram os valores usados nos parâmetros correspondentes.
+
+%Para cobrir todas as combinações de valores de parâmetros, foram geradas 1.296 redes com o modelo LFR.
+
 \end{subsection}
+
+\begin{section}{Geração de Redes}
+	Foi gerada uma rede para cada combinação de valores para os parâmetros de cada modelo. % TODO: continuar...
+\end{section}
 
 \begin{subsection}{Resultados}
 

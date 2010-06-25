@@ -13,7 +13,7 @@
 
 \chapter{Introdução}
 
-\begin{section}{Motivação}
+\begin{section}{Contexto}
 
 		Para um sistema de software ser bem sucedido não basta ele ser rápido, funcional e isento de defeitos. Esses atributos dizem respeito à qualidade, da forma como é enxergada pelos seus usuários, de uma versão do sistema. Para atender a demandas emergentes de seus usuários e incorporar novidades tecnológicas, no entanto, um sistema de software deve apresentar certos atributos de qualidade interna, visíveis apenas para os seus desenvolvedores. Ele precisa ser fácil de compreender, fácil de modificar e fácil de testar \cite{Parnas1994}.
 
@@ -26,64 +26,79 @@
 
 		% Falar aqui sobre necessidade de avaliação empírica? Ou lá embaixo?
 		% USO DE AVALIAÇÃO EMPÍRICA
-		As ferramentas de engenharia reversa assumem a hipótese de que as informações identificadas são próximas às informações que um especialista identificaria. Para se sustentar, no entanto, a hipótese precisa ser testada, é preciso acumular evidência para apoiar a hipótese. É condição sine qua non para o amadurecimento da pesquisa.
+		Na concepção de ferramentas de engenharia está embutida a hipótese de que as informações identificadas pelas ferramentas são próximas às informações que um especialista identificaria. Para sustentar a hipótese, no entanto, é preciso acumular evidências empíricas que a corroborem.
 
-	As tarefas que as ferramentas buscam automatizar, entretanto, envolvem alguma subjetividade. O conceito de módulo arquitetural, por exemplo, não é bem definido. Mesmo dois especialistas, ao analisar independentemente um sistema de software, dificilmente chegam ao mesmo conjunto de módulos arquiteturais \cite{Koschke2000}. % e dependências não é suficiente. falta semântica!
+	As tarefas que as ferramentas buscam automatizar, entretanto, envolvem alguma subjetividade. O conceito de módulo arquitetural, por exemplo, não é bem definido. Mesmo dois especialistas, ao analisar independentemente um sistema de software, dificilmente chegam ao mesmo conjunto de módulos arquiteturais \cite{Koschke2000}. % e dependências não é suficiente: falta semântica!
 
 	% DIFICULDADE EM AVALIAR AS FERRAMENTAS
-	Dada a subjetividade das tarefas, a avaliação empírica de ferramentas de engenharia reversa frequentemente requer a presença de programadores que devem não apenas dominar as ferramentas, mas ter experiência na tarefa. Tais requisitos elevam o custo envolvido na realização de experimentos de qualidade.
+	Dada a subjetividade das tarefas, a avaliação empírica de ferramentas de engenharia reversa frequentemente requer a presença de programadores que tenham experiência nas tarefas que as ferramentas se propõem a cumprir, além de familiaridade com as ferramentas avaliadas. Tais requisitos elevam o custo envolvido na realização de experimentos de qualidade.
 	 
-	% , e por isso as ferramentas precisam ser avaliadas empiricamente. % TODO: dar mais detalhes.
+	% , e por isso as ferramentas precisam ser avaliadas empiricamente. dar mais detalhes.
 	
   % When conducting empirical studies in reverse engineering, the variability of the skill and experience of the involved individuals may be high. Thus, subjects must be distributed carefully across the groups defined in the experimental design. Other sources of variability lie in the software development tasks given to the subjects, as well as the software systems themselves. These factors need to be taken into account and possibly controlled during the execution of the study.
 	
 	% LIMITAÇÕES NOS ESTUDOS DE AVALIAÇÃO EMPÍRICA
-	% Como resultado, 
-	A frequência com que as avaliações empíricas são realizadas está aquém do que se espera de uma área de pesquisa madura \cite{Tonella2007}. Um estudo realizado com artigos sobre engenharia reversa publicados de 2002 a 2005 revelou que 25\% dos artigos não apresentam qualquer forma de avaliação empírica e, dentre os demais artigos, apenas 30\% recorrem a experimentos e estudos observacionais --- os outros 70\% se limitam a estudos de caso e relatos de experiência.
+	Como resultado, a frequência com que as avaliações empíricas são realizadas está aquém do que se espera de uma área de pesquisa madura \cite{Tonella2007}. Um estudo realizado com artigos sobre engenharia reversa publicados de 2002 a 2005 revelou que 25\% dos artigos não apresentam qualquer forma de avaliação empírica e, dentre os demais artigos, apenas 30\% recorrem a experimentos e estudos observacionais --- os outros 70\% se limitam a estudos de caso e relatos de experiência.
 
 	% juntar com o recado do final do parágrafo anterior?
 	% ESTE PARÁGRAFO FOI ANTECIPADO
 		% A escassez de experimentos controlados em engenharia reversa pode ser explicada, em parte, pelo alto custo envolvido na realização de experimentos de qualidade. Em muitos casos, os experimentos envolvem um planejamento cuidadoso e dependem da disponibilidade de desenvolvedores experientes.
 
-		Uma abordagem empregada quando os experimentos controlados são caros é a simulação baseada em modelos computacionais e estatísticos. Na área de redes e sistemas distribuídos, por exemplo, é frequente o uso de ambientes de simulação de redes, que modelam o funcionamento de uma rede de computadores, incluindo, às vezes, modelos de falhas de hardware e até modelos de comportamento de usuários \cite{White2002}. A simulação oferece um meio para se realizar experimentos controlados a um custo baixo. Naturalmente, há o risco de os modelos usados na simulação não corresponderem à realidade nos aspectos relevantes para o experimento. %Todavia, TODO completar
+		Uma abordagem empregada quando os experimentos controlados são caros é a simulação baseada em modelos computacionais e estatísticos, por tratar-se de um meio para se realizar experimentos controlados a um custo baixo. Na área de redes e sistemas distribuídos, por exemplo, é frequente o uso de ambientes de simulação de redes, que modelam o funcionamento de uma rede de computadores, incluindo, às vezes, modelos de falhas de hardware e até modelos de comportamento de usuários \cite{White2002}. 
+		
+		Naturalmente, há o risco de os modelos usados na simulação não corresponderem à realidade nos aspectos relevantes para o experimento. Todavia, espera-se que esse risco seja reduzido à medida que os modelos são testados e refinados.
 
-		Na engenharia de software, a abordagem de modelagem e simulação já foi usada no estudo de processos de desenvolvimento \cite{Stopford2008}, mas em geral é uma abordagem pouco explorada. Se protocolos de rede podem ser avaliados em experimentos simulados com modelos de redes de computadores, por que não avaliar ferramentas de engenharia reversa com base em dependências que foram construídas a partir da simulação controlada de um modelo de dependências?
+		Na engenharia de software, a abordagem de modelagem e simulação é pouco explorada. Existem poucos trabalhos que adotam tal abordagem no estudo de processos de desenvolvimento \cite{Stopford2008}. Em particular, não foi encontrado nenhum trabalho na área de engenharia reversa com foco na modelagem computacional de dependências.
 		
 \end{section}
 
 \begin{section}{Problema}
 	
-	A avaliação experimental de ferramentas de engenharia reversa é custosa e pouco frequente.
+	A avaliação empírica de ferramentas de engenharia reversa da maneira tradicional, que depende de análises realizadas por programadores experientes, é custosa. O custo elevado contribui para que o número de pesquisas experimentais na área seja reduzido. 
+  Abordagens experimentais com custo mais baixo contribuiriam para aumentar o volume de pesquisas experimentais em engenharia reversa. Como resultado, os efeitos positivos e negativos de cada ferramenta seriam melhor compreendidos, o que contribuiria para o aprimoramento das ferramentas existentes.
+	
+	% A abordagem de modelagem e simulação seria, devido a seu menor custo, uma alternativa viável para avaliar ferramentas de engenharia reversa que se baseiam na análise de dependências. O problema é que não existem modelos computacionais que comprovadamente representam de forma adequada as dependências entre entidades de sistemas de software. Se modelos computacionais apropriados existissem, seria possível realizar mais estudos experimentais sobre ferramentas de engenharia reversa, tendo como consequência uma maior compreensão das vantagens e fraquezas de cada ferramenta.
 	
 \end{section}
 
-\begin{section}{Questão de Pesquisa}
+\begin{section}{Solução Proposta}
 	% tópico: análise de dependências? engenharia reversa? avaliação empírica?
 	% issue: avaliação empírica em engenharia reversa
 	% research question: 
 	
-	É viável usar a abordagem de modelagem de simulação para avaliar ferramentas de engenharia reversa que se baseiam na análise de dependências?
+	% É viável usar a abordagem de modelagem de simulação para avaliar ferramentas de engenharia reversa que se baseiam na análise de dependências?
 	
-\end{section}
+	Se protocolos de rede podem ser avaliados em experimentos simulados com modelos de redes de computadores, por que não avaliar ferramentas de engenharia reversa com base em dependências que foram construídas a partir da simulação controlada de um modelo de dependências? 
+	
+	% para o problema do alto custo envolvido na realização de experimentos com ferramentas de engenharia reversa
+	A solução proposta nesta pesquisa é, portanto, usar modelos computacionais de dependências para avaliar ferramentas de engenharia reversa. Naturalmente, um requisito da solução é que os modelos devem gerar redes de dependências que se assemelham estruturalmente a redes de dependências extraídas de sistemas de software reais.
 
-\begin{section}{Hipótese de Pesquisa}
-	
-	Algum modelo de dependências produz dependências que se assemelham a dependências extraídas de sistemas de software.
-	
-\end{section}
-
-\begin{section}{Objetivos}
-	O objetivo desta pesquisa é descobrir e avaliar modelos de dependências entre entidades do código-fonte de sistemas de software com a finalidade de apoiar o uso de simulações na avaliação de técnicas de engenharia reversa que se baseiam na análise de dependências.
-	
-	O objetivo se desdobra nos seguintes objetivos específicos:
-	
+	Assim sendo, os objetivos de pesquisa se desdobram nos seguintes itens:
 	\begin{enumerate}
 		\item descobrir modelos computacionais que podem ser interpretados como modelos de dependências entre entidades de código-fonte;
 		\item avaliar os modelos de acordo com a similaridade entre a estrutura das dependências produzidas pelos modelos e a estrutura das dependências que são extraídas de sistemas de software reais;
 		\item realizar uma prova de conceito para demonstrar a viabilidade da abordagem de simulação para a avaliação de técnicas e ferramentas que se baseiam na análise de dependências.
 	\end{enumerate}
-	
 \end{section}
+
+% \begin{section}{Hipótese de Pesquisa}
+% 	
+% 	Algum modelo de dependências produz dependências que se assemelham a dependências extraídas de sistemas de software.
+% 	
+% \end{section}
+
+% \begin{section}{Objetivos}
+% 	O objetivo desta pesquisa é descobrir e avaliar modelos de dependências entre entidades do código-fonte de sistemas de software com a finalidade de apoiar o uso de simulações na avaliação de técnicas de engenharia reversa que se baseiam na análise de dependências.
+% 	
+% 	O objetivo se desdobra nos seguintes objetivos específicos:
+% 	
+% 	\begin{enumerate}
+% 		\item descobrir modelos computacionais que podem ser interpretados como modelos de dependências entre entidades de código-fonte;
+% 		\item avaliar os modelos de acordo com a similaridade entre a estrutura das dependências produzidas pelos modelos e a estrutura das dependências que são extraídas de sistemas de software reais;
+% 		\item realizar uma prova de conceito para demonstrar a viabilidade da abordagem de simulação para a avaliação de técnicas e ferramentas que se baseiam na análise de dependências.
+% 	\end{enumerate}
+% 	
+% \end{section}
 
 \begin{section}{Delimitação de Escopo}
 	% ESCOPO DO TRABALHO
@@ -92,24 +107,26 @@
 	% será que não ficou confuso apresentar o escopo sem antes apresentar redes complexas?
 	Optamos por considerar apenas modelos em que as entidades são organizadas em módulos, uma vez que o conceito de módulo é recorrente na idealização e na construção de sistemas de software. Além disso, modelos com módulos são mais gerais do que modelos sem módulos e, portanto, têm maior aplicabilidade.
 	
+	% TODO: tempo passado? Estranho isso na delimitação do escopo.
 	A fim de simplificar a pesquisa, as dependências geradas pelos modelos foram comparadas com dependências extraídas de sistemas escritos em uma única linguagem de programação, a linguagem Java, que segue o paradigma de programação orientada a objetos. A simplificação se justifica pelo fato de que ferramentas de extração de dependências, em geral, funcionam apenas com uma ou com algumas poucas linguagens de programação. Aumentar o número de linguagens de programação, portanto, implicaria utilizar diversas ferramentas de extração.
 	
 	Além disso, foram consideradas apenas dependências estáticas, isto é, dependências que podem ser identificadas a partir da análise de uma representação estática (como o código-fonte) dos sistemas em Java. A extração de dependências dinâmicas, identificadas durante a execução dos sistemas, apresenta maior custo.
 
 \end{section}
 
-\begin{section}{Métodos}		
+\begin{section}{Métodos}
 	
 	% REDES COMPLEXAS
 	A teoria das redes complexas estuda métodos para analisar redes (ou grafos) encontradas nos mais diversos domínios, como redes sociais, redes de computadores e redes metabólicas. A aplicação de tais métodos levou à descoberta de propriedades comuns a um grande número de redes, bem como modelos de redes que incorporam essas propriedades.
 	
-	Dado que as dependências em um sistema de software formam uma rede, é possível aplicar nesta pesquisa alguns dos métodos, modelos e descobertas da teoria das redes complexas. % TODO fortalecer este parágrafo.
-			
+	Dado que as dependências em um sistema de software formam uma rede, optou-se por utilizar nesta pesquisa alguns dos métodos e descobertas da teoria das redes complexas. Em particular, decidiu-se investigar modelos computacionais de redes propostos na literatura sobre redes complexas.
+
 	% AVALIAÇÃO
-	A avaliação dos modelos teve como base a simulação dos três modelos. As redes produzidas pelos modelos foram comparadas com redes de dependências extraídas de sistemas de software escritos em Java. 
+	A avaliação dos modelos teve como base a simulação de modelos de redes complexas e posterior comparação das redes geradas com redes extraídas de sistemas de software. Para a comparação entre redes foram investigadas métricas propostas na literatura sobre redes complexas.
+	%As redes produzidas pelos modelos foram comparadas com redes de dependências extraídas de sistemas de software escritos em Java. 
 	
 	% APLICAÇÃO
-	Para a prova de conceito foi escolhido o problema de recuperação de arquitetura de software. Algoritmos de agrupamento usados na atividade de recuperação de arquitetura foram aplicados a redes de dependências geradas pelo modelo BCR+ e os resultados foram analisados. 
+	Para a prova de conceito foi escolhido o problema de recuperação de arquitetura de software, devido à familiaridade do autor com o problema. Optou-se por aplicar algoritmos de agrupamento usados na atividade de recuperação de arquitetura a redes de dependências geradas por um dos modelos computacionais e então analisar os dados com ferramentas estatísticas.
 
 \end{section}
 
