@@ -10,16 +10,87 @@
 % TODO: explicar por que as redes de outros domínios são necessárias neste estudo.
 
 \begin{section}{Introdução}
-Os três modelos apresentados anteriormente --- BCR+, LFR e CGW --- geram redes que podem ser interpretadas como redes de software, contendo entidades de implementação organizadas em módulos e dependências entre as entidades. Para aumentar a confiança de que os resultados de estudos com redes sintéticas podem ser extrapolados para redes de software, no entanto, é preciso avaliar se, com uma escolha adequada de parâmetros, os modelos são capazes de gerar redes que se assemelham a redes de software. Daqui para frente, redes que se assemelham a redes de software serão chamadas de \emph{redes software-realistas}.
+Os três modelos apresentados anteriormente --- BCR+, LFR e CGW --- geram redes que podem ser interpretadas como redes de software que contêm entidades de implementação organizadas em módulos e dependências entre as entidades. Para aumentar a confiança de que os resultados de estudos com redes sintéticas podem ser extrapolados para redes de software, no entanto, é preciso avaliar se, com uma escolha adequada de parâmetros, os modelos são capazes de gerar redes que se assemelham a redes de software. Daqui para frente, redes que se assemelham a redes de software serão chamadas de \emph{redes software-realistas}.
 
-Já se sabe que os três modelos geram redes que, a exemplo de redes de software, são livres de escala. Isoladamente, no entanto, esta propriedade não é suficiente para avaliar os modelos, uma vez que muitas redes livres de escala conhecidas não são redes do software (por exemplo, redes biológicas). Partindo da hipótese de que redes de outros domínios são estruturalmente diferentes de redes de software, o critério usado para avaliar se as redes sintéticas são software-realistas deve ser robusto o suficiente para determinar que redes de outros domínios não são software-realistas.
+Este capítulo está divido em quatro seções. Na Seção XXX é apresentada uma função de classificação, C($x$), que define formalmente o conceito de software-realismo. A função classifica uma rede em software-realista ou não software-realista com base apenas na estrutura da rede.
 
-Neste capítulo é descrito um experimento no qual se verificou que os três modelos são capazes de gerar redes software-realistas. A partir dessa conclusão, foi encontrado um subconjunto de valores para os parâmetros dos modelos que garantem, com alta taxa de acerto, que as redes geradas serão software-realistas.
-
-A ideia básica do experimento é gerar redes usando diversos valores para os parâmetros dos modelos e então medir a similaridade entre as redes sintéticas e um conjunto de redes de software extraídas de sistemas reais e de redes de outros domínios. Para apoiar a realização do experimento, foram coletadas 131 redes:
+Na Seção XXX é relatado um experimento realizado com a finalidade de validar a função de classificação. Dois critérios são avaliados:
 
 \begin{itemize}
-	\item redes de software: foram coletados 65 sistemas de software escritos em Java, contendo entre 111 e 35.563 classes cada um. A linguagem Java foi escolhida por ser uma linguagem de programação popular na qual muitos sistemas de software de código aberto já foram escritos. A maior parte dos sistemas foram selecionados a partir da lista dos sistemas mais populares do repositório SourceForge.net; além desses, foram selecionados sistemas com os quais o autor tem familiaridade, como o OurGrid. Para extrair a rede de dependências dos sistemas foi usada a ferramenta Dependency Finder, disponível em \url{http://depfind.sf.net/}, que foi escolhida pela facilidade de uso.
+	\item a função deve classificar como software-realista as redes que são extraídas a partir de sistemas de software;
+	\item a função deve classificar como não software-realista as redes que são estudadas fora do domínio de software (ex.: redes biológicas, redes sociais, redes linguísticas).
+\end{itemize}
+
+O segundo critério faz sentido porque pesquisas anteriores já mostraram que os domínios exemplificados possuem perfis de concentração de tríades distinguíveis entre si. É de se esperar que o mesmo ocorra com o domínio de software em relação aos demais domínios. De fato, o experimento revelou que a função de classificação escolhida atende aos dois critérios.
+
+Na Seção XXX a função de classificação é aplicada a milhares de redes geradas pelos modelos. Como resultado, constatou-se que todos os modelos geram tanto redes software-realistas quanto redes não software-realistas. Além disso, foram identificadas regras práticas que relacionam, com alta acurácia, valores de parâmetros dos modelos com a classificação da rede resultante.
+
+A Seção XXX fornece um sumário dos resultados.
+
+\end{section}
+
+\begin{section}{Função de Classificação de Redes}
+	
+Uma função de classificação de redes quanto ao software-realismo pode ser definida da seguinte forma:
+
+$$
+C(x) ~=~ 
+\left\{
+\begin{array}{cl}
+1 & \mbox{se $x$ é software-realista} \\
+0 & \mbox{caso contrário,}
+\end{array}
+\right.
+$$
+
+onde $x$ é uma rede. A função C é chamada de função de classificação, pois classifica qualquer rede como software-realista ou como não software-realista. O objetivo da avaliação apresentada neste capítulo é determinar se existe alguma rede $x$ gerada por um dos modelos tal que C($x$) = 1.
+
+Para auxiliar a definição formal de $C$, foi desenvolvida a métrica $S$, que representa o quanto uma rede se assemelha a redes de software, em uma escala contínua de 0 a 1. O valor de $S$ para uma rede $x$, S($x$), é definido como a similaridade média entre a rede $x$ e uma amostra de redes de software, $R$:
+
+$$
+\mathrm{S}(x) ~=~ \frac{
+\displaystyle\sum_{s \in R} \mathrm{sim}(x, s)
+}{|R|} \mathrm{,}
+$$
+
+onde \emph{sim} corresponde à métrica de similaridade entre redes apresentada no Capítulo XXX, definida como o coeficiente de correlação de Pearson entre os perfis de concentração de tríades das redes.
+
+Uma rede é então classificada como software-realista somente se o valor S é maior ou igual a um valor constante pré-estabelecido, $S_0$, ou limiar de software-realismo:
+
+$$
+C(x) ~=~ 
+\left\{
+\begin{array}{cl}
+1 & \mbox{se } $\mathrm{S}(x) \ge S_0$ \\
+0 & \mbox{caso contrário.}
+\end{array}
+\right.
+$$
+
+Para fixar um valor de $S_0$, consideramos a distribuição dos valores de $S$ das redes da amostra $R$. Seja $\overbar{S}$ a média dos valores $S$ das redes de $R$, e $\sigma$ o desvio-padrão dos valores $S$ das redes de $R$. Optamos por definir $S_0$ da seguinte forma:
+
+$$
+S_0 = \overbar{S} - 3 \sigma
+$$
+
+A definição de $S_0$ é arbitrária. A inspiração para a nossa definição vem da regra dos três sigmas, da estatística: se os valores seguem uma distribuição normal, $99,7\%$ dos valores estão a menos de três desvios-padrões ($\sigma$) do valor médio $\overbar{S}$. Note que não há garantias de que o valor $S$ segue uma distribuição normal. Por isso, a regra dos três sigmas foi usada apenas como inspiração para uma definição arbitrária.
+\end{section}
+
+\begin{section}{Validação da Função de Classificação}
+
+Na seção anterior foi apresentada uma função que classifica redes em software-realistas ou não software-realistas. Nesta seção a função de classificação é validada segundo dois critérios. Primeiro, a função deve classificar
+
+
+
+% Já se sabe que os três modelos geram redes que, a exemplo de redes de software, são livres de escala. Isoladamente, no entanto, esta propriedade não é suficiente para avaliar os modelos, uma vez que muitas redes livres de escala conhecidas não são redes do software (por exemplo, redes biológicas). Partindo da hipótese de que redes de outros domínios são estruturalmente diferentes de redes de software, o critério usado para avaliar se as redes sintéticas são software-realistas deve ser robusto o suficiente para determinar que redes de outros domínios não são software-realistas.
+% 
+% Neste capítulo é descrito um experimento no qual se verificou que os três modelos são capazes de gerar redes software-realistas. A partir dessa conclusão, foi encontrado um subconjunto de valores para os parâmetros dos modelos que garantem, com alta taxa de acerto, que as redes geradas serão software-realistas.
+% 
+% A ideia básica do experimento é gerar redes usando diversos valores para os parâmetros dos modelos e então medir a similaridade entre as redes sintéticas e um conjunto de redes de software extraídas de sistemas reais e de redes de outros domínios. Para apoiar a realização do experimento, foram coletadas 131 redes:
+% ...
+
+\begin{itemize}
+	\item redes de software: foram coletados 65 sistemas de software escritos em Java, contendo entre 111 e 35.563 classes cada um. A linguagem Java foi escolhida por ser uma linguagem de programação popular na qual muitos sistemas de software de código aberto já foram escritos. A maior parte dos sistemas foram selecionados a partir da lista dos sistemas mais populares do repositório SourceForge.net; além desses, foram selecionados sistemas com os quais o autor tem familiaridade, como o OurGrid. Para extrair a rede de dependências dos sistemas foi usada a ferramenta Dependency Finder, disponível em \url{http://depfind.sf.net/}, que foi escolhida pela robustez e pela facilidade de uso.
 	\item redes de outros domínios: foram coletadas 66 redes de domínios tão diversos quanto a biologia, a sociologia, a tecnologia e a linguística, com tamanho variando entre 32 e 18.163 vértices.
 \end{itemize}
 
@@ -180,11 +251,19 @@ Modelo & Regra & Acurácia \\
 \label{tab:rules}
 \end{table}
 
+% TODO: Mastigar. Exemplo: BCR+: p1 >= 0.7, p2 <= 0.3, p3 <= 0.3, mu <= 0.6, din <= 8, ...
+
 \end{subsection}
 
 \end{section}
 
-
+\begin{section}{Conclusão}
+	
+	Os modelos CGW, LFR e BCR+ podem gerar, a depender dos valores atribuídos a seus parâmetros, redes software-realistas, isto é, redes que se assemelham a redes de dependências estáticas extraídas de programas escritos em Java. Esse resultado foi obtido em um experimento no qual as redes geradas pelos modelos foram comparadas a redes extraídas de 65 sistemas de software escritos em Java. Ademais, foram identificadas regras práticas capazes de prever, com 80\% de acurácia, se uma atribuição de valores a parâmetros de um modelo resulta em uma rede software-realista.
+	
+	 A comparação entre redes foi realizada através da métrica de similaridade que se baseia no perfil de concentração de tríades (PCT) das redes. A métrica de similaridade foi, antes, validada com um conjunto de 66 redes que não pertencem ao domínio de software. A métrica se mostrou adequada para diferenciar essas redes de redes de software com mais de 95\% de cobertura e precisão.
+	
+\end{section}
  
 % Descrição do experimento segundo o arcabouço de Basili.
 % 
