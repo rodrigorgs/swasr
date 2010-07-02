@@ -2,7 +2,7 @@
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fmodern\fcharset0 Courier;\f2\fmodern\fcharset0 Courier-Bold;
 \f3\froman\fcharset0 Times-Roman;\f4\fnil\fcharset0 LucidaGrande;}
 {\colortbl;\red255\green255\blue255;}
-\paperw11900\paperh16840\margl1440\margr1440\vieww25100\viewh13860\viewkind0
+\paperw11900\paperh16840\margl1440\margr1440\vieww9900\viewh10960\viewkind0
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\ql\qnatural\pardirnatural
 
 \f0\b\fs36 \cf0 cluster.dcc.ufba.br: 
@@ -19,9 +19,50 @@ T\'fanel SSH:
 \b0 ssh -p 1998 rodrigo@cluster.dcc.ufba.br -L 3128:cluster.dcc.ufba.br:5555
 \b \
 \
+Benchmark de redes sint\'e9ticas para distribui\'e7\'e3o na Internet\
+
+\b0\fs28 DROP TABLE IF EXISTS synthetic_design;\
+CREATE TABLE synthetic_design AS \
+SELECT pk_network AS pk, fk_model_config AS model, s_score, arc AS edges, ref_mod AS modules, \
+  ref_n_modules AS n_modules, n_vertices, n_edges, ref_n_external_edges AS n_external_edges\
+FROM view_network\
+INNER JOIN model_config ON pk_model_config = fk_model_config\
+WHERE synthetic \
+AND fk_model = 1\
+AND fk_dataset IN (1, 9)\
+AND seed = 0\
+AND s_Score >= 0.88\
+-- total: 2145 registros\
+\
+~/shared/opt/postgresql/bin/pg_dump --table=synthetic_design --compress=9 --inserts --no-owner -h localhost -p 5555 -U rodrigo --file=synthetic_design.sql.gz
+\b\fs36 \
+\
+Backup das tabelas mais importantes do cluster\
+
+\b0\fs28 \
+COPY architecture TO '/tmp/architecture.csv' WITH CSV HEADER;\
+COPY clusterer TO '/tmp/clusterer.csv' WITH CSV HEADER;\
+COPY clusterer_config TO '/tmp/clusterer_config.csv' WITH CSV HEADER;\
+COPY model TO '/tmp/model.csv' WITH CSV HEADER;\
+\
+COPY (SELECT fk_classification,fk_dataset,fk_model_config,max_indegree,max_outdegree,min_indegree,\
+min_outdegree,n_edges,n_vertices,nme_network,pk_network,s_score,sum_indegree,sum_outdegree,\
+synthetic FROM network WHERE fk_dataset = 9) TO '/tmp/network.csv' WITH CSV HEADER;\
+\
+COPY (SELECT pk_decomposition,reference,fk_network,fk_clusterer_config,n_modules,min_module_size,\
+max_module_size,n_singletons,n_subfive,mojo,purity,nmi,n_external_edges FROM decomposition INNER JOIN network ON pk_network = fk_network WHERE fk_dataset = 9) TO '/tmp/decomposition.csv' WITH CSV HEADER;\
+
+\b\fs36 \
+\
 Conclus\'f5es do estudo de algoritmos\
 
 \b0\fs28 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\ql\qnatural\pardirnatural
+
+\b \cf0 \ul \ulc0 Compara\'e7\'e3o entre algoritmos\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\ql\qnatural\pardirnatural
+
+\b0 \cf0 \ulnone \
 ACDC \'e9 melhor que Bunch, e ambos s\'e3o melhores do que os algoritmos hier\'e1rquicos aglomerativos. CL90 \'e9 melhor que CL75, mas de resto n\'e3o se pode afirmar nada.\
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\ql\qnatural\pardirnatural
 
@@ -34,12 +75,21 @@ ACDC \'e9 melhor que Bunch, e ambos s\'e3o melhores do que os algoritmos hier\'e
 * Teste de Wilcoxon, pareado.\
 * Boxplot dos mojosims de cada algoritmo. Observar tamb\'e9m a dispers\'e3o.\
 * Pie chart: propor\'e7\'e3o de redes em que cada algoritmo \'e9 o melhor???\
-* Mojosim m\'e9dio por algoritmo???\
-
-\b Poss\'edveis explica\'e7\'f5es\
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\ql\qnatural\pardirnatural
 
-\b0 \cf0 Em Wu, a ordem (do melhor para o pior) \'e9: CL90, CL75, Bunch, ACDC, SL75, SL90. \
+\fs20 \cf0 \strike \strikec0 * Mojosim m\'e9dio por algoritmo??? (N\'e3o, redudante)
+\fs28 \strike0\striked0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\ql\qnatural\pardirnatural
+
+\b \cf0 Poss\'edveis explica\'e7\'f5es\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\ql\qnatural\pardirnatural
+
+\b0 \cf0 (Em Wu, a ordem (do melhor para o pior) \'e9: CL90, CL75, Bunch, ACDC, SL75, SL90. )\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\ql\qnatural\pardirnatural
+
+\b \cf0 \ul Estudo de par\'e2metros
+\b0 \ulnone \
 \
 Algoritmos aglomerativos s\'e3o prejudicados com o aumento do n\'famero de m\'f3dulos (nada se pode afirmar sobre os SL). Os demais s\'e3o beneficiados.\
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\ql\qnatural\pardirnatural
@@ -56,9 +106,7 @@ Algoritmos aglomerativos s\'e3o prejudicados com o aumento do n\'famero de m\'f3
 \b Poss\'edveis explica\'e7\'f5es\
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\ql\qnatural\pardirnatural
 
-\b0 \cf0 Quando h\'e1 poucos m\'f3dulos, existe uma tend\'eancia a existirem m\'f3dulos que dominam a rede, comportamento que \'e9 observado nos m\'f3dulos encontrados por algoritmos aglomerativos.\
-\
-Todos os algoritmos pioram com o aumento de arestas externas, como esperado.\
+\b0 \cf0 Quando h\'e1 poucos m\'f3dulos, existe uma tend\'eancia a existirem m\'f3dulos que dominam a rede, comportamento que \'e9 observado nos m\'f3dulos encontrados por algoritmos aglomerativos. (Analisar tamanhos dos m\'f3dulos gerados pelos algoritmos)\
 \
 A maioria dos algoritmos tem melhor desempenho com redes software-realistas.\
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\ql\qnatural\pardirnatural
@@ -74,7 +122,7 @@ A maioria dos algoritmos tem melhor desempenho com redes software-realistas.\
 Poss\'edveis explica\'e7\'f5es:\
 . . . \
 \
-asd\
+Todos os algoritmos pioram com o aumento de arestas externas, como esperado.\
 asd\
 \
 \
@@ -94,12 +142,12 @@ ESTUDO DE ALGORITMOS\
 \f1 -- 
 \f2\b Insere stubs de configura\'e7\'e3o de modelo
 \f1\b0 \
-INSERT INTO model_config (seed, fk_model, n, p1, p2, p3, fk_architecture, din, dout, fk_architecture, mu)\
-SELECT 1 AS seed, fk_model, n, p1, p2, p3, fk_architecture, din, dout, fk_architecture, mu\
+INSERT INTO model_config (seed, fk_model, n, p1, p2, p3, fk_architecture, din, dout, mu)\
+SELECT 11 AS seed, fk_model, n, p1, p2, p3, fk_architecture, din, dout, mu\
 FROM model_config\
 INNER JOIN network ON fk_model_config = pk_model_config\
 WHERE fk_dataset = 1\
-AND fk_model = 1 /* BCR */
+AND fk_model = 1 /* BCR */;
 \f0 \
 \
 
@@ -110,8 +158,8 @@ INSERT INTO network (fk_model_config, synthetic, fk_dataset)\
 SELECT pk_model_config, TRUE, 9\
 FROM model_config\
 WHERE fk_model = 1\
-AND seed = 1\
-AND p1 <> 0.7\
+AND seed = 11\
+AND p1 <> 0.7;\
 
 \f0 \
 
@@ -135,14 +183,21 @@ exp.compute_missing_mojos(&filter)\
 \b0 \
 \
 
+\f1 COPY (
+\f0 \
+
 \f1 SELECT fk_model_config, s_score, seed, n, p1, p2, p3, din, dout, \
   fk_architecture, nme_architecture, mu, fk_clusterer_config,\
-  nme_clusterer_config, mojosim\
+  nme_clusterer_config, COALESCE(mojosim, 0.5) AS mojosim, rel_n_external_edges\
 FROM view_decomposition\
-WHERE fk_dataset IN (1, 9)\
+WHERE fk_dataset = 9\
 AND fk_model = 1\
 AND NOT reference\
-ORDER BY seed, n, p1, p2, p3, din, dout, fk_architecture, mu, fk_clusterer_config
+AND mod IS NOT NULL\
+AND nme_clusterer_config <> 'Infomap'\
+ORDER BY seed, n, p1, p2, p3, din, dout, fk_architecture, mu, fk_clusterer_config\
+)\
+TO '/tmp/tabela.csv' WITH CSV HEADER;
 \f0 \
 .\
 .\
@@ -152,43 +207,25 @@ ORDER BY seed, n, p1, p2, p3, din, dout, fk_architecture, mu, fk_clusterer_confi
 \b0 \
 \
 
-\f1 data <- read.csv("data.csv", header=T, sep=",")\
-algorithms <- c("SL75", "SL90", "CL75", "CL90", "ACDC", "Bunch") #, "Infomap")\
+\f1 algorithms <- c("ACDC", "Bunch", "CL75", "CL90", "SL75", "SL90")\
+csv <- read.csv("tabela.csv", header=T, sep=",")\
+data <- subset(csv, nme_clusterer_config != "Infomap")\
+data2 <- subset(data, s_score >= 0.88)\
+\
+acdc <- subset(data, nme_clusterer_config=="ACDC")\
+bunch <- subset(data, nme_clusterer_config="Bunch")\
+sl75 <- subset(data, nme_clusterer_config="SL75")\
+sl90 <- subset(data, nme_clusterer_config="SL90")\
+cl75 <- subset(data, nme_clusterer_config="CL75")\
+cl90 <- subset(data, nme_clusterer_config="CL90")\
 \
 \
-# 
-\f2\b Os algoritmos fazem diferen\'e7a? TODO: usar apenas realistas
-\f1\b0 \
-algfactor <- factor(data$nme_clusterer_config)\
-results1 <- pairwise.wilcox.test(data$mojosim, algfactor, paired=T, alternative="greater")
-\f0 \
-
-\f1 # usa o ajuste de p-value de holm. Ver http://web.njit.edu/all_topics/Prog_Lang_Docs/html/library/base/html/p.adjust.html\
 \
-\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\ql\qnatural\pardirnatural
 
-\f0 # resultado\
-#   Y\
-#X  p\
-#significa\
-#p = prob de X greater than Y \
-
-\f1 \
-
-\f2\b #... com redes realistas
-\f1\b0 \
-data2 = subset(data, s_score >= 0.88)\
-results11 <- pairwise.wilcox.test(data$mojosim, algfactor, paired=F, alternative="greater")\
-# Resultado: algoritmos, do melhor para o pior\
-# Infomap, 
-\f0 \
-
-\f1 \
-
-\f2\b\fs30 # meu proprio pairwise, redes realistas
-\fs24 \
-
-\f1\b0 ix = seq_along(algorithms)\
+\f2\b\fs30 \cf0 # Compara\'e7\'e3o entre algoritmos
+\f1\b0\fs24 \
+ix = seq_along(algorithms)\
 names(ix) = algorithms\
 ix = outer(ix, ix)\
 for (a in algorithms) \{\
@@ -198,32 +235,21 @@ for (a in algorithms) \{\
   ix[a, b] = min(1, wilcox.test(p1, p2, paired=F, alternative="g")$p.value * 36) < 0.05\
  \}\
 \}\
+\
 # Resultado: algoritmos, do melhor para o pior\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\ql\qnatural\pardirnatural
 
-\f2\b # Infomap, ACDC, Bunch, (CL90 > CL75)
-\f1\b0 \
-\
-# meu proprio pairwise\
-ix = seq_along(algorithms)\
-names(ix) = algorithms\
-ix = outer(ix, ix)\
-for (a in algorithms) \{\
- for (b in algorithms) \{\
-  p1 = subset(data, nme_clusterer_config==a)$mojosim\
-  p2 = subset(data, nme_clusterer_config==b)$mojosim\
-  ix[a, b] = min(1, wilcox.test(p1, p2, paired=T, alternative="greater")$p.value * 49)\
- \}\
-\}\
-# Resultado: algoritmos, do melhor para o pior\
+\f2\b \cf0 # 
+\f1\b0 \ul Infomap, ACDC, Bunch, aglomerativos\ulnone \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\ql\qnatural\pardirnatural
 
-\f2\b # Infomap, ACDC, Bunch, SL90, CL90, SL75, CL75
-\f1\b0 \
+\fs28 \cf0 \
+
+\fs30 # 
+\f2\b Estudo de par\'e2metros
+\f1\b0\fs24 \
 \
-# 
-\f2\b Quais par\'e2metros fazem diferen\'e7a?
-\f1\b0 \
-\
-results2 <- data.frame(mu=rep(0,7), p1=rep(0,7), p2=rep(0,7), p3=rep(0,7), din=rep(0,7), dout=rep(0,7), nme_architecture=rep(0,7), seed=rep(0,7), row.names=algorithms)\
+results2 <- data.frame(mu=rep(0,6), p1=rep(0,6), p2=rep(0,6), p3=rep(0,6), din=rep(0,6), dout=rep(0,6), nme_architecture=rep(0,6), seed=rep(0,6), row.names=algorithms)\
 \
 compute <- function(a, data_for_alg, param, v1, v2) \{\
   alpha = 0.05\
@@ -262,7 +288,11 @@ for (a in algorithms) \{\
 # arquiteturas:\
 #     02-gef   04-ibatis  08-megamek 16-findbugs       32-zk \
 \
-# algoritmos s\'e3o melhores pra redes s-realistas ou n\'e3o-s-realistas?\
+
+\f2\b\fs28 # algoritmos s\'e3o melhores pra redes s-realistas ou n\'e3o-s-realistas?\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\ql\qnatural\pardirnatural
+
+\f1\b0\fs24 \cf0 \
 data$real = data$s_score >= 0.88\
 for (a in algorithms) \{\
   data_for_alg = subset(data, nme_clusterer_config==a)\
@@ -270,25 +300,128 @@ for (a in algorithms) \{\
 \}
 \f0 \
 \
-\
-.\
-.\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\ql\qnatural\pardirnatural
 
-\b\fs36 \
+\b\fs52 \cf0 Gr\'e1ficos
+\b0\fs24 \
+\
+
+\f2\b\fs30 \ul # Gr\'e1fico: BOXPLOT de cada algoritmo e sum\'e1rio (fazer no KNIME)
+\f1\b0\fs24 \ulnone \
+pdf("../../latex/dissertacao/figuras/box-mojo-por-alg.pdf")\
+boxplot(data2$mojosim ~ data2$nme_clusterer_config, range=50, ylab="MoJoSim", main="Valores de MoJoSim por algoritmo de agrupamento")\
+dev.off()\
+for (a in algorithms) \{\
+  print(a)\
+  print(summary(subset(data2, nme_clusterer_config==a)$mojosim))\
+\}\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\ql\qnatural\pardirnatural
+
+\f0 \cf0 \
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\ql\qnatural\pardirnatural
+
+\b\fs30 \cf0 \ul # Gr\'e1fico: Influ\'eancia do n\'famero de m\'f3dulos no desempenho dos algoritmos
+\b0\fs24 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\ql\qnatural\pardirnatural
+
+\f1 \cf0 \ulnone rows = unique(data$nme_architecture)\
+cols = algorithms\
+m = matrix(NA, length(rows), length(cols), dimnames = list(rows, cols))\
+for (r in rows) \{\
+for (c in cols) \{\
+  m[r, c] = mean(subset(data, nme_architecture==r & nme_clusterer_config==c)$mojosim)\
+\}\
+\}\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\ql\qnatural\pardirnatural
+\cf0 \ul pdf("\ulnone ../../latex/dissertacao/figuras/\ul mojosim-vs-modules.pdf")\ulnone \
+plot(m[,1], xaxt="n", type="b", ylim=c(0,1), xlab="n\'famero de m\'f3dulos", ylab="MoJoSim m\'e9dio", main="Influ\'eancia do n\'famero de m\'f3dulos no desempenho dos algoritmos")\
+axis(1, at=1:5, c(2,4,8,16,32))\
+\
+for (i in 2:6) \{\
+lines(m[,i], lty=i, pch=i, type="b")\
+\}\
+legend("bottomleft", cols, lty=1:length(cols), pch=1:length(cols))\
+\ul dev.off()\ulnone \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\ql\qnatural\pardirnatural
+
+\f0 \cf0 # ----------------------------------------------------------------------\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\ql\qnatural\pardirnatural
+
+\i\b\fs32 \cf0 # Influ\'eancia do n\'famero de arestas externas no desempenho dos algoritmos
+\i0\b0\fs24 \
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\ql\qnatural\pardirnatural
+
+\f1 \cf0 data$pext = data$p3 * data$mu\
+rows = unique(data$pext)\
+#rows = c("0.0", "0.2", "0.4", "0.6")  #unique(data$mu)\
+cols = algorithms\
+m = matrix(NA, length(rows), length(cols), dimnames = list(rows, cols))\
+for (r in 1:length(rows)) \{\
+for (c in cols) \{\
+  print(c)\
+  m[r, c] = mean(subset(data, pext==rows[r] & nme_clusterer_config==c)$mojosim)\
+\}\
+\}\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\ql\qnatural\pardirnatural
+\cf0 \ul #pdf("mojosim-vs-pext.pdf")\ulnone \
+plot(m[,1], xaxt="n", type="b", ylim=c(0,1), xlab="n\'famero de m\'f3dulos", ylab="MoJoSim m\'e9dio", main="Influ\'eancia do n\'famero de m\'f3dulos no desempenho dos algoritmos")\
+axis(1, at=1:5, c(2,4,8,16,32))\
+\
+for (i in 2:6) \{\
+lines(m[,i], lty=i, pch=i, type="b")\
+\}\
+legend("bottomleft", cols, lty=1:length(cols), pch=1:length(cols))\
+\ul #dev.off()\ulnone \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\ql\qnatural\pardirnatural
+
+\f0 \cf0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\ql\qnatural\pardirnatural
+
+\f1\fs22 \cf0 \strike \strikec0 # algoritmos s\'e3o melhores pra redes s-realistas ou n\'e3o-s-realistas?\
+
+\fs18 \
+data$real = ifelse(data$s_score >= 0.88, "S", "N")\
+rows = unique(data$real)\
+m = matrix(NA, 2, length(cols), dimnames=list(rows, cols))\
+for (r in rows) \{\
+for (c in cols) \{\
+  print(r)\
+  m[r, c] = mean(subset(data, real==r & nme_clusterer_config==c)$mojosim)\
+\}\
+\}\
+barplot(m, beside=T)
+\fs24 \strike0\striked0 \
+.\
+.
+\f0 \
+\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\ql\qnatural\pardirnatural
+
+\b\fs36 \cf0 \
 TAREFAS
 \b0\fs24 \
 - \'85\
 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\ql\qnatural\pardirnatural
 
-\b\fs30 8 de janeiro de 2010\
+\b\fs30 \cf0 8 de janeiro de 2010\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\ql\qnatural\pardirnatural
 
-\b0\fs24 \
+\b0\fs24 \cf0 \
 M...\
 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\ql\qnatural\pardirnatural
 
-\b\fs30 5 de janeiro de 2010\
+\b\fs30 \cf0 5 de janeiro de 2010\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\ql\qnatural\pardirnatural
 
-\b0\fs24 \
+\b0\fs24 \cf0 \
 Mexi um pouco no artigo e consegui reduzir a 4 p\'e1ginas. Por mim est\'e1 pronto.\
 \
 Estou usando o Skim como visualizador de PDF associado ao TextMate. Com ele eu posso clicar:\
@@ -305,10 +438,12 @@ Estou usando o Skim como visualizador de PDF associado ao TextMate. Com ele eu p
 \cf0 \
 Formatei minha disserta\'e7\'e3o segundo o template da COPIN\
 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\ql\qnatural\pardirnatural
 
-\b\fs30 4 de janeiro de 2010\
+\b\fs30 \cf0 4 de janeiro de 2010\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\ql\qnatural\pardirnatural
 
-\b0\fs24 \
+\b0\fs24 \cf0 \
 Cortei algumas partes do artigo para caber em 4 p\'e1ginas. Quase consegui. Basicamente cortei as explica\'e7\'f5es dos modelos e de seus par\'e2metros.\
 \
 \
