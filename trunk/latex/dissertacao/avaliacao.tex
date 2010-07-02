@@ -5,6 +5,10 @@
 %
 % deu 7 páginas.
 
+% oops! http://www.statsoft.com/textbook/basic-statistics/
+% Are correlation coefficients "additive?" No, they are not. For example, an average of correlation coefficients in a number of samples does not represent an "average correlation" in all those samples. Because the value of the correlation coefficient is not a linear function of the magnitude of the relation between the variables, correlation coefficients cannot simply be averaged. In cases when you need to average correlations, they first have to be converted into additive measures. For example, before averaging, you can square them to obtain coefficients of determination, which are additive (as explained before in this section), or convert them into so-called Fisher z values, which are also additive.
+% .. also: http://forum.researchinfo.com/showthread.php?t=1692
+
 \chapter{Avaliação de Modelos de Redes} \label{cap:avaliacao}
 
 % TODO: explicar por que as redes de outros domínios são necessárias neste estudo.
@@ -67,22 +71,34 @@ C(x) ~=~
 \right.
 $$
 
-Para fixar um valor de $S_0$, consideramos a distribuição dos valores de $S$ das redes da amostra $R$. Seja $\overbar{S}$ a média dos valores $S$ das redes de $R$, e $\sigma$ o desvio-padrão dos valores $S$ das redes de $R$. Optamos por definir $S_0$ da seguinte forma:
+A função de classificação C não está completamente definida. Para defini-la, é necessário escolher um conjunto $R$ de redes de software e um valor para o limiar $S_0$.
 
-$$
-S_0 = \overbar{S} - 3 \sigma
-$$
-
-A definição de $S_0$ é arbitrária. A inspiração para a nossa definição vem da regra dos três sigmas, da estatística: se os valores seguem uma distribuição normal, $99,7\%$ dos valores estão a menos de três desvios-padrões ($\sigma$) do valor médio $\overbar{S}$. Note que não há garantias de que o valor $S$ segue uma distribuição normal. Por isso, a regra dos três sigmas foi usada apenas como inspiração para uma definição arbitrária.
+% Para fixar um valor de $S_0$, consideramos a distribuição dos valores de $S$ das redes da amostra $R$. Seja $\bar{S}$ a média dos valores $S$ das redes de $R$, e $\sigma$ o desvio-padrão dos valores $S$ das redes de $R$. Optamos por definir $S_0$ da seguinte forma:
+% 
+% $$
+% S_0 = \bar{S} - 3 \sigma
+% $$
+% 
+% A definição de $S_0$ é arbitrária. A inspiração para a nossa definição vem da regra dos três sigmas, da estatística: se os valores seguem uma distribuição normal, $99,7\%$ dos valores estão a menos de três desvios-padrões ($\sigma$) do valor médio $\bar{S}$. Note que não há garantias de que o valor $S$ segue uma distribuição normal. Por isso, a regra dos três sigmas foi usada apenas como inspiração para uma definição arbitrária.
 \end{section}
 
-\begin{section}{Validação da Função de Classificação}
+\begin{section}{Avaliação da Função de Classificação}
 
 %	enunciar hipóteses e critérios de sucesso.
 %	delineamento experimental: coleta, extração, medição, análise
+% ---
+% acurácia de teste: 0.973846153846154
+% função aprovada:
+%   limiar: 0.809316572577955
+%   acurácia: 0.984732824427481
+%   precisão: 0.970149253731343
+%   recall: 1.0
+%   f_measure: 0.984848484848485
+% ---
+% java -cp weka.jar weka.classifiers.rules.OneR -B 6 -v -t lf2.csv
+% ten-fold stratified cross-validation
 
-
-Na seção anterior foi apresentada uma função que classifica redes em software-realistas ou não software-realistas. Nesta seção a função de classificação é validada segundo dois critérios. Primeiro, a função deve classificar redes de software como software-realistas. Segundo, a função deve classificar como não software-realistas redes encontradas em outros domínios.
+Na seção anterior foi apresentada uma função que classifica redes em software-realistas ou não software-realistas. Nesta seção a função de classificação é avaliada segundo dois critérios. Primeiro, a função deve classificar redes de software como software-realistas. Segundo, a função deve classificar como não software-realistas redes encontradas em outros domínios.
 
 Foi desenvolvido um experimento em 4 fases. Primeiramente, foram coletados mais de 60 sistemas de software escritos na linguagem Java e mais de 60 redes estudadas em domínios diversos. A seguir, foi extraída a rede de dependências entre as entidades de implementação de cada sistema de software coletado. Então, foi computada a classificação de cada rede (na verdade, foi um experimento split, 2/3...). Por fim, os resultados foram interpretados.
 
@@ -164,17 +180,26 @@ Um total de 97,0\% das redes de outros domínios recebeu um valor de S inferior 
 
 A partir da métrica S é definido um modelo de classificação de redes: redes com valor S superiores a um determinado limiar são classificadas como redes software-realistas; as demais redes são classificadas como não software-realistas.
 
-Como existem redes de outros domínios com valor de S alto, é impossível construir um modelo de classificação perfeito, independentemente da escolha do limiar. Um modelo de classificação pode, no entanto, ser avaliado em termos de sua precisão e de sua cobertura. Seja $R$ o conjunto de 65 redes de software e $L$ o subconjunto das 131 redes que são classificadas como software-realistas. A precisão do modelo é
+Como existem redes de outros domínios com valor de S alto, é impossível construir um modelo de classificação perfeito, independentemente da escolha do limiar. Um modelo de classificação pode, no entanto, ser avaliado em termos de sua acurácia, de sua precisão e de sua cobertura. 
+
+Considere o universo de 131 redes (65 redes de software e 66 de outros domínios) coletadas para este estudo. Seja $R$ o conjunto de 65 redes de software e $L$ o subconjunto das 131 redes que são classificadas como software-realistas. Seja $\bar{X}$ o complemento do conjunto $X$ (por exemplo, $\bar{R}$ é o conjunto de 66 redes de domínios diversos). A precisão do modelo é
 
 $$
-\mbox{precisão}: ~\frac{R \cap L}{L},
+\mbox{precisão:} ~\frac{|R \cap L|}{|L|},
 $$
 
 e a cobertura é
 
 $$
-\mbox{cobertura}: ~\frac{R \cap L}{R}.
+\mbox{cobertura:} ~\frac{|R \cap L|}{|R|}
 $$
+
+e a acurácia é
+
+$$
+\mbox{acurácia:} ~\frac{|R \cap L| + |\bar{R} \cap \bar{L}|}{|R \cup \bar{R}|}.
+$$
+
 
 Aumentar o limiar tem o efeito de reduzir a cobertura, pelo fato de menos redes de software serem classificadas como software-realistas. Reduzir o limiar tem o efeito de reduzir a precisão, pelo fato de mais redes de outros domínios serem classificadas como software-realistas.
 
@@ -244,6 +269,7 @@ Para chegar aos valores para os parâmetros do modelo LFR, foram analisadas mét
 
 Usando o modelo de classificação descrito na Seção \ref{sec:realismo-rede}, cada rede sintética foi classificada como software-realista ou não software-realista. Os resultados estão condensados na Tabela \ref{tab:results}.
 
+% TODO: refazer esta tabela
 \begin{table}
 \caption{Resultados da classificação de redes sintéticas}
 \centering
@@ -271,17 +297,41 @@ Para ajudar a descobrir essa relação, foi utilizado o algoritmo 1R \cite{OneR}
 
 As regras encontradas pelo algoritmo 1R são exibidas na Tabela \ref{tab:rules}. As regras são bastante simples e, portanto, fáceis de seguir. (Essa característica do 1R foi o que motivou a sua escolha em detrimento de outros algoritmos de mineração de dados.) Apesar da simplicidade, as regras encontradas possuem uma acurácia de cerca de 80\% para todos os modelos.
 
+% regra obtida a partir dos conjuntos completos
+% acurácia, precisão e cobertura obtidos a partir de 10-fold stratified cross-validation
+% --
+% BCR+
+%  regra: p1 >= 0.5
+%  acurácia: 83.7904%
+%  TP: 5947, FP: 1006, FN: 525, TN: 1967
+%  precisão: 85.5314252840501%
+%  cobertura: 91.8881334981459%
+% --
+% CGW
+%  regra: e3 >= 3
+%  acurácia: 76.623%
+%  TP: 11278, FP: 3780, FN: 5287, TN: 18441
+%  precisão: 74.8970646832249%
+%  cobertura: 68.0833081798974%
+% --
+% LFR
+%  regra: expdegree >= 3.025
+%  acurácia: 78.3763
+%  TP: 579, FP: 277, FN: 0, TN: 425
+%  precisão: 67.6401869158878%
+%  cobertura: 100%
+
 \begin{table}
 \caption{Regras para prever a classificação de uma rede sintética.}
 \centering
 \begin{tabular}{|l|l|l|}
 \hline
-Modelo & Regra & Acurácia \\
+Modelo & Regra & Acurácia & Precisão & Cobertura \\
 \hline 
 \hline
 \multirow{2}{*}{BCR+}
-     & $p_1 \ge 0.7 \Rightarrow \mbox{rede software-realista}$ & \multirow{2}{*}{82.4\%}  \\ 
-     & $p_1 < 0.7 \Rightarrow \mbox{rede não software-realista}$ & \\ 
+     & $p_1 \ge 0.5 \Rightarrow \mbox{rede software-realista}$ & \multirow{2}{*}{82.4\%} & \multirow{2}{*}{82.4\%} & \multirow{2}{*}{82.4\%} \\ 
+     & $p_1 < 0.5 \Rightarrow \mbox{rede não software-realista}$ & \\ 
 \hline
 \multirow{2}{*}{CGW}
      & $p_1 \ge 0.5 \Rightarrow \mbox{rede software-realista}$ & \multirow{2}{*}{82.3\%} \\  

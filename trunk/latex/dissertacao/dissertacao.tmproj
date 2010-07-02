@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>bcr.tex</string>
+	<string>avaliacao.tex</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -81,9 +81,7 @@
 					<key>filename</key>
 					<string>bcr.tex</string>
 					<key>lastUsed</key>
-					<date>2010-06-30T19:05:52Z</date>
-					<key>selected</key>
-					<true/>
+					<date>2010-07-02T11:16:07Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -95,7 +93,9 @@
 					<key>filename</key>
 					<string>avaliacao.tex</string>
 					<key>lastUsed</key>
-					<date>2010-06-28T17:48:51Z</date>
+					<date>2010-07-02T11:16:07Z</date>
+					<key>selected</key>
+					<true/>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -159,28 +159,28 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>382</integer>
+				<integer>19</integer>
 				<key>line</key>
-				<integer>190</integer>
+				<integer>13</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>184</integer>
+			<integer>0</integer>
 		</dict>
 		<key>bcr.tex</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>182</integer>
+				<integer>14</integer>
 				<key>line</key>
-				<integer>25</integer>
+				<integer>15</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
-			<integer>78</integer>
+			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>13</integer>
+			<integer>0</integer>
 		</dict>
 		<key>conclusao.tex</key>
 		<dict>
@@ -370,6 +370,6 @@
 	<key>showFileHierarchyDrawer</key>
 	<true/>
 	<key>windowFrame</key>
-	<string>{{582, 1}, {631, 777}}</string>
+	<string>{{620, 832}, {631, 777}}</string>
 </dict>
 </plist>
