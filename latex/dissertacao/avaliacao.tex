@@ -78,8 +78,52 @@ A definição de $S_0$ é arbitrária. A inspiração para a nossa definição v
 
 \begin{section}{Validação da Função de Classificação}
 
-Na seção anterior foi apresentada uma função que classifica redes em software-realistas ou não software-realistas. Nesta seção a função de classificação é validada segundo dois critérios. Primeiro, a função deve classificar
+%	enunciar hipóteses e critérios de sucesso.
+%	delineamento experimental: coleta, extração, medição, análise
 
+
+Na seção anterior foi apresentada uma função que classifica redes em software-realistas ou não software-realistas. Nesta seção a função de classificação é validada segundo dois critérios. Primeiro, a função deve classificar redes de software como software-realistas. Segundo, a função deve classificar como não software-realistas redes encontradas em outros domínios.
+
+Foi desenvolvido um experimento em 4 fases. Primeiramente, foram coletados mais de 60 sistemas de software escritos na linguagem Java e mais de 60 redes estudadas em domínios diversos. A seguir, foi extraída a rede de dependências entre as entidades de implementação de cada sistema de software coletado. Então, foi computada a classificação de cada rede (na verdade, foi um experimento split, 2/3...). Por fim, os resultados foram interpretados.
+
+
+\begin{subsection}{Coleta de Redes e Sistemas}
+	
+	Foram coletadas 66 redes de domínios tão diversos quanto a biologia, a sociologia, a tecnologia e a linguística, com tamanho variando entre 32 e 18.163 vértices. As redes foram obtidas em \emph{websites} de pesquisadores renomados da área de redes complexas. Apenas redes orientadas foram selecionadas para o estudo, uma vez que as redes de dependências entre entidades de software são redes orientadas. A lista completa de redes pode ser encontrada Apêndice \ref{cap:lista-redes}.
+	% ...
+
+  Foram coletados 65 sistemas de software escritos em Java, contendo entre 111 e 35.563 classes cada um. Quase todos os sistemas foram selecionados a partir da lista dos sistemas mais populares do repositório SourceForge.net; além destes, foi selecionado o sistema OurGrid, desenvolvido na Universidade Federal de Campina Grande. 
+
+	No caso dos sistemas do SourceForge.net, foram selecionados apenas sistemas distribuídos como um conjunto de arquivos no formato JAR (Java Archive), que contêm código-objeto de cada classe do sistema. Essa restrição foi necessária para simplificar a extração de dependências.
+
+	A linguagem Java foi escolhida por ser uma linguagem de programação popular na qual muitos sistemas de software de código aberto já foram escritos. Além disso, há diversas ferramentas para extrair dependências de programas escritos em Java.
+
+\end{subsection}
+
+\begin{subsection}{Extração de Redes de Software}
+
+	Como os sistemas de software foram coletados sob a forma de código-objeto, foi necessário extrair de cada um deles a sua rede de dependências, ou rede de software. A extração foi realizada através da ferramenta gratuita Dependency Finder\url{http://depfind.sf.net/}, que extrai dependências a partir de código-objeto Java. A escolha se deveu à facilidade de uso via linha de comando e à sua robustez.
+	
+	Na extração das redes, classes e interfaces foram consideradas como entidades. Como dependências entre classes/interfaces, foram consideradas todas as referências de uma classe/interface no código de outra classe/interface, incluindo relacionamentos de herança, chamadas de método, instanciação, leitura ou escrita de atributos e agregação.
+
+	A lista completa dos sistemas de software pode ser encontrada no Apêndice \ref{cap:lista-redes}, juntamente com o número de vértices e arestas de cada rede de dependências correspondente.
+
+\end{subsection}
+
+\begin{subsection}{Classificação das Redes Coletadas}
+	
+	% Classificar redes de outros domínios primeiro, e então classificar redes de software. Explicar que no segundo caso é mais complicado (threefold ou 5-fold cross-validation -- repetidos 10 vezes), uma vez que temos que dividir entre conjunto de treinamento e conjunto de validação. 
+	
+	% conjunto de treinamento vs. conjunto de validação (2/3 vs. 1/3)
+	
+	% a seguir, os conjuntos são misturados para gerar o classificador final.
+	
+	% conjunto de teste: as redes sintéticas! (ou seria o contrário, conjunto de validação?)
+	
+	% a acurácia de X% é relevante? Quanto conseguiríamos se "chutássemos"? (ver Bernoulli, p. 149 do livro de Data Mining da Univ. do Weka)
+	
+
+\end{subsection}
 
 
 % Já se sabe que os três modelos geram redes que, a exemplo de redes de software, são livres de escala. Isoladamente, no entanto, esta propriedade não é suficiente para avaliar os modelos, uma vez que muitas redes livres de escala conhecidas não são redes do software (por exemplo, redes biológicas). Partindo da hipótese de que redes de outros domínios são estruturalmente diferentes de redes de software, o critério usado para avaliar se as redes sintéticas são software-realistas deve ser robusto o suficiente para determinar que redes de outros domínios não são software-realistas.
