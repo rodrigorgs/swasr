@@ -2,9 +2,11 @@
 
 \begin{section}{Introdução}
 
-Classificação é a tarefa de atribuir objetos a categorias pré-definidas CITE_YANG. Nesta seção é proposta e avaliada uma função que classifica redes em duas categorias: redes software-realistas e redes não software-realistas. %Dada a subjetividade do conceito de software-realismo, a função de classificação proposta é construída com base em amostras de redes de software (consideradas software-realistas) e redes de outros domínios (consideradas não-software realistas).
+Classificação é a tarefa de atribuir objetos a categorias pré-definidas CITE-YANG. Nesta seção é proposta e avaliada uma função que classifica redes em duas categorias: redes software-realistas e redes não software-realistas. %Dada a subjetividade do conceito de software-realismo, a função de classificação proposta é construída com base em amostras de redes de software (consideradas software-realistas) e redes de outros domínios (consideradas não-software realistas).
 
 A função de classificação deve ser precisa. Em outras palavras, quando aplicada a um conjunto de redes, a maioria das redes classificadas como software-realistas devem de fato ser software-realistas. A precisão da função é estimada com base ...
+% A função é confiável? Queremos saber: se uma rede foi classificada como software-realista, qual a probabilidade de ela realmente ser software-realista?
+
 
 \end{section}{Introdução}
 
@@ -22,7 +24,7 @@ C(x) ~=~
 \right.
 $$
 
-Não é possível determinar diretamente se uma rede arbitrária é software-realista, uma vez que o conceito de software-realismo é informal. Por isso, é preciso encontrar uma função computável que forneça uma aproximação razoável da função C($x$). % TODO: rever
+Não é possível determinar diretamente se uma rede arbitrária é software-realista, uma vez que o conceito de software-realismo é informal. Por isso, é preciso encontrar uma função computável que forneça uma aproximação razoável da função C($x$). % TODO: rever parágrafo
 
 Optamos por uma definição que se baseia no aprendizado de exemplos das duas categorias de redes. Seja $R$ um conjunto de redes consideradas software-realistas e $\bar{R}$ um conjunto de redes consideradas não software-realistas. A função proposta, C($x$, $R$, $\bar{R}$), classifica uma rede, $x$, tomando como referência os conjuntos $R$ e $\bar{R}$.
 
@@ -32,7 +34,7 @@ $$
 C(x, R, \bar{R}) ~=~ 
 \left\{
 \begin{array}{cl}
-1 & \mbox{se } $\mathrm{S}(x, R) \ge S_0(R, \bar{R})$ \\
+1 & \mbox{se } \mathrm{S}(x, R) \ge S_0(R, \bar{R}) \\
 0 & \mbox{caso contrário.}
 \end{array}
 \right.
@@ -50,7 +52,7 @@ $$
 
 O valor de $\mathrm{S}(x, R)$ varia entre 0 e 1. Quanto maior o valor, maior o grau de software-realismo.
 
-A fim de otimizar a função de classificação, o limiar, $S_0(R, \bar{R})$, deve ser um valor que maximiza a acurácia da função C($x$, $R$, $\bar{R}$) quando $x \in (R \cap \bar{R})$. A acurácia é a proporção das redes analisadas que são classificadas corretamente. O limiar pode ser calculado pelo algoritmo a seguir:
+A fim de otimizar a função de classificação, o limiar, $S_0(R, \bar{R})$, deve ser um valor que maximiza a acurácia da função C($x$, $R$, $\bar{R}$) quando $x \in (R \cup \bar{R})$. A acurácia é a proporção das redes analisadas que são classificadas corretamente pela função.
 
 \begin{verbatim}
 função calcula_s0
@@ -59,7 +61,7 @@ Seja maior_acurácia = 0
 Seja limiar = 0
 Para cada rede x em (R U ~R), faça
   Seja s = S(x, R)  # candidato a limiar
-  # calcula a acurácia quando S_0 = s
+  # calcula o acurácia quando S_0 = s
 	Seja c = 0
   Para cada rede y em (R U ~R), faça
     Se (S(y, R) >= s AND y in R)
@@ -68,6 +70,7 @@ Para cada rede x em (R U ~R), faça
     Fim-se
   Fim-para
   acurácia = c / |R U ~R|
+  # verifica se é o maior acurácia já encontrado
   Se acurácia > maior_acurácia
     maior_acurácia = acurácia
     limiar = s
@@ -75,9 +78,14 @@ Para cada rede x em (R U ~R), faça
 Retorne limiar
 \end{verbatim}
 
-O algoritmo calcula o valor de S para cada rede. Então, cada um desses valores é considerado candidato a limiar de software-realismo. A acurácia da função de classificação com cada candidato a limiar é calculada com. O limiar é, então, o candidato com maior acurácia.
+O algoritmo calcula o valor de S para cada rede. Então, cada um desses valores é considerado candidato a limiar de software-realismo. O acurácia da função de classificação com cada candidato a limiar é calculado com cada um dos candidatos. O limiar escolhido é, então, o candidato com maior precisão.
 
-% TODO: Os conjuntos R e ~R são denominados \emph{conjuntos de treinamento}, pois eles são usados para se determinar o limiar S_0.
+% TODO: Os conjuntos R e ~R são denominados \emph{conjuntos de treinamento}, pois eles são usados para se determinar o limiar S_0. Dizemos que os conjuntos de treinamento induzem uma função de classificação C($x$). Quando R e ~R são fixados, C($x$) é definida como
+%
+% $$
+% C(x) ~=~ C(x, R, \bar{R})
+% $$
+
 
 \end{section}
 
@@ -90,9 +98,9 @@ O algoritmo calcula o valor de S para cada rede. Então, cada um desses valores 
 	extração de redes de software a partir dos sistemas coletados (conjunto $R$);
 	validação cruzada da função de classificação a partir dos conjuntos $R$ e $\bar{R}$.
 
-\begin{subsection}{Medidas de Avaliação}
+\begin{subsection}{Métricas de Desempenho}
 
-	Seja R, ~R, C_0, C_1...
+	% Seja R, ~R, C_0, C_1...
 	
 	Uma função de classificação pode ser avaliada através das medidas acurácia, precisão e cobertura. Acurácia representa a proporção de itens analisadas que são classificadas corretamente. Precisão 
 	...
@@ -100,6 +108,8 @@ O algoritmo calcula o valor de S para cada rede. Então, cada um desses valores 
 	% Seja C_0 = {x in (R U ~R) | C(x, R, ~R) = 0} 
 	%   e C_1 = {x in ...}
   %\mbox{precisão:} ~\frac{|R \cap L|}{|L|},
+
+	O mais importante no nosso caso é a precisão, pois...
 	
 \end{subsection}
 	
@@ -108,7 +118,7 @@ O algoritmo calcula o valor de S para cada rede. Então, cada um desses valores 
 		Foram coletadas 66 redes de domínios tão diversos quanto a biologia, a sociologia, a tecnologia e a linguística, com tamanho variando entre 32 e 18.163 vértices. As redes foram obtidas em \emph{websites} de pesquisadores renomados da área de redes complexas. Apenas redes orientadas foram selecionadas para o estudo, uma vez que as redes de dependências entre entidades de software são redes orientadas. A lista completa de redes pode ser encontrada Apêndice \ref{cap:lista-redes}.
 		% ...
 
-	  Foram coletados 65 sistemas de software escritos em Java, contendo entre 111 e 35.563 classes cada um. Quase todos os sistemas foram selecionados a partir da lista dos sistemas mais populares do repositório SourceForge.net, que abriga mais de 200 mil\footnote{\url{http://sourceforge.net/about} projetos de código aberto; além destes, foi selecionado o sistema OurGrid, desenvolvido na Universidade Federal de Campina Grande. 
+	  Foram coletados 65 sistemas de software escritos em Java, contendo entre 111 e 35.563 classes cada um. Quase todos os sistemas foram selecionados a partir da lista dos sistemas mais populares do repositório SourceForge.net, que abriga mais de 200 mil\footnote{\url{http://sourceforge.net/about}} projetos de código aberto; além destes, foi selecionado o sistema OurGrid, desenvolvido na Universidade Federal de Campina Grande. 
 
 		Foram selecionados apenas sistemas que são distribuídos como um conjunto de arquivos no formato JAR (Java Archive), que contêm código-objeto de cada classe do sistema. Essa restrição simplificou a extração de dependências, pois muitas ferramentas de extração trabalham com o formato JAR.
 
@@ -126,7 +136,21 @@ O algoritmo calcula o valor de S para cada rede. Então, cada um desses valores 
 
 \end{subsection}
 
-\begin{subsection}{Classificação das Redes Coletadas}
+\begin{subsection}{Avaliação de Desempenho}
+
+	A função de classificação C($x, R, \bar{R}$) é construída de forma a maximizar a acurácia quando aplicada ao conjunto de treinamento $U = (R \cap \bar{R})$. Em uma aplicação prática, no entanto, a função é aplicada a redes das quais não se conhece a categoria, e é nessa situação que se espera que a função apresente um bom desempenho. Por isso é importante obter uma estimativa do desempenho (acurácia, precisão e cobertura) da função quando aplicada a redes que não estão no conjunto de treinamento.
+	
+	Nos casos em que se dispõe de milhares ou milhões de objetos cuja classificação se conhece, o desempenho da função de classificação pode ser estimado através de um método denominado \emph{holdout}. Nesse método, os objetos são divididos em dois conjuntos: o conjunto de treinamento e o conjunto de teste. É comum reservar 2/3 dos objetos para treinamento e 1/3 para teste, mas essa proporção pode variar. A função é treinada com o conjunto de treinamento e então aplicada ao conjunto de teste. As métricas de desempenho (acurácia, precisão e cobertura) são então calculadas a partir das respostas da função quando aplicada ao conjunto de teste.
+	
+	Nesta pesquisa, como apenas 131 redes foram coletadas, o método \emph{holdout} forneceria estimativas de desempenho pouco confiáveis. Isso ocorre porque, com um número pequeno de redes, a estimativa de desempenho sofre grande variação de acordo com a repartição de redes entre conjunto de teste e conjunto de treinamento. Um método adequado neste caso é a validação cruzada.
+	
+	Na validação cruzada, o conjunto de objetos é dividido em um número fixo, $k$, de partições com tamanho aproximadamente igual. Por exemplo, na validação cruzada com 5 dobras, são 5 partições. Inicialmente, a primeira partição é escolhida como conjunto de teste, enquanto as demais formam o conjunto de treinamento. Com essa divisão é calculada a métrica de desempenho. O procedimento é repetido, de forma que, a cada iteração, uma partição escolhida para teste e as demais, para treinamento. A estimativa de desempenho final é a média das estimativas de desempenho obtidas em cada iteração. A validação cruzada fornece estimativas de desempenho mais confiáveis do que o método \emph{holdout} porque cada um dos objetos é usado tanto para teste quanto para treinamento.
+	
+	Alguns recursos podem ser empregados para melhorar a estimativa de desempenho. Na validação cruzada estratificada, a proporção das categorias nas partições reflete a proporção das categorias no conjunto completo. Assim, se o conjunto possui 40\% de objetos de uma categoria e 60\% de outra, procura-se manter essa proporção nas partições. 
+	
+	Mesmo usando validação cruzada e estratificação, a estimativa de erro pode não ser suficientemente confiável, pois pode ser afetada pela escolha dos objetos em cada partição. Assim, é comum repetir a validação diversas vezes. Como regra prática, é comum usar 10 repetições CITE-WEKA.
+	
+	Neste estudo, a função de classificação foi avaliada utilizando-se o conjunto de 131 redes coletadas. Foi utilizada a validação cruzada de 10 dobras estratificada com 10 repetições.
 
 	% A função C é interessante, mas como ela se sai "in the wild?"
 	% Procedimento: selecionar redes sw e nsw para formar o conjunto de treinamento. A partir do conjunto de treinamento, encontrar S_0. selecionar redes sw e nsw para formar o conjunto de testes. Então medir a acurácia, a precisão e a cobertura de C aplicando-a a 
@@ -137,9 +161,57 @@ O algoritmo calcula o valor de S para cada rede. Então, cada um desses valores 
 		% a acurácia de X% é relevante? Quanto conseguiríamos se "chutássemos"? (ver Bernoulli, p. 149 do livro de Data Mining da Univ. do Weka)
 		% a seguir, os conjuntos são misturados para gerar o classificador final.
 
-	\end{subsection}
+\end{subsection}
+
+\begin{subsection}{Análise dos Resultados}
+	% Otimizado para acurácia
+	% Limiar: 0.809316572577955
+	% Desempenho de treinamento:
+	% [0.984732824427481, 0.970149253731343, 1.0, 0.984848484848485]
+	% Desempenho de teste:
+	%   Acuracia: 0.979395604395604 +- 0.0417175553669434
+	%   Precisao: 0.965198412698413 +- 0.0688348642488326
+	%   Cobertura: 1.0 +- 0.0
+	
+	A validação cruzada de 10 dobras estratificada com 10 repetições corresponde a 100 testes da função de classificação, variando os conjuntos de teste e de treinamento. Após cada teste foram computadas as métricas acurácia, precisão e cobertura, e para cada uma das métricas foi calculada a média e o desvio-padrão. Desta forma é possível ter uma ideia do desempenho que espera da função quando usada em uma aplicação prática, e como esse desempenho deve variar.
+	
+	Os resultados foram os seguintes:
+	
+	\begin{itemize}
+		\item acurácia:  $98,0 \pm 4,2\%$
+		\item precisão:  $96,5 \pm 6,9\%$
+		\item cobertura: $100,0 \pm 0,0\%$
+	\end{itemize}
+	
+	Para todas as métricas foi encontrado um valor médio superior a 95\%. Em particular, a cobertura foi de 100\% em todos os testes, o que significa que todas as redes software-realistas foram corretamente classificadas. No caso de acurácia e precisão, os valores variaram pouco em relação ao valor médio, como pode ser observado pelos baixos valores de desvio-padrão (4,2\% e 6,9\%).
+	
+	Devido ao método de avaliação utilizado, espera-se que o desempenho encontrado nos testes reflita o desempenho da função quando usada em uma aplicação prática, no qual se deseja classificar redes para as quais não se conhece a classificação correta. A função a ser usada em tais aplicações é a função C($x$, $J$, $\bar{J}$). Neste caso, o limiar encontrado, $\mathrm{S}_0(J, \bar{J})$ foi aproximadamente igual a 0,809.
+	
+	Assim, a função de classificação pode ser definida como	
+	$$
+	C(x) ~=~ 
+	\left\{
+	\begin{array}{cl}
+	1 & \mbox{se } \mathrm{S}(x, \mbox{J}) \ge 0,809, \\
+	0 & \mbox{caso contrário,}
+	\end{array}
+	\right.
+	$$
+	
+	onde $J$ é o conjunto de redes extraídas dos 65 sistemas de software coletados.
+		
+	No Apêndice XXX, é mostrado o valor de S(x, J) para cada rede $x$ dentre 131 redes usadas no estudo.
+		
+\end{subsection}
+	
 \end{section}
 
+\begin{section}{Conclusão}
+	
+	Neste capítulo foi apresentada uma função, C($x$, $R$, $\bar{R}$), que classifica qualquer rede, $x$, em uma de duas categorias: software-realista ou não software-realista. A classificação toma como base dois conjuntos: o conjunto $R$, contendo redes consideradas software-realistas, e o conjunto $\bar{R}$, contendo redes consideradas não software-realistas.
+	
+	A função de classificação foi avaliada através do método de validação cruzada estratificada. Mostrou-se que a função apresenta alta acurácia, alta precisão e alta cobertura. Em particular, redes classificadas como software-realistas são de fato software-realistas em cerca de 96\% dos casos.
+	
 \end{section}
 
 	% validação cruzada de 5 dobras estratificada com 10 repetições
@@ -151,3 +223,59 @@ O algoritmo calcula o valor de S para cada rede. Então, cada um desses valores 
 	
 %
 % acurácia de treinamento, acurácia de teste...
+
+%%%%%%%%%%%%%%% NÃO ESTRATIFICADO!!! %%%%%%%%%%%%%%%%
+
+% Com 10 repetições, Otimizando para precisão:
+% Desempenho de teste:
+%   Acuracia: 0.913736263736263 +- 0.0907625120574373
+%   Precisao: 0.909090909090909 +- 0.286038776773678
+%   Cobertura: 0.921620879120879 +- 0.0942149798815775
+% Limiar: 0.959341789316775
+% Desempenho de treinamento:
+% [1.0, 1.0, 0.861538461538462, 0.925619834710744]	
+
+% Com 50 repetições, otimizado para acurácia:
+% Desempenho de teste:
+%   Acuracia: 0.976307692307692 +- 0.0438620753818688
+%   Precisao: 0.755538461538461 +- 0.429271544796062
+%   Cobertura: 0.999384615384615 +- 0.0097106054388059
+
+% Com 10 repetições, otimizado para acurácia:
+% Limiar: 0.809316572577955
+% Desempenho de treinamento:
+% [0.984732824427481, 0.970149253731343, 1.0, 0.984848484848485]
+% Desempenho de teste:
+%   Acuracia: 0.977692307692307 +- 0.039665763336473
+%   Precisao: 0.74 +- 0.438634243989226
+%   Cobertura: 1.0 +- 0.0
+
+% Fixando o limiar:
+% Limiar: 0.88
+% Desempenho de treinamento:
+% [0.969465648854962, 0.984126984126984, 0.953846153846154, 0.96875]
+% Desempenho de teste:
+%   Acuracia: 0.969670329670329 +- 0.050162638518159
+%   Precisao: 0.909230769230769 +- 0.286042161827929
+%   Cobertura: 0.976978021978022 +- 0.0489554341368213
+
+
+%%%%%%%%%%%% ESTRATIFICADO %%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Otimizando para acurácia + precisão
+% Limiar: 0.867863580032659
+% Desempenho de treinamento:
+% [0.977099236641221, 0.984375, 0.969230769230769, 0.976744186046512]
+% Desempenho de teste:
+%   Acuracia: 0.965494505494505 +- 0.0465386885835893
+%   Precisao: 0.972083333333333 +- 0.0562724822795721
+%   Cobertura: 0.961428571428571 +- 0.0700485740118129
+
+% Otimizado para acurácia
+% Limiar: 0.809316572577955
+% Desempenho de treinamento:
+% [0.984732824427481, 0.970149253731343, 1.0, 0.984848484848485]
+% Desempenho de teste:
+%   Acuracia: 0.979395604395604 +- 0.0417175553669434
+%   Precisao: 0.965198412698413 +- 0.0688348642488326
+%   Cobertura: 1.0 +- 0.0
