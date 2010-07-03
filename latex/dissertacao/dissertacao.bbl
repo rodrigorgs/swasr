@@ -5,21 +5,6 @@
 \providecommand{\abntbstabout}[1]{}
 \abntbstabout{1.49 }
 
-\bibitem{Barabasi2007}
-\abntrefinfo{Barabasi}{BARABASI}{2007}
-{BARABASI, A.-L. The architecture of complexity: From network structure to
-  human dynamics.
-\emph{Control Systems Magazine, IEEE}, v.~27, p. 33--42, ago. 2007.}
-
-\bibitem{Milo2004}
-\abntrefinfo{Milo et al.}{MILO et al.}{2004}
-{MILO, R. et al. Superfamilies of evolved and designed networks.
-\emph{Science}, Departments of Molecular Cell Biology, Physics of Complex
-  Systems, and Computer Science, Weizmann Institute of Science, Rehovot 76100,
-  Israel., v.~303, n.~5663, p. 1538--1542, mar. 2004.
-ISSN 1095-9203.
-Dispon{\'\i}vel em: $<$http://dx.doi.org/10.1126/science.1089167$>$.}
-
 \bibitem{Parnas1994}
 \abntrefinfo{Parnas}{PARNAS}{1994}
 {PARNAS, D.~L. Software aging. In:  \emph{ICSE '94: Proceedings of the 16th
@@ -95,6 +80,12 @@ ISSN 1049-3301.}
 Dispon{\'\i}vel em:
   $<$http://www.citebase.org/abstract?id=oai:arXiv.org:cond-mat/9910332$>$.}
 
+\bibitem{Barabasi2007}
+\abntrefinfo{Barabasi}{BARABASI}{2007}
+{BARABASI, A.-L. The architecture of complexity: From network structure to
+  human dynamics.
+\emph{Control Systems Magazine, IEEE}, v.~27, p. 33--42, ago. 2007.}
+
 \bibitem{Milo2002}
 \abntrefinfo{Milo et al.}{MILO et al.}{2002}
 {MILO, R. et al. Network motifs: simple building blocks of complex networks.
@@ -103,6 +94,15 @@ Dispon{\'\i}vel em:
   n.~5594, p. 824--827, October 2002.
 ISSN 1095-9203.
 Dispon{\'\i}vel em: $<$http://dx.doi.org/10.1126/science.298.5594.824$>$.}
+
+\bibitem{Milo2004}
+\abntrefinfo{Milo et al.}{MILO et al.}{2004}
+{MILO, R. et al. Superfamilies of evolved and designed networks.
+\emph{Science}, Departments of Molecular Cell Biology, Physics of Complex
+  Systems, and Computer Science, Weizmann Institute of Science, Rehovot 76100,
+  Israel., v.~303, n.~5663, p. 1538--1542, mar. 2004.
+ISSN 1095-9203.
+Dispon{\'\i}vel em: $<$http://dx.doi.org/10.1126/science.1089167$>$.}
 
 \bibitem{Valverde2003}
 \abntrefinfo{Valverde e Sol{\'e}}{VALVERDE; SOL{\'E}}{2003}
@@ -201,22 +201,6 @@ Dispon{\'\i}vel em: $<$http://arxiv.org/abs/0904.3940$>$.}
   algorithms}. Philadelphia, PA, USA: Society for Industrial and Applied
   Mathematics, 2003. p. 132--139.
 ISBN 0-89871-538-5.}
-
-\bibitem{igraph}
-\abntrefinfo{Csardi e Nepusz}{CSARDI; NEPUSZ}{2006}
-{CSARDI, G.; NEPUSZ, T. The igraph software package for complex network
-  research.
-\emph{InterJournal}, Complex Systems, p.~1695, 2006.
-Dispon{\'\i}vel em: $<$http://igraph.sf.net$>$.}
-
-\bibitem{OneR}
-\abntrefinfo{Holte}{HOLTE}{1993}
-{HOLTE, R.~C. Very simple classification rules perform well on most commonly
-  used datasets.
-\emph{Mach. Learn.}, Kluwer Academic Publishers, Hingham, MA, USA, v.~11, n.~1,
-  p. 63--90, abr. 1993.
-ISSN 0885-6125.
-Dispon{\'\i}vel em: $<$http://dx.doi.org/10.1023/A:1022631118932$>$.}
 
 \bibitem{Girard2000}
 \abntrefinfo{Girard e Koschke}{GIRARD; KOSCHKE}{2000}

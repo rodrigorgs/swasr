@@ -3,14 +3,14 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>avaliacao.tex</string>
+	<string>avaliacao1.tex</string>
 	<key>documents</key>
 	<array>
 		<dict>
 			<key>filename</key>
 			<string>abstract.tex</string>
 			<key>lastUsed</key>
-			<date>2010-06-25T16:43:32Z</date>
+			<date>2010-07-02T23:07:05Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
@@ -93,9 +93,7 @@
 					<key>filename</key>
 					<string>avaliacao.tex</string>
 					<key>lastUsed</key>
-					<date>2010-07-02T11:16:07Z</date>
-					<key>selected</key>
-					<true/>
+					<date>2010-07-02T23:52:52Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -115,6 +113,20 @@
 					<key>lastUsed</key>
 					<date>2010-06-23T12:54:30Z</date>
 				</dict>
+				<dict>
+					<key>filename</key>
+					<string>avaliacao1.tex</string>
+					<key>lastUsed</key>
+					<date>2010-07-02T23:52:52Z</date>
+					<key>selected</key>
+					<true/>
+				</dict>
+				<dict>
+					<key>filename</key>
+					<string>avaliacao2.tex</string>
+					<key>lastUsed</key>
+					<date>2010-07-02T23:38:52Z</date>
+				</dict>
 			</array>
 			<key>expanded</key>
 			<true/>
@@ -126,20 +138,6 @@
 	<integer>200</integer>
 	<key>metaData</key>
 	<dict>
-		<key>abstract.tex</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>1</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
 		<key>apendices.tex</key>
 		<dict>
 			<key>caret</key>
@@ -159,9 +157,53 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>19</integer>
+				<integer>41</integer>
 				<key>line</key>
-				<integer>13</integer>
+				<integer>274</integer>
+			</dict>
+			<key>columnSelection</key>
+			<false/>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>268</integer>
+			<key>selectFrom</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>274</integer>
+			</dict>
+			<key>selectTo</key>
+			<dict>
+				<key>column</key>
+				<integer>41</integer>
+				<key>line</key>
+				<integer>274</integer>
+			</dict>
+		</dict>
+		<key>avaliacao1.tex</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>262</integer>
+				<key>line</key>
+				<integer>131</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>91</integer>
+		</dict>
+		<key>avaliacao2.tex</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>0</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
@@ -341,20 +383,9 @@
 	</dict>
 	<key>openDocuments</key>
 	<array>
-		<string>dissertacao.bib</string>
-		<string>dissertacao.tex</string>
-		<string>definicoes.tex</string>
-		<string>resumo.tex</string>
-		<string>abstract.tex</string>
-		<string>conclusao.tex</string>
-		<string>fundamentacao.tex</string>
-		<string>modelos.tex</string>
 		<string>avaliacao.tex</string>
-		<string>bcr.tex</string>
-		<string>estudodecaso.tex</string>
-		<string>relacionados.tex</string>
-		<string>introducao.tex</string>
-		<string>apendices.tex</string>
+		<string>avaliacao1.tex</string>
+		<string>avaliacao2.tex</string>
 	</array>
 	<key>shellVariables</key>
 	<array>
@@ -370,6 +401,6 @@
 	<key>showFileHierarchyDrawer</key>
 	<true/>
 	<key>windowFrame</key>
-	<string>{{620, 832}, {631, 777}}</string>
+	<string>{{203, 0}, {1013, 778}}</string>
 </dict>
 </plist>
