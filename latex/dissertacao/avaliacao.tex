@@ -14,28 +14,113 @@
 % TODO: explicar por que as redes de outros domínios são necessárias neste estudo.
 
 \begin{section}{Introdução}
-Os três modelos apresentados anteriormente --- BCR+, LFR e CGW --- geram redes que podem ser interpretadas como redes de software que contêm entidades de implementação organizadas em módulos e dependências entre as entidades. Para aumentar a confiança de que os resultados de estudos com redes sintéticas podem ser extrapolados para redes de software, no entanto, é preciso avaliar se, com uma escolha adequada de parâmetros, os modelos são capazes de gerar redes que se assemelham a redes de software. Daqui para frente, redes que se assemelham a redes de software serão chamadas de \emph{redes software-realistas}.
+Os três modelos apresentados anteriormente --- BCR+, LFR e CGW --- geram redes organizadas em módulos. Tal condição, no entanto, não é suficiente para que os modelos sejam usados em estudos sobre ferramentas de engenharia reversa. É importante que os modelos gerem redes que se assemelham a redes extraídas de sistemas de software reais.
 
-Este capítulo está divido em quatro seções. Na Seção XXX é apresentada uma função de classificação, C($x$), que define formalmente o conceito de software-realismo. A função classifica uma rede em software-realista ou não software-realista com base apenas na estrutura da rede.
+Daqui para frente, redes que se assemelham a redes de software serão chamadas de \emph{redes software-realistas}. Redes de software são, por definição, software-realistas. Redes estudadas em outros domínios (ex.: redes biológicas) são, por pressuposto, não software-realistas.
 
-Na Seção XXX é relatado um experimento realizado com a finalidade de validar a função de classificação. Dois critérios são avaliados:
+O objetivo deste capítulo é avaliar se os modelos são capazes de gerar redes software-realistas. , com uma escolha adequada de valores para os parâmetros,
 
-\begin{itemize}
-	\item a função deve classificar como software-realista as redes que são extraídas a partir de sistemas de software;
-	\item a função deve classificar como não software-realista as redes que são estudadas fora do domínio de software (ex.: redes biológicas, redes sociais, redes linguísticas).
-\end{itemize}
+Para apoiar a avaliação dos modelos, foi desenvolvida uma função que classifica redes em duas categorias: redes software-realistas e redes não software-realistas. Essa função foi então aplicada a redes geradas pelos três modelos. Como resultado, constatou-se que todos os modelos geram tanto redes software-realistas quanto redes não software-realistas. A partir daí foram identificadas regras práticas que permitem prever a categoria de uma rede gerada pelos modelos a partir da análise dos parâmetros usados na geração.
 
-O segundo critério faz sentido porque pesquisas anteriores já mostraram que os domínios exemplificados possuem perfis de concentração de tríades distinguíveis entre si. É de se esperar que o mesmo ocorra com o domínio de software em relação aos demais domínios. De fato, o experimento revelou que a função de classificação escolhida atende aos dois critérios.
-
-Na Seção XXX a função de classificação é aplicada a milhares de redes geradas pelos modelos. Como resultado, constatou-se que todos os modelos geram tanto redes software-realistas quanto redes não software-realistas. Além disso, foram identificadas regras práticas que relacionam, com alta acurácia, valores de parâmetros dos modelos com a classificação da rede resultante.
-
-A Seção XXX fornece um sumário dos resultados.
+% Este capítulo está divido em quatro seções. Na Seção XXX é apresentada uma função de classificação, C($x$), que define formalmente o conceito de software-realismo. A função classifica uma rede em software-realista ou não software-realista com base apenas na estrutura da rede. 
+% 
+% Na Seção XXX é relatado um experimento realizado com a finalidade de validar a função de classificação. Dois critérios são avaliados:
+% 
+% \begin{itemize}
+% 	\item a função deve classificar como software-realista as redes que são extraídas a partir de sistemas de software;
+% 	\item a função deve classificar como não software-realista as redes que são estudadas fora do domínio de software (ex.: redes biológicas, redes sociais, redes linguísticas).
+% \end{itemize}
+% 
+% O segundo critério faz sentido porque pesquisas anteriores já mostraram que os domínios exemplificados possuem perfis de concentração de tríades distinguíveis entre si. É de se esperar que o mesmo ocorra com o domínio de software em relação aos demais domínios. De fato, o experimento revelou que a função de classificação escolhida atende aos dois critérios.
+% 
+% Na Seção XXX a função de classificação é aplicada a milhares de redes geradas pelos modelos. Como resultado, constatou-se que todos os modelos geram tanto redes software-realistas quanto redes não software-realistas. Além disso, foram identificadas regras práticas que relacionam, com alta acurácia, valores de parâmetros dos modelos com a classificação da rede resultante.
+% 
+% A Seção XXX fornece um sumário dos resultados.
 
 \end{section}
 
-\begin{section}{Função de Classificação de Redes}
+\begin{section}{Uma Função de Classificação de Redes}
+
+Classificação é a tarefa de atribuir objetos a categorias pré-definidas CITE_YANG. Nesta seção é proposta e avaliada uma função que classifica redes em duas categorias: redes software-realistas e redes não software-realistas. Dada a subjetividade do conceito de software-realismo, a função de classificação proposta é construída com base em amostras de redes de software (consideradas software-realistas) e redes de outros domínios (consideradas não-software realistas).
+
+A função de classificação deve ser precisa. Em outras palavras, quando aplicada a um conjunto de redes, a maioria das redes classificadas como software-realistas devem de fato ser software-realistas. A precisão da função é estimada com base ...
+
+\begin{section}{Definição}
+
+Dada uma rede $x$, uma função que classifica $x$ segundo seu software-realismo, C($x$), pode ser assim descrita:
 	
-Uma função de classificação de redes quanto ao software-realismo pode ser definida da seguinte forma:
+$$
+C(x) ~=~ 
+\left\{
+\begin{array}{cl}
+1 & \mbox{se $x$ é software-realista;} \\
+0 & \mbox{caso contrário.}
+\end{array}
+\right.
+$$
+
+Não é possível determinar diretamente se uma rede arbitrária é software-realista, uma vez que o conceito de software-realismo é informal. Por isso, é preciso encontrar uma função computável que forneça uma aproximação razoável da função C($x$) definida informalmente.
+
+Optamos por uma definição que se baseia no aprendizado de exemplos das duas categorias de redes. Seja $R$ um conjunto de redes consideradas software-realistas e $\bar{R}$ um conjunto de redes consideradas não software-realistas. A função proposta, C($x$, $R$, $\bar{R}$), classifica uma rede, $x$, tomando como referência os conjuntos $R$ e $\bar{R}$.
+
+A função C($x$, $R$, $\bar{R}$) é definida a partir das funções $\mathrm{S}(x, R)$ e $\mathrm{S}_0(R, \bar{R})$:
+
+$$
+C(x, R, \bar{R}) ~=~ 
+\left\{
+\begin{array}{cl}
+1 & \mbox{se } $\mathrm{S}(x, R) \ge S_0(R, \bar{R})$ \\
+0 & \mbox{caso contrário.}
+\end{array}
+\right.
+$$
+
+A função $\mathrm{S}(x, R)$ representa o grau de software-realismo de uma rede. O valor de $S_0(R, \bar{R})$ representa um limiar de software-realismo. Quando o grau de software-realismo da rede $x$ supera o limiar, a rede é classificada como software-realista (valor 1); nos demais casos, a rede é classificada como não software-realista (valor 0).
+
+A definição de $\mathrm{S}(x, R)$ se baseia métrica de similaridade entre redes, sim($x$, $y$), definida no Capítulo XXX como o coeficiente de correlação entre os perfis de concentração de tríades das redes. O valor da função $\mathrm{S}(x, R)$ é definido como a média aritmética dos valores de similaridade entre $x$ e as redes de $R$:
+
+$$
+\mathrm{S}(x, R) ~=~ \frac{
+\displaystyle\sum_{s \in R} \mathrm{sim}(x, s)
+}{|R|} \mathrm{,}
+$$
+
+
+se baseia na métrica de similaridade entre redes definida no Capítulo XXX, sim($x$, $y$), equivalente ao coeficiente de correlação entre os perfis de concentração de tríades das redes. A função pode ser definida da seguinte forma:
+
+$$
+C(x, R, \bar{R}) ~=~ 
+\left\{
+\begin{array}{cl}
+1 & \mbox{se }$x$ é software-realista;} \\
+0 & \mbox{caso contrário.}
+\end{array}
+\right.
+$$
+
+
+Uma função que classifica uma dada rede, $x$, em uma das duas categorias, pode ser descrita da seguinte 
+
+Como não se sabe determinar se uma rede é ou não software-realista, é preciso recorrer a uma aproximação
+
+Sejam $R$ um conjunto de redes consideradas software-realistas e $\bar{R}$ um conjunto de redes consideradas não software-realistas. Uma função que classifica uma dada rede, $x$, em uma das duas categorias, pode ser descrita da seguinte forma:
+
+Propomos uma função de classificação
+	
+\end{section}
+
+
+
+
+A distinção entre as duas categorias não é evidente. Apenas analisando a estrutura de uma rede, é possível identificar uma característica que determine a categoria à qual a rede pertence? Uma possível característica seria a distribuição dos graus dos vértices. Sabe-se que redes de software possuem uma distribuição livre de escala. Tal característica, no entanto, não é suficiente
+
+Abordagem
+
+ Uma função de classificação, neste caso, pode ser definida da seguinte forma:
+
+% método/algoritmo de aprendizagem de máquina
+
+Nesta seção é definido um procedimento para se construir uma função que classifica redes em dois grupos: redes software-realistas e redes não software-realistas. Uma função desse tipo pode ser definida da seguinte forma:
 
 $$
 C(x) ~=~ 
@@ -47,12 +132,12 @@ C(x) ~=~
 \right.
 $$
 
-onde $x$ é uma rede. A função C é chamada de função de classificação, pois classifica qualquer rede como software-realista ou como não software-realista. O objetivo da avaliação apresentada neste capítulo é determinar se existe alguma rede $x$ gerada por um dos modelos tal que C($x$) = 1.
+onde $x$ é uma rede. A função C($x$) é chamada de função de classificação, pois classifica qualquer rede como software-realista (valor 1) ou como não software-realista (valor 0). O objetivo da avaliação apresentada neste capítulo é determinar se existe alguma rede $x$ gerada por algum dos modelos tal que C($x$) = 1.
 
-Para auxiliar a definição formal de $C$, foi desenvolvida a métrica $S$, que representa o quanto uma rede se assemelha a redes de software, em uma escala contínua de 0 a 1. O valor de $S$ para uma rede $x$, S($x$), é definido como a similaridade média entre a rede $x$ e uma amostra de redes de software, $R$:
+Para auxiliar a definição formal de C($x$), foi desenvolvida a métrica $S$, que representa o quanto uma rede se assemelha a redes de software, em uma escala contínua de 0 a 1. O valor de $S$ para uma rede $x$, S($x$, $R$), é definido como a similaridade média entre a rede $x$ e uma amostra de redes de software, $R$:
 
 $$
-\mathrm{S}(x) ~=~ \frac{
+\mathrm{S}(x, R) ~=~ \frac{
 \displaystyle\sum_{s \in R} \mathrm{sim}(x, s)
 }{|R|} \mathrm{,}
 $$
@@ -71,7 +156,9 @@ C(x) ~=~
 \right.
 $$
 
-A função de classificação C não está completamente definida. Para defini-la, é necessário escolher um conjunto $R$ de redes de software e um valor para o limiar $S_0$.
+A equação não define completamente a função C($x$). Uma definição completa depende da escolha de um conjunto $R$ de redes de software e de um valor para o limiar $S_0$. A escolha de $S_0$ tem como objetivo aumentar a acurácia da função, isto é, o número de redes corretamente classificadas pela função.
+
+Uma forma de otimizar o valor de $S_0$ é através da coleta de dois conjuntos: $R$, um conjunto de redes de software, e $\bar{R}$, um conjunto de redes de outros domínios. A união dos conjunto $R$ e $\bar{R}$ forma o conjunto $U$, ou universo. Para tanto, é calculado o valor de S($x$) para cada rede, isto é, a similaridade média entre cada de $R \cap \bar{R}$ e as redes de $R$. Então cada valor de S($x$) é considerado como $S_0$ e a acurácia de C($x$) é calculada. O valor de S($x$) com a maior acurácia é escolhido então como o valor de $S_0$.
 
 % Para fixar um valor de $S_0$, consideramos a distribuição dos valores de $S$ das redes da amostra $R$. Seja $\bar{S}$ a média dos valores $S$ das redes de $R$, e $\sigma$ o desvio-padrão dos valores $S$ das redes de $R$. Optamos por definir $S_0$ da seguinte forma:
 % 
@@ -98,10 +185,10 @@ A função de classificação C não está completamente definida. Para defini-l
 % java -cp weka.jar weka.classifiers.rules.OneR -B 6 -v -t lf2.csv
 % ten-fold stratified cross-validation
 
-Na seção anterior foi apresentada uma função que classifica redes em software-realistas ou não software-realistas. Nesta seção a função de classificação é avaliada segundo dois critérios. Primeiro, a função deve classificar redes de software como software-realistas. Segundo, a função deve classificar como não software-realistas redes encontradas em outros domínios.
 
-Foi desenvolvido um experimento em 4 fases. Primeiramente, foram coletados mais de 60 sistemas de software escritos na linguagem Java e mais de 60 redes estudadas em domínios diversos. A seguir, foi extraída a rede de dependências entre as entidades de implementação de cada sistema de software coletado. Então, foi computada a classificação de cada rede (na verdade, foi um experimento split, 2/3...). Por fim, os resultados foram interpretados.
+Na seção anterior foi apresentado o arcabouço de uma função que classifica redes em software-realistas ou não software-realistas. Nesta seção a função é instanciada a partir da coleta de redes de software (conjunto $R$) e de redes de outros domínios (conjunto $\bar{R}$). A função é então avaliada segundo dois critérios. Primeiro, a função deve classificar redes de software como software-realistas. Segundo, a função deve classificar como não software-realistas redes encontradas em outros domínios.
 
+Foi desenvolvido um experimento em 4 fases. Primeiramente, foram coletados mais de 60 sistemas de software escritos na linguagem Java e mais de 60 redes estudadas em domínios diversos (conjunto $\bar{R}$). A seguir, foi extraída a rede de dependências entre as entidades de implementação de cada sistema de software coletado, as quais constituem o conjunto de redes de software (conjunto $R$). A partir daí o classificador foi avaliado através de validação cruzada estratificada. Determinou-se que o classificador constrói funções capazes de determinar com alta acurácia a classe de redes analisadas (software-realista ou não-software realista). A partir daí, a função foi instanciada com o conjunto $U$ completo.
 
 \begin{subsection}{Coleta de Redes e Sistemas}
 	

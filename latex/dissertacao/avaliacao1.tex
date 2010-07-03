@@ -1,0 +1,153 @@
+\chapter{Uma Função de Classificação de Redes} \label{cap:avaliacao}
+
+\begin{section}{Introdução}
+
+Classificação é a tarefa de atribuir objetos a categorias pré-definidas CITE_YANG. Nesta seção é proposta e avaliada uma função que classifica redes em duas categorias: redes software-realistas e redes não software-realistas. %Dada a subjetividade do conceito de software-realismo, a função de classificação proposta é construída com base em amostras de redes de software (consideradas software-realistas) e redes de outros domínios (consideradas não-software realistas).
+
+A função de classificação deve ser precisa. Em outras palavras, quando aplicada a um conjunto de redes, a maioria das redes classificadas como software-realistas devem de fato ser software-realistas. A precisão da função é estimada com base ...
+
+\end{section}{Introdução}
+
+\begin{section}{Definição}
+
+Dada uma rede $x$, uma função que classifica $x$ segundo seu software-realismo, C($x$), pode ser assim descrita:
+	
+$$
+C(x) ~=~ 
+\left\{
+\begin{array}{cl}
+1 & \mbox{se $x$ é software-realista;} \\
+0 & \mbox{caso contrário.}
+\end{array}
+\right.
+$$
+
+Não é possível determinar diretamente se uma rede arbitrária é software-realista, uma vez que o conceito de software-realismo é informal. Por isso, é preciso encontrar uma função computável que forneça uma aproximação razoável da função C($x$). % TODO: rever
+
+Optamos por uma definição que se baseia no aprendizado de exemplos das duas categorias de redes. Seja $R$ um conjunto de redes consideradas software-realistas e $\bar{R}$ um conjunto de redes consideradas não software-realistas. A função proposta, C($x$, $R$, $\bar{R}$), classifica uma rede, $x$, tomando como referência os conjuntos $R$ e $\bar{R}$.
+
+A função C($x$, $R$, $\bar{R}$) é definida a partir das funções $\mathrm{S}(x, R)$ e $\mathrm{S}_0(R, \bar{R})$:
+
+$$
+C(x, R, \bar{R}) ~=~ 
+\left\{
+\begin{array}{cl}
+1 & \mbox{se } $\mathrm{S}(x, R) \ge S_0(R, \bar{R})$ \\
+0 & \mbox{caso contrário.}
+\end{array}
+\right.
+$$
+
+A função $\mathrm{S}(x, R)$ representa o grau de software-realismo de uma rede. O valor de $S_0(R, \bar{R})$ representa um limiar de software-realismo. Quando o grau de software-realismo da rede $x$ supera o limiar, a rede é classificada como software-realista (valor 1); nos demais casos, a rede é classificada como não software-realista (valor 0).
+
+A definição de $\mathrm{S}(x, R)$ se baseia métrica de similaridade entre redes, sim($x$, $y$), definida no Capítulo XXX como o coeficiente de correlação entre os perfis de concentração de tríades das redes. O valor da função $\mathrm{S}(x, R)$ é definido como a média aritmética dos valores de similaridade entre $x$ e as redes de $R$:
+
+$$
+\mathrm{S}(x, R) ~=~ \frac{
+\displaystyle\sum_{s \in R} \mathrm{sim}(x, s)
+}{|R|} \mathrm{,}
+$$
+
+O valor de $\mathrm{S}(x, R)$ varia entre 0 e 1. Quanto maior o valor, maior o grau de software-realismo.
+
+A fim de otimizar a função de classificação, o limiar, $S_0(R, \bar{R})$, deve ser um valor que maximiza a acurácia da função C($x$, $R$, $\bar{R}$) quando $x \in (R \cap \bar{R})$. A acurácia é a proporção das redes analisadas que são classificadas corretamente. O limiar pode ser calculado pelo algoritmo a seguir:
+
+\begin{verbatim}
+função calcula_s0
+=================
+Seja maior_acurácia = 0
+Seja limiar = 0
+Para cada rede x em (R U ~R), faça
+  Seja s = S(x, R)  # candidato a limiar
+  # calcula a acurácia quando S_0 = s
+	Seja c = 0
+  Para cada rede y em (R U ~R), faça
+    Se (S(y, R) >= s AND y in R)
+       OR (S(y, R) < s AND x in ~R)), faça
+      c = c + 1
+    Fim-se
+  Fim-para
+  acurácia = c / |R U ~R|
+  Se acurácia > maior_acurácia
+    maior_acurácia = acurácia
+    limiar = s
+  Fim-se
+Retorne limiar
+\end{verbatim}
+
+O algoritmo calcula o valor de S para cada rede. Então, cada um desses valores é considerado candidato a limiar de software-realismo. A acurácia da função de classificação com cada candidato a limiar é calculada com. O limiar é, então, o candidato com maior acurácia.
+
+% TODO: Os conjuntos R e ~R são denominados \emph{conjuntos de treinamento}, pois eles são usados para se determinar o limiar S_0.
+
+\end{section}
+
+\begin{section}{Avaliação}
+
+	Na seção anterior foi apresentada a função $C(x, R, \bar{R})$, que classifica redes em software-realistas ou não software-realistas tendo como referência os conjuntos $R$ (contendo redes consideradas software-realistas) e $\bar{R}$ (contendo redes consideradas não software-realistas). Nesta seção, a função é avaliada com base em medidas como acurácia, precisão e cobertura.
+	
+	A avaliação foi realizada em XXX etapas: 
+	coleta de redes de domínios diversos (conjunto $\bar{R}$) e de sistemas de software; 
+	extração de redes de software a partir dos sistemas coletados (conjunto $R$);
+	validação cruzada da função de classificação a partir dos conjuntos $R$ e $\bar{R}$.
+
+\begin{subsection}{Medidas de Avaliação}
+
+	Seja R, ~R, C_0, C_1...
+	
+	Uma função de classificação pode ser avaliada através das medidas acurácia, precisão e cobertura. Acurácia representa a proporção de itens analisadas que são classificadas corretamente. Precisão 
+	...
+	
+	% Seja C_0 = {x in (R U ~R) | C(x, R, ~R) = 0} 
+	%   e C_1 = {x in ...}
+  %\mbox{precisão:} ~\frac{|R \cap L|}{|L|},
+	
+\end{subsection}
+	
+\begin{subsection}{Coleta de Redes e Sistemas}
+
+		Foram coletadas 66 redes de domínios tão diversos quanto a biologia, a sociologia, a tecnologia e a linguística, com tamanho variando entre 32 e 18.163 vértices. As redes foram obtidas em \emph{websites} de pesquisadores renomados da área de redes complexas. Apenas redes orientadas foram selecionadas para o estudo, uma vez que as redes de dependências entre entidades de software são redes orientadas. A lista completa de redes pode ser encontrada Apêndice \ref{cap:lista-redes}.
+		% ...
+
+	  Foram coletados 65 sistemas de software escritos em Java, contendo entre 111 e 35.563 classes cada um. Quase todos os sistemas foram selecionados a partir da lista dos sistemas mais populares do repositório SourceForge.net, que abriga mais de 200 mil\footnote{\url{http://sourceforge.net/about} projetos de código aberto; além destes, foi selecionado o sistema OurGrid, desenvolvido na Universidade Federal de Campina Grande. 
+
+		Foram selecionados apenas sistemas que são distribuídos como um conjunto de arquivos no formato JAR (Java Archive), que contêm código-objeto de cada classe do sistema. Essa restrição simplificou a extração de dependências, pois muitas ferramentas de extração trabalham com o formato JAR.
+
+		A linguagem Java foi escolhida por ser uma linguagem de programação popular na qual muitos sistemas de software de código aberto já foram escritos. Além disso, há diversas ferramentas para extrair dependências de programas escritos em Java.
+
+\end{subsection}
+
+\begin{subsection}{Extração de Redes de Software}
+
+		Como os sistemas de software foram coletados sob a forma de código-objeto, foi necessário extrair de cada um deles a sua rede de dependências, ou rede de software. A extração foi realizada através da ferramenta gratuita Dependency Finder\url{http://depfind.sf.net/}, que extrai dependências a partir de código-objeto Java. A escolha se deveu à facilidade de uso via linha de comando e à sua robustez.
+
+		Na extração das redes, classes e interfaces foram consideradas como entidades. Como dependências entre classes/interfaces, foram consideradas todas as referências de uma classe/interface no código de outra classe/interface, incluindo relacionamentos de herança, chamadas de método, instanciação, leitura ou escrita de atributos e agregação.
+
+		A lista completa dos sistemas de software pode ser encontrada no Apêndice \ref{cap:lista-redes}, juntamente com o número de vértices e arestas de cada rede de dependências correspondente.
+
+\end{subsection}
+
+\begin{subsection}{Classificação das Redes Coletadas}
+
+	% A função C é interessante, mas como ela se sai "in the wild?"
+	% Procedimento: selecionar redes sw e nsw para formar o conjunto de treinamento. A partir do conjunto de treinamento, encontrar S_0. selecionar redes sw e nsw para formar o conjunto de testes. Então medir a acurácia, a precisão e a cobertura de C aplicando-a a 
+	
+	% Não faria sentido avaliar C(x, R, ~R) usando as próprias redes R e ~R... data fishing.
+
+		% conjunto de treinamento vs. conjunto de teste (2/3 vs. 1/3)
+		% a acurácia de X% é relevante? Quanto conseguiríamos se "chutássemos"? (ver Bernoulli, p. 149 do livro de Data Mining da Univ. do Weka)
+		% a seguir, os conjuntos são misturados para gerar o classificador final.
+
+	\end{subsection}
+\end{section}
+
+\end{section}
+
+	% validação cruzada de 5 dobras estratificada com 10 repetições
+	
+	% Nesta seção a função é instanciada a partir da coleta de redes de software (conjunto $R$) e de redes de outros domínios (conjunto $\bar{R}$). A função é então avaliada segundo dois critérios. Primeiro, a função deve classificar redes de software como software-realistas. Segundo, a função deve classificar como não software-realistas redes encontradas em outros domínios.
+	% 
+	% Foi desenvolvido um experimento em 4 fases. Primeiramente, foram coletados mais de 60 sistemas de software escritos na linguagem Java e mais de 60 redes estudadas em domínios diversos (conjunto $\bar{R}$). A seguir, foi extraída a rede de dependências entre as entidades de implementação de cada sistema de software coletado, as quais constituem o conjunto de redes de software (conjunto $R$). A partir daí o classificador foi avaliado através de validação cruzada estratificada. Determinou-se que o classificador constrói funções capazes de determinar com alta acurácia a classe de redes analisadas (software-realista ou não-software realista). A partir daí, a função foi instanciada com o conjunto $U$ completo.
+	
+	
+%
+% acurácia de treinamento, acurácia de teste...
