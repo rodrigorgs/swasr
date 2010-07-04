@@ -202,6 +202,15 @@ Dispon{\'\i}vel em: $<$http://arxiv.org/abs/0904.3940$>$.}
   Mathematics, 2003. p. 132--139.
 ISBN 0-89871-538-5.}
 
+\bibitem{OneR}
+\abntrefinfo{Holte}{HOLTE}{1993}
+{HOLTE, R.~C. Very simple classification rules perform well on most commonly
+  used datasets.
+\emph{Mach. Learn.}, Kluwer Academic Publishers, Hingham, MA, USA, v.~11, n.~1,
+  p. 63--90, abr. 1993.
+ISSN 0885-6125.
+Dispon{\'\i}vel em: $<$http://dx.doi.org/10.1023/A:1022631118932$>$.}
+
 \bibitem{Girard2000}
 \abntrefinfo{Girard e Koschke}{GIRARD; KOSCHKE}{2000}
 {GIRARD, J.-F.; KOSCHKE, R. A comparison of abstract data types and objects
