@@ -63,7 +63,7 @@
 					<key>filename</key>
 					<string>dissertacao.tex</string>
 					<key>lastUsed</key>
-					<date>2010-06-28T20:54:59Z</date>
+					<date>2010-07-03T10:35:43Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -81,7 +81,7 @@
 					<key>filename</key>
 					<string>bcr.tex</string>
 					<key>lastUsed</key>
-					<date>2010-07-02T11:16:07Z</date>
+					<date>2010-07-03T10:23:55Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -93,7 +93,7 @@
 					<key>filename</key>
 					<string>avaliacao.tex</string>
 					<key>lastUsed</key>
-					<date>2010-07-02T23:52:52Z</date>
+					<date>2010-07-03T13:21:32Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -117,7 +117,7 @@
 					<key>filename</key>
 					<string>avaliacao1.tex</string>
 					<key>lastUsed</key>
-					<date>2010-07-02T23:52:52Z</date>
+					<date>2010-07-03T13:21:32Z</date>
 					<key>selected</key>
 					<true/>
 				</dict>
@@ -125,7 +125,7 @@
 					<key>filename</key>
 					<string>avaliacao2.tex</string>
 					<key>lastUsed</key>
-					<date>2010-07-02T23:38:52Z</date>
+					<date>2010-07-03T10:24:18Z</date>
 				</dict>
 			</array>
 			<key>expanded</key>
@@ -157,29 +157,29 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>41</integer>
+				<integer>0</integer>
 				<key>line</key>
-				<integer>274</integer>
+				<integer>76</integer>
 			</dict>
 			<key>columnSelection</key>
 			<false/>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>268</integer>
+			<integer>58</integer>
 			<key>selectFrom</key>
 			<dict>
 				<key>column</key>
 				<integer>0</integer>
 				<key>line</key>
-				<integer>274</integer>
+				<integer>67</integer>
 			</dict>
 			<key>selectTo</key>
 			<dict>
 				<key>column</key>
-				<integer>41</integer>
+				<integer>0</integer>
 				<key>line</key>
-				<integer>274</integer>
+				<integer>76</integer>
 			</dict>
 		</dict>
 		<key>avaliacao1.tex</key>
@@ -187,42 +187,44 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>262</integer>
+				<integer>321</integer>
 				<key>line</key>
-				<integer>131</integer>
+				<integer>210</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>91</integer>
+			<integer>199</integer>
 		</dict>
 		<key>avaliacao2.tex</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>0</integer>
+				<integer>20</integer>
 				<key>line</key>
 				<integer>0</integer>
 			</dict>
+			<key>columnSelection</key>
+			<false/>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
-		</dict>
-		<key>bcr.tex</key>
-		<dict>
-			<key>caret</key>
+			<key>selectFrom</key>
 			<dict>
 				<key>column</key>
-				<integer>14</integer>
+				<integer>21</integer>
 				<key>line</key>
-				<integer>15</integer>
+				<integer>0</integer>
 			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
+			<key>selectTo</key>
+			<dict>
+				<key>column</key>
+				<integer>20</integer>
+				<key>line</key>
+				<integer>0</integer>
+			</dict>
 		</dict>
 		<key>conclusao.tex</key>
 		<dict>
@@ -273,12 +275,28 @@
 				<key>column</key>
 				<integer>0</integer>
 				<key>line</key>
-				<integer>0</integer>
+				<integer>24</integer>
 			</dict>
+			<key>columnSelection</key>
+			<false/>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>0</integer>
+			<integer>5</integer>
+			<key>selectFrom</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>22</integer>
+			</dict>
+			<key>selectTo</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>24</integer>
+			</dict>
 		</dict>
 		<key>estudodecaso.tex</key>
 		<dict>
@@ -383,6 +401,7 @@
 	</dict>
 	<key>openDocuments</key>
 	<array>
+		<string>dissertacao.tex</string>
 		<string>avaliacao.tex</string>
 		<string>avaliacao1.tex</string>
 		<string>avaliacao2.tex</string>
