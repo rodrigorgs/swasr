@@ -5,6 +5,21 @@
 \providecommand{\abntbstabout}[1]{}
 \abntbstabout{1.49 }
 
+\bibitem{Barabasi2007}
+\abntrefinfo{Barabasi}{BARABASI}{2007}
+{BARABASI, A.-L. The architecture of complexity: From network structure to
+  human dynamics.
+\emph{Control Systems Magazine, IEEE}, v.~27, p. 33--42, ago. 2007.}
+
+\bibitem{Milo2004}
+\abntrefinfo{Milo et al.}{MILO et al.}{2004}
+{MILO, R. et al. Superfamilies of evolved and designed networks.
+\emph{Science}, Departments of Molecular Cell Biology, Physics of Complex
+  Systems, and Computer Science, Weizmann Institute of Science, Rehovot 76100,
+  Israel., v.~303, n.~5663, p. 1538--1542, mar. 2004.
+ISSN 1095-9203.
+Dispon{\'\i}vel em: $<$http://dx.doi.org/10.1126/science.1089167$>$.}
+
 \bibitem{Parnas1994}
 \abntrefinfo{Parnas}{PARNAS}{1994}
 {PARNAS, D.~L. Software aging. In:  \emph{ICSE '94: Proceedings of the 16th
@@ -80,12 +95,6 @@ ISSN 1049-3301.}
 Dispon{\'\i}vel em:
   $<$http://www.citebase.org/abstract?id=oai:arXiv.org:cond-mat/9910332$>$.}
 
-\bibitem{Barabasi2007}
-\abntrefinfo{Barabasi}{BARABASI}{2007}
-{BARABASI, A.-L. The architecture of complexity: From network structure to
-  human dynamics.
-\emph{Control Systems Magazine, IEEE}, v.~27, p. 33--42, ago. 2007.}
-
 \bibitem{Milo2002}
 \abntrefinfo{Milo et al.}{MILO et al.}{2002}
 {MILO, R. et al. Network motifs: simple building blocks of complex networks.
@@ -94,15 +103,6 @@ Dispon{\'\i}vel em:
   n.~5594, p. 824--827, October 2002.
 ISSN 1095-9203.
 Dispon{\'\i}vel em: $<$http://dx.doi.org/10.1126/science.298.5594.824$>$.}
-
-\bibitem{Milo2004}
-\abntrefinfo{Milo et al.}{MILO et al.}{2004}
-{MILO, R. et al. Superfamilies of evolved and designed networks.
-\emph{Science}, Departments of Molecular Cell Biology, Physics of Complex
-  Systems, and Computer Science, Weizmann Institute of Science, Rehovot 76100,
-  Israel., v.~303, n.~5663, p. 1538--1542, mar. 2004.
-ISSN 1095-9203.
-Dispon{\'\i}vel em: $<$http://dx.doi.org/10.1126/science.1089167$>$.}
 
 \bibitem{Valverde2003}
 \abntrefinfo{Valverde e Sol{\'e}}{VALVERDE; SOL{\'E}}{2003}
@@ -201,6 +201,19 @@ Dispon{\'\i}vel em: $<$http://arxiv.org/abs/0904.3940$>$.}
   algorithms}. Philadelphia, PA, USA: Society for Industrial and Applied
   Mathematics, 2003. p. 132--139.
 ISBN 0-89871-538-5.}
+
+\bibitem{Tan2005}
+\abntrefinfo{Tan, Steinbach e Kumar}{TAN; STEINBACH; KUMAR}{2005}
+{TAN, P.-N.; STEINBACH, M.; KUMAR, V. \emph{Introduction to Data Mining, (First
+  Edition)}. Boston, MA, USA: Addison-Wesley Longman Publishing Co., Inc.,
+  2005.
+ISBN 0321321367.}
+
+\bibitem{Witten2005}
+\abntrefinfo{Witten e Frank}{WITTEN; FRANK}{2005}
+{WITTEN, I.~H.; FRANK, E. \emph{Data Mining: Practical Machine Learning Tools
+  and Techniques}. 2.. ed. San Francisco, CA: Morgan Kaufmann, 2005.
+ISBN 978-0-12-088407-0.}
 
 \bibitem{OneR}
 \abntrefinfo{Holte}{HOLTE}{1993}
