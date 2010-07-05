@@ -2,17 +2,27 @@
 
 \begin{section}{Introdução}
 
-Nesta seção é descrito um experimento que mostra que os três modelos de redes organizadas em módulos --- BCR+, CGW e LFR --- geram redes software-realistas. O experimento consiste em gerar redes usando diversas combinações de parâmetros dos três modelos, e então classificar cada rede como software-realista ou não software-realista, usando o modelo de classificação de redes definido no capítulo anterior. 
+	Modelos de redes são um meio para gerar redes que, a princípio, podem ser usadas na avaliação de ferramentas de engenharia reversa. Antes de adotar um modelo de redes, no entanto, é importante avaliar se ele é capaz de gerar redes software-realistas --- que se assemelham a redes de software. Em caso afirmativo, é conveniente entender como ajustar os parâmetros dos modelos para que a maioria das redes geradas sejam software-realistas.
 
-	Etapas: seleção de parâmetros ...
-
-O número de vértices foi fixado em 1.000 e os valores dos demais parâmetros foram variados em passos discretos. 
+	Neste capítulo é descrito um experimento que mostra que os três modelos de redes apresentados anteriormente --- BCR+, CGW e LFR --- geram tanto redes software-realistas quanto redes não-software-realistas. A partir daí foram encontradas regras práticas de ajuste dos parâmetros dos modelos que, se seguidas, permite a geração de redes que, com alta probabilidade, são software-realistas.
+	
+	O experimento é dividido nas seguintes etapas:
+	
+	\begin{itemize}
+		\item \emph{seleção de parâmetros}: para cada modelo, são definidos milhares de configurações de parâmetros, de forma a explorar a variedade de redes que podem ser geradas por cada modelo;
+		\item \emph{geração de redes}: cada configuração de parâmetros foi usada uma vez para gerar uma rede;
+		\item \emph{classificação das redes}: cada rede gerada foi classificada pelo modelo de classificação como software-realista ou não-software-realista;
+		\item \emph{identificação de regras práticas}: a partir da análise das redes classificadas, foram encontradas regras práticas de como ajustar os parâmetros dos modelos a fim de obter redes software-realistas na maioria das vezes.
+	\end{itemize}
 
 %No total, foram geradas 9.500 redes com o modelo BCR+, 38.790 redes com o modelo CGW e 1.296 redes com o modelo LFR.
+\end{section}
 
-\begin{subsection}{Seleção de Parâmetros} \label{sec:parametros}
+\begin{section}{Seleção de Parâmetros} \label{sec:parametros}
+	
+	A fim de gerar uma grande diversidade de redes, para cada parâmetro de cada modelo foram selecionados valores cobrindo, se possível, o domínio do parâmetro. Por exemplo, o parâmetro $p_1$ do modelo BCR+ representa um valor de probabilidade, que varia entre 0,0 e 1,0. Para este parâmetro, foram selecionados 6 valores uniformemente distribuídos entre 0,0 e 1,0. No caso do parâmetro $\delta_{in}$, cujo domínio são os números inteiros maiores ou iguais a zero, não é possível cobrir todo o domínio. Neste caso foram selecionados valores arbitrários, correndo o risco de não selecionar algum valor que aumenta as chances de geração de redes software-realistas. Em todos os modelos, o parâmetro $n$, número de vértices, foi fixado em 1.000, uma vez que tal parâmetro afeta, a princípio, apenas o tamanho da rede gerada, e não o padrão de ligações entre vértices. A seguir são apresentados os valores exatos selecionados para os parâmetros de cada modelo.
 
-Para o modelo BCR+, foram escolhidos grafos de módulos extraídos a partir de dependências entre arquivos JAR de 5 sistemas de software: GEF (2 módulos), iBATIS (4 módulos), MegaMek (8 módulos), findbugs (16 módulos) e zk (32 módulos). Como muitos dos arquivos JAR foram concebidos para serem reusados em projetos distintos, eles são uma boa aproximação do conceito de módulo. Para os demais parâmetros, os seguintes valores foram escolhidos:
+Para o modelo BCR+, foram escolhidos grafos de módulos (parâmetro $G$) extraídos a partir de dependências entre arquivos JAR de 5 sistemas de software: GEF (2 módulos), iBATIS (4 módulos), MegaMek (8 módulos), findbugs (16 módulos) e zk (32 módulos). Como muitos dos arquivos JAR foram concebidos para serem reusados em projetos distintos, eles são uma boa aproximação do conceito de módulo. Para os demais parâmetros, os seguintes valores foram escolhidos:
 
 \begin{itemize}
 	\item $p_1, p_2, p_3 \in \{0,0; 0,2; 0,4; 0,6; 0,8; 1,0\}$, com $p_1 + p_2 + p_3 = 1$ e $p_1 + p_2 > 0$ (do contrário a rede jamais alcançaria 1.000 vértices);
@@ -50,47 +60,128 @@ No caso do modelo LFR, os seguintes valores foram escolhidos para os parâmetros
 
 O total de combinações, neste caso, é 1.296.
 
-Para chegar aos valores para os parâmetros do modelo LFR, foram analisadas métricas de redes de software com cerca de 500 a 2.000 classes. Para cada métrica foram identificados os valores mínimo, mediano e máximo; esses foram os valores usados nos parâmetros correspondentes.
+Para chegar aos valores para os parâmetros do modelo LFR, foram analisadas métricas de redes de software com cerca de 500 a 2.000 classes. Para cada métrica foram identificados os valores mínimo, mediano e máximo; esses foram os valores usados nos parâmetros correspondentes. No caso das métricas grau médio, grau máximo e tamanho do menor módulo, os valores foram normalizadas de acordo com o número de classes da rede analisada.
 
 %Para cobrir todas as combinações de valores de parâmetros, foram geradas 1.296 redes com o modelo LFR.
 
-\end{subsection}
-
-\begin{section}{Geração de Redes}
-	Foi gerada uma rede para cada combinação de valores para os parâmetros de cada modelo. % TODO: continuar...
 \end{section}
 
-\begin{subsection}{Resultados}
+\begin{section}{Geração e Classificação de Redes}
+	
+	Para cada modelo e cada configuração de valores de parâmetros, uma rede foi gerada. Cada uma das redes foi então classificada como software-realista ou não software-realista, de acordo com o modelo de classificação apresentado no capítulo anterior.
+	
 
+	Todos os modelos geraram tanto redes software-realistas quando redes não software-realistas.
 Usando o modelo de classificação descrito no capítulo anterior, cada rede sintética foi classificada como software-realista ou não software-realista. Os resultados estão condensados na Tabela \ref{tab:results}.
 
-% TODO: refazer esta tabela
 \begin{table}
 \caption{Resultados da classificação de redes sintéticas}
 \centering
-\begin{tabular}{|l|l|}
+\begin{tabular}{|l|c|}
 \hline
-Modelo & Redes classificadas \\ & como software-realistas \\
+\textbf{Modelo} & \textbf{Proporção de Redes} \\ & \textbf{Software-Realistas} \\
 \hline 
 \hline
-BCR+ & 21.18\% \\ % 2012 / 9500
+
+BCR+ & 23,86\% \\ % 2267 / 9500 = .23863157894736842105
 \hline
-CGW  & 19.40\% \\  % 7524 / 38790
+CGW  & 27,32\% \\  % 10596 / 38790 = .27316318638824439288
 \hline
-LFR  & 31.25\% \\ %  405 / 1296
+LFR  & 34,49\% \\ %  447 / 1296 = .34490740740740740740
 \hline
 \end{tabular}
 \label{tab:results}
 \end{table}
 
-Todos os modelos geraram redes software-realistas e redes não software-realistas. A proporção de redes software-realistas foi maior que 19\% em todos os casos, descartando a possibilidade de que esse resultado tenha sido obtido por acaso. (A proporção exata para cada modelo não deve ser não deve ser interpretada como medida de qualidade, pois com esses resultados não é possível determinar se um modelo é melhor do que os outros.)
+	A proporção de redes software-realistas foi superior a 20\% em todos os casos, descartando a possibilidade de que esse resultado tenha sido obtido por acaso. A proporção exata de redes software-realistas para cada modelo não deve ser não deve ser interpretada como medida de qualidade do modelo, uma vez que é diretamente influenciada pela seleção dos valores dos parâmetros.
+	
 % Para afirmar isso seria necessário repetir o experimento com redes de Erdos-Renyi
 
-Naturalmente, esse resultado tem pouco valor prático se não for estabelecida uma relação entre os valores dos parâmetros usados na geração de uma rede e a classificação da rede. Na prática é importante saber quais valores de parâmetros tendem a gerar redes software-realistas.
+\end{section}
 
-Para ajudar a descobrir essa relação, foi utilizado o algoritmo 1R \cite{OneR} da mineração de dados. O algoritmo analisa, para cada rede, os parâmetros usados na sua geração e a sua classificação, e então encontra uma regra que relaciona o valor de um único parâmetro com a classificação da rede. Regras encontradas pelo 1R podem ser avaliadas de acordo com a sua acurácia, isto é, a proporção de redes corretamente classificadas.
+\begin{section}{Identificação de Regras Práticas}
+	
+	Saber que os modelos são capazes de gerar redes software-realistas é um resultado importante. Para que os modelos sejam aplicados na prática, no entanto, é conveniente saber quais configurações de parâmetros tendem a gerar redes software-realistas.
+	
+	A relação entre configurações de parâmetros e classes pode ser estabelecida por um modelo de classificação. O modelo de classificação tenta prever, dada uma configuração de parâmetros de um modelo de redes, se a rede gerada a partir da configuração é ou não software-realistas.
+	
+	Foi induzido um modelo de classificação para cada modelo de redes. A indução foi realizada por um classificador genérico chamado 1R \cite{OneR}, tomando como conjuntos de treinamentos o conjuntos gerados por cada modelo de redes. O classificador 1R induz modelos de classificação compostos de uma única regra que envolve o valor de um único parâmetro. Tais modelos de classificação, por serem simples, são de fácil assimilação. Além disso, os modelos de classificação induzidos pelo 1R frequentemente apresentam alto desempenho \cite{OneR}, apesar de sua simplicidade.
+	
+	A seguir são apresentados os modelos de classificação encontrados. As regras dos modelos de classificação podem ser usados como regras práticas para a geração de redes software-realistas. Também é apresentada, ao final, uma avaliação do desempenho dessas regras.
+	
+\begin{subsection}{Apresentação das Regras}
+	Modelo de classificação do modelo de redes BCR+:
+		
+	$$
+	\mathrm{m}(n, p_1, p_2, p_3, \din, \dout, \mu) ~=~
+	\left\{
+	\begin{array}{cl}
+	\mbox{software-realista,} & \mbox{se } p_1 \ge 0,7; \\
+	\mbox{não software-realista,} & \mbox{caso contrário.}
+	\end{array}
+	\right.
+	$$
+	
+	A partir das regras conclui-se que, para aumentar as chances de se gerar redes software-realistas com o modelo BCR+, o valor de $p_1$ deve ser alto, superior a 0,7. Recapitulando, o valor de $p_1$ determina a frequência com que se adiciona à rede um vértice com uma aresta com origem no novo vértice.
+	
+	Note que, no conjunto de redes geradas com o modelo BCR+, não há nenhuma para a qual foi usado o valor $p_1 = 0,7$. Os valores usados nas regras induzidas pelo 1R são, de fato, interpolações dos valores que foram usados na geração de redes. Esse recurso é uma tentativa de tornar o modelo de classificação generalizável para redes que não estão no conjunto analisado.
+	
+	Modelo de classificação do modelo de redes CGW:
+	
+	$$
+	\mathrm{m}(n, p_1, p_2, p_3, p_4, e_1, e_2, e_3, e_4, \alpha, m) ~=~
+	\left\{
+	\begin{array}{cl}
+	\mbox{software-realista,} & \mbox{se } p_3 < 0,1; \\
+	\mbox{não software-realista,} & \mbox{caso contrário.}
+	\end{array}
+	\right.
+	$$
+	
+		A partir das regras conclui-se que, para aumentar as chances de se gerar redes software-realistas com o modelo CGW, o valor de $p_3$ deve ser próximo de zero. O parâmetro $p_3$ determina a frequência com que ocorre o religamento de arestas. 
+	
+	Modelo de classificação do modelo de redes LFR:
 
-As regras encontradas pelo algoritmo 1R são exibidas na Tabela \ref{tab:rules}. As regras são bastante simples e, portanto, fáceis de seguir. (Essa característica do 1R foi o que motivou a sua escolha em detrimento de outros algoritmos de mineração de dados.) Apesar da simplicidade, as regras encontradas possuem uma acurácia de cerca de 80\% para todos os modelos.
+	$$
+	\mathrm{m}(n, k, max_k, \mu, -\gamma, -\beta, min_m) ~=~
+	\left\{
+	\begin{array}{cl}
+	\mbox{software-realista,} & \mbox{se } -\gamma < 2,44; \\
+	\mbox{não software-realista,} & \mbox{caso contrário.}
+	\end{array}
+	\right.
+	$$
+	
+	A partir das regras conclui-se que, para aumentar as chances de se gerar redes software-realistas com o modelo LFR, o valor de $-\gamma$ deve ser inferior a 2,44. O parâmetro $-\gamma$ representa o expoente da distribuição dos graus dos vértices da rede gerada.
+	
+\end{subsection}
+	
+\begin{subsection}{Avaliação das Regras}
+	
+\end{subsection}
+	O desempenho de cada um dos três modelos de classificação (ou, equivalentemente, de cada uma das três regras práticas) foi avaliado através de uma validação cruzada com 10 dobras estratificada (vide capítulo anterior). Os valores médios para três métricas de desempenho --- acurácia, precisão e cobertura --- são apresentados na Tabela \ref{tab:rules}.
+	
+	\begin{table}
+	\caption{Desempenho do Modelo de Classificação Associado a Cada Modelo de Redes.}
+	\centering
+	\begin{tabular}{|l|c|c|c|}
+	\hline
+	\textbf{Modelo} & \textbf{Acurácia} & \textbf{Precisão} & \textbf{Cobertura} \\
+	\hline 
+	\hline
+	BCR+ &  82.1\%  &  78,4\%  &  34,6\% \\
+	CGW  &  79,0\%  &  64,1\%  &  52,4\% \\
+	LFR  &  76,6\%  &  66,7\%  &  64,5\% \\
+	\hline
+	\end{tabular}
+	\label{tab:rules}
+	\end{table}
+
+	Apesar de sua simplicidade, todas regras apresentam acurácia média superior a 75\%. A regra do modelo BCR+ é a que apresenta maior precisão (78,4\%). Isso significa que se espera que mais de 75\% das redes geradas pelo BCR+ com $p_1 \ge 0,7$ sejam software-realistas. Por outro lado, essa regra cobre apenas 34,6\% das redes software-realistas geradas pelo modelo. A regra do modelo LFR é a que apresenta a maior cobertura (64,5\%), embora sua precisão (66,7\%) seja inferior à precisão da regra do BCR+. As regras do modelo CGW apresentam um meio-termo, com cobertura igual a 52,4\% e precisão igual a 64,1\%.
+	
+%Regras encontradas pelo 1R podem ser avaliadas de acordo com a sua acurácia, isto é, a proporção de redes corretamente classificadas.
+
+% As regras encontradas pelo algoritmo 1R são exibidas na Tabela \ref{tab:rules}. As regras são bastante simples e, portanto, fáceis de seguir. (Essa característica do 1R foi o que motivou a sua escolha em detrimento de outros algoritmos de mineração de dados.) Apesar da simplicidade, as regras encontradas possuem uma acurácia de cerca de 80\% para todos os modelos.
 
 % regra obtida a partir dos conjuntos completos
 % acurácia, precisão e cobertura obtidos a partir de 10-fold stratified cross-validation
@@ -116,41 +207,41 @@ As regras encontradas pelo algoritmo 1R são exibidas na Tabela \ref{tab:rules}.
 %  precisão: 67.6401869158878%
 %  cobertura: 100%
 
-\begin{table}
-\caption{Regras para prever a classificação de uma rede sintética.}
-\centering
-\begin{tabular}{|l|l|l|}
-% \hline
-% Modelo & Regra & Acurácia & Precisão & Cobertura \\
-% \hline 
-% \hline
-% \multirow{2}{*}{BCR+}
-%      & $p_1 \ge 0.5 \Rightarrow \mbox{rede software-realista}$ & \multirow{2}{*}{82.4\%} & \multirow{2}{*}{82.4\%} & \multirow{2}{*}{82.4\%} \\ 
-%      & $p_1 < 0.5 \Rightarrow \mbox{rede não software-realista}$ & \\ 
-% \hline
-% \multirow{2}{*}{CGW}
-%      & $p_1 \ge 0.5 \Rightarrow \mbox{rede software-realista}$ & \multirow{2}{*}{82.3\%} \\  
-%      & $p_1 < 0.5 \Rightarrow \mbox{rede não software-realista}$ & \\  
-% \hline
-% \multirow{2}{*}{LFR}   
-%      & $\gamma < 2.44 \Rightarrow \mbox{rede software-realista}$ & \multirow{2}{*}{78.9\%} \\ 
-%      & $\gamma \ge 2.44 \Rightarrow \mbox{rede não software-realista}$ & \\ 
-% \hline
-\end{tabular}
-\label{tab:rules}
-\end{table}
+% \begin{table}
+% \caption{Regras para prever a classificação de uma rede sintética.}
+% \centering
+% \begin{tabular}{|l|l|l|}
+% % \hline
+% % Modelo & Regra & Acurácia & Precisão & Cobertura \\
+% % \hline 
+% % \hline
+% % \multirow{2}{*}{BCR+}
+% %      & $p_1 \ge 0.5 \Rightarrow \mbox{rede software-realista}$ & \multirow{2}{*}{82.4\%} & \multirow{2}{*}{82.4\%} & \multirow{2}{*}{82.4\%} \\ 
+% %      & $p_1 < 0.5 \Rightarrow \mbox{rede não software-realista}$ & \\ 
+% % \hline
+% % \multirow{2}{*}{CGW}
+% %      & $p_1 \ge 0.5 \Rightarrow \mbox{rede software-realista}$ & \multirow{2}{*}{82.3\%} \\  
+% %      & $p_1 < 0.5 \Rightarrow \mbox{rede não software-realista}$ & \\  
+% % \hline
+% % \multirow{2}{*}{LFR}   
+% %      & $\gamma < 2.44 \Rightarrow \mbox{rede software-realista}$ & \multirow{2}{*}{78.9\%} \\ 
+% %      & $\gamma \ge 2.44 \Rightarrow \mbox{rede não software-realista}$ & \\ 
+% % \hline
+% \end{tabular}
+% \label{tab:rules}
+% \end{table}
 
 % TODO: Mastigar. Exemplo: BCR+: p1 >= 0.7, p2 <= 0.3, p3 <= 0.3, mu <= 0.6, din <= 8, ...
-
-\end{subsection}
 
 \end{section}
 
 \begin{section}{Conclusão}
 	
-	Os modelos CGW, LFR e BCR+ podem gerar, a depender dos valores atribuídos a seus parâmetros, redes software-realistas, isto é, redes que se assemelham a redes de dependências estáticas extraídas de programas escritos em Java. Esse resultado foi obtido em um experimento no qual as redes geradas pelos modelos foram comparadas a redes extraídas de 65 sistemas de software escritos em Java. Ademais, foram identificadas regras práticas capazes de prever, com 80\% de acurácia, se uma atribuição de valores a parâmetros de um modelo resulta em uma rede software-realista.
+	Determinou-se, através de uma avaliação empírica, que os modelos CGW, LFR e BCR+ podem gerar, a depender dos valores atribuídos a seus parâmetros, redes software-realistas, isto é, redes que se assemelham a redes de software. 
+	%Esse resultado foi obtido em um experimento no qual as redes geradas pelos modelos foram comparadas a redes extraídas de 65 sistemas de software escritos em Java.
+	Ademais, foram identificadas regras práticas capazes de prever, com razoável precisão, se uma determinada configuração de valores de parâmetros de um modelo resulta em uma rede software-realista.
 	
-	 A comparação entre redes foi realizada através da métrica de similaridade que se baseia no perfil de concentração de tríades (PCT) das redes. A métrica de similaridade foi, antes, validada com um conjunto de 66 redes que não pertencem ao domínio de software. A métrica se mostrou adequada para diferenciar essas redes de redes de software com mais de 95\% de cobertura e precisão.
+	 % A comparação entre redes foi realizada através da métrica de similaridade que se baseia no perfil de concentração de tríades (PCT) das redes. A métrica de similaridade foi, antes, validada com um conjunto de 66 redes que não pertencem ao domínio de software. A métrica se mostrou adequada para diferenciar essas redes de redes de software com mais de 95\% de cobertura e precisão.
 	
 \end{section}
  

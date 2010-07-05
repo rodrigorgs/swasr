@@ -1,4 +1,4 @@
-\chapter{Um Modelo de Classificação de Redes}
+\chapter{Um Modelo de Classificação de Redes} \label{cap:classificacao}
 
 % Introdução
 % Definição do Classificador
@@ -8,6 +8,7 @@
 % - acurácia de treinamento
 
 \begin{section}{Introdução}
+	
 	Os três modelos de redes apresentados anteriormente --- BCR+, LFR e CGW --- geram redes organizadas em módulos. Para que os modelos sejam usados em estudos sobre ferramentas de engenharia reversa, no entanto, é importante que os modelos gerem redes que se assemelham a redes extraídas de sistemas de software reais.
 	
 	Daqui para frente, redes que se assemelham a redes de software serão chamadas de \emph{redes software-realistas}. Redes de software são software-realistas por definição. Redes estudadas em outros domínios (ex.: redes biológicas) são, por pressuposto, não software-realistas.
@@ -30,7 +31,7 @@
 
 \begin{section}{Conceitos de Classificação} \label{cap:clas1}
 	
-	De forma geral, o problema de classificação consiste em atribuir objetos a classes pré-determinadas a partir da análise de atributos dos objetos. Um modelo de classificação nada mais é do que um conjunto de regras ou um algoritmo que, com base nos atributos de um objeto, procura acertar a classe à qual o objeto pertence. 
+	De forma geral, o problema de classificação consiste em atribuir objetos a classes pré-determinadas a partir da análise de atributos dos objetos \cite{Tan2005}. Um modelo de classificação nada mais é do que um conjunto de regras ou um algoritmo que, com base nos atributos de um objeto, procura acertar a classe à qual o objeto pertence. 
 
 	Por exemplo, é possível dividir os animais em duas classes: mamíferos e não-mamíferos. Um possível modelo de classificação para animais seria a seguinte regra: se o animal não põe ovos, ele é mamífero; caso contrário, ele é não-mamífero. Tal modelo, embora apresente uma alta taxa de acerto, não é perfeito. O modelo erra quando classifica o animal ornitorrinco como não-mamífero. Apesar de pôr ovos, o ornitorrinco é classificado pela comunidade científica como um animal mamífero.
 	
@@ -60,7 +61,7 @@ $$
 	\mathrm{m}(x, R, S_0) ~=~
 	\left\{
 	\begin{array}{cl}
-	\mbox{software-realista,} & \mbox{se } \mathrm{S}(x, R) \ge S_0, \\
+	\mbox{software-realista,} & \mbox{se } \mathrm{S}(x, R) \ge S_0; \\
 	\mbox{não software-realista,} & \mbox{caso contrário.}
 	\end{array}
 	\right.
@@ -78,7 +79,7 @@ $$
 
 	O valor de $\mathrm{S}(x, R)$, assim como a métrica de similaridade, varia entre -1,0 e 1,0. Quanto maior o valor, maior o grau de software-realismo.
 	
-	Em suma, o modelo de classificação prevê que uma rede é software-realista somente se a similaridade média entre a rede e as redes de um conjunto fixo de redes software-realistas é superior a um valor pré-estabelecido.
+	Em suma, o modelo de classificação prevê que uma rede é software-realista somente se a similaridade média entre a rede e as redes de um conjunto pré-determinado de redes software-realistas é superior a um valor pré-estabelecido.
 	
 	A escolha do limiar afeta diretamente a taxa de acerto do modelo de classificação. Quando o limiar é muito baixo, a taxa de acerto diminui, pois muitas redes passam a ser classificadas como software-realistas, inclusive redes que não o são. Quando o limiar é muito alto, a taxa de acerto também é baixa, pois neste caso muitas redes software-realistas são classificadas como não software-realistas. Assim, a escolha de um valor adequado para o limiar é fundamental para se obter um modelo de classificação com alta taxa de acerto.
 
@@ -86,7 +87,9 @@ $$
 
 \begin{subsection}{Classificador de Redes}
 
-	Um modelo de classificação da forma $\mathrm{m}(x, R, S_0)$ pode ser induzido por um classificador que recebe um conjunto de treinamento composto de dois subconjuntos: o conjunto $T$, contendo apenas redes consideradas software-realistas, e o conjunto $\bar{T}$, contendo apenas redes consideradas não software-realistas. A partir destes conjuntos, o classificador determina valores para os parâmetros $R$ e $S_0$. O processo de determinação desses parâmetros é detalhado no Algoritmo \ref{algoritmo-aprendizagem}.
+	Um modelo de classificação da forma $\mathrm{m}(x, R, S_0)$ pode ser induzido por um classificador que recebe um conjunto de treinamento composto de dois subconjuntos: o conjunto $T$, contendo apenas redes consideradas software-realistas, e o conjunto $\bar{T}$, contendo apenas redes consideradas não software-realistas. A partir destes conjuntos, o classificador determina valores para os parâmetros $R$ e $S_0$. 
+	
+	O processo de determinação de $R$ e $S_0$ é detalhado no Algoritmo \ref{algoritmo-aprendizagem}. Em poucas palavras, R é sempre determinado como sendo igual a T, e o valor de $S_0$ é selecionado dentre os graus de realismo das redes do conjunto de treinamento, $T \cup \bar{T}$. Em particular, é selecionado o valor que maximiza a taxa de acerto do modelo de classificação $\mathrm{m}(x, R, S_0)$.
 	
 	%O conjunto de treinamento pode ser dividido em dois subconjuntos: o conjunto $T$, contendo apenas redes software-realistas, e o conjunto $\bar{T}$, contendo apenas redes não-software realistas. %Os conjuntos T e ~T fornecem uma definição baseada em exemplos do conceito de software-realismo.
 
@@ -151,17 +154,15 @@ $$
 	 
 	% Em poucas palavras, o conjunto R é determinado como sendo igual a T, e o subconjunto de redes software-realistas do conjunto de treinamento. O valor do limiar $S_0$ é determinado através de um algoritmo de aprendizagem que analisa os conjuntos T e ~T.
 	
-Em poucas palavras, R é sempre determinado como sendo igual a T, e o valor de $S_0$ é selecionado dentre os graus de realismo das redes do conjunto de treinamento. Em particular, é selecionado o valor que maximiza a taxa de acerto do modelo de classificação $\mathrm{m}(x, R, S_0)$.
-
 Para exemplificar o funcionamento do classificador, considere um conjunto de treinamento composto de duas redes software-realistas (conjunto $T$) e duas redes não software-realistas (conjunto $\bar{T}$). O grau de software-realismo de cada rede é calculado tomando como referência o conjunto $T$. Considere que as redes do conjunto $T$ têm grau de software-realismo iguais a 0,9 e 0,7, e que as redes do conjunto $\bar{T}$ têm grau de software-realismo iguais a -0,3 e 0,6.
 
-O algoritmo de treinamento considera cada valor de grau de realismo como candidato a limiar, juntamente o número de acertos correspondentes. São considerados, portanto, os valores -0,3, 0,6, 0,7 e 0,9. Se $S_0 = -0,3$, por exemplo, todas as redes do conjunto de treinamento são classificadas como software-realista, resultando em 2 acertos (taxa de acerto de 50\%). Se $S_0 = 0,6$ ou se $S_0 = 0,9$, o modelo apresenta 3 acertos (taxa de acerto de 75\%). O valor escolhido para o limiar é, portanto, o valor $0,7$, que resulta em 4 acertos (taxa de acerto de 100\%). O modelo de classificação induzido pelo conjunto de treinamento fica da seguinte forma:
+O algoritmo de treinamento considera cada valor de grau de realismo como candidato a limiar, juntamente o número de acertos correspondentes. São considerados, portanto, os valores -0,3, 0,6, 0,7 e 0,9. Se $S_0 = -0,3$, por exemplo, todas as redes do conjunto de treinamento são classificadas como software-realistas, resultando em 2 acertos (taxa de acerto de 50\%). Se $S_0 = 0,6$ ou se $S_0 = 0,9$, o modelo apresenta 3 acertos (taxa de acerto de 75\%). O valor escolhido para o limiar é, portanto, o valor $0,7$, que resulta em 4 acertos (taxa de acerto de 100\%). O modelo de classificação induzido pelo conjunto de treinamento fica da seguinte forma:
 
 $$
-% \mathrm{m}(x) ~=~
+\mathrm{m}(x) ~=~
 \left\{
 \begin{array}{cl}
-\mbox{software-realista,} & \mbox{se } \mathrm{S}(x, \mbox{T}) \ge 0,7, \\
+\mbox{software-realista,} & \mbox{se } \mathrm{S}(x, \mbox{T}) \ge 0,7; \\
 \mbox{não software-realista,} & \mbox{caso contrário.}
 \end{array}
 \right.
@@ -179,7 +180,7 @@ $$
 
 	A \emph{acurácia}, ou taxa de acerto, é a proporção das redes do conjunto de teste que são classificadas corretamente pelo modelo. A \emph{precisão} é a proporção das redes classificadas pelo modelo como software-realistas que de fato são software-realistas. A \emph{cobertura} é a proporção das redes software-realistas do conjunto de teste que são corretamente classificadas pelo modelo.
 	
-	Nesta seção, o desempenho do classificador apresentado na seção anterior é avaliado com base em um conjunto de redes reais. A avaliação é realizada em X etapas: 
+	Nesta seção, o desempenho do classificador apresentado na seção anterior é avaliado com base em um conjunto de redes reais. A avaliação é realizada em 3 etapas: 
 	
 	\begin{itemize}
 		\item \emph{coleta de dados}: são coletados sistemas de software e redes estudadas em diversos domínios;
@@ -208,9 +209,9 @@ $$
 
 	Como os sistemas de software foram coletados sob a forma de código-objeto, foi necessário extrair de cada um deles a sua rede de dependências, ou rede de software. A extração foi realizada através da ferramenta gratuita Dependency Finder\footnote{\url{http://depfind.sf.net/}}, que extrai dependências a partir de código-objeto Java. A escolha se deveu à facilidade de uso via linha de comando e à sua robustez.
 
-	Nas redes extraídas, as entidades são classes e interfaces Java. As dependências representam qualquer referências de uma classe ou interface no código de outra classe ou interface, incluindo relacionamentos de herança, chamadas de método, instanciação, leitura ou escrita de atributos e agregação.
+	Nas redes extraídas, as entidades são classes e interfaces Java. As dependências representam qualquer referência de uma classe ou interface no código de outra classe ou interface, incluindo relacionamentos de herança, chamadas de método, instanciação, leitura ou escrita de atributos e agregação.
 
-			A lista completa dos sistemas de software pode ser encontrada no Apêndice \ref{cap:lista-redes}, juntamente com o número de vértices e arestas de cada rede de dependências correspondente.
+	A lista completa dos sistemas de software pode ser encontrada no Apêndice \ref{cap:lista-redes}, juntamente com o número de vértices e arestas de cada rede de dependências correspondente. O conjunto de dados usado na validação é composto das 66 redes de domínios diversos e das 65 redes extraídas de sistemas de software, totalizando 131 redes. 
 
 \end{subsection}
 
@@ -218,7 +219,7 @@ $$
 
 	A validação do classificador consiste em induzir modelos a partir de conjuntos de treinamento, aplicá-los a conjuntos de teste e então computar as métricas de desempenho. Os conjuntos de treinamento e de teste são subconjuntos do conjunto de redes que foram coletadas ou extraídas nas etapas anteriores.
 	
-	Dado o número pequeno de redes disponíveis para teste e treinamento, optou-se por realizar a validação cruzada, na qual cada rede é usada exatamente uma vez para teste e um número fixo de vezes para treinamento. A validação cruzada permite que se obtenham estimativas confiáveis do desempenho do classificador a partir de um conjunto de dados pequeno.
+	Dado o número pequeno de redes disponíveis para teste e treinamento, optou-se por realizar a validação cruzada, na qual cada rede é usada exatamente uma vez para teste e um número fixo de vezes para treinamento. A validação cruzada permite que se obtenham estimativas confiáveis do desempenho do classificador mesmo que o conjunto de dados seja pequeno \cite{Witten2005}.
 	
 		% 
 		% A função de classificação C($x, R, \bar{R}$) é construída de forma a maximizar a acurácia quando aplicada ao conjunto de treinamento $U = (R \cap \bar{R})$. Em uma aplicação prática, no entanto, a função é aplicada a redes das quais não se conhece a categoria, e é nessa situação que se espera que a função apresente um bom desempenho. Por isso é importante obter uma estimativa do desempenho (acurácia, precisão e cobertura) da função quando aplicada a redes que não estão no conjunto de treinamento.
@@ -234,7 +235,7 @@ $$
 
 		Com a finalidade de melhorar a estimativa de desempenho, é comum repetir a validação diversas vezes (tipicamente dez vezes). A repetição mitiga o viés introduzido na atribuição de redes a partições.
 
-		Neste estudo, a função de classificação foi avaliada utilizando-se o conjunto de 131 redes coletadas. Foi utilizada a validação cruzada de 10 dobras estratificada com 10 repetições, o que equivale a 100 modelos induzidos e, portanto, 100 medidas de acurácia, precisão e cobertura. Calculando a média e o desvio-padrão das medidas, chegou-se às seguintes estimativas:
+		Neste estudo, a função de classificação foi avaliada utilizando-se o conjunto de 131 redes coletadas. Foi utilizada a validação cruzada de 10 dobras estratificadas com 10 repetições, o que equivale a 100 modelos induzidos e, portanto, 100 medidas de acurácia, precisão e cobertura. Calculando a média e o desvio-padrão das medidas, chegou-se às seguintes estimativas:
 
 		% A função C é interessante, mas como ela se sai "in the wild?"
 		% Procedimento: selecionar redes sw e nsw para formar o conjunto de treinamento. A partir do conjunto de treinamento, encontrar S_0. selecionar redes sw e nsw para formar o conjunto de testes. Então medir a acurácia, a precisão e a cobertura de C aplicando-a a 
@@ -293,23 +294,24 @@ $$
 
 \begin{section}{Indução de um Modelo de Classificação} \label{cap:clas4}
 	
-	Na seção anterior, foi estimado o desempenho de modelos induzidos a partir de conjuntos de treinamento com 90\% das 131 redes selecionadas para o estudo (10\% das redes foram separadas para teste). Usando-se o conjunto completo para treinamento, obtém-se um modelo de classificação cujo desempenho é igual ou superior ao estimado.
+	Na seção anterior, foi estimado o desempenho de modelos induzidos a partir de conjuntos de treinamento com 90\% das 131 redes selecionadas para o estudo (10\% das redes foram separadas para teste). Usando-se 100\% do conjunto de dados para treinamento, obtém-se um modelo de classificação cujo desempenho é no mínimo tão bom quanto o desempenho dos modelos induzidos na validação.
 	
 	% Vamos induzir um modelo de classificação usado o classificador já apresentado e o conjunto de treinamento $T U \mathrm{T}$. 
 	% 
 	O modelo induzido a partir do conjunto de 131 redes apresenta $R = T$ e $S_0 = 0,809$. O modelo fica da seguinte forma:
 	
 	$$
+	\mathrm{m}(x) ~=~
 	\left\{
 	\begin{array}{cl}
-	\mbox{software-realista,} & \mbox{se } \mathrm{S}(x, \mbox{T}) \ge 0,809, \\
+	\mbox{software-realista,} & \mbox{se } \mathrm{S}(x, \mbox{T}) \ge 0,809; \\
 	\mbox{não software-realista,} & \mbox{caso contrário,}
 	\end{array}
 	\right.
 	$$
 
 	onde $T$ é o conjunto de redes extraídas dos 65 sistemas de software coletados.
-	
+		
 	% Este modelo foi induzido a partir do conjunto de 131 redes usadas na validação cruzada. Na validação cruzada, no entanto, os modelos foram induzidos a partir de subconjuntos com 90\% das 131 redes (10\% das redes foram separadas para teste). Assim, espera-se que modelo apresente desempenho igual ao desempenho aferido na validação cruzada.
 	
 	% , espera-se que seu desempenho seja próximo ou melhor do que o desempenho 
@@ -324,7 +326,7 @@ $$
 
 \begin{section}{Conclusão} \label{cap:clas5}
 
-	Neste capítulo foi apresentado um modelo de classificação que classifica redes em software-realistas --- que se assemelham a redes de software -- ou não software-realistas. O modelo foi induzido por um classificador a partir de um conjunto de treinamento formado por 65 redes de software --- consideradas software-realistas --- e 66 redes de outros domínios --- consideradas não software-realistas. Uma avaliação usando o mesmo conjunto permitiu estimar que o modelo induzido apresenta alta acurácia (cerca de 98\%), alta precisão (cerca de 96\%) e cobertura perfeita (100\%). 
+	Neste capítulo foi apresentado um modelo de classificação que classifica redes em software-realistas --- que se assemelham a redes de software --- ou não software-realistas. O modelo foi induzido por um classificador a partir de um conjunto de treinamento formado por 65 redes de software --- consideradas software-realistas --- e 66 redes de outros domínios --- consideradas não software-realistas. Uma avaliação usando o conjunto de 131 redes permitiu estimar que o modelo de classificação apresenta alta acurácia (cerca de 98\%), alta precisão (cerca de 96\%) e cobertura perfeita (100\%). 
 
 	% Neste capítulo foi apresentado um classificador que induz modelos de classificação de redes a partir de um conjunto de treinamento. Os modelos classificam redes em software-realistas --- que se assemelham a redes de software --- ou não software-realistas. 
 	% 
