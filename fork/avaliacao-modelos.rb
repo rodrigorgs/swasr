@@ -8,7 +8,9 @@ $conn = PGconn.connect('localhost', 5555, nil, nil, 'rodrigo', 'rodrigo', 'rodri
 MODEL_BCR = 1 
 MODEL_CGW = 2 
 MODEL_LFR = 3 
-THRESHOLD = 0.809316572577955
+#THRESHOLD = 0.809316572577955
+#THRESHOLD = 0.959341789316775 #(nesse caso nenhum dos modelos eh software-realista)
+THRESHOLD = 0.867863580032659
 
 SQL_THRESHOLD = " CASE WHEN s_score >= #{THRESHOLD} THEN 'Y' ELSE 'N' END "
 
