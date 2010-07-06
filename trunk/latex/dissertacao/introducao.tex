@@ -113,18 +113,18 @@
 % 	
 % \end{section}
 
-\begin{section}{Delimitação do Escopo}
-	% ESCOPO DO TRABALHO
-	% - modelos de redes organizadas em módulos
-	% - paradigma orientado a objetos, linguagem Java
-	% será que não ficou confuso apresentar o escopo sem antes apresentar redes complexas?
-	Optamos por considerar apenas modelos que geram redes nas quais as entidades são organizadas em módulos, uma vez que o conceito de módulo é recorrente na idealização e na construção de sistemas de software. Além disso, modelos com módulos são mais gerais do que modelos sem módulos e, portanto, têm maior aplicabilidade.
-	
-	% A fim de simplificar a pesquisa, optamos por comparar as dependências geradas pelos modelos com dependências extraídas de sistemas escritos em uma única linguagem de programação, a linguagem Java, que segue o paradigma de programação orientada a objetos. A simplificação se justifica pelo fato de que ferramentas de extração de dependências, em geral, funcionam apenas com uma ou com algumas poucas linguagens de programação. Aumentar o número de linguagens de programação, portanto, implicaria utilizar diversas ferramentas de extração, aumentando a complexidade do estudo. A linguagem Java foi escolhida por ser popular e por existir uma variedade de ferramentas de extração de dependências para a linguagem.
-	% 
-	% Além disso, decidimos considerar apenas dependências estáticas, isto é, dependências que podem ser identificadas a partir da análise de uma representação estática (como o código-fonte) dos sistemas em Java. A razão para tal escolha é que a extração de dependências dinâmicas, identificadas durante a execução dos sistemas, apresenta maior custo.
-
-\end{section}
+% \begin{section}{Delimitação do Escopo}
+% 	% ESCOPO DO TRABALHO
+% 	% - modelos de redes organizadas em módulos
+% 	% - paradigma orientado a objetos, linguagem Java
+% 	% será que não ficou confuso apresentar o escopo sem antes apresentar redes complexas?
+% 	Optamos por considerar apenas modelos que geram redes nas quais as entidades são organizadas em módulos, uma vez que o conceito de módulo é recorrente na idealização e na construção de sistemas de software. Além disso, modelos com módulos são mais gerais do que modelos sem módulos e, portanto, têm maior aplicabilidade.
+% 	
+% 	A fim de simplificar a pesquisa, optamos por comparar as dependências geradas pelos modelos com dependências extraídas de sistemas escritos em uma única linguagem de programação, a linguagem Java, que segue o paradigma de programação orientada a objetos. A simplificação se justifica pelo fato de que ferramentas de extração de dependências, em geral, funcionam apenas com uma ou com algumas poucas linguagens de programação. Aumentar o número de linguagens de programação, portanto, implicaria utilizar diversas ferramentas de extração, aumentando a complexidade do estudo. A linguagem Java foi escolhida por ser popular e por existir uma variedade de ferramentas de extração de dependências para a linguagem.
+% 	
+% 	Além disso, decidimos considerar apenas dependências estáticas, isto é, dependências que podem ser identificadas a partir da análise de uma representação estática (como o código-fonte) dos sistemas em Java. A razão para tal escolha é que a extração de dependências dinâmicas, identificadas durante a execução dos sistemas, apresenta maior custo.
+% 
+% \end{section}
 
 \begin{section}{Métodos}
 	
@@ -148,13 +148,13 @@
 \begin{section}{Resultados}
 	
 	% IDENTIFICAÇÃO DE 2 MODELOS; PROPOSTA DE UM NOVO MODELO.
-	Foram encontrados na literatura dois modelos de redes organizadas em módulos, denominados CGW e LFR, os quais podem ser interpretados como modelos de dependências entre entidades de software. Um terceiro modelo de redes organizadas em módulos, o BCR+, foi desenvolvido no contexto desta pesquisa, com base em um modelo sem módulos pré-existente, o BCR. 
+	Foram encontrados na literatura dois modelos de redes organizadas em módulos, denominados CGW e LFR, os quais podem ser interpretados como modelos de dependências entre entidades de software. Um terceiro modelo de redes organizadas em módulos, o BCR+, foi desenvolvido no contexto desta pesquisa, com base em um modelo sem módulos pré-existente, o BCR.
 	
 	% MODELO DE CLASSIFICAÇÃO
 	Foi desenvolvido um modelo de classificação que, dada uma rede, a classifica em software-realista ou não-software realista. O modelo de classificação foi avaliado com um conjunto composto de redes de software e de outros domínios e apresentou taxa de acerto de cerca de 98\%.
 	
 	% REALISMO DOS MODELOS
-	O modelo de classificação foi aplicado a redes geradas com os modelos de redes CGW, LFR e BCR+ e, como resultado, constatou-se que os três modelos produzem tanto redes software-realistas quanto redes não software-realistas. Além disso, foram encontradas regras que preveem, com uma taxa de acerto de 75\%, se uma determinada combinação de valores de parâmetros produzirá redes similares a redes extraídas de sistemas de software.
+	O modelo de classificação foi aplicado a redes geradas com os modelos de redes CGW, LFR e BCR+ e, como resultado, constatou-se que os três modelos produzem tanto redes software-realistas quanto redes não software-realistas. Como base de comparação, dois modelos mais simples, o de Erdős–Rényi (ER) e o de Barabási-Albert (BA), geram apenas redes não software-realistas. Além disso, foram encontradas regras que preveem, com uma taxa de acerto de 75\%, se uma determinada combinação de valores de parâmetros produzirá redes similares a redes extraídas de sistemas de software.
 	
 	% PROVA DE CONCEITO
 	Como prova de conceito foi realizada uma comparação quantitativa entre algoritmos usados no contexto da atividade de recuperação de arquitetura. Além disso, descobriu-se que o desempenho de certos algoritmos (os algoritmos aglomerativos) é consideravelmente piorado quando o número de módulos da rede gerada pelo modelo BCR+ aumenta.
@@ -172,7 +172,7 @@
 
 \begin{section}{Estrutura do Documento}
 	
-	No Capítulo \ref{cap:redes} são apresentados métodos, modelos e descobertas da teoria das redes complexas. Uma métrica de similaridade entre redes é exposta. Os modelos CGW e LFR são descritos.
+	No Capítulo \ref{cap:redes} são apresentados métodos, modelos e descobertas da teoria das redes complexas. Uma métrica de similaridade entre redes é exposta. Os modelos ER, BA, CGW e LFR são descritos.
 	
 	No Capítulo \ref{cap:bcr} é detalhado o modelo BCR+, com descrição algorítmica e exemplos.
 	

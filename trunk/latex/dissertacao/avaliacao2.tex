@@ -1,15 +1,29 @@
 \chapter{Avaliação de Modelos de Redes} \label{cap:avaliacao}
 
+% Capítulo de seleção de parâmetros:
+% Modelo BA:
+% n = 1.000
+% m = 2,3,4,5,6,7,8,9,10 (justificativa, no apêndice, o número de arestas é de 2 até 8 vezes o número de vértces)
+% variações: não-orientado, orientado l.p com grau total, orientado com l.p. com grau de entrada
+% 20 repetições = 27 * 20 = 540
+%
+% Modelo ER:
+% n = 1.000
+% m = de 2.000 até 10.000 (redes orientadas) em passos de 100. (justificativa igual à do modelo BA)
+% variações: orientado e não-orientado
+% 20 repetições = 810 * 2 = 620 redes, * 2 = 3240
+
+
 \begin{section}{Introdução}
 
 	Modelos de redes são um meio para gerar redes que, a princípio, podem ser usadas na avaliação de ferramentas de engenharia reversa. Antes de adotar um modelo de redes, no entanto, é importante avaliar se ele é capaz de gerar redes software-realistas --- que se assemelham a redes de software. Em caso afirmativo, é conveniente entender como ajustar os parâmetros dos modelos para que a maioria das redes geradas sejam software-realistas.
 
-	Neste capítulo é descrito um experimento que mostra que os três modelos de redes apresentados anteriormente --- BCR+, CGW e LFR --- geram tanto redes software-realistas quanto redes não-software-realistas. A partir daí foram encontradas regras práticas de ajuste dos parâmetros dos modelos que, se seguidas, permite a geração de redes que, com alta probabilidade, são software-realistas.
+	Neste capítulo é descrito um experimento que mostra que os três dos cinco modelos de redes apresentados anteriormente --- BCR+, CGW e LFR --- geram tanto redes software-realistas quanto redes não-software-realistas. A partir daí foram encontradas regras práticas de ajuste dos parâmetros dos modelos que, se seguidas, permite a geração de redes que, com alta probabilidade, são software-realistas.
 	
 	O experimento é dividido nas seguintes etapas:
 	
 	\begin{itemize}
-		\item \emph{seleção de parâmetros}: para cada modelo, são definidos milhares de configurações de parâmetros, de forma a explorar a variedade de redes que podem ser geradas por cada modelo;
+		\item \emph{seleção de parâmetros}: para cada modelo, são definidos centenas ou milhares de configurações de parâmetros, de forma a explorar a variedade de redes que podem ser geradas por cada modelo;
 		\item \emph{geração de redes}: cada configuração de parâmetros foi usada uma vez para gerar uma rede;
 		\item \emph{classificação das redes}: cada rede gerada foi classificada pelo modelo de classificação como software-realista ou não-software-realista;
 		\item \emph{identificação de regras práticas}: a partir da análise das redes classificadas, foram encontradas regras práticas de como ajustar os parâmetros dos modelos a fim de obter redes software-realistas na maioria das vezes.
@@ -21,6 +35,10 @@
 \begin{section}{Seleção de Parâmetros} \label{sec:parametros}
 	
 	A fim de gerar uma grande diversidade de redes, para cada parâmetro de cada modelo foram selecionados valores cobrindo, se possível, o domínio do parâmetro. Por exemplo, o parâmetro $p_1$ do modelo BCR+ representa um valor de probabilidade, que varia entre 0,0 e 1,0. Para este parâmetro, foram selecionados 6 valores uniformemente distribuídos entre 0,0 e 1,0. No caso do parâmetro $\delta_{in}$, cujo domínio são os números inteiros maiores ou iguais a zero, não é possível cobrir todo o domínio. Neste caso foram selecionados valores arbitrários, correndo o risco de não selecionar algum valor que aumenta as chances de geração de redes software-realistas. Em todos os modelos, o parâmetro $n$, número de vértices, foi fixado em 1.000, uma vez que tal parâmetro afeta, a princípio, apenas o tamanho da rede gerada, e não o padrão de ligações entre vértices. A seguir são apresentados os valores exatos selecionados para os parâmetros de cada modelo.
+
+Para o modelo ER, foram selecionados para $m$ (número de arestas) os valores de 2.000 a 10.000, com incrementos de 100, isto é, $m \in {2.000, 2.100, 2.200, \ldots, 10.000}$. Essa faixa de valores foi escolhida com base na análise das redes de software do Apêndice \ref{cap:lista-redes}. Nessas redes, o número de arestas é sempre de 2 a 8 vezes maior do que o número de vértices. Assim, consideramos valores de $m$ que são de 2 a 10 vezes maior do que o valor de $n$ (número de vértices). Além disso, consideramos duas variedades do modelo ER: o modelo original, que gera redes não-orientadas, e uma adaptação que gera redes orientadas. São 81 configurações de parâmetros por variedade, ou 162 configurações no total.
+
+Para o modelo BA, foram selecionados valores de $m$ no conjunto ${2, 3, 4, 5, 6, 7, 8, 9, 10}$, usando a mesma justificativa do parâmetro $m$ do modelo ER. Isso representa 9 configurações de parâmetros.
 
 Para o modelo BCR+, foram escolhidos grafos de módulos (parâmetro $G$) extraídos a partir de dependências entre arquivos JAR de 5 sistemas de software: GEF (2 módulos), iBATIS (4 módulos), MegaMek (8 módulos), findbugs (16 módulos) e zk (32 módulos). Como muitos dos arquivos JAR foram concebidos para serem reusados em projetos distintos, eles são uma boa aproximação do conceito de módulo. Para os demais parâmetros, os seguintes valores foram escolhidos:
 
@@ -68,9 +86,10 @@ Para chegar aos valores para os parâmetros do modelo LFR, foram analisadas mét
 
 \begin{section}{Geração e Classificação de Redes}
 	
-	Para cada modelo e cada configuração de valores de parâmetros, uma rede foi gerada. Cada uma das redes foi então classificada como software-realista ou não software-realista, de acordo com o modelo de classificação apresentado no capítulo anterior.
+	Para cada configuração de valores de parâmetros dos modelos BCR+, CGW e LFR, uma rede foi gerada. Para os modelos ER e BA foram geradas 20 redes por configuração, dado o número pequeno de configurações por modelo. Cada uma das redes foi então classificada como software-realista ou não software-realista, de acordo com o modelo de classificação apresentado no capítulo anterior.
 
-	Todos os modelos geraram tanto redes software-realistas quando redes não software-realistas.
+	% Os modelos ER e BA geraram apenas redes não software-realistas. Os demais modelos geraram tanto redes software-realistas quando redes não software-realistas.
+	
 Usando o modelo de classificação descrito no capítulo anterior, cada rede sintética foi classificada como software-realista ou não software-realista. Os resultados estão condensados na Tabela \ref{tab:results}.
 
 \begin{table}
@@ -81,7 +100,10 @@ Usando o modelo de classificação descrito no capítulo anterior, cada rede sin
 \textbf{Modelo} & \textbf{Proporção de Redes} \\ & \textbf{Software-Realistas} \\
 \hline 
 \hline
-
+ER & zero \\ % 2267 / 9500 = .23863157894736842105
+\hline
+BA & zero \\ % 2267 / 9500 = .23863157894736842105
+\hline
 BCR+ & 23,86\% \\ % 2267 / 9500 = .23863157894736842105
 \hline
 CGW  & 27,32\% \\  % 10596 / 38790 = .27316318638824439288
@@ -92,15 +114,13 @@ LFR  & 34,49\% \\ %  447 / 1296 = .34490740740740740740
 \label{tab:results}
 \end{table}
 
-	A proporção de redes software-realistas foi superior a 20\% em todos os casos, descartando a possibilidade de que esse resultado tenha sido obtido por acaso. A proporção exata de redes software-realistas para cada modelo não deve ser não deve ser interpretada como medida de qualidade do modelo, uma vez que é diretamente influenciada pela seleção dos valores dos parâmetros.
-	
-% Para afirmar isso seria necessário repetir o experimento com redes de Erdos-Renyi
+	Os modelos ER e BA geraram apenas redes não software-realistas, independentemente da configuração de parâmetros usada. Nos demais modelos, a proporção de redes software-realistas foi superior a 20\%. A proporção exata de redes software-realistas para cada modelo não deve ser não deve ser interpretada como medida de qualidade do modelo, uma vez que é diretamente influenciada pela seleção dos valores dos parâmetros.
 
 \end{section}
 
 \begin{section}{Identificação de Regras Práticas}
 	
-	Saber que os modelos são capazes de gerar redes software-realistas é um resultado importante. Para que os modelos sejam aplicados na prática, no entanto, é conveniente saber quais configurações de parâmetros tendem a gerar redes software-realistas.
+	Saber que três dos modelos são capazes de gerar redes software-realistas é um resultado importante. Para que os modelos sejam aplicados na prática, no entanto, é conveniente saber quais configurações de parâmetros tendem a gerar redes software-realistas.
 	
 	A relação entre configurações de parâmetros e classes pode ser estabelecida por um modelo de classificação. O modelo de classificação tenta prever, dada uma configuração de parâmetros de um modelo de redes, se a rede gerada a partir da configuração é ou não software-realistas.
 	

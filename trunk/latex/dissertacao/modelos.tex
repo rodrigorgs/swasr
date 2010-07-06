@@ -78,8 +78,9 @@ $$
 	Redes livres de escala também foram encontradas em programas escritos em Smalltalk \cite{Marchesi2004,Concas2007} e em Java \cite{Hyland-Wood2006,Baxter2006,Ichii2008}, em dependências entre pacotes de software \cite{Labelle2004}, em dependências entre bibliotecas dinâmicas \cite{Louridas2008} e até mesmo em referências entre objetos em tempo de execução \cite{Potanin2005}.
 \end{section}
 
-\begin{section}{Modelos de Síntese de Redes Organizadas em Módulos}
+\begin{section}{Modelos de Geração de Redes}
 % deu 7 páginas
+% Organizadas em Módulos
 
 Para tentar explicar os mecanismos responsáveis pela formação de redes livres de escala em diversos domínios, vários modelos de redes livres de escala foram propostos. Os modelos são algoritmos que geram vértices e arestas de forma probabilística porém de acordo com certas regras que garantem que, quando o número de vértices tende a infinito, a distribuição dos graus dos vértices tende a uma lei de potência. Tais modelos, portanto, geram redes similares a redes de software, ao menos quanto à distribuição dos graus.
 
@@ -87,14 +88,14 @@ Assim como um sistema de software é organizado conceitualmente em módulos, uma
 
 Após uma pesquisa extensa, embora não-sistemática, realizada durante o primeiro semestre de 2009, foram encontrados dois modelos de redes livres de escala organizadas em módulos: o modelo CGW \cite{Chen2008} e o modelo LFR \cite{Lancichinetti2008,Lancichinetti2009}. Um terceiro modelo, o BCR+, elaborado no contexto deste trabalho, é descrito no próximo capítulo.
 
+A seguir são apresentados quatro modelos de redes. Os dois primeiros, o de Erdős–Rényi (ER) e o de Barabási-Albert (BA), geram redes sem módulos, e são apresentados aqui a fim de ilustrar conceitos usados nos outros modelos.
+ 
 % Modelo de Erdos-Renyi?
 % Modelo de configuração?
 % Modelo de Albert-Barabasi?
 
-\begin{subsection}{Rascunho}
-	== O modelo ER ==
-	
-	O modelo de Erdős–Rényi (ER) gera redes não-orientadas nas quais a distribuição dos graus dos vértices tende à distribuição de Poisson. O modelo ER recebe dois parâmetros:
+\begin{subsection}{O modelo de Erdős–Rényi (ER)}
+	O modelo de Erdős–Rényi (ER) \cite{Erdos1959} gera redes não-orientadas nas quais a distribuição dos graus dos vértices tende à distribuição de Poisson . Ele foi concebido antes da teoria das redes complexas. O modelo ER recebe dois parâmetros:
 	
 	\begin{itemize}
 		\item $n$, o número de vértices;
@@ -105,9 +106,13 @@ Após uma pesquisa extensa, embora não-sistemática, realizada durante o primei
 	
 	O modelo pode ser adaptado facilmente para gerar redes orientadas. Neste caso, uma rede com $n$ vértices pode conter até $n(n-1)$ arestas, e é desse conjunto de aresta que $m$ vértices são selecionados.
 	
-	== O modelo BA ==
+	Pela descrição do modelo, percebe-se que ele pode gerar qualquer rede possível, com qualquer distribuição de graus. A probabilidade de uma rede gerada pelo modelo ER ser livre de escala é, no entanto, baixíssima.
+
+\end{subsection}
+
+\begin{subsection}{O modelo de Barabási-Albert (BA)}	
 	
-	O modelo de Barabási-Albert (BA) gera redes não-orientadas, livres de escala e sem módulos através de dois mecanismos: crescimento e ligação preferencial. Crescimento significa que as redes são construída a partir da adição sucessiva de novos vértices. Ligação preferencial significa que os vértices com mais arestas têm mais probabilidade de receber novas arestas.
+	O modelo de Barabási-Albert (BA) \cite{Barabasi1999} foi o primeiro modelo livre de escala da teoria das redes complexas. Ele gera redes não-orientadas, livres de escala e sem módulos através de dois mecanismos: crescimento e ligação preferencial. Crescimento significa que as redes são construída a partir da adição sucessiva de novos vértices. Ligação preferencial significa que os vértices com mais arestas têm mais probabilidade de receber novas arestas.
 	
 	O modelo BA aceita os seguinte parâmetros:
 	
@@ -116,7 +121,7 @@ Após uma pesquisa extensa, embora não-sistemática, realizada durante o primei
 		\item $m$, o número de arestas adicionadas a cada passo.
 	\end{itemize}
 	
-	A rede é inicializada com um número arbitrário de vértices de forma que cada vértice possua grau maior ou igual a 1. A cada passo, é adicionado um novo vértice, que é ligado através de $m$ novas arestas a $m$ vértices pré-existentes. Os $m$ vértices são escolhidos de acordo com a ligação preferencial, o que significa que a probabilidade de um vértice $x$ ser escolhido é proporcional ao grau de $x$: $\mathrm{P}(x) \sim \mathrm{g}(x)$. Como a soma dos probabilidades dos vértices deve ser igual a 1, a probabilidade de cada vértice é igual ao seu grau dividido pela soma dos graus de todos os vértices da rede:
+	A rede é inicializada com um número arbitrário de vértices e arestas de forma que cada vértice possua grau maior ou igual a 1. A cada passo, é adicionado um novo vértice, que é ligado através de $m$ novas arestas a $m$ vértices pré-existentes. Os $m$ vértices são escolhidos de acordo com a ligação preferencial, o que significa que a probabilidade de um vértice $x$ ser escolhido é proporcional ao grau de $x$: $\mathrm{P}(x) \sim \mathrm{g}(x)$. Como a soma dos probabilidades dos vértices deve ser igual a 1, a probabilidade de cada vértice é igual ao seu grau dividido pela soma dos graus de todos os vértices da rede:
 	
 	$$
 	\mathrm{P}(x) ~=~ \frac{\mathrm{g}(x)}{\sum_y \mathrm{g}(y)},
@@ -124,40 +129,9 @@ Após uma pesquisa extensa, embora não-sistemática, realizada durante o primei
 	
 	onde g($x$) representa o grau do vértice $x$. Diz-se que os novos vértices se conectam \emph{preferencialmente} a vértices com alto grau. Como consequência, alguns poucos vértices acumulam muitas arestas, enquanto a maioria dos vértices com permanece com poucas arestas. O processo é repetido até que a rede atinja $n$ vértices.
 	
-	% A Figura XXX exemplifica o mecanismo de ligação preferencial.
+	% TODO: IMPORTANTE %% A Figura XXX exemplifica o mecanismo de ligação preferencial.
 	
-	Várias adaptações já foram propostas para o modelo BA. Uma adaptação simples pode ser realizada para que o modelo gere redes orientadas. No caso de redes orientadas, as $m$ arestas orientadas adicionadas a cada passo possuem origem no novo vértice. O mecanismo de ligação preferencial pode levar em conta os graus totais dos vértices, $\mathrm{g}(x)$, ou apenas os graus de entrada, $\gin(x)$.
-	
-	% Capítulo de seleção de parâmetros:
-	% Modelo BA:
-	% n = 1.000
-	% m = 2,3,4,5,6,7,8,9,10 (justificativa, no apêndice, o número de arestas é de X até Y vezes o número de vértces)
-	% variações: não-orientado, orientado l.p com grau total, orientado com l.p. com grau de entrada
-	% 20 repetições
-	%
-	% Modelo ER:
-	% n = 1.000
-	% m = de 2.000 até 20.000 (redes orientadas) em passos de 100. (justificativa igual à do modelo BA)
-	% variações: orientado e não-orientado
-
-	== O modelo BCR ==
-	
-	O modelo BCR gera redes livres de escala orientadas e sem módulos. Assim como o modelo BA, ele adota os mecanismos de crescimento e ligação preferencial. O modelo BCR aceita os seguintes parâmetros:
-	
-	\begin{itemize}
-		\item três probabilidades, $p_1$, $p_2$ e $p_3$, tal que $p_1 + p_2 + p_3 = 1$;
-		\item dois números reais, $\din$ e $\dout$.
-	\end{itemize}
-	
-	A partir de uma rede inicial, a cada passo é aplicado uma operação, escolhida dentre três operações de acordo com as probabilidades $p_1$, $p_2$ e $p_3$:
-	
-	\begin{itemize}
-		\item Com probabilidade $p_1$, é adicionado um novo vértice, $v$, juntamente com uma aresta de $v$ até um vértice pré-existente, $w$. O vértice $w$ é escolhido de acordo com $g_{in}(x) + \din$, onde $g_{in}$ representa o grau de entrada. Isso significa que a probabilidade de um vértice arbitrário ($x$) ser escolhido é proporcional a $g_{in}(x) + \din$ --- ou seja, $mathrm{P}(x) = \frac{g_{in}(x) + \din}{\sum_y g_{in}(y) + \din}$.
-		
-		\item Com probabilidade $p_2$, é adicionado um novo vértice, $w$, juntamente com uma aresta de um vértice pré-existente, $v$, até $w$. O vértice $w$ é escolhido de acordo com $g_{out} + \dout$, onde $g_{out}$ representa o grau de saída.
-		
-		\item Com probabilidade $p_3$, é adicionada uma aresta de um vértice pré-existente, $v$, até outro vértice pré-existente, $w$. O vértice $v$ é escolhido de acordo com $g_{out} + \dout$, onde $g_{out}$. O vértice $w$ é escolhido de acordo com $g_{out} + \dout$.
-	\end{itemize}
+	% MELHOR DEIXAR ISSO DE FORA: Várias adaptações já foram propostas para o modelo BA. Uma adaptação simples pode ser realizada para que o modelo gere redes orientadas. No caso de redes orientadas, as $m$ arestas orientadas adicionadas a cada passo possuem origem no novo vértice. O mecanismo de ligação preferencial pode levar em conta os graus totais dos vértices, $\mathrm{g}(x)$, ou apenas os graus de entrada, $\gin(x)$.
 
 \end{subsection}
 
@@ -265,3 +239,22 @@ Os tamanhos dos módulos são selecionados de uma lei de potência com expoente 
 	CGW e LFR são modelos que geram redes livres de escala organizadas em módulos. Com tais propriedades, essas redes podem representar dependências entre entidades de software.
 	
 \end{section}
+
+% == O modelo BCR ==
+% 
+% O modelo BCR gera redes livres de escala orientadas e sem módulos. Assim como o modelo BA, ele adota os mecanismos de crescimento e ligação preferencial. O modelo BCR aceita os seguintes parâmetros:
+% 
+% \begin{itemize}
+% 	\item três probabilidades, $p_1$, $p_2$ e $p_3$, tal que $p_1 + p_2 + p_3 = 1$;
+% 	\item dois números reais, $\din$ e $\dout$.
+% \end{itemize}
+% 
+% A partir de uma rede inicial, a cada passo é aplicado uma operação, escolhida dentre três operações de acordo com as probabilidades $p_1$, $p_2$ e $p_3$:
+% 
+% \begin{itemize}
+% 	\item Com probabilidade $p_1$, é adicionado um novo vértice, $v$, juntamente com uma aresta de $v$ até um vértice pré-existente, $w$. O vértice $w$ é escolhido de acordo com $g_{in}(x) + \din$, onde $g_{in}$ representa o grau de entrada. Isso significa que a probabilidade de um vértice arbitrário ($x$) ser escolhido é proporcional a $g_{in}(x) + \din$ --- ou seja, $mathrm{P}(x) = \frac{g_{in}(x) + \din}{\sum_y g_{in}(y) + \din}$.
+% 	
+% 	\item Com probabilidade $p_2$, é adicionado um novo vértice, $w$, juntamente com uma aresta de um vértice pré-existente, $v$, até $w$. O vértice $w$ é escolhido de acordo com $g_{out} + \dout$, onde $g_{out}$ representa o grau de saída.
+% 	
+% 	\item Com probabilidade $p_3$, é adicionada uma aresta de um vértice pré-existente, $v$, até outro vértice pré-existente, $w$. O vértice $v$ é escolhido de acordo com $g_{out} + \dout$, onde $g_{out}$. O vértice $w$ é escolhido de acordo com $g_{out} + \dout$.
+% \end{itemize}
