@@ -14,7 +14,26 @@
 A teoria das redes complexas estuda propriedades gerais de diversos tipos de redes, representadas como grafos, com o uso de ferramentas estatísticas. Estudos realizados na última década revelaram similaridades entre redes estudadas em diversos domínios. Exemplos incluem redes tecnológicas, como a Web e a rede de distribuição de energia elétrica dos Estados Unidos, redes biológicas, como cadeias alimentares e redes de ligações entre proteínas, e redes sociais, como as relações de amizade entre alunos de uma escola \cite{Newman2003}.
 
 O termo ``rede'' em geral está associado a entidades reais, como pessoas e relacionamentos de amizade, enquanto o termo ``grafo'' designa uma abstração matemática conveniente para representar relacionamentos entre objetos. Na teoria das redes complexas, no entanto, os termos são frequentemente usados como sinônimos, e é desta forma que eles são usados neste trabalho.
+\end{section}
 
+\begin{section}{Definições Básicas}
+	
+	Uma rede ou grafo é um conjunto de \emph{vértices} e \emph{arestas}, no qual as arestas relacionam dois vértices. Pode-se dizer também que as arestas ligam ou conectam dois vértices. Uma rede pode ser \emph{orientada} ou \emph{não-orientada}. 
+	
+	Nas redes orientadas, as arestas (chamadas de arestas orientadas) estabelecem uma relação assimétrica entre dois vértices, um dos quais é dito vértice de origem e o outro, vértice de destino da aresta. Duas arestas são ditas \emph{opostas} se ligam o mesmo par de vértices, porém a origem e o destino são invertidos. 
+	
+	Em uma rede orientada, o \emph{grau de saída} de um vértice $x$, denotado $\mathrm{g}_\mathrm{out}(x)$, é o número de arestas com origem no vértice $x$. O \emph{grau de entrada} de um vértice $x$, denotado $\mathrm{g}_\mathrm{in}(x)$, é o número de arestas com destino no vértice $x$. O \emph{grau total} de um vértice $x$ é igual à soma do seu grau de entrada com o seu grau de saída.
+	
+	Nas redes não-orientadas, a relação é simétrica: cada aresta (chamada de aresta não-orientada) liga dois vértices, e não existe distinção entre origem e destino. Em uma rede não-orientada, o \emph{grau} de um vértice $x$, denotado $\mathrm{g}(x)$, é o número de arestas que se relaciona com $x$. Para transformar uma rede não-orientada em uma rede orientada, basta transformar cada aresta não-orientada em duas arestas orientadas opostas que ligam o mesmo par de vértices que a aresta não-orientada. 
+	
+	Nas redes organizadas em módulos (que podem ser orientadas ou não-orientadas), o conjunto de vértices é particionado em subconjuntos denominados \emph{módulos}. As arestas podem ser classificadas em \emph{internas} (quando ligam vértices pertencentes ao mesmo módulo) ou \emph{externas} (quando ligam vértices pertencentes a módulos distintos).
+	
+	As redes podem ser representadas graficamente por diagramas com círculos e linhas. Cada vértice é representado por um círculo. Nas redes orientadas, as arestas são representadas por setas que ligam o vértice de origem ao vértice de destino. Duas arestas opostas podem ser representadas de forma simplificada por uma seta que aponta simultaneamente para dois vértices. Nas redes não-orientadas, as arestas são representadas por linhas que conectam dois vértices (sem seta). Os módulos, quando existem, são representados por retângulos ou formas livres que circundam os vértices que contêm.
+
+\end{section}
+
+\begin{section}{Propriedades Estatísticas}
+	
 Barabási e Albert \cite{Barabasi1999} analisaram uma amostra da \emph{World Wide Web}, modelada como um grafo não-orientado no qual os vértices representam páginas e as arestas representam \emph{links} entre duas páginas. Eles observaram a distribuição dos graus dos vértices, isto é, o número de vértices conectados a outros $k$ vértices ($N(k)$), para cada valor de $k > 0$, e encontraram uma lei de potência, isto é, acharam $N(k)$ proporcional a $k^{-\gamma}$, como mostra a Figura \ref{fig:leidepotencia}. Desde então, leis de potência têm sido encontradas na distribuição de graus de redes estudadas em diversos domínios, inclusive no domínio de software, com $\gamma$ variando tipicamente entre 2 e 3. Redes com esse padrão são chamadas de \emph{redes livres de escala}.
 
 % Eles perceberam que o número de vértices com grau $k$, isto é, vértices ligados a outros $k$ vértices, era aproximadamente proporcional a $k^{-\gamma}$, função conhecida como lei de potência (veja a Figura \ref{fig:leidepotencia}). Desde então, esse padrão de conectividade tem sido encontrado em redes estudadas em diversos domínios, inclusive no domínio de software. Redes com esse padrão são chamadas de redes \emph{livres de escala}.
@@ -121,7 +140,7 @@ A seguir são apresentados quatro modelos de redes. Os dois primeiros, o de Erd�
 		\item $m$, o número de arestas adicionadas a cada passo.
 	\end{itemize}
 	
-	A rede é inicializada com um número arbitrário de vértices e arestas de forma que cada vértice possua grau maior ou igual a 1. A cada passo, é adicionado um novo vértice, que é ligado através de $m$ novas arestas a $m$ vértices pré-existentes. Os $m$ vértices são escolhidos de acordo com a ligação preferencial, o que significa que a probabilidade de um vértice $x$ ser escolhido é proporcional ao grau de $x$: $\mathrm{P}(x) \sim \mathrm{g}(x)$. Como a soma dos probabilidades dos vértices deve ser igual a 1, a probabilidade de cada vértice é igual ao seu grau dividido pela soma dos graus de todos os vértices da rede:
+	A rede é inicializada com um número arbitrário de vértices e arestas de forma que cada vértice possua grau maior ou igual a 1. A cada passo, é adicionado um novo vértice, que é ligado através de $m$ novas arestas a $m$ vértices pré-existentes. Os $m$ vértices são escolhidos de acordo com a ligação preferencial, o que significa que a probabilidade de um vértice $x$ ser escolhido, $\mathrm{P}(x)$, é proporcional ao grau de $x$: $\mathrm{P}(x) \sim \mathrm{g}(x)$. Como a soma dos probabilidades dos vértices deve ser igual a 1, a probabilidade de cada vértice é igual ao seu grau dividido pela soma dos graus de todos os vértices da rede:
 	
 	$$
 	\mathrm{P}(x) ~=~ \frac{\mathrm{g}(x)}{\sum_y \mathrm{g}(y)},
