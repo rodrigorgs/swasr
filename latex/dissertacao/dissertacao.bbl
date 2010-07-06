@@ -194,13 +194,12 @@ ISSN 0001-0782.}
 2009.
 Dispon{\'\i}vel em: $<$http://arxiv.org/abs/0904.3940$>$.}
 
-\bibitem{Bollobas2003}
-\abntrefinfo{Bollob\'{A}s et al.}{BOLLOB\'{A}S et al.}{2003}
-{BOLLOB\'{A}S, B. et al. Directed scale-free graphs. In:  \emph{SODA '03:
-  Proceedings of the fourteenth annual ACM-SIAM symposium on Discrete
-  algorithms}. Philadelphia, PA, USA: Society for Industrial and Applied
-  Mathematics, 2003. p. 132--139.
-ISBN 0-89871-538-5.}
+\bibitem{Erdos1959}
+\abntrefinfo{Erd\"{O}s e R\'{E}nyi}{ERD\"{O}S; R\'{E}NYI}{1959}
+{ERD\"{O}S, P.; R\'{E}NYI, A. On random graphs, i.
+\emph{Publicationes Mathematicae (Debrecen)}, v.~6, p. 290--297, 1959.
+Dispon{\'\i}vel em:
+  $<$http://www.renyi.hu/\~{}p\_erdos/Erdos.html\#1959-11$>$.}
 
 \bibitem{Tan2005}
 \abntrefinfo{Tan, Steinbach e Kumar}{TAN; STEINBACH; KUMAR}{2005}
