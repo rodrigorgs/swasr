@@ -1,33 +1,13 @@
 \chapter{BCR+: Um Novo Modelo de Redes Organizadas em Módulos} \label{cap:bcr}
 
-% comparativo
-% Número de parâmetros:
-% - BCR+: 8 (6 do BCR + 2, e um deles é G)
-% - LFR: 7
-% - CGW: 11
-%
-% - BCR+ possui mais parâmetros do que o LFR, mas é mais simples pelo fato de que todas as combinações são permitidas.
-%
-% Crescimento:
-% - BCR+ e CGW são. LFR não é.
-%
-% Restrição a dependências entre módulos
-% - Só no BCR+ é um parâmetro, G.
-%
-% Combinações inválidas:
-% - Apenas o LFR possui combinações de parâmetros inválidas.
-%
-% Semântica dos parâmetros:
-% - No LFR, todos os parâmetros são propriedades das redes. No BCR+ e no CGW, propriedades como expoente da distribuição de graus e proporção de arestas externas devem ser inferidos.
-
 \begin{section}{Introdução}
 
 BCR é um modelo que gera redes orientadas, livres de escala e sem módulos. Assim como os modelos BA e CGW, ele utiliza os mecanismos de crescimento e ligação preferencial.
 
 % No contexto desta pesquisa foi desenvolvido o modelo BCR+, que generaliza o modelo BCR adicionando módulos à construção da rede.
-No contexto desta pesquisa foi desenvolvido um modelo baseado no BCR, chamado BCR+, que adiciona módulos à construção da rede. O modelo BCR+ foi desenvolvido por causa da dificuldade de encontrar modelos de redes organizadas orientadas em módulos nas etapas iniciais da pesquisa. O modelo apresenta uma vantagem em relação aos demais, que é a possibilidade de se restringir, através de um dos seus parâmetros ($G$), as dependências permitidas entre vértices pertencentes a módulos distintos.
+No contexto desta pesquisa foi desenvolvido um modelo baseado no BCR, chamado BCR+, que adiciona módulos à construção da rede. O modelo BCR+ foi desenvolvido por causa da dificuldade encontrada na busca por modelos de redes organizadas em módulos nas etapas iniciais da pesquisa. O modelo apresenta uma vantagem em relação aos demais, que é a possibilidade de se restringir, através de um dos seus parâmetros ($G$), as dependências permitidas entre vértices pertencentes a módulos distintos.
 
-Neste capítulo é apresentado o modelo BCR+. Como ele generaliza o modelo BCR, optou-se por não descrever o modelo BCR separadamente.
+Neste capítulo é apresentado o modelo BCR+. Como ele generaliza o modelo BCR, optou-se por não descrever o modelo BCR separadamente. Ao final do capítulo, é feita uma comparação entre o modelo BCR+ e os modelos apresentados anteriormente.
 
 % \end{section}
 % 
@@ -62,7 +42,7 @@ Neste capítulo é apresentado o modelo BCR+. Como ele generaliza o modelo BCR, 
 
 \begin{section}{Regras de Formação}
 
-Antes de descrever as regras do algoritmo, algumas definições são necessárias. A expressão $\mathrm{g}_{out}(x)$ designa o número de arestas com origem no vértice $x$, e $\mathrm{g}_{in}(x)$, analogamente, designa o número de arestas com destino no vértice $x$. A expressão ``escolher um vértice de acordo com f($x$)'' significa que a probabilidade de escolher um vértice $x$ é dada pela seguinte função de probabilidade:
+Antes de descrever as regras do algoritmo, algumas definições são necessárias. A expressão $\gout(x)$ designa o número de arestas com origem no vértice $x$, e $\gin(x)$, analogamente, designa o número de arestas com destino no vértice $x$. A expressão ``escolher um vértice de acordo com f($x$)'' significa que a probabilidade de escolher um vértice $x$ é dada pela seguinte função de probabilidade:
 
 $$
   \mathrm{P}(x) ~=~ \frac{ \mathrm{f}(x) }
@@ -82,11 +62,11 @@ As regras do modelo estão ilustradas na Figura \ref{fig:bcr-regras} e são desc
 
 \begin{enumerate}
 
-\item \emph{Adicionar um vértice com uma aresta de saída}. Um vértice existente, $w$ é escolhido de acordo com $\mathrm{f}(x) = \din + \mathrm{g}_{in}(x)$. Um novo vértice, $v$, é adicionado ao módulo que contém $w$, juntamente com uma aresta de $v$ a $w$.
+\item \emph{Adicionar um vértice com uma aresta de saída}. Um vértice existente, $w$ é escolhido de acordo com $\mathrm{f}(x) = \din + \gin(x)$. Um novo vértice, $v$, é adicionado ao módulo que contém $w$, juntamente com uma aresta de $v$ a $w$.
 
-\item \emph{Adicionar um vértice com uma aresta de entrada}. Um vértice existente, $w$ é escolhido de acordo com $\mathrm{f}(x) = \dout + \mathrm{g}_{out}(x)$. Um novo vértice, $v$, é adicionado ao módulo que contém $w$, juntamente com uma aresta de $w$ a $v$.
+\item \emph{Adicionar um vértice com uma aresta de entrada}. Um vértice existente, $w$ é escolhido de acordo com $\mathrm{f}(x) = \dout + \gout(x)$. Um novo vértice, $v$, é adicionado ao módulo que contém $w$, juntamente com uma aresta de $w$ a $v$.
 
-\item \emph{Adicionar uma aresta entre vértices pré-existentes}. Um vértice, $v$, é escolhido de acordo com $\mathrm{f}(x) = \dout + \mathrm{g}_{out}(x)$. Então é adicionada uma aresta do vértice $v$ a um vértice $w$, escolhido de acordo com $\mathrm{f}(x) = \din + \mathrm{g}_{in}(x)$, respeitando um dos seguintes casos:
+\item \emph{Adicionar uma aresta entre vértices pré-existentes}. Um vértice, $v$, é escolhido de acordo com $\mathrm{f}(x) = \dout + \gout(x)$. Então é adicionada uma aresta do vértice $v$ a um vértice $w$, escolhido de acordo com $\mathrm{f}(x) = \din + \gin(x)$, respeitando um dos seguintes casos:
 
 \begin{enumerate}
   \item com probabilidade $\mu$, $w$ é escolhido dentre os vértices que estão em módulos dos quais o módulo de $v$ depende;
@@ -117,6 +97,69 @@ Nota-se que vértices com grau de saída alto têm mais chance de ser a origem d
 
 % TODO: Figura
 
+\end{section}
+
+\begin{section}{Comparação com Outros Modelos}
+	% comparativo
+	% Número de parâmetros:
+	% - BCR+: 8 (6 do BCR + 2, e um deles é G)
+	% - LFR: 7
+	% - CGW: 11
+	%
+	% - BCR+ possui mais parâmetros do que o LFR, mas é mais simples pelo fato de que todas as combinações são permitidas.
+	%
+	% Crescimento:
+	% - BCR+ e CGW são. LFR não é.
+	%
+	% Restrição a dependências entre módulos
+	% - Só no BCR+ é um parâmetro, G.
+	%
+	% Combinações inválidas:
+	% - Apenas o LFR possui combinações de parâmetros inválidas.
+	%
+	% Semântica dos parâmetros:
+	% - No LFR, todos os parâmetros são propriedades das redes. No BCR+ e no CGW, propriedades como expoente da distribuição de graus e proporção de arestas externas devem ser inferidos.
+	
+	A principal diferença do BCR+ em relação aos modelos apresentados anteriormente é a possibilidade de restringir as dependências entre módulos. A Tabela \ref{tab:comparacao} apresenta um sumário de características do BCR+ e dos demais modelos a fim de possibilitar uma comparação mais completa.
+
+\renewcommand{\S}{\CheckmarkBold}
+\newcommand{\N}{\XSolidBrush}
+	
+\begin{threeparttable}
+	\begin{center}
+	\caption{Características do modelo BCR+ comparadas com características de outros modelos.}
+	\label{tab:comparacao}
+% \begin{table}
+	\centering
+	\begin{tabular}{|l|c|c|c|c|c|}
+		\hline
+		\textbf{Característica vs. Modelo} & \textbf{ER} & \textbf{BA} & \textbf{CGW} & \textbf{LFR} & \textbf{BCR+} \\
+		\hline
+		\hline
+		Número de parâmetros                      & 2  &  2 & 11  & 7   &  8 \\
+		\hline
+		Gera redes com módulos?                   & \N & \N & \S & \S & \S \\
+		\hline
+		Gera redes orientadas?                    & \N\tnote{*} & \N & \S & \S & \S \\ \hline
+		Gera redes livres de escala?              & \N & \S & \S & \S & \S \\
+		\hline
+		Usa o mecanismo de crescimento?           & \N & \S & \S & \N & \S \\
+		\hline
+		Usa o mecanismo de ligação preferencial?  & \N & \S & \S & \N & \S \\		
+	  \hline
+	\end{tabular}
+	\begin{tablenotes}
+	\item[*] Existem variações do modelo ER que geram redes orientadas.
+	\end{tablenotes}	
+	\end{center}
+% \end{table}
+\end{threeparttable}
+
+	Dentre os modelos que geram redes orientadas, livres de escala e organizadas em módulos, o BCR+ é um dos modelos mais simples em relação ao número de parâmetros, possuindo 8 parâmetros. Nesse quesito ele perde apenas para o modelo LFR, que aceita 7 parâmetros. Ao contrário do LFR, no entanto, o BCR+ usa o mecanismo de crescimento, que é adequado para representar, por exemplo, a evolução de sistemas de software.
+
+% \footnotetext[1]{O modelo ER foi concebido originalmente para gerar redes não-orientadas, mas também pode ser usado para gerar redes orientadas sem perder a sua essência.}
+
+	
 \end{section}
 
 \begin{section}{Conclusão}

@@ -8,6 +8,7 @@
 \begin{section}{Introdução}
 
 No capítulo anterior foi mostrado que pelo menos três modelos geram redes organizadas em módulos que se assemelham a redes de software. Neste capítulo, o modelo BCR+ é usado em dois estudos experimentais realizados com o propósito de entender e comparar algoritmos de agrupamento que são estudados no contexto de recuperação de arquitetura de software. Os estudos são uma prova de conceito: eles demonstram a viabilidade do uso do modelo na avaliação de ferramentas de engenharia reversa.
+
 %os algoritmos de agrupamento apresentados na Seção \ref{sec:algoritmos}.
 
 Primeiramente, é feita uma breve introdução ao tema de algoritmos de agrupamento no contexto de recuperação de arquitetura. A seguir, são delineados os dois estudos sobre algoritmos de agrupamento. Por fim, são apresentados os resultados e as conclusões dos estudos.
@@ -70,7 +71,7 @@ O custo de um experimento para avaliar algoritmos de agrupamento de software é 
 
 O primeiro experimento teve como objetivo comparar o desempenho dos algoritmos de agrupamento com relação à similaridade entre agrupamentos encontrados pelos algoritmos e os agrupamentos de referência correspondentes.
 
-Cada algoritmo foi aplicado a cada uma das redes sintéticas, resultando em agrupamentos cujo desempenho foi medido pela métrica MoJoSim. Apenas redes software-realistas (valor $S \ge 0,88$), totalizando quase 6 mil redes, foram usadas neste estudo, uma vez que o objetivo é comparar o desempenho de algoritmos quando aplicadas a redes de software.
+Cada algoritmo foi aplicado a cada uma das redes sintéticas, resultando em agrupamentos cujo desempenho foi medido pela métrica MoJoSim. Apenas redes software-realistas, totalizando quase 6 mil redes, foram usadas neste estudo, uma vez que o objetivo é comparar o desempenho de algoritmos quando aplicadas a redes de software.
 
 % falar que quartis são métricas robustas?
 A Figura \ref{fig:box-mojo-por-alg} mostra um \emph{boxplot} dos valores de MoJoSim alcançados por cada algoritmo. No \emph{boxplot}, o retângulo vai do quartil inferior (Q1) até o quartil superior (Q3), com a mediana desenhada como uma linha horizontal dentro do retângulo. Q1 representa o valor que é maior do que 25\% dos valores e Q3 representa o valor que é maior do que 75\% dos valores. Acima e abaixo do retângulo estão linhas horizontais que indicam o valor mínimo e o valor máximo do conjunto de dados. % As linhas são limitadas por Q1 - (1.5 * IQR) e Q3 + (1.5 * IQR)...
