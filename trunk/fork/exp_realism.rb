@@ -55,6 +55,38 @@ def bcr_iterations(architectures, &block)
   end; end; end; end; end; end
 end
 
+def er_iterations(&block)
+  n = 1000
+  sm = (2000..10000).select { |x| x % 100 == 0 }
+  sdirected = [false, true]
+  sseed = 0..19
+
+  sseed.each do |seed|
+    sdirected.each do |directed|
+      sm.each do |m|
+        block.call(n, m, directed, seed)
+      end
+    end
+  end
+end
+
+def ba_iterations(&block)
+  n = 1000
+  sm = 2..10
+  sseed = 0..19
+
+  sseed.each do |seed|
+    [true, false].each do |directed|
+      soutpref = directed == true ? [true, false] : [true]
+      soutpref.each do |outpref|
+        sm.each do |m|
+          block.call(n, m, directed, outpref, seed)
+        end
+      end
+    end
+  end
+end
+
 def lf_iterations(&block)
   # TODO: study parameters
   n = 1000
@@ -100,8 +132,8 @@ end
 if __FILE__ == $0
   exp = ClusteringExperiment.new
 
-  puts 'bcr'
-  archs = exp.db[:architecture].all
+  #puts 'bcr'
+  #archs = exp.db[:architecture].all
 
   #bcr_iterations(archs) do |n, arch, alpha, beta, gamma, delta_in, delta_out, prob_out|
   #  params = { 
@@ -119,42 +151,64 @@ if __FILE__ == $0
   #  exp.insert_safe :experiment_model_config, {:fk_experiment => 1, :fk_model_config => pk_model_config}
   #end
 
-  lf_iterations do |n, k, maxk, mu, t1, t2, minc, maxc, seed|
-    params = {
-      :fk_model => ClusteringExperiment::MODEL_LF,
-      :seed => seed,
-      :n => 1000,
-      :avgk => k,
-      :maxk => maxk,
-      :mixing => mu,
-      :expdegree => t1,
-      :expsize => t2,
-      :minm => minc,
-      :maxm => maxc}
+  #i = 0
+  #ba_iterations do |n, m, directed, outpref, seed|
+  #  params = {:fk_model => ClusteringExperiment::MODEL_BA,
+  #     :n => n, :m => m, :directed => directed, :outpref => outpref, :seed => seed}
+  #  pk_model_config = exp.insert_model_config params
+  #  exp.insert_safe :experiment_model_config, {:fk_experiment => 5, :fk_model_config => pk_model_config}
+  #  i +=1
+  #end
+  #p i
 
+  i = 0
+  er_iterations do |n, m, directed, seed|
+    params = {:fk_model => ClusteringExperiment::MODEL_ER,
+       :n => n, :m => m, :directed => directed, :seed => seed}
     pk_model_config = exp.insert_model_config params
-    exp.insert_safe :experiment_model_config, {:fk_experiment => 1, :fk_model_config => pk_model_config}
+    exp.insert_safe :experiment_model_config, {:fk_experiment => 5, :fk_model_config => pk_model_config}
+    i +=1
   end
+  p i
 
-  cgw_iterations do |n, p1, p2, p3, p4, e1, e2, e3, e4, alpha, m|
-    params = {
-      :fk_model => ClusteringExperiment::MODEL_CGW,
-      :seed => 0,
-      :p1 => p1,
-      :p2 => p2,
-      :p3 => p3,
-      :p4 => p4,
-      :e1 => e1,
-      :e2 => e2,
-      :e3 => e3,
-      :e4 => e4,
-      :n => 1000,
-      :m => m,
-      :alpha => alpha}
-    
-    pk_model_config = exp.insert_model_config params
-    exp.insert_safe :experiment_model_config, {:fk_experiment => 1, :fk_model_config => pk_model_config}
-  end
+
+
+  #lf_iterations do |n, k, maxk, mu, t1, t2, minc, maxc, seed|
+  #  params = {
+  #    :fk_model => ClusteringExperiment::MODEL_LF,
+  #    :seed => seed,
+  #    :n => 1000,
+  #    :avgk => k,
+  #    :maxk => maxk,
+  #    :mixing => mu,
+  #    :expdegree => t1,
+  #    :expsize => t2,
+  #    :minm => minc,
+  #    :maxm => maxc}
+
+  #  pk_model_config = exp.insert_model_config params
+  #  exp.insert_safe :experiment_model_config, {:fk_experiment => 1, :fk_model_config => pk_model_config}
+  #end
+
+  #cgw_iterations do |n, p1, p2, p3, p4, e1, e2, e3, e4, alpha, m|
+  #  params = {
+  #    :fk_model => ClusteringExperiment::MODEL_CGW,
+  #    :seed => 0,
+  #    :p1 => p1,
+  #    :p2 => p2,
+  #    :p3 => p3,
+  #    :p4 => p4,
+  #    :e1 => e1,
+  #    :e2 => e2,
+  #    :e3 => e3,
+  #    :e4 => e4,
+  #    :n => 1000,
+  #    :m => m,
+  #    :alpha => alpha}
+  #  
+  #  pk_model_config = exp.insert_model_config params
+  #  exp.insert_safe :experiment_model_config, {:fk_experiment => 1, :fk_model_config => pk_model_config}
+  #end
 
 end
 

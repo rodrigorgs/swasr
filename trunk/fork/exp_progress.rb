@@ -56,7 +56,8 @@ end
 #end
 
 if __FILE__ == $0
-  where = 'fk_dataset = 1 AND s_score >= 0.88 AND ref_n_external_edges <= 0.5 * n_edges AND n_vertices = 1000'
+  #where = 'fk_dataset = 1 AND s_score >= 0.88 AND ref_n_external_edges <= 0.5 * n_edges AND n_vertices = 1000'
+  where = 'fk_dataset = 9 AND fk_model = 1'
   while true
     #base(:network, :arc)
     #base(:decomposition, :mod)
@@ -64,6 +65,7 @@ if __FILE__ == $0
     #base(:network, :s_score)
     #base(:view_decomposition, :mod, where)
     base(:view_decomposition, :mojo, where)
+    #base(:view_decomposition, :n_edges, where)
     puts
     sleep 5
   end

@@ -190,17 +190,37 @@ begin
     end
   end
 
-  def erdos_renyi_nm(n, m, directed=true, basename=nil)
+  def igraph_to_db(g)
+    edges = StringIO.new
+    modules = StringIO.new
+    g.to_directed(IGraph::MUTUAL)
+    g.each_edge(IGraph::EDGEORDER_ID) { |x, y| edges << "#{x} #{y}\n" }
+    g.vcount.times { |i| modules << "#{i} 0\n" }
+    return [edges.string, modules.string]
+  end
+
+  def generate_erdos_renyi_nm(params)
+    #n, m, directed=true, basename=nil)
+    puts "erdos #{params.inspect}"
     g = IGraph::GenerateRandom.erdos_renyi_game(
       IGraph::ERDOS_RENYI_GNM,
-      n,
-      m,
-      directed, # directed?
+      params[:n],
+      params[:m],
+      params[:directed], # directed?
       false) # loops?
 
-    save_igraph(g, basename) if basename
-    
-    return g
+    return igraph_to_db(g)
+  end
+
+  def generate_barabasi_game(params)
+    puts "barabasi #{params.inspect}" 
+    g = IGraph::GenerateRandom.barabasi_game(
+      params[:n],
+      params[:m],
+      params[:outpref],
+      params[:directed])
+
+    return igraph_to_db(g)
   end
 
   def configuration_model(out_deg, in_deg, basename=nil)

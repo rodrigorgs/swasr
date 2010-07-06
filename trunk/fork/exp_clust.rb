@@ -34,6 +34,8 @@ class ClusteringExperiment
   MODEL_BCR = 1
   MODEL_CGW = 2
   MODEL_LF = 3
+  MODEL_ER = 4
+  MODEL_BA = 5
 
   CLUSTERER_ACDC = 1
   CLUSTERER_HCAS = 2
@@ -103,6 +105,13 @@ class ClusteringExperiment
     begin @db.alter_table :decomposition do
       add_column :n_external_edges, :float
     end rescue RuntimeError; end
+
+    @DB << <<-EOT
+      ALTER TABLE model_config
+      ADD COLUMN directed boolean;
+      ALTER TABLE model_config
+      ADD COLUMN outpref boolean;
+    EOT
   end
 
   def create_additional_constraints
@@ -423,6 +432,8 @@ class ClusteringExperiment
     when MODEL_BCR then generate_bcrplus(params)
     when MODEL_CGW then generate_cgw(params)
     when MODEL_LF  then generate_lf(params)
+    when MODEL_ER  then generate_erdos_renyi_nm(params)
+    when MODEL_BA  then generate_barabasi_game(params)
     else raise RuntimeError, 'Invalid model'
     end)
   end
@@ -712,7 +723,7 @@ class ClusteringExperiment
     end
   end
 
-  def compute_missing_purities
+  def compute_missing_purities(&block)
     base_decomposition_comparison :purity do |a, b|
       purity(a, b)
     end
@@ -929,23 +940,25 @@ if __FILE__ == $0
   #exp.insert_stub_decompositions
   #exp.insert_stub_triads
 
-  puts '## Now you can start this script in another network node ##'
+  #puts '## Now you can start this script in another network node ##'
+  #
+  #filter = Proc.new do |ds| 
+  #  ds.and(:fk_dataset => 1).and(:fk_model => CE::MODEL_BCR)
+  #  #.and('s_score >= 0.88')
+  #  #.and('ref_n_external_edges <= 0.5 * n_edges')
+  #  #.and(:n_vertices => 1000)
+  #end
   
-  filter = Proc.new do |ds| 
-    ds.and(:fk_dataset => 1)
-    .and('s_score >= 0.88')
-    .and('ref_n_external_edges <= 0.5 * n_edges')
-    .and(:n_vertices => 1000)
-  end
+  filter = Proc.new { |ds| ds.and(:fk_dataset => 5) }
 
-  ##exp.generate_missing_networks
-  #exp.compute_missing_network_metrics(&filter)
-  exp.compute_missing_mojos(&filter)
-  exp.compute_missing_decomposition_metrics(&filter)
-  exp.compute_missing_decompositions(&filter)
-  ##exp.compute_missing_purities
-  ##exp.compute_missing_nmis
+  #exp.generate_missing_networks
+  exp.compute_missing_network_metrics(&filter)
+  #exp.compute_missing_mojos(&filter)
+  #exp.compute_missing_decomposition_metrics(&filter)
+  #exp.compute_missing_decompositions(&filter)
+  #exp.compute_missing_purities
+  #exp.compute_missing_nmis
   
-  #exp.compute_missing_triads(&filter)
-  #exp.compute_missing_s_scores(&filter)
+  exp.compute_missing_triads #(&filter)
+  exp.compute_missing_s_scores(&filter)
 end
