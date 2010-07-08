@@ -7,28 +7,28 @@ BCR é um modelo que gera redes orientadas, livres de escala e sem módulos. Ass
 % No contexto desta pesquisa foi desenvolvido o modelo BCR+, que generaliza o modelo BCR adicionando módulos à construção da rede.
 No contexto desta pesquisa foi desenvolvido um modelo baseado no BCR, chamado BCR+, que adiciona módulos à construção da rede. O modelo BCR+ foi desenvolvido por causa da dificuldade encontrada na busca por modelos de redes organizadas em módulos nas etapas iniciais da pesquisa. O modelo apresenta uma vantagem em relação aos demais, que é a possibilidade de se restringir, através de um dos seus parâmetros ($G$), as dependências permitidas entre vértices pertencentes a módulos distintos.
 
-Neste capítulo é apresentado o modelo BCR+. Como ele generaliza o modelo BCR, optou-se por não descrever o modelo BCR separadamente. Ao final do capítulo, é feita uma comparação entre o modelo BCR+ e os modelos apresentados anteriormente.
+O modelo BCR+ é apresentado neste capítulo. Como ele generaliza o modelo BCR, optou-se por não descrever o modelo BCR separadamente. Ao final do capítulo, é feita uma comparação entre o modelo BCR+ e os modelos apresentados anteriormente.
 
-% \end{section}
-% 
-% \begin{section}{Descrição}
+\end{section}
+
+\begin{section}{Descrição}
 	O modelo BCR+ aceita os seguintes parâmetros:
 
 	\begin{itemize}
 	\item número de vértices, $n$;
 	\item um grafo orientado de dependências entre módulos, $G$;
 	\item três probabilidades, $p_1$, $p_2$ e $p_3$, com $p_1 + p_2 + p_3 = 1$;
-	\item uma constante $\mu$, com $0 \le \mu \le 1$;
+	\item uma constante $\mu$, com $0,0 \le \mu \le 1,0$;
 	\item grau de entrada base, $\din$;
 	\item grau de saída base, $\dout$.
 	\end{itemize}
 
-	O grafo $G$ contém um vértice para cada módulo que será criado e define uma relação de dependência entre os módulos. Um módulo $M_1$ depende de um módulo $M_2$ se $G$ contém uma aresta do vértice que representa $M_1$ para o vértice que representa $M_2$. Na rede gerada, uma aresta externa de um vértice $v_1 \in M_1$ para um vértice $v_2 \in M_2$ pode ocorrer apenas se $M_1$ depende de $M_2$ no grafo $G$. %Note que $G$ pode representar uma arquitetura modular em camadas, com $M_1$ e $M_2$ formando uma camada com dois módulos.
+	O grafo $G$ contém um vértice para cada módulo que será criado e define uma relação de dependência entre os módulos. Um módulo $M_1$ depende de um módulo $M_2$ se $G$ contém uma aresta do vértice que representa $M_1$ para o vértice que representa $M_2$. Na rede gerada, uma aresta externa de um vértice $v_1 \in M_1$ para um vértice $v_2 \in M_2$ pode existir apenas se $M_1$ depende de $M_2$ no grafo $G$. %Note que $G$ pode representar uma arquitetura modular em camadas, com $M_1$ e $M_2$ formando uma camada com dois módulos.
 
 	\begin{figure}[htbp]
 		\centering
 			\includegraphics[scale=1]{figuras/exemplo-bcr-g}
-		\caption{Rede inicial gerada a partir de um dado grafo G}
+		\caption{Rede inicial gerada a partir de um dado grafo $G$.}
 		\label{fig:bcr-g}
 	\end{figure}
 
@@ -42,7 +42,9 @@ Neste capítulo é apresentado o modelo BCR+. Como ele generaliza o modelo BCR, 
 
 \begin{section}{Regras de Formação}
 
-Antes de descrever as regras do algoritmo, algumas definições são necessárias. A expressão $\gout(x)$ designa o número de arestas com origem no vértice $x$, e $\gin(x)$, analogamente, designa o número de arestas com destino no vértice $x$. A expressão ``escolher um vértice de acordo com f($x$)'' significa que a probabilidade de escolher um vértice $x$ é dada pela seguinte função de probabilidade:
+% Antes de descrever as regras do algoritmo, algumas definições são necessárias. A expressão $\gout(x)$ designa o número de arestas com origem no vértice $x$, e $\gin(x)$, analogamente, designa o número de arestas com destino no vértice $x$. 
+
+Nas regras apresentadas a seguir, a expressão ``escolher um vértice de acordo com f($x$)'' significa que a probabilidade de escolher um vértice $x$ é dada pela seguinte função de probabilidade:
 
 $$
   \mathrm{P}(x) ~=~ \frac{ \mathrm{f}(x) }
@@ -62,14 +64,14 @@ As regras do modelo estão ilustradas na Figura \ref{fig:bcr-regras} e são desc
 
 \begin{enumerate}
 
-\item \emph{Adicionar um vértice com uma aresta de saída}. Um vértice existente, $w$ é escolhido de acordo com $\mathrm{f}(x) = \din + \gin(x)$. Um novo vértice, $v$, é adicionado ao módulo que contém $w$, juntamente com uma aresta de $v$ a $w$.
+\item \emph{Adicionar um vértice com uma aresta de saída}. Um vértice existente, $w$, é escolhido de acordo com $\mathrm{f}(x) = \din + \gin(x)$. Um novo vértice, $v$, é adicionado ao módulo que contém $w$, juntamente com uma aresta de $v$ a $w$.
 
-\item \emph{Adicionar um vértice com uma aresta de entrada}. Um vértice existente, $w$ é escolhido de acordo com $\mathrm{f}(x) = \dout + \gout(x)$. Um novo vértice, $v$, é adicionado ao módulo que contém $w$, juntamente com uma aresta de $w$ a $v$.
+\item \emph{Adicionar um vértice com uma aresta de entrada}. Um vértice existente, $w$, é escolhido de acordo com $\mathrm{f}(x) = \dout + \gout(x)$. Um novo vértice, $v$, é adicionado ao módulo que contém $w$, juntamente com uma aresta de $w$ a $v$.
 
-\item \emph{Adicionar uma aresta entre vértices pré-existentes}. Um vértice, $v$, é escolhido de acordo com $\mathrm{f}(x) = \dout + \gout(x)$. Então é adicionada uma aresta do vértice $v$ a um vértice $w$, escolhido de acordo com $\mathrm{f}(x) = \din + \gin(x)$, respeitando um dos seguintes casos:
+\item \emph{Adicionar uma aresta entre vértices pré-existentes}. Um vértice, $v$, é escolhido de acordo com $\mathrm{f}(x) = \dout + \gout(x)$. Então é adicionada uma aresta do vértice $v$ a um vértice, $w$, escolhido de acordo com $\mathrm{f}(x) = \din + \gin(x)$, respeitando um dos seguintes casos:
 
 \begin{enumerate}
-  \item com probabilidade $\mu$, $w$ é escolhido dentre os vértices que estão em módulos dos quais o módulo de $v$ depende;
+  \item com probabilidade $\mu$, $w$ é escolhido dentre os vértices que estão em módulos dos quais o módulo de $v$ depende, segundo o parâmetro $G$;
   \item com probabilidade $1 - \mu$, $w$ é escolhido dentre os vértices que estão no mesmo módulo que $v$.
 \end{enumerate}
 
@@ -78,7 +80,9 @@ As regras do modelo estão ilustradas na Figura \ref{fig:bcr-regras} e são desc
 
 \begin{section}{Exemplo}
 
-A Figura \ref{fig:bcr-passo} mostra um passo da simulação do modelo BCR+, continuando a rede inicial mostrada na Figura \ref{fig:bcr-g}. Suponhamos que o parâmetro $\dout$ vale $2$ e que, neste passo da simulação, a regra 2 foi escolhida. Neste caso, é necessário escolher um vértice da rede, e essa escolha deve considerar, para cada vértice, $x$, o valor de $\mathrm{f}(x) = \dout + \gout(x)$, ilustrado na rede inicial da figura através de números entre parênteses. A probabilidade de se escolher um vértice $x$, P($x$) é, então, dada por $\mathrm{P}(x) = \frac{\mathrm{f}(x)}{\sum_i \mathrm{f}(i)}$, onde o denominador, no exemplo, é igual a 11, de forma que $\sum \mathrm{P}(x)$ = 1. A Figura \ref{fig:bcr-passo} ilustra, através de uma reta real, as probabilidades associadas à escolha cada vértice. Cada vértice ocupa, na reta, um segmento cujo tamanho é proporcional à probabilidade de ele ser escolhido. Assim, a escolha do vértice pode ser feita sorteando-se um número real entre 0 e 1 e marcando-o na reta. No exemplo, foi sorteado o número $\frac{5}{11}$, que corresponde a um ponto do segmento do vértice $v_1$ na reta. Dando seguimento à regra 2, é criado um novo vértice, $v_4$, que é atribuído ao módulo $M_1$ (o mesmo módulo ao qual pertence o vértice $v_1$), e ligado ao vértice $v_1$ através de uma aresta com origem em $v_1$.
+A Figura \ref{fig:bcr-passo} mostra um passo da simulação do modelo BCR+, continuando a rede inicial mostrada na Figura \ref{fig:bcr-g}. Suponhamos que o parâmetro $\dout$ vale $2$ e que, neste passo da simulação, a regra 2 foi escolhida. Neste caso, é necessário escolher um vértice da rede, e essa escolha deve considerar, para cada vértice, $x$, o valor de $\mathrm{f}(x) = \dout + \gout(x)$, ilustrado na rede inicial da figura através de números entre parênteses. A probabilidade de se escolher um vértice $x$, P($x$) é, então, dada por $\mathrm{P}(x) = \frac{\mathrm{f}(x)}{\sum_i \mathrm{f}(i)}$, onde o denominador, no exemplo, é igual a 11, de forma que $\sum \mathrm{P}(x)$ = 1. 
+
+A Figura \ref{fig:bcr-passo} ilustra, através de uma reta real, as probabilidades associadas à escolha cada vértice. Cada vértice ocupa, na reta, um segmento cujo tamanho é proporcional à probabilidade de ele ser escolhido. Assim, a escolha do vértice pode ser feita sorteando-se um número real entre 0 e 1 e marcando-o na reta. No exemplo, foi sorteado o número $\frac{5}{11}$, que corresponde a um ponto do segmento do vértice $v_1$ na reta. Dando seguimento à regra 2, é criado um novo vértice, $v_4$, que é atribuído ao módulo $M_1$ (o mesmo módulo ao qual pertence o vértice $v_1$), e ligado ao vértice $v_1$ através de uma aresta com origem em $v_1$.
 
 % O vértice $v_0$ é o mais provável, com P($v_0$) = \frac{4}{11}. Os vértices $v_2$ e $v_3$, apesar de possuírem grau de saída igual a zero, têm chances de serem escolhidos, graças ao fato de que $\dout > 0$. 
 
@@ -127,7 +131,7 @@ Nota-se que vértices com grau de saída alto têm mais chance de ser a origem d
 	
 \begin{threeparttable}
 	\begin{center}
-	\caption{Características do modelo BCR+ comparadas com características de outros modelos.}
+	\caption{Características do modelo BCR+ comparadas aDe características de outros modelos.}
 	\label{tab:comparacao}
 % \begin{table}
 	\centering
@@ -145,8 +149,8 @@ Nota-se que vértices com grau de saída alto têm mais chance de ser a origem d
 		\hline
 		Usa o mecanismo de crescimento?           & \N & \S & \S & \N & \S \\
 		\hline
-		Usa o mecanismo de ligação preferencial?  & \N & \S & \S & \N & \S \\		
-	  \hline
+		% Usa o mecanismo de ligação preferencial?  & \N & \S & \S & \N & \S \\		
+		% 	  \hline
 	\end{tabular}
 	\begin{tablenotes}
 	\item[*] Existem variações do modelo ER que geram redes orientadas.
@@ -164,6 +168,6 @@ Nota-se que vértices com grau de saída alto têm mais chance de ser a origem d
 
 \begin{section}{Conclusão}
 	
-	O modelo BCR+, baseado no modelo BCR, gera redes livres de escala organizadas em módulos. Em relação a modelos similares, o modelo BCR+ tem a vantagem de oferecer controle sobre as dependências que podem ser geradas entre entidades que pertencem a módulos distintos. Tal possibilidade contribui para que o modelo BCR+ reproduza melhor o processo de construção de sistemas de software que se baseiam na implementação de uma arquitetura pré-definida.
+	O modelo BCR+, baseado no modelo BCR, gera redes livres de escala orientadas e organizadas em módulos. Em relação a modelos similares, o modelo BCR+ tem a vantagem de oferecer controle sobre as dependências que podem ser geradas entre entidades que pertencem a módulos distintos. Tal possibilidade contribui para que o modelo BCR+ reproduza melhor o processo de construção de sistemas de software que se baseiam na implementação de uma arquitetura pré-definida.
 	
 \end{section}

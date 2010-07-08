@@ -20,11 +20,11 @@ O termo ``rede'' em geral está associado a entidades reais, como pessoas e rela
 	
 	Uma rede ou grafo é um conjunto de \emph{vértices} e \emph{arestas}, no qual as arestas relacionam dois vértices. Pode-se dizer também que as arestas ligam ou conectam dois vértices. Uma rede pode ser \emph{orientada} ou \emph{não-orientada}. 
 	
-	Nas redes orientadas, as arestas (chamadas de arestas orientadas) estabelecem uma relação assimétrica entre dois vértices, um dos quais é dito vértice de origem e o outro, vértice de destino da aresta. Duas arestas são ditas \emph{opostas} se ligam o mesmo par de vértices, porém a origem e o destino são invertidos. 
+	Nas redes orientadas, as arestas (chamadas de arestas orientadas) estabelecem uma relação assimétrica entre dois vértices, um dos quais é dito vértice de origem e o outro, vértice de destino da aresta. Duas arestas são ditas \emph{opostas} se ligam o mesmo par de vértices, porém com origem e destino invertidos. 
 	
 	Em uma rede orientada, o \emph{grau de saída} de um vértice $x$, denotado $\mathrm{g}_\mathrm{out}(x)$, é o número de arestas com origem no vértice $x$. O \emph{grau de entrada} de um vértice $x$, denotado $\mathrm{g}_\mathrm{in}(x)$, é o número de arestas com destino no vértice $x$. O \emph{grau total} de um vértice $x$ é igual à soma do seu grau de entrada com o seu grau de saída.
 	
-	Nas redes não-orientadas, a relação é simétrica: cada aresta (chamada de aresta não-orientada) liga dois vértices, e não existe distinção entre origem e destino. Em uma rede não-orientada, o \emph{grau} de um vértice $x$, denotado $\mathrm{g}(x)$, é o número de arestas que se relaciona com $x$. Para transformar uma rede não-orientada em uma rede orientada, basta transformar cada aresta não-orientada em duas arestas orientadas opostas que ligam o mesmo par de vértices que a aresta não-orientada. 
+	Nas redes não-orientadas, a relação entre pares de vértices é simétrica: cada aresta (chamada de aresta não-orientada) liga dois vértices, e não existe distinção entre origem e destino. Em uma rede não-orientada, o \emph{grau} de um vértice $x$, denotado $\mathrm{g}(x)$, é o número de arestas que se relaciona com $x$. Para transformar uma rede não-orientada em uma rede orientada, basta transformar cada aresta não-orientada em duas arestas orientadas opostas que ligam o mesmo par de vértices que a aresta não-orientada. 
 	
 	Nas redes organizadas em módulos (que podem ser orientadas ou não-orientadas), o conjunto de vértices é particionado em subconjuntos denominados \emph{módulos}. As arestas podem ser classificadas em \emph{internas} (quando ligam vértices pertencentes ao mesmo módulo) ou \emph{externas} (quando ligam vértices pertencentes a módulos distintos).
 	
@@ -53,7 +53,7 @@ Barabási e Albert \cite{Barabasi1999} analisaram uma amostra da \emph{World Wid
 
 Se diversas redes possuem um mesmo padrão de distribuição de graus, o que as diferencia? Milo e outros pesquisadores \cite{Milo2002} estudaram a estrutura de redes orientadas de diversos domínios em busca da resposta. Para isso, eles listaram 13 possíveis configurações de arestas em redes com 3 vértices --- as chamadas tríades ---, mostradas na Figura \ref{fig:triades}. Contando o número de vezes que cada tríade aparece em uma rede, é possível formar um vetor, denominado \emph{perfil de concentração de tríades} (PCT), que é característico de redes de um domínio. 
 
-O papel dos PCTs na caracterização de domínios de redes é ilustrado nas Figuras \ref{fig:tcp}(a) e \ref{fig:tcp}(b). Na primeira Figura, são apresentados PCTs de redes de dois domínios distintos: uma rede de software e uma rede linguística. Na segunda, são apresentados PCTs de duas redes do mesmo domínio, o domínio de software. Uma análise informal dos gráficos revela que a similaridade entre os PCTs é maior no segundo caso, no qual as redes são do mesmo domínio. No primeiro caso, é notável a diferença nas concentrações das duas primeiras tríades (de cima para baixo). 
+O papel dos PCTs na caracterização de domínios de redes é ilustrado nas Figuras \ref{fig:tcp}(a) e \ref{fig:tcp}(b). Na Figura \ref{fig:tcp}(a), são apresentados PCTs de redes de dois domínios distintos: uma rede de software e uma rede linguística. Na Figura \ref{fig:tcp}(b), são apresentados PCTs de duas redes do mesmo domínio, o domínio de software. Uma análise informal dos gráficos revela que a similaridade entre os PCTs é maior no segundo caso, no qual as redes são do mesmo domínio. No primeiro caso, é notável a diferença nas concentrações das duas primeiras tríades (de cima para baixo). 
 % 
 
 \begin{figure}[htbp]
@@ -70,7 +70,7 @@ O papel dos PCTs na caracterização de domínios de redes é ilustrado nas Figu
 	\label{fig:tcp}
 \end{figure}
 
-A similaridade entre PCTs pode ser quantificada através do coeficiente de correlação de Pearson entre os PCTs \cite{Milo2004}. O resultado é um valor entre -1 (menor similaridade) e 1 (maior similaridade). Na Figura \ref{fig:tcp}(a), o coeficiente de correlação vale $0,68$; na Figura \ref{fig:tcp}(b), $0,98$. Os números confirmam a análise informal e mostram que a correlação é maior no caso em que as redes pertencem ao mesmo domínio.
+A similaridade entre PCTs pode ser quantificada através do coeficiente de correlação de Pearson entre os PCTs \cite{Milo2004}. O resultado é um valor entre -1,0 (menor similaridade) e 1,0 (maior similaridade). Na Figura \ref{fig:tcp}(a), o coeficiente de correlação vale $0,68$; na Figura \ref{fig:tcp}(b), $0,98$. Os números confirmam a análise informal e mostram que a correlação é maior no caso em que as redes pertencem ao mesmo domínio.
 
 Vale notar que o coeficiente de correlação neste caso não possui significado estatístico. Ainda assim, ele tem sido usado de forma bem sucedida na pesquisa de Milo.
 
@@ -87,10 +87,8 @@ $$
 
 	Redes são muito usadas no domínio de engenharia de software para representar as dependências entre entidades do código-fonte, tais como classes em linguagens orientadas a objetos. 
 	%
-	Estudos recentes têm aplicado a teoria das redes complexas a redes de dependências entre entidades do código-fonte de sistemas de software. 
-	%
-	(Daqui pra frente, tais redes serão denominadas \emph{redes de software}, em contraste com redes biológicas, redes sociais etc.) Um dos principais resultados é a constatação de que redes de software são livres de escala.
-	%
+	Estudos recentes têm aplicado a teoria das redes complexas a redes de software, isto é, redes de dependências entre entidades do código-fonte de sistemas de software. Um dos principais resultados é a constatação de que redes de software são livres de escala.
+
 	
 	Valverde e Solé \cite{Valverde2003} estudaram redes não-orientadas formadas por relações de agregação de tipos em diagramas UML, programas em C e programas em C++. Myers \cite{Myers2003} analisou redes de chamadas de função em programas em C e redes de agregação e herança em programas em C++. Em ambos os casos as redes foram identificadas como livres de escala. 
 
@@ -101,29 +99,33 @@ $$
 % deu 7 páginas
 % Organizadas em Módulos
 
-Para tentar explicar os mecanismos responsáveis pela formação de redes livres de escala em diversos domínios, vários modelos de redes livres de escala foram propostos. Os modelos são algoritmos que geram vértices e arestas de forma probabilística porém de acordo com certas regras que garantem que, quando o número de vértices tende a infinito, a distribuição dos graus dos vértices tende a uma lei de potência. Tais modelos, portanto, geram redes similares a redes de software, ao menos quanto à distribuição dos graus.
+Para tentar explicar os mecanismos responsáveis pela formação de redes livres de escala, vários modelos de redes livres de escala foram propostos. Os modelos são algoritmos que geram vértices e arestas de forma probabilística porém de acordo com certas regras que garantem que, quando o número de vértices tende a infinito, a distribuição dos graus dos vértices tende a uma lei de potência. Tais modelos, portanto, geram redes similares a redes de software, ao menos quanto à distribuição dos graus.
 
-Assim como um sistema de software é organizado conceitualmente em módulos, uma rede de software deve representar suas entidades organizadas em módulos. A maioria dos modelos de redes livres de escala, no entanto, gera redes sem qualquer tipo de organização hierárquica.
+A seguir são apresentados quatro modelos de redes. Os dois primeiros, o de Erdős–Rényi (ER) \cite{Erdos1959} e o de Barabási-Albert (BA) \cite{Barabasi1999}, geram redes sem módulos. Eles foram selecionados devido a sua importância histórica. Os dois últimos, o modelo CGW \cite{Chen2008} e o modelo LFR \cite{Lancichinetti2008,Lancichinetti2009}, foram selecionados por gerarem redes organizadas em módulos. Acredita-se que tal característica os aproxima do processo de construção de sistemas de software, no qual o conceito de módulo desempenha um papel importante.
 
-Após uma pesquisa extensa, embora não-sistemática, realizada durante o primeiro semestre de 2009, foram encontrados dois modelos de redes livres de escala organizadas em módulos: o modelo CGW \cite{Chen2008} e o modelo LFR \cite{Lancichinetti2008,Lancichinetti2009}. Um terceiro modelo, o BCR+, elaborado no contexto deste trabalho, é descrito no próximo capítulo.
+%, e são apresentados aqui a fim de ilustrar conceitos usados nos outros modelos.
 
-A seguir são apresentados quatro modelos de redes. Os dois primeiros, o de Erdős–Rényi (ER) e o de Barabási-Albert (BA), geram redes sem módulos, e são apresentados aqui a fim de ilustrar conceitos usados nos outros modelos.
+
+% Assim como um sistema de software é organizado conceitualmente em módulos, uma rede de software deve representar suas entidades organizadas em módulos. A maioria dos modelos de redes livres de escala, no entanto, gera redes sem qualquer tipo de organização hierárquica.
+% 
+% Após uma pesquisa extensa, embora não-sistemática, realizada durante o primeiro semestre de 2009, foram encontrados dois modelos de redes livres de escala organizadas em módulos: o modelo CGW \cite{Chen2008} e o modelo LFR \cite{Lancichinetti2008,Lancichinetti2009}. Um terceiro modelo, o BCR+, elaborado no contexto deste trabalho, é descrito no próximo capítulo.
+
  
 % Modelo de Erdos-Renyi?
 % Modelo de configuração?
 % Modelo de Albert-Barabasi?
 
 \begin{subsection}{O modelo de Erdős–Rényi (ER)}
-	O modelo de Erdős–Rényi (ER) \cite{Erdos1959} gera redes não-orientadas nas quais a distribuição dos graus dos vértices tende à distribuição de Poisson . Ele foi concebido antes da teoria das redes complexas. O modelo ER recebe dois parâmetros:
+	O modelo de Erdős–Rényi (ER) \cite{Erdos1959} gera redes não-orientadas nas quais a distribuição esperada dos graus dos vértices é a distribuição de Poisson. Ele foi concebido antes da teoria das redes complexas. O modelo ER recebe dois parâmetros:
 	
 	\begin{itemize}
 		\item $n$, o número de vértices;
 		\item $m$, o número de arestas.
 	\end{itemize}
 	
-	Uma rede com $n$ vértices pode conter até $\frac{n(n-1)}{2}$ arestas. Nas redes geradas pelo modelo ER, $m$ arestas são selecionadas aleatoriamente dentre as arestas potenciais. Cada aresta potencial tem a mesma probabilidade de ser selecionada.
+	Uma rede não-orientada com $n$ vértices pode conter até $\frac{n(n-1)}{2}$ arestas. Nas redes geradas pelo modelo ER, $m$ arestas são selecionadas aleatoriamente dentre as arestas potenciais. Cada aresta potencial tem a mesma probabilidade de ser selecionada.
 	
-	O modelo pode ser adaptado facilmente para gerar redes orientadas. Neste caso, uma rede com $n$ vértices pode conter até $n(n-1)$ arestas, e é desse conjunto de aresta que $m$ vértices são selecionados.
+	Nada impede que o modelo seja usado para gerar redes orientadas. Na variedade orientada do modelo ER, considera-se que uma rede com $n$ vértices pode conter até $n(n-1)$ arestas orientadas, e desse conjunto são selecionadas as $m$ arestas.
 	
 	Pela descrição do modelo, percebe-se que ele pode gerar qualquer rede possível, com qualquer distribuição de graus. A probabilidade de uma rede gerada pelo modelo ER ser livre de escala é, no entanto, baixíssima.
 
@@ -131,7 +133,7 @@ A seguir são apresentados quatro modelos de redes. Os dois primeiros, o de Erd�
 
 \begin{subsection}{O modelo de Barabási-Albert (BA)}	
 	
-	O modelo de Barabási-Albert (BA) \cite{Barabasi1999} foi o primeiro modelo livre de escala da teoria das redes complexas. Ele gera redes não-orientadas, livres de escala e sem módulos através de dois mecanismos: crescimento e ligação preferencial. Crescimento significa que as redes são construída a partir da adição sucessiva de novos vértices. Ligação preferencial significa que os vértices com mais arestas têm mais probabilidade de receber novas arestas.
+	O modelo de Barabási-Albert (BA) \cite{Barabasi1999} foi o primeiro modelo livre de escala da teoria das redes complexas. Ele gera redes não-orientadas, livres de escala e sem módulos através de dois mecanismos: crescimento e ligação preferencial. Crescimento significa que as redes são construídas a partir da adição sucessiva de novos vértices. Ligação preferencial significa que os vértices com mais arestas apresentam maior probabilidade de receber novas arestas.
 	
 	O modelo BA aceita os seguinte parâmetros:
 	
@@ -140,13 +142,13 @@ A seguir são apresentados quatro modelos de redes. Os dois primeiros, o de Erd�
 		\item $m$, o número de arestas adicionadas a cada passo.
 	\end{itemize}
 	
-	A rede é inicializada com um número arbitrário de vértices e arestas de forma que cada vértice possua grau maior ou igual a 1. A cada passo, é adicionado um novo vértice, que é ligado através de $m$ novas arestas a $m$ vértices pré-existentes. Os $m$ vértices são escolhidos de acordo com a ligação preferencial, o que significa que a probabilidade de um vértice $x$ ser escolhido, $\mathrm{P}(x)$, é proporcional ao grau de $x$: $\mathrm{P}(x) \sim \mathrm{g}(x)$. Como a soma dos probabilidades dos vértices deve ser igual a 1, a probabilidade de cada vértice é igual ao seu grau dividido pela soma dos graus de todos os vértices da rede:
+	A rede é inicializada com um número arbitrário de vértices e arestas de forma que cada vértice possua grau maior ou igual a 1. A cada passo, é adicionado um novo vértice, que é ligado através de $m$ novas arestas a $m$ vértices pré-existentes. Os $m$ vértices são escolhidos de acordo com os seus graus, o que significa que a probabilidade de um vértice $x$ ser escolhido, $\mathrm{P}(x)$, é proporcional ao grau de $x$: $\mathrm{P}(x) \sim \mathrm{g}(x)$. Como a soma dos probabilidades dos vértices deve ser igual a 1, a probabilidade de cada vértice é igual ao seu grau dividido pela soma dos graus de todos os vértices da rede:
 	
 	$$
-	\mathrm{P}(x) ~=~ \frac{\mathrm{g}(x)}{\sum_y \mathrm{g}(y)},
+	\mathrm{P}(x) ~=~ \frac{\mathrm{g}(x)}{\sum_y \mathrm{g}(y)}.
 	$$
 	
-	onde g($x$) representa o grau do vértice $x$. Diz-se que os novos vértices se conectam \emph{preferencialmente} a vértices com alto grau. Como consequência, alguns poucos vértices acumulam muitas arestas, enquanto a maioria dos vértices com permanece com poucas arestas. O processo é repetido até que a rede atinja $n$ vértices.
+	Diz-se que os novos vértices se ligam \emph{preferencialmente} a vértices com alto grau. Como consequência, alguns poucos vértices acumulam muitas arestas, enquanto a maioria dos vértices permanece com poucas arestas. O processo é repetido até que a rede atinja $n$ vértices.
 	
 	% TODO: IMPORTANTE %% A Figura XXX exemplifica o mecanismo de ligação preferencial.
 	
@@ -190,16 +192,16 @@ A rede inicial é alterada pela aplicação sucessiva de quatro regras em ordem 
 
 Naturalmente, as probabilidades $p_1, p_2, p_3$ e $p_4$ devem somar 1. Além disso, $p_1$ deve ser maior que zero --- do contrário o número de vértices na rede permanece constante. As quantidades $e_1, e_2, e_3, $ e $e_4$ são inteiros maiores ou iguais a zero.
 
-A probabilidade preferencial baseada em módulos, $\Pi(v_2|v_1)$, é uma função que indica a probabilidade de se escolher um vértice, $v_2$, como destino de uma aresta cujo vértice de origem, $v_1$, já foi determinado. O propósito da PPBM é controlar a proporção de arestas externas na rede, privilegiando a escolha de um vértice de destino pertencente ao mesmo módulo do vértice de origem (ou pertence a outro módulo, a depender do valor de $\alpha$). Eis a definição da probabilidade preferencial baseada em módulos:
+A probabilidade preferencial baseada em módulos, $\Pi(v_2|v_1)$, é uma função que indica a probabilidade de se escolher um vértice, $v_2$, como destino de uma aresta cujo vértice de origem, $v_1$, já foi determinado. O propósito da PPBM é controlar a proporção de arestas externas na rede, privilegiando a escolha de um vértice de destino pertencente ao mesmo módulo do vértice de origem. Eis a definição da probabilidade preferencial baseada em módulos:
 
 $$
 \Pi (v_2|v_1) ~=~
 \left\{
 \begin{array}{cl}
-\dfrac{1 + \mathrm{g}(v_2) \cdot (1 + \alpha)}{Q(v_1)} 
-  & \mbox{se $v_2$ está no mesmo módulo de $v_1$} \vspace{0.5em} \\ 
-\dfrac{1 + \mathrm{g}(v_2)}{Q(v_1)} 
-  & \mbox{caso contrário}
+\dfrac{1 + \mathrm{g}(v_2) \cdot (1 + \alpha)}{Q(v_1)}\mbox{,} 
+  & \mbox{se $v_2$ está no mesmo módulo de $v_1$;} \vspace{0.5em} \\ 
+\dfrac{1 + \mathrm{g}(v_2)}{Q(v_1)}\mbox{,}
+  & \mbox{caso contrário.}
 \end{array}
 \right.
 $$
@@ -221,7 +223,7 @@ A expressão m($v$), neste contexto, designa o conjunto dos vértices que perten
 
 O modelo LFR \cite{Lancichinetti2008,Lancichinetti2009} é um modelo flexível que pode gerar redes com arestas ponderadas e módulos sobrepostos, isto é, nas quais um vértice pode pertencer a mais de um módulo. Diferentemente do CGW, o LFR não é um modelo de crescimento: todos os vértices são gerados de uma vez e então são adicionadas as arestas.
 
-Nesta pesquisa foi estudado um caso particular do modelo no qual todas as arestas têm o mesmo peso e os módulos não se sobrepõem. Foi usada a implementação original dos autores, disponível em  \url{http://santo.fortunato.googlepages.com/inthepress2}. O modelo aceita os seguintes parâmetros:
+Nesta pesquisa foi estudado um caso particular do modelo no qual todas as arestas têm o mesmo peso e os módulos não se sobrepõem. O modelo aceita os seguintes parâmetros:
 
 \begin{itemize}
 \item número de vértices, $n$;
@@ -255,8 +257,9 @@ Os tamanhos dos módulos são selecionados de uma lei de potência com expoente 
 	
 	Perfis de concentração de tríades (PCTs) caracterizam redes através de vetores de treze números. Eles podem ser usados para medir a similaridade estrutural entre duas redes.
 	
-	CGW e LFR são modelos que geram redes livres de escala organizadas em módulos. Com tais propriedades, essas redes podem representar dependências entre entidades de software.
-	
+	ER, BA, CGW e LFR são modelos de redes. O modelo ER gera redes sem módulos que, em geral, não são livres de escala. O modelo BA gera redes não-orientadas, livres de escala e sem módulos. Os modelos CGW e LFR geram redes orientadas, livres de escala e organizadas em módulos.
+	 % Com tais propriedades, essas redes podem representar dependências entre entidades de software.
+		
 \end{section}
 
 % == O modelo BCR ==
