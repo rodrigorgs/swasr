@@ -143,7 +143,7 @@
     % Modificado por Isaac Maia Pessoa, 01/06/2007
     {\LARGE Universidade Federal de Campina Grande \par}
     {\LARGE Centro de Engenharia El\'{e}trica e Inform\'{a}tica \par}
-    {\LARGE Coordena\c{c}\~{a}o de P\'{o}s-Gradua\c{c}\~{a}o em Ci\^{e}ncia da Computa\c{c}\~{a}o \par}
+    {\LARGE Coordena\c{c}\~{a}o de P\'{o}s-Gradua\c{c}\~{a}o em \\ Ci\^{e}ncia da Computa\c{c}\~{a}o \par}
     \vskip 4em%
     {\LARGE \@Titulo \par}%
     {\LARGE
@@ -167,7 +167,7 @@
   \@thanks
   \vfil\null
    Campina Grande, Para\'{\i}ba, Brasil \par
-   \copyright\@Autor, \@Data \par
+   \copyright\hspace{0.3em}\@Autor, \@Data \par
   \end{center}\par
 \if@msc
  \newpage

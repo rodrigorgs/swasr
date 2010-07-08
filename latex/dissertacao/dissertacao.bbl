@@ -214,6 +214,13 @@ ISBN 0321321367.}
   and Techniques}. 2.. ed. San Francisco, CA: Morgan Kaufmann, 2005.
 ISBN 978-0-12-088407-0.}
 
+\bibitem{igraph}
+\abntrefinfo{Csardi e Nepusz}{CSARDI; NEPUSZ}{2006}
+{CSARDI, G.; NEPUSZ, T. The igraph software package for complex network
+  research.
+\emph{InterJournal}, Complex Systems, p.~1695, 2006.
+Dispon{\'\i}vel em: $<$http://igraph.sf.net$>$.}
+
 \bibitem{OneR}
 \abntrefinfo{Holte}{HOLTE}{1993}
 {HOLTE, R.~C. Very simple classification rules perform well on most commonly

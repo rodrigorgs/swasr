@@ -22,21 +22,21 @@
 
 		Para um sistema de software ser bem sucedido não basta ele ser rápido, funcional e isento de defeitos. Esses atributos dizem respeito à qualidade, da forma como é enxergada pelos seus usuários, de uma versão do sistema. Para atender a demandas emergentes de seus usuários e incorporar novidades tecnológicas, no entanto, um sistema de software deve apresentar certos atributos de qualidade interna, visíveis apenas para os seus desenvolvedores. Ele precisa ser fácil de compreender, fácil de modificar e fácil de testar \cite{Parnas1994}.
 
-		Um bom indicador da qualidade interna de um sistema de software é a estrutura de dependências entre as entidades que compõem o seu código-fonte. É natural que existam interações entre diversas entidades em um sistema, mas dependências indesejadas adicionam complexidade ao sistema, tornando mais difíceis as tarefas de compreender ou testar isoladamente as diversas partes do sistema \cite{Chidamber1994}. % CBO, página 11
+		Um bom indicador da qualidade interna de um sistema de software é a estrutura de dependências entre as entidades que compõem o seu código-fonte. É natural que existam interações entre diversas entidades em um sistema, mas dependências indesejadas adicionam complexidade ao software, tornando mais difíceis tarefas ligadas a sua manutenção, como compreender ou testar isoladamente as suas diversas partes \cite{Chidamber1994}. % CBO, página 11
 
 		% Acho que aqui falta uma introdução a engenharia reversa.
-		Analisar uma a uma as dependências de um sistema de software com a finalidade de extrair informações que apoiem a sua manutenção é, no entanto, uma tarefa árdua \cite{Tonella2007}. Em um sistema com $n$ entidades, existem cerca de $n^2$ potenciais dependências a se analisar. Em sistemas com mais que algumas dezenas de entidades, a quantidade de dependências potenciais é da ordem de centenas ou milhares. %Ao tentar visualizar as dependências de um sistema grande através de diagramas de caixas e setas, as dependências acabam representadas como um emaranhado de setas. % Dunbar's number: 150
+		Analisar uma a uma as dependências de um sistema de software com a finalidade de extrair informações que apoiem a sua manutenção é, no entanto, uma tarefa árdua \cite{Tonella2007}. Em um sistema com $n$ entidades, existem cerca de $n^2$ potenciais dependências a se analisar. Em sistemas com mais do que algumas dezenas de entidades, a quantidade de dependências potenciais é da ordem de centenas ou milhares. %Ao tentar visualizar as dependências de um sistema grande através de diagramas de caixas e setas, as dependências acabam representadas como um emaranhado de setas. % Dunbar's number: 150
 		
-		Face à dificuldade de se analisar manualmente as dependências de um sistema, surgiram ferramentas de engenharia reversa voltadas para a inferência automática --- sem interferência humana --- de informações que apoiam tarefas específicas de engenharia. Existem, por exemplo, ferramentas que identificam partes do sistema afetadas por uma mudança \cite{Arnold1993}, ferramentas que identificam código duplicado \cite{Roy2007}, ferramentas que identificam módulos arquiteturais \cite{Maqbool2007}, entre outras. 
+		Face à dificuldade de se analisar manualmente as dependências de um sistema, surgiram ferramentas de engenharia reversa voltadas para a inferência automática --- sem interferência humana --- de informações que apoiam tarefas específicas de manutenção. Existem, por exemplo, ferramentas que procuram identificar partes do sistema afetadas por uma mudança \cite{Arnold1993}, código duplicado \cite{Roy2007} ou módulos arquiteturais \cite{Maqbool2007}. 
 
 		% Falar aqui sobre necessidade de avaliação empírica? Ou lá embaixo?
 		% USO DE AVALIAÇÃO EMPÍRICA
-		Na concepção de ferramentas de engenharia está embutida a hipótese de que as informações identificadas pelas ferramentas são próximas às informações que um especialista identificaria. Para sustentar a hipótese, no entanto, é preciso acumular evidências empíricas que a corroborem.
+		% Na concepção de ferramentas de engenharia está embutida a hipótese de que as informações identificadas pelas ferramentas são próximas às informações que um especialista identificaria. Para sustentar a hipótese, no entanto, é preciso acumular evidências empíricas que a corroborem.
 
 	As tarefas que as ferramentas buscam automatizar, entretanto, envolvem alguma subjetividade. O conceito de módulo arquitetural, por exemplo, não é bem definido. Mesmo dois especialistas, ao analisar independentemente um sistema de software, dificilmente identificam o mesmo conjunto de módulos arquiteturais \cite{Koschke2000}. % e dependências não é suficiente: falta semântica!
 
 	% DIFICULDADE EM AVALIAR AS FERRAMENTAS
-	Dada a subjetividade das tarefas, a avaliação empírica de ferramentas de engenharia reversa frequentemente requer a presença de programadores que tenham experiência nas tarefas que as ferramentas se propõem a cumprir, além de familiaridade com as ferramentas avaliadas. Tais requisitos elevam o custo envolvido na realização de experimentos. % de qualidade.
+	Dada a subjetividade das tarefas, a avaliação empírica de ferramentas de engenharia reversa usualmente requer a presença de programadores que tenham experiência nas tarefas que as ferramentas se propõem a cumprir, além de familiaridade com as ferramentas avaliadas. Tais requisitos elevam o custo envolvido na realização de experimentos. % de qualidade.
 	 
 	% , e por isso as ferramentas precisam ser avaliadas empiricamente. dar mais detalhes.
 	
@@ -49,7 +49,9 @@
 	% ESTE PARÁGRAFO FOI ANTECIPADO
 		% A escassez de experimentos controlados em engenharia reversa pode ser explicada, em parte, pelo alto custo envolvido na realização de experimentos de qualidade. Em muitos casos, os experimentos envolvem um planejamento cuidadoso e dependem da disponibilidade de desenvolvedores experientes.
 
-		Uma abordagem empregada quando os experimentos controlados são caros é a simulação baseada em modelos computacionais e estatísticos, por tratar-se de um meio para se realizar experimentos controlados a um custo baixo. Na área de redes e sistemas distribuídos, por exemplo, é frequente o uso de ambientes de simulação de redes, que modelam o funcionamento de uma rede de computadores, incluindo, às vezes, modelos de falhas de hardware e até modelos de comportamento de usuários \cite{White2002}. 
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+		Uma abordagem empregada quando os experimentos controlados são caros é a simulação de modelos computacionais, por tratar-se de um meio para se realizar experimentos controlados a um custo baixo. Na área de redes e sistemas distribuídos, por exemplo, é frequente o uso de ambientes de simulação de redes, que modelam o funcionamento de uma rede de computadores, incluindo, às vezes, modelos de falhas de hardware e até modelos de comportamento de usuários \cite{White2002}. 
 		
 		Naturalmente, há o risco de os modelos usados na simulação não corresponderem à realidade nos aspectos relevantes para o experimento. Todavia, espera-se que esse risco seja reduzido à medida que os modelos são testados e refinados.
 
@@ -59,7 +61,7 @@
 
 \begin{section}{Problema}
 	
-	A avaliação empírica de ferramentas de engenharia reversa da maneira tradicional, que depende de análises realizadas por programadores experientes, é custosa. O custo elevado é um problema porque contribui para que o número de pesquisas experimentais na área seja reduzido. 
+	A avaliação empírica tradicional de ferramentas de engenharia reversa baseadas na análise de dependências requer a colaboração de programadores experientes e, por isso, é custosa. O custo elevado é um problema porque contribui para que o número de pesquisas experimentais na área seja reduzido. 
 	
   Abordagens experimentais com custo mais baixo contribuiriam para aumentar o volume de pesquisas experimentais em engenharia reversa. Como resultado, os efeitos positivos e negativos de cada ferramenta seriam melhor compreendidos, o que colaboraria para o aprimoramento das ferramentas existentes.
 	
@@ -81,17 +83,16 @@
 		\item o custo é mais baixo;
 		\item o controle das variáveis independentes é maior, uma vez que modelos computacionais possuem parâmetros que podem ser ajustados.
 	\end{itemize}
+
+	Dito isso, o foco desta pesquisa não é a avaliação de ferramentas de engenharia reversa --- embora uma avaliação do gênero seja apresentada como prova de conceito. O foco desta pesquisa é a avaliação de modelos computacionais que podem apoiar a avaliação de ferramentas de engenharia reversa. 
 	
-	Para simplificar as discussões, consideremos algumas definições. As dependências de um sistema de software são representados sob a forma de \emph{rede} (para efeitos práticos, o mesmo que \emph{grafo}). Assim, os modelos computacionais devem ser \emph{modelos de redes}. Chamaremos de \emph{rede de software} o conjunto de entidades e dependências extraídos de um sistema de software, para diferenciá-las de outros tipos de redes (ex.: redes sociais). Redes que se assemelham a redes de software serão chamadas de redes \emph{software-realistas}.
+	Para simplificar as discussões, consideremos algumas definições. As dependências de um sistema de software são representados sob a forma de \emph{rede} (para efeitos práticos, o mesmo que \emph{grafo}). Assim, os modelos computacionais devem ser \emph{modelos de redes}. Chamaremos de \emph{rede de software} o conjunto de entidades e dependências entre entidades extraídos de um sistema de software. Redes que se assemelham a redes de software serão chamadas de redes \emph{software-realistas}.
 	
-	Naturalmente, um requisito da solução é que os modelos devem gerar redes software-realistas, isto é, redes que se assemelham a redes de software. Assim sendo, os objetivos de pesquisa se desdobram nos seguintes itens:
+	Com essas definições, a questão de pesquisa pode ser enunciada de forma sucinta: \emph{existem modelos de redes software-realistas?}
 	
-	\begin{enumerate}
-		\item descobrir modelos computacionais que podem ser interpretados como modelos de dependências entre entidades de código-fonte, isto é, modelos de redes;
-		\item desenvolver e avaliar um modelo de classificação que determina se uma rede é ou não software-realista;
-		\item avaliar, através do modelo de classificação, se os modelos produzem redes software-realistas;
-		\item realizar uma prova de conceito para demonstrar a viabilidade da abordagem de simulação na avaliação de técnicas e ferramentas que se baseiam na análise de dependências.
-	\end{enumerate}
+	% Naturalmente, um requisito da solução é que os modelos devem gerar redes software-realistas, isto é, redes que se assemelham a redes de software. 
+	% Deixar claro, neste ponto, que nosso objetivo de pesquisa não é resolver imediatamente o problema do alto custo, e sim fornecer alternativas confiáveis.
+	
 \end{section}
 
 % \begin{section}{Hipótese de Pesquisa}
@@ -128,6 +129,19 @@
 
 \begin{section}{Métodos}
 	
+	A abordagem empregada nesta pesquisa pode ser desdobrada nos seguintes passos:
+	
+	% Assim sendo, os objetivos de pesquisa se desdobram nos seguintes itens:
+	% 
+	\begin{enumerate}
+		\item descobrir modelos de redes, os quais podem ser interpretados como modelos de dependências entre entidades de código-fonte;
+		\item desenvolver e avaliar um modelo de classificação que determina se uma rede é ou não software-realista;
+		\item avaliar, através do modelo de classificação, se os modelos produzem redes software-realistas;
+		\item realizar uma prova de conceito para demonstrar a viabilidade da simulação de modelos de redes na avaliação de técnicas e ferramentas que se baseiam na análise de dependências.
+	\end{enumerate}
+	
+	Os métodos escolhidos para lidar com cada um dos passos são apresentados a seguir.
+	
 	% REDES COMPLEXAS
 	A teoria das redes complexas estuda métodos para analisar redes (ou grafos) encontradas nos mais diversos domínios, como redes sociais, redes de computadores e redes metabólicas. A aplicação de tais métodos levou à descoberta de propriedades comuns a um grande número de redes, bem como modelos de redes que incorporam essas propriedades.
 	
@@ -148,19 +162,19 @@
 \begin{section}{Resultados}
 	
 	% IDENTIFICAÇÃO DE 2 MODELOS; PROPOSTA DE UM NOVO MODELO.
-	Foram encontrados na literatura dois modelos de redes organizadas em módulos, denominados CGW e LFR, os quais podem ser interpretados como modelos de dependências entre entidades de software. Um terceiro modelo de redes organizadas em módulos, o BCR+, foi desenvolvido no contexto desta pesquisa, com base em um modelo sem módulos pré-existente, o BCR.
+	Foram encontrados na literatura diversos modelos de redes, os quais podem ser interpretados como modelos de dependências entre entidades de software. Além disso, foi desenvolvido um modelo de redes organizadas em módulos, o BCR+, foi desenvolvido no contexto desta pesquisa, com base em um modelo sem módulos pré-existente, o BCR.
 	
 	% MODELO DE CLASSIFICAÇÃO
 	Foi desenvolvido um modelo de classificação que, dada uma rede, a classifica em software-realista ou não-software realista. O modelo de classificação foi avaliado com um conjunto composto de redes de software e de outros domínios e apresentou taxa de acerto de cerca de 98\%.
 	
 	% REALISMO DOS MODELOS
-	O modelo de classificação foi aplicado a redes geradas com os modelos de redes CGW, LFR e BCR+ e, como resultado, constatou-se que os três modelos produzem tanto redes software-realistas quanto redes não software-realistas. Como base de comparação, dois modelos mais simples, o de Erdős–Rényi (ER) e o de Barabási-Albert (BA), geram apenas redes não software-realistas. Além disso, foram encontradas regras que preveem, com uma taxa de acerto de 75\%, se uma determinada combinação de valores de parâmetros produzirá redes similares a redes extraídas de sistemas de software.
+	O modelo de classificação foi aplicado a redes geradas com diversos modelos de redes e, como resultado, constatou-se que o modelo BCR+ e outros dois produzem tanto redes software-realistas quanto redes não software-realistas. Além disso, foram encontradas regras que preveem, com uma taxa de acerto de 75\%, se uma determinada combinação de valores dos parâmetros desses modelos produz redes software-realistas.
 	
 	% PROVA DE CONCEITO
-	Como prova de conceito foi realizada uma comparação quantitativa entre algoritmos usados no contexto da atividade de recuperação de arquitetura. Além disso, descobriu-se que o desempenho de certos algoritmos (os algoritmos aglomerativos) é consideravelmente piorado quando o número de módulos da rede gerada pelo modelo BCR+ aumenta.
+	Como prova de conceito foi realizada, a partir da simulação do modelo BCR+, uma comparação quantitativa entre algoritmos usados no contexto da atividade de recuperação de arquitetura. Além disso, descobriu-se que o desempenho de certos algoritmos (os algoritmos aglomerativos) é consideravelmente afetado por um dos parâmetros do modelo.
 	
 	% ARTIGO PUBLICADO
-	Como resultado concreto de pesquisa, foi publicado um artigo no 14º Congresso Europeu sobre Manutenção de Software e Reengenharia (CSMR 2010). O artigo foi intitulado ``Modular Network Models for Class Dependencies in Software'' e apresentou a avaliação dos três modelos de dependências.
+	Como resultado concreto de pesquisa, foi publicado um artigo no 14º Congresso Europeu sobre Manutenção de Software e Reengenharia (CSMR 2010). O artigo foi intitulado ``Modular Network Models for Class Dependencies in Software'' e apresentou a avaliação de três modelos de redes.
 
 	% Como resultado, foram encontrados dois modelos de redes apropriados para representar dependências entre entidades, e um modelo que foi criado a partir da adaptação de um modelo existente. O novo modelo é apresentado em detalhes no Capítulo ....
 	% 
@@ -178,12 +192,12 @@
 	
 	No Capítulo \ref{cap:classificacao} é apresentado e avaliado um modelo de classificação que indica se uma dada rede é semelhante a redes de dependências extraídas de sistemas de software.
 	
-	No Capítulo \ref{cap:avaliacao} é relatada a avaliação dos modelos de dependências quanto à semelhança entre as redes produzidas por eles e redes extraídas de sistemas de software.
+	No Capítulo \ref{cap:avaliacao} é relatada a avaliação dos modelos de redes quanto ao software-realismo das redes que eles geram.
 	
 	No Capítulo \ref{cap:estudo} é feita uma introdução ao problema de recuperação de arquitetura e, a seguir, são apresentados os métodos e resultados da prova de conceito envolvendo o problema de recuperação de arquitetura e o modelo BCR+.
 	
-	No Capítulo \ref{cap:trabrel} este trabalho é comparado a trabalhos relacionados. 
+	No Capítulo \ref{cap:trabrel} este trabalho é comparado a outros trabalhos.
 	
-	No Capítulo \ref{cap:conclusao} são apresentadas as conclusões, contribuições e limitações deste trabalho.
+	No Capítulo \ref{cap:conclusao} são apresentadas algumas conclusões, contribuições e limitações deste trabalho.
 	
 \end{section}
