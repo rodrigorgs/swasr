@@ -13,7 +13,7 @@
 	% 
 	% Daqui para frente, redes que se assemelham a redes de software serão chamadas de \emph{redes software-realistas}. Redes de software são software-realistas por definição. Redes estudadas em outros domínios (ex.: redes biológicas) são, por pressuposto, não software-realistas.
 	
-	Para avaliar se um modelos de redes gera redes software-realistas, é preciso encontrar um \emph{modelo de classificação} que, dada uma rede, determine se ela é ou não software-realista. É importante, ainda, avaliar se o modelo de classificação apresenta alto desempenho, medido, por exemplo, pela taxa de acerto.
+	Redes software-realistas são redes que se assemelham a redes de software (redes de dependências extraídas de sistemas de software). Para avaliar se um modelo de redes gera redes software-realistas, é preciso encontrar um \emph{modelo de classificação} que, dada uma rede, determine se ela é ou não software-realista. É importante, ainda, avaliar se o modelo de classificação apresenta alto desempenho, medido, por exemplo, pela taxa de acerto.
 	
 	Este capítulo apresenta um modelo de classificação de redes com alto desempenho que foi construído de acordo com a abordagem de aprendizagem de máquina. Nessa abordagem, o modelo de classificação é induzido por um algoritmo --- denominado \emph{classificador} --- a partir de um conjunto contendo redes software-realistas e redes não software-realistas.
 	
@@ -106,7 +106,7 @@ $$
 	
 	\COMMENT{Conta o número de acertos quando $S_0 = s$}
 	\STATE $acertos \gets 0$
-	\FORALL{$y \in (T \cup \bar{T})$}
+	\FORALL{$y \in (T \cup \bar{T}) ~\AND~ y \ne x$}
 		\IF{$(S(y, T) \ge s ~\AND~ y \in T) ~\OR~ (S(y, T) < s ~\AND~ y \notin T)$}
 			\STATE $acertos \gets acertos + 1$
 		\ENDIF
@@ -191,11 +191,11 @@ $$
 		% são computadas métricas de desempenho para cada modelo induzido, permitindo estimar o desempenho do classificador.
 	\end{itemize}
 	
-	% TODO: rever estas etapas
+	% rever estas etapas
 	
 \begin{subsection}{Coleta de Dados: Redes e Sistemas}
 
-			Foram coletadas 66 redes de domínios tão diversos quanto a biologia, a sociologia, a tecnologia e a linguística, com tamanho variando entre 32 e 18.163 vértices. As redes foram obtidas em \emph{websites} de pesquisadores renomados da área de redes complexas. Apenas redes orientadas foram selecionadas para o estudo, uma vez que as redes de software são redes orientadas. A lista completa de redes pode ser encontrada Apêndice \ref{cap:lista-redes}.
+			Foram coletadas 66 redes de domínios tão diversos quanto a biologia, a sociologia, a tecnologia e a linguística, com tamanho variando entre 32 e 18.163 vértices. As redes foram obtidas em \emph{websites} de pesquisadores da área de redes complexas. A lista completa de redes, com referências, pode ser encontrada no Apêndice \ref{cap:lista-redes}. Apenas redes orientadas foram selecionadas para o estudo, uma vez que as redes de software são redes orientadas. 
 
 		  Também foram coletados 65 sistemas de software escritos em Java, contendo entre 111 e 35.563 classes ou interfaces cada um. Quase todos os sistemas foram selecionados a partir da lista dos sistemas mais populares do repositório SourceForge.net, que abriga mais de 200 mil\footnote{\url{http://sourceforge.net/about}} projetos de código aberto; além destes, foi selecionado o sistema OurGrid, desenvolvido na Universidade Federal de Campina Grande. 
 
@@ -231,11 +231,9 @@ $$
 		Na validação cruzada, o conjunto de redes é dividido em um número fixo, $k$, de partições (ou dobras) com tamanho aproximadamente igual. A atribuição de redes a partições é aleatória. Inicialmente, a primeira partição é escolhida como conjunto de teste, enquanto as demais formam o conjunto de treinamento. Então um modelo de classificação é induzido a partir do conjunto de treinamento e aplicado ao conjunto de teste. Nesse momento são calculadas as métricas de desempenho. O procedimento é executado $k$ vezes, de forma que, a cada iteração, uma partição é escolhida para teste e as demais, para treinamento. Ao final, uma estimativa do valor das métricas de desempenho pode ser obtida através da média aritmética dos valores calculados a cada iteração.
 		%e desempenho final é a média das estimativas de desempenho obtidas em cada iteração. %A validação cruzada fornece estimativas de desempenho mais confiáveis do que o método \emph{holdout} porque cada um dos objetos é usado tanto para teste quanto para treinamento.
 
-		Dois recursos podem ser empregados para melhorar a estimativa de desempenho: a estratificação e a repetição. Na validação cruzada estratificada, a proporção das categorias nas partições reflete a proporção das categorias no conjunto completo. Por exemplo, se o conjunto de dados possui 40\% de objetos de uma categoria e 60\% de outra, procura-se manter essa proporção nas partições. 
+		Dois recursos podem ser empregados para obter uma estimativa mais confiável do desempenho (taxa de acerto) de um modelo de classificação: a estratificação e a repetição \cite{Witten2005}. Na validação cruzada estratificada, a proporção das categorias nas partições reflete a proporção das categorias no conjunto completo. Por exemplo, se o conjunto de dados possui 40\% de objetos de uma categoria e 60\% de outra, procura-se manter essa proporção nas partições. A repetição consiste em repetir a validação diversas vezes (tipicamente dez vezes \cite{Witten2005}), de forma a reduzir os efeitos aleatórios do particionamento do conjunto de redes em dobras.
 
-		Com a finalidade de melhorar a estimativa de desempenho, é comum repetir a validação diversas vezes (tipicamente dez vezes). A repetição mitiga o viés introduzido na atribuição de redes a partições.
-
-		Neste estudo foi utilizada a validação cruzada de 10 dobras estratificadas com 10 repetições, o que equivale a 100 modelos induzidos e, portanto, 100 medidas de acurácia, precisão e cobertura. Calculando a média e o desvio-padrão das medidas, chegou-se às seguintes estimativas:
+		Neste estudo foi utilizada a validação cruzada de 10 dobras estratificadas (\emph{stratified 10-fold cross-validation}) com 10 repetições, o que equivale a 100 modelos induzidos e, portanto, 100 medidas de acurácia, precisão e cobertura. Calculando a média e o desvio-padrão das medidas, chegou-se às seguintes estimativas:
 
 		% A função C é interessante, mas como ela se sai "in the wild?"
 		% Procedimento: selecionar redes sw e nsw para formar o conjunto de treinamento. A partir do conjunto de treinamento, encontrar S_0. selecionar redes sw e nsw para formar o conjunto de testes. Então medir a acurácia, a precisão e a cobertura de C aplicando-a a 

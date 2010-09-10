@@ -11,8 +11,6 @@
 
 \chapter{Avaliação de Modelos de Redes} \label{cap:avaliacao}
 
-% TODO: explicar por que as redes de outros domínios são necessárias neste estudo.
-
 \begin{section}{Introdução}
 Os três modelos apresentados anteriormente --- BCR+, LFR e CGW --- geram redes organizadas em módulos. Tal condição, no entanto, não é suficiente para que os modelos sejam usados em estudos sobre ferramentas de engenharia reversa. É importante que os modelos gerem redes que se assemelham a redes extraídas de sistemas de software reais.
 
@@ -349,14 +347,13 @@ Para chegar aos valores para os parâmetros do modelo LFR, foram analisadas mét
 \end{subsection}
 
 \begin{section}{Geração de Redes}
-	Foi gerada uma rede para cada combinação de valores para os parâmetros de cada modelo. % TODO: continuar...
+	Foi gerada uma rede para cada combinação de valores para os parâmetros de cada modelo.
 \end{section}
 
 \begin{subsection}{Resultados}
 
 Usando o modelo de classificação descrito na Seção \ref{sec:realismo-rede}, cada rede sintética foi classificada como software-realista ou não software-realista. Os resultados estão condensados na Tabela \ref{tab:results}.
 
-% TODO: refazer esta tabela
 \begin{table}
 \caption{Resultados da classificação de redes sintéticas}
 \centering
@@ -431,8 +428,6 @@ Modelo & Regra & Acurácia & Precisão & Cobertura \\
 \end{tabular}
 \label{tab:rules}
 \end{table}
-
-% TODO: Mastigar. Exemplo: BCR+: p1 >= 0.7, p2 <= 0.3, p3 <= 0.3, mu <= 0.6, din <= 8, ...
 
 \end{subsection}
 
