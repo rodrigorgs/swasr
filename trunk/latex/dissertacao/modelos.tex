@@ -70,11 +70,11 @@ O papel dos PCTs na caracterização de domínios de redes é ilustrado nas Figu
 	\label{fig:tcp}
 \end{figure}
 
-A similaridade entre PCTs pode ser quantificada através do coeficiente de correlação de Pearson entre os PCTs \cite{Milo2004}. O resultado é um valor entre -1,0 (menor similaridade) e 1,0 (maior similaridade). Na Figura \ref{fig:tcp}(a), o coeficiente de correlação vale $0,68$; na Figura \ref{fig:tcp}(b), $0,98$. Os números confirmam a análise informal e mostram que a correlação é maior no caso em que as redes pertencem ao mesmo domínio.
+A similaridade entre PCTs pode ser quantificada através do coeficiente de correlação de Pearson entre os PCTs \cite{Milo2004}. O resultado é um valor entre -1,0 (menor similaridade) e 1,0 (maior similaridade). Na Figura \ref{fig:tcp}(a), o coeficiente de correlação vale $0,68$; na Figura \ref{fig:tcp}(b), $0,98$. Os números confirmam a análise informal da Figura \ref{fig:tcp} e mostram que, no exemplo, a correlação é maior no caso em que as redes pertencem ao mesmo domínio.
 
 Vale notar que o coeficiente de correlação neste caso não possui significado estatístico. Ainda assim, ele tem sido usado de forma bem sucedida na pesquisa de Milo.
 
-A partir da similaridade entre PCTs pode-se construir uma métrica de similaridade entre redes. Sejam $a$ e $b$ duas redes, PCT($x$) o vetor com as concentrações das tríades na rede $x$ e cor($x, y$) o coeficiente de correlação de Pearson entre dois vetores. A similaridade entre as redes, sim($a$, $b$), é dada por
+A métrica de similaridade entre PCTs \cite{Milo2004} pode ser interpretada como uma métrica de similaridade entre redes. Sejam $a$ e $b$ duas redes, PCT($x$) o vetor com as concentrações das tríades na rede $x$ e cor($x, y$) o coeficiente de correlação de Pearson entre dois vetores. A similaridade entre as redes, sim($a$, $b$), é dada por
 
 $$
 \mathrm{sim}(a, b) ~=~ 
@@ -87,8 +87,7 @@ $$
 
 	Redes são muito usadas no domínio de engenharia de software para representar as dependências entre entidades do código-fonte, tais como classes em linguagens orientadas a objetos. 
 	%
-	Estudos recentes têm aplicado a teoria das redes complexas a redes de software, isto é, redes de dependências entre entidades do código-fonte de sistemas de software. Um dos principais resultados é a constatação de que redes de software são livres de escala.
-
+	Estudos recentes têm aplicado a teoria das redes complexas a redes de software, isto é, redes de dependências entre entidades do código-fonte de sistemas de software. Um dos principais resultados é a constatação de que redes de software são livres de escala, isto é, as dependências entre as entidades da implementação dos sistemas de software se distribuem de acordo com uma lei de potência.
 	
 	Valverde e Solé \cite{Valverde2003} estudaram redes não-orientadas formadas por relações de agregação de tipos em diagramas UML, programas em C e programas em C++. Myers \cite{Myers2003} analisou redes de chamadas de função em programas em C e redes de agregação e herança em programas em C++. Em ambos os casos as redes foram identificadas como livres de escala. 
 
@@ -116,7 +115,7 @@ A seguir são apresentados quatro modelos de redes. Os dois primeiros, o de Erd�
 % Modelo de Albert-Barabasi?
 
 \begin{subsection}{O modelo de Erdős–Rényi (ER)}
-	O modelo de Erdős–Rényi (ER) \cite{Erdos1959} gera redes não-orientadas nas quais a distribuição esperada dos graus dos vértices é a distribuição de Poisson. Ele foi concebido antes da teoria das redes complexas. O modelo ER recebe dois parâmetros:
+	O modelo de Erdős–Rényi (ER) \cite{Erdos1959} precedeu a teoria das redes complexas. Ele gera redes não-orientadas que, em geral, não são livres de escala. A distribuição esperada dos graus dos vértices é a distribuição de Poisson. O modelo ER recebe dois parâmetros:
 	
 	\begin{itemize}
 		\item $n$, o número de vértices;
@@ -150,7 +149,7 @@ A seguir são apresentados quatro modelos de redes. Os dois primeiros, o de Erd�
 	
 	Diz-se que os novos vértices se ligam \emph{preferencialmente} a vértices com alto grau. Como consequência, alguns poucos vértices acumulam muitas arestas, enquanto a maioria dos vértices permanece com poucas arestas. O processo é repetido até que a rede atinja $n$ vértices.
 	
-	% TODO: IMPORTANTE %% A Figura XXX exemplifica o mecanismo de ligação preferencial.
+	% IMPORTANTE %% A Figura XXX exemplifica o mecanismo de ligação preferencial.
 	
 	% MELHOR DEIXAR ISSO DE FORA: Várias adaptações já foram propostas para o modelo BA. Uma adaptação simples pode ser realizada para que o modelo gere redes orientadas. No caso de redes orientadas, as $m$ arestas orientadas adicionadas a cada passo possuem origem no novo vértice. O mecanismo de ligação preferencial pode levar em conta os graus totais dos vértices, $\mathrm{g}(x)$, ou apenas os graus de entrada, $\gin(x)$.
 
@@ -206,7 +205,9 @@ $$
 \right.
 $$
 
-O parâmetro $\alpha$ controla a proporção de arestas externas na rede. Para $\alpha = -1$, a maioria das arestas serão externas. Para $\alpha > 0$, a maioria das arestas serão internas, e quanto maior o valor de $\alpha$, maior a tendência. Quando $\alpha = 0$, arestas internas e externas são igualmente prováveis.
+A seguir é explicado o significado de $\alpha$, g($v$) e Q($v$).
+
+ O parâmetro $\alpha$ controla a proporção de arestas externas na rede. Para $\alpha = -1$, a maioria das arestas serão externas. Para $\alpha > 0$, a maioria das arestas serão internas, e quanto maior o valor de $\alpha$, maior a tendência. Quando $\alpha = 0$, arestas internas e externas são igualmente prováveis.
 
 A expressão g($v$) designa o grau de saída do vértice $v$. O termo $Q$ é apenas uma constante de proporcionalidade cujo propósito é fazer a soma das probabilidades ser igual a 1, e é definido da seguinte forma:
 
@@ -223,7 +224,7 @@ A expressão m($v$), neste contexto, designa o conjunto dos vértices que perten
 
 O modelo LFR \cite{Lancichinetti2008,Lancichinetti2009} é um modelo flexível que pode gerar redes com arestas ponderadas e módulos sobrepostos, isto é, nas quais um vértice pode pertencer a mais de um módulo. Diferentemente do CGW, o LFR não é um modelo de crescimento: todos os vértices são gerados de uma vez e então são adicionadas as arestas.
 
-Nesta pesquisa foi estudado um caso particular do modelo no qual todas as arestas têm o mesmo peso e os módulos não se sobrepõem. O modelo aceita os seguintes parâmetros:
+Nesta pesquisa foi estudado um caso particular do modelo no qual todas as arestas têm o mesmo peso e os módulos não se sobrepõem (cada vértice pertence a exatamente um módulo). O modelo aceita os seguintes parâmetros:
 
 \begin{itemize}
 \item número de vértices, $n$;
@@ -237,46 +238,20 @@ Nesta pesquisa foi estudado um caso particular do modelo no qual todas as aresta
 
 Os tamanhos dos módulos são selecionados de uma lei de potência com expoente $-\beta$. O parâmetro de mistura, $\mu$, é a proporção de arestas externas na rede gerada. No modelo LFR, nem todas as combinações de parâmetros são factíveis. Por exemplo, se $n = 100$, então $min_m$ não pode ser 60, caso contrário existiriam módulos menores do que $min_m$.
 
-	%A geração da rede é feita através de um processo iterativo com rápida convergência.
-	
-	% ﰊ1ﰋ Each node is given a degree taken from a power law distribution with exponent ﰃ. The extremes of the distribu- tion kmin and kmax are chosen such that the average degree is ﰎkﰏ. The configuration model ﰌ18ﰍ is used to connect the nodes so to keep their degree sequence.
-	% ﰊ2ﰋ Each node shares a fraction 1−ﰅ of its links with the other nodes of its community and a fraction ﰅ with the other nodes of the network; ﰅ is the mixing parameter.
-	% ﰊ3ﰋ The sizes of the communities are taken from a power law distribution with exponent ﰄ, such that the sum of all sizes equals the number N of nodes of the graph. The mini- mal and maximal community sizes smin and smax are chosen so to respect the constraints imposed by our definition of community: sminﰆkmin and smaxﰆkmax. This ensures that a node of any degree can be included in at least a community.
-	% ﰊ4ﰋ At the beginning, all nodes are homeless, i.e., they are not assigned to any community. In the first iteration, a node is assigned to a randomly chosen community; if the commu- nity size exceeds the internal degree of the node ﰊi.e., the number of its neighbors inside the communityﰋ, the node enters the community, otherwise it remains homeless. In suc- cessive iterations we place a homeless node to a randomly chosen community: if the latter is complete, we kick out a randomly selected node of the community, which becomes homeless. The procedure stops when there are no more homeless nodes.
-	% ﰊ5ﰋ To enforce the condition on the fraction of internal neighbors expressed by the mixing parameter ﰅ, several re- wiring steps are performed, such that the degrees of all nodes stay the same and only the split between internal and exter- nal degree is affected, when needed. In this way the ratio between external and internal degree of each node in its com- munity can be set to the desired share ﰅ with good approxi- mation ﰊsee Fig. 1ﰋ.
-
 \end{subsection}
 
 \end{section}
 
 \begin{section}{Conclusão} % síntese, súmula, resumo
 	
-	A teoria das redes complexas é uma área de pesquisa madura, que oferece ferramentas teóricas que apoiam o estudo de redes do ponto de vista estatístico. A teoria tem sido aplicada com sucesso no estudo de diversos domínios, como a sociologia, a biologia e a engenharia.
+	A teoria das redes complexas é uma área de pesquisa que oferece ferramentas teóricas as quais apoiam o estudo de redes do ponto de vista estatístico. A teoria tem sido aplicada no estudo de diversos domínios, como a sociologia, a biologia e a engenharia.
 	
 	Redes livres de escala são redes que possuem uma determinada distribuição de graus. Redes de dependências entre entidades de software já foram identificadas como redes livres de escala em diversos estudos recentes.
 	
 	Perfis de concentração de tríades (PCTs) caracterizam redes através de vetores de treze números. Eles podem ser usados para medir a similaridade estrutural entre duas redes.
 	
 	ER, BA, CGW e LFR são modelos de redes. O modelo ER gera redes sem módulos que, em geral, não são livres de escala. O modelo BA gera redes não-orientadas, livres de escala e sem módulos. Os modelos CGW e LFR geram redes orientadas, livres de escala e organizadas em módulos.
+	% TODO: E...?
 	 % Com tais propriedades, essas redes podem representar dependências entre entidades de software.
 		
 \end{section}
-
-% == O modelo BCR ==
-% 
-% O modelo BCR gera redes livres de escala orientadas e sem módulos. Assim como o modelo BA, ele adota os mecanismos de crescimento e ligação preferencial. O modelo BCR aceita os seguintes parâmetros:
-% 
-% \begin{itemize}
-% 	\item três probabilidades, $p_1$, $p_2$ e $p_3$, tal que $p_1 + p_2 + p_3 = 1$;
-% 	\item dois números reais, $\din$ e $\dout$.
-% \end{itemize}
-% 
-% A partir de uma rede inicial, a cada passo é aplicado uma operação, escolhida dentre três operações de acordo com as probabilidades $p_1$, $p_2$ e $p_3$:
-% 
-% \begin{itemize}
-% 	\item Com probabilidade $p_1$, é adicionado um novo vértice, $v$, juntamente com uma aresta de $v$ até um vértice pré-existente, $w$. O vértice $w$ é escolhido de acordo com $g_{in}(x) + \din$, onde $g_{in}$ representa o grau de entrada. Isso significa que a probabilidade de um vértice arbitrário ($x$) ser escolhido é proporcional a $g_{in}(x) + \din$ --- ou seja, $mathrm{P}(x) = \frac{g_{in}(x) + \din}{\sum_y g_{in}(y) + \din}$.
-% 	
-% 	\item Com probabilidade $p_2$, é adicionado um novo vértice, $w$, juntamente com uma aresta de um vértice pré-existente, $v$, até $w$. O vértice $w$ é escolhido de acordo com $g_{out} + \dout$, onde $g_{out}$ representa o grau de saída.
-% 	
-% 	\item Com probabilidade $p_3$, é adicionada uma aresta de um vértice pré-existente, $v$, até outro vértice pré-existente, $w$. O vértice $v$ é escolhido de acordo com $g_{out} + \dout$, onde $g_{out}$. O vértice $w$ é escolhido de acordo com $g_{out} + \dout$.
-% \end{itemize}

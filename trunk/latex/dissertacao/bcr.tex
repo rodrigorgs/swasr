@@ -2,28 +2,33 @@
 
 \begin{section}{Introdução}
 
-BCR é um modelo que gera redes orientadas, livres de escala e sem módulos. Assim como os modelos BA e CGW, ele utiliza os mecanismos de crescimento e ligação preferencial.
+No capítulo anterior foram apresentados quatro modelos que geram redes. Três dos modelos geram redes que, tais quais redes de software, tendem a ser livres de escala. Destes, dois geram redes que, assim como sistemas de software, são organizadas em módulos. Falta a esses modelos, no entanto, um maior controle sobre as relações entre os módulos --- algo que está presente no modelo proposto neste capítulo, o BCR+.
 
-% No contexto desta pesquisa foi desenvolvido o modelo BCR+, que generaliza o modelo BCR adicionando módulos à construção da rede.
-No contexto desta pesquisa foi desenvolvido um modelo baseado no BCR, chamado BCR+, que adiciona módulos à construção da rede. O modelo BCR+ foi desenvolvido por causa da dificuldade encontrada na busca por modelos de redes organizadas em módulos nas etapas iniciais da pesquisa. O modelo apresenta uma vantagem em relação aos demais, que é a possibilidade de se restringir, através de um dos seus parâmetros ($G$), as dependências permitidas entre vértices pertencentes a módulos distintos.
+Durante o projeto de um sistema de software complexo, é comum estabelecer quais são os módulos do sistema e de que forma eles se relacionam. Em sistemas estritamente estruturados em camadas, por exemplo, cada módulo pode depender de, no máximo, um outro módulo. Diz-se que um módulo depende de outro se as entidades do primeiro dependem das entidades do segundo. Restringir as dependências permitidas entre módulos pode favorecer a portabilidade e o reuso de um sistema.
 
-O modelo BCR+ é apresentado neste capítulo. Como ele generaliza o modelo BCR, optou-se por não descrever o modelo BCR separadamente. Ao final do capítulo, é feita uma comparação entre o modelo BCR+ e os modelos apresentados anteriormente.
+Nos modelos CGW e LFR, é possível controlar a proporção de arestas entre vértices pertencentes a módulos distintos, mas não é possível restringir as dependências entre módulos. Nas redes geradas por esse modelos, cada vértice pode se ligar a qualquer outro, independentemente dos módulos aos quais os vértices pertencem. As dependências entre os módulos não podem ser especificadas \emph{a priori}.
+
+Para suprir essa lacuna nos modelos apresentados, propomos, neste capítulo, um novo modelo de redes organizadas em módulos, o BCR+. Assim como os modelo CGW o BCR+ gera --- através dos mecanismo de crescimento e ligação preferencial --- redes orientadas, livres de escala e organizadas em módulos. Diferentemente do que ocorre com o CGW, no entanto, com o novo modelo é possível controlar, a partir de um parâmetro, quais são as dependências permitidas entre módulos.
 
 \end{section}
 
 \begin{section}{Descrição}
+	O modelo BCR+ não foi criado do zero: ele é uma generalização de um modelo proposto por Bollobás e colegas \cite{Bollobas2003}, que gera redes orientadas, livres de escala e sem módulos. Optou-se neste trabalho por não descrever separadamente o modelo original. Em lugar disso, será descrito apenas o modelo BCR+, juntamente com indicações dos pontos em que os dois modelos diferem.
+		
 	O modelo BCR+ aceita os seguintes parâmetros:
 
 	\begin{itemize}
 	\item número de vértices, $n$;
-	\item um grafo orientado de dependências entre módulos, $G$;
 	\item três probabilidades, $p_1$, $p_2$ e $p_3$, com $p_1 + p_2 + p_3 = 1$;
-	\item uma constante $\mu$, com $0,0 \le \mu \le 1,0$;
 	\item grau de entrada base, $\din$;
 	\item grau de saída base, $\dout$.
+	\item um grafo orientado de dependências entre módulos, $G$;
+	\item uma constante $\mu$, com $0,0 \le \mu \le 1,0$;
 	\end{itemize}
+	
+	Os dois últimos parâmetros são exclusivos do BCR+ --- eles não existem no modelo original.
 
-	O grafo $G$ contém um vértice para cada módulo que será criado e define uma relação de dependência entre os módulos. Um módulo $M_1$ depende de um módulo $M_2$ se $G$ contém uma aresta do vértice que representa $M_1$ para o vértice que representa $M_2$. Na rede gerada, uma aresta externa de um vértice $v_1 \in M_1$ para um vértice $v_2 \in M_2$ pode existir apenas se $M_1$ depende de $M_2$ no grafo $G$. %Note que $G$ pode representar uma arquitetura modular em camadas, com $M_1$ e $M_2$ formando uma camada com dois módulos.
+	O grafo $G$ contém um vértice para cada módulo que será criado e define uma relação de dependência entre os módulos. Um módulo $M_1$ depende de um módulo $M_2$ se $G$ contém uma aresta do vértice que representa $M_1$ para o vértice que representa $M_2$. Na rede gerada, uma aresta de um vértice $v_1 \in M_1$ para um vértice $v_2 \in M_2$ pode existir apenas se $M_1$ depende de $M_2$ no grafo $G$ ou se $M_1$ e $M_2$ são o mesmo módulo. %Note que $G$ pode representar uma arquitetura modular em camadas, com $M_1$ e $M_2$ formando uma camada com dois módulos.
 
 	\begin{figure}[htbp]
 		\centering
@@ -32,9 +37,9 @@ O modelo BCR+ é apresentado neste capítulo. Como ele generaliza o modelo BCR, 
 		\label{fig:bcr-g}
 	\end{figure}
 
-	O parâmetro $\mu$ controla a proporção de arestas externas na rede. Valores mais baixos levam a redes com menos arestas externas.
+	O parâmetro $\mu$ controla a proporção de arestas externas na rede --- arestas que ligam vértices pertencentes a módulos distintos. Valores mais baixos levam a redes com menos arestas externas.
 
-	O modelo BCR é um caso específico do modelo BCR+ quando $\mu = 0$ e $G$ consiste de apenas um vértice, o qual representa um único módulo. Com essa informação é fácil derivar a descrição do modelo BCR a partir da descrição do modelo BCR+ apresentada a seguir.
+	O modelo original de Bollobás e colegas \cite{Bollobas2003} é um caso específico do modelo BCR+ quando $\mu = 0$ e $G$ consiste de apenas um vértice, o qual representa um único módulo. Com essa informação é fácil derivar a descrição do modelo original a partir da descrição do modelo BCR+ apresentada a seguir.
 	
 	Na rede inicial gerada pelo modelo BCR+, cada módulo contém exatamente um vértice e todas as arestas externas permitidas são adicionadas. A Figura \ref{fig:bcr-g} ilustra a geração de uma rede inicial a partir de um grafo $G$. Essa rede é então modificada de acordo com 3 regras de formação que são aplicadas sucessivamente, em ordem aleatória, até a rede alcançar o número de $n$ vértices. A cada passo do algoritmo, a probabilidade de se aplicar a regra $i$ é $p_i$.
 	
@@ -44,7 +49,7 @@ O modelo BCR+ é apresentado neste capítulo. Como ele generaliza o modelo BCR, 
 
 % Antes de descrever as regras do algoritmo, algumas definições são necessárias. A expressão $\gout(x)$ designa o número de arestas com origem no vértice $x$, e $\gin(x)$, analogamente, designa o número de arestas com destino no vértice $x$. 
 
-Nas regras apresentadas a seguir, a expressão ``escolher um vértice de acordo com f($x$)'' significa que a probabilidade de escolher um vértice $x$ é dada pela seguinte função de probabilidade:
+Nas regras apresentadas a seguir, a expressão ``escolher um vértice de acordo com f($x$)'', onde f($x$) é uma função qualquer, significa que a probabilidade de escolher um vértice $x$ é dada pela seguinte função de probabilidade:
 
 $$
   \mathrm{P}(x) ~=~ \frac{ \mathrm{f}(x) }
@@ -64,7 +69,7 @@ As regras do modelo estão ilustradas na Figura \ref{fig:bcr-regras} e são desc
 
 \begin{enumerate}
 
-\item \emph{Adicionar um vértice com uma aresta de saída}. Um vértice existente, $w$, é escolhido de acordo com $\mathrm{f}(x) = \din + \gin(x)$. Um novo vértice, $v$, é adicionado ao módulo que contém $w$, juntamente com uma aresta de $v$ a $w$.
+\item \emph{Adicionar um vértice com uma aresta de saída}. Um vértice existente, $w$, é escolhido de acordo com $\mathrm{f}(x) = \din + \gin(x)$ (parâmetro $\din$ somado ao grau de entrada do vértice). Um novo vértice, $v$, é adicionado ao módulo que contém $w$, juntamente com uma aresta de $v$ a $w$.
 
 \item \emph{Adicionar um vértice com uma aresta de entrada}. Um vértice existente, $w$, é escolhido de acordo com $\mathrm{f}(x) = \dout + \gout(x)$. Um novo vértice, $v$, é adicionado ao módulo que contém $w$, juntamente com uma aresta de $w$ a $v$.
 
@@ -76,6 +81,9 @@ As regras do modelo estão ilustradas na Figura \ref{fig:bcr-regras} e são desc
 \end{enumerate}
 
 \end{enumerate}
+
+No modelo original proposto por Bollobás e colegas \cite{Bollobas2003}, não há módulos ou, equivalentemente, há apenas um módulo. Por esta razão, a distinção entre as regras 3(a) e 3(b) não existe no modelo original.
+
 \end{section}
 
 \begin{section}{Exemplo}
@@ -99,14 +107,13 @@ Nota-se que vértices com grau de saída alto têm mais chance de ser a origem d
 
  % é o uso de uma rede gerada pelo modelo como parâmetro $G$ do próprio modelo. Em termos operacionais, o modelo é executado uma vez para gerar uma rede no qual os módulos representam módulos de software e os vértices representam classes, e então é executado na segunda vez considerando a rede gerada na primeira etapa como o parâmetro $G$. Na rede resultante, os módulos seriam interpretados como classes e os vértices poderiam ser interpretados como membros das classes. As duas redes, combinadas, formariam uma rede hierárquica com três níveis: módulos, classes e membros.
 
-% TODO: Figura
-
 \end{section}
 
+% TODO: mover para o capítulo de avaliação.
 \begin{section}{Comparação com Outros Modelos}
 	% comparativo
 	% Número de parâmetros:
-	% - BCR+: 8 (6 do BCR + 2, e um deles é G)
+	% - BCR+: 8 (6 do modelo original + 2, e um deles é G)
 	% - LFR: 7
 	% - CGW: 11
 	%
@@ -149,6 +156,8 @@ Nota-se que vértices com grau de saída alto têm mais chance de ser a origem d
 		\hline
 		Usa o mecanismo de crescimento?           & \N & \S & \S & \N & \S \\
 		\hline
+		Restringe dependências entre módulos?    & \N & \N & \N & \N & \S \\
+		\hline
 		% Usa o mecanismo de ligação preferencial?  & \N & \S & \S & \N & \S \\		
 		% 	  \hline
 	\end{tabular}
@@ -160,15 +169,15 @@ Nota-se que vértices com grau de saída alto têm mais chance de ser a origem d
 \end{threeparttable}
 
 	\vspace{8 mm}
-	Dentre os modelos que geram redes orientadas, livres de escala e organizadas em módulos, o BCR+ é um dos modelos mais simples em relação ao número de parâmetros, possuindo 8 parâmetros. Nesse quesito ele perde apenas para o modelo LFR, que aceita 7 parâmetros. Ao contrário do LFR, no entanto, o BCR+ usa o mecanismo de crescimento, que é adequado para representar, por exemplo, a evolução de sistemas de software.
+	Dentre os modelos que geram redes orientadas, livres de escala e organizadas em módulos, o BCR+ é um dos modelos mais simples em relação ao número de parâmetros, possuindo 8 parâmetros. Nesse quesito ele perde apenas para o modelo LFR, que aceita 7 parâmetros. De acordo com a tabela, o modelo BCR+ é o mais completo, sendo o único que permite ao usuário restringir as dependências entre módulos.
+	%Ao contrário do LFR, no entanto, o BCR+ usa o mecanismo de crescimento, que é adequado para representar, por exemplo, a evolução de sistemas de software.
 
 % \footnotetext[1]{O modelo ER foi concebido originalmente para gerar redes não-orientadas, mas também pode ser usado para gerar redes orientadas sem perder a sua essência.}
 
-	
 \end{section}
 
 \begin{section}{Conclusão}
 	
-	O modelo BCR+, baseado no modelo BCR, gera redes livres de escala orientadas e organizadas em módulos. Em relação a modelos similares, o modelo BCR+ tem a vantagem de oferecer controle sobre as dependências que podem ser geradas entre entidades que pertencem a módulos distintos. Tal possibilidade contribui para que o modelo BCR+ reproduza melhor o processo de construção de sistemas de software que se baseiam na implementação de uma arquitetura pré-definida.
+	O modelo BCR+ gera redes livres de escala orientadas e organizadas em módulos. Em relação a modelos similares, o modelo BCR+ tem a vantagem de oferecer controle sobre as dependências que podem ser geradas entre entidades que pertencem a módulos distintos. Tal possibilidade contribui para que o modelo BCR+ reproduza melhor o processo de construção de sistemas de software que se baseiam na implementação de uma arquitetura pré-definida.
 	
 \end{section}
