@@ -7,11 +7,11 @@
 
 \begin{section}{Introdução}
 
-No capítulo anterior foi mostrado que pelo menos três modelos geram redes organizadas em módulos que se assemelham a redes de software. Neste capítulo, o modelo BCR+ é usado em dois estudos experimentais realizados com o propósito de entender e comparar algoritmos de agrupamento que são estudados no contexto de recuperação de arquitetura de software. Os estudos são uma prova de conceito: eles demonstram a viabilidade do uso do modelo na avaliação de ferramentas de engenharia reversa.
+No capítulo anterior foi mostrado que pelo menos três modelos geram redes organizadas em módulos que se assemelham a redes de software. Neste capítulo, o modelo BCR+ é usado em três estudos experimentais realizados com o propósito de entender e comparar algoritmos de agrupamento que são estudados no contexto de recuperação de arquitetura de software. Os estudos são uma prova de conceito: eles demonstram a viabilidade do uso do modelo na avaliação de ferramentas de engenharia reversa.
 
 %os algoritmos de agrupamento apresentados na Seção \ref{sec:algoritmos}.
 
-Primeiramente, é feita uma breve introdução ao tema de algoritmos de agrupamento no contexto de recuperação de arquitetura. A seguir, são delineados os dois estudos sobre algoritmos de agrupamento. Por fim, são apresentados os resultados e as conclusões dos estudos.
+Primeiramente, é feita uma breve introdução ao tema de algoritmos de agrupamento no contexto de recuperação de arquitetura. A seguir, são delineados os três estudos sobre algoritmos de agrupamento. Por fim, são apresentados os resultados e as conclusões dos estudos.
 
 \end{section}
 
@@ -38,9 +38,9 @@ O custo de um experimento para avaliar algoritmos de agrupamento de software é 
 
 \begin{section}{Delineamento dos Experimentos}
 	
-	A fim de comparar algoritmos de agrupamento e de entender os fatores que influenciam o seu desempenho, dois experimentos foram realizados. O primeiro experimento teve como propósito comparar o desempenho dos algoritmos de agrupamento sob o critério da semelhança dos agrupamentos encontrados pelos algoritmos com agrupamentos de referência. O segundo experimento teve como propósito entender como o desempenho dos algoritmos é afetado por parâmetros que descrevem cada rede.
+	A fim de comparar algoritmos de agrupamento e de entender os fatores que influenciam o seu desempenho, três experimentos foram realizados. O primeiro experimento teve como propósito comparar o desempenho dos algoritmos de agrupamento sob o critério da semelhança dos agrupamentos encontrados pelos algoritmos com agrupamentos de referência. O segundo experimento teve como propósito entender como o desempenho dos algoritmos é afetado por parâmetros que descrevem cada rede. Por fim, o terceiro experimento teve como propósito entender como os algoritmos se comportam com diferentes configurações de dependências entre módulos.
 	
-	Os métodos e materiais dos dois experimentos são semelhantes e, por isso, são discutidos conjuntamente nesta seção. Os experimentos consistem nas seguintes etapas: 
+	Os métodos e materiais dos três experimentos são semelhantes e, por isso, são discutidos conjuntamente nesta seção. Os experimentos consistem nas seguintes etapas: 
 \begin{enumerate}
 	\item gerar redes usando diversas combinações de valores para os parâmetros do modelo BCR+;
 	\item aplicar algoritmos de agrupamento a cada uma das redes;
@@ -48,7 +48,7 @@ O custo de um experimento para avaliar algoritmos de agrupamento de software é 
 	\item interpretar os resultados.
 \end{enumerate}
 
-	A escolha do modelo BCR+ se deve à familiaridade do autor com as propriedades do modelo. Os estudos tiveram como ponto de partida as 9.500 configurações de parâmetros descritas no experimento de avaliação de modelos de redes, na Seção \ref{sec:parametros}. Com a finalidade de mitigar os efeitos aleatórios na geração de redes, para cada configuração foram geradas três redes, totalizando 28,5 mil redes.
+	A escolha do modelo BCR+ se deve a este ser o modelo mais completo, como foi visto na Tabela \ref{tab:comparacao}. Os estudos tiveram como ponto de partida as 9.500 configurações de parâmetros descritas no experimento de avaliação de modelos de redes, na Seção \ref{sec:parametros}. Com a finalidade de mitigar os efeitos aleatórios na geração de redes, para cada configuração foram geradas três redes, totalizando 28,5 mil redes.
 
 	Para este estudo foram escolhidos algoritmos de agrupamento que possuem implementação disponível na Web e que já foram estudados por mais de um autor em pesquisas sobre recuperação de arquitetura. De acordo com esse critério, foram escolhidos os algoritmos ACDC, Bunch e algoritmos hierárquicos aglomerativos (ligação simples, SL, e ligação completa, CL), descritos no Apêndice \ref{cap:agrupamento}. Para cada um dos algoritmos aglomerativos, foram estudadas duas alturas de corte\footnote{Em um algoritmo aglomerativo, a altura de corte influencia o número de módulos identificados: quanto maior a altura de corte, menor o número de módulos (e, consequentemente, maior o tamanho médio dos módulos). Para maior detalhes, consulte o Apêndice \ref{cap:agrupamento}.}, $0,75$ e $0,90$. No total são 4 configurações de algoritmos aglomerativos, que serão referenciadas como SL75, SL90, CL75 e CL90. Para os algoritmos Bunch e ACDC foram escolhidas as configurações originais das implementações dos autores dos algoritmos. As 6 configurações escolhidas para este estudo são idênticas àquelas estudadas por Wu, Hassan e Holt \cite{Wu2005} (maiores informações no Capítulo \ref{cap:trabrel}).
 	
@@ -97,11 +97,13 @@ Vale ressaltar que, apesar de uma amostra grande ter sido usada no estudo, as co
 
 \begin{section}{Experimento 2: Estudo de Parâmetros}
 
-O segundo experimento teve como objetivo estudar como o desempenho dos algoritmos é afetado pela variação de parâmetros do modelo. 
+O segundo experimento teve como objetivo estudar como o desempenho dos algoritmos é afetado pela variação de parâmetros do modelo.
 
 O experimento seguiu uma configuração fatorial completa: considerando que cada parâmetro do modelo BCR+ pode assumir os valores discretos determinados na Seção \ref{sec:parametros}, foram estudadas as 28,5 mil redes geradas a partir de todas as combinações de valores discretos para cada parâmetro do modelo. Tal configuração experimental permite estudar isoladamente o efeito de cada parâmetro sobre o desempenho de um algoritmo, algo que não é possível em estudos de caso.
 
 Vale destacar que, neste caso, foram estudadas tanto redes software-realistas quanto redes não software-realistas, pois apenas desta forma é possível isolar cada parâmetro. Considere duas amostras das redes do estudo: a primeira composta de todas as redes com $\mu = 0,2$ e a segunda composta de todas as redes com $\mu = 0,4$. Exceto pelo valor de $\mu$, cada combinação de valores de parâmetros na primeira amostra está presente também na segunda amostra e vice-versa. Assim, qualquer diferença entre os MoJoSim médios das amostras pode ser atribuído exclusivamente à variação no valor de $\mu$ e a efeitos aleatórios. Tal conclusão não seria válida se apenas redes software-realistas fossem analisadas. Nesse caso, não haveria uma correspondência completa entre as redes das duas amostras, e essa diferença entre as amostras também afetaria o valor de MoJoSim. Não seria possível, portanto, isolar a contribuição do parâmetro $\mu$ no resultado.
+
+Tampouco seria viável realizar esse tipo de estudo usando a abordagem tradicional de avaliação, na qual os algoritmos de agrupamento são aplicados a redes extraídas de sistemas reais. Na abordagem tradicional, não há controle sobre as características das redes. Dificilmente duas redes extraídas de sistemas reais diferem apenas, por exemplo, no número de módulos: é mais provável que elas sejam diferentes também no número de vértices, no número de arestas etc. A abordagem proposta neste trabalho supre, portanto, essa deficiência da abordagem tradicional.
 
 % balanceado: cada tratamento tem o mesmo número de participantes (três)
 % replicado: cada tratamento tem mais de um participante (três)
@@ -132,8 +134,55 @@ Uma possível explicação está na distribuição dos tamanhos dos módulos enc
 
 \end{section}
 
+\begin{section}{Experimento 3: Influência do Tipo de Dependência entre Módulos}
+	
+O terceiro experimento teve como objetivo medir a influência do tipo de dependência entre módulos (simples ou dupla) no desempenho de cada algoritmo de agrupamento. A variável independente deste experimento é o parâmetro G do modelo BCR+: o grafo de dependências entre módulos. Foram consideradas duas configurações para o parâmetro $G$, ambas contendo dois módulos, $M_1$ e $M_2$:
+
+\begin{enumerate}
+	\item configuração \emph{dupla}: vértices de $M_1$ podem se ligar a vértices de $M_2$ e vice-versa (diz-se que há uma dependência dupla entre $M_1$ e $M_2$);
+	\item configuração \emph{simples}: vértices de $M_1$ podem se ligar a vértices de $M_2$, mas o contrário não é verdadeiro (diz-se que há uma dependência simples entre $M_1$ e $M_2$).
+\end{enumerate}
+
+Vale notar que esse experimento não poderia ser realizado com os outros modelos de redes apresentados (CGW e LFR), pois eles permitem controlar apenas o número de módulos da rede. Somente o BCR+ possibilita restringir as dependências permitidas entre módulos.
+
+Para os demais parâmetros do BCR+, foram considerados os valores apresentados na Seção \ref{cap:avaliacao}. Como nos outros estudos, foram geradas três redes para cada configuração, totalizando 11.400 redes. A seguir, cada algoritmo de agrupamento foi aplicado a cada rede. Por fim, foi calculado o desempenho, medido pela métrica MoJoSim, de cada agrupamento.
+
+A Figura \ref{fig:tipodep} mostra, em um \emph{boxplot}, o desempenho (valores de MoJoSim) alcançado por cada algoritmo nas duas configurações de $G$. Todos os algoritmos obtiveram desempenho ligeiramente superior nas redes geradas a partir da configuração \emph{simples}. As diferenças entre desempenhos são estatisticamente significativas, exceto para o algoritmo CL75 (foi aplicado o teste de Wilcoxon pareado com nível de significância = 5\%). %Os algoritmos SL75 e ACDC foram os mais afetado pela configuração de $G$: a diferença entre os desempenhos ficou entre 0,021 e 0,030 (intervalo de confiança de 95\%).
+
+\begin{figure}[htbp]
+	\centering
+		\includegraphics[width=\textwidth]{figuras/arch-boxplot}
+	\caption{Influência do tipo de dependência entre módulos (simples ou dupla) no desempenho de cada algoritmo de agrupamento.}
+	\label{fig:tipodep}
+\end{figure}
+
+A Tabela \ref{tab:tipodep} mostra, para cada algoritmo, a diferença de desempenho entre as duas configurações do parâmetro G. É reportado um intervalo de confiança (nível de confiança igual a 95\%) para essa diferença. Pela tabela, conclui-se que que o ACDC e o SL75 são os algoritmos mais influenciados pela escolha entre a configuração \emph{dupla} e a configuração \emph{simples} do parâmetro G, e que a diferença entre os desempenhos, na maioria dos casos, não ultrapassa 0,03.
+
+\begin{table}[width=\textwidth]
+	\begin{center}
+	\begin{tabular}{cccccc}
+		\hline
+		\textbf{ACDC} & \textbf{Bunch} & \textbf{CL75} & \textbf{CL90} & \textbf{SL75} & \textbf{SL90} \\
+		\hline
+		\hline
+		\footnotesize{[0,016; 0,023]} & \footnotesize{[0,004; 0,008]} & \footnotesize{[-0,004; 0,006]} & \footnotesize{[0,006; 0,015]} & \footnotesize{[0,007; 0,017]} & \footnotesize{[0,021; 0,031]} \\
+		\hline
+	\end{tabular}
+	\end{center}
+	\caption{Intervalo de confiança de 95\% para a diferença de desempenho de cada algoritmo, medido em MoJoSim, entre a configuração \emph{simples} e a configuração \emph{dupla} do parâmetro G.}
+	\label{tab:tipodep}
+\end{table}
+
+Conclui-se que, em geral, a existência de módulos que dependem mutuamente um do outro influencia negativamente o desempenho dos algoritmos de agrupamento apresentados. No estudo realizado a partir de redes com dois módulos, essa diferença foi pequena, não ultrapassando 0,03 na maioria dos casos. Em redes com mais módulos e mais dependências entre os módulos, no entanto, é possível que a diferença seja maior, embora sejam necessários outros estudos para confirmar ou rejeitar tal hipótese.
+
+\end{section}
+
 \begin{section}{Conclusão}
 
-Os estudos experimentais descritos neste capítulo mostraram que, quando aplicado a redes software-realistas, o algoritmo ACDC apresenta melhor desempenho que o algoritmo Bunch, enquanto os algoritmos aglomerativos possuem desempenho inferior. O desempenho dos algoritmos aglomerativos pode, em parte, ser explicado pela sua dificuldade de lidar com redes que possuem muitos módulos. Tal dificuldade foi comprovada em um experimento que isolou a influência do número de módulos no desempenho dos algoritmos, no qual se observou que apenas os algoritmos aglomerativos foram afetados pela variação no número de módulos.
+Neste capítulo foram apresentados três estudos experimentais envolvendo a aplicação de algoritmos de agrupamento a redes geradas pelo modelo BCR+. Ao aplicar a abordagem proposta neste trabalho, os estudos demonstram que a abordagem é viável e complementa a abordagem tradicional.
+
+Dois dos estudos apresentados, que avaliam a influência de determinadas características das redes no desempenho dos algoritmos, seriam difíceis de se realizar usando a abordagem tradicional, na qual os algoritmos são aplicados a redes extraídas de sistemas de software reais. O último estudo, em particular, mostra uma possibilidade de investigação que só pode ser explorada com auxílio do modelo BCR+. 
+
+% Os estudos experimentais descritos neste capítulo mostraram que, quando aplicado a redes software-realistas, o algoritmo ACDC apresenta melhor desempenho que o algoritmo Bunch, enquanto os algoritmos aglomerativos possuem desempenho inferior. O desempenho dos algoritmos aglomerativos pode, em parte, ser explicado pela sua dificuldade de lidar com redes que possuem muitos módulos. Tal dificuldade foi comprovada em um experimento que isolou a influência do número de módulos no desempenho dos algoritmos, no qual se observou que apenas os algoritmos aglomerativos foram afetados pela variação no número de módulos.
 
 \end{section}
