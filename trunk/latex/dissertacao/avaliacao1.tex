@@ -21,7 +21,10 @@
 	
 	\begin{itemize}
 		\item na Seção \ref{cap:clas1} são introduzidos alguns conceitos pertinentes ao problema de classificação;
-		\item na Seção \ref{cap:clas2} é descrito um classificador que induz modelos de classificação de redes;
+		
+		% TODO: na Seção \ref{cap:clasmetric} é introduzida formalmente uma métrica de software-realismo
+		
+		\item na Seção \ref{cap:clas2} é descrito um classificador que induz modelos de classificação de redes; % TODO: usando a métrica de software-realismo.		
 		\item na Seção \ref{cap:clas3} é apresentado um estudo com a finalidade de estimar o desempenho dos modelos induzidos pelo classificador;
 		\item na Seção \ref{cap:clas4} é mostrado um modelo de classificação induzido pelo classificador;
 		\item na Seção \ref{cap:clas5} os resultados mais importantes são recapitulados.
@@ -48,6 +51,33 @@
 	% Para avaliar se um classificador induz modelos de classificação generalizáveis, o classificador é executado diversas vezes, variando-se o conjunto de treinamento e o conjunto de teste, e então é calculada a taxa de acerto do modelo induzido quando aplicado ao conjunto de teste. Desta forma é possível ter uma estimativa das taxa de acerto dos modelos induzidos pelo classificador.
 	
 \end{section}	
+	
+\begin{section}{Grau de Software-Realismo}
+	
+	No Capítulo \ref{cap:redes} foi apresentada uma métrica de similaridade entre redes. Nesta seção é apresentada uma métrica que indica, em uma escala contínua, o quanto uma rede se assemelha a redes de software.
+	
+	Sejam $a$ e $b$ duas redes, PCT($x$) o vetor com as concentrações das tríades na rede $x$ e cor($x, y$) o coeficiente de correlação de Pearson entre dois vetores. A similaridade entre as redes, sim($a$, $b$), é dada por
+
+	$$
+	\mathrm{sim}(a, b) ~=~ 
+	  \mathrm{cor}(\mathrm{PCT}(a), \mathrm{PCT}(b))\mathrm{.}
+	$$
+	
+	O grau de software-realismo de uma rede $x$ com base em um conjunto de redes de referência, $R$, é dado por:
+	
+	$$
+	\mathrm{S}(x, R) ~=~ \frac{
+	\displaystyle\sum_{s \in R} \mathrm{sim}(x, s)
+	}{|R|} \mbox{.}
+	$$
+
+	O conjunto $R$ é um conjunto arbitrário contendo redes que são consideradas software-realistas. Redes de software (redes extraídas de sistemas de software reais) são boas candidatas a redes do conjunto $R$.
+	
+	Cabem algumas ressalvadas à fórmula apresentada para o grau de software-realismo. Primeiro, os valores nos perfis de concentração de tríades não possuem uma distribuição normal, o que viola um pré-requisito da correlação de Pearson. Essa questão é relevante e vale a pena investigar em trabalhos futuros métricas que estejam de acordo com a teoria estatística.
+	
+	Além disso, o leitor mais cético terá dificuldades em acreditar que os 13 valores dos perfis sejam suficientes para medir a similaridade entre redes com centenas ou milhares de vértices. Argumentamos que o mérito da métrica aqui apresentada pode ser julgado pelos resultados que ela produz. De fato, como veremos a seguir, a métrica fornece, em geral, valores altos para redes de software e valores baixos para redes de outros domínios, com poucas exceções. Com esses resultados, aumenta a confiança de que a métrica pode realmente distinguir entre redes de diferentes domínios.
+	
+\end{section}
 	
 \begin{section}{Um Classificador para Modelos de Classificação de Redes} \label{cap:clas2}
 	
@@ -197,27 +227,33 @@ $$
 
 			Foram coletadas 66 redes de domínios tão diversos quanto a biologia, a sociologia, a tecnologia e a linguística, com tamanho variando entre 32 e 18.163 vértices. As redes foram obtidas em \emph{websites} de pesquisadores da área de redes complexas. A lista completa de redes, com referências, pode ser encontrada no Apêndice \ref{cap:lista-redes}. Apenas redes orientadas foram selecionadas para o estudo, uma vez que as redes de software são redes orientadas. 
 
-		  Também foram coletados 65 sistemas de software escritos em Java, contendo entre 111 e 35.563 classes ou interfaces cada um. Quase todos os sistemas foram selecionados a partir da lista dos sistemas mais populares do repositório SourceForge.net, que abriga mais de 200 mil\footnote{\url{http://sourceforge.net/about}} projetos de código aberto; além destes, foi selecionado o sistema OurGrid, desenvolvido na Universidade Federal de Campina Grande. 
+		  Também foram coletados 65 sistemas de software escritos em Java, contendo entre 63 e 6.433 classes ou interfaces cada um. Quase todos os sistemas foram selecionados a partir da lista dos sistemas mais populares do repositório SourceForge.net, que abriga mais de 200 mil\footnote{\url{http://sourceforge.net/about}} projetos de código aberto; além destes, foi selecionado o sistema OurGrid, desenvolvido na Universidade Federal de Campina Grande. 
 
-			A linguagem Java foi escolhida por ser uma linguagem de programação na qual muitos sistemas de software de código aberto já foram escritos. Além disso, há diversas ferramentas para extrair dependências de programas escritos em Java.
+			% A linguagem Java foi escolhida por ser uma linguagem de programação na qual muitos sistemas de software de código aberto já foram escritos. Além disso, há diversas ferramentas para extrair dependências de programas escritos em Java.
 
-			A seleção foi restrita a sistemas que são distribuídos como um conjunto de arquivos no formato JAR (\emph{Java Archive}), que contêm código-objeto de cada classe do sistema. Essa restrição simplifica a extração de dependências, pois muitas ferramentas de extração trabalham com o formato JAR.
+	% A seleção foi restrita a sistemas que são distribuídos como um conjunto de arquivos no formato JAR (\emph{Java Archive}), que contêm código-objeto de cada classe do sistema. Essa restrição simplifica a extração de dependências, pois muitas ferramentas de extração trabalham com o formato JAR.
 
 \end{subsection}
 
 \begin{subsection}{Pré-Processamento de Dados: Extração de Redes de Software}
 
+	Os sistemas de software selecionados continham diversos arquivos no formato JAR (\emph{Java Archive}), que contêm código-objeto de cada classe do sistema. Alguns arquivos JAR correspondiam a bibliotecas que são comumente usadas por diversos sistemas; esses arquivos foram removidos da análise para não influenciar os resultados. Foram mantidos apenas os arquivos JAR que continham código específico de cada sistema.
+	
 	Como os sistemas de software foram coletados sob a forma de código-objeto, foi necessário extrair de cada um deles a sua rede de dependências, ou rede de software. A extração foi realizada através da ferramenta gratuita Dependency Finder\footnote{\url{http://depfind.sf.net/}}, que extrai dependências a partir de código-objeto Java. A escolha se deveu à facilidade de uso via linha de comando e à sua robustez.
 
 	Nas redes extraídas, as entidades são classes e interfaces Java. As dependências representam qualquer referência de uma classe ou interface no código de outra classe ou interface, incluindo relacionamentos de herança, chamadas de método, instanciação, leitura ou escrita de atributos e agregação.
 
-	A lista completa dos sistemas de software pode ser encontrada no Apêndice \ref{cap:lista-redes}, juntamente com o número de vértices e arestas de cada rede de dependências correspondente. %O conjunto de dados usado na validação é composto das 66 redes de domínios diversos e das 65 redes extraídas de sistemas de software, totalizando 131 redes. 
+	A lista completa dos sistemas de software pode ser encontrada no Apêndice \ref{cap:lista-redes}, juntamente com o número de vértices e arestas de cada rede de dependências correspondente. %O conjunto de dados usado na validação é composto das 66 redes de domínios diversos e das 65 redes extraídas de sistemas de software, totalizando 127 redes. 
+	
+	A seguir foi calculado o grau de software-realismo de cada rede de software, comparando cada uma das 65 redes com as outras 64 redes. O valor mediano alcançado foi 0,91, e a diferença entre quartis (IQR, de \emph{inter-quartile range}, uma medida de dispersão estatística) foi de apenas 0,04. O alto valor mediano e a baixa dispersão indicam que o grau de software-realismo caracteriza bem o conjunto de redes de software.
+	
+	Quatro redes de software, no entanto, podem ser consideradas \emph{outliers}, por apresentar grau de software-realismo inferior ao valor mediano menos $3 \times \mbox{IQR}$, isto é, inferior a 0,79. Essas redes (com grau de software-realismo denotado entre parênteses) são as seguintes: battlefieldjava-0.1 (0,63), ec2-api-tools-1.3-36506 (0,28), Hl7Comm.1.0.1 (0,09) e ourgrid-4.1.5 (0,72). Essas redes foram removidas do estudo, por não serem, do ponto de vista estrutural, representativas de redes de software.
 
 \end{subsection}
 
 \begin{subsection}{Validação}
 
-	A validação do classificador consiste em induzir modelos a partir de conjuntos de treinamento, aplicá-los a conjuntos de teste e então computar as métricas de desempenho. Os conjuntos de treinamento e de teste são subconjuntos do conjunto de redes que foram coletadas ou extraídas nas etapas anteriores, totalizando 131 redes.
+	A validação do classificador consiste em induzir modelos a partir de conjuntos de treinamento, aplicá-los a conjuntos de teste e então computar as métricas de desempenho. Os conjuntos de treinamento e de teste são subconjuntos do conjunto de redes que foram coletadas ou extraídas nas etapas anteriores, totalizando 127 redes.
 	
 	Dado o número pequeno de redes disponíveis para teste e treinamento, optou-se por realizar a validação cruzada, na qual cada rede é usada exatamente uma vez para teste e um número fixo de vezes para treinamento. A validação cruzada permite que se obtenham estimativas confiáveis do desempenho do classificador mesmo que o conjunto de dados seja pequeno \cite{Witten2005}.
 	
@@ -226,14 +262,14 @@ $$
 
 	% Nos casos em que se dispõe de milhares ou milhões de objetos cuja classificação correta é conhecida, o desempenho da função de classificação pode ser estimado através de um método denominado \emph{holdout}. Nesse método, os objetos são divididos em dois conjuntos: o conjunto de treinamento e o conjunto de teste. É comum reservar 2/3 dos objetos para treinamento e 1/3 para teste, mas essa proporção pode variar. A função é treinada com o conjunto de treinamento e então aplicada ao conjunto de teste. As métricas de desempenho (acurácia, precisão e cobertura) são então calculadas a partir das respostas da função quando aplicada ao conjunto de teste.
 	% 
-	% 	Nesta pesquisa, como apenas 131 redes foram coletadas, o método \emph{holdout} forneceria estimativas de desempenho pouco confiáveis. Isso ocorre porque, com um número pequeno de redes, a estimativa de desempenho sofre grande variação de acordo com a repartição de redes entre conjunto de teste e conjunto de treinamento. Um método adequado neste caso é a validação cruzada.
+	% 	Nesta pesquisa, como apenas 127 redes foram coletadas, o método \emph{holdout} forneceria estimativas de desempenho pouco confiáveis. Isso ocorre porque, com um número pequeno de redes, a estimativa de desempenho sofre grande variação de acordo com a repartição de redes entre conjunto de teste e conjunto de treinamento. Um método adequado neste caso é a validação cruzada.
 
 		Na validação cruzada, o conjunto de redes é dividido em um número fixo, $k$, de partições (ou dobras) com tamanho aproximadamente igual. A atribuição de redes a partições é aleatória. Inicialmente, a primeira partição é escolhida como conjunto de teste, enquanto as demais formam o conjunto de treinamento. Então um modelo de classificação é induzido a partir do conjunto de treinamento e aplicado ao conjunto de teste. Nesse momento são calculadas as métricas de desempenho. O procedimento é executado $k$ vezes, de forma que, a cada iteração, uma partição é escolhida para teste e as demais, para treinamento. Ao final, uma estimativa do valor das métricas de desempenho pode ser obtida através da média aritmética dos valores calculados a cada iteração.
 		%e desempenho final é a média das estimativas de desempenho obtidas em cada iteração. %A validação cruzada fornece estimativas de desempenho mais confiáveis do que o método \emph{holdout} porque cada um dos objetos é usado tanto para teste quanto para treinamento.
 
 		Dois recursos podem ser empregados para obter uma estimativa mais confiável do desempenho (taxa de acerto) de um modelo de classificação: a estratificação e a repetição \cite{Witten2005}. Na validação cruzada estratificada, a proporção das categorias nas partições reflete a proporção das categorias no conjunto completo. Por exemplo, se o conjunto de dados possui 40\% de objetos de uma categoria e 60\% de outra, procura-se manter essa proporção nas partições. A repetição consiste em repetir a validação diversas vezes (tipicamente dez vezes \cite{Witten2005}), de forma a reduzir os efeitos aleatórios do particionamento do conjunto de redes em dobras.
 
-		Neste estudo foi utilizada a validação cruzada de 10 dobras estratificadas (\emph{stratified 10-fold cross-validation}) com 10 repetições, o que equivale a 100 modelos induzidos e, portanto, 100 medidas de acurácia, precisão e cobertura. Calculando a média e o desvio-padrão das medidas, chegou-se às seguintes estimativas:
+		Neste estudo foi utilizada a validação cruzada de 10 dobras estratificadas (\emph{stratified 10-fold cross-validation}) com 10 repetições, o que equivale a 100 modelos induzidos e, portanto, 100 medidas de acurácia, precisão e cobertura. Calculando a média, chegou-se às seguintes estimativas:
 
 		% A função C é interessante, mas como ela se sai "in the wild?"
 		% Procedimento: selecionar redes sw e nsw para formar o conjunto de treinamento. A partir do conjunto de treinamento, encontrar S_0. selecionar redes sw e nsw para formar o conjunto de testes. Então medir a acurácia, a precisão e a cobertura de C aplicando-a a 
@@ -261,12 +297,12 @@ $$
 		% Os resultados foram os seguintes:
 
 		\begin{itemize}
-			\item acurácia:  $98,0 \pm 4,2\%$
-			\item precisão:  $96,5 \pm 6,9\%$
-			\item cobertura: $100,0 \pm 0,0\%$
+			\item acurácia:  $98,0\%$
+			\item precisão:  $96,2\%$
+			\item cobertura: $100,0\%$
 		\end{itemize}
 
-		Para todas as métricas foi encontrado um valor médio superior a 95\%. Em particular, a cobertura foi de 100\% em todos os testes, o que significa que todas as redes software-realistas foram corretamente classificadas. No caso de acurácia e precisão, os valores variaram pouco em relação ao valor médio, como pode ser observado pelos baixos valores de desvio-padrão (4,2\% e 6,9\%).
+		Para todas as métricas foi encontrado um valor médio superior a 95\%. Em particular, a cobertura foi de 100\% em todos os testes, o que significa que todas as redes software-realistas foram corretamente classificadas. %No caso de acurácia e precisão, os valores variaram pouco em relação ao valor médio, como pode ser observado pelos baixos valores de desvio-padrão (4,2\% e 6,9\%).
 
 		
 		% Essas medidas representam uma estimativa do desempenho que se espera dos modelos induzidos pelo classificador quando estes são aplicados 
@@ -285,38 +321,38 @@ $$
 		% 
 		% onde $J$ é o conjunto de redes extraídas dos 65 sistemas de software coletados.
 		% 
-		% No Apêndice XXX, é mostrado o valor de S(x, J) para cada rede $x$ dentre 131 redes usadas no estudo.
+		% No Apêndice XXX, é mostrado o valor de S(x, J) para cada rede $x$ dentre 127 redes usadas no estudo.
 
 \end{subsection}	
 \end{section}
 
 \begin{section}{Modelo de Classificação de Redes Induzido} \label{cap:clas4}
 	
-	Na seção anterior, foi estimado o desempenho de modelos induzidos a partir de conjuntos de treinamento com 90\% das 131 redes selecionadas para o estudo (10\% das redes foram separadas para teste). Usando-se 100\% do conjunto de dados para treinamento, obtém-se um modelo de classificação cujo desempenho é no mínimo tão bom quanto o desempenho dos modelos induzidos na validação.
+	Na seção anterior, foi estimado o desempenho de modelos induzidos a partir de conjuntos de treinamento com 90\% das 127 redes selecionadas para o estudo (10\% das redes foram separadas para teste). Usando-se 100\% do conjunto de dados para treinamento, obtém-se um modelo de classificação cujo desempenho é no mínimo tão bom quanto o desempenho dos modelos induzidos na validação.
 	
 	% Vamos induzir um modelo de classificação usado o classificador já apresentado e o conjunto de treinamento $T U \mathrm{T}$. 
 	% 
-	O modelo induzido a partir do conjunto de 131 redes apresenta $R = T$ e $S_0 = 0,809$. O modelo fica da seguinte forma:
+	O modelo induzido a partir do conjunto de 127 redes apresenta $R = T$ e $S_0 = 0,799$. O modelo fica da seguinte forma:
 	
 	$$
 	\mathrm{m}(x) ~=~
 	\left\{
 	\begin{array}{cl}
-	\mbox{software-realista,} & \mbox{se } \mathrm{S}(x, \mbox{T}) \ge 0,809; \\
+	\mbox{software-realista,} & \mbox{se } \mathrm{S}(x, \mbox{T}) \ge 0,799; \\
 	\mbox{não software-realista,} & \mbox{caso contrário,}
 	\end{array}
 	\right.
 	$$
 
-	onde $T$ é o conjunto de redes extraídas dos 65 sistemas de software coletados.
+	onde $T$ é o conjunto de redes extraídas dos 61 sistemas de software coletados.
 		
-	% Este modelo foi induzido a partir do conjunto de 131 redes usadas na validação cruzada. Na validação cruzada, no entanto, os modelos foram induzidos a partir de subconjuntos com 90\% das 131 redes (10\% das redes foram separadas para teste). Assim, espera-se que modelo apresente desempenho igual ao desempenho aferido na validação cruzada.
+	% Este modelo foi induzido a partir do conjunto de 127 redes usadas na validação cruzada. Na validação cruzada, no entanto, os modelos foram induzidos a partir de subconjuntos com 90\% das 127 redes (10\% das redes foram separadas para teste). Assim, espera-se que modelo apresente desempenho igual ao desempenho aferido na validação cruzada.
 	
 	% , espera-se que seu desempenho seja próximo ou melhor do que o desempenho 
 	% 
 	% do mesmo conjunto de dados usado na avaliação apresenta na seção anterior, estima-se que ele apresente alto desempenho.
 	% 
-	% O desempenho deste modelo de classificação com o conjunto T U ~T é bem representado pelos valores de acurácia, precisão e cobertura obtidos na validação cruzada. De fato, como neste caso todas as 131 redes foram usadas no treinamento do modelo, espera-se que o desempenho seja ainda melhor. % CITE??
+	% O desempenho deste modelo de classificação com o conjunto T U ~T é bem representado pelos valores de acurácia, precisão e cobertura obtidos na validação cruzada. De fato, como neste caso todas as 127 redes foram usadas no treinamento do modelo, espera-se que o desempenho seja ainda melhor. % CITE??
 	% 
 	% A avaliação realizada anteriormente oferece uma estimativa confiável do desempenho deste modelo.
 	
@@ -324,13 +360,13 @@ $$
 
 \begin{section}{Conclusão} \label{cap:clas5}
 
-	Neste capítulo foi apresentado um modelo de classificação que classifica redes em software-realistas --- que se assemelham a redes de software --- ou não software-realistas. O modelo foi induzido por um classificador a partir de um conjunto de treinamento formado por 65 redes de software --- consideradas software-realistas --- e 66 redes de outros domínios --- consideradas não software-realistas. Uma avaliação usando o conjunto de 131 redes permitiu estimar que o modelo de classificação apresenta alta acurácia (cerca de 98\%), alta precisão (cerca de 96\%) e cobertura perfeita (100\%). 
+	Neste capítulo foi apresentado um modelo de classificação que classifica redes em software-realistas --- que se assemelham a redes de software --- ou não software-realistas. O modelo foi induzido por um classificador a partir de um conjunto de treinamento formado por 61 redes de software --- consideradas software-realistas --- e 66 redes de outros domínios --- consideradas não software-realistas. Uma avaliação usando o conjunto de 127 redes permitiu estimar que o modelo de classificação apresenta alta acurácia (cerca de 98\%), alta precisão (cerca de 96\%) e cobertura perfeita (100\%). 
 
 	% Neste capítulo foi apresentado um classificador que induz modelos de classificação de redes a partir de um conjunto de treinamento. Os modelos classificam redes em software-realistas --- que se assemelham a redes de software --- ou não software-realistas. 
 	% 
-	% A partir de uma validação cruzada com um conjunto de 65 redes de software --- consideradas software-realistas --- e 66 redes de outros domínios --- consideradas não software-realistas ---, estimou-se que os modelos induzidos pelo classificador apresentam 
+	% A partir de uma validação cruzada com um conjunto de 61 redes de software --- consideradas software-realistas --- e 66 redes de outros domínios --- consideradas não software-realistas ---, estimou-se que os modelos induzidos pelo classificador apresentam 
 	% 
-	% Por fim, foi apresentado um modelo de classificação induzido pelo classificador a partir do conjunto de treinamento formado pelas 65 redes de software e 66 redes de outros domínios. O modelo é capaz de determinar com alta precisão se uma rede é software-realista.
+	% Por fim, foi apresentado um modelo de classificação induzido pelo classificador a partir do conjunto de treinamento formado pelas 61 redes de software e 66 redes de outros domínios. O modelo é capaz de determinar com alta precisão se uma rede é software-realista.
 	
 \end{section}
 
