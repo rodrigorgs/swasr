@@ -17,7 +17,7 @@
 
 		Para um sistema de software ser bem sucedido não basta ele ser rápido, funcional e isento de defeitos. Esses atributos dizem respeito à qualidade, da forma como é enxergada pelos seus usuários, de uma versão do sistema. Para atender a demandas emergentes de seus usuários e incorporar novidades tecnológicas, no entanto, um sistema de software deve apresentar certos atributos de qualidade interna, visíveis apenas para os seus desenvolvedores. Ele precisa ser fácil de compreender, fácil de modificar e fácil de testar \cite{Parnas1994}.
 
-		Um bom indicador da qualidade interna de um sistema de software é a estrutura de dependências entre as entidades que compõem o seu código-fonte. É natural que existam interações entre diversas entidades em um sistema, mas dependências indesejadas adicionam complexidade ao software, tornando mais difíceis tarefas ligadas a sua manutenção, como compreender ou testar isoladamente as suas diversas partes \cite{Chidamber1994}. % CBO, página 11
+		Um bom indicador da qualidade interna de um sistema de software é a estrutura de dependências entre as entidades que compõem o seu código-fonte. Considera-se como dependência qualquer referência que uma entidade, em seu código-fonte, faça a outra entidade. É natural que existam interações entre diversas entidades em um sistema, mas dependências indesejadas adicionam complexidade ao software, tornando mais difíceis tarefas ligadas a sua manutenção, como compreender ou testar isoladamente as suas diversas partes \cite{Chidamber1994}. % CBO, página 11
 
 		% Acho que aqui falta uma introdução a engenharia reversa.
 		Analisar uma a uma as dependências de um sistema de software com a finalidade de extrair informações que apoiem a sua manutenção é, no entanto, uma tarefa árdua \cite{Tonella2007}. Em um sistema com $n$ entidades, existem cerca de $n^2$ potenciais dependências a se analisar. Em sistemas com mais do que algumas dezenas de entidades, a quantidade de dependências potenciais é da ordem de centenas ou milhares. %Ao tentar visualizar as dependências de um sistema grande através de diagramas de caixas e setas, as dependências acabam representadas como um emaranhado de setas. % Dunbar's number: 150
@@ -46,7 +46,7 @@
 
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-		Uma abordagem empregada quando os experimentos controlados são caros é a simulação de modelos computacionais, por tratar-se de um meio para se realizar experimentos controlados a um custo baixo. Na área de redes e sistemas distribuídos, por exemplo, é frequente o uso de ambientes de simulação de redes, que modelam o funcionamento de uma rede de computadores, incluindo, às vezes, modelos de falhas de hardware e até modelos de comportamento de usuários \cite{White2002}. 
+		Uma abordagem empregada quando os experimentos controlados são caros é a simulação de modelos computacionais, por tratar-se de um meio para se realizar experimentos controlados a um custo baixo. Essa abordagem tem sido usada em diversas áreas, como física, economia, biologia, economia, engenharia, redes de computadores etc. Na área de redes e sistemas distribuídos, por exemplo, é frequente o uso de ambientes de simulação de redes, que modelam o funcionamento de uma rede de computadores, incluindo, às vezes, modelos de falhas de hardware e até modelos de comportamento de usuários \cite{White2002}. 
 		
 		Naturalmente, há o risco de os modelos usados na simulação não corresponderem à realidade nos aspectos relevantes para o experimento. Todavia, espera-se que esse risco seja reduzido à medida que os modelos são testados e refinados.
 
@@ -166,10 +166,10 @@
 	O modelo de classificação foi aplicado a redes geradas com diversos modelos de redes e, como resultado, constatou-se que o modelo BCR+ e outros dois produzem tanto redes software-realistas quanto redes não software-realistas. %Além disso, foram encontradas regras que preveem, com uma taxa de acerto de 75\%, se uma determinada combinação de valores dos parâmetros desses modelos produz redes software-realistas.
 	
 	% PROVA DE CONCEITO
-	Como prova de conceito foi realizada, a partir da simulação do modelo BCR+, uma comparação quantitativa entre algoritmos usados no contexto da atividade de recuperação de arquitetura. Além disso, descobriu-se que o desempenho de certos algoritmos (os algoritmos aglomerativos) é consideravelmente afetado por um dos parâmetros do modelo.
+	Como prova de conceito foram realizados, a partir da simulação do modelo BCR+, três experimentos com a finalidade de compreender e comparar algoritmos usados no contexto da atividade de recuperação de arquitetura. Os experimentos mostram que a abordagem de avaliação usando modelos é viável e complementa a abordagem tradicional.
 	
 	% ARTIGO PUBLICADO
-	Como resultado concreto de pesquisa, foi publicado um artigo no 14º Congresso Europeu sobre Manutenção de Software e Reengenharia (CSMR 2010). O artigo foi intitulado ``Modular Network Models for Class Dependencies in Software'' e apresentou a avaliação de três modelos de redes.
+	Como resultado concreto de pesquisa, foi publicado um artigo na 14ª Conferência Europeia sobre Manutenção de Software e Reengenharia (CSMR 2010). O artigo foi intitulado ``Modular Network Models for Class Dependencies in Software'' e apresentou a avaliação de três modelos de redes.
 
 	% Como resultado, foram encontrados dois modelos de redes apropriados para representar dependências entre entidades, e um modelo que foi criado a partir da adaptação de um modelo existente. O novo modelo é apresentado em detalhes no Capítulo ....
 	% 

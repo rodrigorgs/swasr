@@ -21,10 +21,8 @@
 	
 	\begin{itemize}
 		\item na Seção \ref{cap:clas1} são introduzidos alguns conceitos pertinentes ao problema de classificação;
-		
-		% TODO: na Seção \ref{cap:clasmetric} é introduzida formalmente uma métrica de software-realismo
-		
-		\item na Seção \ref{cap:clas2} é descrito um classificador que induz modelos de classificação de redes; % TODO: usando a métrica de software-realismo.		
+		\item na Seção \ref{cap:clasmetric} é introduzida uma métrica denominada grau de software-realismo;
+		\item na Seção \ref{cap:clas2} é descrito um classificador que induz modelos de classificação de redes usando o grau de software-realismo das redes; % TODO: usando a métrica de software-realismo.		
 		\item na Seção \ref{cap:clas3} é apresentado um estudo com a finalidade de estimar o desempenho dos modelos induzidos pelo classificador;
 		\item na Seção \ref{cap:clas4} é mostrado um modelo de classificação induzido pelo classificador;
 		\item na Seção \ref{cap:clas5} os resultados mais importantes são recapitulados.
@@ -52,7 +50,7 @@
 	
 \end{section}	
 	
-\begin{section}{Grau de Software-Realismo}
+\begin{section}{Grau de Software-Realismo} \label{cap:clasmetric}
 	
 	No Capítulo \ref{cap:redes} foi apresentada uma métrica de similaridade entre redes. Nesta seção é apresentada uma métrica que indica, em uma escala contínua, o quanto uma rede se assemelha a redes de software.
 	
@@ -99,15 +97,15 @@ $$
 	
 	A função $\mathrm{S}(x, R)$ representa o grau de software-realismo de uma rede, $x$, tomando como referência o conjunto $R$. O valor $S_0$ é chamado de limiar de software-realismo. Quando o grau de software-realismo da rede $x$ supera o limiar, a rede é classificada como software-realista; nos demais casos, a rede é classificada como não software-realista.
 	
-	A definição de $\mathrm{S}(x, R)$ se baseia na métrica de similaridade entre redes, sim($x$, $y$), apresentada no Capítulo \ref{cap:redes} como o coeficiente de correlação de Pearson entre os perfis de concentração de tríades das redes. A função $\mathrm{S}(x, R)$ é definida como a média aritmética dos valores de similaridade entre $x$ e as redes do conjunto $R$:
-
-	$$
-	\mathrm{S}(x, R) ~=~ \frac{
-	\displaystyle\sum_{s \in R} \mathrm{sim}(x, s)
-	}{|R|} \mbox{.}
-	$$
-
-	O valor de $\mathrm{S}(x, R)$, assim como a métrica de similaridade, varia entre -1,0 e 1,0. Quanto maior o valor, maior o grau de software-realismo.
+	% A definição de $\mathrm{S}(x, R)$ se baseia na métrica de similaridade entre redes, sim($x$, $y$), apresentada no Capítulo \ref{cap:redes} como o coeficiente de correlação de Pearson entre os perfis de concentração de tríades das redes. A função $\mathrm{S}(x, R)$ é definida como a média aritmética dos valores de similaridade entre $x$ e as redes do conjunto $R$:
+	% 
+	% $$
+	% \mathrm{S}(x, R) ~=~ \frac{
+	% \displaystyle\sum_{s \in R} \mathrm{sim}(x, s)
+	% }{|R|} \mbox{.}
+	% $$
+	% 
+	% O valor de $\mathrm{S}(x, R)$, assim como a métrica de similaridade, varia entre -1,0 e 1,0. Quanto maior o valor, maior o grau de software-realismo.
 	
 	Em suma, o modelo de classificação prevê que uma rede é software-realista somente se a similaridade média entre a rede e as redes de um conjunto pré-determinado de redes software-realistas é superior a um valor pré-estabelecido.
 	
