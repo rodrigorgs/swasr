@@ -52,7 +52,7 @@
 	
 \begin{section}{Grau de Software-Realismo} \label{cap:clasmetric}
 	
-	No Capítulo \ref{cap:redes} foi apresentada uma métrica de similaridade entre redes. Nesta seção é apresentada uma métrica que indica, em uma escala contínua, o quanto uma rede se assemelha a redes de software.
+	Nesta seção é apresentada uma métrica que indica, em uma escala contínua, o quanto uma rede se assemelha a redes de software.
 	
 	Sejam $a$ e $b$ duas redes, PCT($x$) o vetor com as concentrações das tríades na rede $x$ e cor($x, y$) o coeficiente de correlação de Pearson entre dois vetores. A similaridade entre as redes, sim($a$, $b$), é dada por
 
@@ -245,7 +245,7 @@ $$
 	
 	A seguir foi calculado o grau de software-realismo de cada rede de software, comparando cada uma das 65 redes com as outras 64 redes. O valor mediano alcançado foi 0,91, e a diferença entre quartis (IQR, de \emph{inter-quartile range}, uma medida de dispersão estatística) foi de apenas 0,04. O alto valor mediano e a baixa dispersão indicam que o grau de software-realismo caracteriza bem o conjunto de redes de software.
 	
-	Quatro redes de software, no entanto, podem ser consideradas \emph{outliers}, por apresentar grau de software-realismo inferior ao valor mediano menos $3 \times \mbox{IQR}$, isto é, inferior a 0,79. Essas redes (com grau de software-realismo denotado entre parênteses) são as seguintes: battlefieldjava-0.1 (0,63), ec2-api-tools-1.3-36506 (0,28), Hl7Comm.1.0.1 (0,09) e ourgrid-4.1.5 (0,72). Essas redes foram removidas do estudo, por não serem, do ponto de vista estrutural, representativas de redes de software.
+	Quatro redes de software, no entanto, apresentaram grau de software-realismo inferior ao valor mediano menos $3 \times \mbox{IQR}$, isto é, inferior a 0,79. Essas redes (com grau de software-realismo denotado entre parênteses) são as seguintes: battlefieldjava-0.1 (0,63), ec2-api-tools-1.3-36506 (0,28), Hl7Comm.1.0.1 (0,09) e ourgrid-4.1.5 (0,72). Essas redes foram removidas do estudo, por não serem, do ponto de vista estrutural, representativas de redes de software.
 
 \end{subsection}
 
@@ -300,7 +300,10 @@ $$
 			\item cobertura: $100,0\%$
 		\end{itemize}
 
-		Para todas as métricas foi encontrado um valor médio superior a 95\%. Em particular, a cobertura foi de 100\% em todos os testes, o que significa que todas as redes software-realistas foram corretamente classificadas. %No caso de acurácia e precisão, os valores variaram pouco em relação ao valor médio, como pode ser observado pelos baixos valores de desvio-padrão (4,2\% e 6,9\%).
+		Para todas as métricas foi encontrado um valor médio superior a 95\%. Em particular, a cobertura foi de 100\% em todos os testes, o que significa que todas as redes software-realistas foram corretamente classificadas. 
+		
+		Os resultados indicam que a métrica grau de software-realismo, na qual se baseia o classificador, é capaz de diferenciar redes de software e redes de outros domínios com alta precisão e alta cobertura.
+		%No caso de acurácia e precisão, os valores variaram pouco em relação ao valor médio, como pode ser observado pelos baixos valores de desvio-padrão (4,2\% e 6,9\%).
 
 		
 		% Essas medidas representam uma estimativa do desempenho que se espera dos modelos induzidos pelo classificador quando estes são aplicados 
