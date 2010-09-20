@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>avaliacao1.tex</string>
+	<string>agradecimentos.tex</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -22,13 +22,15 @@
 			<key>filename</key>
 			<string>agradecimentos.tex</string>
 			<key>lastUsed</key>
-			<date>2010-09-09T13:20:20Z</date>
+			<date>2010-09-19T14:15:55Z</date>
+			<key>selected</key>
+			<true/>
 		</dict>
 		<dict>
 			<key>filename</key>
 			<string>apendices.tex</string>
 			<key>lastUsed</key>
-			<date>2010-09-18T13:32:22Z</date>
+			<date>2010-09-19T14:15:52Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
@@ -44,7 +46,7 @@
 			<key>filename</key>
 			<string>definicoes.tex</string>
 			<key>lastUsed</key>
-			<date>2010-09-09T13:20:22Z</date>
+			<date>2010-09-19T14:15:49Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
@@ -67,69 +69,81 @@
 					<key>filename</key>
 					<string>dissertacao.tex</string>
 					<key>lastUsed</key>
-					<date>2010-09-10T17:17:54Z</date>
+					<date>2010-09-19T14:15:37Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
 					<string>introducao.tex</string>
 					<key>lastUsed</key>
-					<date>2010-09-17T15:37:28Z</date>
+					<date>2010-09-19T14:15:48Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
 					<string>modelos.tex</string>
 					<key>lastUsed</key>
-					<date>2010-09-18T13:31:50Z</date>
+					<date>2010-09-19T14:15:49Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
 					<string>bcr.tex</string>
 					<key>lastUsed</key>
-					<date>2010-09-18T13:31:56Z</date>
+					<date>2010-09-19T14:15:49Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
 					<string>avaliacao1.tex</string>
 					<key>lastUsed</key>
-					<date>2010-09-18T14:08:10Z</date>
+					<date>2010-09-19T14:15:49Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
 					<string>avaliacao2.tex</string>
 					<key>lastUsed</key>
-					<date>2010-09-18T14:08:10Z</date>
+					<date>2010-09-19T14:15:55Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
 					<string>estudodecaso.tex</string>
 					<key>lastUsed</key>
-					<date>2010-09-18T13:32:22Z</date>
+					<date>2010-09-19T14:15:53Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
 					<string>relacionados.tex</string>
 					<key>lastUsed</key>
-					<date>2010-09-10T13:31:15Z</date>
+					<date>2010-09-19T14:15:52Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
 					<string>conclusao.tex</string>
 					<key>lastUsed</key>
-					<date>2010-09-17T13:24:14Z</date>
+					<date>2010-09-19T14:15:51Z</date>
 				</dict>
 			</array>
 			<key>expanded</key>
 			<true/>
 			<key>name</key>
 			<string>capitulos</string>
-			<key>selected</key>
-			<true/>
 		</dict>
 	</array>
 	<key>fileHierarchyDrawerWidth</key>
 	<integer>200</integer>
 	<key>metaData</key>
 	<dict>
+		<key>agradecimentos.tex</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>121</integer>
+				<key>line</key>
+				<integer>5</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>76</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
 		<key>apendices.tex</key>
 		<dict>
 			<key>caret</key>
@@ -165,14 +179,14 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>259</integer>
+				<integer>0</integer>
 				<key>line</key>
-				<integer>364</integer>
+				<integer>0</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
-			<integer>78</integer>
+			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>352</integer>
+			<integer>0</integer>
 		</dict>
 		<key>avaliacao2.tex</key>
 		<dict>
@@ -207,14 +221,44 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>304</integer>
+				<integer>139</integer>
 				<key>line</key>
-				<integer>28</integer>
+				<integer>50</integer>
 			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>147</integer>
+			<key>firstVisibleLine</key>
+			<integer>31</integer>
+		</dict>
+		<key>definicoes.tex</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>108</integer>
+			</dict>
+			<key>columnSelection</key>
+			<false/>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>0</integer>
+			<integer>106</integer>
+			<key>selectFrom</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>105</integer>
+			</dict>
+			<key>selectTo</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>108</integer>
+			</dict>
 		</dict>
 		<key>dissertacao.bib</key>
 		<dict>
@@ -235,9 +279,9 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>16</integer>
+				<integer>11</integer>
 				<key>line</key>
-				<integer>8</integer>
+				<integer>22</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
@@ -263,40 +307,40 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>258</integer>
+				<integer>1</integer>
 				<key>line</key>
-				<integer>159</integer>
+				<integer>86</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
-			<integer>78</integer>
+			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>148</integer>
+			<integer>143</integer>
 		</dict>
 		<key>modelos.tex</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>341</integer>
+				<integer>105</integer>
 				<key>line</key>
-				<integer>74</integer>
+				<integer>222</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
-			<integer>464</integer>
+			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>55</integer>
+			<integer>220</integer>
 		</dict>
 		<key>relacionados.tex</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>21</integer>
+				<integer>337</integer>
 				<key>line</key>
-				<integer>11</integer>
+				<integer>2</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
-			<integer>534</integer>
+			<integer>461</integer>
 			<key>firstVisibleLine</key>
 			<integer>6</integer>
 		</dict>
@@ -305,6 +349,7 @@
 	<array>
 		<string>dissertacao.tex</string>
 		<string>introducao.tex</string>
+		<string>definicoes.tex</string>
 		<string>modelos.tex</string>
 		<string>bcr.tex</string>
 		<string>avaliacao1.tex</string>
@@ -313,6 +358,7 @@
 		<string>apendices.tex</string>
 		<string>relacionados.tex</string>
 		<string>conclusao.tex</string>
+		<string>agradecimentos.tex</string>
 		<string>dissertacao.bib</string>
 	</array>
 	<key>shellVariables</key>
