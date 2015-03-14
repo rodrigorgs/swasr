@@ -1,0 +1,17 @@
+**Titulo**: Dynamical evolution analysis of the object-oriented software systems
+
+**Autores**: Huan Li and Beibei Huang and Jinhu Lu
+
+**Ano**: 2008
+
+
+---
+
+
+# Revisão #
+
+Analisa a evolução de algumas métricas ao longo de diferentes versões de diversos sistemas escritos em Java.
+
+# Crítica #
+
+Muito mal escrito!

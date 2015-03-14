@@ -1,0 +1,52 @@
+Whereas other complex networks emphasize redundancy to support fault tolerance, software networks highlight other degrees of freedom that play a central role in supporting evolvability, such as genericity, polymorphism, encapsulation, and collaboration.
+
+Software collaboration is inherently directed, and any attempt to explain network topologies from software engineering principles or processes without recognizing that assymetry will most likely fall short.
+
+More generic classes and subroutines form the heavy tail of the in-degree distribution, and complex, more specialized aggregates populate the heavy tail of the out-degree distribution, with the two generally well separated from one another.
+
+Software is softer and more abstract than other engineered systems.
+
+Software design does itself involve a signifcant amount of evolutionary "tinkering", which is becoming increasingly recognized and formalized through processes such as refactoring and extreme programming.
+
+... distinctions between redundancy, involving the ability of identical elements to perform identical functions, and degeneracy, involving the ability of different elements to perform similar (or perhaps identical) functions.
+
+... similar and degenerate elements offer avenues for adaptation because they offer the potential to provide different behaviors in different contexts.
+
+Degeneracy in biological networks is in fact similar to polymorphism in object-oriented systems.
+
+Much of the evolvability that is organized within software systems arises from carefully planned genericity and associated decoupling, using polymorphism and encapsulation to negotiate the inherent trade-offs between specificity and evolvability of interactions.
+
+Much of the structural complexity of large software systems - and in object-oriented systems in particular - is to support evolvability. ** Esta frase é muito interessante, pois soa como contradição aos ouvidos de engenheiros de software. Alguns podem argumentar que o software fica difícil de evoluir porque se tornou complexo, mas Myers afirma que o software fica complexo para se tornar mais fácil de evoluir.
+
+The need to continually accommodate and incorporate changes in the external environment (user requirements, hardware platforms, etc.) lead to software designs that support modularity, decoupling and encapsulation.
+
+** Modularity: (desireable) property of a system, such that individual components can be examined, modified and maintained independently of the remainder of the system. Objective is that changes in one part of a system should not lead to unexpected behaviour in other parts. -From http://www.cs.bath.ac.uk/~jap/MATH0015/glossary.html
+
+** Modularity: Modularity is a general systems concept, typically defined as a continuum describing the degree to which a system’s components may be separated and recombined. It refers to both the tightness of coupling between components, and the degree to which the “rules” of the system architecture enable (or prohibit) the mixing and matching of components. -From wikipedia
+
+** Systems that do not exhibit low coupling might experience the following developmental difficulties:
+    * Change in one module forces a ripple of changes in other modules.
+    * Modules are difficult to understand in isolation.
+    * Modules are difficult to reuse or test because dependent modules must be included. -From wikipedia: Coupling_(computer_science)
+
+evolvability = EVOLUTIBILIDADE
+
+(Sobre o papel da redundância na tolerância a falhas) Software systems are notoriously fragile, and at many scales (e.g., single-point mutations at the level of a typographical error, inability to find a library needed for linking, cascading modifications that follow from changes to a single class.).
+
+Software systems are organized to be at once both highly functional and highly evolvable, with evolvability often implemented through collective and collaborative designs that target interfacial specificity as an important controlling paramter.
+
+This substantial emphasis on evolvability makes software systems somewhat different from other engineered systems, and closer in some ways to evolving biological systems.
+
+Design is a central element of software construction, and many design methodologies deal explicitly with the structure of software networks, most often addressing the interactions of a small set of components at a time. But the combined and persistent action of implementation, refactoring, composition, extension, and adaption leads to emergent software organizations whose structures lie outside the realm of explicit design. **Na verdade existem também a arquitetura de software, que deveria lidar com a estrutura global dos sistemas.
+
+Collaboration: the distribution of responsibility for computation among multiple software elements, such as objects, classes, methods, subroutines, modules, and components.
+
+Software collaborations imply dependency relationships, in that some computational elements (e.g., classes and subroutines) need others in order to carry out pieces of their appointed task.
+
+The resulting system must also be evolvable, that is, transformable into a new system to accomplish new but related tasks without excessive cost or disruption to the system as a whole. The need to accommodate change is a major driving force in software engineering; this might include changes in external user requirements, undelrying hardware platforms, ...
+
+In poorly structured, modifying or adding a single feature may require updates to many files or subroutines, which can themselves then cascade throughout the system.
+
+Design patterns encapsulate variability and change.
+
+Class collaboration is the process by which more complex, multifunctional classes are built from simpler ones.

@@ -1,0 +1,5 @@
+﻿#summary O que quero ler a seguir.
+
+Kimura et al - Modeling of Growing Networks with Directional Attachment and Communities (2003)
+
+_Locality, Hierarchy, and Bidirectionality in the Web_. Outro modelo hierárquico.

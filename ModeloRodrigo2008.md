@@ -1,0 +1,42 @@
+﻿#summary Modelo in-house de rede com arquitetura embutida.
+
+Esse modelo foi desenvolvido em dezembro de 2008 e baseado no [modelo de de Bollobás](ReviewBollobas2003.md) (sem arquitetura embutida). O modelo recebe como entrada uma arquitetura (grafo onde os vértices representam os módulos e as arestas representam as ligações permitidas entre vértices de módulos distintos) e produz um grafo que obedece à arquitetura.
+
+Parâmetros:
+  * Número de iterações
+  * Grafo da arquitetura
+  * Probabilidades alpha, beta e gamma (alpha + beta + gamma = 1)
+  * delta\_in
+  * delta\_out
+
+## Descrição do algoritmo ##
+
+O grafo inicial contém um vértice com auto-laço para cada módulo na arquitetura. Então, a cada iteração, um entre três eventos pode ocorrer.
+
+Com probabilidade alpha é adicionado um novo vértice v, que se liga a um vértice existente, w, escolhido de acordo com delta\_in + grau de entrada de w. O vértice v passa a pertencer ao mesmo módulo de w.
+
+Com probabilidade gama é a mesma coisa, com a diferença de que a ligação é no sentido w -> v.
+
+Com probabilidade beta, é adicionada uma aresta entre dois vértices existentes, v -> w.
+  * v é escolhido de acordo com delta\_out + grau de saída de v
+  * w é escolhido dentre os vértices dos outros módulos com os quais v pode se ligar, de acordo com delta\_in + grau de entrada de w
+
+## Pontos fortes ##
+
+**O grafo é orientado.** O gráfico de dispersão coeficiente de clustering vs. grau é parecido com o que se encontra em sistemas reais.
+**As distribuições de graus (de entrada e de saída) são leis de potência, conforme o esperado.**
+
+## Limitações ##
+
+Em simulações realizadas em dezembro de 2008 notei que a distribuição de graus segue uma lei de potência, mas os expoentes encontrados foram diferentes daqueles esperados (talvez isso possa ser remediado com uma escolha adequada dos parâmetros). Além disso o gráfico de dispersão que mostra a correlação entre grau de entrada e grau de saída não ficou muito parecido com os gráficos gerados a partir de sistemas reais. Os gráficos podem ser vistos em http://gmf.ufcg.edu.br/~rodrigo/report_des_arch/report.htm
+
+## Exemplo (DSM) ##
+**seção adicionada no dia 20/04/2009**
+
+```
+$ create_bollobas_arch.rb -i arch.pairs -1 l1.pairs -2 l2.pairs -f pairs -n 2000 -a 0.4 -b 0.2 -g 0.4 --dout=0.2
+```
+
+DSM reduzida:
+
+![http://swasr.googlecode.com/svn/wiki/images/bollobas_arch-dsm.png](http://swasr.googlecode.com/svn/wiki/images/bollobas_arch-dsm.png)

@@ -1,0 +1,85 @@
+﻿#summary O que é um módulo? O que esperar do clustering?
+
+Módulos são partes que podem ser juntadas
+
+Pacotes são apenas um auxílio cognitivo, uma forma de facilitar a busca por implementações de funcionalidades.
+
+Pacotes, diretórios são uma enumeração de entidades.
+# Módulos como componentes conexas #
+
+Não há consenso sobre o que é um módulo de design de software, mas a maioria dos especialistas deve concordar que duas entidades em duas componentes conexas distintas de um grafo de dependência estão obrigatoriamente em módulos diferentes, para alguma definição relevante de módulo. Ou seja, componente conexa é uma boa definição coarse-grained de módulo.
+
+Nessa definição uma biblioteca é um módulo. (se bem que as bibliotecas podem depender de outras bibliotecas, e nesse caso não seria módulo...)
+
+Talvez uma boa definição fine-grained seja a de componente fortemente conexa, conjunto maximal de vértices mutuamente conectados por pelo menos um caminho. Muitas componentes conexas possuem apenas um vértice, motivo pelo qual essa é uma definição excessivamente fine-grained. (Há que se considerar, no entanto o SentidoDasSetas).
+
+Tendo como base essas duas definições consensuais, talvez seja possível chegar a uma definição medium-grained, adequada para a aquisição de algum tipo de conhecimento.
+
+# Ordenação topológica #
+
+Se uma componente fortemente conexa define um conjunto de entidades que pertencem ao mesmo módulo, então uma condição necessária para duas entidades pertencerem a módulos diferentes é que não exista uma aresta bidirecional entre elas. Isso nos leva ao algoritmo de **ordenação topológica**, que opera sobre o grafo das componentes fortemente conexas e detecta camadas (no sentido de uma "camada usa serviços das camadas inferiores e fornece serviços para as camadas superiores"). E uma camada é um bom candidato a módulo.
+
+# Módulos **conceituais** vs. módulos **reais** #
+
+Ao analisar um sistema de software, os pacotes podem dar uma idéia dos módulos pensados pelos desenvolvedores (módulos conceituais): ui, db, drivers, business... Mas talvez esses conjuntos de entidades não sejam verdadeiramente módulos de acordo com alguma definição plausível (módulos reais).
+
+Sendo assim, talvez seja nonsense e inútil querer que um algoritmo descubra os pacotes de um software somente a partir de relações de dependência entre entidades (inútil porque os pacotes estão explicitamente disponíveis; nonsense porque os desenvolvedores podem usar qualquer critério para agrupar entidades em pacotes e, dessa forma, um pacote não significa nada).
+
+Se no entanto, existe alguma definição plausível de módulo, de preferência baseada na topologia, e não na semântica, de um programa, então faz sentido pensar em um algoritmo para descobrir módulos.
+
+Se esse processo de descoberta for trivial, então alguém pode escrever um algoritmo simples para ele e não faz sentido, portanto, avaliar o algoritmo em termos de acurácia.
+
+# Módulos como unidades de **reuso**: tons de cinza #
+
+Vamos pensar em módulos como unidades de reuso. Um conjunto de entidades forma, portanto, um módulo, se esse conjunto puder ser usado em um outro sistema sem que seja necessário usar outras entidades do sistema, externas a esse conjunto. Alguém pode argumentar que, assim, qualquer conjunto é um módulo, já que é possível reescrever no sistema alvo as entidades externas a esse conjunto que forem necessárias. (Claro, isso vai depender de detalhes de implementação de como é o linking de entidades na linguagem, se é dinâmico, estático...)
+
+Por outro lado, alguém poderia considerar que um framework não é um módulo (mesmo que não dependa de outros frameworks) simplesmente porque para usá-lo em algum projeto é necessário escrever muito código boilerplate (algo difícil de usar não pode ser considerado um módulo de reuso, pode?)
+
+Assim, um conjunto pode ser qualitativamente classificado como módulo de pouco reuso, muito reuso, reuso mais-ou-menos...
+
+---
+
+O problema de reuso não é um problema de clustering. Imagine as dependências A => B => C e D => C. Podemos obter vários módulos de reuso sobrepostos:
+
+  * {C}
+  * {D, C}
+  * {B, C}
+  * {A, B, C}
+  * {A, B, C, D}
+
+Talvez para eu usar B eu precise de A ou de um programa bem parecido com A (e nesse caso eu preciso copiar o código de A para o meu programa e então modificá-lo de acordo com minhas necessidades).
+
+(pode-se pensar que C corresponde a uma função da biblioteca padrão da linguagem, ou uma função utilitária, que é usada por boa parte do programa)
+
+Portanto, para identificar um módulo de reuso é preciso fornecer como entrada uma entidade que se deseja reusar.
+
+Ou então podemos realizar uma poda de entidades terminais (utilitárias), como feito pelo Bunch, e a partir daí definir um módulo de reuso como uma componente conexa. (Essa poda é, na realidade, uma ordenação topológica que vai removendo recursivamente os vértices cujo grau de saída é zero) A intenção por trás dessa idéia é que, em um determinado nível de abstração (no sentido de máquina virtual) aquilo é um módulo.
+
+# Módulos como unidades de **atribuição de trabalho** #
+
+Para Parnas, módulo é uma unidade de atribuição de trabalho. Assim, cada equipe de desenvolvedores deve ser responsável por um módulo do sistema. As dependências entre os módulos devem ser minimizadas, de forma a diminuir a necessidade de comunicação (coordenação) entre desenvolvedores de equipes diferentes e viabilizar o desenvolvimento paralelo.
+
+Se dois pacotes são fortemente interdependentes, então podemos dizer que eles não são verdadeiramente módulos, já que a comunicação entre os duas equipes seria necessariamente muito grande.
+
+OBS.: Aparentemente o algoritmo de particionamento DSM usa esse critério para definir módulos.
+
+What do we mean by "module":
+**A work assignment for a programmer or programmer team.** No other meaning! - not necessarily single code segments.
+**No criteria in this definition.** Authors assume that the module must be contiguous code
+**No tools for implementing modules in other ways.**
+
+(portanto, tem a ver com o processo de desenvolvimento, e não com o produto em si, com o texto do programa)
+
+# Módulos como unidades **substituíveis** #
+
+
+
+# O papel das **interfaces** #
+
+Interfaces Java.
+
+# Fluxo de controle vs. information hiding #
+
+# Software clustering #
+
+Deve evidenciar algo que não era óbvio e que é útil.

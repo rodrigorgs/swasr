@@ -1,0 +1,35 @@
+﻿#summary Comentários de outras pessoas sobre o trabalho
+
+# 2008-11-20: Reunião #
+
+**Dalton**: A reta não é uma boa curva de regressão para o gráfico de distribuição de graus.
+
+**Dalton**: É preciso prestar atenção no sentido das setas ao conectar vértices para não gerar softwares que não fazem sentido. Todos os vértices precisam ser alcançáveis a partir do _main_.
+
+# 2008-12-18: Apresentação da proposta de mestrado #
+
+**Fubica**: A parte de recuperação de arquitetura é "a cereja do bolo". O principal é a análise de sistemas, a síntese de sistemas e a avaliação dos modelos de síntese.
+
+**Fubica**: Onde o estudo da evolução dos softwares se encaixa no objetivo do trabalho? _No estudo da estabilidade dos algoritmos de clustering._
+
+**Fubica**: Com base em que você vai afirmar que seu modelo é realista? _Na literatura existem várias observações sobre propriedades que caracterizam software, e eu próprio pretendo fazer análises sobre uma grande quantidade de softwares._
+
+# 2009-02-06: Encontro com Garcia #
+
+**Garcia**: Esses índices (distribuição de graus, coeficiente de _clustering_ etc.) revelam propriedades macro de uma rede. Ao comparar textos escritos por pessoas com textos escritos por macacos, esses índices dão os mesmos resultados.
+
+**Garcia**: A escolha do modelo que gera redes com uma topologia predefinida pode beneficiar determinados algoritmos de clustering e prejudicar outros.
+
+**Garcia**: O critério que um especialista usa para identificar clusters é, em geral, subjetivo. Como o modelo vai capturar essa subjetividade?
+
+**Garcia**: Em computação existe uma definição objetiva de cluster? _Não._
+
+**Garcia**: Talvez você deva adotar uma definição de cluster antes de prosseguir.
+
+**Garcia**: Estudar índices (métricas) de redes complexas em sistemas de software é, por si só, um projeto de mestrado.
+
+# 2009-02-13: Christina, Terceiro e Cláudio #
+
+**Cláudio**: Existem modelos generativos na Física? _Sim._ O que seu modelo vai ter que é específico de software? _Depende das informações que os algoritmos de clustering consideram. Por exemplo, pode ser que meu grafo possua vértices que são classes e vértices que são interfaces. Além disso, pode ser que sistemas de software apresentem alguma característica que não se aplica a redes sociais, biológicas etc., e o modelo precisa levar em conta essa característica._
+
+**Christina**: Que tipo de software você vai analisar? Tem alguma restrição de linguagem, de paradigma? _Estou pensando em analisar apenas programas orientados a objetos._

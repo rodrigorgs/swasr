@@ -1,0 +1,1 @@
+Implementação do modelo BCR+, descrito no artigo [Modelos Estocásticos para Síntese de Sistemas de Software Organizados em Módulos](http://swasr.googlecode.com/svn/trunk/latex/artigo1/artigo1.pdf): [bcr+.tar.gz](http://swasr.googlecode.com/files/bcr%2B.tar.gz) (depende de [interpretador Ruby](http://www.ruby-lang.org/))

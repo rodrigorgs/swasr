@@ -1,0 +1,65 @@
+﻿#summary Sobre o modelo de grafos de Lancichinetti para avaliar algoritmos de detecção de comunidade.
+
+Lancichinetti, Fortunato e Radicchi criaram um [modelo de rede complexa com estrutura de módulos embutida](ReviewLancichinetti2008.md) que é usado para avaliar algoritmos de clustering. O modelo gera grafos não-orientados e não-ponderados cuja distribuição dos graus dos vértices e cuja distribuição dos tamanhos dos módulos são ambas leis de potência e, portanto, bastante heterogêneas.
+
+## Parâmetros ##
+
+O modelo possui os seguintes parâmetros:
+  * quantidade de vértices
+  * expoente da distribuição de tamanhos dos módulos
+  * expoente da distribuição de graus
+  * grau médio
+  * grau máximo
+  * parâmetro de mistura
+
+Cada vértice compartilha uma fração de suas arestas com vértices de outras comunidades; essa fração é o parâmetro de mistura.
+
+## Pontos fortes ##
+
+  * O algoritmo é rápido.
+  * Os parâmetros do modelo correspondem a propriedades globais do grafo gerado, como o   expoente da distribuição de graus e o grau máximo. (Existem modelos cujos parâmetros são probabilidades que afetam indiretamente essas propriedades.)
+
+## Limitações ##
+
+  * O grafo é não-orientado.
+  * Todos os vértices possuem arestas internas (que os ligam a vértices do mesmo módulo) e arestas externas (que os ligam a vértices de outro módulo). Em redes complexas reais isso em geral não é verdade.
+  * O parâmetro de mistura é constante, i.e., não varia de módulo para módulo.
+  * O modelo não permite restringir as ligações entre módulos: um vértice se liga potencialmente a qualquer vértice de qualquer módulo.
+  * O gráfico de dispersão de coeficiente de clustering vs. grau não se assemelha muito ao gráfico encontrado a partir da análise de sistemas de software reais (note que há muitos vértices com grau baixo e coeficiente de clustering também baixo). Veja o gráfico abaixo:
+
+![http://swasr.googlecode.com/svn/wiki/images/lancichinetti-cc.png](http://swasr.googlecode.com/svn/wiki/images/lancichinetti-cc.png)
+
+Ele corresponde a uma rede gerada com os seguintes parâmetros:
+
+  * 1000  # number of nodes
+  * 15  # average degree
+  * 50  # maximum degree
+  * 2 # exponent for the degree distribution
+  * 1 # exponent for the community size distribution
+  * 0.2 # mixing parameter
+  * 20  # minimum for the community sizes
+  * 50  # maximum for the community sizes
+
+Compare com o gráfico para o Linux:
+
+![http://swasr.googlecode.com/svn/wiki/images/linux-cc.png](http://swasr.googlecode.com/svn/wiki/images/linux-cc.png)
+
+## Exemplo (DSM) ##
+**seção adicionada no dia 20/04/2009**
+
+Parâmetros:
+
+```
+1000  # number of nodes
+15  # average degree
+50  # maximum degree
+2 # exponent for the degree distribution
+1 # exponent for the community size distribution
+0.2 # mixing parameter
+20  # minimum for the community sizes (optional; just comment this line, if you wish)
+50  # maximum for the community sizes (optional; just comment this line, if you wish)
+```
+
+DSM reduzida:
+
+![http://swasr.googlecode.com/svn/wiki/images/lanc-dsm.png](http://swasr.googlecode.com/svn/wiki/images/lanc-dsm.png)

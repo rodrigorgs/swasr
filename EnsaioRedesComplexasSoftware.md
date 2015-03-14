@@ -1,0 +1,38 @@
+﻿#summary Sobre o projeto de mestrado.
+
+
+
+
+Muitos trabalhos na engenharia de software procuram extrair métricas a partir de programas de computador com a finalidade de determinar o que diferencia um software de qualidade de um software de baixa qualidade. Ou, ainda, identificar que porções de um programa têm baixa qualidade e, portanto, demandam mais dedicação por parte dos desenvolvedores.
+
+Entendemos, no entanto, que existe uma pergunta mais fundamental a ser respondida: qual é a cara dos programas que vêm sendo produzidos nas últimas décadas? O que há de comum na estrutura dos mais diversos programas de computador?
+
+
+
+O início do século XXI lançou alguma luz sobre essas questões. Baseados nas pesquisas pioneiras de Barabási e Albert sobre a estrutura da Web, alguns pesquisadores traçaram uma radiografia de programas de computador em vários níveis. Eles analisaram dependências estáticas entre estruturas de código-fonte \cite{Myers2003,Valverde2003,Moura2003,Serra2005,Baxter2006,Hyland-Wood2008,Li2008,Ichii2008,Louridas2008}, conexões entre objetos na execução de programas \cite{Potanin2005} ou mesmo dependências entre sistemas de software produzidos por equipes distintas \cite{Labelle2004,Louridas2008}. Sistemas orientados a objeto com tipificação estática são os mais estudados, mas também foram realizados experimentos com linguagens procedimentais \cite{Myers2003,Valverde2003} e em linguagens com tipicação dinâmica \cite{Marchesi2004,Concas2007}. Em todos os casos os mesmos padrões foram se repetindo, sistematicamente. Os estudos concluem que, em todos os casos, as redes analisadas pertencem à categoria das **redes livres de escala**. Curiosamente, essa categoria engloba também algumas redes estudadas pela biologia e pelas ciências sociais \cite{Linked}.
+
+As redes livres de escala são caracterizadas por uma distribuição peculiar do número de conexões que cada elemento da rede possui. A função da quantidade vértices que possuem exatamente k conexões é proporcional a uma função do tipo lei de potência, k^-gamma, onde gamma frequentemente varia entre 2 e 3. Isso significa que a maioria dos vértices possui algumas poucas conexões, mas também é possível encontrar vértices com um número de conexões muitas vezes maior. Essa função, quando plotada em escala log-log, se apresenta sob a forma de uma reta, e o expoente -gamma é o coeficiente angular dessa reta.
+
+É preciso neste momento fazer uma ressalva: nem todos os estudos que encontraram redes livres de escala no domínio de software se valeram de um tratamento estatístico rigoroso. Existem várias distribuições estatísticas que, quando plotadas na escala logarítmica produzem quase uma reta ou ainda que produzem uma reta em apenas uma região do gráfico \cite{Clauset2009}. Mas mesmo que algumas redes não possuam a distribuição em lei de potência, é possível tirar uma lição: em qualquer sistema baseado em software (suficientemente grande), existem entidades (sejam classes, objetos ou programas) que se relacionam com as outras muito mais do que a média.
+
+Mas não é apenas a distribuição peculiar do número de conexões por vértice que caracteriza as redes de software. **Clustering coefficient**
+
+O que surpreende é que esse observação tenha passado despercebida pela comunidade de engenharia de software. Como esse conhecimento pode ser usado para melhorar as ferramentas e processos existentes?
+
+<a href='Hidden comment: 
+Não importa neste estudo quais são os mecanismos. Existem vários
+
+Não é só a distribuição de graus. Tem coef clust. tb. A distribuição de coef clust de software revela que ele possui uma estrutura hierárquica (talvez parecida com a que existe em uma empresa de desenvolvido de software closed source - mas curiosamente essa estrutura também é encontrada em software livre e até em software escrito por uma pessoa só, o latex de knuth).
+
+= Citações =
+
+large deviations from the mean ("outliers") are less common than small ones, but still much more common than expected on the basis of the normal or Gaussian bell-curve distribution. [http://kavanna.blogspot.com/2008/03/fat-tails-and-outliers-closer-look.html link]
+
+= Tópicos a serem abordados: =
+
+Simulação em ES: Stopford2005, Stopford2008
+Estrutura hierárquica, modularidade
+Motifs
+Modelos generativos, mecanismos (yule, duplication-divergence...)
+
+'></a>

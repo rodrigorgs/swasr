@@ -1,0 +1,95 @@
+﻿#summary Revisão bibliográfica sobre redes complexas
+
+**Índice**
+
+
+O estudo das redes complexas se organiza em duas áreas principais: topologia e dinâmica.
+
+Redes complexas são caracterizadas por auto-similaridade, auto-organização, complexidade, propriedades emergentes.
+
+Resistente a falhas aleatórias, vulnerável a ataques direcionados
+
+Dinâmica: bursts
+
+# Métricas (índices) de redes complexas #
+
+## Distribuição de graus ##
+
+A distribuição de graus é uma [função densidade de probabilidade](http://en.wikipedia.org/wiki/Probability_density_function) (pdf) P(K = k), que a quantidade relativa de vértices cujo grau é igual a _k_. Para reduzir o ruído, é comum trabalhar com a [função cumulativa complementar](http://en.wikipedia.org/wiki/Cumulative_distribution_function#Complementary_cumulative_distribution_function) (ccdf):
+
+_To avoid bias due to outliers, we worked with the complementary cumulative definition (2), in which outliers are subsumed, and then converted the results of the fit to the initial distribution._ (Power Laws in Software, Louridas et al)
+
+However, if we look at communities of interests in a specific topic, discarding the major hubs of the Web, the distribution of links is no longer a power law but resembles more a normal distribution, as observed by Pennock et al. (2002)
+
+zipf, yule, pareto, power law
+
+## Coeficiente de clustering (agrupamento, aglomeração) ##
+
+The clustering coefficient is a metric that represents the density of triangles in the network.
+
+O coeficiente de clustering uma rede aleatória vale mi / N, onde mi é o número médio de arestas por vértice e N é o número de vértices. [Moura et al, 2003](de.md)
+
+## Distribuição do coeficiente de agrupamento sobre k (grau) ##
+
+Indicador de estrutura hierárquica
+
+
+## Assortatividade ##
+http://en.wikipedia.org/wiki/Assortativity
+
+## Diadicidade ##
+
+## Freqüência de motivos ##
+
+## Distância mínima (ou geodésica) ##
+
+Distância geodésica média: (ln N) / (ln u), onde mi é o número médio de arestas por vértice e N é o número de vértices. [Moura et al, 2003](de.md)
+
+## Diâmetro ##
+
+## Métrica livre de escala ##
+
+http://en.wikipedia.org/wiki/Scale-free_networks#History
+
+sum (d\_i **d\_j)**
+
+## Cut-off ##
+
+
+# Mecanismos #
+## Crescimento ##
+## Ligação preferencial ##
+
+(também vantagem cumulativa, processo de Yule, o rico fica mais rico, efeito Mateus...)
+(tipo de positive feedback)
+
+## Cópia ##
+## Otimização ##
+## Reduzir custos, reduzir distâncias geográficas... ##
+## Rewiring ##
+## Memória de curto prazo ##
+## short-term memory ##
+
+# Modelos generativos #
+
+http://en.wikipedia.org/wiki/Scale-free_networks#Generative_models
+
+## Modelo de Erdos-Renyi ##
+## Modelo de Watts-Strogatz ##
+## Barabási-Albert ##
+## Modelo de Simon ##
+## Fitness ##
+## Modelo de cópia ##
+## Modelo de duplicação e divergência ##
+## Modelo de Pennock (2002) ##
+## Birth-death ##
+...
+
+# Programas de computador como redes complexas #
+
+Quais são os mecanismos?
+
+Quais as forças motrizes da construção de programas? Funcionalidades. Requisitos não-funcionais como facilidade de modificação (que induzem restrições topológicas).
+
+Que informações trafegam na rede de software? Fluxo de execução + alteração de estado.
+Qual o significado da "distância" entre classes?

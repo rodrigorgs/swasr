@@ -1,0 +1,68 @@
+﻿#summary Experimentos com métricas de arquitetura
+
+Sistema analisado: IRPF 2009. Foram consideradas as classes de todos os arquivos .jar que vêm com o IRPF 2009. Cada arquivo .jar foi considerado um módulo. Lista de arquivos .jar:
+
+  * commons-beanutils-1.7.jar
+  * commons-collections-2.1.jar
+  * commons-digester-1.8.jar
+  * commons-logging-1.0.2.jar
+  * forms-1.0.3.jar
+  * foxtrot.jar
+  * irpf.jar
+  * itext-1.02b.jar
+  * jasperreports-2.0.3.jar
+  * jdt-compiler-3.1.1.jar
+  * jhall.jar
+  * looks-1.3.1.jar
+  * ppgd-formatosext-2.9.jar
+  * ppgd-gui-2.9.jar
+  * ppgd-gui-beans-2.9.jar
+  * ppgd-infra-2.9.jar
+  * ppgd-negocio-2.9.jar
+  * ppgd-persistencia-2.9.jar
+  * ppgd-swixml.jar
+  * serpro.jar
+  * swing-layout-0.7.jar
+  * xalan.jar
+
+## Métricas sobre vértices ##
+
+  * **deg**: grau
+  * **indeg**: grau de entrada
+  * **outdeg**: grau de saída
+  * **nclusters**: em quantos módulos diferentes estão os vizinhos do vértice (sem considerar o próprio módulo onde o vértice está)
+  * **o\_indeg**: número de arestas de entrada com origem em um vértice de outro módulo
+  * **i\_indeg**: número de arestas de entrada com origem em um vértice do mesmo módulo
+  * **o\_outdeg**: número de arestas de saída com destino a um vértice de outro módulo
+  * **i\_outdeg**: número de arestas de saída com destino a um vértice do mesmo módulo
+
+### Gráficos de dispersão ###
+
+Em escala linear:
+![http://swasr.googlecode.com/svn/wiki/images/irpf-v-splom.png](http://swasr.googlecode.com/svn/wiki/images/irpf-v-splom.png)
+
+Em escala log-log:
+![http://swasr.googlecode.com/svn/wiki/images/irpf-v-splom-log.png](http://swasr.googlecode.com/svn/wiki/images/irpf-v-splom-log.png)
+
+### Matriz de correlação ###
+
+|             | **deg**     | **indeg**    | **outdeg**   | **nclusters** | **o\_indeg**  | **i\_indeg**  | **o\_outdeg** | **i\_outdeg** |
+|:------------|:------------|:-------------|:-------------|:--------------|:--------------|:--------------|:--------------|:--------------|
+| **deg**       | 1.0000000 | 0.90324696 | 0.61433888 | 0.30035552  | 0.52433029 | 0.76713263 | 0.20229223 | 0.60131530 |
+| **indeg**     | 0.9032470 | 1.00000000 | 0.21630502 | 0.21892624  | 0.64037672 | 0.80282132 | 0.03515153 | 0.22296799 |
+| **outdeg**    | 0.6143389 | 0.21630502 | 1.00000000 | 0.28081301  | 0.01545692 | 0.26918142 | 0.39561579 | 0.95811761 |
+| **nclusters** | 0.3003555 | 0.21892624 | 0.28081301 | 1.00000000  | 0.31342733 | 0.04128447 | 0.75701851 | 0.06764361 |
+| **o\_indeg**   | 0.5243303 | 0.64037672 | 0.01545692 | 0.31342733  | 1.00000000 | 0.05617500 | 0.01859299 | 0.01091873 |
+| **i\_indeg**   | 0.7671326 | 0.80282132 | 0.26918142 | 0.04128447  | 0.05617500 | 1.00000000 | 0.03126122 | 0.28136561 |
+| **o\_outdeg**  | 0.2022922 | 0.03515153 | 0.39561579 | 0.75701851  | 0.01859299 | 0.03126122 | 1.00000000 | 0.11603503 |
+| **i\_outdeg**  | 0.6013153 | 0.22296799 | 0.95811761 | 0.06764361  | 0.01091873 | 0.28136561 | 0.11603503 | 1.00000000 |
+
+## Métricas sobre módulos ##
+
+**TODO**
+
+## DSM ##
+
+Dependency Structure Matrix (DSM) ou matriz de adjacências. Imagem reduzida.
+
+![http://swasr.googlecode.com/svn/wiki/images/irpf-dsm-thumb.png](http://swasr.googlecode.com/svn/wiki/images/irpf-dsm-thumb.png)

@@ -1,0 +1,79 @@
+Olá! Este é o primeiro relatório de progresso do meu mestrado, dirigido a meus orientadores e a todos os que têm interesse no projeto. Primeiramente eu vou fazer um resumo das minhas atividades até o momento e então eu vou detalhar algumas coisas que eu descobri nas minhas pesquisas.
+
+# Progresso #
+
+## Resumo ##
+
+Meu estudo este ano se concentrou na teoria de redes complexas e na aplicação dessa teoria a programas de computador. Com relação à teoria mais geral, li sobre métricas, modularidade e hierarquia, modelos de geração de redes livres de escala e detecção de comunidades. Eu escrevi resumos críticos sobre os artigos mais importantes e coloquei todos no wiki aberto que eu criei.
+
+No ano passado eu li vários artigos sobre recuperação de arquitetura, principalmente sobre algoritmos de clustering, avaliação de qualidade de clustering e métricas para comparação de clusterings. Escrevi poucos resumos sobre esses tópicos, mas fiz um pequeno artigo para a disciplina de evolução de software.
+
+## Redes complexas em software ##
+
+Eu li cerca de 15 artigos que estudam a estrutura de programas de computador sob a luz da teoria das redes complexas. Alguns artigos analisam a rede formada pelas dependências entre pacotes Debian, entre _ports_ do FreeBSD etc, e outros estudam as redes de dependências dentro de um programa. Foram estudadas programas escritos em C, C++, Java e Smalltalk, um conjunto de linguagens que engloba dois paradigmas, procedimental e orientado a objetos, e dois sistemas de tipos, estático e dinâmico. A maioria dos autores estudou dependências estáticas dentro de um programa, mas existe um trabalho que estuda a rede de referências entre objetos em tempo de execução. Em todos os casos os pesquisadores encontraram redes livres de escala. Ou seja, a distribuição do número de arestas por vértice (ou distribuição de graus) segue uma lei de potência (power law), o que significa que existem vértices que concentram um número desproporcionalmente grande de arestas, os chamados _hubs_.
+
+Leis de potência também foram encontradas em distribuições como a quantidade de classes por pacote, a quantidade de subclasses por classe ou a quantidade de métodos e atributos por classe.
+
+Motivos (do inglês motifs) são subgrafos que se repetem em uma rede mais vezes do que se espera. Eu li dois estudos sobre motivos em redes de software.
+
+O coeficiente de clustering de um vértice varia entre 0 e 1 e revela em que medida os seus vizinhos estão conectados entre si. Por exemplo, se os vizinhos de um vértice formam um grafo completo, então o coeficiente de clustering desse vértice é 1. Nas redes de software o coeficiente de clustering de um vértice é inversamente proporcional ao número de arestas do vértice. Isso é um indicador de estrutura hierárquica. A partir daí Barabási concluiu que os hubs são responsáveis por conectar vértices que não estão conectados entre si e que possivelmente possuem funções distintas na rede.
+
+## Clustering ##
+
+A tarefa de detectar módulos em redes software pode aproveitar lições de várias linhas de pesquisa, e cada uma dá um nome diferente pra essa tarefa. Em engenharia de software é recuperação de arquitetura. Em física é detecção de comunidades. E em mineração de dados é clustering.
+
+No início de fevereiro eu li um artigo de física sobre detecção de comunidades. O que eles chamam de comunidade é o que nós chamamos de módulo. O artigo afirma que pra avaliar algoritmos de detecção de comunidade o ideal é que tivéssemos várias redes cuja estrutura de comunidades fosse conhecida, mas infelizmente esse não é o caso. Os autores propõem usar redes geradas por computador,  apresentam um modelo de redes com comunidade embutida e avaliam dois algoritmos usando redes geradas por esse modelo. Isso é muito parecido com o que queremos fazer.
+
+## Estatística ##
+
+Muitos estudos sobre redes de software usam ferramentas estatísticas inadequadas. Nós já havíamos observado que a reta nem sempre se encaixa bem nos dados que coletamos. Isso acontece porque realmente os dados não seguem uma lei de potência. Eles podem ser melhor descritos por alguma outra distribuição de cauda longa, como lei de potência com cutoff exponencial, stretched exponential, double pareto e lognormal. Assim como a lei de potência, elas são caracterizadas pela presença de alguns elementos cujo valor está muito acima do valor médio.
+
+No fim do ano passado eu fiz regressão linear no gráfico de distribuição de graus usando o método dos mínimos quadrados a fim de estimar o expoente da distribuição e então calculei R² a fim de mostrar que a distribuição realmente se encaixava numa reta. Descobri o que o método dos mínimos quadrados não pode ser aplicado a distribuições do tipo lei de potência. O mais indicado para estimar o expoente da lei de potência é usar o método de maximum likelihood estimation. Um valor alto de R² para a reta não quer dizer que a lei de potência é a melhor distribuição que se encaixa nos dados, já que existem outras distribuições que poderiam levar a valores de R² tão altos ou maiores.
+
+A função de distribuição cumulativa complementar -- P(X >= x) -- é usada para reduzir os efeitos de pontos fora-da-curva (outliers) na análise. No caso de leis de potência, é existe uma relação algébrica entre o expoente encontrado na distribuição cumulativa e o expoente para a distribuição não-cumulativa, P(X = x).
+
+# Próximos passos #
+
+Acho que o próximo passo é escrever uma revisão bibliográfica sobre redes complexas em software.
+
+Eu prometi escrever também uma revisão sobre recuperação de arquitetura, mas não me sinto preparado pra isso agora, já que faz tempo que li sobre o assunto.
+
+# Discussão #
+
+## Definição de módulo ou cluster ##
+
+No meu projeto eu vou desenvolver um modelo de rede de software com organização modular embutida. Pra isso eu preciso estudar como os programas de computador se organizam em módulos. Mas eu não posso fazer isso se eu não tiver uma definição de módulo.
+
+Portanto acho que é de imensa importância definir objetivamente o que entendemos por módulo no nosso trabalho. Pensei muito sobre isso e não cheguei a uma conclusão. Estou mais inclinado a considerar que um módulo é um pacote Java. Esse tipo de módulo é facílimo de extrair e Isso pode levar a um estudo interessante sobre como os desenvolvedores organizam seus programas em pacotes e qual o **impacto da rede de dependências sobre essa organização**.
+
+Mas se extrair módulos é tão fácil, então fica sem sentido pesquisar sobre "recuperação de arquitetura modular". Talvez possamos argumentar que a recuperação de arquitetura é útil nos casos em há apenas um pacote ou quando os pacotes têm tantas classes que eles poderiam ser subdivididos. Mas para isso devemos demonstrar que há uma quantidade significativa de programas organizados dessa forma. Até agora só conheço o doxygen que é assim.
+
+E então, o que você acha? Uma definição objetiva de módulo é necessária? A definição módulo é igual a pacote é interessante? Como a pesquisa em recuperação arquitetural se justifica se essa definição for adotada?
+
+# Encerramento #
+
+Eu encerro aqui o meu relatório de progresso. Aguardo comentários sobre os rumos do projeto e orientações em geral.
+
+<a href='Hidden comment: 
+------------------------------------------
+Coisas que ficaram de fora da versão final
+------------------------------------------
+
+== Continuação do tópico clustering ==
+
+Uma coisa interessante de usar modelos é que eu posso entender melhor as fraquezas dos algoritmos de clustering. Dá pra estudar como o desempenho dos algoritmos se altera com a variação dos parâmetros do modelo. O artigo mostra que, quando aumenta o número de arestas que ligam comunidades distintas, os algoritmos tendem a errar mais.
+
+Depois disso eu vi um artigo da área de biologia que usa as mesmas idéias. Outra idéia que ele traz é pegar uma rede cujos módulos sejam conhecidos e então adicionar e remover arestas pra ver como os algoritmos se comportam.
+
+Qual é o objetivo real do meu trabalho? Acho que isso ainda pode ser mudado... Talvez eu não queira avaliar os algoritmos de clustering, mas sim determinar tipos de organização de programas em pacotes, de acordo com o algoritmo de clustering que melhor detecta a organização de pacotes.
+
+== Continuação do tópico estatística ==
+
+Dificilmente todos os pontos vão se encaixar em uma distribuição, então normalmente as análises consideram apenas uma região do gráfico, por exemplo, o lado direito (a cauda). O teste estatístico goodness-of-fit ajuda a determinar a região que melhor se encaixa em uma distribuição.
+
+// == Escopo ==
+
+// Análise + modelagem de evolução?
+// Avaliação de recuperação de arquitetura traz o trabalho para um full circle.
+
+'></a>

@@ -1,0 +1,17 @@
+**Titulo**: Inter-Package Dependency Networks in Open-Source Software
+
+**Autores**: Nathan LaBelle and Eugene Wallingford
+
+**Ano**: 2004
+
+
+---
+
+
+# Revisão #
+
+Os autores estudam dependências entre pacotes em dois repositórios de software livre: Debian GNU/Linux software repository e FreeBSD Ports Collection. Eles concluem que as redes estudadas são de mundo pequeno e a distribuição de graus segue a power law (embora não perfeitamente).
+
+# Crítica #
+
+Artigo pequeno com tratamento estatístico simplista.
